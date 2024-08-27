@@ -1,0 +1,397 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
+  
+.display_card {
+    width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    height: 550px; 
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+.display_card::-webkit-scrollbar {
+    display: none; 
+}
+
+.display_label {
+    font-size: 20px; 
+    color: white;
+    padding-bottom: 20px;
+  }
+  
+.display_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+  
+.diplay_icon {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.display_card1 {
+    margin-bottom: 10px;
+}
+  
+.display_button1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+}
+  
+.display_button1:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.dark_label {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+  
+.dark {
+    
+    color: white;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.dark1 {
+    color: gray;
+    text-align: left;
+    font-size: 12px;
+}
+.display_card2 {
+    margin-bottom: 10px;
+}
+  
+.display_button2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+}
+  
+.display_button2:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.dark_label1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+  
+.darks {
+    
+    color: white;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.darks1 {
+    color: gray;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.display_card3 {
+    margin-bottom: 10px;
+}
+  
+.display_button3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+  
+.display_button3:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.dark_label2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+  
+.dark_set {
+    
+    color: white;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.dark_set1 {
+    color: gray;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.display_labels1 {
+    font-size: 19px;          
+    font-weight: bold;       
+    color: #fff;        
+    display: block;        
+  }
+
+.display_card4 {
+    margin-bottom: 10px;
+}
+  
+.display_button4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+
+.display_button4:hover {
+    background-color: rgb(33, 36, 38);
+}
+
+.display_usd {
+    margin-left: 100px;
+    color: gray;
+}
+
+.display_icon {
+    font-size: 30px;
+    color: white;
+}
+
+.display_privacy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.displays_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.displays_button:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.display-info {
+    flex: 1; 
+}
+  
+.privacy-title4 {
+    font-size: 12px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.privacy-description {
+    color: gray; 
+    display: block;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.switch1 {
+    margin-left: 10px; 
+}
+  
+.switch1 .MuiSwitch-root {
+    margin: 0;
+}
+  
+.displays_button1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.displays_button1:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.display-info1 {
+    flex: 1; 
+}
+  
+.hide_title {
+    font-size: 12px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.hide-description {
+    font-size: 12px;
+    color: gray;
+    display: block;
+    text-align: left;
+}
+  
+.hide_switch {
+    margin-left: 10px; 
+}
+
+.displays_button2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.displays_button2:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.display-info2 {
+    flex: 1; 
+}
+  
+.test_title {
+    font-size: 12px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.test-description {
+    font-size: 12px;
+    color: gray;
+    display: block;
+    text-align: left;
+}
+  
+.test_switch {
+    margin-left: 10px; 
+}  
+
+.display_labels2 {
+    font-size: 20px; 
+    color: white;
+    margin-bottom: 25px;
+}
+
+.displays_button3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.displays_button3:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.display-info3 {
+    flex: 1; 
+}
+  
+.tab_title {
+    font-size: 12px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.tab-description {
+    font-size: 12px;
+    color: gray;
+    display: block;
+    text-align: left;
+}
+  
+.tab_switch {
+    margin-left: 10px; 
+}  

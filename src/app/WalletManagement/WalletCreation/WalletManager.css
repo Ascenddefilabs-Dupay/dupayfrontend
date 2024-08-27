@@ -1,0 +1,133 @@
+.wallet-manager {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+    background-color: white;
+    color: #fff;  
+}
+
+.card {
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  /* margin: 50px; */
+  font-size: 30px;
+  /* margin: 0 auto; */
+  background-color: black;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 428px;
+  height: auto;
+  min-height: 100vh;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wallet-icon{
+  position: relative;
+  /* margin: 0 auto; */
+  width:auto;
+  height:auto;
+  display: flex;
+  justify-content: center;
+  /* margin-top: 20px; */
+}
+
+.header1{
+  margin-bottom: 10px;
+}
+
+.create-wallet-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width:auto;
+  transition: all .4s ease;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.create-wallet-button:hover{
+  background-color: green;
+  color:white;
+  transform: scale(1.1);
+}
+.existing-wallet-button{
+  display: block;
+  margin: 0px auto;
+  padding: 10px 20px;
+  font-size: 18px;
+  transition: all .4s ease;
+  cursor: pointer;
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  }
+
+.existing-wallet-button:hover{
+  transform: scale(1.1);
+}
+
+.create-wallet-button {
+  background: linear-gradient(90deg, #007bff9f, #800080);
+  color: white;
+}
+
+.existing-wallet-button {
+  background-color: black;
+  color: white;
+}
+
+
+.container {
+  display: flex;
+  width: 100%;
+  background-color: black;
+  /* height: 100vh; */
+}
+
+.column {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  text-align: center;
+}
+
+.right {
+  width: 20%;
+  background-color: black;
+  /* cursor: pointer; */
+}
+
+.left{
+  width: 20%;
+  background-color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  /* margin-right: 10px; */
+  margin-bottom: 10px;
+  font-size: 20px;
+  align-items: left;
+}
+
+.middle {
+  width: 60%;
+  background-color: black;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: black;
+}
+
+.progress {
+  height: 20px;
+  background-color: #76c7c0;
+}

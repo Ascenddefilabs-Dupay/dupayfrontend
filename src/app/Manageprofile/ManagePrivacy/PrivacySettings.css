@@ -1,0 +1,48 @@
+/* pages/ManagePrivacy.module.css */
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px; /* Adjusted for spacing */
+}
+
+.backArrow {
+  margin-right: 16px;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+.pageWrapper {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  height: auto;           /* Full viewport height */
+  background-color: white;  /* Optional: Set background color for better visibility */
+}
+
+.privacyOptions {
+  width: 100%; /* Ensure full width for consistent layout */
+}
+
+.privacyCard {
+  margin: 8px 0; /* Adjusted for consistent gap between cards */
+  background-color: #1f1f1f;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.privacyCard.active {
+  background-color: #1E88E5;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recommended {
+  color: #1E88E5;
+  font-size: 0.75rem;
+  margin-left: 8px;
+}

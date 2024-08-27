@@ -1,0 +1,25 @@
+/* ProgressBar.css */
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .progress-bar__step {
+    width: 20%;
+    height: 10px;
+    background-color: gray; /* Default color for upcoming steps */
+    border: 2px solid #000;
+    border-radius: 5px;
+  }
+  
+  .progress-bar__step--completed {
+    background-color: white; /* Color for completed steps */
+  }
+  
+  .progress-bar__step--current {
+    background-color: white; /* Color for the current step */
+  }
+  

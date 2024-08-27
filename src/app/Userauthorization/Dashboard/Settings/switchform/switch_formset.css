@@ -1,0 +1,117 @@
+.switch_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 0 auto;
+}
+  
+.switch_card {
+    width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    height: 550px; 
+}
+  
+.switch_icon {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+  
+.switch_card1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+  .switch_image {
+    width: 180px;
+    height: 250px;
+    
+}
+
+.switch_card2 {
+    text-align: center;
+    margin-top: 10px;
+}
+  
+.center-label {
+    font-size: 15px;
+    color: white; 
+    font-weight: bold; 
+}
+  
+.switch_card3 {
+    text-align: center;
+    margin-top: 20px;
+}
+  
+.center-label1 {
+    font-size: 14px;
+    color: grey; 
+}
+ 
+.switch_card4 {
+    text-align: center;
+    margin-top: 20px;
+}
+.switchs_now {
+    display: flex;
+    padding: 10px;
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white; 
+    border: none;
+    border-radius: 50px;
+    padding-left: 5px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    align-items: center; 
+    justify-content: center;
+    padding-top: 20px;
+    height: 45px;
+    text-align: center;
+}
+.switch_now {
+    margin-bottom: 10px;
+    align-items: center;
+    color: whitesmoke;
+    font-weight: bold; 
+
+}
+
+.may_later {
+    display: flex;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1); 
+    color: white; 
+    border: none;
+    border-radius: 50px;
+    padding-left: 5px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    align-items: center; 
+    justify-content: center;
+    height: 45px;
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 20px;
+}
+
+.may_later:hover {
+    background-color: black; 
+    color: #e0e0e0; 
+}
+
+.maybe {
+    margin-bottom: 10px;
+    align-items: center;
+
+}

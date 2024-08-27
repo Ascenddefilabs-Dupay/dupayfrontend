@@ -1,0 +1,527 @@
+/* .security_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+.security_card {
+    width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    height: 550px; 
+    position: relative;
+}
+  
+.security1 {
+    display: flex;
+    align-items: center;
+    font-size: 16px; 
+    color: #333; 
+}
+  
+.secrity_icon {
+    margin-right: 10px; 
+    color: #fff; 
+    font-size: 26px; 
+}
+
+.security_label {
+    color: #fff; 
+    font-size: 20px;
+}
+
+.backup_label{
+    color: #fff; 
+    font-size: 20px; 
+    margin-top: 25px;
+    display: block;
+}
+
+.security2 {
+    display: flex;
+    align-items: center;
+    font-size: 16px; 
+    color: #333; 
+    margin-top: 15px;
+}
+
+.wall_button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #1a1a1a;
+    color: white; 
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    height: 45px;
+    position: relative;
+}
+
+.wall_button:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: #e0e0e0; 
+}
+
+.wall {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.wallet_label {
+    font-size: 16px;
+    color: #fff; 
+}
+
+.not-backed-up {
+    color: red;
+    background-color: #4a1a1a;
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 5px;
+    margin-left: 100px;
+}
+
+.wall_icon {
+    font-size: 24px; 
+    color: white;
+}
+
+.securitylock_label{
+    color: #fff; 
+    font-size: 15px; 
+    margin-top: 10px;
+    display: block;
+}
+
+.security3 {
+    display: flex;
+    align-items: center;
+    font-size: 16px; 
+    color: #333; 
+    margin-top: 10px;
+}
+
+.security_lock_button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #1a1a1a;
+    color: white; 
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    height: 30px;
+    position: relative;
+}
+
+.security_lock_button:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: #e0e0e0; 
+}
+
+.sec_lock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.method_label {
+    font-size: 16px;
+    color: #fff; 
+}
+
+.pass_label {
+    font-size: 13px;
+    padding: 5px;
+    margin-left: 60px;
+    color: gray;
+}
+
+.pass_icon {
+    font-size: 24px; 
+    color: white;
+}
+
+.unlock_label{
+    color: #fff; 
+    font-size: 15px; 
+    margin-top: 10px;
+    display: block;
+}
+
+.require_lock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+.open_app{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    height: 50px;
+}
+.open_app:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.unlock-info {
+    flex: 1; 
+}
+  
+.opening {
+    font-size: 16px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.required_switch {
+    margin-left: 10px; 
+}
+  
+.required_switch.MuiSwitch-root {
+    margin: 0;
+}
+
+.transaction_lock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+  
+.making_app{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    height: 50px;
+}
+.making_app:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.trans-info {
+    flex: 1; 
+}
+  
+.make_trans {
+    font-size: 16px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.trans_switch {
+    margin-left: 10px; 
+}
+  
+.trans_switch.MuiSwitch-root {
+    margin: 0;
+}
+
+.selected_label{
+    font-size: 13px;
+    padding: 5px;
+    color: gray;
+    text-align: left;
+} */
+
+
+
+
+
+
+.security_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+.security_card {
+    width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background-color: black;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    height: 550px; 
+    position: relative;
+}
+  
+.security1 {
+    display: flex;
+    align-items: center;
+    font-size: 16px; 
+    color: #333; 
+}
+  
+.secrity_icon {
+    margin-right: 10px; 
+    color: #fff; 
+    font-size: 26px; 
+}
+
+.security_label {
+    color: #fff; 
+    font-size: 20px;
+}
+
+.backup_label{
+    color: #fff; 
+    font-size: 20px; 
+    margin-top: 25px;
+    display: block;
+}
+
+.security2 {
+    display: flex;
+    align-items: center;
+    font-size: 16px; 
+    color: #333; 
+    margin-top: 15px;
+}
+
+.wall_button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: black;
+    color: white; 
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    height: 45px;
+    position: relative;
+}
+
+.wall_button:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: #e0e0e0; 
+}
+
+.wall {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.wallet_label {
+    font-size: 16px;
+    color: #fff; 
+}
+
+.not-backed-up {
+    color: red;
+    background-color: #4a1a1a;
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 5px;
+    margin-left: 100px;
+}
+
+.wall_icon {
+    font-size: 24px; 
+    color: white;
+}
+
+.securitylock_label{
+    color: #fff; 
+    font-size: 15px; 
+    margin-top: 10px;
+    display: block;
+}
+
+.security3 {
+    display: flex;
+    align-items: center;
+    font-size: 16px; 
+    color: #333; 
+    margin-top: 10px;
+}
+
+.security_lock_button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: black;
+    color: white; 
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    height: 30px;
+    position: relative;
+}
+
+.security_lock_button:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: #e0e0e0; 
+}
+
+.securitybutton_lock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.lock_method_label {
+    font-size: 16px;
+    color: #fff; 
+}
+
+.password_label1 {
+    font-size: 13px;
+    padding: 5px;
+    margin-left: 60px;
+    color: gray;
+}
+
+.pass_icon {
+    font-size: 24px; 
+    color: white;
+}
+
+.unlock_label{
+    color: #fff; 
+    font-size: 15px; 
+    margin-top: 10px;
+    display: block;
+}
+
+.require_lock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+.open_app{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    height: 50px;
+}
+.open_app:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.unlock-info {
+    flex: 1; 
+}
+  
+.opening {
+    font-size: 16px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.required_switch {
+    margin-left: 10px; 
+}
+  
+.required_switch.MuiSwitch-root {
+    margin: 0;
+}
+
+.transaction_lock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+  
+.making_app{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    height: 50px;
+}
+.making_app:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.trans-info {
+    flex: 1; 
+}
+  
+.make_trans {
+    font-size: 16px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.trans_switch {
+    margin-left: 10px; 
+}
+  
+.trans_switch.MuiSwitch-root {
+    margin: 0;
+}
+
+.selected_label{
+    font-size: 13px;
+    padding: 5px;
+    color: gray;
+    text-align: left;
+}

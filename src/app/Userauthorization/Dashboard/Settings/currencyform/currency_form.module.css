@@ -1,0 +1,84 @@
+.currencySelector {
+  background-color: #121212;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  height: 550px;
+  
+}
+
+.currecy_header {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  padding: 10px; 
+  border-bottom: 1px solid #444; 
+  background-color: #1e1e1e; 
+}
+
+
+.currency_set_icon {
+  cursor: pointer;
+  color: #ffffff; 
+  font-size: 24px;
+}
+
+.searchInput {
+  width: 98%;
+  padding: 10px 40px 10px 10px;
+  margin-bottom: 20px;
+  border: 1px solid #444;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border-radius: 25px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.currencyList {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+/* Hide scrollbar for Webkit browsers */
+.currencyList::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for other browsers */
+.currencyList {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.currencyItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  background-color: #1e1e1e;
+  transition: background-color 0.3s ease;
+}
+
+.currencyItem img {
+  width: 24px; /* Adjust width */
+  height: 18px; /* Adjust height */
+  margin-right: 10px; /* Adjust margin */
+  object-fit: contain; /* Keep aspect ratio intact */
+}
+
+.currencyItem.selected {
+  background-color: #f2eeee;
+  color: #121212; /* Ensure the text is readable */
+}
+
+.currencyItem:hover {
+  background-color: #333;
+}
+
+.flags {
+  width: 1px; /* Assuming this is intended, but this class doesn't seem used in your provided HTML */
+}

@@ -1,0 +1,141 @@
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.card {
+  background-color: black;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  height: 570px; /* Adjusted to fit content */
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: white;
+  margin-top: 15px;
+}
+
+.input,
+.inputFile {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  color: white;
+  background-color: rgba(128, 128, 128, 0.253);
+}
+
+.input:focus,
+.inputFile:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.error {
+  color: #d9534f;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.uploadContainer {
+  display: flex;
+  align-items: center;
+}
+
+.uploadedImage {
+  margin-left: 10px;
+  /* max-width: 100px;
+  max-height: 80px; */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 50px;
+  width: 70px;
+}
+
+.submitButton {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, #007bff9f, #800080);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 65px;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  text-align: center;
+  font-size: 14px;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+
+.setting_back_icon {
+  color: #fff; 
+
+}
+
+
+.customAlert {
+  position: fixed;
+  top: 11%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: gray;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 1000;
+  width: 45%;
+  max-width: 300px;
+  text-align: center;
+}
+
+.customAlert p {
+  margin: 0 0 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.closeButton {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+  width: 30%;
+}

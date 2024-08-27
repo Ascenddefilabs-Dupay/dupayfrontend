@@ -1,0 +1,84 @@
+.container {
+  position: relative;
+  bottom: 5px;
+  /* top: 1px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: white;
+  height: 100vh;
+  width: 400px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.backButton {
+  align-self: flex-start;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: -25px;
+}
+
+.progressBar {
+  width: 10%;
+  height: 4px;
+  background-color: blue;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-right: 60px;
+}
+
+.heading {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  position: relative;
+  right: 40px;
+
+  /* align-items: center; */
+  
+}
+
+.imageContainer {
+  margin-bottom: 10px;
+  margin-top: -15px;
+  
+}
+
+.imageContainer img {
+  width: 280px; /* Adjust based on your image size */
+  height: 180px;
+}
+
+.paragraph {
+  text-align: center;
+  margin-bottom: 0px;
+  color: gray;
+}
+
+.link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.continueButton {
+  background: linear-gradient(90deg, #007bff9f, #800080);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  height: 10%;
+  width: 85%;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
+
+}
+
+.continueButton:hover {
+  background-color: rgb(71, 126, 246);
+}

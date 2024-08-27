@@ -1,0 +1,237 @@
+.container {
+    position: relative;
+    bottom: 45px;
+    top: 1px;
+    background-color: black;
+    height: 100vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden; 
+}
+
+.emailBar {
+    background-color: black;
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.walletAddress {
+    display: flex;
+    align-items: center;
+    cursor: pointer; 
+    gap: 5px;
+}
+
+.dropdownIcon {
+    margin-left: auto;
+}
+
+.iconGroup {
+    display: flex;
+    gap: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: absolute;
+    top: 275px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 83%;
+    max-width: 390px;
+    background-color: #1a1d23;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    margin: 0 auto;
+    border-top: #1a1d23;
+    border-radius: 20px;
+}
+
+.dropdownContent {
+    padding: 20px;
+}
+
+.dropdownHeader {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.dropdownHeader hr {
+    margin: 0px 0;
+    color: gray;
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.profileIcon {
+    margin-right: 10px;
+    font-size: 5px;
+    border: 3px solid white;
+}
+
+.profileIcon2{
+    font-size: 5px;
+    border: 3px solid white;
+}
+
+
+.textContainer {
+    flex-grow: 1;
+}
+
+.userid {
+    font-weight: bold;
+}
+
+.viewprofileButton,
+.manageWalletsButton {
+    font-weight: bold;
+    background-color: rgba(91, 84, 84, 0.447);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 45px;
+    width: 100%;
+    gap: 40px;
+    margin-top: 22px;
+    color: #fff;
+}
+
+.checkIcon {
+    margin-right: 10px;
+    font-size: 22px;
+    color: blue;
+}
+
+.appBar {
+    background-color: black;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.toolbar {
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 35px;
+    
+}
+
+.buttonContainer {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.card {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white;
+    width: 350px;
+    margin-left: 3px;
+    max-width: 400px;
+    text-align: start; 
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.button {
+    background-color: white;
+    font-weight: bold;
+    color: black;
+    margin-top: 4px;
+    border-radius: 22px;
+    width: 100%;
+}
+
+.image {
+    width: 110px;
+    height: 110px;
+    border-radius: 15px;
+    margin-left: 20px;
+}
+
+.imgdiv {
+    display: flex;
+    
+}
+
+.getstartbtn {
+    margin-left: 30px;
+}
+
+.bottomNavigation {
+    position: relative;
+    bottom: 50px;
+    margin: 0 auto;
+    background-color: black;
+    width: 100%;
+    height: 130px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #413e41;
+}
+
+.bottomNavigationAction {
+    color: white;    
+    margin: 0 auto;
+    align-items: center;    
+}
+
+.bottomNavigationActionSelected {
+    color: blue;
+}
+
+.qrOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.closeQrButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}

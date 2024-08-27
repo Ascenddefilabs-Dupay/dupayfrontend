@@ -1,0 +1,253 @@
+/* .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+}
+
+.card {
+    background-color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px; 
+    height: 570px;
+}
+
+.h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: bold;
+    font-family: Oxygen, sans-serif;
+}
+
+.label {
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+    font-family: Oxygen, sans-serif;
+}
+
+.select {
+    width: 100%;
+    padding: 8px;
+    border: rgba(128, 128, 128, 0.253);
+    border-radius: 4px;
+    color: white;
+    font-family: Oxygen, sans-serif;
+    background-color: rgba(128, 128, 128, 0.253);
+}
+
+.documentButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    margin-top: 10px;
+}
+
+.button {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center; 
+    width: 100%;
+    transition: background-color 0.3s ease;
+    border: 1px solid #ccc;
+    font-family: Oxygen, sans-serif;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.activeButton {
+    background-color: #005bb5; 
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #732b2b;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin: 20px 0;
+  }
+  
+  .progress-bar {
+    height: 20px;
+    background-color: #4caf50;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .progress-text {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 20px;
+    line-height: 20px;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+  } */
+
+
+
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+}
+
+.card {
+    background-color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px; 
+    height: 570px;
+    position: relative; /* Add this to position the back icon */
+}
+
+.setting_back_icon {
+    margin-right: 10px; 
+    color: #fff; 
+    font-size: 26px; 
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    cursor: pointer;
+}
+
+.h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: bold;
+    font-family: Oxygen, sans-serif;
+}
+
+.label {
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+    font-family: Oxygen, sans-serif;
+}
+
+.select {
+    width: 100%;
+    padding: 8px;
+    border: rgba(128, 128, 128, 0.253);
+    border-radius: 4px;
+    color: white;
+    font-family: Oxygen, sans-serif;
+    background-color: rgba(128, 128, 128, 0.253);
+}
+
+.documentButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    margin-top: 10px;
+}
+
+.button {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center; 
+    width: 100%;
+    transition: background-color 0.3s ease;
+    border: 1px solid #ccc;
+    font-family: Oxygen, sans-serif;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.activeButton {
+    background-color: #005bb5; 
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #732b2b;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin: 20px 0;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #4caf50;
+    transition: width 0.3s ease-in-out;
+}
+
+.progress-text {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 20px;
+    line-height: 20px;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+.customAlert {
+    position: fixed;
+    top: 11%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: gray;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 1000;
+    width: 65%;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .customAlert p {
+    margin: 0 0 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .closeButton {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+    width: 30%;
+  }
+
+  .select option {
+    background-color: #333;
+    color: white;
+}

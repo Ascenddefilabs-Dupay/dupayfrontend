@@ -1,0 +1,296 @@
+/* .container {
+    background-color: #121212;
+    color: white;
+    min-height: 100vh;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    max-width: 480px; 
+     margin: 0 auto; 
+  } 
+  
+   .title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .section {
+    border-bottom: 1px solid #333;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .sectionTitle {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .walletItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .walletIcon {
+    margin-right: 8px;
+  }
+  
+  .walletAddress {
+    color: #777;
+  }
+  
+  .button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    margin-bottom: 8px;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .buttonIcon {
+    margin-right: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 8px;
+    }
+    .title {
+      font-size: 18px;
+    }
+    .button {
+      padding: 10px;
+    }
+  }
+    */
+
+
+/* src/app/Dashboard/Manage/manageprofile.module.css */
+/* manageprofile.css */
+/* .container {
+  background-color: #121212;
+  color: #ffffff;
+  padding: 20px;
+  max-width: 400px; /* Restricting width to mobile screen size */
+  /* margin: 0 auto;  */
+/* } */
+/* 
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.walletItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.walletIcon {
+  margin-right: 10px;
+}
+
+.profileImage {
+  border-radius: 50%;
+}
+
+.walletAddress {
+  color: #aaa;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+.userid{
+  font-weight: bold;
+}
+.icon{
+  font-weight: lighter;
+}
+
+.buttonIcon {
+  margin-right: 10px;
+}
+
+.arrowIcon {
+  margin-left: auto;
+}
+
+.button:hover {
+  background-color: #444;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+
+  .button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .buttonIcon, .arrowIcon {
+    font-size: 20px;
+  }
+} */ 
+
+
+
+/* manageprofile.css */
+.container {
+    background-color: #121212;
+    color: #ffffff;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .titleContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-left: 10px;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+  
+  .sectionTitle {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #aaa;
+  }
+  
+  .walletItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0b0303;
+    padding: 10px;
+    width: 370px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: -10px;
+  }
+  
+  .walletInfo {
+    flex-grow: 1;
+  }
+  
+  .walletAddress {
+    color: #fff;
+  }
+  
+  .walletBalance {
+    color: #aaa;
+  }
+  
+  .button {
+    display: flex;
+    align-items: center;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    background-color: #0b0303;
+    color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+    margin-left: -10px;
+  }
+  .buttonimportcls{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+  }
+  .buttonimport{
+  align-items: left;
+  position: relative;
+  right: 33px;
+  }
+  .buttonIcon {
+    margin-right: 10px;
+    
+  }
+  
+  .buttonDescription {
+    color: #aaa;
+    font-size: 12px;
+  }
+  
+  .arrowIcon {
+    margin-left: auto;
+    color: #aaa;
+  }
+  
+  .button:hover {
+    background-color: #444;
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      padding: 15px;
+    }
+  
+    .title {
+      font-size: 20px;
+    }
+  
+    .sectionTitle {
+      font-size: 14px;
+    }
+  
+    .button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  
+    .buttonIcon, .arrowIcon {
+      font-size: 20px;
+    }
+  }
+  

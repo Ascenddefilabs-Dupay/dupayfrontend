@@ -1,0 +1,191 @@
+/* .container {
+  position: relative;
+  bottom: 40px;
+  top: 1px;
+  background-color: black;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 500px;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width :400px;
+}
+
+.header {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.contentBox {
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  height: 100px;
+  max-width: 600px;
+  text-align: center;
+  margin-top: 170px;
+  margin-bottom: 170px;
+
+}
+.text{
+  color: white;
+}
+@media (max-width: 600px) {
+  .header {
+    font-size: 20px;
+  }
+
+  .contentBox {
+    padding: 15px;
+    width: 90%;
+  }
+} */
+.container {
+  position: relative;
+  bottom: 40px;
+  top: 1px;
+  background-color: black;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 20px;
+  position: relative;
+}
+.iconContainer {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.iconWrapper {
+  background-color: rgb(45, 45, 45);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px; /* Adjust the size as needed */
+  width: 40px;  /* Adjust the size as needed */
+  cursor: pointer;
+
+}
+
+.dropdownIcon {
+  font-size: 18px;
+  color: white;
+  margin-left: 10px;
+}
+
+
+.iconButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 5px 10px;
+  background-color: rgb(21, 21, 21);
+  border-radius: 15px;
+  margin: 0 10px;
+  color: black;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Chrome-like tab color */
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.tabCount {
+  background-color: rgb(55, 55, 55);
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  padding: 2px 5px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+.header {
+  font-size: 24px;
+  text-align: center;
+  color: white;
+}
+
+.contentBox {
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin-top: 170px;
+  margin-bottom: 170px;
+}
+
+.text {
+  color: white;
+}
+
+.dropdown {
+  position: absolute;
+  top: 50px;
+  right: -80px;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.dropdownItem {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownItem:hover {
+  background-color: #444;
+}
+
+.dropdownIcon {
+  margin-right: 10px;
+}
+
+@media (max-width: 600px) {
+  .header {
+    font-size: 20px;
+  }
+
+  .contentBox {
+    padding: 15px;
+    width: 90%;
+  }
+}

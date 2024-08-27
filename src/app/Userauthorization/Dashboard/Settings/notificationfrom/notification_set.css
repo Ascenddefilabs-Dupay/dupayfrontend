@@ -1,0 +1,340 @@
+.notificatio_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
+  
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto; 
+    padding: 10px;
+}
+  
+.production_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notification_card {
+    width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    height: 550px; 
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+.notification_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.notification_card::-webkit-scrollbar {
+    display: none; 
+}
+  
+.notify_icon {
+    margin-right: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.production_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.production_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.production_button:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.productioninfo {
+    flex: 1; 
+}
+  
+.announcement_tab{
+    font-size: 14px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.announcement_discription {
+    color: gray; 
+    display: block;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.production_switch {
+    margin-left: 10px; 
+}
+  
+.production_switch .MuiSwitch-root {
+    margin: 0;
+}
+
+.insights_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.insights_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.insights_button:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.insight_info {
+    flex: 1; 
+}
+  
+.tips_tab{
+    font-size: 14px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.instight_switch {
+    margin-left: 10px; 
+}
+  
+.instight_switch .MuiSwitch-root {
+    margin: 0;
+}
+
+.special_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.special_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.special_button:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.special_info {
+    flex: 1; 
+}
+  
+.special_tab{
+    font-size: 14px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.special_switch {
+    margin-left: 10px; 
+}
+  
+.special_switch .MuiSwitch-root {
+    margin: 0;
+}
+
+.price_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.price_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.price_button:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.price_info {
+    flex: 1; 
+}
+  
+.alert_tab{
+    font-size: 14px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.alert_discription {
+    color: gray; 
+    display: block;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.price_switch {
+    margin-left: 10px; 
+}
+  
+.price_switch .MuiSwitch-root {
+    margin: 0;
+}
+
+.account_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.account_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.account_button:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.account_info {
+    flex: 1; 
+}
+  
+.account_tab{
+    font-size: 14px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.account_switch {
+    margin-left: 10px; 
+}
+  
+.account_switch .MuiSwitch-root {
+    margin: 0;
+}
+
+.message_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.message_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+    padding-bottom: 15px;
+}
+.message_button:hover {
+    background-color: rgb(33, 36, 38);
+}
+  
+.message_info {
+    flex: 1; 
+}
+  
+.message_tab{
+    font-size: 14px;
+    color: white; 
+    display: block;
+    text-align: left;
+    padding-top: 1px;
+}
+  
+.message_discription {
+    color: gray; 
+    display: block;
+    text-align: left;
+    font-size: 12px;
+}
+  
+.message_switch {
+    margin-left: 10px; 
+}
+  
+.message_switch .MuiSwitch-root {
+    margin: 0;
+}

@@ -1,0 +1,62 @@
+.passcode-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1e1e1e;
+    color: white;
+    text-align: center;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.passcode-screen h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.passcode-dots {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.dot {
+    width: 16px;
+    height: 16px;
+    margin: 0 8px;
+    border-radius: 50%;
+    border: 2px solid #4c5fd5;
+}
+
+.dot.filled {
+    background-color: #4c5fd5;
+}
+
+.passcode-screen p {
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.number-button, .backspace-button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: white;
+    background-color: #2c2c2c;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.number-button:hover, .backspace-button:hover {
+    background-color: #4c5fd5;
+}

@@ -1,0 +1,200 @@
+/* Container styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .developer_card {
+    width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    overflow: hidden;
+    height: 550px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .back-icon {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .setting.disabled {
+    color: black;
+  }
+  
+  .setting-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .setting-title4 {
+    font-size: 16px;
+  }
+  
+  .setting-description {
+    font-size: 12px;
+    color: #999;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: black;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196f3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(14px);
+  }
+  
+  .develop_card1 {
+    display: flex;
+  }
+  
+  .private_key {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+  }
+  
+  .private_key:hover {
+    background-color: rgb(33, 36, 38);
+  }
+  
+  .private {
+    margin-right: 8px;
+  }
+  
+  .private_icon {
+    font-size: 20px;
+    color: blue;
+  }
+  
+  .develop_card2 {
+    display: flex;
+  }
+  
+  .export_net {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: gray;
+    min-height: 50px;
+  
+  }
+  
+  .export {
+    margin-right: 8px;
+  }
+  
+  .develop-icon {
+    font-size: 15px;
+    color: gray;
+  }
+  
+  .develop_card3 {
+    display: flex;
+  }
+  
+  .wallet_document {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    min-height: 50px;
+  }
+  
+  .wallet_document:hover {
+    background-color: rgb(33, 36, 38);
+  }
+  
+  
+  .wallet {
+    margin-right: 8px;
+  }
+  
+  .wallet_icon {
+    font-size: 15px;
+    color: blue;
+  }

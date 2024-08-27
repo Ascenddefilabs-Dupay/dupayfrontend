@@ -1,0 +1,118 @@
+ /* .container {
+    position: relative;
+    bottom: 45px;
+    top: 6px; 
+    left: 150px;
+    z-index: 1000; 
+    width: 70px;
+    margin: 0 auto;
+    height: 35px;
+    padding: 20px;
+    background-color: #030303;
+    color: #fff;
+    border-radius: 15px;
+    font-family: Arial, sans-serif; 
+    
+    bottom: 5px; 
+   } 
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -7px; 
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;   
+  }
+  
+  .leftSection {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    
+  }
+  
+  .rightSide {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer; 
+
+  } */
+
+
+
+
+  /* Existing styles */
+
+  .container {
+    position: relative;
+    bottom: 45px;
+    top: -5px; 
+    left: 120px;
+    z-index: 1000; 
+    width: 95px;
+    margin: 0 auto;
+    height: 35px;
+    padding: 20px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 15px;
+    font-family: Arial, sans-serif; 
+    bottom: 1px; 
+  } 
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -6px; 
+    margin-right: -40px;
+    align-items: center;
+    justify-content: center;   
+  }
+  
+  .leftSection {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .rightSide {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer; 
+  }
+  
+  /* New styles for full-screen modal */
+  
+  .fullScreenScanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  

@@ -1,0 +1,177 @@
+.container {
+    position: relative;
+    background-color: black;
+    width:auto;
+    max-width: 420px;
+    top: 2px;
+    margin: 0 auto;
+    color: white;
+    height:auto;
+    min-height: 100vh;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 5px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
+
+}
+
+.profileIcon {
+    margin-right: 2px;
+    font-size: 30px;
+    position: relative;
+    top: 1px;
+  }
+.backIcon {
+    margin: 15px 10px;
+}
+
+.heading {
+    margin-top: -40px;
+    margin-left: 45px;
+    cursor: pointer;
+}
+
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+.search {
+    margin-top: auto;
+    margin-bottom: auto;
+    top: 20px;
+    height: 40px;
+    background-color: rgb(20, 21, 25);
+    border-radius: 40px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    width: 350px;
+    position: relative; /* To allow absolute positioning of the icon */
+}
+
+.searchInput {
+    color: black;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    margin-top: 5px;
+    caret-color: transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+    padding: 0 -10px 0 -10px;
+    flex: 1;
+    text-align: left;
+    margin-left: 60px; /* Ensure space for the icon */
+}
+
+.searchInputActive {
+    width: 550px;
+    color: white;
+    caret-color: rgb(255, 255, 255);
+    transition: width 0.4s linear;
+}
+
+.searchIcon {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: gray;
+    /* background-color: rgb(20, 21, 25);  */
+    cursor: pointer;
+    transition: background 0.3s ease;
+    position: absolute; /* Position it absolutely within the search container */
+    left: 10px; /* Adjust as needed to align the icon */
+}
+
+/* General styles for divs with hover effects */
+.hoverableDiv {
+    transition: background-color 0.3s ease;
+}
+
+.hoverableDiv:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background color on hover */
+}
+
+/* Styles for div with hover effect */
+.iconContainer {
+    height: 40px;
+    width: 40px;
+    background-color: rgb(50, 53, 61);
+    border-radius: 40px;
+    position: relative;
+    left: 53px;
+    transition: background-color 0.3s ease;
+}
+
+.iconContainer:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background color on hover */
+}
+
+/* Styles for FontAwesomeIcon with hover effect */
+.iconHover {
+    margin: 12px;
+    cursor: pointer;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.iconContainer:hover .iconHover {
+    color: #aaa; /* Change icon color on hover */
+}
+
+
+/* Style for icons with hover effects */
+.iconHover:hover {
+    color: #aaa; /* Light color on hover */
+}
+
+/* Style for the back arrow with hover effect */
+.backIcon:hover {
+    color: #aaa; /* Light color on hover */
+}
+
+/* Style for buttons */
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(50, 53, 61);
+    border: none;
+    color: white;
+    border-radius: 12px;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: rgb(40, 43, 50);
+}
+
+/* Specific styles for different sections */
+.profileDiv {
+    cursor: pointer;
+}
+
+.ethereumDiv {
+    width: 100%;
+    cursor: pointer;
+}
+
+.bitcoinDiv {
+    width: 100%;
+    cursor: pointer;
+}
+
+.buyButtonDiv {
+    cursor: pointer;
+}

@@ -1,0 +1,84 @@
+.container {
+    position: relative;
+    top: 1px;
+    bottom: 1px;
+    background-color: #222;
+    width: 400px;
+    height: 100vh;
+    margin: 0 auto;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(30, 32, 37);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .closeIcon {
+    font-size: 30px;
+    color: white;
+  }
+  .ethadd{
+    position: relative;
+    top: 200px;
+    border: 2px solid rgb(124, 126, 130);
+    /* background-color: aqua; */
+    width: 350px;
+    height: 80px;
+    padding: 13px;
+    border-radius: 12px;
+  }
+  .copybutton{
+    position: relative;
+    padding: 5px;
+    bottom: 40px;
+    left: 260px; 
+    height: 35px; 
+    width: 55px; 
+    background-color: rgb(46, 51, 46);
+    border-radius: 25px;
+
+  }
+  
+  .copiedButton {
+    width: 70px; 
+    background-color: rgb(57, 247, 57); /* Green background color for the copied state */
+    color: white; /* Optional: Set text color to white for better contrast */
+    transition: background-color 0.3s; /* Optional: Smooth transition for background color change */
+}
+
+.dropdown {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.gotItButton {
+    background-color: #295cde;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-top: 10px;
+}

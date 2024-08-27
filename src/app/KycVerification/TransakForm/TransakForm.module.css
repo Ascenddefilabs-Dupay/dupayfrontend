@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white;
+}
+
+.card {
+  position: relative;
+  background-color: rgb(0, 0, 0);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+  height: 570px;
+}
+
+.setting_back_icon {
+  margin-right: 15px; 
+  color: #fff; 
+  font-size: 26px; 
+  cursor: pointer;
+}
+
+.h1 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  font-family: Oxygen, sans-serif;
+}
+
+.h3 {
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  font-family: Oxygen, sans-serif;
+  margin-top: 25px;
+}
+
+.label1 {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-size: 16px;
+  color: white;
+  font-family: Oxygen, sans-serif;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: rgba(128, 128, 128, 0.253);
+}
+
+.button-sub {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button1:hover {
+  background-color: #0056b3; /* Hover color */
+}
+
+.button1 {
+  margin-top: 100px;
+  background: linear-gradient(90deg, #007bff9f, #800080);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.input {
+  margin: 10px;
+}
+
+.card1 {
+  border-radius: 4px;
+  border: 2px;
+  border-color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
