@@ -30,25 +30,25 @@ const DepositForm = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/fiat_wallets/Wa0000000001/')
+        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/fiat_wallets/Wa0000000001/')
             .then(response => {
                 setWalletDetails(response.data);
             })
             .catch(error => console.error('Error fetching wallet details:', error));
 
-        fetch('http://localhost:8000/api/currencies/')
+        fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/currencies/')
             .then(response => response.json())
             .then(data => setCurrencies(data))
             .catch(error => console.error('Error fetching currencies:', error));
 
-        axios.get('http://localhost:8000/api/banks/')
+        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/banks/')
             .then(response => setBanks(response.data))
             .catch(error => console.error('Error fetching banks:', error));
     }, []);
 
     useEffect(() => {
         if (walletDetails) {
-            axios.get(`http://localhost:8000/api/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
+            axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
                 .then(response => {
                     const userCurrencies = response.data.reduce((acc, currency) => {
                         acc[currency.currency_type] = parseFloat(currency.balance);
@@ -176,7 +176,7 @@ const DepositForm = () => {
         };
 
         // Make the API call to update UserCurrency
-        axios.post('http://localhost:8000/api/user_currencies/create_or_update/', depositData)
+        axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user_currencies/create_or_update/', depositData)
             .then(response => {
                 setPendingAmount(parsedAmount);
 
@@ -217,7 +217,7 @@ const DepositForm = () => {
         if (pendingAmount !== null && selectedCurrency.value === 'INR') {
             const newBalance = parseFloat(walletDetails.fiat_wallet_balance) + pendingAmount;
 
-            axios.put(`http://localhost:8000/api/fiat_wallets/${walletDetails.fiat_wallet_id}/`, {
+            axios.put(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/fiat_wallets/${walletDetails.fiat_wallet_id}/`, {
                 ...walletDetails,
                 fiat_wallet_balance: newBalance,
             })

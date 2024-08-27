@@ -41,10 +41,10 @@ const UserProfile = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/profile/${userId}/`);
+      const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/api/profile/${userId}/`);
       setUserProfile(response.data);
       if (response.data.user_profile_photo) {
-        const baseURL = 'http://localhost:8000/profile_photos';
+        const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
         let imageUrl = '';
 
         if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {

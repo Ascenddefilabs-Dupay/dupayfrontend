@@ -11,7 +11,7 @@
 //         e.preventDefault();
 
 //         try {
-//             const response = await axios.post('http://localhost:8000/api/register/', {
+//             const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/register/', {
 //                 name,
 //                 mobile_number: mobileNumber,
 //             });
@@ -71,7 +71,7 @@ const UserRegistration = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8000/api/register/', {
+            const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/register/', {
                 name,
                 mobile_number: mobileNumber,
             });

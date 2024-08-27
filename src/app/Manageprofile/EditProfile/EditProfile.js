@@ -158,14 +158,14 @@ const UserProfile = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/profile/${userId}/`);
+      const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/api/profile/${userId}/`);
       setUserProfile(response.data);
       setName(response.data.name || '');
       setAddress(response.data.address || '');
       console.log('User profile data:', response.data); // Debugging line to check the response data
 
       if (response.data.user_profile_photo) {
-        const baseURL = 'http://localhost:8000/profile_photos';
+        const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
         let imageUrl = '';
 
         // Check if the photo is stored as bytes
@@ -215,7 +215,7 @@ const UserProfile = () => {
     formData.append('user_id', users.user_id || '');
     formData.append('user_profile_photo', file);
     try {
-      await axios.put(`http://localhost:8000/api/profile/${userId}/`, formData, {
+      await axios.put(`https://userprofile-rcfpsxcera-uc.a.run.app/api/profile/${userId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

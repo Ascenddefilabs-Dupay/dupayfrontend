@@ -46,7 +46,7 @@ export default function FiatWalletForm() {
   
     try {
       // Fetch the user ID by username
-      const userResponse = await axios.get(`http://localhost:8000/api/user/?username=${username}`);
+      const userResponse = await axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user/?username=${username}`);
       
       if (userResponse.data.length === 0) {
         setError({ form: 'Username does not exist.' });
@@ -56,7 +56,7 @@ export default function FiatWalletForm() {
       const userId = userResponse.data[0].id; // Get the user ID from the response
   
       // Now create the fiat wallet with the correct user ID
-      const response = await axios.post('http://localhost:8000/api/fiat_wallets/', {
+      const response = await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/fiat_wallets/', {
         fiat_wallet_type: walletType,
         fiat_wallet_currency: walletCurrency.toUpperCase(),
         fiat_wallet_username: username, // Keep username in the request for additional checks

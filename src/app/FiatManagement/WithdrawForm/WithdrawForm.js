@@ -28,7 +28,7 @@ const WithdrawForm = () => {
 
     useEffect(() => {
         // Fetch wallet details from UserCurrencies table
-        axios.get(`http://localhost:8000/api/user_currencies/?wallet_id=Wa0000000001`)
+        axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user_currencies/?wallet_id=Wa0000000001`)
             .then(response => {
                 const userCurrencies = response.data;
                 const newBalances = {};
@@ -42,12 +42,12 @@ const WithdrawForm = () => {
             .catch(error => console.error('Error fetching wallet details:', error));
     
         // Fetch currencies
-        axios.get('http://localhost:8000/api/currencies/')
+        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/currencies/')
             .then(response => setCurrencies(response.data))
             .catch(error => console.error('Error fetching currencies:', error));
     
         // Fetch banks
-        axios.get('http://localhost:8000/api/banks/')
+        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/banks/')
             .then(response => setBanks(response.data))
             .catch(error => console.error('Error fetching banks:', error));
     }, []);
@@ -105,7 +105,7 @@ const WithdrawForm = () => {
     
     const handleCloseAlert = () => {
         if (pendingAmount !== null) {
-            axios.post('http://localhost:8000/api/user_currencies/withdraw/', {
+            axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user_currencies/withdraw/', {
                 wallet_id: 'Wa0000000001',
                 currency_type: selectedCurrency.value,
                 amount: pendingAmount

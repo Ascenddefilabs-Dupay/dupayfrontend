@@ -51,7 +51,7 @@ const QRScanner = () => {
     
     const transactionHash = uuidv4();
     try {
-      const response = await axios.post('http://localhost:8000/api/qrcode/', {
+      const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/qrcode/', {
         transaction_type: 'Debit',
         transaction_amount: amount,
         transaction_currency: currency,

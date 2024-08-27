@@ -24,7 +24,7 @@
 
 //   const fetchRandomWords = async () => {
 //     try {
-//       const response = await axios.get('http://127.0.0.1:8000/api/recovery-phrase/');
+//       const response = await axios.get('https://walletmanagement-rcfpsxcera-uc.a.run.app/api/recovery-phrase/');
 //       const words = response.data.phrase;
 //       setRandomWords(words);
 //       localStorage.setItem('recoveryWords', words); // Store in localStorage

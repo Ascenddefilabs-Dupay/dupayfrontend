@@ -51,7 +51,7 @@
 //     }
 
 //     try {
-//       const response = await axios.post('http://localhost:8000/api/kyc-details/', formData, {
+//       const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //         },
@@ -232,7 +232,7 @@ const AadharForm = () => {
     }
 
     try {
-      await axios.post('http://localhost:8000/api/kyc-details/', formData, {
+      await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

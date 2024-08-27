@@ -24,7 +24,7 @@
 //             const handleSaveAndRedirect = async () => {
 //                 const data = { country_name, document_type: documentType }; // Updated field name
 //                 try {
-//                     await axios.post('http://localhost:8000/api/kyc-details/', data);
+//                     await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/', data);
 //                     alert('Document saved successfully!');
 //                     // Define redirection URLs based on document type
 //                     let redirectUrl = 'http://localhost:3000/KycVerification/AdharVerification';
@@ -113,7 +113,7 @@ const DocumentForm = () => {
             const handleSaveAndRedirect = async () => {
                 const data = { country_name: countryName, document_type: documentType }; // Updated field name
                 try {
-                    await axios.post('http://localhost:8000/api/kyc-details/', data);
+                    await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/', data);
                     setAlertMessage('Document saved successfully!');
                     setShowAlert(true);
                     setTimeout(() => {

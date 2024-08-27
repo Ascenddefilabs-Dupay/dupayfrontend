@@ -8,7 +8,7 @@ const EmailForm = ({ onEmailSent }) => {
 
   const handleEmailSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/verify-email/', { email_id: email });
+      const response = await axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/api/verify-email/', { email_id: email });
       setMessage(response.data.message);
       onEmailSent(email);
     } catch (error) {
@@ -62,7 +62,7 @@ export default EmailForm;
 
 //   const handleEmailSubmit = async () => {
 //     try {
-//       const response = await axios.post('http://localhost:8000/api/verify-email/', { email_id: email });
+//       const response = await axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/api/verify-email/', { email_id: email });
 //       setMessage(response.data.message);
 //       onEmailSent(email);
 //     } catch (error) {

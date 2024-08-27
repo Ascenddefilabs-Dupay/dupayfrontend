@@ -46,7 +46,7 @@
 //     const transactionDescription = 'fiat address transaction';
 
 //     try {
-//       const response = await axios.post('http://localhost:8000/api/address-transfer/', {
+//       const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/address-transfer/', {
 //         transaction_amount: transactionAmount,
 //         transaction_currency: transactionCurrency,
 //         transaction_type: 'Debit',
@@ -179,7 +179,7 @@ const AddressBasedTransactionForm = () => {
     const transactionDescription = 'fiat address transaction';
 
     try {
-      const response = await axios.post('http://localhost:8000/api/address-transfer/', {
+      const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/address-transfer/', {
         transaction_amount: transactionAmount,
         transaction_currency: transactionCurrency,
         transaction_type: 'Debit',

@@ -93,7 +93,7 @@
 //     e.preventDefault();
 //     if (validateForm()) {
 //         try {
-//             const response = await axios.post('http://localhost:8000/api/personal-details/', {
+//             const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/personal-details/', {
 //                 first_name: formData.firstName,
 //                 last_name: formData.lastName,
 //                 mobile_number: formData.mobileNumber,
@@ -387,7 +387,7 @@ const PersonalDetailsForm = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post('http://localhost:8000/api/personal-details/', {
+        const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/personal-details/', {
           first_name: formData.firstName,
           last_name: formData.lastName,
           mobile_number: formData.mobileNumber,

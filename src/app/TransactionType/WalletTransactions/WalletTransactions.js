@@ -136,7 +136,7 @@ const CurrencyForm = () => {
 
     // If all validations pass, perform form submission logic here
     try {
-      const response = await axios.post('http://localhost:8000/api/wallet_transfer/', {
+      const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/wallet_transfer/', {
         transaction_type: 'Debit', // Default value
         transaction_amount: amount,
         transaction_currency: currency,

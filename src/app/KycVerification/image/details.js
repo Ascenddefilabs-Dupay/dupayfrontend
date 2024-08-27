@@ -11,7 +11,7 @@ const FetchKYCDetails = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/kyc-details/');
+        const response = await axios.get('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/');
         setKycDetails(response.data);
       } catch (error) {
         console.error('Error fetching KYC details:', error);
