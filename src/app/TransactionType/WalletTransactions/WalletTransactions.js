@@ -1,250 +1,208 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../WalletTransactions/WalletTransactions.css'; // Ensure you have the correct path to your CSS file
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 import { QrReader } from 'react-qr-reader';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBackIcon
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const CurrencyForm = () => {
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [amount, setAmount] = useState('');
-  const [currency, setCurrency] = useState('');
-  const [message, setMessage] = useState(''); // State to store the success message
-  const [scanning, setScanning] = useState(false); // State to manage scanning state
-  const [alertMessage, setAlertMessage] = useState(''); 
-  const router = useRouter();
+    const [mobileNumber, setMobileNumber] = useState('');
+    const [amount, setAmount] = useState('');
+    const [currency, setCurrency] = useState('');
+    const [message, setMessage] = useState(''); // State to store the success message
+    const [alertMessage, setAlertMessage] = useState(''); 
+    const router = useRouter();
 
-  useEffect(() => {
-    // Load Razorpay script
-    const script = document.createElement('script');
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
-    document.body.appendChild(script);
+    useEffect(() => {
+        // Load Razorpay script
+        const script = document.createElement('script');
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.async = true;
+        document.body.appendChild(script);
 
-    // Cleanup the script when component unmounts
-    return () => {
-        document.body.removeChild(script);
-    };
-}, []);
-
-  const currencies = [
-    { code: 'USD', name: 'United States Dollar' },
-    { code: 'GBP', name: 'British Pound' },
-    { code: 'EUR', name: 'Euro' },
-    { code: 'INR', name: 'Indian Rupee' },
-    { code: 'JPY', name: 'Japanese Yen' },
-    // Add more currencies as needed
-  ];
-
-  const parseQueryParams = (url) => {
-    const params = new URLSearchParams(url.split('?')[1]);
-    return {
-      mobileNumber: params.get('mobileNumber') || '',
-      amount: params.get('amount') || '',
-      currency: params.get('currency') || '',
-    };
-  };
-  const initiateRazorpayPayment = () => {
-    if (window.Razorpay) {
-        const options = {
-            key: 'rzp_test_41ch2lqayiGZ9X', // Your Razorpay API Key
-            amount: parseFloat(amount) * 100, // Amount in paisa
-            currency: currency,
-            name: 'DUPAY',
-            description: 'Payment for currency conversion',
-            handler: function (response) {
-                alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-                // Handle payment success
-            },
-            prefill: {
-                name: 'User Name',
-                email: 'user@example.com',
-                contact: 9703325819,
-            },
-            notes: {
-                address: 'Your Address',
-            },
-            theme: {
-                color: '#F37254',
-            },
+        // Cleanup the script when component unmounts
+        return () => {
+            document.body.removeChild(script);
         };
+    }, []);
 
-        const rzp1 = new window.Razorpay(options);
-        rzp1.open();
-    } else {
-        alert("Razorpay script not loaded.");
-    }
-  };
-  const handleContinue = () => {
-    router.push('/Currenciespage');
-  };
+    const currencies = [
+        { code: 'USD', name: 'United States Dollar' },
+        { code: 'GBP', name: 'British Pound' },
+        { code: 'EUR', name: 'Euro' },
+        { code: 'INR', name: 'Indian Rupee' },
+        { code: 'JPY', name: 'Japanese Yen' },
+        // Add more currencies as needed
+    ];
 
-  const handleScan = (result) => {
-    if (result) {
-      try {
-        const url = result.text.trim();
-        // Redirect to the URL scanned from the QR code
-        window.location.href = url;
+    const initiateRazorpayPayment = () => {
+        return new Promise((resolve) => {
+            if (window.Razorpay) {
+                const options = {
+                    key: 'rzp_test_41ch2lqayiGZ9X', // Your Razorpay API Key
+                    amount: parseFloat(amount) * 100, // Amount in paisa
+                    currency: currency,
+                    name: 'DUPAY',
+                    description: 'Payment for currency conversion',
+                    handler: function (response) {
+                        setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+                        resolve(true); // Resolve true on successful payment
 
-        // Optionally parse query parameters if URL includes them
-        const { mobileNumber, amount, currency } = parseQueryParams(url);
-        if (/^\d{10}$/.test(mobileNumber) && !isNaN(amount) && amount > 0 && currency) {
-          setMobileNumber(mobileNumber);
-          setAmount(amount);
-          setCurrency(currency);
-          setScanning(false); // Stop scanning after a successful scan
-        } else {
-          alert('Scanned data is not valid');
-        }
-      } catch (error) {
-        alert('Scanned data is not a valid URL');
-      }
-    }
-  };
+                    },
+                    prefill: {
+                        name: 'User Name',
+                        email: 'user@example.com',
+                        contact: '9999999999',
+                    },
+                    notes: {
+                        address: 'Your Address',
+                    },
+                    theme: {
+                        color: '#F37254',
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            resolve(false); // Resolve false if payment is cancelled
+                        }
+                    }
+                };
 
-  const handleError = (err) => {
-    console.error(err);
-    alert('Error scanning the QR code');
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validate mobile number
-    const mobileRegex = /^[0-9]{10}$/;
-    if (!mobileRegex.test(mobileNumber)) {
-      setAlertMessage('Enter a valid 10-digit mobile number');
-      return;
-    }
-
-    // Validate amount
-    if (isNaN(amount) || amount <= 0) {
-      setAlertMessage('Enter a valid amount');
-      return;
-    }
-
-    // Validate currency selection
-    if (!currency) {
-      setAlertMessage('Select a valid currency');
-      return;
-    }
-
-    // Generate a unique hash for the transaction
-    const transactionHash = uuidv4();
-
-    // If all validations pass, perform form submission logic here
-    try {
-      const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/wallet_transfer/', {
-        transaction_type: 'Debit', // Default value
-        transaction_amount: amount,
-        transaction_currency: currency,
-        transaction_status: 'Success', // Default value
-        transaction_fee: 0.0, // Default value
-        user_phone_number: mobileNumber, // Update to match the Django model field name
-        transaction_hash: transactionHash, // Include the unique hash
-      });
-      if (response.data.status === 'failure'){
-        setAlertMessage('Transaction Failure!');
-      }else if (response.data.status === 'mobile_failure'){
-        setAlertMessage("Number is not valid")
-      }else if (response.data.status === 'insufficient_funds'){
-        setAlertMessage("Insufficient Amount")
-      }else if (response.data.status === 'curreny_error'){
-        setAlertMessage('User Does not have Currency')
-      }else {
-        setAlertMessage('Transaction successful!');
-      }
-      
-      console.log('Transaction successful:', response.data);
-
-      // Reset form fields after successful submission
-      setMobileNumber('');
-      setAmount('');
-      setCurrency('');
-    } catch (error) {
-      setMessage(error.response ? error.response.data.detail : 'Error submitting transaction');
-      console.error('Error submitting transaction:', error.response ? error.response.data : error.message);
-    }
-  };
-
-  const handleCloseAlert = () => {
-    setAlertMessage('');
-    window.location.href = '/Userauthorization/Dashboard';
-  };
-  const settinghandleBackClick = () => {
-    let redirectUrl = '/TransactionType/WalletTransactionInterface';
-    router.push(redirectUrl);
-  };
-
-  return (
-    <form className="currency-form" onSubmit={handleSubmit}>
-      <div className="form-group">
-      {alertMessage && (
-        <div className="customAlert">
-          <p>{alertMessage}</p>
-          <button onClick={handleCloseAlert} className="closeButton">OK</button>
-        </div>
-      )}
-      <div className='back_container'>
-        <ArrowBackIcon className="setting_back_icon" onClick={settinghandleBackClick} />
-        <label className="center-label">Wallet Transactions</label>
-      </div>
-      <div className="form-group">
-        <label htmlFor="currency">Currency:</label>
-        <select
-          id="currency"
-          value={currency}
-          onChange={(e) => setCurrency(e.target.value)}
-          required
-          className='currency_type'
-        >
-          <option value="">Select a currency</option>
-          {currencies.map((currency) => (
-            <option key={currency.code} value={currency.code}>
-              {currency.name} ({currency.code})
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="amount">Amount:</label>
-        <input
-          type="number"
-          id="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-          className='currnecy_input'
-        />
-      </div>
-      
-      <div>
-      <label htmlFor="mobileNumber">Mobile Number:</label>
-        <input
-          type="text"
-          id="mobileNumber"
-          value={mobileNumber}
-          onChange={(e) => {
-            const value = e.target.value;
-            // Only allow digits and limit input to 10 digits
-            if (/^\d{0,10}$/.test(value)) {
-              setMobileNumber(value);
+                const rzp1 = new window.Razorpay(options);
+                rzp1.open();
+            } else {
+                alert("Razorpay script not loaded.");
+                resolve(false);
             }
-          }}
-          required
-          className='currnecy_input'
-        />
-      </div>
-      
-        
-      </div>
+        });
+    };
 
-      <button type="submit" onClick={initiateRazorpayPayment}>Transfer</button>
-      {message && <p>{message}</p>} {/* Display success or error message */}
-    </form>
-  );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Step 1: Client-side validations
+        const mobileRegex = /^[0-9]{10}$/;
+        if (!mobileRegex.test(mobileNumber)) {
+            setAlertMessage('Enter a valid 10-digit mobile number');
+            return;
+        }
+
+        if (isNaN(amount) || amount <= 0) {
+            setAlertMessage('Enter a valid amount');
+            return;
+        }
+
+        if (!currency) {
+            setAlertMessage('Select a valid currency');
+            return;
+        }
+
+        // Step 2: Server-side validation and initiate Razorpay payment only if validation succeeds
+        try {
+            const transactionHash = uuidv4();
+            const validationResponse = await axios.post('http://localhost:8000/api/transaction_validation/', {
+                transaction_amount: amount,
+                transaction_currency: currency,
+                user_phone_number: mobileNumber,
+            });
+    
+            if (validationResponse.data.status !== 'success') {
+                setAlertMessage(validationResponse.data.message);
+                return;
+            }else{
+                const paymentSuccess = await initiateRazorpayPayment();
+            if (paymentSuccess) {
+                await axios.post('http://localhost:8000/api/wallet_transfer/', {
+                    transaction_type: 'Debit',
+                    transaction_amount: amount,
+                    transaction_currency: currency,
+                    transaction_status: 'Success',
+                    transaction_fee: 0.0,
+                    user_phone_number: mobileNumber,
+                    transaction_hash: transactionHash,
+                });
+                setMessage('Transaction successful!', response.data);
+            }
+
+            }
+            
+        } catch (error) {
+            console.log(error.response ? error.response.data.detail : 'Error processing transaction');
+        }
+    };
+
+    const handleCloseAlert = () => {
+        setAlertMessage('');
+    };
+
+    const settinghandleBackClick = () => {
+        let redirectUrl = '/WalletTransactionInterface';
+        router.push(redirectUrl);
+    };
+
+    return (
+        <form className="currency-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+                {alertMessage && (
+                    <div className="customAlert">
+                        <p>{alertMessage}</p>
+                        <button onClick={handleCloseAlert} className="closeButton">OK</button>
+                    </div>
+                )}
+                <div className='back_container'>
+                    <ArrowBackIcon className="setting_back_icon" onClick={settinghandleBackClick} />
+                    <label className="center-label">Wallet Transactions</label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="currency">Currency:</label>
+                    <select
+                        id="currency"
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                        required
+                        className='currency_type'
+                    >
+                        <option value="">Select a currency</option>
+                        {currencies.map((currency) => (
+                            <option key={currency.code} value={currency.code}>
+                                {currency.name} ({currency.code})
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="amount">Amount:</label>
+                    <input
+                        type="number"
+                        id="amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        required
+                        className='currnecy_input'
+                    />
+                </div>
+                <div>
+                    <label htmlFor="mobileNumber">Mobile Number:</label>
+                    <input
+                        type="text"
+                        id="mobileNumber"
+                        value={mobileNumber}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            // Only allow digits and limit input to 10 digits
+                            if (/^\d{0,10}$/.test(value)) {
+                                setMobileNumber(value);
+                            }
+                        }}
+                        required
+                        className='currnecy_input'
+                    />
+                </div>
+            </div>
+            <button type="submit">Transfer</button>
+            {message && <p>{message}</p>} {/* Display success or error message */}
+        </form>
+    );
 };
 
 export default CurrencyForm;
