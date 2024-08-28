@@ -33,15 +33,18 @@ const SelectAsset = () => {
         asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         asset.symbol.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    const handleLeftArrowClick = () => {
+        window.location.href = '/FiatManagement/Currency_Conversion';
+    };
 
     return (
         <div className="assetContainer">
             <div className="topBar">
-                <button className="topBarButton" onClick={() => router.back()}>
-                    <FaArrowLeft className="topBarIcon" />
-                </button>
-                <div className="topBarTitle">Select asset to buy</div>
-            </div>
+          <button className="topBarButton">
+              <FaArrowLeft className="topBarIcon" onClick={handleLeftArrowClick} />
+          </button>
+          <h2 className="topBarTitle">Select Asset To Buy</h2>
+      </div>
             <div className="searchBar">
                 <input
                     type="text"

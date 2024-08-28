@@ -19,7 +19,7 @@ export default function AddCurrencyForm() {
     formData.append('currency_icon', currencyIcon);
 
     try {
-      const res = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/currencies/', {
+      const res = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/', {
         method: 'POST',
         body: formData,
       });

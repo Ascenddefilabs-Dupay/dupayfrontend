@@ -208,7 +208,7 @@ const CurrencyConverter = () => {
             {alertMessage && (
                 <div className='customAlert'>
                     <p>{alertMessage}</p>
-                    <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
+                    <button onClick={handleCloseAlert} className="closeButton">OK</button>
                 </div>
             )}
             <div className="topBar">
@@ -218,7 +218,7 @@ const CurrencyConverter = () => {
                 </button>
                 <div className="topBarTitle1">Buy</div>
                 <button className="topBarButton1" onClick={toggleBottomSheet}>
-                    <FaEllipsisV className="topBarIcon1" />
+                    <FaEllipsisV className="topBarIcon" />
                 </button>
             </div>
 

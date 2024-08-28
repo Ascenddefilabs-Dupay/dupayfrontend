@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import networkOptions from './NetworkOptions';
 import './NetworkSelector.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const NetworkSelector = () => {
     const router = useRouter();
@@ -17,6 +18,9 @@ const NetworkSelector = () => {
             // For example, you could highlight the selected option
         }
     }, []);
+    const handleLeftArrowClick = () => {
+        window.location.href = '/FiatManagement/Currency_Conversion';
+    };
 
     const handleSearchChange = (e) => {
         const query = e.target.value.toLowerCase();
@@ -35,8 +39,13 @@ const NetworkSelector = () => {
 
     return (
         <div className="networkSelectorContainer">
+            <div className="topBar">
+          <button className="topBarButton">
+              <FaArrowLeft className="topBarIcon" onClick={handleLeftArrowClick} />
+          </button>
+          <h2 className="topBarTitle">Select Network</h2>
+      </div>
             <div className="networkSelectorHeader">
-                <h2>Select Network</h2>
                 <input
                     type="text"
                     placeholder="Search..."

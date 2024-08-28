@@ -3,14 +3,13 @@
   color: #ffffff;
   padding: 20px;
   border-radius: 8px;
+  height: 100vh;
   width: 400px;
-  height: auto;
-  min-height: 100vh;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .searchInput {
-  width: 93%;
+  width: 100%;
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 4px;
@@ -20,7 +19,7 @@
 }
 
 .currencyList {
-  max-height: 420px;
+  max-height: 620px;
   overflow-y: auto;
 }
 
@@ -52,4 +51,31 @@
 }
 .flags{
   width: 10px;
+}
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Add spacing between icon and title if needed */
+  margin-bottom: 30px;
+  margin-top: 1px; /* Adjust this value to move up */
+}
+
+.topBarButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 0; /* Remove or adjust this if needed */
+}
+
+.topBarIcon {
+  margin-top: 17px;
+  margin-bottom: 15px;
+  font-size: 18px; /* Adjust size if needed */
+  color: white;
+}
+
+.topBarTitle {
+  font-size: 24px;
+  color: white;
+  margin-top: 0; /* Remove or adjust this if needed */
 }

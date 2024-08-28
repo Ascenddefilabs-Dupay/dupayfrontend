@@ -4,8 +4,8 @@
     color: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    width: 320px;
-    height: 550px;
+    width: 400px;
+    height: 100vh;
     margin-bottom: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -21,7 +21,7 @@
 
 .searchInput {
     
-    width: 93%;
+    width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 4px;
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 400px;
+    max-height: 600px;
     
 }
 
@@ -63,3 +63,31 @@
     color: #999;
     padding: 20px;
 }
+.topBar {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Add spacing between icon and title if needed */
+    margin-bottom: 30px;
+    margin-top: 1px; /* Adjust this value to move up */
+  }
+  
+  .topBarButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 0; /* Remove or adjust this if needed */
+  }
+  
+  .topBarIcon {
+    margin-top: 17px;
+    margin-bottom: 15px;
+    font-size: 18px; /* Adjust size if needed */
+    color: white;
+  }
+  
+  .topBarTitle {
+    font-size: 24px;
+    color: white;
+    margin-top: 0; /* Remove or adjust this if needed */
+    margin-right: 120px;
+  }

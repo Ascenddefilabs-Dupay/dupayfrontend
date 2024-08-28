@@ -1,7 +1,6 @@
 .container {
     height: 100vh;
     width: 400px;
-    
     color: white;
     padding: 20px;
     box-sizing: border-box;
@@ -49,7 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
   
   .fieldContainer {
@@ -65,7 +64,7 @@
   
   .input {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid #555;
     border-radius: 4px;
     background-color: #2a2a2a;
@@ -73,13 +72,13 @@
   }
   
   .submitButton {
-    padding: 10px;
+    padding: 8px;
     background: linear-gradient(90deg, #007bff9f, #800080);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 15px;
+    /* margin-left: 15px; */
     margin-top: 20px;
   }
   

@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './PaymentOptions.module.css';
 import UpiIcon from '/public/images/upi.png'; // Import the UPI image
+import { FaArrowLeft } from 'react-icons/fa';
 
 const PaymentOptions = () => {
     const router = useRouter();
@@ -10,10 +11,17 @@ const PaymentOptions = () => {
         localStorage.setItem('selectedPaymentOption', credit);
         router.back(); // Navigate back to the previous page
     };
-
+    const handleLeftArrowClick = () => {
+        window.location.href = '/FiatManagement/Currency_Conversion';
+    };
     return (
         <div className={styles.paymentOptionsContainer}>
-            <h1 className={styles.header}>Select Payment Option</h1>
+            <div className={styles.topBar}>
+                <button className={styles.topBarButton}>
+                    <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick} />
+                </button>
+                <h2 className={styles.topBarTitle}>Select Payment Option</h2>
+            </div>
             <div className={styles.paymentOptions}>
                 <div className={styles.paymentOption} onClick={() => handleCreditChange('UPI')}>
                     <img src={UpiIcon.src} alt="UPI" className={styles.paymentIcon} /> {/* Use the UPI image */}
