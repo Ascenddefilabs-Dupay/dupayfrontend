@@ -26,7 +26,7 @@ const RecoveryPhraseForm = () => {
         try {
             console.log(phrases);
             
-            const response = await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/api/check-recovery-phrase/', {
+            const response = await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/check-recovery-phrase/', {
                 phrases,
             });
 
