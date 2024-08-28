@@ -187,7 +187,7 @@ const PasswordForm = () => {
     const generateWalletId = async  () => {
         const prefix = 'DUP';
         try {
-            const response = await axios.get('https://walletmanagement-rcfpsxcera-uc.a.run.app/api/latest_wallet_id/');
+            const response = await axios.get('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/latest_wallet_id/');
             const lastId = response.data.wallet_id;
             let newId;
             if (lastId) {

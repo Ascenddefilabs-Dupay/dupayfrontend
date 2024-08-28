@@ -59,7 +59,7 @@ const PasswordForm = () => {
         e.preventDefault();
         if (passwordMatch && isChecked && walletId) {
             try {
-                const response = await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/api/update-password/', { wallet_id: walletId, password });
+                const response = await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/update-password/', { wallet_id: walletId, password });
                 setMessage('Password updated successfully :)');
                 setMessageType('success');
                 sessionStorage.removeItem('wallet_id');
