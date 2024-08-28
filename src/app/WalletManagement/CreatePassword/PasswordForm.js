@@ -219,7 +219,7 @@ const PasswordForm = () => {
     };
 
     const handleLeftArrowClick = () => {
-        window.location.href = './WalletCreation';
+        window.location.href = './WalletCreation/CreateAccount';
     };
 
     const handleVerifyPasswordChange = (e) => {
@@ -240,9 +240,9 @@ const PasswordForm = () => {
             // Navigate to the next page
             setMessage('Password saved :)');
             setMessageType('success');
-            setTimeout(() => {
-                window.location.href = './WalletSecretCode';
-            }, 2000);
+            // setTimeout(() => {
+            window.location.href = './WalletSecretCode';
+            // }, 2000);
         }
     };
 

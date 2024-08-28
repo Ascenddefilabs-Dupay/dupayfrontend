@@ -46,7 +46,7 @@ const PasswordForm = () => {
     };
 
     const handleLeftArrowClick = () => {
-        window.location.href = './WalletCreation';
+        window.location.href = './ImportPassphrase';
     };
 
     const handleVerifyPasswordChange = (e) => {
@@ -63,9 +63,9 @@ const PasswordForm = () => {
                 setMessage('Password updated successfully :)');
                 setMessageType('success');
                 sessionStorage.removeItem('wallet_id');
-                setTimeout(() => {
-                    window.location.href = '/Userauthorization/Dashboard';
-                }, 2000);
+                // setTimeout(() => {
+                window.location.href = '/Userauthorization/Dashboard';
+                // }, 2000);
             } catch (error) {
                 setMessage('Error updating password!');
                 setMessageType('error');

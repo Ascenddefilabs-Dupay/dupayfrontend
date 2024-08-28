@@ -34,9 +34,9 @@ const RecoveryPhraseForm = () => {
                 const { wallet_id } = response.data;
                 sessionStorage.setItem('wallet_id', wallet_id);
                 console.log(wallet_id);
-                setTimeout(() => {
-                    window.location.href = './UpdatePassword/';
-                }, 2000);
+                // setTimeout(() => {
+                window.location.href = './UpdatePassword/';
+                // }, 2000);
             } else {
                 setErrorMessage('Password words are incorrect');
             }
@@ -45,6 +45,11 @@ const RecoveryPhraseForm = () => {
             setErrorMessage('An error occurred. Please try again.');
         }
     };
+
+    const handleLeftArrowClick = () => {
+        window.location.href = './AddAccount';
+    };  
+      
 
     return (
         <div className="wallet-manager">
@@ -78,7 +83,7 @@ const RecoveryPhraseForm = () => {
                     {errorMessage && <p className="error">{errorMessage}</p>}
                     <button type="submit">Add Account</button>
                 </form>
-                <button className="cancel" onClick={() => window.history.back()}>Cancel</button>
+                <button className="cancel" onClick={handleLeftArrowClick}>Cancel</button>
             </div>
         </div>
     );

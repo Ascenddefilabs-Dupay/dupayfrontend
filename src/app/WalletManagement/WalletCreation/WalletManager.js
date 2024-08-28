@@ -15,15 +15,15 @@ const WalletManager = () => {
     window.location.href = './WalletCreation/AddAccount';
   };
 
-  const handleLeftArrowClick = () => {
-    window.location.href = '/create-new-wallet';
-  };  
+  // const handleLeftArrowClick = () => {
+  //   window.location.href = '/create-new-wallet';
+  // };  
 
   return (
     <div className="wallet-manager">
       <div className='card'>
         <div className="container">
-          <div className="column left" onClick={handleLeftArrowClick}>
+          <div className="column left" onClick={() => window.history.back()}>
           <FaArrowLeft />
           </div>
           <div className="column middle">

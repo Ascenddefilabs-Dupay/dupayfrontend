@@ -114,6 +114,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FiCopy } from 'react-icons/fi';
 import { faEye, faEyeSlash, faCopy } from '@fortawesome/free-solid-svg-icons';
 import './style.css'; // Ensure this path is correct
 import ProgressBar from '../WalletCreation/ProgressBar';
@@ -218,8 +219,10 @@ function Wallet2() {
                 </div>
             </div>
             <p className="description2">
-                <FontAwesomeIcon icon={faCopy} className="copy-icon" onClick={handleCopyClick} />
-                copy to clipboard
+                {/* <FontAwesomeIcon icon={faCopy} className="copy-icon" onClick={handleCopyClick} />
+                copy to clipboard */}
+                <FiCopy className="copy-icon" onClick={handleCopyClick} />
+                Copy to clipboard
             </p>
             <div className="checkbox-container">
                 <label>
