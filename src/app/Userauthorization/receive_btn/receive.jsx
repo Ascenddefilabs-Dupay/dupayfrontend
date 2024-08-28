@@ -106,7 +106,7 @@ export default function Receive() {
     };
 
     const handleBackClick = () => {
-        router.push('/Userauthorization/Dashboard');
+        router.push('/Crypto_Wallet/Dashboard');
     };
 
     const ProfileImage = styled('img')({
@@ -129,13 +129,8 @@ export default function Receive() {
     return (
         <div className={styles.container}>
             <div>
-                <ArrowBackIcon 
-                    onClick={handleBackClick} 
-                    className={`${styles.backIcon} ${styles.iconHover}`} 
-                />
-                <h1 className={styles.heading}>
-                    Received crypto and NFTs
-                </h1>
+                <ArrowBackIcon onClick={handleBackClick} className={`${styles.backIcon} ${styles.iconHover}`}/>
+                <span>Received crypto and NFTs</span> 
             </div>
             <div className={styles.searchContainer}>
                 <div className={styles.search}>
@@ -262,7 +257,7 @@ export default function Receive() {
                     style={{ margin: '0 30px', border: '1px solid white', width: '330px', height: '40px', borderRadius: '10px', padding: '8px', justifyContent: 'space-between', position: 'relative', top:'35px' }}
                 >
                     <button 
-                        onClick={() => router.push('/FiatManagement/Currency_Conversion')}
+                        onClick={() => router.push('http://localhost:3005/Currency_Conversion')}
                     >
                         Buy Crypto
                     </button>
