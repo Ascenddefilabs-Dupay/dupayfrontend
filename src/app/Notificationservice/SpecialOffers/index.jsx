@@ -38,7 +38,7 @@ const SpecialOffers = () => {
       return;
     }
 
-    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/api4/create-special-offers/', {
+    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/specialoffersapi/create-special-offers/', {
       email_id: 'user@example.com',  // Adjust this to dynamically fetch user email if needed
       message: 'This is a special offer just for you!',
     }, {
@@ -62,7 +62,7 @@ const SpecialOffers = () => {
   useEffect(() => {
     requestNotificationPermission();  // Request notification permission when component mounts
 
-    axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/api4/get-special-offers-user-ids/')
+    axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/specialoffersapi/get-special-offers-user-ids/')
       .then(response => {
         if (response.data.user_ids && response.data.user_ids.length > 0) {
           setUserId(response.data.user_ids[0]);  // Set the first user ID

@@ -11,7 +11,7 @@ const OtpForm = ({ email }) => {
 
   const handleOtpSubmit = async () => {
     try {
-      const response = await axiosInstance.put('/api/verify-email/', { email_id: email, otp });
+      const response = await axiosInstance.put('/emailverificationapi/verify-email/', { email_id: email, otp });
       setMessage(response.data.message);
       setMessageType('success');
     } catch (error) {
@@ -22,7 +22,7 @@ const OtpForm = ({ email }) => {
 
   const handleResendOtp = async () => {
     try {
-      await axiosInstance.post('/api/verify-email/', { email_id: email });
+      await axiosInstance.post('/emailverificationapi/verify-email/', { email_id: email });
       setMessage('OTP has been resent.');
       setMessageType('info');
       setIsResendDisabled(true);
