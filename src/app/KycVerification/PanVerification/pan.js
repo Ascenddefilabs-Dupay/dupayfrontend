@@ -232,7 +232,7 @@ const PanForm = () => {
     }
 
     try {
-      const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/', formData, {
+      const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/kyc-details/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
