@@ -232,12 +232,13 @@ const AadharForm = () => {
     }
 
     try {
-      await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/', formData, {
+      await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/kyc-details/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
       setAlertMessage('Aadhar submitted successfully!');
+      
       setShowAlert(true);
       setRedirect(true); // Trigger redirect state
       setAadharNumber('');
@@ -248,6 +249,7 @@ const AadharForm = () => {
     } catch (error) {
       console.error('Error submitting Aadhar:', error);
       setAlertMessage('Error submitting Aadhar. Please try again.');
+      
       setShowAlert(true);
     }
   };
@@ -323,6 +325,7 @@ const AadharForm = () => {
                 className={styles.inputFile}
                 onChange={(e) => handleImageChange(e, setAadharFrontImage, setAadharFrontImageUrl)}
                 required
+
               />
               {aadharFrontImageUrl && (
                 <img src={aadharFrontImageUrl} alt="Aadhar Front Preview" className={styles.uploadedImage} />

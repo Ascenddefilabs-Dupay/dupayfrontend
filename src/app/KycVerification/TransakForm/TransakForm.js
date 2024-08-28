@@ -136,7 +136,7 @@ const TransakForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:8000/api/kyc-details/', formData)
+    axios.post('http://https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/kyc-details/', formData)
       .then(response => {
         console.log(response.data);
         router.push('/KycVerification/kycform1');

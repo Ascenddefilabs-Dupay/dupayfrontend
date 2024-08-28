@@ -113,7 +113,7 @@ const DocumentForm = () => {
             const handleSaveAndRedirect = async () => {
                 const data = { country_name: countryName, document_type: documentType }; // Updated field name
                 try {
-                    await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/api/kyc-details/', data);
+                    await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/kyc-details/', data);
                     setAlertMessage('Document saved successfully!');
                     setShowAlert(true);
                     setTimeout(() => {
