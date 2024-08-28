@@ -35,7 +35,7 @@ const MyWallet = () => {
 
     useEffect(() => {
         // Fetch wallet details and user currencies
-        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user_currencies/?wallet_id=Wa0000000001')
+        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001')
             .then(response => {
                 const userCurrencies = response.data;
                 const updatedBalances = {};
@@ -49,7 +49,7 @@ const MyWallet = () => {
             })
             .catch(error => console.error('Error fetching user currencies:', error));
     
-        fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/currencies/')
+        fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/')
             .then(response => response.json())
             .then(data => {
                 setCurrencies(data);
@@ -111,7 +111,7 @@ const MyWallet = () => {
     };
 
     const handleSetLimitClick = () => {
-        router.push('/SetLimit');
+        router.push('/FiatManagement/SetLimit');
     };
 
     const customSelectStyles = {

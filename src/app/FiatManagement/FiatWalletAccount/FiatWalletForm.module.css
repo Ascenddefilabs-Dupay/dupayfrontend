@@ -45,13 +45,13 @@
   padding: 10px;
   border: 1px solid #555;
   border-radius: 5px;
-  width: 93%;
+  width: 100%;
   background: #2a2a2a;
   color: #f5f5f5;
 }
 .formGroup select {
   padding: 10px;
-  width: 98%;
+  width: 100%;
   border: 1px solid #555;
   border-radius: 5px;
   box-sizing: border-box;
@@ -74,6 +74,7 @@
   cursor: pointer;
   font-size: 16px;
   margin-top: 20px;
+  margin-right: 8px;
   
 }
 
@@ -142,4 +143,31 @@
   cursor: pointer;
   color: black;
   font-weight: bold;
+}
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Add spacing between icon and title if needed */
+  margin-bottom: 30px;
+  margin-top: 1px; /* Adjust this value to move up */
+}
+
+.topBarButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 0; /* Remove or adjust this if needed */
+}
+
+.topBarIcon {
+  margin-top: 17px;
+  margin-bottom: 15px;
+  font-size: 18px; /* Adjust size if needed */
+  color: white;
+}
+
+.topBarTitle {
+  font-size: 24px;
+  color: white;
+  margin-top: 0; /* Remove or adjust this if needed */
 }

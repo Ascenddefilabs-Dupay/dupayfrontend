@@ -1,9 +1,9 @@
 /* pages/SelectAsset.css */
 .assetContainer {
-    width: 428px;
-    height: auto;
-    min-height: 100vh;
+    width: 400px;
+    height: 100vh;
     background-color: #000;
+    padding: 20px;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -15,23 +15,33 @@
 .topBar {
     display: flex;
     align-items: center;
-    padding: 10px;
-    /* background-color: #1a1a1a; */
-}
-
-.topBarButton {
+     /* Add spacing between icon and title if needed */
+     gap: 15px;
+    margin-bottom: 30px;
+    margin-top: 1px; /* Adjust this value to move up */
+  }
+  
+  .topBarButton {
     background: none;
     border: none;
-    color: #fff;
-    font-size: 24px;
     cursor: pointer;
-}
-
-.topBarTitle {
-    flex: 1;
-    text-align: center;
+    margin-top: 0; /* Remove or adjust this if needed */
+  }
+  
+  .topBarIcon {
+    margin-top: 17px;
+    margin-bottom: 15px;
+    font-size: 18px; /* Adjust size if needed */
+    color: white;
+  }
+  
+  .topBarTitle {
     font-size: 24px;
-}
+    color: white;
+    margin-top: 0; /* Remove or adjust this if needed */
+    margin-right: 70px;
+
+  }
 
 .searchBar {
     padding: 10px;

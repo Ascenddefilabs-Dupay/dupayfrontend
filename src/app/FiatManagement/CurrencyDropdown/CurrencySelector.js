@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import country_list from './country-list';
 import styles from './CurrencySelector.module.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const CurrencySelector = () => {
   const [search, setSearch] = useState('');
@@ -20,10 +21,18 @@ const CurrencySelector = () => {
   const filteredCurrencies = Object.entries(country_list).filter(([currency]) =>
     currency.toLowerCase().includes(search.toLowerCase())
   );
+  const handleLeftArrowClick = () => {
+    window.location.href = '/FiatManagement/Currency_Conversion';
+};
 
   return (
     <div className={styles.currencySelector}>
-      <h2>Change Currency</h2>
+      <div className={styles.topBar}>
+          <button className={styles.topBarButton}>
+              <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick} />
+          </button>
+          <h2 className={styles.topBarTitle}>Change Currency</h2>
+      </div>
       <input
         type="text"
         placeholder="Search"

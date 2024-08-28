@@ -20,8 +20,7 @@ body {
     position: relative;
     justify-content: space-between;
     width: 400px; /* Set width to 320px */
-    height: auto; /* Set height to 600px */
-    min-height: 100vh;
+    height: 100vh; /* Set height to 600px */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     
 }
@@ -230,16 +229,15 @@ body {
 .bottomSheet {
     background-color: #333333;
     color: #fff;
-    position: relative;
-    bottom: -20px;
+    position: absolute;
+    bottom: 0;
     left: 0;
-    right: 10px;
+    right: 0;
     border-radius: 8px;
     padding: 10px; /* Reduce padding */
-    height: 100px;
+    height: px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
     border-top: 1px solid #333;
-    width: 400px;
 }
 
 .bottomSheetHeader1 {
@@ -274,7 +272,7 @@ body {
 
 .bottomSheetFooter {
     font-size: 12px;
-    margin-top: 10px;
+    margin-top: 0;
     color: #888;
 }
 
@@ -346,7 +344,7 @@ body {
     width: 100%;
     margin: 0; /* Remove margin */
     padding: 0; /* Remove padding */
-    margin-left: -35px;
+    margin-left: -15px;
     font-size: 12px;
 }
 
@@ -397,18 +395,11 @@ body {
     padding: 0; /* Remove padding */
 }
 .topBarIcon{
-    margin-left: -30px;
+    margin-left: -10px;
     font-size: 18px;
 }
 .topBarIcon1{
-    margin-left: 40px;
-    font-size: 18px;
-}
-.topBarIcon1{
-    position: relative;
-    justify-content: end;
-    /* right:100px; */
-    /* margin-right: 80px; */
+    margin-right: -10px;
     font-size: 18px;
 }
 .topBar {
@@ -416,7 +407,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0 7px;
     color: #fff;
 }
 
@@ -480,6 +471,7 @@ body {
     margin-bottom: 0; /* Ensure no space below the input */
     margin-left:13px ;
     
+    
 }
 
 .amountDisplay.large .amountLabel {
@@ -525,6 +517,8 @@ body {
     cursor: pointer;
     font-size: 24px;
     margin-left:13px ;
+    margin-top: 0;
+
 }
 .topBarButton1 {
     background: none;
@@ -532,12 +526,12 @@ body {
     color: #fff;
     cursor: pointer;
     font-size: 24px;
-    margin-right: -20px;
+    margin-right: 10px;
 }
 .topBarTitle1 {
     font-size: 22px;
     font-weight: bold;
-    margin-left: 40px; /* Space between title and back button */
+    margin-left: -190px; /* Space between title and back button */
 }
 
 .separator {
@@ -554,10 +548,10 @@ body {
 
 
 /* Hover effect for the button */
-.networkDisplay:hover {
+/* .networkDisplay:hover {
     background-color: #e0e0e0;
     border-color: #bbb;
-}
+} */
 .networkInfo {
     display: flex;
     align-items: center;
@@ -567,7 +561,8 @@ body {
     padding: 7px 15px;
     cursor: pointer;
     color: white; /* Text color */
-    width:65%;
+    width:70%;
+   
 }
 
 .networkInfo .icon {

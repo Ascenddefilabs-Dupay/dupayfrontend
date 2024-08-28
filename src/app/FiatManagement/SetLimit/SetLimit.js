@@ -18,7 +18,7 @@ const SetLimit = () => {
     };
 
     useEffect(() => {
-        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user/DupC0001/')
+        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/DupC0001/')
             .then(response => {
                 setWalletDetails(response.data);
             })
@@ -63,7 +63,7 @@ const SetLimit = () => {
 
         if (walletDetails) {
             try {
-                const response = await axios.put('https://fiatmanagement-rcfpsxcera-uc.a.run.app/api/user/DupC0001/', {
+                const response = await axios.put('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/DupC0001/', {
                     ...walletDetails,
                     users_data_limit: parsedAmount,
                     limit_type: limitType
