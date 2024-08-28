@@ -100,7 +100,7 @@ const CurrencyForm = () => {
         // Step 2: Server-side validation and initiate Razorpay payment only if validation succeeds
         try {
             const transactionHash = uuidv4();
-            const validationResponse = await axios.post('http://localhost:8000/api/transaction_validation/', {
+            const validationResponse = await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/transaction_validation/', {
                 transaction_amount: amount,
                 transaction_currency: currency,
                 user_phone_number: mobileNumber,
@@ -112,7 +112,7 @@ const CurrencyForm = () => {
             }else{
                 const paymentSuccess = await initiateRazorpayPayment();
             if (paymentSuccess) {
-                await axios.post('http://localhost:8000/api/wallet_transfer/', {
+                await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/wallet_transfer/', {
                     transaction_type: 'Debit',
                     transaction_amount: amount,
                     transaction_currency: currency,
