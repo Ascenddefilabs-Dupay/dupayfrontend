@@ -19,7 +19,7 @@ const Index = () => {
   };
 
   const createMessageNotification = () => {
-    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/api2/api2/create-message-notification/', {
+    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/messagenotificationapi/create-message-notification/', {
       email_id: 'user@example.com',
       message: 'This is your message notification!!',
     }, {
@@ -37,7 +37,7 @@ const Index = () => {
   };
 
   const createProductAnnouncementNotification = () => {
-    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/api3/api3/create-product-announcement-notification/', {
+    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/productannouncementapi/create-product-announcement-notification/', {
       email_id: 'user@example.com',
       message: 'This is your product announcement!!',
     }, {

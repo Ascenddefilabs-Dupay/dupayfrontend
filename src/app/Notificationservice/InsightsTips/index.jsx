@@ -38,7 +38,7 @@ const index = () => {
       return;
     }
 
-    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/api5/create-insights-tips-notification/', {
+    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/insightstipsapi/create-insights-tips-notification/', {
       email_id: 'user@example.com',  // Adjust this to dynamically fetch user email if needed
       message: 'This is your insights tips notification!',
     }, {
@@ -60,7 +60,7 @@ const index = () => {
   useEffect(() => {
     requestNotificationPermission();  // Request notification permission when component mounts
 
-    axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/api5/get_insights_tips_user_ids/')
+    axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/insightstipsapi/get_insights_tips_user_ids/')
       .then(response => {
         if (response.data.user_ids && response.data.user_ids.length > 0) {
           setUserId(response.data.user_ids[0]);  // Set the first user ID

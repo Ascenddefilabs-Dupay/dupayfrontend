@@ -8,7 +8,7 @@ const EmailForm = ({ onEmailSent }) => {
 
   const handleEmailSubmit = async () => {
     try {
-      const response = await axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/api/verify-email/', { email_id: email });
+      const response = await axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/emailverificationapi/verify-email/', { email_id: email });
       setMessage(response.data.message);
       onEmailSent(email);
     } catch (error) {
