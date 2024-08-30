@@ -13,7 +13,7 @@ const AddAccount = () => {
     };
 
   return (
-    <div className="wallet-manager">
+    // <div className="wallet-manager">
     <div className="add-account-container">
             <div className="add-account-header">
                 <h1>Add Account</h1>
@@ -28,7 +28,7 @@ const AddAccount = () => {
             </div>
             <button className="close-button" onClick={handleClose}>&times;</button>
             </div>
-    </div>
+    // </div>
   );
 }
 
