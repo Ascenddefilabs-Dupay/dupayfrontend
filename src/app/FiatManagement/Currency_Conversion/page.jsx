@@ -1,208 +1,218 @@
 "use client";
 import styles from './page.css';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import country_list from '../CurrencyDropdown/country-list';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FaArrowLeft, FaEllipsisV, FaChevronRight } from 'react-icons/fa';
 import networkOptions from '../NetworkPage/NetworkOptions';
 
+// Authentication and role-based access hook
+const useAuth = () => {
+  const isAuthenticated = true; // Replace with actual authentication logic
+  const hasRole = (role) => role === 'admin'; // Replace with actual role checking logic
+  return { isAuthenticated, hasRole };
+};
+
 const CurrencyConverter = () => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const selectedCurrency = searchParams.get('currency');
-    const [fromCurrency, setFromCurrency] = useState('ETH'); // Default value
-    const [toCurrency, setToCurrency] = useState('INR');
-    const [amount, setAmount] = useState('0');
-    const [result, setResult] = useState('');
-    const [error, setError] = useState('');
-    const [showBottomSheet, setShowBottomSheet] = useState(false);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [network, setNetwork] = useState('OP Mainnet'); // Default value
-    const [buy, setBuy] = useState('ETH');
-    const [showPaymentOptions, setShowPaymentOptions] = useState(false);
-    const [credit, setCredit] = useState('IMPS');
-    const [provide, setProvide] = useState('Onramp Money');
-    const cryptoApiKey = 'd87e655eb0580e20c381f19ecd513660587ebed07d93f102ac46a3efe32596ca';
-    const [alertMessage, setAlertMessage] = useState('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedCurrency = searchParams.get('currency');
+  const [fromCurrency, setFromCurrency] = useState('ETH'); // Default value
+  const [toCurrency, setToCurrency] = useState('INR');
+  const [amount, setAmount] = useState('0');
+  const [result, setResult] = useState('');
+  const [error, setError] = useState('');
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [network, setNetwork] = useState('OP Mainnet'); // Default value
+  const [buy, setBuy] = useState('ETH');
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [credit, setCredit] = useState('IMPS');
+  const [provide, setProvide] = useState('Onramp Money');
+  const cryptoApiKey = 'd87e655eb0580e20c381f19ecd513660587ebed07d93f102ac46a3efe32596ca';
+  const [alertMessage, setAlertMessage] = useState('');
+  const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
 
-    useEffect(() => {
-        if (selectedCurrency) {
-            setToCurrency(selectedCurrency);
-            setShowBottomSheet(true);
-        }
-    }, [selectedCurrency]);
+  useEffect(() => {
+    if (selectedCurrency) {
+      setToCurrency(selectedCurrency);
+      setShowBottomSheet(true);
+    }
+  }, [selectedCurrency]);
 
-    useEffect(() => {
-        const storedNetwork = localStorage.getItem('selectedNetwork');
-        if (storedNetwork) {
-            setNetwork(storedNetwork);
-            setFromCurrency(storedNetwork); // Update fromCurrency to the selected network
-        }
-    }, []);
+  useEffect(() => {
+    const storedNetwork = localStorage.getItem('selectedNetwork');
+    if (storedNetwork) {
+      setNetwork(storedNetwork);
+      setFromCurrency(storedNetwork); // Update fromCurrency to the selected network
+    }
+  }, []);
 
-    const isFiatCurrency = (currency) => {
-        return country_list.hasOwnProperty(currency);
+  const isFiatCurrency = (currency) => {
+    return country_list.hasOwnProperty(currency);
+  };
+
+  const fetchConversionRates = useCallback(async () => {
+    if (!fromCurrency || !toCurrency || !amount || isNaN(amount) || parseFloat(amount) <= 0) {
+      setError('Please enter valid input');
+      setResult('');
+      return;
+    }
+
+    try {
+      if (isFiatCurrency(toCurrency) && !isFiatCurrency(fromCurrency)) {
+        const response = await axios.get(
+          `https://min-api.cryptocompare.com/data/price?fsym=${fromCurrency}&tsyms=${toCurrency}&api_key=${cryptoApiKey}`
+        );
+        const conversionRate = response.data[toCurrency];
+        const cryptoValue = parseFloat(amount) / conversionRate;
+
+        setResult(cryptoValue.toFixed(5));
+        setAlertMessage(''); // Clear alert message
+      } else {
+        setAlertMessage('Invalid currency selection or unsupported conversion');
+        setResult('');
+      }
+    } catch (err) {
+      setAlertMessage('Error fetching conversion rate');
+      setResult('');
+    }
+  }, [amount, fromCurrency, toCurrency]);
+
+  useEffect(() => {
+    fetchConversionRates();
+  }, [amount, fromCurrency, toCurrency]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
     };
+  }, []);
 
-    const fetchConversionRates = async () => {
-        if (!fromCurrency || !toCurrency || !amount || isNaN(amount) || parseFloat(amount) <= 0) {
-            setError('Please enter valid input');
-            setResult('');
-            return;
+  const initiateRazorpayPayment = useCallback(() => {
+    if (window.Razorpay) {
+      const options = {
+        key: 'rzp_test_41ch2lqayiGZ9X', // Your Razorpay API Key
+        amount: parseFloat(amount) * 100, // Amount in paisa
+        currency: 'INR',
+        name: 'DUPAY',
+        description: 'Payment for currency conversion',
+        handler: function (response) {
+          setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+        },
+        prefill: {
+          name: 'User Name',
+          email: 'user@example.com',
+          contact: '9999999999',
+        },
+        notes: {
+          address: 'Your Address',
+        },
+        theme: {
+          color: '#F37254',
+        },
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } else {
+      setAlertMessage("Razorpay script not loaded.");
+    }
+  }, [amount]);
+
+  const handleContinue = useCallback(() => {
+    router.push('/Currenciespage');
+  }, [router]);
+
+  const toggleBottomSheet = useCallback(() => {
+    setShowBottomSheet((prevState) => !prevState);
+  }, []);
+
+  const toggleDropdown = useCallback(() => {
+    setShowDropdown((prevState) => !prevState);
+  }, []);
+
+  const handleKeypadClick = useCallback((key) => {
+    setAmount(prevAmount => {
+      if (key === '←') {
+        const newAmount = prevAmount.slice(0, -1);
+        return newAmount === '' ? '0' : newAmount;
+      } else if (key === '.') {
+        if (!prevAmount.includes('.')) {
+          return prevAmount === '' ? '0.' : prevAmount + '.';
         }
-
-        try {
-            if (isFiatCurrency(toCurrency) && !isFiatCurrency(fromCurrency)) {
-                const response = await axios.get(
-                    `https://min-api.cryptocompare.com/data/price?fsym=${fromCurrency}&tsyms=${toCurrency}&api_key=${cryptoApiKey}`
-                );
-                const conversionRate = response.data[toCurrency];
-                const cryptoValue = parseFloat(amount) / conversionRate;
-
-                setResult(cryptoValue.toFixed(5));
-                setError('');
-            } else {
-                setError('Invalid currency selection or unsupported conversion');
-                setResult('');
-            }
-        } catch (err) {
-            setError('Error fetching conversion rate');
-            setResult('');
-        }
-    };
-
-    useEffect(() => {
-        fetchConversionRates();
-    }, [amount, fromCurrency, toCurrency]);
-
-    useEffect(() => {
-        // Load Razorpay script
-        const script = document.createElement('script');
-        script.src = "https://checkout.razorpay.com/v1/checkout.js";
-        script.async = true;
-        document.body.appendChild(script);
-
-        // Cleanup the script when component unmounts
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
-    const initiateRazorpayPayment = () => {
-        if (window.Razorpay) {
-            const options = {
-                key: 'rzp_test_41ch2lqayiGZ9X', // Your Razorpay API Key
-                amount: parseFloat(amount) * 100, // Amount in paisa
-                currency: 'INR',
-                name: 'DUPAY',
-                description: 'Payment for currency conversion',
-                handler: function (response) {
-                    setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-                    // Handle payment success
-                },
-                prefill: {
-                    name: 'User Name',
-                    email: 'user@example.com',
-                    contact: '9999999999',
-                },
-                notes: {
-                    address: 'Your Address',
-                },
-                theme: {
-                    color: '#F37254',
-                },
-            };
-
-            const rzp1 = new window.Razorpay(options);
-            rzp1.open();
+        return prevAmount;
+      } else {
+        if (prevAmount === '0' && key !== '.') {
+          return key;
         } else {
-            setAlertMessage("Razorpay script not loaded.");
+          return prevAmount + key;
         }
-    };
+      }
+    });
+  }, []);
 
-    const handleContinue = () => {
-        router.push('/Currenciespage');
-    };
+  useEffect(() => {
+    const storedPaymentOption = localStorage.getItem('selectedPaymentOption');
+    if (storedPaymentOption) {
+      setCredit(storedPaymentOption);
+      setShowBottomSheet(false);
+    }
+  }, []);
 
-    const toggleBottomSheet = () => {
-        setShowBottomSheet(!showBottomSheet);
-    };
+  const handleCurrencyChange = useCallback((currency) => {
+    setToCurrency(currency);
+    setShowBottomSheet(false);
+  }, []);
 
-    const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
-    };
+  const handleAmountChange = useCallback((e) => {
+    let value = e.target.value;
 
-    const handleKeypadClick = (key) => {
-        setAmount(prevAmount => {
-            if (key === '←') {
-                const newAmount = prevAmount.slice(0, -1);
-                return newAmount === '' ? '0' : newAmount;
-            } else if (key === '.') {
-                if (!prevAmount.includes('.')) {
-                    return prevAmount === '' ? '0.' : prevAmount + '.';
-                }
-                return prevAmount;
-            } else {
-                if (prevAmount === '0' && key !== '.') {
-                    return key;
-                } else {
-                    return prevAmount + key;
-                }
-            }
-        });
-    };
+    if (value.startsWith('0') && value.length > 1 && !value.includes('.')) {
+      value = value.replace(/^0+/, '');
+    }
 
-    useEffect(() => {
-        const storedPaymentOption = localStorage.getItem('selectedPaymentOption');
-        if (storedPaymentOption) {
-            setCredit(storedPaymentOption);
-            setShowBottomSheet(false);
-        }
-    }, []);
+    setAmount(value);
+  }, []);
 
-    const handleCurrencyChange = (currency) => {
-        setToCurrency(currency);
-        setShowBottomSheet(false);
-    };
+  const navigateToBuy = useCallback(() => {
+    router.push('/FiatManagement/BuyPage');
+  }, [router]);
 
-    const handleAmountChange = (e) => {
-        let value = e.target.value;
+  const togglePaymentOptions = useCallback(() => {
+    setShowPaymentOptions((prevState) => !prevState);
+  }, []);
 
-        if (value.startsWith('0') && value.length > 1 && !value.includes('.')) {
-            value = value.replace(/^0+/, '');
-        }
+  const navigateToPaymentOptions = useCallback(() => {
+    router.push('/FiatManagement/PaymentOptions');
+  }, [router]);
 
-        setAmount(value);
-    };
+  const navigateToCurrencySelector = useCallback(() => {
+    router.push('/FiatManagement/CurrencyDropdown');
+  }, [router]);
 
-    const navigateToBuy = () => {
-        router.push('/FiatManagement/BuyPage');
-    };
+  const navigateToNetworkSelector = useCallback(() => {
+    router.push('/FiatManagement/NetworkPage');
+  }, [router]);
 
-    const togglePaymentOptions = () => {
-        setShowPaymentOptions(!showPaymentOptions);
-    };
+  const navigateToDashboard = useCallback(() => {
+    window.location.href = '/Userauthorization/Dashboard';
+  }, []);
 
-    const navigateToPaymentOptions = () => {
-        router.push('/FiatManagement/PaymentOptions');
-    };
+  const handleCloseAlert = useCallback(() => {
+    setAlertMessage('');
+  }, []);
 
-    const navigateToCurrencySelector = () => {
-        router.push('/FiatManagement/CurrencyDropdown');
-    };
-
-    const navigateToNetworkSelector = () => {
-        router.push('/FiatManagement/NetworkPage');
-    };
-
-    const navigateToDashboard = () => {
-        window.location.href = '/Userauthorization/Dashboard';
-    };
-    const handleCloseAlert = () => {
-        setAlertMessage('');
-    };
+  if (!isAuthenticated || !hasRole('admin')) {
+    return <p>You are not authorized to access this page.</p>;
+  }
     return (
         <div className="converterContainer">
             {alertMessage && (

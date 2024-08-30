@@ -13,17 +13,23 @@ const SetLimit = () => {
     const [error, setError] = useState(''); // State for error message
     const [submitted, setSubmitted] = useState(false); // State for submission tracking
 
-    const handleBackClick = () => {
-        router.back(); // Go back to the previous page
-    };
-
     useEffect(() => {
-        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/DupC0001/')
-            .then(response => {
+        const fetchWalletDetails = async () => {
+            try {
+                const response = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/DupC0001/');
                 setWalletDetails(response.data);
-            })
-            .catch(error => setAlertMessage('Error fetching wallet details'));
+            } catch (error) {
+                console.error('Error fetching wallet details:', error);
+                setAlertMessage('Error fetching wallet details');
+            }
+        };
+
+        fetchWalletDetails();
     }, []);
+
+    const handleBackClick = () => {
+        router.back();
+    };
 
     const handleAmountChange = (e) => {
         let inputValue = e.target.value;
@@ -57,7 +63,7 @@ const SetLimit = () => {
         const parsedAmount = parseFloat(amount);
 
         if (isNaN(parsedAmount) || parsedAmount <= 0) {
-            setError('Please enter a valid amount greater than zero.');
+            setAlertMessage('Please enter a valid amount greater than zero.');
             return;
         }
 
@@ -65,18 +71,19 @@ const SetLimit = () => {
             try {
                 const response = await axios.put('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/DupC0001/', {
                     ...walletDetails,
-                    users_data_limit: parsedAmount,
-                    limit_type: limitType
+                    users_daily_limit: parsedAmount,
+                    limit_type: limitType,
                 });
 
                 if (response.status === 200) {
                     setAlertMessage('Limit updated successfully');
                     setAmount('');
-                    setError(''); // Clear the error if successful
+                    setError('');
                 } else {
                     setAlertMessage('Failed to update limit');
                 }
             } catch (error) {
+                console.error('Error updating limit:', error);
                 setAlertMessage('Error updating limit');
             }
         } else {

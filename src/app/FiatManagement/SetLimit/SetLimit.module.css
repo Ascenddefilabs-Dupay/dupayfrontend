@@ -1,17 +1,33 @@
 .container {
     height: 100vh;
+    max-height: auto;
     width: 400px;
+    max-width: 100%;
     background-color: black;
     color: white;
     padding: 20px;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin: 70px auto 0; /* Combined margin properties */
+    margin: 70px auto 0; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 0;
 }
 
+
+/* for other devices*/
+@media (max-width: 1024px) {
+  .container {
+    width: 100%; 
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .container {
+    width: 100%; 
+  }
+}
 
 /* .header {
     display: flex;

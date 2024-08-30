@@ -16,7 +16,7 @@ const MyWallet = () => {
         CAD: 0.00,
     });
 
-
+    const [alertMessage, setAlertMessage] = useState('');
     const currencySymbols = {
         INR: '₹',
         USD: '$',
@@ -24,48 +24,49 @@ const MyWallet = () => {
         GBP: '£',
         AUD: 'A$',
         CAD: 'C$',
-        // Add more currencies as needed
     };
+
     const [selectedCurrency, setSelectedCurrency] = useState({ value: 'INR', label: 'INR' });
     const [selectedCountry, setSelectedCountry] = useState('India');
     const [selectedCurrencyImage, setSelectedCurrencyImage] = useState(''); 
     const [currencies, setCurrencies] = useState([]);
-    const [walletDetails, setWalletDetails] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        // Fetch wallet details and user currencies
-        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001')
-            .then(response => {
-                const userCurrencies = response.data;
+        const fetchData = async () => {
+            try {
+                const userCurrenciesResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
+                const userCurrencies = userCurrenciesResponse.data;
                 const updatedBalances = {};
+
                 userCurrencies.forEach(currency => {
                     updatedBalances[currency.currency_type] = parseFloat(currency.balance);
                 });
+
                 setBalances(prevBalances => ({
                     ...prevBalances,
                     ...updatedBalances,
                 }));
-            })
-            .catch(error => console.error('Error fetching user currencies:', error));
-    
-        fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/')
-            .then(response => response.json())
-            .then(data => {
+
+                const currenciesResponse = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/');
+                const data = await currenciesResponse.json();
                 setCurrencies(data);
-                // Set default currency image
+
                 const defaultCurrency = data.find(currency => currency.currency_code === 'INR');
                 if (defaultCurrency) {
                     setSelectedCurrencyImage(defaultCurrency.currency_icon);
                     setSelectedCountry(defaultCurrency.currency_country);
                 }
-            })
-            .catch(error => console.error('Error fetching currencies:', error));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setAlertMessage('An error occurred while fetching data.');
+            }
+        };
+
+        fetchData();
     }, []);
-    
 
     useEffect(() => {
-        // Update image when currency changes
         const selected = currencies.find(currency => currency.currency_code === selectedCurrency.value);
         if (selected) {
             setSelectedCurrencyImage(selected.currency_icon);
@@ -105,7 +106,7 @@ const MyWallet = () => {
             if (foundCurrency) {
                 setSelectedCurrency({ value: foundCurrency.currency_code, label: foundCurrency.currency_code });
             } else {
-                alert('Currency not found');
+                setAlertMessage('Currency not found.');
             }
         }
     };
@@ -113,7 +114,9 @@ const MyWallet = () => {
     const handleSetLimitClick = () => {
         router.push('/FiatManagement/SetLimit');
     };
-
+    const handleLeftArrowClick = () => {
+        window.location.href = '/Userauthorization/Dashboard';
+    };
     const customSelectStyles = {
         control: (base) => ({
             ...base,
@@ -136,10 +139,14 @@ const MyWallet = () => {
         }),
     };
 
+    const handleCloseAlert = () => {
+        setAlertMessage('');
+    };
+
     return (
         <div className={styles.walletContainer}>
             <div className={styles.header}>
-                <FaArrowLeft className={styles.backArrow} />
+                <FaArrowLeft className={styles.backArrow} onClick={handleLeftArrowClick}/>
                 <h2 className={styles.title}>My Wallet</h2>
             </div>
             <div className={styles.balanceCard}>

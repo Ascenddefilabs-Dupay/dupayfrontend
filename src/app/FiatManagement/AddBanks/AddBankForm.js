@@ -1,53 +1,80 @@
-import { useState } from 'react';
-import styles from './AddBankForm.module.css';
+import { useState, useCallback } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import styles from './AddBankForm.module.css'
+import dynamic from 'next/dynamic';
 
-export default function AddBankForm() {
+// Authentication and role-based access hook (included in the same file)
+const useAuth = () => {
+  const isAuthenticated = true; // Replace with actual authentication logic
+  const hasRole = (role) => role === 'admin'; // Replace with actual role checking logic
+  return { isAuthenticated, hasRole };
+};
+
+const AddBankForm = () => {
   const [bankName, setBankName] = useState('');
   const [bankIcon, setBankIcon] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [errors, setErrors] = useState({});
   const router = useRouter();
   const [alertMessage, setAlertMessage] = useState('');
+  const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('bank_name', bankName);
-    formData.append('bank_icon', bankIcon);
-
-    try {
-      const res = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/banks/', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (res.ok) {
-
-        setAlertMessage('Bank added successfully!');
-        router.push ('/Userauthorization/Dashboard')
-        setBankName('');
-        setBankIcon(null);
-        setStatusMessage('');
-        setErrors({});
-      } else {
-        const errorData = await res.json();
-        setErrors(errorData);
-        setStatusMessage('Failed to add bank.');
+      if (!bankName || !bankIcon) {
+        setErrors({ message: 'Please fill all fields' });
+        return;
       }
-    } catch (error) {
-      console.error('Error:', error);
-      setStatusMessage('An error occurred.');
-    }
-  };
-  const handleLeftArrowClick = () => {
-    window.location.href = '/Userauthorization/Dashboard';
-};
-const handleCloseAlert = () => {
-  setAlertMessage("");
-}
+
+      const formData = new FormData();
+      formData.append('bank_name', bankName);
+      formData.append('bank_icon', bankIcon);
+
+      try {
+        const res = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/banks/', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (res.ok) {
+          setAlertMessage('Bank added successfully!');
+          router.push('/Userauthorization/Dashboard');
+          setBankName('');
+          setBankIcon(null);
+          setStatusMessage('');
+          setErrors({});
+        } else {
+          const errorData = await res.json();
+          // setErrors(errorData);
+
+          
+          const errorMessages = Object.values(errorData).flat().join(', ');
+          setAlertMessage(`Failed to add bank: ${errorMessages}`);
+          setStatusMessage('Failed to add bank.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setAlertMessage(`An error occurred: ${error.message}`);
+        setStatusMessage('An error occurred.');
+      }
+    },
+    [bankName, bankIcon, router]
+  );
+
+  const handleLeftArrowClick = useCallback(() => {
+    router.push('/Userauthorization/Dashboard');
+  }, [router]);
+
+  const handleCloseAlert = useCallback(() => {
+    setAlertMessage('');
+  }, []);
+
+  if (!isAuthenticated || !hasRole('admin')) {
+    return <p>You are not authorized to access this page.</p>;
+  }
 
   return (
     <div className={styles.container}>
@@ -91,3 +118,4 @@ const handleCloseAlert = () => {
     </div>
   );
 }
+export default dynamic(() => Promise.resolve(AddBankForm), { ssr: false });
