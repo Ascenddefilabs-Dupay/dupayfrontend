@@ -15,11 +15,11 @@ const StyledContainer = styled(Container)({
     alignItems: 'flex-start',
     padding: '1rem',
     backgroundColor: '#000000',
-    borderRadius: '8px',
+    borderRadius: '0px',
     color: '#FFFFFF',
     width: '428px',
     height:'auto', // Adjust height for additional content
-    minHeight: '100vh' ,
+    minHeight: '130vh' ,
     overflowY: 'auto',  // Adjust height for additional content
     scrollbarWidth: 'none', // For Firefox
     padding:'20px',
@@ -149,7 +149,6 @@ const ManagePrivacy = () => {
             <header style={styles.header}>
                 <Link href="/UserProfile">
                 <BackArrow />
-
                 </Link>
             </header>
             <Box display="flex" justifyContent="flex-start" width="100%">

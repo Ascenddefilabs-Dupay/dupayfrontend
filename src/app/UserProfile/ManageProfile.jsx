@@ -16,11 +16,11 @@ const StyledContainer = styled(Container)({
   alignItems: 'flex-start',
   padding: '1rem',
   backgroundColor: '#000000',
-  borderRadius: '8px',
+  borderRadius: '0px',
   color: '#FFFFFF',
   width:'428px',
   height:'auto' ,
-  minHeight:'100vh',// // Adjust height for additional content
+  minHeight:'120vh',// // Adjust height for additional content
   padding : '20px',
 });
 const styles = {

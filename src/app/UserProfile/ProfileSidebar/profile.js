@@ -73,7 +73,7 @@ const UserProfile = () => {
   };
 
   const profilehandleBackClick = () => {
-    let redirectUrl = 'http://localhost:3003/Dashboard/Settings';
+    let redirectUrl = '/Userauthorization/Dashboard/Settings';
     router.push(redirectUrl);
   };
 
@@ -85,16 +85,9 @@ const UserProfile = () => {
     <div className={styles.pageWrapper}>
       <div className={styles.sidebarContainer}>
         <div className={styles.header}>
-          {/* <Link href="/UserProfile/ProfileSidebar">
-          <BackArrow   style={{position: 'relative' ,right:'10px'}} onClick={profilehandleBackClick}/>    <label className={styles.header1}> ProfileSidebar</label>
-
-          </Link> */}
-          <IconButton color="inherit" href="/UserProfile/ProfileSidebar" className={styles.backButton}>
+          <IconButton color="inherit" href="/Userauthorization/Dashboard/Settings" className={styles.backButton}>
             <BackArrow style={{position: 'relative' ,right:'10px'}} onClick={profilehandleBackClick}/>   <label className={styles.header1}> ProfileSidebar</label>
           </IconButton>
-          {/* <IconButton>
-            <ArrowBack className={styles.backIcon} onClick={profilehandleBackClick} />
-          </IconButton> */}
         </div>
         <div className={styles.menuList}>
           <ProfileWrapper>
@@ -103,7 +96,7 @@ const UserProfile = () => {
             </ProfileImageWrapper>
             <Box>
               <Typography variant="h6" style={{ color: '#B0B0B0' }}>
-                {user.user_id}
+                {user.user_id || 'Loading profile details...'}
               </Typography>
             </Box>
           </ProfileWrapper>
