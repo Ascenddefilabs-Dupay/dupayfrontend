@@ -1,15 +1,28 @@
-.container1 {
-    height: 550px;
-    width: 320px;
-    
+.container {
+    height: 100vh;
+    width: 400px;
+    max-width: 100%;
+    max-height: auto;
     color: white;
     padding: 20px;
     box-sizing: border-box;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     margin: 0 auto;
-    margin-top: 70px;  
+    /* margin-top: 70px;   */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     background: black;
+}
+@media (max-width: 1024px) {
+  .container {
+    width: 100%; 
+  }
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%; 
+  }
 }
 .topBar {
     display: flex;

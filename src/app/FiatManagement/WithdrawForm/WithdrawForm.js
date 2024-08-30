@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useRouter } from 'next/navigation';
 import Select from 'react-select';
 import axios from 'axios';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './WithdrawForm.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
+// Custom hook for protected routing
+const useAuth = () => {
+    // Replace this with your actual authentication logic
+    const isAuthenticated = true; // Example: Fetch from global state or context
+    const userRole = 'user'; // Example: Fetch user role
+
+    return { isAuthenticated, userRole };
+};
+
 const WithdrawForm = () => {
+    const router = useRouter();
+    const { isAuthenticated, userRole } = useAuth();
     const [balances, setBalances] = useState({ INR: 0.00, USD: 0.00, GBP: 0.00, EUR: 0.00, AUD: 0.00, CAD: 0.00 });
     const [amount, setAmount] = useState('');
     const [selectedCurrency, setSelectedCurrency] = useState({ value: 'INR', label: 'INR' });
@@ -17,8 +29,6 @@ const WithdrawForm = () => {
     const [pendingAmount, setPendingAmount] = useState(null);
     const [isOkButtonDisabled, setIsOkButtonDisabled] = useState(false);
     const [walletDetails, setWalletDetails] = useState(null);
-
-    
     const [showForm, setShowForm] = useState(true);
 
     // Currency symbols mapping
@@ -29,36 +39,101 @@ const WithdrawForm = () => {
         GBP: '£',
         AUD: 'A$',
         CAD: 'C$',
-        // Add more currencies as needed
     };
+
+    // Protected routing logic
     useEffect(() => {
-        // Load Razorpay script
+        if (!isAuthenticated) {
+            router.push('/login'); // Redirect to login if not authenticated
+        }
+    }, [isAuthenticated, router]);
+
+    // Lazy loading for Razorpay script
+    useEffect(() => {
         const script = document.createElement('script');
-        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
         script.async = true;
         document.body.appendChild(script);
 
-        // Cleanup the script when component unmounts
         return () => {
             document.body.removeChild(script);
         };
     }, []);
 
+    useEffect(() => {
+        const fetchInitialData = async () => {
+            try {
+                const walletResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
+                setWalletDetails(walletResponse.data);
+
+                const userCurrenciesResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
+                const newBalances = {};
+                userCurrenciesResponse.data.forEach(currency => {
+                    newBalances[currency.currency_type] = parseFloat(currency.balance);
+                });
+                setBalances(prevBalances => ({ ...prevBalances, ...newBalances }));
+
+                const currenciesResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/');
+                setCurrencies(currenciesResponse.data);
+
+                const banksResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/banks/');
+                setBanks(banksResponse.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setAlertMessage('Failed to fetch data. Please try again later.');
+            }
+        };
+
+        fetchInitialData();
+    }, []);
+    const bankOptions = banks.map(bank => ({
+        value: bank.id,
+        label: (
+            <div className={styles.bankOption}>
+                <img src={bank.bank_icon} alt={bank.bank_name} className={styles.bankIcon} />
+                {bank.bank_name}
+            </div>
+        ),
+    }));
+
+    const currencyOptions = currencies.map(currency => ({
+        value: currency.currency_code,
+        label: (
+            <div className={styles.currencyOption}>
+                <img src={currency.currency_icon} alt={currency.currency_code} className={styles.currencyIcon} />
+                {currency.currency_code} - {currency.currency_country}
+            </div>
+        ),
+
+    }));
+    
+
+    
+
+    
+    const handleAmountChange = (e) => {
+        let inputValue = e.target.value;
+        if (/^[0-9]*\.?[0-9]*$/.test(inputValue)) {
+            inputValue = inputValue.replace(/^0+/, '') || '0';
+            const [integer, fraction = ''] = inputValue.split('.');
+            setAmount(integer + (fraction ? '.' + fraction.slice(0, 2) : ''));
+        }
+    };
+
+    const handleCurrencyChange = (option) => setSelectedCurrency(option);
+    const handleBankChange = (option) => setSelectedBank(option);
+
     const initiateRazorpayPayment = () => {
-        
         return new Promise((resolve) => {
             if (window.Razorpay) {
                 const options = {
-                    key: 'rzp_test_41ch2lqayiGZ9X', // Your Razorpay API Key
-                    amount: parseFloat(amount) * 100, // Amount in paisa
+                    key: 'rzp_test_41ch2lqayiGZ9X', 
+                    amount: parseFloat(amount) * 100,
                     currency: currencies,
                     name: 'DUPAY',
                     description: 'Payment for currency conversion',
                     handler: function (response) {
-                        // setShowForm(true);
-                        // setAlertMessage("Payment successful");
-                        
-                        resolve(true); // Resolve true on successful payment
+                        resolve(true);
                     },
                     prefill: {
                         name: 'User Name',
@@ -73,7 +148,7 @@ const WithdrawForm = () => {
                     },
                     modal: {
                         ondismiss: function() {
-                            resolve(false); // Resolve false if payment is cancelled
+                            resolve(false);
                         }
                     }
                 };
@@ -84,87 +159,30 @@ const WithdrawForm = () => {
                 setAlertMessage("Razorpay script not loaded.");
                 resolve(false);
             }
-            
         });
     };
-
-    useEffect(() => {
-        // Fetch wallet details from UserCurrencies table
-        axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001`)
-            .then(response => {
-                setWalletDetails(response.data);
-            })
-            .catch(error => console.error('Error fetching wallet details:', error));
-        axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001`)
-            .then(response => {
-                const userCurrencies = response.data;
-                const newBalances = {};
-    
-                userCurrencies.forEach(currency => {
-                    newBalances[currency.currency_type] = parseFloat(currency.balance);
-                });
-    
-                setBalances(prevBalances => ({ ...prevBalances, ...newBalances }));
-            })
-            .catch(error => console.error('Error fetching wallet details:', error));
-    
-        // Fetch currencies
-        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/')
-            .then(response => setCurrencies(response.data))
-            .catch(error => console.error('Error fetching currencies:', error));
-    
-        // Fetch banks
-        axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/banks/')
-            .then(response => setBanks(response.data))
-            .catch(error => console.error('Error fetching banks:', error));
-    }, []);
-
-    const handleAmountChange = (e) => {
-        let inputValue = e.target.value;
-        if (/^[0-9]*\.?[0-9]*$/.test(inputValue)) {
-            inputValue = inputValue.replace(/^0+/, '') || '0';
-            const [integer, fraction = ''] = inputValue.split('.');
-            setAmount(integer + (fraction ? '.' + fraction.slice(0, 2) : ''));
-        }
-    };
-
-    const handleCurrencyChange = (option) => setSelectedCurrency(option);
-    const handleBankChange = (option) => setSelectedBank(option);
 
     const handleWithdraw = async () => {
         if (loading) return;
         setLoading(true);
-    
+
         const parsedAmount = parseFloat(amount);
-    
-        if (!selectedCurrency) {
-            setAlertMessage('Please select a currency.');
+        if (!selectedCurrency || !amount || isNaN(parsedAmount) || parsedAmount <= 0 || !selectedBank) {
+            setAlertMessage('Please fill all required fields correctly.');
             setLoading(false);
             return;
         }
-    
-        if (!amount || isNaN(parsedAmount) || parsedAmount <= 0) {
-            setAlertMessage('Please enter a valid amount.');
-            setLoading(false);
-            return;
-        }
-        if (!selectedBank) {
-            setAlertMessage('Please select a bank account.');
-            setLoading(false);
-            return;
-        }
-    
+
         if (parsedAmount > balances[selectedCurrency.value]) {
             setAlertMessage('Insufficient balance.');
             setLoading(false);
             return;
         }
-    
+
         if (selectedCurrency.value === 'INR') {
             setShowForm(false);
             const paymentSuccess = await initiateRazorpayPayment();
             if (paymentSuccess) {
-                // Update balance before showing the alert
                 setBalances(prevBalances => ({
                     ...prevBalances,
                     [selectedCurrency.value]: prevBalances[selectedCurrency.value] - parsedAmount
@@ -181,9 +199,12 @@ const WithdrawForm = () => {
                     transaction_method: 'wallet-withdraw',
                     sender_mobile_number:walletDetails.fiat_wallet_phone_number,
                     user_phone_number:walletDetails.fiat_wallet_phone_number
+                  })
+                  .then((error)=>{
+                        console.log(error);
                   });
                 setPendingAmount(parsedAmount);
-                setAlertMessage('Withdrawn successfully!');
+                setAlertMessage('Withdrawn successful');
                 setShowForm(true);
             } else {
                 setShowForm(true);
@@ -191,7 +212,6 @@ const WithdrawForm = () => {
             }
         } else {
             setShowForm(true);
-            // Update balance before showing the alert
             setBalances(prevBalances => ({
                 ...prevBalances,
                 [selectedCurrency.value]: prevBalances[selectedCurrency.value] - parsedAmount
@@ -209,38 +229,35 @@ const WithdrawForm = () => {
                         sender_mobile_number:walletDetails.fiat_wallet_phone_number,
                         user_phone_number:walletDetails.fiat_wallet_phone_number
                       });
-    
+
             setPendingAmount(parsedAmount);
-            setAlertMessage('Withdrawn successfully!');
+            setAlertMessage('Withdrawn successful');
         }
-    
+
         setLoading(false);
     };
 
     const handleLeftArrowClick = () => {
-        window.location.href = '/Userauthorization/Dashboard';
+        router.push('/Userauthorization/Dashboard');
     };
-    
+
     const handleCloseAlert = () => {
         if (pendingAmount !== null && !isOkButtonDisabled) {
-            setIsOkButtonDisabled(true); // Disable the button only when processing a pending amount
-    
+            setIsOkButtonDisabled(true);
+
             axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/withdraw/', {
                 wallet_id: 'Wa0000000001',
                 currency_type: selectedCurrency.value,
                 amount: pendingAmount
             })
-            
-            
             .then(response => {
                 const { user_currency_balance } = response.data;
-    
                 setBalances(prevBalances => ({
                     ...prevBalances,
                     [selectedCurrency.value]: user_currency_balance
                 }));
                 setAmount('');
-                setPendingAmount(null); // Reset pendingAmount to avoid multiple deductions
+                setPendingAmount(null);
                 setAlertMessage('');
             })
             .catch(error => {
@@ -249,14 +266,12 @@ const WithdrawForm = () => {
                 setAlertMessage('Failed to withdraw the amount. Please try again.');
             })
             .finally(() => {
-                setIsOkButtonDisabled(false); // Re-enable the button after the process is complete
+                setIsOkButtonDisabled(false);
             });
         } else {
-            // For all other alerts, simply close the alert
             setAlertMessage('');
-            setPendingAmount(null); // Reset pendingAmount even if there was no actual withdrawal
+            setPendingAmount(null);
         }
-        setAlertMessage("");
     };
     
     
@@ -295,7 +310,7 @@ const WithdrawForm = () => {
                 </button>
                 <h2 className={styles.topBarTitle}>Withdraw</h2>
             </div>
-            
+            <Suspense fallback={<div>Loading form...</div>}>
             <div className={styles.cardContainer}>
                         <div className={styles.balanceCard}>
                             <div className={styles.currencyInfo}>
@@ -362,6 +377,7 @@ const WithdrawForm = () => {
                     Withdraw
                 </button>
             </div>
+            </Suspense>
 
         </div>
         )}

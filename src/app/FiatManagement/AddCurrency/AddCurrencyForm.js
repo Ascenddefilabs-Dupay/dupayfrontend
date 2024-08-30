@@ -1,17 +1,30 @@
-import { useState } from 'react';
-import styles from './AddCurrencyForm.module.css';
+import { useState, useCallback } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
+import styles from './AddCurrencyForm.module.css';
 
-export default function AddCurrencyForm() {
+// Authentication and role-based access hook (included in the same file)
+const useAuth = () => {
+  const isAuthenticated = true; // Replace with actual authentication logic
+  const hasRole = (role) => role === 'admin'; // Replace with actual role checking logic
+  return { isAuthenticated, hasRole };
+};
+
+const AddCurrencyForm = () => {
   const [currencyCode, setCurrencyCode] = useState('');
   const [currencyCountry, setCurrencyCountry] = useState('');
   const [currencyIcon, setCurrencyIcon] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [alertMessage, setAlertMessage] = useState('');
+  const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+
+    if (!currencyCode || !currencyCountry || !currencyIcon) {
+      setAlertMessage('Please fill all fields');
+      return;
+    }
 
     const formData = new FormData();
     formData.append('currency_code', currencyCode.toUpperCase());
@@ -33,16 +46,30 @@ export default function AddCurrencyForm() {
         setErrors({});
       } else {
         const errorData = await res.json();
-        setErrors(errorData);
+        // setErrors(errorData);
+
+        
+        const errorMessages = Object.values(errorData).flat().join(', ');
+        setAlertMessage(`Failed to add currency: ${errorMessages}`);
         setStatusMessage('Failed to add currency.');
       }
     } catch (error) {
       console.error('Error:', error);
+      setAlertMessage(`An error occurred: ${error.message}`);
       setStatusMessage('An error occurred.');
     }
-  };
-  const handleCloseAlert = () => {
-    setAlertMessage("");
+  }, [currencyCode, currencyCountry, currencyIcon]);
+
+  const handleLeftArrowClick = useCallback(() => {
+    window.location.href = '/Userauthorization/Dashboard';
+  }, []);
+
+  const handleCloseAlert = useCallback(() => {
+    setAlertMessage('');
+  }, []);
+
+  if (!isAuthenticated || !hasRole('admin')) {
+    return <p>You are not authorized to access this page.</p>;
   }
 
 
@@ -56,7 +83,7 @@ export default function AddCurrencyForm() {
             )}
       <div className={styles.topBar}>
         <button className={styles.topBarButton}>
-          <FaArrowLeft className={styles.topBarIcon} />
+          <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick}/>
         </button>
         <h2 className={styles.topBarTitle}>Add Currency</h2>
       </div>
@@ -99,3 +126,4 @@ export default function AddCurrencyForm() {
     </div>
   );
 }
+export default AddCurrencyForm;

@@ -1,14 +1,29 @@
-/* General Container */
+
 .container {
+  width: 400px; 
+  max-width: 100%;
   padding: 20px;
-  border-radius: 8px;
-  height: 100vh;
-  width: 400px;
-  margin: 70px auto 0; /* Combined margin properties */
+  /* border-radius: 8px; */
+  margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background: black;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin-top: 0;
+  height: 100vh;
+  max-height: auto;
+}
+
+/* for other devices*/
+@media (max-width: 1024px) {
+  .container {
+    width: 100%; 
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .container {
+    width: 100%; 
+  }
 }
 
 /* Header Styling */

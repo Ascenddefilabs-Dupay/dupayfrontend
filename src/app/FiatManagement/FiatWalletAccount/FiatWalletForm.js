@@ -36,61 +36,65 @@ export default function FiatWalletForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError({});
     setSuccess(null);
-  
+
     // Perform validation checks
     if (!validateFields()) {
-      // Errors are displayed below the fields, no alert needed for errors
-      return;
-    }
-  
-    try {
-      // Fetch the user ID by username
-      const userResponse = await axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/?username=${username}`);
-      
-      if (userResponse.data.length === 0) {
-        setError({ form: 'Username does not exist.' });
+        setAlertMessage('Please correct the errors before submitting.');
         return;
-      }
-  
-      const userId = userResponse.data[0].id; // Get the user ID from the response
-  
-      // Now create the fiat wallet with the correct user ID
-      const response = await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/fiat_wallets/', {
-        fiat_wallet_type: walletType,
-        fiat_wallet_currency: walletCurrency.toUpperCase(),
-        fiat_wallet_username: username, // Keep username in the request for additional checks
-        fiat_wallet_phone_number: phoneNumber,
-        user: userId // Send the user ID in the request body
-      });
-  
-      setSuccess('Wallet created successfully!');
-      setAlertMessage('Wallet created successfully!');
-      setPhoneNumber('');
-      setUsername('');
-      setWalletCurrency("");
-      setWalletType("");
-      
-      console.log('Wallet created:', response.data);
-    } catch (error) {
-      let errorMessage;
-      if (error.response && error.response.data) {
-        errorMessage = JSON.stringify(error.response.data);
-      } else {
-        errorMessage = 'Error creating wallet';
-      }
-      setError({ form: errorMessage });
-      console.error('Error creating wallet:', error);
     }
-  };
-  const handleLeftArrowClick = () => {
-    window.location.href = '/Userauthorization/Dashboard';
+
+    try {
+        const userId = "DupC0007"; // Assuming this is the user ID from context or a placeholder.
+
+        // Create the fiat wallet with the correct user ID
+        const response = await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/fiat_wallets/', {
+            fiat_wallet_type: walletType,
+            fiat_wallet_currency: walletCurrency.toUpperCase(),
+            fiat_wallet_username: username,
+            fiat_wallet_phone_number: phoneNumber,
+            user: userId
+        });
+
+        setSuccess('Wallet created successfully!');
+        setAlertMessage('Wallet created successfully!');
+        setPhoneNumber('');
+        setUsername('');
+        setWalletCurrency('');
+        setWalletType('');
+
+        console.log('Wallet created:', response.data);
+    } catch (error) {
+        let errorMessage;
+
+        if (error.response && error.response.data) {
+            // Access specific error messages from the response
+            if (error.response.data.username) {
+                errorMessage = error.response.data.username;
+            } else if (error.response.data.phoneNumber) {
+                errorMessage = error.response.data.phoneNumber;
+            } else if (error.response.data.detail) {
+                errorMessage = error.response.data.detail; // Generic message if specific not found
+            } else {
+                errorMessage = 'Error creating wallet'; // Fallback message
+            }
+        } else {
+            errorMessage = 'Error creating wallet';
+        }
+
+        setAlertMessage(errorMessage);
+        console.error('Error creating wallet:', error);
+    }
 };
   
+
+  const handleLeftArrowClick = () => {
+    window.location.href = '/Userauthorization/Dashboard';
+  };
+
   const handleCloseAlert = () => {
-    setAlertMessage('')
-  }
+    setAlertMessage('');
+  };
   return (
     <div className={styles.container}>
       {alertMessage && (

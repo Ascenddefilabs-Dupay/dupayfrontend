@@ -63,6 +63,9 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    sessionStorage.setItem("user_id","DupC0003");
+    sessionStorage.setItem("wallet_id","Wa0000000003");
+
 
     if (loginMode === 'password') {
       try {
