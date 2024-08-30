@@ -6,20 +6,20 @@ import styles from './login.module.css';
 import Navbar from '../LandingPage/Navbar';
 import Cookies from 'js-cookie';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useRouter } from 'next/navigation';
 
-
+import UseSession from './hooks/UseSession';
 export default function Login() {
+  const router = useRouter();
+  const { isLoggedIn, userData, clearSession } = UseSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [otp, setOtp] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loginMode, setLoginMode] = useState('password'); // 'password', 'otp', 'google'
+  const [loginMode, setLoginMode] = useState('password');
   const [otpTimer, setOtpTimer] = useState(0);
-  const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    // Initialize Google Sign-In button
     const initializeGoogleSignIn = () => {
       window.google.accounts.id.initialize({
         client_id: "896447012011-mnfigne1bhvjm1cj5tfjb33mb7fn3mpr.apps.googleusercontent.com",
@@ -42,29 +42,17 @@ export default function Login() {
     }
   }, []);
 
-  useEffect(() => {
-    let timer;
-    if (otpTimer > 0) {
-      timer = setInterval(() => {
-        setOtpTimer((prev) => prev - 1);
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [otpTimer]);
-
   const handleGoogleResponse = async (response) => {
     try {
-      const res = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/google-login/', {
+      const res = await axios.post('http://localhost:8000/loginapi/google-login/', {
         token: response.credential,
       });
 
       if (res.status === 200) {
         const { user_id, user_first_name, user_email, user_phone_number, session_id } = res.data;
-        setCookies(user_id, user_first_name, user_email, user_phone_number, session_id);
-        setIsLoggedIn(true);
-        window.location.href = '/KycVerification/PersonalDetails';
-        setUserData({ user_id, user_first_name, user_email, user_phone_number });
+        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
         alert('Logged in successfully with Google');
+        window.location.href = '/KycVerification/PersonalDetails';
       } else {
         alert('Google login failed.');
       }
@@ -78,43 +66,38 @@ export default function Login() {
 
     if (loginMode === 'password') {
       try {
-        const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/login/', {
+        const response = await axios.post('http://localhost:8000/loginapi/login/', {
           user_email: email,
           user_password: password,
         });
 
         if (response.status === 200) {
           await sendOtp();
-          setOtpTimer(50);
+          setOtpTimer(30);
           alert('OTP sent to your email.');
-          setLoginMode('otp'); // Switch to OTP mode
+          setLoginMode('otp');
         } else {
           alert('Invalid email or password.');
         }
       } catch (error) {
-        console.error('Error during login:', error.response ? error.response.data : error.message);
         alert('Username or password is incorrect.');
       }
     } else if (loginMode === 'otp') {
       try {
-        const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/verify-otp/', {
+        const response = await axios.post('http://localhost:8000/loginapi/verify-otp/', {
           user_email: email,
           user_otp: otp,
         });
 
         if (response.status === 200) {
-          console.log(response.data)
           const { user_id, user_first_name, user_email, user_phone_number, session_id } = response.data;
-          setCookies(user_id, user_first_name, user_email, user_phone_number, session_id);
-          setIsLoggedIn(true);
-          window.location.href = '/KycVerification/PersonalDetails';
-          setUserData({ user_id, user_first_name, user_email, user_phone_number });
+          LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
           alert('Logged in successfully');
+          window.location.href = '/KycVerification/PersonalDetails';
         } else {
           alert('Invalid OTP.');
         }
       } catch (error) {
-        console.error('Error during OTP verification:', error.response ? error.response.data : error.message);
         alert('Error verifying OTP.');
       }
     }
@@ -122,7 +105,7 @@ export default function Login() {
 
   const sendOtp = async () => {
     try {
-      await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/generate-otp/', {
+      await axios.post('http://localhost:8000/loginapi/generate-otp/', {
         user_email: email,
       });
       setOtpTimer(30);
@@ -132,15 +115,21 @@ export default function Login() {
     }
   };
 
-  const setCookies = (user_id, user_first_name, user_email, user_phone_number, session_id) => {
-    const expirationTime = 1/ 1440; // 2 minutes
-    
-    Cookies.set('user_id', user_id, { expires: expirationTime });
-    Cookies.set('user_first_name', user_first_name, { expires: expirationTime });
-    Cookies.set('user_email', user_email, { expires: expirationTime });
-    Cookies.set('user_phone_number', user_phone_number, { expires: expirationTime });
-    Cookies.set('session_id', session_id, { expires: expirationTime }); // Store session ID
+  const LocalStorage = (user_id, user_first_name, user_email, user_phone_number, session_id) => {
+    const expirationDate = new Date();
+    expirationDate.setMinutes(expirationDate.getMinutes() + 2);
+
+    const sessionData = {
+      session_id,
+      user_id,
+      user_first_name,
+      user_email,
+      user_phone_number,
+      expiration: expirationDate.toISOString(),
+    };
+    localStorage.setItem('session_data', JSON.stringify(sessionData));
   };
+
 
   return (
     <div className={styles.container}>
