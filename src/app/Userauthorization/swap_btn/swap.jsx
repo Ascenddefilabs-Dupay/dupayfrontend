@@ -40,7 +40,7 @@ export default function Swap() {
             top: '1px',
             margin: '0 auto',
             color: 'white',
-            minHeight: '80vh',
+            minHeight: '100vh',
             borderRadius: '15px',
             display: 'flex',
             flexDirection: 'column',
@@ -48,14 +48,14 @@ export default function Swap() {
             cursor: 'pointer',
         }}>
             {loading ? (
-                <div style={{color: 'white', fontSize: '18px'}}>
-                    Loading...
-                </div>
+                <div style={styles.loaderContainer}>
+                    <div style={styles.loader}></div>
+                    </div>
             ) : (
                 <>
             <div style={{ flex: '1' }}> 
                 <ArrowBackIcon onClick={handleBackClick} style={{ margin: '10px 15px' }} />
-                <img src="/swap_image.png" alt="Swap image" style={{ height: '140px', marginLeft: '130px' }} />
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911804/swap_image_tcwqal.png" alt="Swap image" style={{ height: '140px', marginLeft: '130px' }} />
                 <header style={{ alignItems: 'center', marginLeft: '110px', fontSize: '20px' }}>
                     Get the best price
                     <p style={{ marginLeft: '20px' }}>
@@ -141,3 +141,43 @@ export default function Swap() {
         </div>
     );
 }
+
+const styles = {
+    loaderContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'rgba(0, 0, 0, 1.5)', // Set background color to black
+        backdropFilter: 'blur(10px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+        zIndex: 2,
+        padding: '20px',
+        borderRadius: '20px',
+        width:'400px',
+        margin:'0 auto',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
+      },
+      loader: {
+        width: '60px',
+        height: '60px',
+        background: 'linear-gradient(45deg, #ff007b, #007bff)',
+        borderRadius: '12%',
+        animation: 'spin 1s linear infinite',
+        transform: 'rotate(45deg)',
+        position: 'relative',
+        zIndex: 3,
+        boxShadow: '0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7)',
+      },
+      loadingText: {
+        fontSize: '20px',
+        color: 'white',
+        letterSpacing: '2px',
+        marginTop: '20px',
+        fontFamily: 'Arial, sans-serif',
+      },
+    };

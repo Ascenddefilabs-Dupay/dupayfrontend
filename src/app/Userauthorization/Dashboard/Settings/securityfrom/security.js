@@ -104,7 +104,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FormLabel from '@mui/material/FormLabel';
 import { Switch } from '@mui/material';
 
-const SecurityScreen = () => {
+const Security = () => {
     const [requiredmode, sethandleMode] = useState(false);
     const [transmode, sethandletransactionMode] = useState(false);
     const [isFormVisible, setIsFormVisible] = useState(true);
@@ -183,4 +183,4 @@ const SecurityScreen = () => {
     );
 };
 
-export default SecurityScreen;
+export default Security;

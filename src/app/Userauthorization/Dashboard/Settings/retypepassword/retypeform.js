@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import '../retypepassword/retypeform.css';
 
-const RetypePasscodeScreen = () => {
+const Retype = () => {
     const [passcode, setPasscode] = useState("");
     const router = useRouter();
 
@@ -66,4 +66,4 @@ const RetypePasscodeScreen = () => {
     );
 };
 
-export default RetypePasscodeScreen;
+export default Retype;

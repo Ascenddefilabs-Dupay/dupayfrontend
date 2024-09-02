@@ -110,18 +110,17 @@ export default function Send() {
     };
 
     return (
-        <div style={{ backgroundColor: 'black', width: '400px', margin: '0 auto', height: '100vh', color: 'white', borderRadius: '12px', top: '1px', alignItems: 'center' }}>
+        <div style={{ backgroundColor: 'black', width: '400px', margin: '0 auto', height: '100vh', color: 'white', borderRadius: '12px', top: '1px', alignItems: 'center', }}>
             <ArrowBackIcon onClick={handleBackClick} style={{ margin: '15px 10px' }} />
             {loading ? (
-                <div style={styles.loadingContainer}>
-                    <div style={styles.spinner}></div>
-                    <p style={styles.loadingText}>LOADING</p>
+                <div style={styles.loaderContainer}>
+                    <div style={styles.loader}></div>
                 </div>
             ) : (
                 <>
                     <h1 style={{ marginTop: '-40px', marginLeft: '45px', cursor: 'pointer' }}>Send</h1>
                     <div style={{ alignItems: 'center' }}>
-                        <img src="/send_image.png" alt="Send_Image" style={{ height: '160px', width: '160px', marginLeft: '112px', marginTop: '20px' }} />
+                        <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911804/send_image_ipuouh.png" alt="Send_Image" style={{ height: '160px', width: '160px', marginLeft: '112px', marginTop: '20px' }} />
                     </div>
                     <div style={{ marginTop: '50px' }}>
                         <p style={{ marginLeft: '100px' }}>To send, first add crypto to</p>
@@ -163,29 +162,41 @@ export default function Send() {
 
 // Inline CSS styles
 const styles = {
-    loadingContainer: {
+    loaderContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh',
-        width: '400px',
-        margin: '0 auto',
-        backgroundColor: 'black',
-        fontFamily: 'Arial, sans-serif',
-    },
-    spinner: {
-        width: '30px',
-        height: '30px',
-        border: '6px solid #ffffff',
-        borderTop: '8px solid #ffffff',
-        borderRadius: '20%',
+        alignItems: 'center',
+        background: 'rgba(0, 0, 0, 1.5)', // Set background color to black
+        backdropFilter: 'blur(10px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+        zIndex: 2,
+        padding: '20px',
+        borderRadius: '20px',
+        width:'400px',
+        margin:'0 auto',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
+      },
+      loader: {
+        width: '60px',
+        height: '60px',
+        background: 'linear-gradient(45deg, #ff007b, #007bff)',
+        borderRadius: '12%',
         animation: 'spin 1s linear infinite',
-        marginBottom: '20px',
-    },
-    loadingText: {
+        transform: 'rotate(45deg)',
+        position: 'relative',
+        zIndex: 3,
+        boxShadow: '0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7)',
+      },
+      loadingText: {
         fontSize: '20px',
         color: 'white',
         letterSpacing: '2px',
-    },
-};
+        marginTop: '20px',
+        fontFamily: 'Arial, sans-serif',
+      },
+    };

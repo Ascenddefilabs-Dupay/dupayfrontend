@@ -4,7 +4,7 @@ import styles from './importwallet.module.css';
 import { useRouter } from 'next/navigation';
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-const Home = () => {
+const Importwallet = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
@@ -82,4 +82,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Importwallet;

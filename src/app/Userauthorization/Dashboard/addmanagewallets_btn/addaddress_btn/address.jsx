@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './address.module.css'
 
-const Home = () => {
+const Addaddress = () => {
     const router = useRouter();
 
     const handleBackClick = () => {
@@ -22,7 +22,7 @@ return(
         <div className={styles.progressBar}></div>
             <h1 className={styles.heading}>Add an address</h1>
            
-            <img src="/Addaddress.svg" alt="Center Logo" className= {styles.image}/>
+            <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933124/Addaddress_koffsx.svg" alt="Center Logo" className= {styles.image}/>
             
             <p className={styles.paragraph}>Each address includes a unique Ethereum and 
                 Solana address that belongs to your wallet. 
@@ -35,4 +35,4 @@ return(
     </div>
         )
     }
-    export default Home;
+    export default Addaddress;

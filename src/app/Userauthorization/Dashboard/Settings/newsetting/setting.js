@@ -18,7 +18,7 @@ import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
-const Settings = () => {
+const Newsetting = () => {
   const router = useRouter();
   const [simpleMode, setSimpleMode] = useState(false);
 
@@ -208,4 +208,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Newsetting;

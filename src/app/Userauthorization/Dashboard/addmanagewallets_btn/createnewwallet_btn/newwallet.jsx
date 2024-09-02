@@ -4,7 +4,7 @@ import styles from './newwallet.module.css';
 import {useRouter} from 'next/navigation'
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-const Home = () => {
+const Newwallet = () => {
   const router = useRouter();
 
   const handleBackClick = () => {
@@ -18,7 +18,7 @@ const Home = () => {
       <div className={styles.progressBar}></div>
       <h1 className={styles.heading} >Create a new wallet</h1>
       <div className={styles.imageContainer}>
-        <img src="/NewWallet.png" alt="Center Logo" />
+        <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933126/NewWallet_hrv3tw.png" alt="Center Logo" />
       </div>
       <p className={styles.paragraph}>
         Your new wallet will be secured by a secret recovery phrase. To keep your crypto safe, 
@@ -31,4 +31,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Newwallet;

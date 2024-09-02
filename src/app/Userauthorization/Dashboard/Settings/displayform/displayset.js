@@ -163,7 +163,7 @@ import { FormLabel, RadioGroup, FormControlLabel, Radio, Switch } from '@mui/mat
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-const DisplaySettings = () => {
+const Displayinterface = () => {
   const [appearance, setAppearance] = useState('auto');
   const [privacyMode, setPrivacyMode] = useState(false);
   const [hideSmallBalances, setHideSmallBalances] = useState(false);
@@ -306,4 +306,4 @@ const DisplaySettings = () => {
   );
 };
 
-export default DisplaySettings;
+export default Displayinterface;

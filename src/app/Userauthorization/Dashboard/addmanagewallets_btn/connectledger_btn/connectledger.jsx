@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './connectledger.module.css'
 
-const Home = () => {
+const Connectledger = () => {
     const router = useRouter();
 
     const handleBackClick = () => {
@@ -22,7 +22,7 @@ return(
         <div className={styles.progressBar}></div>
             <h1 className={styles.heading}> Connect your Ledger </h1>
             <div className={styles.imageContainer}>
-                <img src="/Connectledger.svg" alt="Center Logo" />
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933125/Connectledger_uyu9ve.svg" alt="Center Logo" />
             </div>
             <ol className={styles.ol}>
                 <li className={styles.li}>Close any other apps your Ledger is connected to, including Ledger Live.</li>
@@ -41,4 +41,4 @@ return(
     </div>
         )
     }
-    export default Home;
+    export default Connectledger;
