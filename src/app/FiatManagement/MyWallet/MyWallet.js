@@ -31,6 +31,7 @@ const MyWallet = () => {
     const [selectedCurrencyImage, setSelectedCurrencyImage] = useState(''); 
     const [currencies, setCurrencies] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -144,7 +145,8 @@ const MyWallet = () => {
     };
 
     return (
-        <div className={styles.walletContainer}>
+        <div className={styles.walletContainer} >
+      
             <div className={styles.header}>
                 <FaArrowLeft className={styles.backArrow} onClick={handleLeftArrowClick}/>
                 <h2 className={styles.title}>My Wallet</h2>

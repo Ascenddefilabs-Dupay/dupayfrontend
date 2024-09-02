@@ -1,11 +1,9 @@
 body {
     margin: 0;
-    /* padding: 80px; */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; Full viewport height */
-    background-color: #f4f4f4; /* Optional background color */
+    background-color: #f4f4f4;
 }
 
 .converterContainer {
@@ -25,22 +23,9 @@ body {
     height: 100vh;
     max-height: auto;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    
-}
-/* .converterContainer {
-    width: 400px; 
-    max-width: 100%;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #000;
-    color: #fff;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    height: 100vh;
-    max-height: auto;
-  } */
-  
+
+    }
+
   
   @media (max-width: 1024px) {
     .converterContainer {
@@ -55,11 +40,6 @@ body {
     }
   }
 
-/* Hide scrollbar for WebKit browsers */
-
-/* Hide scrollbar for Internet Explorer and Edge */
-
-
 
 .networkInfo {
     color: #aaa;
@@ -71,27 +51,17 @@ body {
     padding: 5px 0;
 }
 
-.paymentRow {
-    display: flex;
-    flex-direction: row;
-    padding: 2px 0;
-}
 
-.paymentRow div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
 
 .icon {
-    margin-right: -10px; /* Adjust as needed */
+    margin-right: -10px; 
 }
 
 
 
 
 .usingUtorg {
-    margin-top: auto; /* Pushes it to the bottom of the container */
+    margin-top: auto; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -99,9 +69,7 @@ body {
 
 
 
-.paymentRow span {
-    flex: 1;
-}
+
 
 .smallText {
     font-size: 12px;
@@ -109,10 +77,10 @@ body {
 }
 
 .icon {
-    width: 24px; /* Adjust the size as needed */
-    height: 24px; /* Adjust the size as needed */
+    width: 24px; 
+    height: 24px; 
     border-radius: 50%;
-    object-fit: cover; /* Ensures the image covers the container without distortion */
+    object-fit: cover;
     margin-right: -10px;
 }
 
@@ -154,7 +122,7 @@ body {
     background-color: #000;
     color: #fff;
     border: none;
-    padding: 8px; /* Reduce padding */
+    padding: 8px; 
     font-size: 18px;
     justify-content: center;
     align-items: center;
@@ -185,75 +153,28 @@ body {
     border: none;
     border-radius: 25px;
     width: 100%;
-    font-size: 14px; /* Adjust font size */
+    font-size: 14px;
     padding: 10px;
     text-align: center;
     cursor: pointer;
     margin-top: 0px;
 }
 
-.paymentRow {
-    display: flex;
-    align-items: center;
-}
+
 
 .imageIcon {
-    width: 24px; /* Adjust the size as needed */
-    height: 24px; /* Adjust the size as needed */
-    margin-right: 10px; /* Adjust spacing as needed */
-}
-
-.networkInfo {
-    display: flex;
-    align-items: center;
-    
-    
-}
-
-.networkInfo .icon {
-    margin-right: 9px; /* Adjust spacing between icon and text as needed */
-}
-
-.networkInfo .smallText {
-    font-size: 14px; /* Adjust font size as needed */
-}
-
-
-
-.paymentRow {
-    display: flex;
-    align-items: center; /* Center items vertically */
-}
-
-.paymentRow img {
-    margin-right: 10px;
-    width: 24px; /* Adjust image size */
-    height: 24px; /* Space between icon and text */
-}
-
-.paymentRow div {
-    display: flex;
-    flex-direction: column;
-    gap: 2px; /* Stack text vertically */
+    width: 24px; 
+    height: 24px;
+    margin-right: 10px; 
 }
 
 .networkInfo,
 .provide {
     display: flex;
-    align-items: center; /* Align items horizontally */
-    justify-content: space-between; /* Align items horizontally */
+    align-items: center; 
+    justify-content: space-between; 
     margin: 10px 0;
     margin-left:13px ;
-}
-
-
-
-.buyIcon2 {
-    font-size: 12px; /* Adjust size as needed */
-    color: #f5f3f3; /* Adjust color as needed */
-    margin-left: 242px;
-    margin-top: 0;
-    margin-bottom: 0;
 }
 
 .bottomSheet {
@@ -264,7 +185,7 @@ body {
     left: 0;
     right: 0;
     border-radius: 8px;
-    padding: 10px; /* Reduce padding */
+    padding: 10px; 
     height: px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
     border-top: 1px solid #333;
@@ -279,7 +200,7 @@ body {
 }
 
 .bottomSheetHeader1 i {
-    margin-right: 8px; /* Adjust space between icon and text */
+    margin-right: 8px; 
 }
 
 .bottomSheetContent {
@@ -308,31 +229,31 @@ body {
 
 .select-box {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    width: 100%; /* Adjust to desired width, or use specific width e.g. 300px */
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
     height: auto;
-    margin-top: 10px; /* Adjust to desired height, or use specific height e.g. 40px */
-    margin-right: -50px; /* Centering the box within its container */
+    margin-top: 10px; 
+    margin-right: -50px;
     
 }
 
 .select-box select {
-    width: 50%; /* Full width of the container */
-    height: auto; /* Adjust to fit the height of the container */
-    padding: 4px; /* Adjust padding as needed */
+    width: 50%; 
+    height: auto; 
+    padding: 4px; 
     font-size: 12px;
-    background-color: white; /* Adjust font size as needed */
-    border: 1px solid #007bff; /* Border styling */
-    border-radius: 4px; /* Rounded corners */
+    background-color: white; 
+    border: 1px solid #007bff; 
+    border-radius: 4px; 
     font-weight: bold;
-    box-sizing: border-box; /* Ensure padding and border are included in width/height */
+    box-sizing: border-box; 
 }
 
 .paymentInfo hr {
-    border: none; /* Removes the default border */
-    border-top: 1px solid #ccc; /* Adds a top border */
-    margin: 5px 0; /* Adds some space above and below the line */
+    border: none; 
+    border-top: 1px solid #ccc; 
+    margin: 5px 0;
 }
 
 
@@ -341,88 +262,18 @@ body {
     flex-direction: column;
     align-items: flex-start;
     padding: 0;
-    margin-top: 10px; /* Remove margin */
+    margin-top: 10px; 
     margin-left:13px ;
 }
 
-.paymentRow {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 0;
-    margin: 0; /* Remove margin */
-}
-
-.paymentRow .icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px; /* Adjust as needed */
-}
-
-.paymentRow .paymentTextContainer {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin: 0; /* Remove margin */
-    padding: 0; /* Remove padding */
-}
-
-.paymentRow .buyContainer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Aligns content to the left */
-    width: 100%;
-    margin: 0; /* Remove margin */
-    padding: 0; /* Remove padding */
-    margin-left: -15px;
-    font-size: 12px;
-}
-
-
-.pay {
-    margin: 0;
-    padding: 0;
-    margin-right: 250px;
-    margin-bottom: 0; /* Space between 'Buy' text and currency text */
-}
-.credit {
-    margin: 0;
-    padding: 0;
-    margin-right: 250px;
-    margin-bottom: 0; /* Space between 'Buy' text and currency text */
-    width:50%;
-}
-
-
-.paymentTextContainer{
-    display: flex;
-    align-items: center;
-    
-}
-
-.textContainer {
-    display: flex;
-    align-items: center; /* Align items horizontally */
-    justify-content: space-between;
-    width: 100%;
-    margin: 0; /* Remove margin */
-    padding: 0; /* Remove padding */
-    font-size: 12px;
-}
-
-.textContainer span {
-    margin: 0;
-    padding: 0;
-    margin-right: auto; /* Pushes the arrow icon to the right */
-}
 
 
 
 .usingContainer {
     display: flex;
     align-items: center;
-    margin: 0; /* Remove margin */
-    padding: 0; /* Remove padding */
+    margin: 0; 
+    padding: 0; 
 }
 .topBarIcon{
     margin-left: -10px;
@@ -444,7 +295,7 @@ body {
 .leftContainer {
     display: flex;
     align-items: center;
-    /* padding-left: 10px; Adjust if needed */
+    
 }
 
 .backButton {
@@ -453,7 +304,7 @@ body {
     color: #fff;
     font-size: 20px;
     cursor: pointer;
-     /* Move button left */
+    
 }
 
 
@@ -461,7 +312,7 @@ body {
 .rightContainer {
     display: flex;
     align-items: center;
-    gap: 20px; /* Space between right-side items */
+    gap: 20px; 
 }
 
 .dotsContainer {
@@ -481,32 +332,32 @@ body {
 }
 .amountDisplay {
     display: flex;
-    flex-direction: row; /* Change to column layout */
-    align-items: flex-start; /* Align items to the start */
+    flex-direction: row; 
+    align-items: flex-start; 
     font-size: 20px;
     width: 100%;
     text-align: center;
-    margin-left: 5px; /* Remove top margin */
+    margin-left: 5px; 
 }
 
 .amountDisplay.large {
-    font-size: 24px; /* Adjust this size as needed */
+    font-size: 24px;
 
 }
 
 .amountDisplay.large .amountInput {
-    height: 30px; /* Reduce height */
-    font-size: 28px; /* Adjust font size */
-    padding: 0; /* Adjust padding as needed */
-    margin-bottom: 0; /* Ensure no space below the input */
+    height: 30px; 
+    font-size: 28px; 
+    padding: 0; 
+    margin-bottom: 0;
     margin-left:13px ;
     
     
 }
 
 .amountDisplay.large .amountLabel {
-    font-size: 18px; /* Match the font size */
-    margin-bottom: 0; /* Ensure no space below the label */
+    font-size: 18px; 
+    margin-bottom: 0; 
     margin-right: 20px;
     
 }
@@ -516,27 +367,27 @@ body {
     border: none;
     color: #42a5f5;
     font-size: 14px;
-    width: 100%; /* Full width */
+    width: 100%; 
     outline: none;
-    padding: 0; /* Remove padding */
-    margin-bottom: 0; /* Ensure no space below the input */
+    padding: 0; 
+    margin-bottom: 0;
     margin-left:14px ;
 }
 
 .amountContainer {
     display: flex;
-    flex-direction: column; /* Stack input and label vertically */
-    align-items: flex-start; /* Align items to the start */
-    margin: 0; /* Remove top margin */
-    padding: 0; /* Remove padding */
+    flex-direction: column; 
+    align-items: flex-start; 
+    margin: 0; 
+    padding: 0; 
     width:45%;
 }
 
 .amountLabel {
-    font-size: 14px; /* Smaller font size */
+    font-size: 14px; 
     color: #666;
-    padding: 0; /* Remove padding */
-    margin-top: 0; /* Remove top margin */
+    padding: 0; 
+    margin-top: 0; 
     margin-right: 20px;
     
 }
@@ -561,27 +412,18 @@ body {
 .topBarTitle1 {
     font-size: 22px;
     font-weight: bold;
-    margin-left: -190px; /* Space between title and back button */
+    margin-left: -190px; 
 }
 
 .separator {
     width: 3px;
-    height: 20px; /* Adjust height as needed */
-    background-color: #ccc; /* Adjust color as needed */
-    margin: 0 15px; /* Adjust spacing as needed */
+    height: 20px; 
+    background-color: #ccc; 
+    margin: 0 15px;
     margin-left: 8px;
 }
 
 
-
-/* Styling for the network button */
-
-
-/* Hover effect for the button */
-/* .networkDisplay:hover {
-    background-color: #e0e0e0;
-    border-color: #bbb;
-} */
 .networkInfo {
     display: flex;
     align-items: center;
@@ -610,94 +452,136 @@ body {
 }
 
 .networkInfo .arrow {
-    margin-left: auto; /* Push arrow to the right */
+    margin-left: auto; 
     font-size: 1.2em;
-    color: #888; /* Arrow color */
+    color: #888; 
 }
-.paymentTextContainer {
+
+
+.paymentRow {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0; 
+}
+
+.paymentRow .icon {
+    margin-top: -4px;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px; 
+}
+
+.paymentRow .buyContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0; 
+    padding: 0; 
 }
 
 .buyContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
     position: relative;
+    margin-bottom: 5px;
+    padding:5px;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0; 
+    padding: 0; 
+    font-size: 12px;
 }
-
-
-
+.buyContainer span {
+    margin: 0;
+    padding: 0;
+    margin-right: auto; 
+}
 .currencyText {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     margin: 0;
     padding: 0;
     margin-right: 135px;
     margin-top: 0;
-    width:50%;
+    width:70%;
 }
-
 .buyText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
-    
-    margin-right: 135px;
-    margin-top: 0;
-    width:50%;
-    
+    padding: 0;
+    margin-right: 250px;
+    margin-bottom: 0;
 }
-
-
 .buyIcon {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin-left: 47%;
-    font-size: 12px; /* Adjust size as needed */
-    margin-top: 2px;
-    
-    
+    margin-left: 42%;
+    font-size: 12px; 
+    margin-top: 0;
+    margin-bottom: 0;
 }
-
-.textContainer {
+.paymentRow .paymentTextContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0; 
+    padding: 0; 
+    font-size: 12px;
+}
+.textContainer { 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     position: relative;
     margin-bottom: 5px;
     padding:5px;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0; 
+    padding: 0; 
+    font-size: 12px;
 }
-
+.textContainer span {
+    margin: 0;
+    padding: 0;
+    margin-right: auto; 
+}
+.buyIcon2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 42%;
+    font-size: 12px; 
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .credit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    margin-right: 135px;
+    margin-top: 0;
+    width:70%;
+    /* margin-left: 5px; */
+    
+    
 
 }
 .pay {
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    
-    
+    margin: 0;
+    padding: 0;
+    margin-right: 250px;
+    margin-bottom: 0;
 }
 
-.buyIcon2 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-left: 42%;
-    font-size: 12px; /* Adjust size as needed */
-    margin-top: 0;
-    margin-bottom: 0;
-    
-}
 .spacer {
-    width: 15px; /* Adjust the space as needed */
+    width: 15px; 
 }
 .customAlert {
     position: fixed;
@@ -726,4 +610,70 @@ body {
     cursor: pointer;
     color: black;
     font-weight: bold;
+  }
+  .loaderContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    z-index: 2;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  
+  .loader {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff007b, #007bff); 
+    animation: spin 1s linear infinite;
+    transform: rotate(45deg); 
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
+    border-radius: 12%; 
+  }
+  
+  
+  .loader::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: rgba(255, 0, 123, 0.3); 
+    border-radius: 15%;
+    animation: pulse 1.5s infinite ease-in-out;
+    z-index: -1;
+  }
+  
+  
+  @keyframes spin {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+  }
+  
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }

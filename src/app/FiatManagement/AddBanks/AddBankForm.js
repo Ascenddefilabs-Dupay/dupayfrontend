@@ -19,6 +19,7 @@ const AddBankForm = () => {
   const router = useRouter();
   const [alertMessage, setAlertMessage] = useState('');
   const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
+  
 
   const handleSubmit = useCallback(
     async (e) => {
@@ -65,7 +66,7 @@ const AddBankForm = () => {
   );
 
   const handleLeftArrowClick = useCallback(() => {
-    router.push('/Userauthorization/Dashboard');
+      window.location.href = '/Userauthorization/Dashboard';
   }, [router]);
 
   const handleCloseAlert = useCallback(() => {
@@ -79,10 +80,10 @@ const AddBankForm = () => {
   return (
     <div className={styles.container}>
       {alertMessage && (
-                <div className={styles.customAlert}>
-                    <p>{alertMessage}</p>
-                    <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
-                </div>
+        <div className={styles.customAlert}>
+            <p>{alertMessage}</p>
+            <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
+        </div>
             )}
       <div className={styles.topBar}>
         <button className={styles.topBarButton}>

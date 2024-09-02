@@ -1,4 +1,4 @@
-.container {
+.container1{
     height: 100vh;
     width: 400px;
     max-width: 100%;
@@ -13,14 +13,14 @@
     background: black;
 }
 @media (max-width: 1024px) {
-  .container {
+  .container1{
     width: 100%; 
   }
 }
 
 
 @media (max-width: 768px) {
-  .container {
+  .container1 {
     width: 100%; 
   }
 }

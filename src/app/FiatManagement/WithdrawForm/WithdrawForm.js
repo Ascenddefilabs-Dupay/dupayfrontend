@@ -30,6 +30,7 @@ const WithdrawForm = () => {
     const [isOkButtonDisabled, setIsOkButtonDisabled] = useState(false);
     const [walletDetails, setWalletDetails] = useState(null);
     const [showForm, setShowForm] = useState(true);
+    const [showLoader, setShowLoader] = useState(true);
 
     // Currency symbols mapping
     const currencySymbols = {
@@ -44,7 +45,7 @@ const WithdrawForm = () => {
     // Protected routing logic
     useEffect(() => {
         if (!isAuthenticated) {
-            router.push('/login'); // Redirect to login if not authenticated
+            router.push('Userauthentication/login'); // Redirect to login if not authenticated
         }
     }, [isAuthenticated, router]);
 
@@ -59,11 +60,20 @@ const WithdrawForm = () => {
             document.body.removeChild(script);
         };
     }, []);
+    useEffect(() => {
+        // Delay showing the form
+        const timer = setTimeout(() => {
+            setShowLoader(false);
+            setShowForm(true);
+        }, 2000); // 2 seconds delay
+
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
-                const walletResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
+                const walletResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/fiat_wallets/Wa0000000001/');
                 setWalletDetails(walletResponse.data);
 
                 const userCurrenciesResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
@@ -113,11 +123,29 @@ const WithdrawForm = () => {
     
     const handleAmountChange = (e) => {
         let inputValue = e.target.value;
-        if (/^[0-9]*\.?[0-9]*$/.test(inputValue)) {
-            inputValue = inputValue.replace(/^0+/, '') || '0';
-            const [integer, fraction = ''] = inputValue.split('.');
-            setAmount(integer + (fraction ? '.' + fraction.slice(0, 2) : ''));
+        const validInput = /^[0-9]*\.?[0-9]*$/;
+
+        if (!validInput.test(inputValue)) {
+            return;
         }
+
+        if (inputValue.length > 1 && inputValue.startsWith('0') && inputValue[1] !== '.') {
+            inputValue = inputValue.slice(1);
+        }
+
+        if (inputValue.includes('.')) {
+            const parts = inputValue.split('.');
+            if (parts[1].length > 2) {
+                parts[1] = parts[1].slice(0, 2);
+            }
+            inputValue = parts.join('.');
+        }
+
+        setAmount(inputValue);
+
+        // if (submitted) {
+        //     setError('');
+        // }
     };
 
     const handleCurrencyChange = (option) => setSelectedCurrency(option);
@@ -164,20 +192,40 @@ const WithdrawForm = () => {
 
     const handleWithdraw = async () => {
         if (loading) return;
-        setLoading(true);
-
         const parsedAmount = parseFloat(amount);
-        if (!selectedCurrency || !amount || isNaN(parsedAmount) || parsedAmount <= 0 || !selectedBank) {
-            setAlertMessage('Please fill all required fields correctly.');
-            setLoading(false);
+
+        // Clear any previous alert message
+        setAlertMessage('');
+    
+        if (!selectedCurrency) {
+            setAlertMessage('Please select a currency.');
             return;
         }
+
+        if (isNaN(parsedAmount) || parsedAmount <= 0) {
+            setAlertMessage('Please enter a valid amount greater than zero.');
+            return;
+        }
+
+        if (!selectedBank) {
+            setAlertMessage('Please select a bank account.');
+            return;
+        }
+
+        if (!walletDetails) {
+            setAlertMessage('Wallet details not loaded.');
+            return;
+        }
+
+        
 
         if (parsedAmount > balances[selectedCurrency.value]) {
             setAlertMessage('Insufficient balance.');
             setLoading(false);
             return;
         }
+        setLoading(true);
+        setShowForm(false);
 
         if (selectedCurrency.value === 'INR') {
             setShowForm(false);
@@ -206,9 +254,12 @@ const WithdrawForm = () => {
                 setPendingAmount(parsedAmount);
                 setAlertMessage('Withdrawn successful');
                 setShowForm(true);
+                setLoading(false);
+                
             } else {
                 setShowForm(true);
                 setAlertMessage('Payment failed or was cancelled.');
+                setLoading(false);
             }
         } else {
             setShowForm(true);
@@ -232,13 +283,14 @@ const WithdrawForm = () => {
 
             setPendingAmount(parsedAmount);
             setAlertMessage('Withdrawn successful');
+            // setLoading(false);
         }
 
-        setLoading(false);
+        // setLoading(false);
     };
 
     const handleLeftArrowClick = () => {
-        router.push('/Userauthorization/Dashboard');
+        window.location.href = '/Userauthorization/Dashboard'; 
     };
 
     const handleCloseAlert = () => {
@@ -259,11 +311,13 @@ const WithdrawForm = () => {
                 setAmount('');
                 setPendingAmount(null);
                 setAlertMessage('');
+                
             })
             .catch(error => {
                 setShowForm(true);
                 console.error('Error withdrawing amount:', error);
                 setAlertMessage('Failed to withdraw the amount. Please try again.');
+                
             })
             .finally(() => {
                 setIsOkButtonDisabled(false);
@@ -273,11 +327,6 @@ const WithdrawForm = () => {
             setPendingAmount(null);
         }
     };
-    
-    
-    
-    
-
     const customSelectStyles = {
         control: (base) => ({ ...base, backgroundColor: '#2a2a2a', borderColor: '#555', color: 'white' }),
         menu: (base) => ({ ...base, backgroundColor: '#2a2a2a' }),
@@ -302,9 +351,14 @@ const WithdrawForm = () => {
             
             )}
             {showForm && (
+
         <div className={styles.container}>
-        
-            <div className={styles.topBar}>
+            {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
+           <div className={styles.topBar}>
                 <button className={styles.topBarButton}>
                     <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick}/>
                 </button>
@@ -312,28 +366,28 @@ const WithdrawForm = () => {
             </div>
             <Suspense fallback={<div>Loading form...</div>}>
             <div className={styles.cardContainer}>
-                        <div className={styles.balanceCard}>
-                            <div className={styles.currencyInfo}>
-                                <img
-                                    src={currencies.find(currency => currency.currency_code === selectedCurrency.value)?.currency_icon || ''}
-                                    alt={selectedCurrency.value}
-                                    className={styles.currencyIconInCard}
-                                />
-                                <h3 className={styles.currency}>
-                                    {selectedCurrency.value}
-                                    <span className={styles.country}>
-                                        {currencies.find(currency => currency.currency_code === selectedCurrency.value)?.currency_country || ''}
-                                    </span>
-                                </h3>
-                            </div>
-
-                            {/* <p className={styles.balanceLabel}>Balance:</p> */}
-                            <p className={styles.balanceAmount}>
-                                {currencySymbols[selectedCurrency.value] || ''}{' '}
-                                {balances[selectedCurrency.value]?.toFixed(2) || '0.00'}
-                            </p>
-                        </div>
+                <div className={styles.balanceCard}>
+                    <div className={styles.currencyInfo}>
+                        <img
+                            src={currencies.find(currency => currency.currency_code === selectedCurrency.value)?.currency_icon || ''}
+                            alt={selectedCurrency.value}
+                            className={styles.currencyIconInCard}
+                        />
+                        <h3 className={styles.currency}>
+                            {selectedCurrency.value}
+                            <span className={styles.country}>
+                                {currencies.find(currency => currency.currency_code === selectedCurrency.value)?.currency_country || ''}
+                            </span>
+                        </h3>
                     </div>
+
+                    {/* <p className={styles.balanceLabel}>Balance:</p> */}
+                    <p className={styles.balanceAmount}>
+                        {currencySymbols[selectedCurrency.value] || ''}{' '}
+                        {balances[selectedCurrency.value]?.toFixed(2) || '0.00'}
+                    </p>
+                </div>
+            </div>
 
             <div className={styles.form}>
                 <label className={styles.label}>Choose Currency:</label>
@@ -373,9 +427,15 @@ const WithdrawForm = () => {
                     onChange={handleBankChange}
                     styles={customSelectStyles}
                 />
-                <button onClick={handleWithdraw} className={styles.submitButton} disabled={loading}>
-                    Withdraw
+                <button
+                    type="button"
+                    className={styles.submitButton}
+                    onClick={handleWithdraw}
+                    disabled={loading}
+                >
+                    {loading ? 'Processing...' : 'SUBMIT'}
                 </button>
+                
             </div>
             </Suspense>
 
