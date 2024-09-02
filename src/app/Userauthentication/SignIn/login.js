@@ -45,7 +45,7 @@ export default function Login() {
 
   const handleGoogleResponse = async (response) => {
     try {
-      const res = await axios.post('http://localhost:8000/loginapi/google-login/', {
+      const res = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/google-login/', {
         token: response.credential,
       });
 
@@ -70,7 +70,7 @@ export default function Login() {
 
     if (loginMode === 'password') {
       try {
-        const response = await axios.post('http://localhost:8000/loginapi/login/', {
+        const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/login/', {
           user_email: email,
           user_password: password,
         });
@@ -89,7 +89,7 @@ export default function Login() {
       }
     } else if (loginMode === 'otp') {
       try {
-        const response = await axios.post('http://localhost:8000/loginapi/verify-otp/', {
+        const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/verify-otp/', {
           user_email: email,
           user_otp: otp,
         });
@@ -110,7 +110,7 @@ export default function Login() {
 
   const sendOtp = async () => {
     try {
-      await axios.post('http://localhost:8000/loginapi/generate-otp/', {
+      await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/generate-otp/', {
         user_email: email,
       });
       setOtpTimer(30);
