@@ -2,25 +2,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const SpecialOffers = () => {
-  const [userId, setUserId] = useState('');
+const SpecialOffers: React.FC = () => {
+  const [userId, setUserId] = useState<string>('');
 
   // Function to send a browser notification
-  const sendNotification = (title, message, icon, link) => {
+  const sendNotification = (title: string, message: string, icon: string, link: string) => {
     if ('Notification' in window && Notification.permission === 'granted') {
       const notification = new Notification(title, {
-        body: message, // Ensure the message is set correctly
-        icon: icon,    // Ensure the icon is set correctly
+        body: message,
+        icon: icon,
       });
 
-      // Handle notification click event
       notification.onclick = () => {
         window.open(link, '_blank');
       };
     }
   };
 
-  // Function to request notification permission from the user
   const requestNotificationPermission = () => {
     if ('Notification' in window && Notification.permission !== 'granted') {
       Notification.requestPermission().then(permission => {
@@ -31,26 +29,22 @@ const SpecialOffers = () => {
     }
   };
 
-  // Function to create and trigger the Special Offers notification
   const createSpecialOffersNotification = () => {
     if (!userId) {
       alert("User ID is not available.");
       return;
     }
 
-    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/specialoffersapi/create-special-offers/', {
-      email_id: 'user@example.com',  // Adjust this to dynamically fetch user email if needed
-      message: 'This is a special offer just for you!',
+    axios.post('http://notificationservice-rcfpsxcera-uc.a.run.app/specialoffersapi/create-special-offers/', {
+      user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then(response => {
-        // Extract message from the response or use default message
-        const message = response.data.message || 'This is a special offer just for you!';
-        // Send notification
-        sendNotification('Special Offers', message, './images/logo.png', 'https://www.specialoffer.inc/');
+      .then((response) => {
+        const message = response.data.special_offer_content;  // Use the dynamic content from the backend
+        sendNotification('Special Offers', message, 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1725254311/logo3_ln9n43.png', 'https://www.specialoffer.inc/');
       })
       .catch(error => {
         console.error('Error:', error);
@@ -58,14 +52,14 @@ const SpecialOffers = () => {
       });
   };
 
-  // Fetch user IDs who have special offers enabled
   useEffect(() => {
-    requestNotificationPermission();  // Request notification permission when component mounts
+    requestNotificationPermission();
 
-    axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/specialoffersapi/get-special-offers-user-ids/')
+    axios.get('http://notificationservice-rcfpsxcera-uc.a.run.app/specialoffersapi/get-special-offers-user-ids/')
       .then(response => {
-        if (response.data.user_ids && response.data.user_ids.length > 0) {
-          setUserId(response.data.user_ids[0]);  // Set the first user ID
+        const userIds = response.data.user_ids;
+        if (userIds && userIds.length > 0) {
+          setUserId(userIds[0]);  // Set the first user ID
         } else {
           alert('No users with special offers enabled.');
         }
