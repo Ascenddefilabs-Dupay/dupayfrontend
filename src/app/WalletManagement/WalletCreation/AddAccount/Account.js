@@ -1,19 +1,33 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Account.css';
 
 const AddAccount = () => {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false));
+    return () => clearTimeout(timer);
+  }, []);
 
     const handleClose = () => {
         window.location.href = './';
       };
 
     const handleImport = () => {
+      setLoading(true)
       window.location.href = './ImportPassphrase';
     };
 
   return (
     // <div className="wallet-manager">
+    <div>
+    {loading ? (
+      <div className='loading'>
+        <div className='spinner'></div>
+        <p className='loadingText'>LOADING</p>
+      </div>
+    ) : (
     <div className="add-account-container">
             <div className="add-account-header">
                 <h1>Add Account</h1>
@@ -28,6 +42,8 @@ const AddAccount = () => {
             </div>
             <button className="close-button" onClick={handleClose}>&times;</button>
             </div>
+            )}
+      </div>
     // </div>
   );
 }

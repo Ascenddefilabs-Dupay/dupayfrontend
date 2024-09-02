@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './WalletReady.css';
 import { FaArrowLeft } from "react-icons/fa";
 
 function WalletReady() {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false));
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleClaim = () => {
     // window.location.href = '/claim';
+    setLoading(true)
     window.location.href = '/Userauthorization/Dashboard';
   };
 
   const handleLater = () => {
     // window.location.href = '/later';
+    setLoading(true)
     window.location.href = '/Userauthorization/Dashboard';
   };
 
@@ -20,6 +28,12 @@ function WalletReady() {
 
   return (
     <div className="wallet-container">
+      {loading ? (
+        <div className='loading'>
+          <div className='spinner'></div>
+          <p className='loadingText'>LOADING</p>
+        </div>
+      ) : (
       <div className='card'>
         <div className="wallet-content">
           <div className="container">
@@ -40,6 +54,7 @@ function WalletReady() {
           <button className="later-button" onClick={handleLater}>I'll do it later</button>
         </div>
       </div>
+      )}
     </div>
   );
 }
