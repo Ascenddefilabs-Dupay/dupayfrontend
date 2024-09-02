@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './RecoveryPhraseForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +8,12 @@ const RecoveryPhraseForm = () => {
     const [phrases, setPhrases] = useState(Array(12).fill(''));
     const [showPhrases, setShowPhrases] = useState(Array(12).fill(false));
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false));
+    return () => clearTimeout(timer);
+  }, []);
 
     const handleChange = (index, value) => {
         const newPhrases = [...phrases];
@@ -23,6 +29,7 @@ const RecoveryPhraseForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         try {
             console.log(phrases);
             
@@ -53,6 +60,12 @@ const RecoveryPhraseForm = () => {
 
     return (
         <div className="wallet-manager">
+            {loading ? (
+        <div className='loading'>
+          <div className='spinner'></div>
+          <p className='loadingText'>LOADING</p>
+        </div>
+      ) : (
             <div className="recovery-phrase-form">
                 <h2>WALLET SETUP</h2>
                 <h3>Add Existing Account</h3>
@@ -85,6 +98,7 @@ const RecoveryPhraseForm = () => {
                 </form>
                 <button className="cancel" onClick={handleLeftArrowClick}>Cancel</button>
             </div>
+            )}
         </div>
     );
 };

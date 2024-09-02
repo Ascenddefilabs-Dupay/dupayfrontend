@@ -70,7 +70,7 @@
   }
   
   .footer {
-    background-color: white;
+    background: linear-gradient(90deg, #007bffec, #800080);
     padding: 20px 0;
     text-align: center;
     border-top: 1px solid #e0e0e0;
@@ -110,7 +110,7 @@
   .footerLinks a {
     margin: 0 15px;
     text-decoration: none;
-    color: #333;
+    color: white;
     font-size: 14px;
   }
   

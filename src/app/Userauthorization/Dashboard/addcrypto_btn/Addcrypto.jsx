@@ -2,6 +2,7 @@
 import React from 'react';
 import { Box, Button, Typography, Link, IconButton, useMediaQuery } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import './AddCrypto.module.css'; // Import the CSS file
 
@@ -21,6 +22,7 @@ const AddCrypto = () => {
     console.log('Transfer from another wallet clicked');
   };
 
+
   return (
     <Box
       sx={{
@@ -31,9 +33,9 @@ const AddCrypto = () => {
         alignItems: 'center',// Center content vertically
         backgroundColor: '#000',
         color: '#fff',
-        height: '120vh',// Ensure the screen height covers the entire viewport
+        height: '110vh',// Ensure the screen height covers the entire viewport
         width: '100%',
-        maxWidth: '350px', // Set the screen width to 400px
+        maxWidth: '400px', // Set the screen width to 400px
         padding: 2,
         margin: '0 auto', // Center the box horizontally
         boxSizing: 'border-box', // Include padding in the element's total width and height
@@ -56,27 +58,33 @@ const AddCrypto = () => {
           component="img"
           src="/crypto.png"
           alt="Dupay"
+          style={{width: '170px',height: '170px'}}
           
         />
       </Box>
       <Typography   variant="h6" sx={{ textAlign: 'center', fontWeight: 'bold',fontSize: '22px', color: '#fff',
-             marginLeft: 0,marginTop: 0, flexGrow: 1  }} >  Buy or transfer from Dupay 
+             marginLeft: 0,marginTop: 0, flexGrow: 1,position: 'relative', bottom: '25px'  }} >  Buy or transfer from Dupay 
          </Typography>
-         <Typography variant="body2" sx={{ textAlign: 'center' ,color: 'gray', marginBottom: 5 }}>
+         <Typography variant="body2" sx={{ textAlign: 'center' ,color: 'gray', position: 'relative', bottom: '150px' }}>
             You can add crypto from your Dupay account or another wallet.
         </Typography>
 
       <Button
-        variant="contained"
+        variant="outlined"
         color="primary"
         onClick={handleAddCryptoClick}
         sx={{ 
-          marginBottom: 2,
+          color: '#fff', 
+          borderColor: '#fff', 
+          position:'relative',
+          bottom: '120px',
           marginTop: -3,
           width: '80%', 
-          borderRadius: 12,
+          borderColor: 'white',
+          borderRadius: 5,
           '&:hover': { 
-            backgroundColor: '#1976d2' 
+            background: ' linear-gradient(90deg, #007bff9f, #800080)',
+            borderColor: '#333'
           } 
         }}
       >
@@ -90,16 +98,18 @@ const AddCrypto = () => {
           color: '#fff', 
           borderColor: '#fff', 
           width: '80%', 
-          borderRadius: 12,
+          postion: 'relative',
+          bottom: '105px',
+          borderRadius: 5,
           '&:hover': { 
-            backgroundColor: '#333', 
+            background: 'linear-gradient(90deg, #007bff9f, #800080)',
             borderColor: '#333'
           } 
         }}
       >
         Transfer from another wallet
       </Button>
-      <Typography variant="caption" display="block" sx={{ marginTop: 2, textAlign: 'center', paddingX: 2 }}>
+      <Typography variant="caption" display="block" sx={{ marginTop: 2, textAlign: 'center', paddingX: 2, position: 'relative', bottom: '110px' }}>
         <p>Use of Dupay.com's account linkage feature is 
         subject to Dupay.com's{' '}</p>
         <Link href="https://www.Dupay.com/user-agreement" target="_blank" sx={{ color: 'blue' }}>

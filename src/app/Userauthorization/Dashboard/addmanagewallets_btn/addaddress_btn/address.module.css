@@ -1,74 +1,75 @@
 .container {
-  position: relative;
-  bottom: 45px;
-  top: 1px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: black;
-  color: white;
-  height: 100vh;
-  width: 400px;
-  padding: 20px;
-  margin: 0 auto;
-  font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
-
-}
-
-.backButton {
-  align-self: flex-start;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  margin-bottom: -25px;
-}
-
-
-.heading {
-  font-size: 28px;
-  margin-bottom: 20px;
-  margin-top: -10px;
-  top: 10px;
-  font-weight: bold;
-  position: relative;
-  right: 1cqmax;
-
+    position: relative;
+    bottom: 45px;
+    top: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    color: white;
+    height: 100vh;
+    width: 400px;
+    padding: 20px;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
   
-}
-
-.imageContainer {
-  margin-bottom: 30px;
+  }
   
-}
-.image{
-  width: 180px;
-  height: 180px;
-}
-
-.paragraph {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: gray;
-}
-
-.continueButton {
-  background: linear-gradient(90deg, #007bff9f, #800080);
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  height: 10%;
-  width: 85%;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-}
-
-.continueButton:hover {
-  background-color: rgb(71, 126, 246);
-}
+  .backButton {
+    align-self: flex-start;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: -25px;
+  }
+  
+  
+  .heading {
+    font-size: 28px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    top: 10px;
+    font-weight: bold;
+    position: relative;
+    right: 1cqmax;
+  
+    
+  }
+  
+  .imageContainer {
+    margin-bottom: 30px;
+    
+  }
+  .image{
+    width: 180px;
+    height: 180px;
+  }
+  
+  .paragraph {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: gray;
+  }
+  
+  .continueButton {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    height: 10%;
+    width: 85%;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .continueButton:hover {
+    background-color: rgb(71, 126, 246);
+  }
+  

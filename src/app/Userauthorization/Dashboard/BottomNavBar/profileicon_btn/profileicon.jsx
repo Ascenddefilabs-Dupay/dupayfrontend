@@ -31,7 +31,7 @@ export default function HomePage() {
     const [qrData, setQrData] = useState('');
     const [profileImage, setProfileImage] = useState('');
     const router = useRouter();
-    const userId = 'dupC0025';
+    const userId = 'DupC0001';
 
     useEffect(() => {
         fetchUserProfile();
@@ -39,9 +39,9 @@ export default function HomePage() {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/profile/${userId}/`);
+            const response = await axios.get(`/userauthorizationapi/profile/${userId}/`);
             if (response.data.user_profile_photo) {
-                const baseURL = 'http://localhost:8000/profile_photos';
+                const baseURL = '/profile_photos';
                 let imageUrl = '';
 
                 if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
@@ -71,7 +71,7 @@ export default function HomePage() {
         if (button === 'Buy') {
             setSelectedButton(button);
             console.log(button);
-            router.push('/Userauthorization/Dashboard/buy_btn');
+            router.push('/FiatManagement/Currency_Conversion');
         } else if (button === 'Receive') {
             setSelectedButton(button);
             console.log(button);
@@ -156,7 +156,7 @@ export default function HomePage() {
                                 </div>
                                 <FaCheck className={styles.checkIcon} />
                             </div>
-                            <Button className={styles.viewprofileButton} onClick={() => { handleCloseDropdown(); router.push('/Userauthorization/Dashboard/viewprofile_btn'); }}>
+                            <Button className={styles.viewprofileButton} onClick={() => { handleCloseDropdown(); router.push('/UserProfile'); }}>
                                 View profile
                             </Button>
                             <Button className={styles.manageWalletsButton} onClick={() => { handleCloseDropdown(); router.push('/Userauthorization/Dashboard/addmanagewallets_btn'); }}>

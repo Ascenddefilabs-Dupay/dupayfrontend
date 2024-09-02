@@ -3,20 +3,33 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FaCheck } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+
 
 export default function Swap() {
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
+
 
     const handleBackClick = () => {
-        router.push('/Userauthorization/Dashboard')
+        setLoading(true); // Show loading text
+        setTimeout(() => {
+        router.push('/Userauthorization/Dashboard');
+    }, 500); // Adjust delay if needed
     }
 
     const handleAddCryptoClick = () => {
+        setLoading(true); // Show loading text
+        setTimeout(() => {
         router.push('/FiatManagement/Currency_Conversion'); // Adjust the route as needed
+    }, 500); // Adjust delay if needed  
     };
 
     const handleLearnMoreClick = () => {
+        setLoading(true); // Show loading text
+        setTimeout(() => {
         router.push('/Userauthorization/Dashboard'); // Adjust the route as needed
+    }, 500); // Adjust delay if needed
     };
 
     return (
@@ -34,6 +47,12 @@ export default function Swap() {
             overflowY: 'auto',
             cursor: 'pointer',
         }}>
+            {loading ? (
+                <div style={{color: 'white', fontSize: '18px'}}>
+                    Loading...
+                </div>
+            ) : (
+                <>
             <div style={{ flex: '1' }}> 
                 <ArrowBackIcon onClick={handleBackClick} style={{ margin: '10px 15px' }} />
                 <img src="/swap_image.png" alt="Swap image" style={{ height: '140px', marginLeft: '130px' }} />
@@ -91,7 +110,7 @@ export default function Swap() {
                             padding: '10px',
                             background: 'linear-gradient(90deg, #007bff9f, #800080)',
                             color: 'white',
-                            borderRadius: '25px',
+                            borderRadius: '5px',
                             fontWeight: 'bold',
                             border: 'none',
                             width: '100%'
@@ -108,7 +127,7 @@ export default function Swap() {
                             background: 'linear-gradient(90deg, #007bff9f, #800080)',
                             color: 'white',
                             fontWeight: 'bold',
-                            borderRadius: '25px',
+                            borderRadius: '5px',
                             border: 'none',
                             width: '100%'
                         }}
@@ -117,6 +136,8 @@ export default function Swap() {
                     </button>
                 </div>
             </div>
+            </>
+            )}
         </div>
     );
 }

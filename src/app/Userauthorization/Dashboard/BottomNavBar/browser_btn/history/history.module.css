@@ -1,0 +1,59 @@
+.container {
+    padding: 20px;
+    color: white;
+    background-color: black;
+    height: 100vh;
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+    top: 0;
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .iconButton {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .header {
+    font-size: 24px;
+    color: white;
+    flex: 1;
+  }
+  
+  .historyList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .historyItem {
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .historyItem:hover {
+    background-color: #444;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .url {
+    font-size: 14px;
+    color: #aaa;
+  }
+  

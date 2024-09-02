@@ -1,0 +1,101 @@
+.container {
+    background-color: black;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100vh;
+    width: 400px;
+    display: flex;
+    color: white;
+    border-radius: 12px;
+  }
+  
+  .backarrow {
+    color: white;
+  }
+  
+  .dropdownButton {
+    position: relative;
+    left: 200px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdownIconTrigger {
+    position: relative;
+    right: 20px;
+    color: white;
+  }
+  
+  .dropdown {
+    position: relative;
+    top: 10px;
+    left: 140px;
+    width: 175px;
+    margin: 0 auto;
+    background-color: #333;
+    color: white;
+    border-radius: 15px;
+    gap: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  .iconContainer{
+    display: flex;
+  }
+  
+  .dropdownItem {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdownItem:hover {
+    background-color: #444;
+  }
+  
+  .dropdownIcon {
+    margin-right: 10px;
+  }
+  
+  .bookmarkSection {
+    position: relative;
+    top: 125px;
+    text-align: center;
+  }
+  
+  .bookmarkImage {
+    height: 100px;
+    width: 180px;
+    position: relative;
+    bottom: 10px;
+    left: 105px;
+  }
+  
+  .noBookmarksText {
+    margin-top: 10px;
+    position: relative;
+    left: 55px;
+    font-weight: bold;
+  }
+  
+  .instructionsText {
+    color: gray;
+    position: relative;
+    left: 55px;
+    margin: 5px 0;
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      width: 90%;
+    }
+  
+    .dropdown {
+      right: 0;
+    }
+  }
+  

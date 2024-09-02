@@ -33,9 +33,9 @@ const Index = () => {
       <div className={styles.footerContainer}>
         <div className={styles.footerLeft}>
           <Image
-            src="/images/Dupay-white.png"
+            src="/images/Dupay.png"
             alt="Brand logo"
-            width={90}
+            width={100}
             height={30}
             className={styles.footerImage}
           />
