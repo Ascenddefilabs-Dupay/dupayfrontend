@@ -17,6 +17,12 @@ const PasswordForm = () => {
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState(''); // State for messages
     const [messageType, setMessageType] = useState(''); // State for message type ('success' or 'error')
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false));
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         // Retrieve wallet_id from sessionStorage
@@ -56,6 +62,7 @@ const PasswordForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         if (passwordMatch && isChecked && walletId) {
             try {
                 const response = await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/update-password/', { wallet_id: walletId, password });
@@ -90,79 +97,85 @@ const PasswordForm = () => {
 
     return (
         <div className="wallet-manager">
-            <div className="card">
-                <div className="container">
-                    <div className="column left" onClick={handleLeftArrowClick}>
-                    <FaArrowLeft />
-                    </div>
-                    <div className="column middle">
-                    <h1 className='heading'>Update Password</h1>
-                    </div>
-                    <div className="column right">
-                    </div>
+            {loading ? (
+                <div className='loading'>
+                    <div className='spinner'></div>
+                    <p className='loadingText'>LOADING</p>
                 </div>
-                <p>Set a password to unlock your wallet each time you use your computer. It can't be used to recover your wallet.</p>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>New Password</label>
-                        <div className="password-input">
+            ) : (
+                <div className="card">
+                    <div className="container">
+                        <div className="column left" onClick={handleLeftArrowClick}>
+                            <FaArrowLeft />
+                        </div>
+                        <div className="column middle">
+                            <h1 className='heading'>Update Password</h1>
+                        </div>
+                        <div className="column right">
+                        </div>
+                    </div>
+                    <p>Set a password to unlock your wallet each time you use your computer. It can't be used to recover your wallet.</p>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>New Password</label>
+                            <div className="password-input">
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    placeholder='New Password'
+                                />
+                                <button type="button" onClick={() => setShowPassword(!showPassword)}>
+                                    <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                                </button>
+                            </div>
+                            <div className={`strength ${passwordStrength}`}>
+                                {[...Array(5)].map((_, i) => (
+                                    <div key={i} className="strength-bar"></div>
+                                ))}
+                                {passwordStrength.charAt(0).toUpperCase() + passwordStrength.slice(1)}
+                            </div>
+                        </div>
+                        <div>
+                            <label>Verify Password</label>
+                            <div className="password-input">
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    value={verifyPassword}
+                                    onChange={handleVerifyPasswordChange}
+                                    placeholder='Verify Password'
+                                    id="password-input-field"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="toggle-password-button"
+                                >
+                                    <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                                </button>
+                            </div>
+                            <div className="verify">{passwordMatch ? "It's a match!" : 'Passwords do not match'}</div>
+                        </div>
+                        <div className='terms'>
                             <input
-                                type={showPassword ? 'text' : 'password'}
-                                value={password}
-                                onChange={handlePasswordChange}
-                                placeholder='New Password'
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={() => setIsChecked(!isChecked)}
                             />
-                            <button type="button" onClick={() => setShowPassword(!showPassword)}>
-                                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-                            </button>
+                            <label className='conditions'>
+                                I agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); showTerms(); }}>terms</a> and <a href="#privacy-policy" onClick={(e) => { e.preventDefault(); showPrivacyPolicy(); }}>privacy policy</a>
+                            </label>
                         </div>
-                        <div className={`strength ${passwordStrength}`}>
-                            {[...Array(5)].map((_, i) => (
-                                <div key={i} className="strength-bar"></div>
-                            ))}
-                            {passwordStrength.charAt(0).toUpperCase() + passwordStrength.slice(1)}
+                        <button type="submit"
+                            className='submit' disabled={!passwordMatch || !isChecked}>Next</button>
+                    </form>
+                    {message && (
+                        <div className={`message ${messageType}`}>
+                            {message}
                         </div>
-                    </div>
-                    <div>
-                        <label>Verify Password</label>
-                        <div className="password-input">
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                value={verifyPassword}
-                                onChange={handleVerifyPasswordChange}
-                                placeholder='Verify Password'
-                                id="password-input-field"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="toggle-password-button"
-                            >
-                                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-                            </button>
-                        </div>
-                        <div className="verify">{passwordMatch ? "It's a match!" : 'Passwords do not match'}</div>
-                    </div>
-                    <div className='terms'>
-                        <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => setIsChecked(!isChecked)}
-                        />
-                        <label className='conditions'>
-                            I agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); showTerms(); }}>terms</a> and <a href="#privacy-policy" onClick={(e) => { e.preventDefault(); showPrivacyPolicy(); }}>privacy policy</a>
-                        </label>
-                    </div>
-                    <button type="submit"
-                    className='submit' disabled={!passwordMatch || !isChecked}>Next</button>
-                </form>
-                {message && (
-                    <div className={`message ${messageType}`}>
-                        {message}
-                    </div>
-                )}
-            </div>
-
+                    )}
+                </div>
+            )}
             {showModal && (
                 <div className="modal">
                     <div className="modal-content">
