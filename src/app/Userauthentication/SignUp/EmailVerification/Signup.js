@@ -44,6 +44,10 @@ export default function Home1() {
   };
 
   const sendOtp = async () => {
+    if (!email) {
+      setErrors({ email: 'Email is required.' });
+      return;
+    }
     try {
       // Check if the email is already in use
       const emailCheckResponse = await fetch('https://userauthentication-rcfpsxcera-uc.a.run.app/signupapi/check-email/', {
@@ -271,9 +275,9 @@ export default function Home1() {
                       className={`${styles.input} ${errors.otp ? styles.errorInput : ''}`}
                       required
                     />
-                    {sendOtp && !otpExpired && (
+                    {/* {sendOtp && !otpExpired && (
                       <p className={styles.timer}>Resend OTP in: {timer} seconds</p>
-                    )}
+                    )} */}
                     {otpExpired && (
                       <button
                         type="button"

@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import UseSession from './hooks/UseSession';
 export default function Login() {
   const router = useRouter();
+  const [heading, setHeading] = useState('Login');
   const { isLoggedIn, userData, clearSession } = UseSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -79,6 +80,7 @@ export default function Login() {
           setOtpTimer(30);
           alert('OTP sent to your email.');
           setLoginMode('otp');
+          setHeading('Two-Factor Authentication');
         } else {
           alert('Invalid email or password.');
         }
@@ -148,10 +150,7 @@ export default function Login() {
       <main className={styles.main} style={{ marginTop: '80px' }}>
         {!isLoggedIn ? (
           <div className={styles.card}>
-            <h1 className={styles.title}>
-              {loginMode === 'password' && 'Login'}
-              {loginMode === 'otp' && 'Two-Factor Authentication'}
-            </h1>
+            <h1 className={styles.title}>{heading}</h1> 
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <label htmlFor="email">
@@ -238,7 +237,7 @@ export default function Login() {
                   <button
                     type="button"
                     className={styles.button}
-                    onClick={() => setLoginMode('otp')}
+                    onClick={() => setLoginMode('otp')|| setHeading('Login with OTP')} 
                   >
                     Login with OTP
                   </button>

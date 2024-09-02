@@ -1,0 +1,116 @@
+/* ./index.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+ 
+  }
+  
+  .main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 0 10px;
+    box-sizing: border-box;
+   
+  }
+  
+  .text {
+    margin-top: 5rem;
+    flex: 1;
+    margin-right: 5rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  .image {
+    flex-shrink: 0;
+    margin-top: 7rem;
+    margin-left: 6rem;
+    margin-bottom: 5rem;
+  }
+  
+  .heading {
+    font-size: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+    margin-bottom: 0.1rem;
+    text-align: left;
+  }
+  
+  .subtext {
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: #ddd;
+    margin-bottom: 1rem;
+    text-align: left;
+    margin-top: 0rem;
+  }
+  
+  .signupButton {
+    display:flex;
+    padding:5px 40px;
+    font-size: 12px;
+    color: white;
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    border: none;
+    border-radius: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: background-color 0.3s ease;
+    margin-bottom: 2rem;
+  }
+  
+  .signupButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .footer {
+    background-color: white;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    width: 100%;
+  }
+  
+  .footerContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footerLeft {
+    display: flex;
+    align-items: center;
+  }
+  
+  .footerImage {
+    margin-right: 10px;
+    width:5rem;
+  }
+  
+  
+  .footerCopy {
+    color: purple;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  
+  .footerRight {
+    text-align: right;
+  }
+  
+  .footerLinks a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+  }
+  
