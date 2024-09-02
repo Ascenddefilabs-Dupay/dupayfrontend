@@ -46,9 +46,6 @@ const AddCurrencyForm = () => {
         setErrors({});
       } else {
         const errorData = await res.json();
-        // setErrors(errorData);
-
-        
         const errorMessages = Object.values(errorData).flat().join(', ');
         setAlertMessage(`Failed to add currency: ${errorMessages}`);
         setStatusMessage('Failed to add currency.');
@@ -59,6 +56,22 @@ const AddCurrencyForm = () => {
       setStatusMessage('An error occurred.');
     }
   }, [currencyCode, currencyCountry, currencyIcon]);
+
+  const handleCountryInputChange = (e) => {
+    // Allow only letters, numbers, and spaces
+    const regex = /^[a-zA-Z0-9\s]*$/;
+    if (regex.test(e.target.value)) {
+      setCurrencyCountry(e.target.value);
+    }
+  };
+
+  const handleCurrencyCodeChange = (e) => {
+    // Allow only letters and numbers (no spaces or symbols)
+    const regex = /^[a-zA-Z0-9]*$/;
+    if (regex.test(e.target.value)) {
+      setCurrencyCode(e.target.value.toUpperCase()); // Convert to uppercase automatically
+    }
+  };
 
   const handleLeftArrowClick = useCallback(() => {
     window.location.href = '/Userauthorization/Dashboard';
@@ -72,15 +85,14 @@ const AddCurrencyForm = () => {
     return <p>You are not authorized to access this page.</p>;
   }
 
-
   return (
     <div className={styles.container}>
       {alertMessage && (
-                <div className={styles.customAlert}>
-                    <p>{alertMessage}</p>
-                    <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
-                </div>
-            )}
+        <div className={styles.customAlert}>
+          <p>{alertMessage}</p>
+          <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
+        </div>
+      )}
       <div className={styles.topBar}>
         <button className={styles.topBarButton}>
           <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick}/>
@@ -94,7 +106,7 @@ const AddCurrencyForm = () => {
           <input
             type="text"
             value={currencyCountry}
-            onChange={(e) => setCurrencyCountry(e.target.value)}
+            onChange={handleCountryInputChange}
             required
             className={styles.input}
           />
@@ -105,7 +117,7 @@ const AddCurrencyForm = () => {
           <input
             type="text"
             value={currencyCode}
-            onChange={(e) => setCurrencyCode(e.target.value)}
+            onChange={handleCurrencyCodeChange}
             required
             className={styles.input}
           />
@@ -126,4 +138,5 @@ const AddCurrencyForm = () => {
     </div>
   );
 }
+
 export default AddCurrencyForm;

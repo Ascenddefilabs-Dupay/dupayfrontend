@@ -5,7 +5,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import Select from 'react-select';
 
-// Adding necessary credentials
+
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
 const API_BASE_URL = 'https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi'; // Base URL for all API requests
 
@@ -23,6 +23,9 @@ const DepositForm = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [pendingAmount, setPendingAmount] = useState(null);
     const [showForm, setShowForm] = useState(true);
+    const [showLoader, setShowLoader] = useState(true);
+    
+    
 
     // Error boundary for API calls
     const handleApiError = (error, context) => {
@@ -121,6 +124,14 @@ const DepositForm = () => {
             color: 'white',
         }),
     };
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowLoader(false);
+            setShowForm(true);
+        }, 2000); // 2 seconds delay
+
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         // Load Razorpay script lazily
@@ -140,18 +151,20 @@ const DepositForm = () => {
     }, []);
 
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/fiat_wallets/Wa0000000001/`)
-            .then(response => setWalletDetails(response.data))
-            .catch(error => handleApiError(error, 'fetching wallet details'));
+        if (showForm) {
+            axios.get(`${API_BASE_URL}/fiat_wallets/Wa0000000001/`)
+                .then(response => setWalletDetails(response.data))
+                .catch(error => handleApiError(error, 'fetching wallet details'));
 
-        axios.get(`${API_BASE_URL}/currencies/`)
-            .then(response => setCurrencies(response.data))
-            .catch(error => handleApiError(error, 'fetching currencies'));
+            axios.get(`${API_BASE_URL}/currencies/`)
+                .then(response => setCurrencies(response.data))
+                .catch(error => handleApiError(error, 'fetching currencies'));
 
-        axios.get(`${API_BASE_URL}/banks/`)
-            .then(response => setBanks(response.data))
-            .catch(error => handleApiError(error, 'fetching banks'));
-    }, []);
+            axios.get(`${API_BASE_URL}/banks/`)
+                .then(response => setBanks(response.data))
+                .catch(error => handleApiError(error, 'fetching banks'));
+        }
+    }, [showForm]);
 
     useEffect(() => {
         if (walletDetails) {
@@ -315,7 +328,11 @@ const DepositForm = () => {
     };
 
     const handleLeftArrowClick = () => {
-        window.location.href = '/Userauthorization/Dashboard';
+        setShowLoader(true);
+    setTimeout(() => {
+      window.location.href = '/Userauthorization/Dashboard';
+      setShowLoader(false); 
+    }, 1000); 
     };
 
     const handleCloseAlert = () => {
@@ -348,6 +365,7 @@ const DepositForm = () => {
     return (
         
         <div>
+            
             {alertMessage && (
             <div className={styles.customAlert}>
                 <p>{alertMessage}</p>
@@ -357,6 +375,11 @@ const DepositForm = () => {
             {showForm && (
                 
                 <div className={styles.container}>
+                    {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
                     <Suspense fallback={<div>Loading...</div>}>
                     <div className={styles.topBar}>
                         <button className={styles.topBarButton}>

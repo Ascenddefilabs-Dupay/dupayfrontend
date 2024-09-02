@@ -1,7 +1,7 @@
 "use client";
 import styles from './page.css';
 import axios from 'axios';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback,Suspense } from 'react';
 import country_list from '../CurrencyDropdown/country-list';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -19,7 +19,7 @@ const CurrencyConverter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCurrency = searchParams.get('currency');
-  const [fromCurrency, setFromCurrency] = useState('ETH'); // Default value
+  const [fromCurrency, setFromCurrency] = useState('ETH'); 
   const [toCurrency, setToCurrency] = useState('INR');
   const [amount, setAmount] = useState('0');
   const [result, setResult] = useState('');
@@ -34,6 +34,7 @@ const CurrencyConverter = () => {
   const cryptoApiKey = 'd87e655eb0580e20c381f19ecd513660587ebed07d93f102ac46a3efe32596ca';
   const [alertMessage, setAlertMessage] = useState('');
   const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     if (selectedCurrency) {
@@ -41,6 +42,13 @@ const CurrencyConverter = () => {
       setShowBottomSheet(true);
     }
   }, [selectedCurrency]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+    }, 1500); // seconds delay
+
+    return () => clearTimeout(timer);
+}, []);
 
   useEffect(() => {
     const storedNetwork = localStorage.getItem('selectedNetwork');
@@ -203,7 +211,9 @@ const CurrencyConverter = () => {
   }, [router]);
 
   const navigateToDashboard = useCallback(() => {
-    window.location.href = '/Userauthorization/Dashboard';
+   
+      window.location.href = '/Userauthorization/Dashboard';
+      
   }, []);
 
   const handleCloseAlert = useCallback(() => {
@@ -214,13 +224,20 @@ const CurrencyConverter = () => {
     return <p>You are not authorized to access this page.</p>;
   }
     return (
-        <div className="converterContainer">
+      
+      <div className="converterContainer">
             {alertMessage && (
                 <div className='customAlert'>
                     <p>{alertMessage}</p>
                     <button onClick={handleCloseAlert} className="closeButton">OK</button>
                 </div>
             )}
+            {showLoader && (
+                <div className="loaderContainer">
+                    <div className="loader"></div>
+                </div>
+            )}
+            <Suspense fallback={<div>Loading...</div>}>
             <div className="topBar">
                 <button className="topBarButton">
                     <FaArrowLeft className="topBarIcon" onClick={navigateToDashboard} />
@@ -324,8 +341,12 @@ const CurrencyConverter = () => {
                         </div>
                     </div>
                 </div>
+                
             )}
+            </Suspense>
         </div>
+
+        
     );
 };
 
