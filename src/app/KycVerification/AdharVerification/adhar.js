@@ -238,7 +238,6 @@ const AadharForm = () => {
         },
       });
       setAlertMessage('Aadhar submitted successfully!');
-      
       setShowAlert(true);
       setRedirect(true); // Trigger redirect state
       setAadharNumber('');

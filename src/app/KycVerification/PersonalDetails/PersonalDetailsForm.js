@@ -282,10 +282,9 @@
 
 // export default PersonalDetailsForm;
 
-
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './PersonalDetailsForm.module.css';
@@ -313,10 +312,11 @@ const PersonalDetailsForm = () => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
-  const [redirect, setRedirect] = useState(false); // New state for redirect
+  const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const validateField = (name, value) => {
+  const validateField = useCallback((name, value) => {
     let error = '';
     switch (name) {
       case 'firstName':
@@ -363,12 +363,12 @@ const PersonalDetailsForm = () => {
       default:
         break;
     }
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-  };
+    setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     validateField(name, value);
   };
 
@@ -386,8 +386,9 @@ const PersonalDetailsForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+      setLoading(true);
       try {
-        const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/personal-details/', {
+        await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/personal-details/', {
           first_name: formData.firstName,
           last_name: formData.lastName,
           mobile_number: formData.mobileNumber,
@@ -405,7 +406,7 @@ const PersonalDetailsForm = () => {
         });
         setMessage('Personal details submitted successfully!');
         setShowAlert(true);
-        setRedirect(true); // Trigger redirect state
+        setRedirect(true);
         setFormData({
           firstName: '',
           lastName: '',
@@ -422,6 +423,8 @@ const PersonalDetailsForm = () => {
         console.error('Error submitting personal details:', error);
         setMessage('Error submitting personal details. Please try again.');
         setShowAlert(true);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -437,8 +440,12 @@ const PersonalDetailsForm = () => {
     <div className={styles.formContainer}>
       {showAlert && <CustomAlert message={message} onClose={closeAlert} />}
       <form onSubmit={handleSubmit} className={styles.form}>
+        {loading && (
+          <div className={styles.loaderContainer}>
+            <div className={styles.loader}></div>
+          </div>
+        )}
         <h2 className={styles.heading}>Personal Details</h2>
-        {/* Form Fields */}
         <div className={styles.formGroup}>
           <label className={styles.label}>
             First Name <span className={styles.required}>*</span>
@@ -575,7 +582,9 @@ const PersonalDetailsForm = () => {
           />
           {errors.country && <p className={styles.error}>{errors.country}</p>}
         </div>
-        <button type="submit" className={styles.submitButton}>Submit</button>
+        <button type="submit" className={styles.submitButton} disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit'}
+        </button>
       </form>
     </div>
   );
