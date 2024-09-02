@@ -20,7 +20,7 @@ export default function Receive() {
     const [copyType, setCopyType] = useState('');
     const [searchQuery, setSearchQuery] = useState(''); // State for search query
     const router = useRouter();
-    const userId = 'dupC0004';
+    const userId = 'DupC0001';
     const ethereumAddress = '0x0b77...3E32'; // Example address
     const bitcoinAddress = 'bc1qdg...yr62'; // Example address
 
@@ -30,7 +30,7 @@ export default function Receive() {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/profile/${userId}/`);
+            const response = await axios.get(`http://localhost:8000/userauthorizationapi/profile/${userId}/`);
             setUserProfile(response.data);
             if (response.data.user_profile_photo) {
                 const baseURL = 'http://localhost:8000/profile_photos';
@@ -59,9 +59,9 @@ export default function Receive() {
         e.stopPropagation();
     
         if (type === 'ethereum') {
-            router.push(`/Crypto_Wallet/receive_btn/ethereum_btn?address=${ethereumAddress}`);
+            router.push(`/Userauthorization/receive_btn/ethereum_btn?address=${ethereumAddress}`);
         } else if (type === 'bitcoin') {
-            router.push(`/Crypto_Wallet/receive_btn/bitcoin_btn?address=${bitcoinAddress}`);
+            router.push(`/Userauthorization/receive_btn/bitcoin_btn?address=${bitcoinAddress}`);
         }
     };
     
@@ -106,7 +106,7 @@ export default function Receive() {
     };
 
     const handleBackClick = () => {
-        router.push('/Crypto_Wallet/Dashboard');
+        router.push('/Userauthorization/Dashboard');
     };
 
     const ProfileImage = styled('img')({
@@ -129,8 +129,13 @@ export default function Receive() {
     return (
         <div className={styles.container}>
             <div>
-                <ArrowBackIcon onClick={handleBackClick} className={`${styles.backIcon} ${styles.iconHover}`}/>
-                <span>Received crypto and NFTs</span> 
+                <ArrowBackIcon 
+                    onClick={handleBackClick} 
+                    className={`${styles.backIcon} ${styles.iconHover}`} 
+                />
+                <h1 className={styles.heading}>
+                    Received crypto and NFTs
+                </h1>
             </div>
             <div className={styles.searchContainer}>
                 <div className={styles.search}>
@@ -257,7 +262,7 @@ export default function Receive() {
                     style={{ margin: '0 30px', border: '1px solid white', width: '330px', height: '40px', borderRadius: '10px', padding: '8px', justifyContent: 'space-between', position: 'relative', top:'35px' }}
                 >
                     <button 
-                        onClick={() => router.push('http://localhost:3005/Currency_Conversion')}
+                        onClick={() => router.push('/FiatManagement/Currency_Conversion')}
                     >
                         Buy Crypto
                     </button>

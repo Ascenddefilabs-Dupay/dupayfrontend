@@ -1,12 +1,18 @@
 "use client";
 import { useRouter } from 'next/navigation';
 import { MdOutlineCancel } from "react-icons/md";
+import React, { useState } from 'react';
 
 export default function Send() {
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
+
 
     const handleBackClick = () => {
+        setLoading(true); // Show loading text
+        setTimeout(() => {
         router.push('/Userauthorization/Dashboard');
+        }, 500);
     };
 
     return (
@@ -25,6 +31,12 @@ export default function Send() {
             fontFamily: 'Arial, Helvetica, sans-serif', /* Set the font for the entire container */
 
         }}>
+            {loading ? (
+                <div style={{color: 'white', fontSize: '18px'}}>
+                    Loading...
+                </div>
+            ) : (
+                <>
             <MdOutlineCancel 
                 onClick={handleBackClick}  
                 style={{
@@ -66,6 +78,8 @@ export default function Send() {
             >
                 Continue
             </button>
+            </>
+            )}
         </div>
     );
 }

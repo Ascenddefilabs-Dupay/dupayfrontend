@@ -67,7 +67,7 @@ const ManageProfile = () => {
           className="button"
           onClick={navigateToWalletDetails}
         >
-          <div className="walletItem">
+          <div className="walletItem" >
           <FaUserCircle className="profileIcon" />
             <div className="walletInfo">   
               <div className="walletAddress">srinivass7420.cb.id</div>

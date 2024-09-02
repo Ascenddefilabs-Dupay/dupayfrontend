@@ -15,7 +15,8 @@ const BottomNavBar = () => {
   const [profileImage, setProfileImage] = useState('');
   const router = useRouter();
   const pathname = usePathname();
-  const userId = 'dupC0030';
+  const userId = 'DupC0001';
+
 
   useEffect(() => {
     // Update selected state based on current route
@@ -34,9 +35,9 @@ const BottomNavBar = () => {
     // Fetch the user profile image
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/profile/${userId}/`);
+        const response = await axios.get(`/userauthorizationapi/profile/${userId}/`);
         if (response.data.user_profile_photo) {
-          const baseURL = 'http://localhost:8000/profile_photos';
+          const baseURL = '/profile_photos';
           let imageUrl = '';
 
           if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
