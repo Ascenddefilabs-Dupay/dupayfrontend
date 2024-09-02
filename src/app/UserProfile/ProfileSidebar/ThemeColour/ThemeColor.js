@@ -50,11 +50,6 @@ const ThemeColor = () => {
         ))}
       </div>
       <br></br>
-      <div className={styles.footer}>
-        {/* <div className={styles.footerButton}>Assets</div>
-        <div className={styles.footerButton}>Transactions</div>
-        <div className={styles.footerButton}>Settings</div> */}
-      </div>
     </div>
     </div>
   );

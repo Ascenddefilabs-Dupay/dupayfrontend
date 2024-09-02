@@ -16,11 +16,11 @@ const StyledContainer = styled(Container)({
   alignItems: 'flex-start',
   padding: '1rem',
   backgroundColor: '#000000',
-  borderRadius: '8px',
+  borderRadius: '0px',
   color: '#FFFFFF',
-  width: '428px',
+  width: '430px',
   height: 'auto',
-  minHeight:'100vh' ,// Adjust height for additional content
+  minHeight:'130vh' ,// Adjust height for additional content
   overflowY: 'auto',  // Adjust height for additional content
   scrollbarWidth: 'none', // For Firefox
   padding:'20px',
@@ -211,13 +211,11 @@ const UserProfile = () => {
   });
 
   return (
-    <div className={styles.pageWrapper}>
-    <Container maxWidth="md">
+    <div >
       <StyledContainer>
           <header style={styles.header}>
                 <Link href="/UserProfile">
                 <BackArrow />
-
                 </Link>
                 <Box display="flex" justifyContent="flex-start" width="100%">
                   <Typography variant="h5" gutterBottom>
@@ -249,7 +247,7 @@ const UserProfile = () => {
           </ProfileImageWrapper>
           <Box>
             <Typography variant="h6" style={{ color: '#B0B0B0' }}>
-              {users.user_id}
+              {users.user_id || 'loaging profile details...'}
             </Typography>
           </Box>
         </ProfileWrapper>
@@ -315,7 +313,6 @@ const UserProfile = () => {
           )}
         </Grid>
       </StyledContainer>
-    </Container>
     </div>
   );
 };

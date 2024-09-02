@@ -7,77 +7,73 @@ import { styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import {FaArrowLeft, FaClock, FaFileAlt, FaCog } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const styles = {
     header: {
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        marginBottom: '1rem', // Adjusted for spacing
+        marginBottom: '1rem',
     },
     backArrow: {
         cursor: 'pointer',
         color: '#FFFFFF',
-        fontSize: '1.5rem', // Increase the size of the arrow
+        fontSize: '1.5rem',
     },
     manage: {
         fontSize: '1.3rem',
         color: '#FFFFFF',
-        marginLeft: '1px', // Ensure it starts from the left with some margin
+        marginLeft: '1px',
     },
-    
     recommended: {
         color: '#1E88E5',
         fontSize: '0.75rem',
         marginLeft: '1px',
     },
     description: {
-        color: '#9E9E9E', // Set the desired text color here
+        color: '#9E9E9E',
         marginLeft: '0.75px',
         fontSize: '0.75rem',
     },
     user: {
-        color: 'white', // Set the desired text color here
+        color: 'white',
         marginLeft: '1.5px',
         fontSize: '0.95rem',
     },
     addr: {
-        color: '#B0B0B0', // Set the desired text color here
+        color: '#B0B0B0',
         marginLeft: '1.5px',
         fontSize: '0.75rem',
     },
     footer: {
         display: 'flex',
         justifyContent: 'space-between',
-        margintop: 'auto',
+        marginTop: 'auto',
         width: '100%',
-
     },
     footerItem: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         cursor: 'pointer',
-        color: '#FFFFFF', // Text color for the footer items
+        color: '#FFFFFF',
     },
 };
 
-const StyledContainer = styled(Container)({
+const StyledContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  padding: '1rem',
   backgroundColor: '#000000',
-  borderRadius: '8px',
   color: '#FFFFFF',
   width: '428px',
-  height:'auto', // Adjust height for additional content
-  minHeight: '100vh' ,
-  padding:'20px',
+  // maxWidth: '100%',
+  minHeight: '130vh',
+  padding: '20px',
+  margin: '0 auto',
+  boxSizing: 'border-box', // Ensures padding is included within the width/height
 });
-
-
 
 const ProfileWrapper = styled(Box)({
   display: 'flex',
@@ -104,49 +100,6 @@ const UploadInput = styled('input')({
   display: 'none',
 });
 
-const LabelTypography = styled(Typography)({
-  fontWeight: 'bold',
-  display: 'inline',
-  color: '#B0B0B0',
-  width: '100px',
-  flexShrink: 0,
-});
-
-const ValueTypography = styled(Typography)({
-  display: 'inline',
-  marginLeft: '0.5rem',
-  flexGrow: 1,
-});
-
-const InfoRow = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginBottom: '1rem',
-});
-
-const StyledButton = styled(Button)({
-  backgroundColor: '#333',
-  color: '#FFFFFF',
-  borderRadius: '16px',
-  textTransform: 'none',
-  padding: '0.25rem 1rem',
-  '&:hover': {
-    backgroundColor: '#444',
-  },
-});
-
-const ButtonWrapper = styled(Box)({
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: '1rem',
-});
-
-const SuccessMessage = styled(Typography)({
-  color: '#2196F3', // Blue color for success message
-  marginTop: '1rem',
-});
-
 const UserProfile = () => {
   const [users, setUserProfile] = useState({});
   const [profileImage, setProfileImage] = useState('');
@@ -168,14 +121,11 @@ const UserProfile = () => {
         const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
         let imageUrl = '';
 
-        // Check if the photo is stored as bytes
         if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
           imageUrl = response.data.user_profile_photo;
         } else if (response.data.user_profile_photo && response.data.user_profile_photo.startsWith('/')) {
-          // Handle as a URL path
           imageUrl = `${baseURL}${response.data.user_profile_photo}`;
         } else if (response.data.user_profile_photo && response.data.user_profile_photo.data) {
-          // Handle as bytes (convert to base64)
           const byteArray = new Uint8Array(response.data.user_profile_photo.data);
           const base64String = btoa(
             byteArray.reduce((data, byte) => data + String.fromCharCode(byte), '')
@@ -211,7 +161,6 @@ const UserProfile = () => {
 
   const uploadImage = async (file) => {
     const formData = new FormData();
-    
     formData.append('user_id', users.user_id || '');
     formData.append('user_profile_photo', file);
     try {
@@ -228,34 +177,23 @@ const UserProfile = () => {
     }
   };
 
-
   const handleManageProfileClick = () => {
     router.push('/EditProfile'); // Redirect to ManageProfile.js
   };
 
-  const BackArrow = styled(FaArrowLeft)({
-    cursor: 'pointer',
-    color: '#FFFFFF',
-    fontSize: '1.0rem', // Adjust size as needed
-    marginRight: '1rem', // Adjust spacing from the text
-  });
-  
   return (
-    <div className={styles.pageWrapper}>
-    <Container maxWidth="md">
+    <div>
       <StyledContainer>
         <header style={styles.header}>
-            <Link href="/UserProfile">
-              <FaArrowLeft />
-
-            </Link>
+          <Link href="/UserProfile">
+            <FaArrowLeft style={styles.backArrow} />
+          </Link>
         </header>
-            <Typography variant="h6" style={styles.manage}>Edit profile details</Typography>
-            <Typography variant="body1" style={{ ...styles.description, marginLeft: '1px' }} gutterBottom>
-                Your profile is private. You can make it public in <span style={styles.recommended}>Manage privacy</span>. All feilds are optional.
-
-            </Typography>
-        <ProfileWrapper >
+        <Typography variant="h6" style={styles.manage}>Edit profile details</Typography>
+        <Typography variant="body1" style={{ ...styles.description, marginLeft: '1px' }} gutterBottom>
+          Your profile is private. You can make it public in <span style={styles.recommended}>Manage privacy</span>. All fields are optional.
+        </Typography>
+        <ProfileWrapper>
           <ProfileImageWrapper>
             <ProfileImage src={profileImage} alt="Profile Image" />
             <label htmlFor="upload-image">
@@ -270,8 +208,8 @@ const UserProfile = () => {
                   right: -15,
                   backgroundColor: '#FFFFFF',
                   borderRadius: '50%',
-                  width:30,
-                  height:30
+                  width: 30,
+                  height: 30,
                 }}
               >
                 <PhotoCamera style={{ color: 'gray' }} />
@@ -280,14 +218,11 @@ const UserProfile = () => {
           </ProfileImageWrapper>
           <Box>
             <Typography variant="h6" style={styles.user}>
-              {users.user_id}
+              {users.user_id || 'loading profile details...'}
             </Typography>
-            
           </Box>
         </ProfileWrapper>
-        
       </StyledContainer>
-    </Container>
     </div>
   );
 };
