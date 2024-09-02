@@ -1,0 +1,75 @@
+/* AuthNavbar.module.css */
+
+.navbar {
+    background-color: black;
+    color: black;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .menuButton{
+    cursor: pointer;
+    color:white;
+  }
+  
+  .closeButton {
+    cursor: pointer;
+    color:white;
+  }
+  
+  .dupayText {
+    
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  .BrandImage{
+    margin-right: 10px;
+
+  }
+  
+  .desktopMenu .accountText {
+    font-size: 0.8rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:white;
+  }
+  
+  .signInButton {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white;
+    border: none;
+    padding:5px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 9999px; /* Rounded full */
+    transition: background-color 0.3s;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  .signInButton:hover {
+    background-color: #0000ff; /* Blue color on hover */
+  }
+  
+  .mobileMenu {
+    background-color: black;
+  }
+  
+  .mobileSignInButton {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white;
+    border: none;
+    padding:5px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 9999px; /* Rounded full */
+    transition: background-color 0.3s;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  .mobileSignInButton:hover {
+    background-color: #0000ff; /* Blue color on hover */
+  }
+  

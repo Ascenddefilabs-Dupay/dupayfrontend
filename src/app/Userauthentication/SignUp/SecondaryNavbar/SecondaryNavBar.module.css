@@ -1,0 +1,45 @@
+/* SecondaryNavbar.module.css */
+
+.navbar {
+    background-color: black;
+    color: black;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dupayLink {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  .BrandImage{
+    margin-right: 10px;
+
+  }
+  .signInButton {
+    background: linear-gradient(to right, #7f2ee3, #4246f7);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.125rem;
+    cursor: pointer;
+    border-radius: 9999px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signInButton {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white;
+    border: none;
+    padding:5px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 9999px; /* Rounded full */
+    transition: background-color 0.3s;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
