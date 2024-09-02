@@ -8,7 +8,7 @@ import { faBell, faQrcode, faCopy, faPlus } from '@fortawesome/free-solid-svg-ic
 
 import QrScanner from 'react-qr-scanner';
 
-const Headerbar = ({ userId, onCopyUserId }) => {
+const Headernavbar = ({ userId, onCopyUserId }) => {
     const [isScanning, setIsScanning] = useState(false);
     const router = useRouter(); // Initialize useRouter
 
@@ -91,4 +91,4 @@ const Headerbar = ({ userId, onCopyUserId }) => {
     );
 };
 
-export default Headerbar;
+export default Headernavbar;

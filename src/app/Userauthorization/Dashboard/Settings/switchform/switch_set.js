@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import '../switchform/switch_formset.css';
 
-const SimpleModeSwitch = () => {
+const Switch = () => {
     const router = useRouter();
     
     const switchhandleBackClick = () => {
@@ -41,4 +41,4 @@ const SimpleModeSwitch = () => {
     );
 };
 
-export default SimpleModeSwitch;
+export default Switch;

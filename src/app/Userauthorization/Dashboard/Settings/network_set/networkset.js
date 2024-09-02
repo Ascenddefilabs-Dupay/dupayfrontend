@@ -9,7 +9,7 @@ import { useState } from 'react';
 
     
 
-const NetworkSet = () => {
+const Networkmod = () => {
     const [activeTab, setActiveTab] = useState('mainnets');
     const router = useRouter();
 
@@ -58,4 +58,4 @@ const NetworkSet = () => {
     );
 };
 
-export default NetworkSet;
+export default Networkmod;

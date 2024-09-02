@@ -23,7 +23,7 @@ const UserProfile = ({ profileImage }) => {
     );
 };
 
-export default function HomePage() {
+export default function Profileicon() {
     const [selectedButton, setSelectedButton] = useState('');
     const [navValue, setNavValue] = useState(0);
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -210,7 +210,7 @@ export default function HomePage() {
                     <Card className={styles.card}>
                         <CardContent>
                             <div className={styles.imgdiv}>
-                                <img src="/Buycrypto-btn.image.png" alt="Buycrypto-btn_imaage.jpg" className={styles.image} />
+                                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911804/Buycrypto-btn.image_lwpfle.png" alt="Buycrypto-btn_imaage.jpg" className={styles.image} />
                                 <div className={styles.getstartbtn}>
                                     <Typography variant="body1" style={{ fontWeight: 'bold' }}>Fund your wallet</Typography>
                                     <p style={{ fontSize: '11px' }}>Get a free NFT by adding</p>

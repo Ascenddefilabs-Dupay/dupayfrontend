@@ -1,10 +1,10 @@
 import React from 'react';
-import Setting from './signout'
+import SignOutDialog from './signout'
 
 const Signoutinterface = () => {
   return( 
      <div>  
-        < Setting />
+        < SignOutDialog />
         </div> );
 
 };

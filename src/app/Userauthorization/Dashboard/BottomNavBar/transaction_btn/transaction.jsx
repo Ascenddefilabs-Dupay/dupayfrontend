@@ -35,7 +35,7 @@ const Transactions = () => {
     </header>
       <div className={styles.noTransactions}>
         <div>
-        <img className= {styles.img} src="/transaction_image.png" alt="transactions_image" />
+        <img className= {styles.img} src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911805/transaction_image_swymyd.png" alt="transactions_image" />
 
         </div>
         <h2 className={styles.noTransactionsTitle}>No transactions yet</h2>

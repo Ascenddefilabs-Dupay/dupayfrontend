@@ -368,7 +368,7 @@ const Home = () => {
         {activeTab === 'Crypto' && (
           <div className={styles.cryptoContent}>
             <div className={styles.cryptoIcons}>
-              <img src="/crypto.png" alt="Crypto Icon 1" className={styles.cryptoIcon} />
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911011/crypto_bwvuwf.png" alt="Crypto Icon 1" className={styles.cryptoIcon} />
             </div>
             <div className={'button-container'}>
               <h2 className={styles.addNameStart}>Add crypto to get started</h2>

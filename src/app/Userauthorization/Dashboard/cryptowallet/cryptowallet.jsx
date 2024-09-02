@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const Buypage = () => {
+const Cryptowallet = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
@@ -38,7 +38,7 @@ const Buypage = () => {
     );
 };
 
-export default memo(Buypage);
+export default memo(Cryptowallet);
 
 
 

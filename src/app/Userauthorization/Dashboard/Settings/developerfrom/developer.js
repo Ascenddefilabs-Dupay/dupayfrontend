@@ -7,7 +7,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
-const DeveloperSettings = () => {
+const Developer = () => {
   const [testnetsEnabled, setTestnetsEnabled] = useState(false);
   const router = useRouter();
 
@@ -64,4 +64,4 @@ const DeveloperSettings = () => {
   );
 };
 
-export default DeveloperSettings;
+export default Developer;

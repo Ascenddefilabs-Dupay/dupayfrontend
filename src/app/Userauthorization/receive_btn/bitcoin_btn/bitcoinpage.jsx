@@ -95,7 +95,7 @@ export default function BitcoinPage() {
                             includeMargin={true}
                             renderAs="svg"
                             imageSettings={{
-                                src: "/bitcoin_img1.png", // Path to your image
+                                src: "https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933124/bitcoin_img1_okht2d.png",
                                 x: 40,
                                 y: 35,
                                 height: 24,
@@ -143,7 +143,7 @@ export default function BitcoinPage() {
                             includeMargin={true}
                             renderAs="svg"
                             imageSettings={{
-                                src: "/ethereum_image.jpg", // Path to your image
+                                src: "https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933125/ethereum_image_pjztx6.jpg",
                                 x: 40,
                                 y: 35,
                                 height: 24,

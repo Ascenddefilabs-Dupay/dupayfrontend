@@ -5,7 +5,7 @@ import '../passwordform/password.css';
 import axios from 'axios';
 
 
-const PasscodeScreen = () => {
+const Password = () => {
     const [passcode, setPasscode] = useState("");
     const router = useRouter();
 
@@ -63,4 +63,4 @@ const PasscodeScreen = () => {
     );
 };
 
-export default PasscodeScreen;
+export default Password;

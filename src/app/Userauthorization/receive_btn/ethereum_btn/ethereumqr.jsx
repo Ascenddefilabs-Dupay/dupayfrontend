@@ -105,7 +105,7 @@ export default function EthereumPage() {
                     includeMargin={true}
                     renderAs="svg"
                     imageSettings={{
-                        src: "/ethereum_image.jpg", // Add the path to your Ethereum logo here
+                        src: "https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933125/ethereum_image_pjztx6.jpg", 
                         x: null,
                         y: null,
                         height: 24,

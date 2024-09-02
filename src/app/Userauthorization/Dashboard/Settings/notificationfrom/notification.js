@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Switch } from '@mui/material';
 import axios from 'axios';
 
-const Notificationinterfacen = () => {
+const Notification = () => {
     const [notificationSettings, setNotificationSettings] = useState({
         product_announcement: true,
         insights_tips: true,
@@ -135,4 +135,4 @@ const Notificationinterfacen = () => {
     );
 };
 
-export default Notificationinterfacen;
+export default Notification;
