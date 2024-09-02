@@ -38,7 +38,7 @@ const AccountActivity = () => {
       return;
     }
 
-
+    
 
     axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/accountactivityapi/create-account-activity/', {
       email_id: 'user@example.com',
@@ -89,11 +89,12 @@ const AccountActivity = () => {
   // Fetch user IDs who have account activity enabled
   useEffect(() => {
     requestNotificationPermission();
-
+    
     axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/accountactivityapi/get-account-activity-user-ids/')
       .then(response => {
         if (response.data.user_ids && response.data.user_ids.length > 0) {
           setUserId(response.data.user_ids[0]);  // Set the first user ID
+
         } else {
           alert('No users with account activity enabled.');
         }
