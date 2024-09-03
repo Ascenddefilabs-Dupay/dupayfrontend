@@ -283,11 +283,11 @@
 // export default PersonalDetailsForm;
 
 'use client';
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './PersonalDetailsForm.module.css';
+import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
 const CustomAlert = ({ message, onClose }) => (
   <div className={styles.customAlert}>
@@ -295,7 +295,6 @@ const CustomAlert = ({ message, onClose }) => (
     <button onClick={onClose} className={styles.closeButton}>Ok</button>
   </div>
 );
-
 const PersonalDetailsForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -315,6 +314,15 @@ const PersonalDetailsForm = () => {
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { isLoggedIn, userData } = UseSession();
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      console.log('User ID:', userData?.user_id);
+    } else {
+      console.log('User is not logged in');
+    }
+  }, [isLoggedIn, userData]);
 
   const validateField = useCallback((name, value) => {
     let error = '';
@@ -365,13 +373,11 @@ const PersonalDetailsForm = () => {
     }
     setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
   }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     validateField(name, value);
   };
-
   const validateForm = () => {
     const newErrors = {};
     Object.keys(formData).forEach((key) => {
@@ -382,13 +388,13 @@ const PersonalDetailsForm = () => {
     });
     return Object.keys(newErrors).length === 0;
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       setLoading(true);
       try {
-        await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/personal-details/', {
+        const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/personal-details/', {
+          user_id: userData?.user_id, // Include user_id
           first_name: formData.firstName,
           last_name: formData.lastName,
           mobile_number: formData.mobileNumber,
@@ -428,14 +434,12 @@ const PersonalDetailsForm = () => {
       }
     }
   };
-
   const closeAlert = () => {
     setShowAlert(false);
     if (redirect) {
       router.push('/WalletManagement/WalletCreation');
     }
   };
-
   return (
     <div className={styles.formContainer}>
       {showAlert && <CustomAlert message={message} onClose={closeAlert} />}
@@ -589,5 +593,4 @@ const PersonalDetailsForm = () => {
     </div>
   );
 };
-
 export default PersonalDetailsForm;
