@@ -409,7 +409,7 @@ const Navbar = () => {
           />
       <div className={styles.dupayText}>
         <Link href="/">
-          <span className={styles.dupayLink}>DUPAY</span>
+          <span className={styles.dupayLink}>Dupay</span>
         </Link>
       </div>
 

@@ -27,7 +27,7 @@ const Page = () => {
   return (
     <>
       <AuthNavbar />
-      <main className="pt-20 md:pt-24 p-4 md:p-11"> {/* Adjust padding to account for navbar height */}
+      <main className="pt-20 md:pt-24 p-4 md:p-11 bg-black text-white"> {/* Adjust padding to account for navbar height */}
         <div className="mb-5">
           <h1 className="text-2xl font-bold">Welcome to Dupay</h1>
         </div>
@@ -39,7 +39,7 @@ const Page = () => {
         <div className="flex flex-col gap-5 mb-5 md:flex-row md:gap-5">
           <div className="flex flex-col gap-5 w-full md:w-1/2">
             <div
-              className={`bg-gray-100 border ${selectedAccount === 'Individual' ? 'border-blue-500' : 'border-gray-300'} rounded-lg p-5 cursor-pointer transition-colors duration-300 h-32`}
+              className={`bg-gray-800 text-white border ${selectedAccount === 'Individual' ? 'border-blue-500' : 'border-gray-300'} rounded-lg p-5 cursor-pointer transition-colors duration-300 h-32`}
               onClick={() => handleSelectAccount('Individual')}
             >
               <h3 className="text-lg font-semibold">Individual</h3>
@@ -47,7 +47,7 @@ const Page = () => {
             </div>
 
             <div
-              className={`bg-gray-100 border ${selectedAccount === 'Vendor' ? 'border-blue-500' : 'border-gray-300'} rounded-lg p-5 cursor-pointer transition-colors duration-300 h-32`}
+              className={`bg-gray-800 text-white border ${selectedAccount === 'Vendor' ? 'border-blue-500' : 'border-gray-300'} rounded-lg p-5 cursor-pointer transition-colors duration-300 h-32`}
               onClick={() => handleSelectAccount('Vendor')}
             >
               <h3 className="text-lg font-semibold">Vendor</h3>
@@ -87,7 +87,8 @@ const Page = () => {
         </div>
 
         <div className="mt-8">
-          <button className="bg-gradient-to-r from-[#7f2ee3] to-[#4246f7] text-white rounded-lg py-2 px-4 md:py-2 md:px-6 hover:bg-blue-700 transition-colors duration-300 w-full md:w-auto" onClick={handleGetStarted}>
+          <button className="bg-gradient-to-r from-[#007bff9f] to-[#800080] text-white rounded-lg py-2 px-4 md:py-2 md:px-6 hover:bg-blue-700 transition-colors duration-300 w-full md:w-auto"
+ onClick={handleGetStarted}>
             Get Started
           </button>
         </div>
