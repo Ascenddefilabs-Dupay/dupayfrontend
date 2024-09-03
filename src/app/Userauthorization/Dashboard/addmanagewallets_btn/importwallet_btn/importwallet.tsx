@@ -1,27 +1,28 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
 import styles from './importwallet.module.css';
 import { useRouter } from 'next/navigation';
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-const Importwallet = () => {
+const Importwallet: React.FC = () => {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState('');
-  const [error, setError] = useState('');
-  const [isLinkVisible, setIsLinkVisible] = useState(true);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [isLinkVisible, setIsLinkVisible] = useState<boolean>(true);
 
-  const handleBackClick = () => {
+  const handleBackClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
     router.push('/Userauthorization/Dashboard/addmanagewallets_btn');
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     if (e.target.value) {
       setError('');
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleImportClick();
     }
@@ -37,7 +38,7 @@ const Importwallet = () => {
     }
   };
 
-  const validateInput = (input) => {
+  const validateInput = (input: string) => {
     const isValidRecoveryPhrase = input.split(' ').length === 12;
     const isValidPrivateKey = input.length === 64;
     return isValidRecoveryPhrase || isValidPrivateKey;
@@ -46,7 +47,7 @@ const Importwallet = () => {
   return (
     <div className={styles.container}>
       <div className={styles.backButton} onClick={handleBackClick}>
-        <IoMdArrowRoundBack sx={{ color: '#fff' }} />
+        <IoMdArrowRoundBack style={{ color: '#fff' }} />
       </div>
       <div className={styles.progressBar}></div>
       <h1 className={styles.heading}>Import wallet</h1>

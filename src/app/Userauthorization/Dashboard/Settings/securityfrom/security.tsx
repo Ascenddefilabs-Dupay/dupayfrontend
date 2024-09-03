@@ -120,11 +120,11 @@ const Security = () => {
         router.push(redirectUrl);
     };
 
-    const handleRequiredapp = (event) => {
+    const handleRequiredapp = (event: React.ChangeEvent<HTMLInputElement>) => {
         sethandleMode(event.target.checked);
     };
 
-    const handleaTransaction = (event) => {
+    const handleaTransaction = (event: React.ChangeEvent<HTMLInputElement>) => {
         sethandletransactionMode(event.target.checked);
     };
     return (

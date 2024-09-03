@@ -19,7 +19,7 @@ const History = () => {
     router.back();
   };
 
-  const handleHistoryItemClick = (url) => {
+  const handleHistoryItemClick = (url: string) => {
     router.push(url);
   };
 
