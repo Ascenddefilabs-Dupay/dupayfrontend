@@ -15,6 +15,7 @@ const SuccessPage: React.FC = () => {
     const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(null);
     const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false));
@@ -66,16 +67,28 @@ const SuccessPage: React.FC = () => {
         setLoading(true);
         window.location.href = '../WalletSecretCode';
     };
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId: string = sessionData.user_id;
+            setUserId(storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+          } 
+        }
+    }, []);
 
     const handleSubmit = async () => {
-        const user_id = sessionStorage.getItem('user_id');
+        const user_id = userId
         console.log(user_id);
-        
+
         // const user_id = 'Dup001'
         const walletId = localStorage.getItem('wallet_id');
         const password = localStorage.getItem('password');
 
-        if (firstSelectedIndex !== null && lastSelectedIndex !== null ) {
+        if (firstSelectedIndex !== null && lastSelectedIndex !== null) {
             const firstWord = shuffledWords[firstSelectedIndex];
             const lastWord = shuffledWords[lastSelectedIndex];
 
@@ -91,7 +104,7 @@ const SuccessPage: React.FC = () => {
                 setLoading(true)
                 try {
                     // Retrieve wallet_id and password from localStorage
-                   
+
                     // const recoveryWords = localStorage.getItem('recoveryWords');
 
                     // Print data to the console
@@ -101,8 +114,8 @@ const SuccessPage: React.FC = () => {
                     console.log("Uer_id", user_id)
 
                     // Send data to the backend
-                    await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/save-wallet-data/',{
-                    // await axios.post('http://127.0.0.1:8000/walletmanagementapi/save-wallet-data/', {
+                    // await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/save-wallet-data/', {
+                        await axios.post('http://127.0.0.1:8000/walletmanagementapi/save-wallet-data/', {
                         wallet_id: walletId,
                         password,
                         recovery_phrases: recoveryWords.join(' '),

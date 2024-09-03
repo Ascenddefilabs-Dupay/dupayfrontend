@@ -2,7 +2,7 @@
 import React from 'react';
 import PasswordForm from './PasswordForm';
 
-const App = () => {
+const App:React.FC = () => {
     return (
         <div className="App">
             <PasswordForm />

@@ -1,7 +1,7 @@
 import React from 'react';
 import AddAccount from './AddAccount';
 
-const addAccount = () => {
+const addAccount: React.FC = () => {
   return (
     <div className="App">
       <AddAccount />

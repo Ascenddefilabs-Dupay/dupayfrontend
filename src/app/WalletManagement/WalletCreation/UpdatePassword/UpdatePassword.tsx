@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './UpdatePassword.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from "react-icons/fa";
 
-const PasswordForm = () => {
-    const [walletId, setWalletId] = useState(null);
-    const [password, setPassword] = useState('');
-    const [verifyPassword, setVerifyPassword] = useState('');
-    const [passwordMatch, setPasswordMatch] = useState(false);
-    const [passwordStrength, setPasswordStrength] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-    const [modalContent, setModalContent] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [message, setMessage] = useState(''); // State for messages
-    const [messageType, setMessageType] = useState(''); // State for message type ('success' or 'error')
-    const [loading, setLoading] = useState(false);
+const PasswordForm: React.FC = () => {
+    const [walletId, setWalletId] = useState<string | null>(null);
+    const [password, setPassword] = useState<string>('');
+    const [verifyPassword, setVerifyPassword] = useState<string>('');
+    const [passwordMatch, setPasswordMatch] = useState<boolean>(false);
+    const [passwordStrength, setPasswordStrength] = useState<string>('');
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [modalContent, setModalContent] = useState<string>('');
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>(''); // State for messages
+    const [messageType, setMessageType] = useState<'success' | 'error'>(); // State for message type ('success' or 'error')
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false));
+        const timer = setTimeout(() => setLoading(false), 1000); // Adjust timer as needed
         return () => clearTimeout(timer);
     }, []);
 
@@ -35,8 +35,7 @@ const PasswordForm = () => {
         }
     }, []);
 
-
-    const handlePasswordChange = (e) => {
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setPassword(value);
 
@@ -51,32 +50,30 @@ const PasswordForm = () => {
     };
 
     const handleLeftArrowClick = () => {
-        setLoading(true)
+        setLoading(true);
         window.location.href = './ImportPassphrase';
     };
 
-    const handleVerifyPasswordChange = (e) => {
+    const handleVerifyPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setVerifyPassword(value);
         setPasswordMatch(password === value);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
         if (passwordMatch && isChecked && walletId) {
             try {
                 const response = await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/update-password/', { wallet_id: walletId, password });
                 setMessage('Password updated successfully :)');
                 setMessageType('success');
                 sessionStorage.removeItem('wallet_id');
-                // setTimeout(() => {
                 window.location.href = '/Userauthorization/Dashboard';
-                // }, 2000);
             } catch (error) {
                 setMessage('Error updating password!');
                 setMessageType('error');
-                console.error('Error updating  password', error);
+                console.error('Error updating password', error);
             }
         }
     };
