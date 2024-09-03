@@ -2,19 +2,48 @@
 "use client";
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ThemeColor.module.css';
 import { Typography } from '@mui/material';
 import { FaArrowLeft } from 'react-icons/fa';
+import { redirect } from 'next/navigation';
 
 const colors = ['#3B82F6', '#10B981', '#A78BFA', '#F472B6', '#14B8A6'];
 
 const ThemeColor = () => {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [showLoader, setShowLoader] = useState(true);
+  // const userId = localStorage.getItem('user_id');
+  // console.log("User_id", userId)
+  // if (user_id === null) redirect('http://localhost:3000/')
 
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUserId = localStorage.getItem('user_id');
+      setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      console.log(storedUserId)
+    }
+  }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+        // setShowForm(true);
+    }, ); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+    }, []);
   return (
     <div className={styles.pageWrapper}>
     <div className={styles.container}>
+    {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
       <div className={styles.header}>
         <Link href="/UserProfile/ProfileSidebar">
           <FaArrowLeft className={styles.backArrow} />

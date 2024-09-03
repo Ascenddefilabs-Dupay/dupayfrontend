@@ -1,20 +1,44 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from 'react';
 import { Box, Button, Typography, Tabs, Tab, IconButton } from '@mui/material';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './HideAssets.module.css';
 import { styled } from '@mui/system';
 import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation';
+
 
 
 const HideAssets = () => {
   const [tabValue, setTabValue] = React.useState(0);
+  const [showLoader, setShowLoader] = useState(true);
+  // const userId = localStorage.getItem('user_id');
+  // console.log("User_id", userId)
+  // if (user_id === null) redirect('http://localhost:3000/')
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUserId = localStorage.getItem('user_id');
+      setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      console.log(storedUserId)
+    }
+  }, []);
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+        // setShowForm(true);
+    },); // 2 seconds delay
 
+    return () => clearTimeout(timer);
+    }, []);
   const BackArrow = styled(FaArrowLeft)({
     cursor: 'pointer',
     color: '#FFFFFF',
@@ -24,6 +48,11 @@ const HideAssets = () => {
 
   return (
     <div className={styles.pageWrapper}>
+      {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
       <Box
         sx={{
           backgroundColor: '#000',
@@ -36,6 +65,7 @@ const HideAssets = () => {
           height: 'auto',
           minHeight: '100vh',
           padding: '20px',
+          position: 'relative',
         }}
       >
         {/* Header with Back Arrow */}

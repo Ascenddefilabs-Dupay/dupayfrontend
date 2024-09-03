@@ -7,7 +7,9 @@ import { styled } from '@mui/system';
 import { ArrowForwardIos, Circle, Info } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
-
+import { redirect } from 'next/navigation';
+// import './ManageProfile.module.css';
+import React, { useState, useEffect } from 'react';
 
 
 const StyledContainer = styled(Container)({
@@ -22,7 +24,10 @@ const StyledContainer = styled(Container)({
   height:'auto' ,
   minHeight:'120vh',// // Adjust height for additional content
   padding : '20px',
+  position: 'relative',
 });
+
+
 const styles = {
   menuList: {
     flex: 1,
@@ -122,19 +127,52 @@ const container = {
     backgroundColor: 'white',
 
 };
-const handleLeftArrowClick = () => {
-  window.location.href = 'http://localhost:3003/Dashboard';
-};
 
 const ManageProfile = () => {
   const router = useRouter();
+  const [showLoader, setShowLoader] = useState(true);
+  // const userId = localStorage.getItem('user_id');
+  // console.log("User_id", userId)
+  // if (userId === null) redirect('http://localhost:3000/')
+  // const userId = 'DupC0001';
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUserId = localStorage.getItem('user_id');
+      setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      if (storedUserId === null) redirect('http://localhost:3000/Userauthentication/SignIn');
+      console.log(storedUserId)
+    }
+  }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+        // setShowForm(true);
+    }, 2000); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+    }, []);
+  const handleLeftArrowClick = () => {
+      setShowLoader(true);
+      setTimeout(() => {
+      window.location.href = '/Userauthorization/Dashboard';
+      setShowLoader(false); 
+      }, 1000); 
+  };
   return (
     <div className={container}>
+      {showLoader && (
+        <div className={styles.loaderContainer}>
+            <div className={styles.loader}></div>
+        </div>
+        )}
     <StyledContainer maxWidth="md">
       <Header>
-        <Link href="/Userauthorization/Dashboard">
+        {/* <Link > */}
           <BackArrow onClick={handleLeftArrowClick}/>
-        </Link>
+        {/* </Link> */}
         <MenuTitle>Manage Profile</MenuTitle>
       </Header>
       <Nav>

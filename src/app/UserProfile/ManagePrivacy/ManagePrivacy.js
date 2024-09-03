@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, Card, CardContent, Box, Modal, Button } from '@mui/material';
 import { styled } from '@mui/system';
@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { FaArrowLeft, FaClock, FaFileAlt, FaCog } from 'react-icons/fa';
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
+import { redirect } from 'next/navigation';
 
 const StyledContainer = styled(Container)({
     display: 'flex',
@@ -107,21 +108,38 @@ const ManagePrivacy = () => {
     const [open, setOpen] = useState(false);
     const [close, setClose] = useState(false);
     const [error, setError] = useState(false);
-    const userId = 'dupC0029'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
+    // const userId = 'dupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
     const router = useRouter(); // Initialize useRouter
+    const [showLoader, setShowLoader] = useState(true);
+    // const userId = localStorage.getItem('user_id');
+    // console.log("User_id", userId)
+    // if (user_id === null) redirect('http://localhost:3000/')
 
-    const fetchUserProfile = async () => {
+
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        const storedUserId = localStorage.getItem('user_id');
+        setUserId(storedUserId);
+        // setAlertMessage('User Need To Login')
+        // if (storedUserId === null) redirect('http://localhost:3000/');
+        console.log(storedUserId)
+      }
+    }, []);
+    const fetchUserProfile = useCallback(async () => {
         try {
             const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
             setIsPublic(response.data.profile_privacy === 'public');
         } catch (error) {
             console.error('Error fetching user profile:', error);
         }
-    };
+    }, [userId]);
 
     useEffect(() => {
         fetchUserProfile();
-    }, []);
+    }, [fetchUserProfile]);
+
 
     const handleToggle = (publicStatus) => {
         setIsPublic(publicStatus);

@@ -1,13 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useCallback} from 'react';
 import axios from 'axios';
 import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
-import {FaArrowLeft, FaClock, FaFileAlt, FaCog } from 'react-icons/fa';
+import {FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
+import  './ViewProfile.module.css';
+import { redirect } from 'next/navigation';
+
 
 
 const StyledContainer = styled(Container)({
@@ -24,6 +27,7 @@ const StyledContainer = styled(Container)({
   overflowY: 'auto',  // Adjust height for additional content
   scrollbarWidth: 'none', // For Firefox
   padding:'20px',
+  position: 'relative',
 });
 
 
@@ -99,10 +103,27 @@ const UserProfile = () => {
   const [users, setUserProfile] = useState({});
   const [profileImage, setProfileImage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
+  // const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
   const router = useRouter(); // Initialize useRoute
+  const [showLoader, setShowLoader] = useState(true);
+  // const userId = localStorage.getItem('user_id');
+  // console.log("User_id", userId)
+  // if (user_id === null) redirect('http://localhost:3000/')
+  const [userId, setUserId] = useState(null);
 
-  const fetchUserProfile = async () => {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUserId = localStorage.getItem('user_id');
+      setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      console.log(storedUserId)
+    }
+  }, []);
+  
+  
+
+  const fetchUserProfile = useCallback(async () => {
     try {
       const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
@@ -133,11 +154,19 @@ const UserProfile = () => {
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
-  };
+  }, [userId]);
 
   useEffect(() => {
     fetchUserProfile();
-  }, []);
+  }, [fetchUserProfile]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+        // setShowForm(true);
+    }, 2000); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+    }, []);
 
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0] && users.user_id) { // Ensure user data is available
@@ -213,6 +242,11 @@ const UserProfile = () => {
   return (
     <div >
       <StyledContainer>
+      {showLoader && (
+        <div className="loaderContainer">
+          <div className="loader"></div>
+        </div>
+      )}
           <header style={styles.header}>
                 <Link href="/UserProfile">
                 <BackArrow />
@@ -247,7 +281,7 @@ const UserProfile = () => {
           </ProfileImageWrapper>
           <Box>
             <Typography variant="h6" style={{ color: '#B0B0B0' }}>
-              {users.user_id || 'loaging profile details...'}
+              {users.user_id || 'loading profile details...'}
             </Typography>
           </Box>
         </ProfileWrapper>

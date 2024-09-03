@@ -1,15 +1,31 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from './ShowRecoveryPhrase.module.css';
 import { Container, TextField, Button, Box, Typography, Checkbox, IconButton, InputAdornment, FormControlLabel } from '@mui/material';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/system';
+import { redirect } from 'next/navigation';
 
 const ShowRecoveryPhrase = () => {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showLoader, setShowLoader] = useState(true);
+  // const userId = localStorage.getItem('user_id');
+  // console.log("User_id", userId)
+  // if (user_id === null) redirect('http://localhost:3000/')
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUserId = localStorage.getItem('user_id');
+      setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      console.log(storedUserId)
+    }
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
@@ -20,9 +36,22 @@ const ShowRecoveryPhrase = () => {
     fontSize: '1.0rem', // Adjust size as needed
     marginRight: '1rem', // Adjust spacing from the text
   });
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+        // setShowForm(true);
+    }, ); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+    }, []);
   return (
     <div className={styles.pageWrapper}>
     <Box className={styles.container}>
+    {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
       <Container component="main" className={styles.mainContent}>
         <IconButton color="inherit" href="/UserProfile/ProfileSidebar">
           <BackArrow  style={{position: 'relative' ,right:'10px'}} className={styles.footerIcon} />
