@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
@@ -8,8 +8,67 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
+import { redirect } from 'next/navigation';
 
 const styles = {
+  loaderContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: 'rgba(0, 0, 0, 0.5)',
+    backdropFilter: 'blur(10px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+    zIndex: 2,
+    padding: '20px',
+    borderRadius: '20px',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
+  },
+  loader: {
+    width: '60px',
+    height: '60px',
+    background: 'linear-gradient(45deg, #ff007b, #007bff)',
+    animation: 'spin 1s linear infinite',
+    transform: 'rotate(45deg)',
+    position: 'relative',
+    zIndex: 3,
+    boxShadow: '0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7)',
+    borderRadius: '12%',
+  },
+  loaderBefore: {
+    content: '""',
+    position: 'absolute',
+    top: '-10px',
+    left: '-10px',
+    right: '-10px',
+    bottom: '-10px',
+    background: 'rgba(255, 0, 123, 0.3)',
+    borderRadius: '15%',
+    animation: 'pulse 1.5s infinite ease-in-out',
+    zIndex: -1,
+  },
+  '@keyframes spin': {
+    '0%': { transform: 'rotate(45deg)' },
+    '100%': { transform: 'rotate(405deg)' },
+  },
+  '@keyframes pulse': {
+    '0%': {
+      transform: 'scale(1)',
+      opacity: 1,
+    },
+    '50%': {
+      transform: 'scale(1.2)',
+      opacity: 0.6,
+    },
+    '100%': {
+      transform: 'scale(1)',
+      opacity: 1,
+    },
+  },
     header: {
         display: 'flex',
         alignItems: 'center',
@@ -106,16 +165,32 @@ const UserProfile = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
+  // const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
   const router = useRouter(); // Initialize useRouter
+  const [showLoader, setShowLoader] = useState(true);
+  // const userId = localStorage.getItem('user_id');
+  // console.log("User_id", userId)
+  // if (user_id === null) redirect('http://localhost:3000/')
 
-  const fetchUserProfile = async () => {
+  const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        const storedUserId = localStorage.getItem('user_id');
+        setUserId(storedUserId);
+        // setAlertMessage('User Need To Login')
+        // if (storedUserId === null) redirect('http://localhost:3000/');
+        console.log(storedUserId)
+      }
+    }, []);
+
+  const fetchUserProfile = useCallback(async () => {
     try {
       const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
       setName(response.data.name || '');
       setAddress(response.data.address || '');
-      console.log('User profile data:', response.data); // Debugging line to check the response data
+      console.log('User profile data:', response.data);
 
       if (response.data.user_profile_photo) {
         const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
@@ -130,8 +205,8 @@ const UserProfile = () => {
           const base64String = btoa(
             byteArray.reduce((data, byte) => data + String.fromCharCode(byte), '')
           );
-          imageUrl = `data:image/jpeg;base64,${base64String}`; // Change image/jpeg based on your image type
-          console.log('Base64 Image URL:', imageUrl); // Debugging line to check the base64 URL
+          imageUrl = `data:image/jpeg;base64,${base64String}`;
+          console.log('Base64 Image URL:', imageUrl);
         }
 
         setProfileImage(imageUrl);
@@ -139,12 +214,20 @@ const UserProfile = () => {
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
-  };
+  }, [userId]);
 
   useEffect(() => {
     fetchUserProfile();
-  }, []);
+  }, [fetchUserProfile]);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+        // setShowForm(true);
+    },); // 2 seconds delay
 
+    return () => clearTimeout(timer);
+    }, []);
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0] && users.user_id) { // Ensure user data is available
       const file = event.target.files[0];
@@ -176,14 +259,14 @@ const UserProfile = () => {
       setSuccessMessage('Failed to update profile image.');
     }
   };
-
-  const handleManageProfileClick = () => {
-    router.push('/EditProfile'); // Redirect to ManageProfile.js
-  };
-
   return (
     <div>
       <StyledContainer>
+      {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
         <header style={styles.header}>
           <Link href="/UserProfile">
             <FaArrowLeft style={styles.backArrow} />

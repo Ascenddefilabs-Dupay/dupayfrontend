@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect, useCallback } from 'react';
 import { IconButton, Switch, Typography, Box } from '@mui/material';
 import { ArrowForwardIos, Circle, Info } from '@mui/icons-material';
 import { styled } from '@mui/system';
@@ -7,6 +8,7 @@ import axios from 'axios';
 import styles from './ProfileSidebar.module.css';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 const ProfileWrapper = styled(Box)({
   display: 'flex',
@@ -39,13 +41,49 @@ const UserProfile = () => {
   const [user, setUserProfile] = useState({});
   const [profileImage, setProfileImage] = useState('');
   const router = useRouter(); // Use router from next/navigation
-  const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
+  // const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
+  const [showLoader, setShowLoader] = useState(true);
+  // const userId = localStorage.getItem('user_id');
+  // console.log("User_id", userId)
+  // if (user_id === null) redirect('http://localhost:3000/')
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    fetchUserProfile();
+    if (typeof window !== 'undefined') {
+      const storedUserId = localStorage.getItem('user_id');
+      setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      console.log(storedUserId)
+    }
   }, []);
 
-  const fetchUserProfile = async () => {
+  // const [userId, setUserId] = useState(null);
+
+  // useEffect(() => {
+  //   // Ensure localStorage is accessed only on the client side
+  //   if (typeof window !== 'undefined') {
+  //     const storedUserId = localStorage.getItem('user_id');
+  //     setUserId(storedUserId);
+  //     console.log("User_id", storedUserId);
+
+  //     // if (!storedUserId) {
+  //     //   router.push('http://localhost:3000/');
+  //     // }
+  //   }
+  // }, []);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowLoader(false);
+        // setShowForm(true);
+    }, ); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+    }, []);
+
+  const fetchUserProfile = useCallback(async () => {
     try {
       const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
@@ -70,8 +108,10 @@ const UserProfile = () => {
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
-  };
-
+  }, [userId]);
+  useEffect(() => {
+    fetchUserProfile();
+  }, [fetchUserProfile]);
   const profilehandleBackClick = () => {
     let redirectUrl = '/Userauthorization/Dashboard/Settings';
     router.push(redirectUrl);
@@ -84,6 +124,11 @@ const UserProfile = () => {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.sidebarContainer}>
+      {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
         <div className={styles.header}>
           <IconButton color="inherit" href="/Userauthorization/Dashboard/Settings" className={styles.backButton}>
             <BackArrow style={{position: 'relative' ,right:'10px'}} onClick={profilehandleBackClick}/>   <label className={styles.header1}> ProfileSidebar</label>
