@@ -67,7 +67,7 @@ export default function Profileicon() {
         setDropdownVisible(prevState => !prevState);
     };
 
-    const handleTopButtonClick = (button) => {
+    const handleTopButtonClick = (button: string) => {
         if (button === 'Buy') {
             setSelectedButton(button);
             console.log(button);
@@ -109,7 +109,7 @@ export default function Profileicon() {
         setScannerOpen(false);
     };
 
-    const handleScan = (data) => {
+    const handleScan = (data: string) => {
         if (data) {
             setQrData(data);
             console.log('QR Code Data:', data);
@@ -117,7 +117,7 @@ export default function Profileicon() {
         }
     };
 
-    const handleError = (error) => {
+    const handleError = (error: string) => {
         console.error('QR Scanner Error:', error);
     };
 
@@ -127,7 +127,7 @@ export default function Profileicon() {
                 <div className={styles.emailBar}>
                     <div className={styles.walletAddress} onClick={toggleDropdown}>
                         <UserProfile profileImage={profileImage} className = {styles.profileIcon}/>
-                        <Typography variant="h9" style={{ color: '#ffffff' , fontWeight: 'bold'}}>
+                        <Typography variant="body1" style={{ color: '#ffffff' , fontWeight: 'bold'}}>
                             {userId}
                         </Typography>
                         <FaChevronDown className={styles.dropdownIcon} />
@@ -148,7 +148,7 @@ export default function Profileicon() {
                                 <UserProfile profileImage={profileImage} className = {styles.profileIcon2}/>
                                 <div className={styles.textContainer}>
                                     <div className={styles.userid}>
-                                        <Typography variant="h9" style={{ color: '#ffffff' }}>
+                                        <Typography variant="body1" style={{ color: '#ffffff' }}>
                                             {userId}
                                         </Typography>
                                     </div>

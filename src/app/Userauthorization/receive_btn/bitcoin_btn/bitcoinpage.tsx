@@ -1,32 +1,43 @@
 "use client";
-import React, { useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { IoMdClose } from 'react-icons/io';
 import QRCode from 'qrcode.react';
 import Link from 'next/link';
 import styles from './bitcoinpage.module.css';
 
-export default function BitcoinPage() {
-    const searchParams = useSearchParams();
+// Define the types for the props and state
+interface BitcoinPageProps {}
+
+const BitcoinPage: React.FC<BitcoinPageProps> = () => {
     const router = useRouter();
-    const address = searchParams.get('address');
-    const [copied, setCopied] = useState(false);
-    const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [activeTab, setActiveTab] = useState('Segwit');
+    const [address, setAddress] = useState<string | null>(null);
+    const [copied, setCopied] = useState<boolean>(false);
+    const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+    const [activeTab, setActiveTab] = useState<'Segwit' | 'Legacy'>('Segwit');
+
+    useEffect(() => {
+        // Retrieve query parameters on component mount
+        const query = new URLSearchParams(window.location.search);
+        const addressParam = query.get('address');
+        setAddress(addressParam);
+    }, []);
 
     const handleCopyClick = () => {
-        navigator.clipboard.writeText(address)
-            .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            })
-            .catch(err => {
-                console.error('Failed to copy: ', err);
-            });
+        if (address) {
+            navigator.clipboard.writeText(address)
+                .then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
     };
 
     const handleCloseClick = () => {
-        router.push('/Userauthorization/receive_btn');
+        router.push('/Userauthorization/receive_btn'); // Navigate using router.push
     };
 
     const handleLearnMoreClick = () => {
@@ -38,18 +49,11 @@ export default function BitcoinPage() {
     };
 
     const handleQRCodeClick = () => {
-        navigator.clipboard.writeText(address)
-            .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            })
-            .catch(err => {
-                console.error('Failed to copy: ', err);
-            });
+        handleCopyClick(); // Reuse handleCopyClick function
     };
 
     const handleShareClick = () => {
-        if (navigator.share) {
+        if (address && navigator.share) {
             navigator.share({
                 title: 'Bitcoin Address',
                 text: `Here is my Bitcoin address: ${address}`,
@@ -60,7 +64,7 @@ export default function BitcoinPage() {
         }
     };
 
-    const handleToggle = (tab) => {
+    const handleToggle = (tab: 'Segwit' | 'Legacy') => {
         setActiveTab(tab);
     };
 
@@ -88,7 +92,7 @@ export default function BitcoinPage() {
                 <div className={styles.content}>
                     <div className={styles.qrCodeContainer}>
                         <QRCode
-                            value={address}
+                            value={address || ''}
                             size={135}
                             fgColor="#000000"
                             level="H"
@@ -118,17 +122,15 @@ export default function BitcoinPage() {
                             Transactions may take a few minutes to complete.
                         </p>
                         <p className={styles.infoText}>
-                        <Link href=" " className={styles.link} target="_blank">
-                        Learn more </Link>
-                             about Segwit vs Legacy.</p> 
-
+                            <Link href=" " className={styles.link} target="_blank">
+                                Learn more </Link>
+                             about Segwit vs Legacy.</p>
                     </div>
                     <div className={styles.shareButtonContainer}>
                         <button className={styles.shareButton} onClick={handleShareClick}>
                             Share your address
                         </button>
                     </div>
-                    
                 </div>
             )}
 
@@ -136,7 +138,7 @@ export default function BitcoinPage() {
                 <div className={styles.content}>
                     <div className={styles.qrCodeContainer}>
                         <QRCode
-                            value={address}
+                            value={address || ''}
                             size={135}
                             fgColor="#000000"
                             level="H"
@@ -153,7 +155,6 @@ export default function BitcoinPage() {
                         />
                     </div>
                     <div className={styles.addressContainer}>
-                        
                         <p className={styles.addressLabel}>Your Bitcoin Legacy address</p>
                         <p className={styles.address}>{address}</p>
                         <div className={`${styles.copyButtonContainer} ${copied ? styles.copiedButtonContainer : ''}`}>
@@ -171,18 +172,16 @@ export default function BitcoinPage() {
                                 Learn more </Link>
                             about Segwit vs Legacy
                         </p>
-
-
-
                     </div>
                     <div className={styles.shareButtonContainer}>
                         <button className={styles.shareButton} onClick={handleShareClick}>
                             Share your address
                         </button>
                     </div>
-                    
                 </div>
             )}
         </div>
     );
-}
+};
+
+export default BitcoinPage;

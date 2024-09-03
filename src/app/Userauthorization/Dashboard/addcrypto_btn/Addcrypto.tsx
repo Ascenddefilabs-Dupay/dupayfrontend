@@ -2,11 +2,10 @@
 import React from 'react';
 import { Box, Button, Typography, Link, IconButton, useMediaQuery } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import './AddCrypto.module.css'; // Import the CSS file
 
-const AddCrypto = () => {
+const AddCrypto: React.FC = () => {
   const router = useRouter();
   const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -22,18 +21,17 @@ const AddCrypto = () => {
     console.log('Transfer from another wallet clicked');
   };
 
-
   return (
     <Box
       sx={{
         position: 'relative',
-        display: 'flex',   
-        top: '1px',   
+        display: 'flex',
+        top: '1px',
         flexDirection: 'column',
-        alignItems: 'center',// Center content vertically
+        alignItems: 'center', // Center content vertically
         backgroundColor: '#000',
         color: '#fff',
-        height: '110vh',// Ensure the screen height covers the entire viewport
+        height: '110vh', // Ensure the screen height covers the entire viewport
         width: '100%',
         maxWidth: '400px', // Set the screen width to 400px
         padding: 2,
@@ -46,7 +44,7 @@ const AddCrypto = () => {
           <IconButton onClick={handleBackClick} sx={{ color: '#fff', marginLeft: -1 }}>
             <ArrowBackIcon />
           </IconButton>          
-          <Typography variant="h6" gutterBottom sx={{ textAlign: 'left', flexGrow: 5, color: '#fff', marginLeft: 13, }}>
+          <Typography variant="h6" gutterBottom sx={{ textAlign: 'left', flexGrow: 5, color: '#fff', marginLeft: 13 }}>
             Add Crypto
           </Typography>
         </Box>
@@ -58,16 +56,16 @@ const AddCrypto = () => {
           component="img"
           src="/crypto.png"
           alt="Dupay"
-          style={{width: '170px',height: '170px'}}
-          
+          style={{ width: '170px', height: '170px' }}
         />
       </Box>
-      <Typography   variant="h6" sx={{ textAlign: 'center', fontWeight: 'bold',fontSize: '22px', color: '#fff',
-             marginLeft: 0,marginTop: 0, flexGrow: 1,position: 'relative', bottom: '25px'  }} >  Buy or transfer from Dupay 
-         </Typography>
-         <Typography variant="body2" sx={{ textAlign: 'center' ,color: 'gray', position: 'relative', bottom: '150px' }}>
-            You can add crypto from your Dupay account or another wallet.
-        </Typography>
+      <Typography variant="h6" sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: '22px', color: '#fff',
+        marginLeft: 0, marginTop: 0, flexGrow: 1, position: 'relative', bottom: '25px' }}>
+        Buy or transfer from Dupay 
+      </Typography>
+      <Typography variant="body2" sx={{ textAlign: 'center', color: 'gray', position: 'relative', bottom: '150px' }}>
+        You can add crypto from your Dupay account or another wallet.
+      </Typography>
 
       <Button
         variant="outlined"
@@ -75,15 +73,14 @@ const AddCrypto = () => {
         onClick={handleAddCryptoClick}
         sx={{ 
           color: '#fff', 
-          borderColor: '#fff', 
-          position:'relative',
+          borderColor: '#fff', // Define borderColor only once
+          position: 'relative',
           bottom: '120px',
           marginTop: -3,
           width: '80%', 
-          borderColor: 'white',
           borderRadius: 5,
           '&:hover': { 
-            background: ' linear-gradient(90deg, #007bff9f, #800080)',
+            background: 'linear-gradient(90deg, #007bff9f, #800080)',
             borderColor: '#333'
           } 
         }}
@@ -96,9 +93,9 @@ const AddCrypto = () => {
         onClick={handleTransferClick}
         sx={{ 
           color: '#fff', 
-          borderColor: '#fff', 
+          borderColor: '#fff', // Define borderColor only once
           width: '80%', 
-          postion: 'relative',
+          position: 'relative',
           bottom: '105px',
           borderRadius: 5,
           '&:hover': { 

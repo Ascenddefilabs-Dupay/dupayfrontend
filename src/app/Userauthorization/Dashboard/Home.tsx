@@ -35,12 +35,14 @@ const Home = () => {
   const [fetchedUserId, setFetchedUserId] = useState(''); // Added state for fetchedUserId
   const userId = 'DupC0001';
   const router = useRouter();
-  const dropdownRef = useRef(null); // Ref for dropdown container
-  const fiatDropdownRef = useRef(null); // Ref for fiat dropdown container
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const fiatDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  
 
   const [isFiatTabSelected, setIsFiatTabSelected] = useState(false);
 
-  const handleTabClick = async (tab) => {
+  const handleTabClick = async (tab: string) => {
     if (tab === 'Fiat') {
       // Check if the fiatWalletId is empty
       if (!fiatWalletId) {
@@ -82,13 +84,13 @@ const Home = () => {
   
   // Ensure the dropdown remains visible even if clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownVisible(false);
       }
-      if (fiatDropdownVisible && fiatDropdownRef.current && !fiatDropdownRef.current.contains(event.target)) {
+      if (fiatDropdownVisible && fiatDropdownRef.current && !fiatDropdownRef.current.contains(event.target as Node)) {
         // Allow manual toggle to close Fiat dropdown
-        if (!fiatDropdownRef.current.contains(event.target)) {
+        if (!fiatDropdownRef.current.contains(event.target as Node)) {
           setFiatDropdownVisible(false);
         }
       }
@@ -98,12 +100,8 @@ const Home = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownVisible, fiatDropdownVisible]);
   
-  // Prevent dropdown from closing when interacting with it
-  const handleDropdownClick = (event) => {
-    event.stopPropagation();
-  };
 
-  const handleButtonClick = (buttonName) => {
+  const handleButtonClick = (buttonName: string) => {
     switch (buttonName) {
       case 'Add Bank':
         router.push('/FiatManagement/AddBanks');
@@ -186,7 +184,7 @@ const Home = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleIconClick = (iconName) => {
+  const handleIconClick = (iconName: string) => {
     if (iconName === 'Fiat') {
       setFiatDropdownVisible(!fiatDropdownVisible);
     } else {
@@ -214,11 +212,11 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownVisible(false);
       }
-      if (fiatDropdownVisible && fiatDropdownRef.current && !fiatDropdownRef.current.contains(event.target)) {
+      if (fiatDropdownVisible && fiatDropdownRef.current && !fiatDropdownRef.current.contains(event.target as Node)) {
         setFiatDropdownVisible(false);
       }
     };
@@ -282,7 +280,7 @@ const Home = () => {
             ) : (
               <FaUserCircle className={styles.profileIcon} />
             )}
-            <Typography variant="h9" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
+            <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
               {userId}
             </Typography>
             <FontAwesomeIcon icon={faChevronDown} className={styles.dropdownIcon} />
@@ -457,7 +455,7 @@ const Home = () => {
               )}
               <div className={styles.textContainer}>
                 <div className={styles.userid}>
-                  <Typography variant="h9" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px' }}>
+                  <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px' }}>
                     {userId}
                   </Typography>
                 </div>
@@ -483,7 +481,7 @@ const Home = () => {
   );
 };
 
-const getIcon = (action) => {
+const getIcon = (action: string) => {
   switch (action) {
     case 'Buy':
       return <FontAwesomeIcon icon={faPlus} />;

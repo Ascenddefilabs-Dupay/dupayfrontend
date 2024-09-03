@@ -31,7 +31,7 @@ const Newsetting = () => {
     router.push(redirectUrl);
   };
 
-  const handleSwitch = (event) => {
+  const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSimpleMode(event.target.checked);
     if (event.target.checked) {
       router.push('/Userauthorization/Dashboard/Settings/switchform');

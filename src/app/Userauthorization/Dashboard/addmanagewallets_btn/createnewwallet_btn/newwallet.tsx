@@ -13,7 +13,7 @@ const Newwallet = () => {
   return (
     <div className={styles.container}>
       <div className={styles.backButton} onClick={() => console.log('Back button clicked')}>
-      <IoMdArrowRoundBack onClick={handleBackClick} sx={{ color: '#fff' }}/>
+      <IoMdArrowRoundBack onClick={handleBackClick} style={{ color: '#fff' }}/>
       </div>
       <div className={styles.progressBar}></div>
       <h1 className={styles.heading} >Create a new wallet</h1>

@@ -16,11 +16,7 @@ import './manageprofile.css';
 
 const ManageProfile = () => {
   const router = useRouter();
-
-  const handleButtonClick = (message) => {
-    console.log(message);    
-  };
-
+  
   const handleBackClick = () => {
     console.log('Back button clicked');
     router.push('/Userauthorization/Dashboard')
@@ -32,7 +28,7 @@ const ManageProfile = () => {
   };
 
   const navigateToAddAddress= () => {
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/addaddress_btn', '/wallet')
+    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/addaddress_btn')
     // Add your navigation logic here
   };
   
@@ -41,11 +37,12 @@ const ManageProfile = () => {
   };  
 
   const navigateToImportWallet = () => {
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/importwallet_btn', '/wallet')
+    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/importwallet_btn')
     // Add your navigation logic here
   };
 
   const navigateToCreateLedgerWallet = () => {
+    console.log('Connect Ledger wallet clicked');
     router.push('/Userauthorization/Dashboard/addmanagewallets_btn/connectledger_btn')
   };
   
@@ -56,7 +53,7 @@ const ManageProfile = () => {
   return (
     <div className="container">
       <div className="titleContainer">
-        <IconButton className="backarrow" onClick={handleBackClick} sx={{ color: '#fff' }}>
+        <IconButton className="backarrow" onClick={handleBackClick} style={{ color: '#fff' }}>
           <ArrowBackIcon />
         </IconButton>
         <h1 className="title">Add & manage wallets</h1>
@@ -109,7 +106,7 @@ const ManageProfile = () => {
         
         <button
           className="button"
-          onClick={() => navigateToCreateLedgerWallet('Connect Ledger wallet clicked')}
+          onClick={() => navigateToCreateLedgerWallet}
         >
           <PlugIcon className="buttonIcon" />
           Connect Ledger wallet

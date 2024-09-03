@@ -1,18 +1,20 @@
-'use client';
-import styles from "./header.module.css";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Use next/navigation for routing
-import Typography from '@mui/material/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faQrcode, faCopy, faPlus } from '@fortawesome/free-solid-svg-icons'; // Add faPlus for the Add icon
-
 import QrScanner from 'react-qr-scanner';
+import styles from './header.module.css';
 
-const Headernavbar = ({ userId, onCopyUserId }) => {
-    const [isScanning, setIsScanning] = useState(false);
+interface HeadernavbarProps {
+    userId: string;
+    onCopyUserId?: (userId: string) => void;
+}
+
+const Headernavbar: React.FC<HeadernavbarProps> = ({ userId, onCopyUserId }) => {
+    const [isScanning, setIsScanning] = useState<boolean>(false);
     const router = useRouter(); // Initialize useRouter
 
-    const handleIconClick = (iconName) => {
+    const handleIconClick = (iconName: string) => {
         console.log(`${iconName} button clicked`);
         switch (iconName) {
             case 'Scanner':
@@ -26,27 +28,28 @@ const Headernavbar = ({ userId, onCopyUserId }) => {
                 // console.log('UserId:', userId);
                 break;
             case 'Add': // Add case for routing
+                // Handle routing logic here
                 break;
             default:
                 break;
         }
     };
 
-    const copyToClipboard = (text) => {
+    const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text).then(
-            () => console.log('user id is Copied to clipboard'),
+            () => console.log('User ID is copied to clipboard'),
             (err) => console.error('Error copying to clipboard:', err)
         );
     };
 
-    const handleScan = (data) => {
+    const handleScan = (data: any) => {
         if (data) {
             console.log('Scanned QR Code:', data);
             setIsScanning(false);
         }
     };
 
-    const handleError = (err) => {
+    const handleError = (err: any) => {
         console.error('Error scanning QR Code:', err);
     };
 

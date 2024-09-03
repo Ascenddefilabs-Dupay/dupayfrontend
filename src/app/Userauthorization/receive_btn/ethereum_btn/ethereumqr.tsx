@@ -8,19 +8,23 @@ import styles from './ethereum.module.css';
 export default function EthereumPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const address = searchParams.get('address');
-    const [copied, setCopied] = useState(false);
-    const [dropdownVisible, setDropdownVisible] = useState(false);
+    
+    // Safely extract address with a fallback if searchParams is null
+    const address = searchParams ? searchParams.get('address') ?? '' : '';
+    const [copied, setCopied] = useState<boolean>(false);
+    const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
     const handleCopyClick = () => {
-        navigator.clipboard.writeText(address)
-            .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            })
-            .catch(err => {
-                console.error('Failed to copy: ', err);
-            });
+        if (address) {
+            navigator.clipboard.writeText(address)
+                .then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
     };
 
     const handleCloseClick = () => {
@@ -36,14 +40,16 @@ export default function EthereumPage() {
     };
 
     const handleQRCodeClick = () => {
-        navigator.clipboard.writeText(address)
-            .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            })
-            .catch(err => {
-                console.error('Failed to copy: ', err);
-            });
+        if (address) {
+            navigator.clipboard.writeText(address)
+                .then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
     };
 
     const handleShareClick = () => {
@@ -106,8 +112,6 @@ export default function EthereumPage() {
                     renderAs="svg"
                     imageSettings={{
                         src: "https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933125/ethereum_image_pjztx6.jpg", 
-                        x: null,
-                        y: null,
                         height: 24,
                         width: 24,
                         excavate: true,

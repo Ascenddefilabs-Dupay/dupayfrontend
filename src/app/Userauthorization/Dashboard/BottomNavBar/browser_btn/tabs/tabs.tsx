@@ -25,11 +25,11 @@ const Tabs = () => {
     router.push(`/Userauthorization/Dashboard/BottomNavBar/browser_btn?tabCount=${tabCount}`);
   };
 
-  const handleTabClick = (url) => {
+  const handleTabClick = (url: string) => {
     router.push(url);
   };
 
-  const handleCloseTab = (id) => {
+  const handleCloseTab = (id: number | string) => {
     setTabs(tabs.filter(tab => tab.id !== id));
   };
 

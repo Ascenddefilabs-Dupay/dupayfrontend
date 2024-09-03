@@ -1,38 +1,35 @@
 'use client'
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import '../passwordform/password.css';
 import axios from 'axios';
-import '../retypepassword/retypeform.css';
 
-const Retype = () => {
+
+const Password = () => {
     const [passcode, setPasscode] = useState("");
     const router = useRouter();
 
-    const handleNumberClick1 = async (number) => {
+    const handleNumberClick = async (number: any) => {
         if (passcode.length < 6) {
-            const retypepasscode = passcode + number;
-            setPasscode(retypepasscode);
+            const newPasscode = passcode + number;
+            setPasscode(newPasscode);
 
-            // Redirect to /Dashboard after 6 digits
-            if (retypepasscode.length === 6) {
-                try {
-                    const response = await axios.post('http://localhost:8000/api/repassword/', {
-                        retype_password: retypepasscode,
+            
+            if (newPasscode.length === 6) {
+                try{
+                    const response = await axios.post('http://localhost:8000/api/password/', {
+                        password_creation : newPasscode,
                     });
-
-                    if (response.data.status === 'password_failure') {
-                        alert("Password Must Be Same");
-                    } else {
-                        router.push('/Userauthorization/Dashboard');
-                    }
-                } catch (error) {
-                    console.error('Error submitting transaction:', error.response ? error.response.data : error.message);
                 }
+                catch(error){
+                    console.error('Error submitting transaction:');
+                }
+                router.push('/Userauthorization/Dashboard/Settings/retypepassword');
             }
         }
     };
 
-    const handleBackspace1 = () => {
+    const handleBackspace = () => {
         setPasscode(passcode.slice(0, -1));
     };
 
@@ -47,18 +44,18 @@ const Retype = () => {
                     ></div>
                 ))}
             </div>
-            <p>Retype Passcode</p>
+            <p>Enter your Passcode</p>
             <div className="number-pad">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((number, index) => (
                     <button
                         key={index}
                         className="number-button"
-                        onClick={() => handleNumberClick1(number.toString())}
+                        onClick={() => handleNumberClick(number.toString())}
                     >
                         {number}
                     </button>
                 ))}
-                <button className="backspace-button" onClick={handleBackspace1}>
+                <button className="backspace-button" onClick={handleBackspace}>
                     &#x232B;
                 </button>
             </div>
@@ -66,4 +63,4 @@ const Retype = () => {
     );
 };
 
-export default Retype;
+export default Password;

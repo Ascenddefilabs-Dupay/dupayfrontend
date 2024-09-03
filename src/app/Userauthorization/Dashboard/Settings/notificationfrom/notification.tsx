@@ -18,7 +18,7 @@ const Notification = () => {
 
     const router = useRouter();
 
-    const handleNotificationChange = async (field, value) => {
+    const handleNotificationChange = async (field: string, value: boolean) => {
         const updatedSettings = {
             ...notificationSettings,
             [field]: value,

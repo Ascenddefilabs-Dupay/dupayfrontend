@@ -4,15 +4,15 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faGlobe, faEllipsisV, faWindowRestore, faHome, faChevronLeft, faChevronRight, faClock, faBookmark, faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './browser.module.css';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 
-const Browser = () => {
+const Browser: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tabCount = parseInt(searchParams.get('tabCount')) || 0; // Get tab count from URL params
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false); // Initialize showDropdown state
-  const [searchResults, setSearchResults] = useState([]); // State for search results
+  const tabCount = parseInt(searchParams.get('tabCount') || '0'); 
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [searchResults, setSearchResults] = useState<any[]>([]); 
 
   const handleBack = () => {
     router.back();
@@ -43,7 +43,7 @@ const Browser = () => {
   };
 
   // Handle search functionality
-  const handleSearch = (e) => {
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
     if (searchQuery) {
       const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
@@ -68,10 +68,10 @@ const Browser = () => {
             onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
         </form>
-        <div className={styles.iconButton}  >
-        <button >
-          <FontAwesomeIcon icon={faGlobe} style={{position: 'relative', left: '10px'}}/>
-        </button>
+        <div className={styles.iconButton} >
+          <button >
+            <FontAwesomeIcon icon={faGlobe} style={{position: 'relative', left: '10px'}}/>
+          </button>
         </div>
         <div className={styles.tabs} onClick={handleOpenNewTab}>
           <FontAwesomeIcon icon={faPlus} style={{position: 'relative', left: '10px', color: 'white', fontSize: '14px'}}/>

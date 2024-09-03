@@ -10,13 +10,12 @@ import { useRouter, usePathname } from 'next/navigation';
 import axios from 'axios'; // Ensure axios is imported
 import styles from './BottomNavBar.module.css'; // Import the CSS module
 
-const BottomNavBar = () => {
-  const [selected, setSelected] = useState('');
-  const [profileImage, setProfileImage] = useState('');
+const BottomNavBar: React.FC = () => {
+  const [selected, setSelected] = useState<string>('');
+  const [profileImage, setProfileImage] = useState<string>('');
   const router = useRouter();
   const pathname = usePathname();
   const userId = 'DupC0001';
-
 
   useEffect(() => {
     // Update selected state based on current route
@@ -62,7 +61,7 @@ const BottomNavBar = () => {
     fetchUserProfile();
   }, []);
 
-  const handleNavigation = (navItem) => {
+  const handleNavigation = (navItem: string) => {
     setSelected(navItem);
     if (navItem === 'home') {
       router.push('/Userauthorization/Dashboard');
@@ -119,7 +118,14 @@ const BottomNavBar = () => {
   );
 };
 
-const NavItem = ({ icon, label, isSelected, onClick }) => {
+interface NavItemProps {
+  icon: React.ReactNode;
+  label?: string;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ icon, label, isSelected, onClick }) => {
   return (
     <div
       onClick={onClick}
