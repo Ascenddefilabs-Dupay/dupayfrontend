@@ -1,8 +1,9 @@
 "use client";
+import React from "react";
 import FiatWalletForm from "./FiatWalletForm";
 
 
-const FiatAccount = () => {
+const FiatAccount: React.FC = () => {
   return (
     <div >
       <FiatWalletForm />

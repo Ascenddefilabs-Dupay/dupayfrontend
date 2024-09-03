@@ -1,5 +1,13 @@
-// NetworkOptions.js
-const networkOptions = [
+// src/app/networkOptions.tsx
+
+// Define the type for network options
+interface NetworkOption {
+    value: string;
+    label: string;
+}
+
+// Define the network options array with type annotation
+const networkOptions: NetworkOption[] = [
     { value: 'OP Mainnet', label: 'OP Mainnet' },
     { value: 'BTC', label: 'Bitcoin (BTC)' },
     { value: 'ETH', label: 'Ethereum (ETH)' },

@@ -4,16 +4,18 @@ import styles from './PaymentOptions.module.css';
 import UpiIcon from '/public/images/upi.png'; // Import the UPI image
 import { FaArrowLeft } from 'react-icons/fa';
 
-const PaymentOptions = () => {
+const PaymentOptions: React.FC = () => {
     const router = useRouter();
 
-    const handleCreditChange = (credit) => {
+    const handleCreditChange = (credit: string) => {
         localStorage.setItem('selectedPaymentOption', credit);
         router.back(); // Navigate back to the previous page
     };
+
     const handleLeftArrowClick = () => {
         window.location.href = '/FiatManagement/Currency_Conversion';
     };
+
     return (
         <div className={styles.paymentOptionsContainer}>
             <div className={styles.topBar}>

@@ -1,7 +1,7 @@
 "use client";
 import DepositForm from './DepositForm'
 
-const Deposit = () => {
+const Deposit: React.FC = () => {
   return (
     <div>
       <DepositForm />

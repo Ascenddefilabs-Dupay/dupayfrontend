@@ -1,24 +1,41 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, ChangeEvent, FormEvent } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './AddCurrencyForm.module.css';
+import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
+import { useRouter } from 'next/navigation';
+
+// Type definitions
+interface UseAuthHook {
+  isAuthenticated: boolean;
+  hasRole: (role: string) => boolean;
+}
 
 // Authentication and role-based access hook (included in the same file)
-const useAuth = () => {
+const useAuth = (): UseAuthHook => {
   const isAuthenticated = true; // Replace with actual authentication logic
-  const hasRole = (role) => role === 'admin'; // Replace with actual role checking logic
+  const hasRole = (role: string) => role === 'admin'; // Replace with actual role checking logic
   return { isAuthenticated, hasRole };
 };
 
-const AddCurrencyForm = () => {
-  const [currencyCode, setCurrencyCode] = useState('');
-  const [currencyCountry, setCurrencyCountry] = useState('');
-  const [currencyIcon, setCurrencyIcon] = useState(null);
-  const [statusMessage, setStatusMessage] = useState('');
-  const [errors, setErrors] = useState({});
-  const [alertMessage, setAlertMessage] = useState('');
+const AddCurrencyForm: React.FC = () => {
+  const [currencyCode, setCurrencyCode] = useState<string>('');
+  const [currencyCountry, setCurrencyCountry] = useState<string>('');
+  const [currencyIcon, setCurrencyIcon] = useState<File | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string>('');
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [showLoader, setShowLoader] = useState<boolean>(false);
   const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
+  const { isLoggedIn, userData, clearSession } = UseSession();
+  const router = useRouter();
 
-  const handleSubmit = useCallback(async (e) => {
+  useEffect(() => {
+    if (!isLoggedIn) {
+      // router.push('http://localhost:3000/Userauthentication/SignIn');
+    }
+  }, [isLoggedIn]);
+
+  const handleSubmit = useCallback(async (e: FormEvent) => {
     e.preventDefault();
 
     if (!currencyCode || !currencyCountry || !currencyIcon) {
@@ -52,12 +69,19 @@ const AddCurrencyForm = () => {
       }
     } catch (error) {
       console.error('Error:', error);
-      setAlertMessage(`An error occurred: ${error.message}`);
+      setAlertMessage(`An error occurred: ${(error as Error).message}`);
       setStatusMessage('An error occurred.');
     }
   }, [currencyCode, currencyCountry, currencyIcon]);
 
-  const handleCountryInputChange = (e) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 3000); // 3 seconds delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleCountryInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     // Allow only letters, numbers, and spaces
     const regex = /^[a-zA-Z0-9\s]*$/;
     if (regex.test(e.target.value)) {
@@ -65,7 +89,7 @@ const AddCurrencyForm = () => {
     }
   };
 
-  const handleCurrencyCodeChange = (e) => {
+  const handleCurrencyCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
     // Allow only letters and numbers (no spaces or symbols)
     const regex = /^[a-zA-Z0-9]*$/;
     if (regex.test(e.target.value)) {
@@ -74,7 +98,11 @@ const AddCurrencyForm = () => {
   };
 
   const handleLeftArrowClick = useCallback(() => {
-    window.location.href = '/Userauthorization/Dashboard';
+    setShowLoader(true);
+    setTimeout(() => {
+      window.location.href = '/Userauthorization/Dashboard';
+      setShowLoader(false);
+    }, 1000);
   }, []);
 
   const handleCloseAlert = useCallback(() => {
@@ -93,9 +121,14 @@ const AddCurrencyForm = () => {
           <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
         </div>
       )}
+      {showLoader && (
+        <div className={styles.loaderContainer}>
+          <div className={styles.loader}></div>
+        </div>
+      )}
       <div className={styles.topBar}>
         <button className={styles.topBarButton}>
-          <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick}/>
+          <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick} />
         </button>
         <h2 className={styles.topBarTitle}>Add Currency</h2>
       </div>
@@ -127,7 +160,7 @@ const AddCurrencyForm = () => {
           <label className={styles.label}>Upload Icon:</label>
           <input
             type="file"
-            onChange={(e) => setCurrencyIcon(e.target.files[0])}
+            onChange={(e) => setCurrencyIcon(e.target.files ? e.target.files[0] : null)}
             required
             className={styles.input}
           />
@@ -137,6 +170,6 @@ const AddCurrencyForm = () => {
       {statusMessage && <p className={styles.statusMessage}>{statusMessage}</p>}
     </div>
   );
-}
+};
 
 export default AddCurrencyForm;

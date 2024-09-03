@@ -1,7 +1,7 @@
 "use client";
 import AddBankForm from "./AddBankForm";
 
-const AddBank = () => {
+const AddBank: React.FC = () => {
   return (
     <div>
       <AddBankForm />

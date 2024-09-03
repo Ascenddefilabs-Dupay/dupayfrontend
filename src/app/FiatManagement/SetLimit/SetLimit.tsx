@@ -1,17 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './SetLimit.module.css';
 import axios from 'axios';
+import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
-const SetLimit = () => {
+const SetLimit: React.FC = () => {
     const router = useRouter();
-    const [amount, setAmount] = useState('');
-    const [walletDetails, setWalletDetails] = useState(null);
-    const [limitType, setLimitType] = useState('Daily');
-    const [alertMessage, setAlertMessage] = useState(''); // State for alert message
-    const [error, setError] = useState(''); // State for error message
-    const [submitted, setSubmitted] = useState(false); // State for submission tracking
+    const [amount, setAmount] = useState<string>('');
+    const [walletDetails, setWalletDetails] = useState<any>(null);
+    const [limitType, setLimitType] = useState<string>('Daily');
+    const [alertMessage, setAlertMessage] = useState<string>(''); 
+    const [error, setError] = useState<string>(''); 
+    const [submitted, setSubmitted] = useState<boolean>(false); 
+    const [showLoader, setShowLoader] = useState<boolean>(true);
+    const { isLoggedIn } = UseSession();
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            // router.push('http://localhost:3000/Userauthentication/SignIn');
+        }
+    }, [isLoggedIn]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowLoader(false);
+        }, 1000); 
+
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         const fetchWalletDetails = async () => {
@@ -28,10 +45,14 @@ const SetLimit = () => {
     }, []);
 
     const handleBackClick = () => {
-        router.back();
+        setShowLoader(true);
+        setTimeout(() => {
+            router.back();
+            setShowLoader(false); 
+        }, 1000); 
     };
 
-    const handleAmountChange = (e) => {
+    const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
         let inputValue = e.target.value;
         const validInput = /^[0-9]*\.?[0-9]*$/;
 
@@ -103,6 +124,11 @@ const SetLimit = () => {
                     <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
                 </div>
             )}
+            {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
             <div className={styles.header}>
                 <FaArrowLeft className={styles.backArrow} onClick={handleBackClick} /> {/* Back arrow button */}
             </div>
@@ -133,4 +159,3 @@ const SetLimit = () => {
 };
 
 export default SetLimit;
-

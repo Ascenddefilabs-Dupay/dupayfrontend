@@ -7,6 +7,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaArrowLeft, FaEllipsisV, FaChevronRight } from 'react-icons/fa';
 import networkOptions from '../NetworkPage/NetworkOptions';
+import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
+
 
 // Authentication and role-based access hook
 const useAuth = () => {
@@ -34,8 +36,14 @@ const CurrencyConverter = () => {
   const cryptoApiKey = 'd87e655eb0580e20c381f19ecd513660587ebed07d93f102ac46a3efe32596ca';
   const [alertMessage, setAlertMessage] = useState('');
   const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
-  const [showLoader, setShowLoader] = useState(true);
-
+  const [showLoader, setShowLoader] = useState(false);
+  
+  const { isLoggedIn, userData, clearSession } = UseSession();
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+        // router.push('http://localhost:3000/Userauthentication/SignIn');
+    }
+    }, [isLoggedIn]);
   useEffect(() => {
     if (selectedCurrency) {
       setToCurrency(selectedCurrency);
@@ -61,6 +69,7 @@ const CurrencyConverter = () => {
   const isFiatCurrency = (currency) => {
     return country_list.hasOwnProperty(currency);
   };
+  
 
   const fetchConversionRates = useCallback(async () => {
     if (!fromCurrency || !toCurrency || !amount || isNaN(amount) || parseFloat(amount) <= 0) {
@@ -212,7 +221,11 @@ const CurrencyConverter = () => {
 
   const navigateToDashboard = useCallback(() => {
    
-      window.location.href = '/Userauthorization/Dashboard';
+    setShowLoader(true);
+    setTimeout(() => {
+    window.location.href = '/Userauthorization/Dashboard';
+    setShowLoader(false); 
+    }, 3000); 
       
   }, []);
 

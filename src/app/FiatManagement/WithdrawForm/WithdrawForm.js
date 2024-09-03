@@ -5,7 +5,7 @@ import axios from 'axios';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './WithdrawForm.module.css';
 import { v4 as uuidv4 } from 'uuid';
-
+import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 // Custom hook for protected routing
 const useAuth = () => {
     // Replace this with your actual authentication logic
@@ -30,7 +30,13 @@ const WithdrawForm = () => {
     const [isOkButtonDisabled, setIsOkButtonDisabled] = useState(false);
     const [walletDetails, setWalletDetails] = useState(null);
     const [showForm, setShowForm] = useState(true);
-    const [showLoader, setShowLoader] = useState(true);
+    const [showLoader, setShowLoader] = useState(false);
+    const { isLoggedIn, userData, clearSession } = UseSession();
+    React.useEffect(() => {
+        if (!isLoggedIn) {
+            // router.push('http://localhost:3000/Userauthentication/SignIn');
+        }
+        }, [isLoggedIn]);
 
     // Currency symbols mapping
     const currencySymbols = {
@@ -157,7 +163,7 @@ const WithdrawForm = () => {
                 const options = {
                     key: 'rzp_test_41ch2lqayiGZ9X', 
                     amount: parseFloat(amount) * 100,
-                    currency: currencies,
+                    currency: selectedCurrency.value,
                     name: 'DUPAY',
                     description: 'Payment for currency conversion',
                     handler: function (response) {
@@ -191,53 +197,50 @@ const WithdrawForm = () => {
     };
 
     const handleWithdraw = async () => {
+        // Prevent multiple submissions while processing
         if (loading) return;
-        const parsedAmount = parseFloat(amount);
-
-        // Clear any previous alert message
-        setAlertMessage('');
     
+        const parsedAmount = parseFloat(amount);
+        setAlertMessage(''); // Clear any previous alert message
+        
+        // Check for invalid inputs
         if (!selectedCurrency) {
             setAlertMessage('Please select a currency.');
             return;
         }
-
         if (isNaN(parsedAmount) || parsedAmount <= 0) {
             setAlertMessage('Please enter a valid amount greater than zero.');
             return;
         }
-
         if (!selectedBank) {
             setAlertMessage('Please select a bank account.');
             return;
         }
-
         if (!walletDetails) {
             setAlertMessage('Wallet details not loaded.');
             return;
         }
-
-        
-
         if (parsedAmount > balances[selectedCurrency.value]) {
             setAlertMessage('Insufficient balance.');
-            setLoading(false);
             return;
         }
+    
+        // Start the loading state
         setLoading(true);
         setShowForm(false);
-
-        if (selectedCurrency.value === 'INR') {
-            setShowForm(false);
+    
+        if (selectedCurrency.value ) {
             const paymentSuccess = await initiateRazorpayPayment();
             if (paymentSuccess) {
+                // Proceed with updating balances and making the transaction
                 setBalances(prevBalances => ({
                     ...prevBalances,
                     [selectedCurrency.value]: prevBalances[selectedCurrency.value] - parsedAmount
                 }));
+    
                 axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/transactions/', {
-                    wallet_id:walletDetails.fiat_wallet_id,
-                    transaction_amount:parsedAmount,
+                    wallet_id: walletDetails.fiat_wallet_id,
+                    transaction_amount: parsedAmount,
                     transaction_currency: selectedCurrency.value,
                     transaction_type: 'withdrawn',
                     fiat_address: walletDetails.fiat_wallet_address,
@@ -245,52 +248,59 @@ const WithdrawForm = () => {
                     transaction_fee: 0.0,
                     transaction_hash: uuidv4(),
                     transaction_method: 'wallet-withdraw',
-                    sender_mobile_number:walletDetails.fiat_wallet_phone_number,
-                    user_phone_number:walletDetails.fiat_wallet_phone_number
-                  })
-                  .then((error)=>{
-                        console.log(error);
-                  });
-                setPendingAmount(parsedAmount);
+                    sender_mobile_number: walletDetails.fiat_wallet_phone_number,
+                    user_phone_number: walletDetails.fiat_wallet_phone_number
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+    
                 setAlertMessage('Withdrawn successful');
-                setShowForm(true);
                 setLoading(false);
-                
-            } else {
                 setShowForm(true);
+            } else {
                 setAlertMessage('Payment failed or was cancelled.');
                 setLoading(false);
+                setShowForm(true);
             }
-        } else {
-            setShowForm(true);
-            setBalances(prevBalances => ({
-                ...prevBalances,
-                [selectedCurrency.value]: prevBalances[selectedCurrency.value] - parsedAmount
-            }));
-            axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/transactions/', {
-                        wallet_id:walletDetails.fiat_wallet_id,
-                        transaction_amount:parsedAmount,
-                        transaction_currency: selectedCurrency.value,
-                        transaction_type: 'withdrawn',
-                        fiat_address: walletDetails.fiat_wallet_address,
-                        transaction_status: 'Success',
-                        transaction_fee: 0.0,
-                        transaction_hash: uuidv4(),
-                        transaction_method: 'wallet-withdraw',
-                        sender_mobile_number:walletDetails.fiat_wallet_phone_number,
-                        user_phone_number:walletDetails.fiat_wallet_phone_number
-                      });
-
-            setPendingAmount(parsedAmount);
-            setAlertMessage('Withdrawn successful');
-            // setLoading(false);
-        }
-
-        // setLoading(false);
+        } 
+        // else {
+        //     // Non-INR currency handling
+        //     setBalances(prevBalances => ({
+        //         ...prevBalances,
+        //         [selectedCurrency.value]: prevBalances[selectedCurrency.value] - parsedAmount
+        //     }));
+    
+        //     axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/transactions/', {
+        //         wallet_id: walletDetails.fiat_wallet_id,
+        //         transaction_amount: parsedAmount,
+        //         transaction_currency: selectedCurrency.value,
+        //         transaction_type: 'withdrawn',
+        //         fiat_address: walletDetails.fiat_wallet_address,
+        //         transaction_status: 'Success',
+        //         transaction_fee: 0.0,
+        //         transaction_hash: uuidv4(),
+        //         transaction_method: 'wallet-withdraw',
+        //         sender_mobile_number: walletDetails.fiat_wallet_phone_number,
+        //         user_phone_number: walletDetails.fiat_wallet_phone_number
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
+    
+        //     setAlertMessage('Withdrawn successful');
+        //     setLoading(false);
+        //     setShowForm(true);
+        // }
     };
+    
 
     const handleLeftArrowClick = () => {
-        window.location.href = '/Userauthorization/Dashboard'; 
+        setShowLoader(true);
+        setTimeout(() => {
+        window.location.href = '/Userauthorization/Dashboard';
+        setShowLoader(false); 
+        }, 3000); 
     };
 
     const handleCloseAlert = () => {

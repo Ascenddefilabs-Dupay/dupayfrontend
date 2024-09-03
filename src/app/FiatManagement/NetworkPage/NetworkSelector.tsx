@@ -5,11 +5,16 @@ import networkOptions from './NetworkOptions';
 import './NetworkSelector.css';
 import { FaArrowLeft } from 'react-icons/fa';
 
-const NetworkSelector = () => {
+interface NetworkOption {
+    value: string;
+    label: string;
+}
+
+const NetworkSelector: React.FC = () => {
     const router = useRouter();
     
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filteredOptions, setFilteredOptions] = useState(networkOptions);
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [filteredOptions, setFilteredOptions] = useState<NetworkOption[]>(networkOptions);
 
     useEffect(() => {
         const storedNetwork = localStorage.getItem('selectedNetwork');
@@ -18,11 +23,12 @@ const NetworkSelector = () => {
             // For example, you could highlight the selected option
         }
     }, []);
+
     const handleLeftArrowClick = () => {
         window.location.href = '/FiatManagement/Currency_Conversion';
     };
 
-    const handleSearchChange = (e) => {
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value.toLowerCase();
         setSearchQuery(query);
         
@@ -32,7 +38,7 @@ const NetworkSelector = () => {
         setFilteredOptions(filtered);
     };
 
-    const handleNetworkSelect = (network) => {
+    const handleNetworkSelect = (network: string) => {
         localStorage.setItem('selectedNetwork', network);
         router.back(); // Go back to the previous page
     };
@@ -40,11 +46,11 @@ const NetworkSelector = () => {
     return (
         <div className="networkSelectorContainer">
             <div className="topBar">
-          <button className="topBarButton">
-              <FaArrowLeft className="topBarIcon" onClick={handleLeftArrowClick} />
-          </button>
-          <h2 className="topBarTitle">Select Network</h2>
-      </div>
+                <button className="topBarButton">
+                    <FaArrowLeft className="topBarIcon" onClick={handleLeftArrowClick} />
+                </button>
+                <h2 className="topBarTitle">Select Network</h2>
+            </div>
             <div className="networkSelectorHeader">
                 <input
                     type="text"
