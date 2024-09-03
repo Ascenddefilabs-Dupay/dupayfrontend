@@ -1,8 +1,9 @@
-'use client'
+'use client';
+
 import React from 'react';
 import WalletReady from './WalletReady';
 
-function App() {
+const App: React.FC = () => {
   return (
     <WalletReady />
   );

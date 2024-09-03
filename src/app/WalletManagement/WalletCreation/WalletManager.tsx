@@ -1,37 +1,42 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import './WalletManager.css';
 import ProgressBar from './ProgressBar';
 import { FaArrowLeft } from "react-icons/fa";
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-const WalletManager = () => {
-  const [userId, setUserId] = useState(null);
+const WalletManager: React.FC = () => {
+  const [userId, setUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedUserId = sessionStorage.getItem('user_id');
-      // const storedUserId = 'DUP0001'
-      setUserId(storedUserId);
-      
-      if (storedUserId === null) redirect('http://localhost:3000/Userauthentication/SignIn')
-      console.log(storedUserId)
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId: string = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        router.push('/Userauthentication/SignIn');
+      }
     }
-  }, []);
-  const [loading, setLoading] = useState(false);
+  }, [router]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false));
+    const timer = setTimeout(() => setLoading(false), 1000); // Added delay for demonstration, adjust as needed
     return () => clearTimeout(timer);
   }, []);
 
   const handleCreateNewWallet = () => {
-    setLoading(true)
+    setLoading(true);
     window.location.href = './WalletCreation/CreateAccount';
   };
 
   const handleExistingWallet = () => {
-    setLoading(true)
+    setLoading(true);
     window.location.href = './WalletCreation/AddAccount';
   };
 
@@ -66,7 +71,6 @@ const WalletManager = () => {
           </button>
         </div>
       )}
-
     </div>
   );
 };

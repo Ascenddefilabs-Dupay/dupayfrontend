@@ -3,7 +3,7 @@ import React from 'react';
 import ImportPassphrase from "./RecoveryPhraseForm"
 
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <ImportPassphrase />
     

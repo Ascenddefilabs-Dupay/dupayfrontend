@@ -1,27 +1,26 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+"use client";
+import React, { useEffect, useState, FC } from 'react';
 import './AddAccount.css';
 
-const AddAccount = () => {
-  const [loading, setLoading] = useState(false);
+const AddAccount: React.FC= () => {
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false));
+    const timer = setTimeout(() => setLoading(false), 3000); // Added delay for demonstration, adjust as needed
     return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
-    setLoading(true)
+    setLoading(true);
     window.location.href = './';
   };
 
   const handleCreate = () => {
-    setLoading(true)
+    setLoading(true);
     window.location.href = '../CreatePassword';
   };
 
   return (
-    // <div className="wallet-manager">
     <div className="add-account-container">
       {loading ? (
         <div className='loading'>
@@ -46,10 +45,10 @@ const AddAccount = () => {
             <button className="add-account-button" onClick={handleCreate}>Create a new Passphrase Account</button>
           </div>
           <button className="close-button" onClick={handleClose}>&times;</button>
-        </div>)}
+        </div>
+      )}
     </div>
-    //  </div>
   );
-}
+};
 
 export default AddAccount;

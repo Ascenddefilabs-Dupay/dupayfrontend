@@ -1,6 +1,6 @@
 import SuccessPage from '../SuccessPage';
 
-const Success = () => {
+const Success: React.FC = () => {
     return <SuccessPage />;
 };
 
