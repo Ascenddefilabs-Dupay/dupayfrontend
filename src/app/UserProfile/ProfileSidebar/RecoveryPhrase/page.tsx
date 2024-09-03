@@ -2,7 +2,7 @@
 
 import ShowRecoveryPhrase from './ShowRecoveryPhrase'; // Correctly import the component
 
-const RecoveryPhrasePage = () => {
+const RecoveryPhrasePage: React.FC = () => {
   return (
     <div>
       <ShowRecoveryPhrase />

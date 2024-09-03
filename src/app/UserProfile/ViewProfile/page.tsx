@@ -1,8 +1,9 @@
 "use client";
+
 import React from 'react';
 import ViewProfile from './ViewProfile';
 
-function VeiwProfilePage() {
+const ViewProfilePage: React.FC = () => {
   return (
     <div>
       <ViewProfile />
@@ -10,4 +11,4 @@ function VeiwProfilePage() {
   );
 }
 
-export default VeiwProfilePage;
+export default ViewProfilePage;

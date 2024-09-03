@@ -1,13 +1,13 @@
 "use client";
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { IconButton, Switch, Typography, Box } from '@mui/material';
 import { ArrowForwardIos, Circle, Info } from '@mui/icons-material';
 import { styled } from '@mui/system';
-import { useRouter } from 'next/navigation'; // Import the correct useRouter
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './ProfileSidebar.module.css';
 import { FaArrowLeft } from 'react-icons/fa';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 const ProfileWrapper = styled(Box)({
@@ -37,101 +37,99 @@ const ProfileImage = styled('img')({
   objectFit: 'cover',
 });
 
-const UserProfile = () => {
-  const [user, setUserProfile] = useState({});
-  const [profileImage, setProfileImage] = useState('');
-  const router = useRouter(); // Use router from next/navigation
-  // const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
-  const [showLoader, setShowLoader] = useState(true);
-  // const userId = localStorage.getItem('user_id');
-  // console.log("User_id", userId)
-  // if (user_id === null) redirect('http://localhost:3000/')
-  const [userId, setUserId] = useState(null);
+interface UserProfileData {
+  user_id: string;
+  user_profile_photo?: string | { data: number[] };
+}
+
+const UserProfile: React.FC = () => {
+  const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
+  const [profileImage, setProfileImage] = useState<string>('');
+  const router = useRouter();
+  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedUserId = localStorage.getItem('user_id');
-      setUserId(storedUserId);
-      // setAlertMessage('User Need To Login')
-      // if (storedUserId === null) redirect('http://localhost:3000/');
-      console.log(storedUserId)
+      const sessionDataString = window.localStorage.getItem('session_data');
+      // if (sessionDataString) {
+      //   const sessionData = JSON.parse(sessionDataString);
+      //   const storedUserId = sessionData.user_id;
+      //   setUserId(storedUserId);
+      //   console.log(storedUserId);
+      //   console.log(sessionData.user_email);
+      // } else {
+      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      // }
     }
   }, []);
 
-  // const [userId, setUserId] = useState(null);
-
-  // useEffect(() => {
-  //   // Ensure localStorage is accessed only on the client side
-  //   if (typeof window !== 'undefined') {
-  //     const storedUserId = localStorage.getItem('user_id');
-  //     setUserId(storedUserId);
-  //     console.log("User_id", storedUserId);
-
-  //     // if (!storedUserId) {
-  //     //   router.push('http://localhost:3000/');
-  //     // }
-  //   }
-  // }, []);
-
-
   useEffect(() => {
     const timer = setTimeout(() => {
-        setShowLoader(false);
-        // setShowForm(true);
-    }, ); // 2 seconds delay
+      setShowLoader(false);
+    }, 2000); // 2 seconds delay
 
     return () => clearTimeout(timer);
-    }, []);
+  }, []);
 
   const fetchUserProfile = useCallback(async () => {
     try {
-      const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
-      setUserProfile(response.data);
-      if (response.data.user_profile_photo) {
-        const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
-        let imageUrl = '';
+      if (userId) {
+        const response = await axios.get<UserProfileData>(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
+        setUserProfile(response.data);
 
-        if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
-          imageUrl = response.data.user_profile_photo;
-        } else if (response.data.user_profile_photo && response.data.user_profile_photo.startsWith('/')) {
-          imageUrl = `${baseURL}${response.data.user_profile_photo}`;
-        } else if (response.data.user_profile_photo && response.data.user_profile_photo.data) {
-          const byteArray = new Uint8Array(response.data.user_profile_photo.data);
-          const base64String = btoa(
-            byteArray.reduce((data, byte) => data + String.fromCharCode(byte), '')
-          );
-          imageUrl = `data:image/jpeg;base64,${base64String}`;
+        if (response.data.user_profile_photo) {
+          const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
+          let imageUrl = '';
+
+          if (typeof response.data.user_profile_photo === 'string') {
+            // Handle case where user_profile_photo is a string
+            if (response.data.user_profile_photo.startsWith('http')) {
+              imageUrl = response.data.user_profile_photo;
+            } else {
+              imageUrl = `${baseURL}${response.data.user_profile_photo}`;
+            }
+          } else if ('data' in response.data.user_profile_photo) {
+            // Handle case where user_profile_photo is an object with data
+            const byteArray = new Uint8Array(response.data.user_profile_photo.data);
+            const base64String = btoa(
+              byteArray.reduce((data, byte) => data + String.fromCharCode(byte), '')
+            );
+            imageUrl = `data:image/jpeg;base64,${base64String}`;
+          }
+
+          setProfileImage(imageUrl);
         }
-
-        setProfileImage(imageUrl);
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
   }, [userId]);
+
   useEffect(() => {
     fetchUserProfile();
   }, [fetchUserProfile]);
+
   const profilehandleBackClick = () => {
-    let redirectUrl = '/Userauthorization/Dashboard/Settings';
-    router.push(redirectUrl);
+    router.push('/Userauthorization/Dashboard/Settings');
   };
 
   const handleViewProfileClick = () => {
-    router.push('/UserProfile/ViewProfile');// Redirect to ManageProfile.js
+    router.push('/UserProfile/ViewProfile');
   };
 
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.sidebarContainer}>
-      {showLoader && (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
-            )}
+        {showLoader && (
+          <div className={styles.loaderContainer}>
+            <div className={styles.loader}></div>
+          </div>
+        )}
         <div className={styles.header}>
-          <IconButton color="inherit" href="/Userauthorization/Dashboard/Settings" className={styles.backButton}>
-            <BackArrow style={{position: 'relative' ,right:'10px'}} onClick={profilehandleBackClick}/>   <label className={styles.header1}> ProfileSidebar</label>
+          <IconButton color="inherit" className={styles.backButton}>
+            <BackArrow style={{ position: 'relative', right: '10px' }} onClick={profilehandleBackClick} />
+            <label className={styles.header1}>ProfileSidebar</label>
           </IconButton>
         </div>
         <div className={styles.menuList}>
@@ -164,7 +162,6 @@ const UserProfile = () => {
               onClick={() => router.push('/UserProfile/ProfileSidebar/PrivacyKey')}
             />
           </div>
-
           <div className={styles.menuItem}>
             <span>Hide Assets</span>
             <ArrowForwardIos
@@ -188,7 +185,7 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
-          <div className={styles.footer}></div>
+        <div className={styles.footer}></div>
       </div>
     </div>
   );

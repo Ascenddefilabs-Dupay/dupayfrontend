@@ -2,7 +2,7 @@
 
 import ShowPrivacykey from './ShowPrivacykey'; // Correctly import the component
 
-const PrivacykeyPage = () => {
+const PrivacykeyPage : React.FC = () => {
   return (
     <div>
       <ShowPrivacykey />

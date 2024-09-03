@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
+import { Container, Typography, Avatar, IconButton, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
@@ -10,65 +10,14 @@ import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import { redirect } from 'next/navigation';
 
+interface UserProfileData {
+  user_id?: string;
+  name?: string;
+  address?: string;
+  user_profile_photo?: string | { data: number[] };
+}
+
 const styles = {
-  loaderContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    background: 'rgba(0, 0, 0, 0.5)',
-    backdropFilter: 'blur(10px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(10px) saturate(180%)',
-    zIndex: 2,
-    padding: '20px',
-    borderRadius: '20px',
-    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
-  },
-  loader: {
-    width: '60px',
-    height: '60px',
-    background: 'linear-gradient(45deg, #ff007b, #007bff)',
-    animation: 'spin 1s linear infinite',
-    transform: 'rotate(45deg)',
-    position: 'relative',
-    zIndex: 3,
-    boxShadow: '0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7)',
-    borderRadius: '12%',
-  },
-  loaderBefore: {
-    content: '""',
-    position: 'absolute',
-    top: '-10px',
-    left: '-10px',
-    right: '-10px',
-    bottom: '-10px',
-    background: 'rgba(255, 0, 123, 0.3)',
-    borderRadius: '15%',
-    animation: 'pulse 1.5s infinite ease-in-out',
-    zIndex: -1,
-  },
-  '@keyframes spin': {
-    '0%': { transform: 'rotate(45deg)' },
-    '100%': { transform: 'rotate(405deg)' },
-  },
-  '@keyframes pulse': {
-    '0%': {
-      transform: 'scale(1)',
-      opacity: 1,
-    },
-    '50%': {
-      transform: 'scale(1.2)',
-      opacity: 0.6,
-    },
-    '100%': {
-      transform: 'scale(1)',
-      opacity: 1,
-    },
-  },
     header: {
         display: 'flex',
         alignItems: 'center',
@@ -127,11 +76,10 @@ const StyledContainer = styled(Box)({
   backgroundColor: '#000000',
   color: '#FFFFFF',
   width: '428px',
-  // maxWidth: '100%',
   minHeight: '130vh',
   padding: '20px',
   margin: '0 auto',
-  boxSizing: 'border-box', // Ensures padding is included within the width/height
+  boxSizing: 'border-box',
 });
 
 const ProfileWrapper = styled(Box)({
@@ -159,51 +107,53 @@ const UploadInput = styled('input')({
   display: 'none',
 });
 
-const UserProfile = () => {
-  const [users, setUserProfile] = useState({});
-  const [profileImage, setProfileImage] = useState('');
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  // const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
-  const router = useRouter(); // Initialize useRouter
-  const [showLoader, setShowLoader] = useState(true);
-  // const userId = localStorage.getItem('user_id');
-  // console.log("User_id", userId)
-  // if (user_id === null) redirect('http://localhost:3000/')
+const UserProfile: React.FC = () => {
+  const [users, setUserProfile] = useState<UserProfileData>({});
+  const [profileImage, setProfileImage] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const router = useRouter();
+  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  const [userId, setUserId] = useState(null);
-
-    useEffect(() => {
-      if (typeof window !== 'undefined') {
-        const storedUserId = localStorage.getItem('user_id');
-        setUserId(storedUserId);
-        // setAlertMessage('User Need To Login')
-        // if (storedUserId === null) redirect('http://localhost:3000/');
-        console.log(storedUserId)
-      }
-    }, []);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      // if (sessionDataString) {
+      //   const sessionData = JSON.parse(sessionDataString);
+      //   const storedUserId = sessionData.user_id;
+      //   setUserId(storedUserId);
+      //   console.log(storedUserId);
+      //   console.log(sessionData.user_email);
+      // } else {
+      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      // }
+    }
+  }, []);
 
   const fetchUserProfile = useCallback(async () => {
+    if (!userId) return;
     try {
-      const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
-      setUserProfile(response.data);
-      setName(response.data.name || '');
-      setAddress(response.data.address || '');
-      console.log('User profile data:', response.data);
+      const response = await axios.get<UserProfileData>(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
+      const data: UserProfileData = response.data;
+      setUserProfile(data);
+      setName(data.name || '');
+      setAddress(data.address || '');
+      console.log('User profile data:', data);
 
-      if (response.data.user_profile_photo) {
+      if (data.user_profile_photo) {
         const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
         let imageUrl = '';
 
-        if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
-          imageUrl = response.data.user_profile_photo;
-        } else if (response.data.user_profile_photo && response.data.user_profile_photo.startsWith('/')) {
-          imageUrl = `${baseURL}${response.data.user_profile_photo}`;
-        } else if (response.data.user_profile_photo && response.data.user_profile_photo.data) {
-          const byteArray = new Uint8Array(response.data.user_profile_photo.data);
+        if (typeof data.user_profile_photo === 'string' && data.user_profile_photo.startsWith('http')) {
+          imageUrl = data.user_profile_photo;
+        } else if (typeof data.user_profile_photo === 'string' && data.user_profile_photo.startsWith('/')) {
+          imageUrl = `${baseURL}${data.user_profile_photo}`;
+        } else if (typeof data.user_profile_photo === 'object' && data.user_profile_photo.data) {
+          const byteArray = new Uint8Array(data.user_profile_photo.data);
           const base64String = btoa(
-            byteArray.reduce((data, byte) => data + String.fromCharCode(byte), '')
+            byteArray.reduce((acc, byte) => acc + String.fromCharCode(byte), '')
           );
           imageUrl = `data:image/jpeg;base64,${base64String}`;
           console.log('Base64 Image URL:', imageUrl);
@@ -219,22 +169,24 @@ const UserProfile = () => {
   useEffect(() => {
     fetchUserProfile();
   }, [fetchUserProfile]);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
-        setShowLoader(false);
-        // setShowForm(true);
-    },); // 2 seconds delay
+      setShowLoader(false);
+    }, 2000); // 2 seconds delay
 
     return () => clearTimeout(timer);
-    }, []);
-  const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0] && users.user_id) { // Ensure user data is available
+  }, []);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0] && users.user_id) {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.onload = (e) => {
-        setProfileImage(e.target.result);
-        uploadImage(file);
+        if (e.target?.result) {
+          setProfileImage(e.target.result.toString());
+          uploadImage(file);
+        }
       };
       reader.readAsDataURL(file);
     } else {
@@ -242,7 +194,7 @@ const UserProfile = () => {
     }
   };
 
-  const uploadImage = async (file) => {
+  const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append('user_id', users.user_id || '');
     formData.append('user_profile_photo', file);
@@ -253,20 +205,21 @@ const UserProfile = () => {
         },
       });
       setSuccessMessage('Profile image updated successfully!');
-      fetchUserProfile(); 
+      fetchUserProfile();
     } catch (error) {
-      console.error('Error updating profile image:', error.response ? error.response.data : error.message);
+      console.error('Error updating profile image:', error);
       setSuccessMessage('Failed to update profile image.');
     }
   };
+
   return (
     <div>
       <StyledContainer>
-      {showLoader && (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
-            )}
+        {/* {showLoader && (
+          <div className={styles.loaderContainer}>
+            <div className={styles.loader}></div>
+          </div>
+        )} */}
         <header style={styles.header}>
           <Link href="/UserProfile">
             <FaArrowLeft style={styles.backArrow} />

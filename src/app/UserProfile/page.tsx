@@ -2,7 +2,7 @@
 import React from 'react';
 import ManageProfile from './ManageProfile';
 
-function ViewProfilePage() {  // Fixed typo here
+const ViewProfilePage: React.FC = () => {  // Using TypeScript syntax for a functional component
   return (
     <div>
       <ManageProfile />
@@ -10,4 +10,4 @@ function ViewProfilePage() {  // Fixed typo here
   );
 }
 
-export default ViewProfilePage;  // Fixed typo here
+export default ViewProfilePage;

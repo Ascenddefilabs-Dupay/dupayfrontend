@@ -2,7 +2,7 @@
 import React from 'react';
 import EditProfile from './EditProfile';
 
-function EditProfilePage() {
+const EditProfilePage: React.FC = () => {
   return (
     <div>
       <EditProfile />

@@ -1,36 +1,48 @@
 "use client";
 
-import React, { useState, useEffect ,useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
-import {FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
-import  './ViewProfile.module.css';
+import './ViewProfile.module.css';
 import { redirect } from 'next/navigation';
 
-
+// Define TypeScript interfaces
+interface UserProfile {
+  user_id?: string;
+  user_profile_photo?: string | { data: number[] };
+  user_first_name?: string;
+  user_middle_name?: string;
+  user_last_name?: string;
+  user_dob?: string;
+  user_email?: string;
+  user_phone_number?: string;
+  user_country?: string;
+  user_city?: string;
+  user_state?: string;
+  user_address_line_1?: string;
+  user_pin_code?: string;
+}
 
 const StyledContainer = styled(Container)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  padding: '1rem',
   backgroundColor: '#000000',
   borderRadius: '0px',
   color: '#FFFFFF',
   width: '430px',
   height: 'auto',
-  minHeight:'130vh' ,// Adjust height for additional content
-  overflowY: 'auto',  // Adjust height for additional content
+  minHeight: '130vh', // Adjust height for additional content
+  overflowY: 'auto', // Adjust height for additional content
   scrollbarWidth: 'none', // For Firefox
-  padding:'20px',
+  padding: '20px',
   position: 'relative',
 });
-
-
 
 const ProfileWrapper = styled(Box)({
   display: 'flex',
@@ -77,7 +89,7 @@ const InfoRow = styled(Box)({
   marginBottom: '1rem',
 });
 
-const StyledButton = styled(Button)({ 
+const StyledButton = styled(Button)({
   backgroundColor: '#333',
   color: '#FFFFFF',
   borderRadius: '16px',
@@ -99,82 +111,80 @@ const SuccessMessage = styled(Typography)({
   marginTop: '1rem',
 });
 
-const UserProfile = () => {
-  const [users, setUserProfile] = useState({});
-  const [profileImage, setProfileImage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  // const userId = 'DupC0001'; // Replace with sessionStorage['first_name'] or appropriate user ID retrieval
-  const router = useRouter(); // Initialize useRoute
-  const [showLoader, setShowLoader] = useState(true);
-  // const userId = localStorage.getItem('user_id');
-  // console.log("User_id", userId)
-  // if (user_id === null) redirect('http://localhost:3000/')
-  const [userId, setUserId] = useState(null);
+const UserProfile: React.FC = () => {
+  const [users, setUserProfile] = useState<UserProfile>({});
+  const [profileImage, setProfileImage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const router = useRouter(); // Initialize useRouter
+  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedUserId = localStorage.getItem('user_id');
       setUserId(storedUserId);
-      // setAlertMessage('User Need To Login')
       // if (storedUserId === null) redirect('http://localhost:3000/');
-      console.log(storedUserId)
+      console.log(storedUserId);
     }
   }, []);
-  
-  
 
   const fetchUserProfile = useCallback(async () => {
+    if (!userId) return;
+
     try {
-      const response = await axios.get(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfile>(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
-      console.log('User profile data:', response.data); // Debugging line to check the response data
+      console.log('User profile data:', response.data);
 
       if (response.data.user_profile_photo) {
         const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
         let imageUrl = '';
 
-        // Check if the photo is stored as bytes
-        if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
-          imageUrl = response.data.user_profile_photo;
-        } else if (response.data.user_profile_photo && response.data.user_profile_photo.startsWith('/')) {
-          // Handle as a URL path
-          imageUrl = `${baseURL}${response.data.user_profile_photo}`;
-        } else if (response.data.user_profile_photo && response.data.user_profile_photo.data) {
-          // Handle as bytes (convert to base64)
-          const byteArray = new Uint8Array(response.data.user_profile_photo.data);
-          const base64String = btoa(
-            byteArray.reduce((data, byte) => data + String.fromCharCode(byte), '')
-          );
-          imageUrl = `data:image/jpeg;base64,${base64String}`; // Change image/jpeg based on your image type
-          console.log('Base64 Image URL:', imageUrl); // Debugging line to check the base64 URL
+        const profilePhoto = response.data.user_profile_photo;
+
+        if (typeof profilePhoto === 'string' && profilePhoto.startsWith('http')) {
+          imageUrl = profilePhoto;
+        } else if (typeof profilePhoto === 'string' && profilePhoto.startsWith('/')) {
+          imageUrl = `${baseURL}${profilePhoto}`;
+        } else if (typeof profilePhoto === 'object' && profilePhoto.data) {
+          const byteArray = new Uint8Array(profilePhoto.data);
+          const base64String = btoa(byteArray.reduce((data, byte) => data + String.fromCharCode(byte), ''));
+          imageUrl = `data:image/jpeg;base64,${base64String}`;
+          console.log('Base64 Image URL:', imageUrl);
         }
 
         setProfileImage(imageUrl);
       }
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error fetching user profile:', error.response?.data || error.message);
+      } else {
+        console.error('Error fetching user profile:', (error as Error).message);
+      }
     }
   }, [userId]);
 
   useEffect(() => {
     fetchUserProfile();
   }, [fetchUserProfile]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-        setShowLoader(false);
-        // setShowForm(true);
+      setShowLoader(false);
     }, 2000); // 2 seconds delay
 
     return () => clearTimeout(timer);
-    }, []);
+  }, []);
 
-  const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0] && users.user_id) { // Ensure user data is available
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0] && users.user_id) {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.onload = (e) => {
-        setProfileImage(e.target.result);
-        uploadImage(file);
+        if (e.target) {
+          setProfileImage(e.target.result as string);
+          uploadImage(file);
+        }
       };
       reader.readAsDataURL(file);
     } else {
@@ -182,7 +192,7 @@ const UserProfile = () => {
     }
   };
 
-  const uploadImage = async (file) => {
+  const uploadImage = async (file: File) => {
     const formData = new FormData();
     
     formData.append('user_id', users.user_id || '');
@@ -195,7 +205,7 @@ const UserProfile = () => {
     formData.append('user_phone_number', users.user_phone_number || '');
     formData.append('user_country', users.user_country || '');
     formData.append('user_city', users.user_city || '');  
-    formData.append('user_state', users.user_state ||'');
+    formData.append('user_state', users.user_state || '');
     formData.append('user_address_line_1', users.user_address_line_1 || '');
     formData.append('user_pin_code', users.user_pin_code || '');
 
@@ -207,8 +217,12 @@ const UserProfile = () => {
       });
       setSuccessMessage('Profile image updated successfully!');
       fetchUserProfile(); 
-    } catch (error) {
-      console.error('Error updating profile image:', error.response ? error.response.data : error.message);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error updating profile image:', error.response?.data || error.message);
+      } else {
+        console.error('Error updating profile image:', (error as Error).message);
+      }
       setSuccessMessage('Failed to update profile image.');
     }
   };
@@ -217,21 +231,22 @@ const UserProfile = () => {
     return `${users.user_first_name || ''} ${users.user_middle_name || ''} ${users.user_last_name || ''}`.trim();
   };
 
- 
   const Header = styled('header')({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
     marginBottom: '1rem',
   });
+
   const styles = {
     header: {
-        display: 'flex',
-        alignItems: 'center',
-        width: '100%',
-        marginBottom: '1rem', // Adjusted for spacing
+      display: 'flex',
+      alignItems: 'center',
+      width: '100%',
+      marginBottom: '1rem', // Adjusted for spacing
     },
-  }
+  };
+
   const BackArrow = styled(FaArrowLeft)({
     cursor: 'pointer',
     color: '#FFFFFF',
@@ -240,24 +255,23 @@ const UserProfile = () => {
   });
 
   return (
-    <div >
+    <div>
       <StyledContainer>
-      {showLoader && (
-        <div className="loaderContainer">
-          <div className="loader"></div>
-        </div>
-      )}
-          <header style={styles.header}>
-                <Link href="/UserProfile">
-                <BackArrow />
-                </Link>
-                <Box display="flex" justifyContent="flex-start" width="100%">
-                  <Typography variant="h5" gutterBottom>
-                    My Profile
-                  </Typography>
-                </Box>
-            </header>
-        
+        {showLoader && (
+          <div className="loaderContainer">
+            <div className="loader"></div>
+          </div>
+        )}
+        <header style={styles.header}>
+          <Link href="/UserProfile">
+            <BackArrow />
+          </Link>
+          <Box display="flex" justifyContent="flex-start" width="100%">
+            <Typography variant="h5" gutterBottom>
+              My Profile
+            </Typography>
+          </Box>
+        </header>
         <ProfileWrapper>
           <ProfileImageWrapper>
             <ProfileImage src={profileImage} alt="Profile Image" />
