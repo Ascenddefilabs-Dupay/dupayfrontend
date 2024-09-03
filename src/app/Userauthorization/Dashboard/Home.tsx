@@ -35,8 +35,10 @@ const Home = () => {
   const [fetchedUserId, setFetchedUserId] = useState(''); // Added state for fetchedUserId
   const userId = 'DupC0001';
   const router = useRouter();
-  const dropdownRef = useRef(null); // Ref for dropdown container
-  const fiatDropdownRef = useRef(null); // Ref for fiat dropdown container
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const fiatDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  
 
   const [isFiatTabSelected, setIsFiatTabSelected] = useState(false);
 
@@ -98,10 +100,6 @@ const Home = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownVisible, fiatDropdownVisible]);
   
-  // Prevent dropdown from closing when interacting with it
-  const handleDropdownClick = (event) => {
-    event.stopPropagation();
-  };
 
   const handleButtonClick = (buttonName) => {
     switch (buttonName) {
@@ -282,7 +280,7 @@ const Home = () => {
             ) : (
               <FaUserCircle className={styles.profileIcon} />
             )}
-            <Typography variant="h9" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
+            <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
               {userId}
             </Typography>
             <FontAwesomeIcon icon={faChevronDown} className={styles.dropdownIcon} />
@@ -457,7 +455,7 @@ const Home = () => {
               )}
               <div className={styles.textContainer}>
                 <div className={styles.userid}>
-                  <Typography variant="h9" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px' }}>
+                  <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px' }}>
                     {userId}
                   </Typography>
                 </div>

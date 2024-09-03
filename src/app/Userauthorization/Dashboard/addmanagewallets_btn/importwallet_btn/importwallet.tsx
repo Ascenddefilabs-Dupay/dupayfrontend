@@ -46,7 +46,7 @@ const Importwallet = () => {
   return (
     <div className={styles.container}>
       <div className={styles.backButton} onClick={handleBackClick}>
-        <IoMdArrowRoundBack sx={{ color: '#fff' }} />
+        <IoMdArrowRoundBack style={{ color: '#fff' }} />
       </div>
       <div className={styles.progressBar}></div>
       <h1 className={styles.heading}>Import wallet</h1>

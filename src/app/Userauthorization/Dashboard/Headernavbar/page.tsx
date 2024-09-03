@@ -4,9 +4,9 @@ import Headernavbar from './headernavbar'
 
 const page = () => {
   return (
-    
-      <Headernavbar />
-    
+    <div>
+      <Headernavbar/>
+      </div>
   )
 }
 

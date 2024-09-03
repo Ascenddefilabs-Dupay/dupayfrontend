@@ -9,7 +9,7 @@ import { useState } from 'react';
 const Browser = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tabCount = parseInt(searchParams.get('tabCount')) || 0; // Get tab count from URL params
+  const tabCount = parseInt(searchParams?.get('tabCount') || '0');
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false); // Initialize showDropdown state
   const [searchResults, setSearchResults] = useState([]); // State for search results

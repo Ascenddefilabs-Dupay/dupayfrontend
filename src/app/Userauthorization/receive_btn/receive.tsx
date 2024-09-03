@@ -128,14 +128,9 @@ export default function Receive() {
 
     return (
         <div className={styles.container}>
-            <div>
-                <ArrowBackIcon 
-                    onClick={handleBackClick} 
-                    className={`${styles.backIcon} ${styles.iconHover}`} 
-                />
-                <h1 className={styles.heading}>
-                    Received crypto and NFTs
-                </h1>
+            <div className='recive_header_re'>
+                <ArrowBackIcon onClick={handleBackClick} className= 'receive_se_icon' />
+                <span>Received crypto and NFTs</span>
             </div>
             <div className={styles.searchContainer}>
                 <div className={styles.search}>
@@ -172,7 +167,7 @@ export default function Receive() {
                         )}
                     </div>
                     <div style={{ marginLeft: '20px' }}>
-                        <Typography variant="h9" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
+                        <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
                             {userId}
                         </Typography>
                         <p style={{ fontSize: '11px', color: 'gray' }}>Share username to</p>

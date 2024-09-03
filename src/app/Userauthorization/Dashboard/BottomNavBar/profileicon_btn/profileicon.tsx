@@ -33,6 +33,23 @@ export default function Profileicon() {
     const router = useRouter();
     const userId = 'DupC0001';
 
+
+    const UserProfile = ({ profileImage, className }) => {
+        return profileImage ? (
+            <img
+                src={profileImage}
+                alt="Profile"
+                className={className}
+                
+            />
+        ) : (
+            <FaUserCircle
+                className={className}
+            />
+        );
+    };
+    
+
     useEffect(() => {
         fetchUserProfile();
     }, []);
@@ -127,7 +144,7 @@ export default function Profileicon() {
                 <div className={styles.emailBar}>
                     <div className={styles.walletAddress} onClick={toggleDropdown}>
                         <UserProfile profileImage={profileImage} className = {styles.profileIcon}/>
-                        <Typography variant="h9" style={{ color: '#ffffff' , fontWeight: 'bold'}}>
+                        <Typography variant="body1" style={{ color: '#ffffff' , fontWeight: 'bold'}}>
                             {userId}
                         </Typography>
                         <FaChevronDown className={styles.dropdownIcon} />
@@ -148,7 +165,7 @@ export default function Profileicon() {
                                 <UserProfile profileImage={profileImage} className = {styles.profileIcon2}/>
                                 <div className={styles.textContainer}>
                                     <div className={styles.userid}>
-                                        <Typography variant="h9" style={{ color: '#ffffff' }}>
+                                        <Typography variant="body1" style={{ color: '#ffffff' }}>
                                             {userId}
                                         </Typography>
                                     </div>

@@ -14,6 +14,10 @@ const SignOutDialog = () => {
     let redirectUrl = '/Userauthorization/Dashboard/Settings';
     router.push(redirectUrl);
   };
+  const handleGoSignOut = () => {
+    let redirectUrl = '/Userauthentication/SignIn';
+    router.push(redirectUrl);
+  }
 
   return (
     <div className="dialog-container">
@@ -32,7 +36,7 @@ const SignOutDialog = () => {
           />
           <label htmlFor="recoveryCheckbox">I've saved my recovery phrase.</label>
         </div>
-        <button className="sign-out-button" disabled={!isChecked}>Sign out now</button>
+        <button className="sign-out-button" disabled={!isChecked} onClick={handleGoSignOut}>Sign out now</button>
         <button className="go-back-button" onClick={handleGoBack}>Go back</button>
       </div>
     </div>

@@ -167,3 +167,19 @@
 .buyButtonDiv {
     cursor: pointer;
 }
+
+.recive_header_re{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+.receive_se_icon{
+    margin-right: 10px;
+    cursor: pointer;
+    color: #fff;
+}
