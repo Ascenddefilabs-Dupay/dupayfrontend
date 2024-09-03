@@ -1,28 +1,40 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import styles from './AddBankForm.module.css'
+import styles from './AddBankForm.module.css';
 import dynamic from 'next/dynamic';
+import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
-// Authentication and role-based access hook (included in the same file)
-const useAuth = () => {
-  const isAuthenticated = true; // Replace with actual authentication logic
-  const hasRole = (role) => role === 'admin'; // Replace with actual role checking logic
+interface UseAuth {
+  isAuthenticated: boolean;
+  hasRole: (role: string) => boolean;
+}
+
+const useAuth = (): UseAuth => {
+  const isAuthenticated = true; 
+  const hasRole = (role: string) => role === 'admin'; 
   return { isAuthenticated, hasRole };
 };
 
-const AddBankForm = () => {
-  const [bankName, setBankName] = useState('');
-  const [bankIcon, setBankIcon] = useState(null);
-  const [statusMessage, setStatusMessage] = useState('');
-  const [errors, setErrors] = useState({});
+const AddBankForm: React.FC = () => {
+  const [bankName, setBankName] = useState<string>('');
+  const [bankIcon, setBankIcon] = useState<File | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string>('');
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const router = useRouter();
-  const [alertMessage, setAlertMessage] = useState('');
-  const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
-  
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const { isAuthenticated, hasRole } = useAuth();
+  const [showLoader, setShowLoader] = useState<boolean>(false);
+  const { isLoggedIn, userData, clearSession } = UseSession();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      // router.push('http://localhost:3000/Userauthentication/SignIn');
+    }
+  }, [isLoggedIn]);
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       if (!bankName || !bankIcon) {
@@ -49,14 +61,11 @@ const AddBankForm = () => {
           setErrors({});
         } else {
           const errorData = await res.json();
-          // setErrors(errorData);
-
-          
           const errorMessages = Object.values(errorData).flat().join(', ');
           setAlertMessage(`Failed to add bank: ${errorMessages}`);
           setStatusMessage('Failed to add bank.');
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error:', error);
         setAlertMessage(`An error occurred: ${error.message}`);
         setStatusMessage('An error occurred.');
@@ -65,9 +74,21 @@ const AddBankForm = () => {
     [bankName, bankIcon, router]
   );
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 3000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleLeftArrowClick = useCallback(() => {
+    setShowLoader(true);
+    setTimeout(() => {
       window.location.href = '/Userauthorization/Dashboard';
-  }, [router]);
+      setShowLoader(false); 
+    }, 1000); 
+  }, []);
 
   const handleCloseAlert = useCallback(() => {
     setAlertMessage('');
@@ -81,11 +102,17 @@ const AddBankForm = () => {
     <div className={styles.container}>
       {alertMessage && (
         <div className={styles.customAlert}>
-            <p>{alertMessage}</p>
-            <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
+          <p>{alertMessage}</p>
+          <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
         </div>
-            )}
+      )}
+        
       <div className={styles.topBar}>
+        {showLoader && (
+          <div className={styles.loaderContainer}>
+            <div className={styles.loader}></div>
+          </div>
+        )}
         <button className={styles.topBarButton}>
           <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick}/>
         </button>
@@ -108,7 +135,7 @@ const AddBankForm = () => {
           <label className={styles.label}>Upload Icon:</label>
           <input
             type="file"
-            onChange={(e) => setBankIcon(e.target.files[0])}
+            onChange={(e) => setBankIcon(e.target.files ? e.target.files[0] : null)}
             required
             className={styles.input}
           />
@@ -118,5 +145,6 @@ const AddBankForm = () => {
       {statusMessage && <p className={styles.statusMessage}>{statusMessage}</p>}
     </div>
   );
-}
+};
+
 export default dynamic(() => Promise.resolve(AddBankForm), { ssr: false });

@@ -1,10 +1,10 @@
 "use client";
-import PaymentOptions from './PaymentOptions'
+import CurrencySelector from './CurrencySelector';
 
-const CurrencyPage = () => {
+const CurrencyPage: React.FC = () => {
   return (
     <div className="container">
-      <PaymentOptions />
+      <CurrencySelector />
       <style jsx>{`
         .container {
           display: flex;
@@ -18,3 +18,4 @@ const CurrencyPage = () => {
 };
 
 export default CurrencyPage;
+

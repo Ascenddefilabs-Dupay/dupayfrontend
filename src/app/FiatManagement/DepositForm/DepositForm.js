@@ -4,6 +4,9 @@ import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import Select from 'react-select';
+import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
+import { useRouter } from 'next/navigation';
+
 
 
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
@@ -23,7 +26,14 @@ const DepositForm = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [pendingAmount, setPendingAmount] = useState(null);
     const [showForm, setShowForm] = useState(true);
-    const [showLoader, setShowLoader] = useState(true);
+    const [showLoader, setShowLoader] = useState(false);
+    const { isLoggedIn, userData, clearSession } = UseSession();
+    const router = useRouter();
+    React.useEffect(() => {
+    if (!isLoggedIn) {
+        // router.push('http://localhost:3000/Userauthentication/SignIn');
+    }
+    }, [isLoggedIn]);
     
     
 
@@ -151,6 +161,7 @@ const DepositForm = () => {
     }, []);
 
     useEffect(() => {
+        // setShowLoader(true);
         if (showForm) {
             axios.get(`${API_BASE_URL}/fiat_wallets/Wa0000000001/`)
                 .then(response => setWalletDetails(response.data))
@@ -163,7 +174,9 @@ const DepositForm = () => {
             axios.get(`${API_BASE_URL}/banks/`)
                 .then(response => setBanks(response.data))
                 .catch(error => handleApiError(error, 'fetching banks'));
+            // setShowLoader(false);
         }
+        
     }, [showForm]);
 
     useEffect(() => {
@@ -215,7 +228,9 @@ const DepositForm = () => {
     };
 
     const handleDeposit = async () => {
+        
         setSubmitted(true);
+        
         const parsedAmount = parseFloat(amount);
 
         // Clear any previous alert message
@@ -242,9 +257,10 @@ const DepositForm = () => {
         }
 
         setLoading(true);
+        // setShowLoader(true);
         setShowForm(false);
 
-        if (selectedCurrency.value === 'INR') {
+        if (selectedCurrency.value) {
             const paymentSuccess = await initiateRazorpayPayment();
 
             if (paymentSuccess) {
@@ -268,71 +284,74 @@ const DepositForm = () => {
                             sender_mobile_number: walletDetails.fiat_wallet_phone_number,
                             user_phone_number: walletDetails.fiat_wallet_phone_number,
                         });
+                        setPendingAmount(parsedAmount)
                         setAmount('');
                         setError('');
                         setSubmitted(false);
                         setLoading(false);
+                        // setShowLoader(false);
                         setShowForm(true);
                     })
                     .catch(error => handleApiError(error, 'processing the deposit'));
             } else {
                 setAlertMessage('Payment failed or was cancelled.');
+                // setShowLoader(false);
             }
             setShowForm(true);
-        }else {
-            setShowForm(true);
-            // Prepare data for the API call
-            const depositData = {
-                wallet_id: walletDetails.fiat_wallet_id,
-                currency_type: selectedCurrency.value,
-                amount: parsedAmount,
-            };
-            // if(selectedCurrency.value==='fiat_wallet_currency')
-            // axios.put(http://localhost:8000/fiatmanagement/fiat_wallets/${walletDetails.fiat_wallet_id}/, {
-            //     ...walletDetails,
-            //     fiat_wallet_balance: parsedAmount,
-            // })
-   
-            // Make the API call to update UserCurrency
-            axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/create_or_update/', depositData)
-                .then(response => {
-                    setPendingAmount(parsedAmount);
-                    setAlertMessage('Deposit successful!');
-                    setBalances(prevBalances => ({
-                        ...prevBalances,
-                        [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
-                    }));
-
-                    axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/transactions/', {
-                        wallet_id:walletDetails.fiat_wallet_id,
-                        transaction_amount:parsedAmount,
-                        transaction_currency: selectedCurrency.value,
-                        transaction_type: 'deposited',
-                        fiat_address: walletDetails.fiat_wallet_address,
-                        transaction_status: 'Success',
-                        transaction_fee: 0.0,
-                        transaction_hash: uuidv4(),
-                        transaction_method: 'wallet-deposit',
-                        sender_mobile_number:walletDetails.fiat_wallet_phone_number,
-                        user_phone_number:walletDetails.fiat_wallet_phone_number
-                      });
-
-                    setAmount('');
-                    setError('');
-                    setSubmitted(false);
-                    setLoading(false);
-                    setShowForm(true);
-                })
-                .catch(error => handleApiError(error, 'processing the deposit'));
         }
+            // setShowForm(true);
+            // // Prepare data for the API call
+            // const depositData = {
+            //     wallet_id: walletDetails.fiat_wallet_id,
+            //     currency_type: selectedCurrency.value,
+            //     amount: parsedAmount,
+            // };
+            // // if(selectedCurrency.value==='fiat_wallet_currency')
+            // // axios.put(http://localhost:8000/fiatmanagement/fiat_wallets/${walletDetails.fiat_wallet_id}/, {
+            // //     ...walletDetails,
+            // //     fiat_wallet_balance: parsedAmount,
+            // // })
+   
+            // // Make the API call to update UserCurrency
+            // axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/create_or_update/', depositData)
+            //     .then(response => {
+            //         setPendingAmount(parsedAmount);
+            //         setAlertMessage('Deposit successful!');
+            //         setBalances(prevBalances => ({
+            //             ...prevBalances,
+            //             [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
+            //         }));
+
+            //         axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/transactions/', {
+            //             wallet_id:walletDetails.fiat_wallet_id,
+            //             transaction_amount:parsedAmount,
+            //             transaction_currency: selectedCurrency.value,
+            //             transaction_type: 'deposited',
+            //             fiat_address: walletDetails.fiat_wallet_address,
+            //             transaction_status: 'Success',
+            //             transaction_fee: 0.0,
+            //             transaction_hash: uuidv4(),
+            //             transaction_method: 'wallet-deposit',
+            //             sender_mobile_number:walletDetails.fiat_wallet_phone_number,
+            //             user_phone_number:walletDetails.fiat_wallet_phone_number
+            //           });
+
+            //         setAmount('');
+            //         setError('');
+            //         setSubmitted(false);
+            //         setLoading(false);
+            //         setShowForm(false);
+            //     })
+                // .catch(error => handleApiError(error, 'processing the deposit'));
+              
     };
 
     const handleLeftArrowClick = () => {
         setShowLoader(true);
-    setTimeout(() => {
-      window.location.href = '/Userauthorization/Dashboard';
-      setShowLoader(false); 
-    }, 1000); 
+        setTimeout(() => {
+        window.location.href = '/Userauthorization/Dashboard';
+        setShowLoader(false); 
+        }, 3000); 
     };
 
     const handleCloseAlert = () => {
@@ -376,10 +395,10 @@ const DepositForm = () => {
                 
                 <div className={styles.container}>
                     {showLoader && (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
-            )}
+                        <div className={styles.loaderContainer}>
+                            <div className={styles.loader}></div>
+                        </div>
+                    )}
                     <Suspense fallback={<div>Loading...</div>}>
                     <div className={styles.topBar}>
                         <button className={styles.topBarButton}>

@@ -1,4 +1,5 @@
-const country_list = {
+// src/app/country_list.tsx
+const country_list: { [currencyCode: string]: string } = {
     "AED" : "AE",
     "AFN" : "AF",
     "XCD" : "AG",

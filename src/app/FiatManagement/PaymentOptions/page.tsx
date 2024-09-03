@@ -1,11 +1,10 @@
 "use client";
-import NetworkSelector from './NetworkSelector'
+import PaymentOptions from './PaymentOptions'
 
-
-const NetworkPage = () => {
+const CurrencyPage:React.FC = () => {
   return (
     <div className="container">
-      <NetworkSelector />
+      <PaymentOptions />
       <style jsx>{`
         .container {
           display: flex;
@@ -18,4 +17,4 @@ const NetworkPage = () => {
   );
 };
 
-export default NetworkPage;
+export default CurrencyPage;

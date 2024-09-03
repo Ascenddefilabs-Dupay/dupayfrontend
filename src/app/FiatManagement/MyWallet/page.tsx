@@ -1,7 +1,7 @@
 "use client";
 import MyWallet from "./MyWallet";
 
-const Wallet = () => {
+const Wallet:React.FC = () => {
   return (
     <div>
       <MyWallet />

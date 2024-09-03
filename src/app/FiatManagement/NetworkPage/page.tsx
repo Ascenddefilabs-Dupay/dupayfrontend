@@ -1,11 +1,12 @@
 "use client";
+import React from 'react';
+import NetworkSelector from './NetworkSelector'
 
-import SelectAsset from './SelectAsset';
 
-const SelectAssetPage = () => {
+const NetworkPage:React.FC = () => {
   return (
     <div className="container">
-      <SelectAsset />
+      <NetworkSelector />
       <style jsx>{`
         .container {
           display: flex;
@@ -18,4 +19,4 @@ const SelectAssetPage = () => {
   );
 };
 
-export default SelectAssetPage;
+export default NetworkPage;

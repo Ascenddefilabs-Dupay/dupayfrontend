@@ -1,12 +1,22 @@
-// src/app/adding-bankaccounts/AddBankAccounts.jsx
 "use client";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './AddBankAccount.module.css'; // Import CSS
 import { FaArrowLeft } from 'react-icons/fa';
 
-const AddBankAccounts = ({ onAddBankClick, selectedBank }) => {
-  const [linkedBanks, setLinkedBanks] = useState([]);
-  const [noBanksMessage, setNoBanksMessage] = useState('No linked bank accounts.');
+interface Bank {
+  id: number;
+  bank_name: string;
+  bank_icon?: string;
+}
+
+interface AddBankAccountsProps {
+  onAddBankClick: () => void;
+  selectedBank?: Bank;
+}
+
+const AddBankAccounts: React.FC<AddBankAccountsProps> = ({ onAddBankClick, selectedBank }) => {
+  const [linkedBanks, setLinkedBanks] = useState<Bank[]>([]);
+  const [noBanksMessage, setNoBanksMessage] = useState<string>('No linked bank accounts.');
 
   useEffect(() => {
     // Fetch linked banks
@@ -14,7 +24,7 @@ const AddBankAccounts = ({ onAddBankClick, selectedBank }) => {
       try {
         const res = await fetch('http://localhost:8000/api/user/linked_banks/');
         if (res.ok) {
-          const data = await res.json();
+          const data: Bank[] = await res.json();
           setLinkedBanks(data);
           if (data.length === 0) {
             setNoBanksMessage('No linked bank accounts.');

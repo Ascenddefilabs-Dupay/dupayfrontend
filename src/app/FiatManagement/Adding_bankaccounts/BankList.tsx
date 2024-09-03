@@ -1,18 +1,27 @@
-// src/app/adding-bankaccounts/BankList.jsx
 "use client";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './BankList.module.css'; // Import CSS
 
-const BankList = ({ onBankSelect }) => {
-  const [banks, setBanks] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+interface Bank {
+  id: number;
+  bank_name: string;
+  bank_icon?: string;
+}
+
+interface BankListProps {
+  onBankSelect: (bank: Bank) => void;
+}
+
+const BankList: React.FC<BankListProps> = ({ onBankSelect }) => {
+  const [banks, setBanks] = useState<Bank[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     const fetchBanks = async () => {
       try {
         const res = await fetch('http://localhost:8000/api/banks/');
         if (res.ok) {
-          const data = await res.json();
+          const data: Bank[] = await res.json();
           setBanks(data);
         } else {
           console.error('Failed to fetch banks');

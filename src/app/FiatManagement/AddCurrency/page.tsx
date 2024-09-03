@@ -1,12 +1,12 @@
+
+
 "use client";
 import AddCurrencyForm from "./AddCurrencyForm";
 
-
-const AddCurrency = () => {
+const AddCurrency: React.FC = () => {
   return (
-    <div >
+    <div>
       <AddCurrencyForm />
-      
     </div>
   );
 };
