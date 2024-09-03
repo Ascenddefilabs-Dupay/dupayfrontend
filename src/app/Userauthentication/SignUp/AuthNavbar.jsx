@@ -38,7 +38,7 @@ const AuthNavbar = () => {
       <div className="flex-1 flex items-center justify-center md:justify-start">
         <Link href="/">
           <span id="dupayLink" className={styles.dupayText}>
-            DUPAY
+            Dupay
           </span>
         </Link>
       </div>

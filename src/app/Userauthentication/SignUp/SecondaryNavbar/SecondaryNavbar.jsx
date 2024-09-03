@@ -18,7 +18,7 @@ const SecondaryNavbar = () => {
 
         <Link href="/">
           <span className={styles.dupayLink} aria-label="Dupay Home">
-            DUPAY
+            Dupay
           </span>
         </Link>
       </div>
