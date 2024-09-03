@@ -2,25 +2,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const index = () => {
-  const [userId, setUserId] = useState('');
+const InsightsTips: React.FC = () => {
+  const [userId, setUserId] = useState<string>('');
 
   // Function to send a browser notification
-  const sendNotification = (title, message, icon, link) => {
+  const sendNotification = (title: string, message: string, icon: string, link: string) => {
     if ('Notification' in window && Notification.permission === 'granted') {
       const notification = new Notification(title, {
-        body: message,  // Make sure the message is set in the notification body
+        body: message,
         icon: icon,
       });
 
-      // Handle notification click event
       notification.onclick = () => {
         window.open(link, '_blank');
       };
     }
   };
 
-  // Function to request notification permission from the user
   const requestNotificationPermission = () => {
     if ('Notification' in window && Notification.permission !== 'granted') {
       Notification.requestPermission().then(permission => {
@@ -31,41 +29,39 @@ const index = () => {
     }
   };
 
-  // Function to create and trigger the Insights Tips notification
   const createInsightsTipsNotification = () => {
     if (!userId) {
       alert("User ID is not available.");
       return;
     }
 
-    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/insightstipsapi/create-insights-tips-notification/', {
-      email_id: 'user@example.com',  // Adjust this to dynamically fetch user email if needed
-      message: 'This is your insights tips notification!',
+    axios.post('http://localhost:8000/insightstipsapi/create-insights-tips/', {
+      user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then(response => {
-        const message = response.data.message || 'This is your insights tips notification!';
-        sendNotification('Insights Tips', message, './images/logo.png', 'https://www.specialoffer.inc/');
+      .then((response) => {
+        const message = response.data.insights_tips_content;  // Use the dynamic content from the backend
+        sendNotification('Insights Tips', message, 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1725254311/logo3_ln9n43.png', 'https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages');
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Failed to create Insights Tips notification.');
+        alert('Failed to create insights tips notification.');
       });
   };
 
-  // Fetch user IDs who have Insights Tips enabled
   useEffect(() => {
-    requestNotificationPermission();  // Request notification permission when component mounts
+    requestNotificationPermission();
 
-    axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/insightstipsapi/get_insights_tips_user_ids/')
+    axios.get('http://localhost:8000/insightstipsapi/get-insights-tips-user-ids/')
       .then(response => {
-        if (response.data.user_ids && response.data.user_ids.length > 0) {
-          setUserId(response.data.user_ids[0]);  // Set the first user ID
+        const userIds = response.data.user_ids;
+        if (userIds && userIds.length > 0) {
+          setUserId(userIds[0]);  // Set the first user ID
         } else {
-          alert('No users with Insights Tips enabled.');
+          alert('No users with insights tips enabled.');
         }
       })
       .catch(error => {
@@ -88,4 +84,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default InsightsTips;
