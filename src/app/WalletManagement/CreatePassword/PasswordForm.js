@@ -62,6 +62,7 @@ const PasswordForm = () => {
     };
 
     const handleLeftArrowClick = () => {
+        setLoading(true);
         window.location.href = './WalletCreation/CreateAccount';
     };
 
@@ -111,7 +112,7 @@ const PasswordForm = () => {
            {loading ? (
         <div className='loading'>
           <div className='spinner'></div>
-          <p className='loadingText'>LOADING</p>
+          {/* <p className='loadingText'><br/>LOADING</p> */}
         </div>
       ) : (
         <div className="wallet-manager">

@@ -63,40 +63,50 @@ const SuccessPage: React.FC = () => {
     };
 
     const handleLeftArrowClick = () => {
+        setLoading(true);
         window.location.href = '../WalletSecretCode';
     };
 
     const handleSubmit = async () => {
-        if (firstSelectedIndex !== null && lastSelectedIndex !== null) {
+        const user_id = sessionStorage.getItem('user_id');
+        console.log(user_id);
+        
+        // const user_id = 'Dup001'
+        const walletId = localStorage.getItem('wallet_id');
+        const password = localStorage.getItem('password');
+
+        if (firstSelectedIndex !== null && lastSelectedIndex !== null ) {
             const firstWord = shuffledWords[firstSelectedIndex];
             const lastWord = shuffledWords[lastSelectedIndex];
 
             const expectedFirstWord = recoveryWords[0];
             const expectedLastWord = recoveryWords[recoveryWords.length - 1];
 
-            const isCorrect = 
+            const isCorrect =
                 firstWord.toLowerCase() === expectedFirstWord.toLowerCase() &&
                 lastWord.toLowerCase() === expectedLastWord.toLowerCase();
 
-            if (isCorrect) {
+            if (isCorrect && user_id !== null) {
                 setIsSuccess(true);
                 setLoading(true)
                 try {
                     // Retrieve wallet_id and password from localStorage
-                    const walletId = localStorage.getItem('wallet_id');
-                    const password = localStorage.getItem('password');
+                   
                     // const recoveryWords = localStorage.getItem('recoveryWords');
-                    
+
                     // Print data to the console
                     console.log('Wallet ID:', walletId);
                     console.log('Password:', password);
                     console.log('Recovery Phrases:', recoveryWords);
+                    console.log("Uer_id", user_id)
 
                     // Send data to the backend
-                    await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/save-wallet-data/', {
+                    await axios.post('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/save-wallet-data/',{
+                    // await axios.post('http://127.0.0.1:8000/walletmanagementapi/save-wallet-data/', {
                         wallet_id: walletId,
                         password,
                         recovery_phrases: recoveryWords.join(' '),
+                        user_id,
                     });
 
                     // Clear local storage
@@ -109,76 +119,77 @@ const SuccessPage: React.FC = () => {
                     window.location.href = '../WalletSubmit';
                 } catch (error) {
                     console.error('Error saving phrase:', error);
-                    alert('Enter The Password');
+                    alert('error');
                 }
             } else {
                 setIsSuccess(false);
+                alert('Enter The Password and User_Id needed');
             }
         }
     };
 
     return (
         <div>
-        {loading ? (
-        <div className='loading'>
-          <div className='spinner'></div>
-          <p className='loadingText'>LOADING</p>
-        </div>
-      ) : (
-        <div className="success-wrapper">
-            <div className="container">
-                <div className="column left" onClick={handleLeftArrowClick}>
-                    <FaArrowLeft />
+            {loading ? (
+                <div className='loading'>
+                    <div className='spinner'></div>
+                    {/* <p className='loadingText'>LOADING</p> */}
                 </div>
-                <div className="column middle">
-                    <ProgressBar currentStep={4} totalSteps={4} />
-                </div>
-                <div className="column right">
-                    {/* Right column content */}
-                </div>
-            </div>
-            <div className="success-header">
-                You saved it, right?
-            </div>
-            <div className="success-paragraph">
-                Verify that you saved your secret recovery phrase by clicking on the first (1st) then last (12th) word.
-            </div>
-            <div className="word-buttons-container">
-                {Array.from({ length: 6 }).map((_, rowIndex) => (
-                    <div key={rowIndex} className="word-button-row">
-                        {Array.from({ length: 4 }).map((_, colIndex) => {
-                            const isEvenRow = (rowIndex % 2) === 1;
-                            const shouldRenderButton = (isEvenRow && (colIndex === 1 || colIndex === 3)) || (!isEvenRow && (colIndex === 0 || colIndex === 2));
-                            const wordIndex = rowIndex * 2 + (shouldRenderButton ? Math.floor(colIndex / 2) : -1);
-
-                            return (
-                                <div key={colIndex} className={`word-button-placeholder col-${colIndex + 1}`}>
-                                    {shouldRenderButton && wordIndex < shuffledWords.length && (
-                                        <button
-                                            className={`word-button ${selectedIndexes.includes(wordIndex) ? 'selected' : ''}`}
-                                            onClick={() => handleButtonClick(wordIndex)}
-                                        >
-                                            {shuffledWords[wordIndex]}
-                                            {firstSelectedIndex === wordIndex && (
-                                                <span className="popup">First</span>
-                                            )}
-                                            {lastSelectedIndex === wordIndex && (
-                                                <span className="popup">Last</span>
-                                            )}
-                                        </button>
-                                    )}
-                                </div>
-                            );
-                        })}
+            ) : (
+                <div className="success-wrapper">
+                    <div className="container">
+                        <div className="column left" onClick={handleLeftArrowClick}>
+                            <FaArrowLeft />
+                        </div>
+                        <div className="column middle">
+                            <ProgressBar currentStep={4} totalSteps={4} />
+                        </div>
+                        <div className="column right">
+                            {/* Right column content */}
+                        </div>
                     </div>
-                ))}
-            </div>
-            <button onClick={handleSubmit} className="continue-button">Submit</button>
-            {isSuccess === true && <div className="success-message">Success! The words are correct.</div>}
-            {isSuccess === false && <div className="error-message">Warning: The words are incorrect.</div>}
+                    <div className="success-header">
+                        You saved it, right?
+                    </div>
+                    <div className="success-paragraph">
+                        Verify that you saved your secret recovery phrase by clicking on the first (1st) then last (12th) word.
+                    </div>
+                    <div className="word-buttons-container">
+                        {Array.from({ length: 6 }).map((_, rowIndex) => (
+                            <div key={rowIndex} className="word-button-row">
+                                {Array.from({ length: 4 }).map((_, colIndex) => {
+                                    const isEvenRow = (rowIndex % 2) === 1;
+                                    const shouldRenderButton = (isEvenRow && (colIndex === 1 || colIndex === 3)) || (!isEvenRow && (colIndex === 0 || colIndex === 2));
+                                    const wordIndex = rowIndex * 2 + (shouldRenderButton ? Math.floor(colIndex / 2) : -1);
+
+                                    return (
+                                        <div key={colIndex} className={`word-button-placeholder col-${colIndex + 1}`}>
+                                            {shouldRenderButton && wordIndex < shuffledWords.length && (
+                                                <button
+                                                    className={`word-button ${selectedIndexes.includes(wordIndex) ? 'selected' : ''}`}
+                                                    onClick={() => handleButtonClick(wordIndex)}
+                                                >
+                                                    {shuffledWords[wordIndex]}
+                                                    {firstSelectedIndex === wordIndex && (
+                                                        <span className="popup">First</span>
+                                                    )}
+                                                    {lastSelectedIndex === wordIndex && (
+                                                        <span className="popup">Last</span>
+                                                    )}
+                                                </button>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ))}
+                    </div>
+                    <button onClick={handleSubmit} className="continue-button">Submit</button>
+                    {isSuccess === true && <div className="success-message">Success! The words are correct.</div>}
+                    {isSuccess === false && <div className="error-message">Warning: The words are incorrect.</div>}
+                </div>
+            )}
         </div>
-        )}
-    </div>
     );
 };
 
