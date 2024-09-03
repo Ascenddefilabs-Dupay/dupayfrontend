@@ -2,7 +2,7 @@
 
 import ThemeColor from './ThemeColor'; // Correctly import the component
 
-const ThemeColourPage = () => {
+const ThemeColourPage: React.FC = () => {
   return (
     <div>
       <ThemeColor />

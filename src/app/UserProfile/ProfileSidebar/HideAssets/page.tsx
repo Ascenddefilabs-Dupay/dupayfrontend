@@ -2,7 +2,7 @@
 
 import HideAssets from './HideAssets';
 
-const HideAssetsPage = () => {
+const HideAssetsPage : React.FC = () => {
   return (
     <div>
       <HideAssets />

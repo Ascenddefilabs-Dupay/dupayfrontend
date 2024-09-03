@@ -4,41 +4,40 @@ import { Box, Button, Typography, Tabs, Tab, IconButton } from '@mui/material';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './HideAssets.module.css';
 import { styled } from '@mui/system';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, SyntheticEvent } from 'react';
 import { redirect } from 'next/navigation';
 
-
-
-const HideAssets = () => {
-  const [tabValue, setTabValue] = React.useState(0);
-  const [showLoader, setShowLoader] = useState(true);
-  // const userId = localStorage.getItem('user_id');
-  // console.log("User_id", userId)
-  // if (user_id === null) redirect('http://localhost:3000/')
-  const [userId, setUserId] = useState(null);
+const HideAssets: React.FC = () => {
+  const [tabValue, setTabValue] = useState<number>(0);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedUserId = localStorage.getItem('user_id');
-      setUserId(storedUserId);
-      // setAlertMessage('User Need To Login')
-      // if (storedUserId === null) redirect('http://localhost:3000/');
-      console.log(storedUserId)
+      const sessionDataString = window.localStorage.getItem('session_data');
+      // if (sessionDataString) {
+      //   const sessionData = JSON.parse(sessionDataString);
+      //   const storedUserId = sessionData.user_id;
+      //   setUserId(storedUserId);
+      //   console.log(storedUserId);
+      //   console.log(sessionData.user_email);
+      // } else {
+      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      // }
     }
   }, []);
-
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-        setShowLoader(false);
-        // setShowForm(true);
-    },); // 2 seconds delay
+      setShowLoader(false);
+    }, ); // 2 seconds delay
 
     return () => clearTimeout(timer);
-    }, []);
+  }, []);
+
   const BackArrow = styled(FaArrowLeft)({
     cursor: 'pointer',
     color: '#FFFFFF',
@@ -49,10 +48,10 @@ const HideAssets = () => {
   return (
     <div className={styles.pageWrapper}>
       {showLoader && (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
-            )}
+        <div className={styles.loaderContainer}>
+          <div className={styles.loader}></div>
+        </div>
+      )}
       <Box
         sx={{
           backgroundColor: '#000',
@@ -98,7 +97,7 @@ const HideAssets = () => {
               <Box sx={{ mb: 2 }}>
                 <img
                   src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1725004269/Dupay.image_kzvxum.png"
-                  alt="NFT Image"
+                  alt="Crypto Image"
                   width={250}
                   height={250}
                   style={{ objectFit: 'contain' }}
