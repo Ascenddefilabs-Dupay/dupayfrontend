@@ -11,6 +11,7 @@ const AddAccount = () => {
   }, []);
 
     const handleClose = () => {
+      setLoading(true)
         window.location.href = './';
       };
 
@@ -25,7 +26,7 @@ const AddAccount = () => {
     {loading ? (
       <div className='loading'>
         <div className='spinner'></div>
-        <p className='loadingText'>LOADING</p>
+        {/* <p className='loadingText'>LOADING</p> */}
       </div>
     ) : (
     <div className="add-account-container">
