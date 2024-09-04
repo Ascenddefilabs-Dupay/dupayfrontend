@@ -1,7 +1,7 @@
 "use client";
-import styles from './page.css';
+import './page.css';
 import axios from 'axios';
-import React, { useState, useEffect, useCallback,Suspense } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import country_list from '../CurrencyDropdown/country-list';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -9,54 +9,60 @@ import { FaArrowLeft, FaEllipsisV, FaChevronRight } from 'react-icons/fa';
 import networkOptions from '../NetworkPage/NetworkOptions';
 import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
+// Type definitions
+type Role = 'admin' | 'user' | 'guest'; // Add more roles as needed
 
 // Authentication and role-based access hook
 const useAuth = () => {
   const isAuthenticated = true; // Replace with actual authentication logic
-  const hasRole = (role) => role === 'admin'; // Replace with actual role checking logic
+  const hasRole = (role: Role) => role === 'admin'; // Replace with actual role checking logic
   return { isAuthenticated, hasRole };
 };
 
-const CurrencyConverter = () => {
+const CurrencyConverter: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectedCurrency = searchParams.get('currency');
-  const [fromCurrency, setFromCurrency] = useState('ETH'); 
-  const [toCurrency, setToCurrency] = useState('INR');
-  const [amount, setAmount] = useState('0');
-  const [result, setResult] = useState('');
-  const [error, setError] = useState('');
-  const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [network, setNetwork] = useState('OP Mainnet'); // Default value
-  const [buy, setBuy] = useState('ETH');
-  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
-  const [credit, setCredit] = useState('IMPS');
-  const [provide, setProvide] = useState('Onramp Money');
+  const selectedCurrency = searchParams?.get('currency');
+
+  const [fromCurrency, setFromCurrency] = useState<string>('ETH'); 
+  const [toCurrency, setToCurrency] = useState<string>('INR');
+  const [amount, setAmount] = useState<string>('0');
+  const [result, setResult] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [showBottomSheet, setShowBottomSheet] = useState<boolean>(false);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [network, setNetwork] = useState<string>('OP Mainnet'); // Default value
+  const [buy, setBuy] = useState<string>('ETH');
+  const [showPaymentOptions, setShowPaymentOptions] = useState<boolean>(false);
+  const [credit, setCredit] = useState<string>('IMPS');
+  const [provide, setProvide] = useState<string>('Onramp Money');
   const cryptoApiKey = 'd87e655eb0580e20c381f19ecd513660587ebed07d93f102ac46a3efe32596ca';
-  const [alertMessage, setAlertMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState<string>('');
   const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
   
   const { isLoggedIn, userData, clearSession } = UseSession();
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (!isLoggedIn) {
-        // router.push('http://localhost:3000/Userauthentication/SignIn');
+      // router.push('http://localhost:3000/Userauthentication/SignIn');
     }
-    }, [isLoggedIn]);
+  }, [isLoggedIn]);
+
   useEffect(() => {
     if (selectedCurrency) {
       setToCurrency(selectedCurrency);
       setShowBottomSheet(true);
     }
   }, [selectedCurrency]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-        setShowLoader(false);
+      setShowLoader(false);
     }, 1500); // seconds delay
 
     return () => clearTimeout(timer);
-}, []);
+  }, []);
 
   useEffect(() => {
     const storedNetwork = localStorage.getItem('selectedNetwork');
@@ -66,13 +72,12 @@ const CurrencyConverter = () => {
     }
   }, []);
 
-  const isFiatCurrency = (currency) => {
+  const isFiatCurrency = (currency: string) => {
     return country_list.hasOwnProperty(currency);
   };
-  
 
   const fetchConversionRates = useCallback(async () => {
-    if (!fromCurrency || !toCurrency || !amount || isNaN(amount) || parseFloat(amount) <= 0) {
+    if (!fromCurrency || !toCurrency || !amount || isNaN(Number(amount)) || parseFloat(amount) <= 0) {
       setError('Please enter valid input');
       setResult('');
       return;
@@ -121,8 +126,9 @@ const CurrencyConverter = () => {
         currency: 'INR',
         name: 'DUPAY',
         description: 'Payment for currency conversion',
-        handler: function (response) {
+        handler: function (response: any) {
           setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+
         },
         prefill: {
           name: 'User Name',
@@ -156,7 +162,7 @@ const CurrencyConverter = () => {
     setShowDropdown((prevState) => !prevState);
   }, []);
 
-  const handleKeypadClick = useCallback((key) => {
+  const handleKeypadClick = useCallback((key: string) => {
     setAmount(prevAmount => {
       if (key === '←') {
         const newAmount = prevAmount.slice(0, -1);
@@ -184,20 +190,34 @@ const CurrencyConverter = () => {
     }
   }, []);
 
-  const handleCurrencyChange = useCallback((currency) => {
+  const handleCurrencyChange = useCallback((currency: string) => {
     setToCurrency(currency);
     setShowBottomSheet(false);
   }, []);
 
-  const handleAmountChange = useCallback((e) => {
-    let value = e.target.value;
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let inputValue = e.target.value;
+    const validInput = /^[0-9]*\.?[0-9]*$/;
 
-    if (value.startsWith('0') && value.length > 1 && !value.includes('.')) {
-      value = value.replace(/^0+/, '');
+    if (!validInput.test(inputValue)) {
+      return;
     }
 
-    setAmount(value);
-  }, []);
+    if (inputValue.length > 1 && inputValue.startsWith('0') && inputValue[1] !== '.') {
+      inputValue = inputValue.slice(1);
+    }
+
+    if (inputValue.includes('.')) {
+      const parts = inputValue.split('.');
+      if (parts[1].length > 2) {
+        parts[1] = parts[1].slice(0, 2);
+      }
+      inputValue = parts.join('.');
+    }
+
+    setAmount(inputValue);
+
+  } ;
 
   const navigateToBuy = useCallback(() => {
     router.push('/FiatManagement/BuyPage');
@@ -220,17 +240,16 @@ const CurrencyConverter = () => {
   }, [router]);
 
   const navigateToDashboard = useCallback(() => {
-   
     setShowLoader(true);
     setTimeout(() => {
-    window.location.href = '/Userauthorization/Dashboard';
-    setShowLoader(false); 
-    }, 3000); 
-      
+      window.location.href = '/Userauthorization/Dashboard';
+      setShowLoader(false);
+    }, 3000);
   }, []);
 
   const handleCloseAlert = useCallback(() => {
     setAlertMessage('');
+    setAmount("");
   }, []);
 
   if (!isAuthenticated || !hasRole('admin')) {

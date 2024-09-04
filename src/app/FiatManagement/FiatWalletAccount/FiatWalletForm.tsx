@@ -43,11 +43,14 @@ export default function FiatWalletForm() {
   useEffect(() => {
     if (isLoggedIn) {
       setUserId(userData?.user_id || null);
+
     } else {
       console.log('User is not logged in');
+      // router.push('/Userauthentication/SignIn')
     }
     console.log(userId);
   }, [isLoggedIn, userData]);
+  // const userId="DupC001";
 
   const validateFields = (): boolean => {
     const newError: ErrorState = {};
@@ -71,7 +74,7 @@ export default function FiatWalletForm() {
 
     return Object.keys(newError).length === 0;
   };
-
+// setUserId("DupC0001");
   useEffect(() => {
     axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/`)
       .then(response => setCurrencies(response.data))
@@ -97,7 +100,9 @@ export default function FiatWalletForm() {
 
   const handleCurrencyChange = (option: SingleValue<CurrencyOption>) => {
     setSelectedCurrency(option);
+    setWalletCurrency(option?.value || ''); // Update walletCurrency when a new currency is selected
   };
+  
 
   const customSelectStyles = {
     control: (base: any) => ({
@@ -129,7 +134,7 @@ export default function FiatWalletForm() {
     if (!validateFields()) {
       return;
     }
-
+ 
     try {
       setShowLoader(true);
 
@@ -204,6 +209,19 @@ export default function FiatWalletForm() {
         <h2 className={styles.topBarTitle}>Create Fiat Wallet</h2>
       </div>
       <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.formGroup}>
+          <label htmlFor="walletType" className={styles.label}>Wallet Type:</label>
+          <input
+            type="text"
+            id="walletType"
+            placeholder="Enter Wallet Type"
+            className={`${styles.input} ${error.walletType ? styles.error : ''}`}
+            value={walletType}
+            onChange={(e) => setWalletType(e.target.value)}
+            required
+          />
+          {error.walletType && <p className={styles.error}>{error.walletType}</p>}
+        </div>
         <div className={styles.formGroup}>
           <label htmlFor="walletCurrency" className={styles.label}>Currency:</label>
           <Select
