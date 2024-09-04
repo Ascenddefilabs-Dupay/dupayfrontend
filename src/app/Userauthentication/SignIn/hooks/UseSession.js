@@ -26,7 +26,7 @@ const UseSession = () => {
           const timeUntilExpiration = expirationDate.getTime() - now.getTime();
           setTimeout(() => {
             clearSession();
-            alert('Session expired. Please log in again.');
+            // alert('Session expired. Please log in again.');
             router.push('/SignIn');
             window.location.reload();
           }, timeUntilExpiration);

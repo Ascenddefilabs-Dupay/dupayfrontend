@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importing Font Awesome ic
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link'; // Import Next.js Link component
 import styles from './signup.module.css'; // Adjust the path according to your project structure
-
+const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 export default function Home1() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -23,6 +23,7 @@ export default function Home1() {
   const [otpExpired, setOtpExpired] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  
 
   useEffect(() => {
     let interval;
@@ -201,7 +202,7 @@ export default function Home1() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="896447012011-mnfigne1bhvjm1cj5tfjb33mb7fn3mpr.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={CLIENT_ID}>
       <div className={styles.container}>
         <div className={styles.formWrapper}>
           <h1 className={styles.title}>Signup</h1>

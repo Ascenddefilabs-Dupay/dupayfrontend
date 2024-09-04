@@ -7,8 +7,9 @@ import Navbar from '../LandingPage/Navbar';
 import Cookies from 'js-cookie';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter } from 'next/navigation';
-
+import Link from 'next/link'; 
 import UseSession from './hooks/UseSession';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 export default function Login() {
   const router = useRouter();
   const [heading, setHeading] = useState('Login');
@@ -21,27 +22,28 @@ export default function Login() {
   const [otpTimer, setOtpTimer] = useState(0);
 
   useEffect(() => {
-    const initializeGoogleSignIn = () => {
-      window.google.accounts.id.initialize({
-        client_id: "896447012011-mnfigne1bhvjm1cj5tfjb33mb7fn3mpr.apps.googleusercontent.com",
-        callback: handleGoogleResponse,
-      });
-      window.google.accounts.id.renderButton(
-        document.getElementById("google-signin-button"),
-        { theme: "outline", size: "large" }
-      );
-    };
+  const initializeGoogleSignIn = () => {
+    window.google.accounts.id.initialize({
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      callback: handleGoogleResponse,
+    });
+    window.google.accounts.id.renderButton(
+      document.getElementById("google-signin-button"),
+      { theme: "outline", size: "large" }
+    );
+  };
 
-    if (window.google) {
-      initializeGoogleSignIn();
-    } else {
-      const script = document.createElement("script");
-      script.src = "https://accounts.google.com/gsi/client";
-      script.async = true;
-      script.onload = initializeGoogleSignIn;
-      document.body.appendChild(script);
-    }
-  }, []);
+  if (window.google) {
+    initializeGoogleSignIn();
+  } else {
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.onload = initializeGoogleSignIn;
+    document.body.appendChild(script);
+  }
+}, []);
+
 
   const handleGoogleResponse = async (response) => {
     try {
