@@ -9,6 +9,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 import { ToastContainer } from 'react-toastify';
 import styles from './PrivacySettings.module.css';
+import { redirect } from 'next/navigation';
 
 // Define types for the response from the API
 interface UserProfileResponse {
@@ -120,23 +121,23 @@ const ManagePrivacy: React.FC = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
-      // if (sessionDataString) {
-      //   const sessionData = JSON.parse(sessionDataString);
-      //   const storedUserId = sessionData.user_id;
-      //   setUserId(storedUserId);
-      //   console.log(storedUserId);
-      //   console.log(sessionData.user_email);
-      // } else {
-      //   redirect('http://localhost:3000/Userauthentication/SignIn');
-      // }
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        redirect('http://localhost:3000/Userauthentication/SignIn');
+      }
     }
   }, []);
 
   const fetchUserProfile = useCallback(async () => {
-    // if (!userId) return;
-
+    if (!userId) return;
+    console.log(userId)
     try {
-      const response = await axios.get<UserProfileResponse>(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfileResponse>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
       setIsPublic(response.data.profile_privacy === 'public');
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -152,7 +153,7 @@ const ManagePrivacy: React.FC = () => {
 
   const handleToggle = (publicStatus: boolean) => {
       setIsPublic(publicStatus);
-      axios.patch('https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/', { profile_privacy: publicStatus ? 'public' : 'private' })
+      axios.patch(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, { profile_privacy: publicStatus ? 'public' : 'private' })
           .then(response => {
               console.log('Privacy updated successfully', response.data);
               setClose(true);

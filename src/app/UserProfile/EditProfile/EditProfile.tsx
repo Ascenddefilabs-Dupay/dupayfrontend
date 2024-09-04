@@ -120,22 +120,22 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
-      // if (sessionDataString) {
-      //   const sessionData = JSON.parse(sessionDataString);
-      //   const storedUserId = sessionData.user_id;
-      //   setUserId(storedUserId);
-      //   console.log(storedUserId);
-      //   console.log(sessionData.user_email);
-      // } else {
-      //   redirect('http://localhost:3000/Userauthentication/SignIn');
-      // }
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        redirect('http://localhost:3000/Userauthentication/SignIn');
+      }
     }
   }, []);
 
   const fetchUserProfile = useCallback(async () => {
     if (!userId) return;
     try {
-      const response = await axios.get<UserProfileData>(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfileData>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
       const data: UserProfileData = response.data;
       setUserProfile(data);
       setName(data.name || '');
@@ -143,7 +143,7 @@ const UserProfile: React.FC = () => {
       console.log('User profile data:', data);
 
       if (data.user_profile_photo) {
-        const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
+        const baseURL = 'http://fiatmanagement-ind-255574993735.asia-south1.run.app/profile_photos';
         let imageUrl = '';
 
         if (typeof data.user_profile_photo === 'string' && data.user_profile_photo.startsWith('http')) {
@@ -199,7 +199,7 @@ const UserProfile: React.FC = () => {
     formData.append('user_id', users.user_id || '');
     formData.append('user_profile_photo', file);
     try {
-      await axios.put(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`, formData, {
+      await axios.put(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -215,11 +215,6 @@ const UserProfile: React.FC = () => {
   return (
     <div>
       <StyledContainer>
-        {/* {showLoader && (
-          <div className={styles.loaderContainer}>
-            <div className={styles.loader}></div>
-          </div>
-        )} */}
         <header style={styles.header}>
           <Link href="/UserProfile">
             <FaArrowLeft style={styles.backArrow} />
