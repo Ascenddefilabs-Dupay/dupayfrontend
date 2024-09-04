@@ -17,7 +17,7 @@ const StyledContainer = styled(Container)({
   backgroundColor: '#000000',
   borderRadius: '0px',
   color: '#FFFFFF',
-  width: '428px',
+  width: '435px',
   height: 'auto',
   minHeight: '120vh',
   padding: '20px',
@@ -101,7 +101,7 @@ const FooterItem = styled('div')({
 const container = {
   display: 'flex',
   justifyContent: 'center',
-  width: '400px',
+  width: '430px',
   alignItems: 'center',
   height: 'auto',
   backgroundColor: 'white',
@@ -116,15 +116,15 @@ const ManageProfile: React.FC = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
-      // if (sessionDataString) {
-      //   const sessionData = JSON.parse(sessionDataString);
-      //   const storedUserId = sessionData.user_id;
-      //   setUserId(storedUserId);
-      //   console.log(storedUserId);
-      //   console.log(sessionData.user_email);
-      // } else {
-      //   redirect('http://localhost:3000/Userauthentication/SignIn');
-      // }
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        redirect('http://localhost:3000/Userauthentication/SignIn');
+      }
     }
   }, []);
 

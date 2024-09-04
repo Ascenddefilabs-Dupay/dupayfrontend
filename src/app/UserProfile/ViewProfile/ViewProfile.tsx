@@ -121,10 +121,16 @@ const UserProfile: React.FC = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedUserId = localStorage.getItem('user_id');
-      setUserId(storedUserId);
-      // if (storedUserId === null) redirect('http://localhost:3000/');
-      console.log(storedUserId);
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        redirect('http://localhost:3000/Userauthentication/SignIn');
+      }
     }
   }, []);
 
@@ -132,12 +138,12 @@ const UserProfile: React.FC = () => {
     if (!userId) return;
 
     try {
-      const response = await axios.get<UserProfile>(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfile>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
       console.log('User profile data:', response.data);
 
       if (response.data.user_profile_photo) {
-        const baseURL = 'https://userprofile-rcfpsxcera-uc.a.run.app/profile_photos';
+        const baseURL = 'http://fiatmanagement-ind-255574993735.asia-south1.run.app/profile_photos';
         let imageUrl = '';
 
         const profilePhoto = response.data.user_profile_photo;
@@ -210,7 +216,7 @@ const UserProfile: React.FC = () => {
     formData.append('user_pin_code', users.user_pin_code || '');
 
     try {
-      await axios.put(`https://userprofile-rcfpsxcera-uc.a.run.app/userprofileapi/profile/${userId}/`, formData, {
+      await axios.put(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

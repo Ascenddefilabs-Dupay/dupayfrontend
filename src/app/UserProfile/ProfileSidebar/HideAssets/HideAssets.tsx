@@ -15,15 +15,15 @@ const HideAssets: React.FC = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
-      // if (sessionDataString) {
-      //   const sessionData = JSON.parse(sessionDataString);
-      //   const storedUserId = sessionData.user_id;
-      //   setUserId(storedUserId);
-      //   console.log(storedUserId);
-      //   console.log(sessionData.user_email);
-      // } else {
-      //   redirect('http://localhost:3000/Userauthentication/SignIn');
-      // }
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        redirect('http://localhost:3000/Userauthentication/SignIn');
+      }
     }
   }, []);
   const handleChange = (event: SyntheticEvent, newValue: number) => {
