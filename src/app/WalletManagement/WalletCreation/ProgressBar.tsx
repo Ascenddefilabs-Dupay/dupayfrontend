@@ -1,8 +1,13 @@
-// ProgressBar.js
+// ProgressBar.tsx
 import React from 'react';
 import './ProgressBar.css';
 
-const ProgressBar = ({ currentStep, totalSteps }) => {
+interface ProgressBarProps {
+  currentStep: number;
+  totalSteps: number;
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep, totalSteps }) => {
   const steps = [];
 
   for (let i = 1; i <= totalSteps; i++) {
