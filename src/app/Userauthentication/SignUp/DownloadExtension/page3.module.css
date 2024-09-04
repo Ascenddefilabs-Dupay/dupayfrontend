@@ -1,0 +1,99 @@
+/* Container for the whole page */
+.container {
+    margin-top:5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: black;
+    color: white;
+  }
+  
+  /* Main content area */
+  .main {
+    flex-grow: 1;
+    padding: 16px;
+    margin-top: 7rem; /* Adjusted for the navbar */
+  }
+  
+  /* Header section */
+  .header {
+    margin-bottom: 25px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-left: 1.5rem;
+  }
+  
+  /* Subheader section */
+  .subheader {
+    margin-bottom: 12px;
+  }
+  
+  .description {
+    font-size: 1rem;
+    padding-top: 1rem;
+    margin-left: 1.5rem;
+  }
+  
+  /* Grid for cards */
+  .cardGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  
+    /* Responsive layouts */
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* Card styles */
+  .card {
+    border: 1px solid white;
+    padding: 16px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 16rem;
+    background-color: #333;
+    padding-top: 2.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scaleY(1.05);
+  }
+  
+  /* Icon styles */
+  .icon {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Image within cards */
+  .image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+  }
+  
+  /* Card title */
+  .cardTitle {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    padding-top: 0.5rem;
+  }
+  
+  /* Card description */
+  .cardDescription {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    padding-top: 0.5rem;
+  }
+  
