@@ -282,6 +282,321 @@
 
 // export default PersonalDetailsForm;
 
+// 'use client';
+// import React, { useState, useEffect, useCallback } from 'react';
+// import { useRouter } from 'next/navigation';
+// import axios from 'axios';
+// import styles from './PersonalDetailsForm.module.css';
+// import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
+
+// const CustomAlert = ({ message, onClose }) => (
+//   <div className={styles.customAlert}>
+//     <p>{message}</p>
+//     <button onClick={onClose} className={styles.closeButton}>Ok</button>
+//   </div>
+// );
+// const PersonalDetailsForm = () => {
+//   const [formData, setFormData] = useState({
+//     firstName: '',
+//     lastName: '',
+//     mobileNumber: '',
+//     dob: '',
+//     addressLine1: '',
+//     addressLine2: '',
+//     state: '',
+//     city: '',
+//     postalCode: '',
+//     country: ''
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [message, setMessage] = useState('');
+//   const [showAlert, setShowAlert] = useState(false);
+//   const [redirect, setRedirect] = useState(false);
+//   const [loading, setLoading] = useState(false);
+//   const router = useRouter();
+//   const { isLoggedIn, userData } = UseSession();
+
+//   React.useEffect(() => {
+//     if (isLoggedIn) {
+//       console.log('User ID:', userData?.user_id);
+//     } else {
+//       console.log('User is not logged in');
+//     }
+//   }, [isLoggedIn, userData]);
+
+//   const validateField = useCallback((name, value) => {
+//     let error = '';
+//     switch (name) {
+//       case 'firstName':
+//         if (!value) error = 'First Name is required';
+//         break;
+//       case 'lastName':
+//         if (!value) error = 'Last Name is required';
+//         break;
+//       case 'mobileNumber':
+//         if (!value) error = 'Mobile Number is required';
+//         else if (!/^\d{10}$/.test(value)) error = 'Mobile Number is invalid';
+//         break;
+//       case 'dob':
+//         if (!value) {
+//           error = 'Date of Birth is required';
+//         } else {
+//           const today = new Date();
+//           const birthDate = new Date(value);
+//           let age = today.getFullYear() - birthDate.getFullYear();
+//           const monthDiff = today.getMonth() - birthDate.getMonth();
+//           if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+//             age--;
+//           }
+//           if (age < 18) {
+//             error = 'You must be at least 18 years old.';
+//           }
+//         }
+//         break;
+//       case 'addressLine1':
+//         if (!value) error = 'Address Line 1 is required';
+//         break;
+//       case 'state':
+//         if (!value) error = 'State/Region is required';
+//         break;
+//       case 'city':
+//         if (!value) error = 'City is required';
+//         break;
+//       case 'postalCode':
+//         if (!value) error = 'Postal/Zip Code is required';
+//         break;
+//       case 'country':
+//         if (!value) error = 'Country is required';
+//         break;
+//       default:
+//         break;
+//     }
+//     setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
+//   }, []);
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
+//     validateField(name, value);
+//   };
+//   const validateForm = () => {
+//     const newErrors = {};
+//     Object.keys(formData).forEach((key) => {
+//       validateField(key, formData[key]);
+//       if (errors[key]) {
+//         newErrors[key] = errors[key];
+//       }
+//     });
+//     return Object.keys(newErrors).length === 0;
+//   };
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (validateForm()) {
+//       setLoading(true);
+//       try {
+//         const response = await axios.post('http://127.0.0.1:8000/kycverification_api/personal-details/', {
+//           user_id: userData?.user_id, // Include user_id
+//           first_name: formData.firstName,
+//           last_name: formData.lastName,
+//           mobile_number: formData.mobileNumber,
+//           dob: formData.dob,
+//           address_line1: formData.addressLine1,
+//           address_line2: formData.addressLine2,
+//           state: formData.state,
+//           city: formData.city,
+//           postal_code: formData.postalCode,
+//           country: formData.country
+//         }, {
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//         });
+//         setMessage('Personal details submitted successfully!');
+//         setShowAlert(true);
+//         setRedirect(true);
+//         setFormData({
+//           firstName: '',
+//           lastName: '',
+//           mobileNumber: '',
+//           dob: '',
+//           addressLine1: '',
+//           addressLine2: '',
+//           state: '',
+//           city: '',
+//           postalCode: '',
+//           country: ''
+//         });
+//       } catch (error) {
+//         console.error('Error submitting personal details:', error);
+//         setMessage('Error submitting personal details. Please try again.');
+//         setShowAlert(true);
+//       } finally {
+//         setLoading(false);
+//       }
+//     }
+//   };
+//   const closeAlert = () => {
+//     setShowAlert(false);
+//     if (redirect) {
+//       router.push('/WalletManagement/WalletCreation');
+//     }
+//   };
+//   return (
+//     <div className={styles.formContainer}>
+//       {showAlert && <CustomAlert message={message} onClose={closeAlert} />}
+//       <form onSubmit={handleSubmit} className={styles.form}>
+//         {loading && (
+//           <div className={styles.loaderContainer}>
+//             <div className={styles.loader}></div>
+//           </div>
+//         )}
+//         <h2 className={styles.heading}>Personal Details</h2>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             First Name <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="firstName"
+//             value={formData.firstName}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             Last Name <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="lastName"
+//             value={formData.lastName}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             Mobile Number <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="mobileNumber"
+//             value={formData.mobileNumber}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             Date of Birth <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="date"
+//             name="dob"
+//             value={formData.dob}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.dob && <p className={styles.error}>{errors.dob}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             Address Line 1 <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="addressLine1"
+//             value={formData.addressLine1}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.addressLine1 && <p className={styles.error}>{errors.addressLine1}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>Address Line 2 (optional)</label>
+//           <input
+//             type="text"
+//             name="addressLine2"
+//             value={formData.addressLine2}
+//             onChange={handleChange}
+//             className={styles.input}
+//           />
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             State/Region <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="state"
+//             value={formData.state}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.state && <p className={styles.error}>{errors.state}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             City <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="city"
+//             value={formData.city}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.city && <p className={styles.error}>{errors.city}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             Postal/Zip Code <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="postalCode"
+//             value={formData.postalCode}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.postalCode && <p className={styles.error}>{errors.postalCode}</p>}
+//         </div>
+//         <div className={styles.formGroup}>
+//           <label className={styles.label}>
+//             Country <span className={styles.required}>*</span>
+//           </label>
+//           <input
+//             type="text"
+//             name="country"
+//             value={formData.country}
+//             onChange={handleChange}
+//             className={styles.input}
+//             required
+//           />
+//           {errors.country && <p className={styles.error}>{errors.country}</p>}
+//         </div>
+//         <button type="submit" className={styles.submitButton} disabled={loading}>
+//           {loading ? 'Submitting...' : 'Submit'}
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+// export default PersonalDetailsForm;
+
+
+
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
@@ -289,14 +604,37 @@ import axios from 'axios';
 import styles from './PersonalDetailsForm.module.css';
 import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
-const CustomAlert = ({ message, onClose }) => (
+interface FormData {
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  dob: string;
+  addressLine1: string;
+  addressLine2: string;
+  state: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
+interface Errors {
+  [key: string]: string;
+}
+
+interface CustomAlertProps {
+  message: string;
+  onClose: () => void;
+}
+
+const CustomAlert: React.FC<CustomAlertProps> = ({ message, onClose }) => (
   <div className={styles.customAlert}>
     <p>{message}</p>
     <button onClick={onClose} className={styles.closeButton}>Ok</button>
   </div>
 );
-const PersonalDetailsForm = () => {
-  const [formData, setFormData] = useState({
+
+const PersonalDetailsForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     mobileNumber: '',
@@ -308,15 +646,15 @@ const PersonalDetailsForm = () => {
     postalCode: '',
     country: ''
   });
-  const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
-  const [redirect, setRedirect] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Errors>({});
+  const [message, setMessage] = useState<string>('');
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [redirect, setRedirect] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const { isLoggedIn, userData } = UseSession();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLoggedIn) {
       console.log('User ID:', userData?.user_id);
     } else {
@@ -324,7 +662,7 @@ const PersonalDetailsForm = () => {
     }
   }, [isLoggedIn, userData]);
 
-  const validateField = useCallback((name, value) => {
+  const validateField = useCallback((name: keyof FormData, value: string) => {
     let error = '';
     switch (name) {
       case 'firstName':
@@ -373,38 +711,41 @@ const PersonalDetailsForm = () => {
     }
     setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
   }, []);
-  const handleChange = (e) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
-    validateField(name, value);
+    validateField(name as keyof FormData, value);
   };
-  const validateForm = () => {
-    const newErrors = {};
+
+  const validateForm = (): boolean => {
+    const newErrors: Errors = {};
     Object.keys(formData).forEach((key) => {
-      validateField(key, formData[key]);
+      validateField(key as keyof FormData, formData[key as keyof FormData]);
       if (errors[key]) {
         newErrors[key] = errors[key];
       }
     });
     return Object.keys(newErrors).length === 0;
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
       setLoading(true);
       try {
-        const response = await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/personal-details/', {
+        const response = await axios.post('http://127.0.0.1:8000/kycverification_api/personal-details/', {
           user_id: userData?.user_id, // Include user_id
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          mobile_number: formData.mobileNumber,
-          dob: formData.dob,
-          address_line1: formData.addressLine1,
-          address_line2: formData.addressLine2,
-          state: formData.state,
-          city: formData.city,
-          postal_code: formData.postalCode,
-          country: formData.country
+          user_first_name: formData.firstName,
+          user_last_name: formData.lastName,
+          user_phone_number: formData.mobileNumber,
+          user_dob: formData.dob,
+          user_address_line_1: formData.addressLine1,
+          user_address_line_2: formData.addressLine2,
+          user_state: formData.state,
+          user_city: formData.city,
+          user_pin_code: formData.postalCode,
+          user_country: formData.country
         }, {
           headers: {
             'Content-Type': 'application/json',
@@ -434,12 +775,14 @@ const PersonalDetailsForm = () => {
       }
     }
   };
+
   const closeAlert = () => {
     setShowAlert(false);
     if (redirect) {
       router.push('/WalletManagement/WalletCreation');
     }
   };
+
   return (
     <div className={styles.formContainer}>
       {showAlert && <CustomAlert message={message} onClose={closeAlert} />}
@@ -593,4 +936,5 @@ const PersonalDetailsForm = () => {
     </div>
   );
 };
+
 export default PersonalDetailsForm;
