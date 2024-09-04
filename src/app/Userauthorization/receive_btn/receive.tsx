@@ -29,10 +29,10 @@ export default function Receive() {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/userauthorizationapi/profile/${userId}/`);
+            const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
             setUserProfile(response.data);
             if (response.data.user_profile_photo) {
-                const baseURL = 'http://localhost:8000/profile_photos';
+                const baseURL = 'http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile_photos';
                 let imageUrl = '';
 
                 if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {

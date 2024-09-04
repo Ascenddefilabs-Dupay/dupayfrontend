@@ -71,7 +71,7 @@ const MyWallet: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userCurrenciesResponse = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
+                const userCurrenciesResponse = await axios.get('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
                 const userCurrencies: Currency[] = userCurrenciesResponse.data;
                 const updatedBalances: Record<string, number> = {};
 
@@ -84,7 +84,7 @@ const MyWallet: React.FC = () => {
                     ...updatedBalances,
                 }));
 
-                const currenciesResponse = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/');
+                const currenciesResponse = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/');
                 const data: Currency[] = await currenciesResponse.json();
                 setCurrencies(data);
 

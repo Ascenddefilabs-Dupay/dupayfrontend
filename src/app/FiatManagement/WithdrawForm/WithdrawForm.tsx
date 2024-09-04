@@ -124,20 +124,20 @@ const WithdrawForm: React.FC = () => {
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
-                const walletResponse = await axios.get<WalletDetails>('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/fiat_wallets/Wa0000000001/');
+                const walletResponse = await axios.get<WalletDetails>('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/Wa0000000001/');
                 setWalletDetails(walletResponse.data);
 
-                const userCurrenciesResponse = await axios.get<{ currency_type: string; balance: string }[]>('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
+                const userCurrenciesResponse = await axios.get<{ currency_type: string; balance: string }[]>('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
                 const newBalances: Record<string, number> = {};
                 userCurrenciesResponse.data.forEach(currency => {
                     newBalances[currency.currency_type] = parseFloat(currency.balance);
                 });
                 setBalances(prevBalances => ({ ...prevBalances, ...newBalances }));
 
-                const currenciesResponse = await axios.get<Currency[]>('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/');
+                const currenciesResponse = await axios.get<Currency[]>('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/');
                 setCurrencies(currenciesResponse.data);
 
-                const banksResponse = await axios.get<Bank[]>('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/banks/');
+                const banksResponse = await axios.get<Bank[]>('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/banks/');
                 setBanks(banksResponse.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -309,7 +309,7 @@ const WithdrawForm: React.FC = () => {
             };
     
             // Make the API call to update UserCurrency
-            await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/withdraw/', withdrawData);
+            await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/withdraw/', withdrawData);
             setPendingAmount(parsedAmount);
             // setAlertMessage('Deposit successful!');
             //     setBalances(prevBalances => ({
@@ -317,7 +317,7 @@ const WithdrawForm: React.FC = () => {
             //         [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
             //     }));
             // Record the transaction
-            await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/transactions/', {
+            await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/transactions/', {
                 wallet_id: walletDetails.fiat_wallet_id,
                 transaction_amount: parsedAmount,
                 transaction_currency: selectedCurrency.value,
@@ -363,7 +363,7 @@ const WithdrawForm: React.FC = () => {
         if (pendingAmount !== null && selectedCurrency.value === 'INR') {
             const newBalance = parseFloat(walletDetails.fiat_wallet_balance) - pendingAmount;
     
-            axios.put(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/fiat_wallets/${walletDetails.fiat_wallet_id}/`, {
+            axios.put(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/${walletDetails.fiat_wallet_id}/`, {
                 ...walletDetails,
                 fiat_wallet_balance: newBalance,
             })

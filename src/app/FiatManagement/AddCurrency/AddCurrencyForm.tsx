@@ -57,7 +57,7 @@ const AddCurrencyForm: React.FC = () => {
     formData.append('currency_icon', currencyIcon);
 
     try {
-      const res = await fetch('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/', {
+      const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/', {
         method: 'POST',
         body: formData,
       });

@@ -34,7 +34,7 @@ const BottomNavBar: React.FC = () => {
     // Fetch the user profile image
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`/userauthorizationapi/profile/${userId}/`);
+        const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
         if (response.data.user_profile_photo) {
           const baseURL = '/profile_photos';
           let imageUrl = '';

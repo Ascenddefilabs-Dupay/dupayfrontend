@@ -76,7 +76,7 @@ export default function FiatWalletForm() {
   };
 // setUserId("DupC0001");
   useEffect(() => {
-    axios.get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/currencies/`)
+    axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/`)
       .then(response => setCurrencies(response.data))
       .catch(error => console.error('Error fetching currencies:', error));
   }, []);
@@ -138,7 +138,7 @@ export default function FiatWalletForm() {
     try {
       setShowLoader(true);
 
-      const response = await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/fiat_wallets/', {
+      const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/', {
         fiat_wallet_type: walletType,
         fiat_wallet_currency: walletCurrency.toUpperCase(),
         fiat_wallet_username: username,

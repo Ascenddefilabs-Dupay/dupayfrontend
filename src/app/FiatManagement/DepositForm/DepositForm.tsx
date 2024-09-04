@@ -8,7 +8,7 @@ import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 import { useRouter } from 'next/navigation';
 
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
-const API_BASE_URL = 'https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi'; // Base URL for all API requests
+const API_BASE_URL = 'https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi'; // Base URL for all API requests
 
 interface CurrencyOption {
     value: string;
@@ -208,7 +208,7 @@ const DepositForm: React.FC = () => {
     useEffect(() => {
         if (walletDetails) {
             axios
-                .get(`https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
+                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
                 .then((response) => {
                     const userCurrencies = response.data.reduce((acc: { [key: string]: number }, currency: UserCurrency) => {
                         acc[currency.currency_type] = parseFloat(currency.balance);
@@ -306,7 +306,7 @@ const DepositForm: React.FC = () => {
           };
   
           // Make the API call to update UserCurrency
-          await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user_currencies/create_or_update/', depositData);
+          await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/create_or_update/', depositData);
           setPendingAmount(parsedAmount);
           // setAlertMessage('Deposit successful!');
           //     setBalances(prevBalances => ({
@@ -314,7 +314,7 @@ const DepositForm: React.FC = () => {
           //         [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
           //     }));
           // Record the transaction
-          await axios.post('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/transactions/', {
+          await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/transactions/', {
               wallet_id: walletDetails.fiat_wallet_id,
               transaction_amount: parsedAmount,
               transaction_currency: selectedCurrency.value,

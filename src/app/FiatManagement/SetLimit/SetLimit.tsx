@@ -33,7 +33,7 @@ const SetLimit: React.FC = () => {
     useEffect(() => {
         const fetchWalletDetails = async () => {
             try {
-                const response = await axios.get('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/DupC0001/');
+                const response = await axios.get('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user/DupC0001/');
                 setWalletDetails(response.data);
             } catch (error) {
                 console.error('Error fetching wallet details:', error);
@@ -90,7 +90,7 @@ const SetLimit: React.FC = () => {
 
         if (walletDetails) {
             try {
-                const response = await axios.put('https://fiatmanagement-rcfpsxcera-uc.a.run.app/fiatmanagementapi/user/DupC0001/', {
+                const response = await axios.put('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user/DupC0001/', {
                     ...walletDetails,
                     users_daily_limit: parsedAmount,
                     limit_type: limitType,
