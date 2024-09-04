@@ -1,27 +1,31 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faExchangeAlt, faWallet, faListAlt, faCog, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import styles from './Home.module.css';
-import { FaUserCircle } from 'react-icons/fa';
-import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
-import { GoCheck } from "react-icons/go";
-import Headerbar from './Headernavbar/headernavbar';
-import { IoCashOutline } from "react-icons/io5";
-import { FaArrowUpLong } from "react-icons/fa6";
-import { FaArrowDownLong } from "react-icons/fa6";
-import { RiBankLine } from "react-icons/ri";
-import { PiHandDepositBold } from "react-icons/pi";
-import { PiHandWithdrawBold } from "react-icons/pi";
-import { IoMdSend } from "react-icons/io";
-import { IoMdWallet } from "react-icons/io";
-import { IoWallet } from "react-icons/io5";
 import Swal from 'sweetalert2';
+import styles from './Home.module.css';
+import { styled } from '@mui/material/styles';
+// Dynamic imports
+const Headerbar = dynamic(() => import('./Headernavbar/headernavbar'), {
+  loading: () => <div>Loading Header...</div>,
+});
+const FaUserCircle = dynamic(() => import('react-icons/fa').then((mod) => mod.FaUserCircle));
 
+const GoCheck = dynamic(() => import('react-icons/go').then((mod) => mod.GoCheck));
+const IoCashOutline = dynamic(() => import('react-icons/io5').then((mod) => mod.IoCashOutline));
+const FaArrowUpLong = dynamic(() => import('react-icons/fa6').then((mod) => mod.FaArrowUpLong));
+const FaArrowDownLong = dynamic(() => import('react-icons/fa6').then((mod) => mod.FaArrowDownLong));
+const RiBankLine = dynamic(() => import('react-icons/ri').then((mod) => mod.RiBankLine));
+const PiHandDepositBold = dynamic(() => import('react-icons/pi').then((mod) => mod.PiHandDepositBold));
+const PiHandWithdrawBold = dynamic(() => import('react-icons/pi').then((mod) => mod.PiHandWithdrawBold));
+const IoMdSend = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdSend));
+const IoMdWallet = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdWallet));
+const IoWallet = dynamic(() => import('react-icons/io5').then((mod) => mod.IoWallet));
 
 
 const Home = () => {
@@ -38,9 +42,20 @@ const Home = () => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const fiatDropdownRef = useRef<HTMLDivElement | null>(null);
 
-  
-
   const [isFiatTabSelected, setIsFiatTabSelected] = useState(false);
+  const [loading, setLoading] = useState(false);
+  // const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // const storedUserId = localStorage.getItem('user_id');
+      // setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      // console.log(storedUserId)
+      // console.log(userId)
+    }
+  }, []);
 
   const handleTabClick = async (tab: string) => {
     if (tab === 'Fiat') {
@@ -58,7 +73,11 @@ const Home = () => {
   
         if (result.isConfirmed) {
           // Redirect to the fiat creation page if the user clicks "Yes, register"
-          router.push('/FiatManagement/FiatWalletAccount/');
+          setLoading(true); // Show loading text
+          setTimeout(() => {
+            router.push('/FiatManagement/FiatWalletAccount/');
+            setLoading(false); 
+          }, 2000); 
         } else {
           // Ensure the Fiat dropdown remains visible if the user cancels registration
           setFiatDropdownVisible(true);
@@ -81,7 +100,15 @@ const Home = () => {
   const toggleFiatDropdown = () => {
     setFiatDropdownVisible(!fiatDropdownVisible);
   };
-  
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setLoading(false);
+        // setShowForm(true);
+    }, 2000); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+  }, []);
   // Ensure the dropdown remains visible even if clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -101,25 +128,30 @@ const Home = () => {
   }, [dropdownVisible, fiatDropdownVisible]);
   
 
-  const handleButtonClick = (buttonName: string) => {
-    switch (buttonName) {
-      case 'Add Bank':
-        router.push('/FiatManagement/AddBanks');
-        break;
-      case 'Deposit':
-        router.push('/FiatManagement/DepositForm');
-        break;
-      case 'Withdraw':
-        router.push('/FiatManagement/WithdrawForm');
-        break;
-      case 'Send':
-        router.push('/TransactionType/WalletTransactionInterface');
-        break;
-      case 'Top-up':
-        router.push('/FiatManagement/WithdrawForm');
-        break;
-      default:
-        console.log('No route defined for this button');
+const handleButtonClick = (buttonName: string) => {
+
+    const navigateWithLoading = (route: string) => {
+      setLoading(true); // Show loading text
+      setTimeout(() => {
+        router.push(route);
+        setLoading(false);
+      }, 2000);
+    };
+    
+    const routes: { [key: string]: string }  = {
+      'Add Bank': '/FiatManagement/AddBanks',
+      'Deposit': '/FiatManagement/DepositForm',
+      'Withdraw': '/FiatManagement/WithdrawForm',
+      'Send': '/TransactionType/WalletTransactionInterface',
+      'Top-up': '/FiatManagement/WithdrawForm',
+    };
+  
+    if (buttonName === 'Deposit') {
+      router.push(routes[buttonName]);
+    } else if (buttonName in routes) {
+      navigateWithLoading(routes[buttonName]);
+    } else {
+      console.log('No route defined for this button');
     }
   };
 
@@ -238,22 +270,31 @@ const Home = () => {
     router.push('/UserProfile'); // Adjust the route as needed
   };
 
+  const handleNavigation = (route: string) => {
+    setLoading(true); // Show loading text
+    setTimeout(() => {
+      router.push(route); // Navigate to the dynamic route
+      setLoading(false);
+    }, 2000);
+  };
+
 
 
   const handlebuyclick = () => {
-    if (!isFiatTabSelected) {
-        // Handle the case where the 'Fiat' tab is not selected
+    setLoading(true); // Show loading text
+    
+    setTimeout(() => {
+      if (userId !== fetchedUserId) {
+        // Route to cryptowallet if IDs do not match
         router.push('/Userauthorization/Dashboard/cryptowallet');
-    } else {
-      
-      router.push('/FiatManagement/DepositForm');
-        
-    }
-};
+      } else {
+        // Route to DepositForm if IDs match
+        router.push('/FiatManagement/DepositForm');
+      }
+      setLoading(false); 
+    }, 3000); 
+  };
 
-  const handlemywallet = () => {
-    router.push( '/FiatManagement/MyWallet');
-  }
   const handleCopyUserId = () => {
     navigator.clipboard.writeText(userId);
   };
@@ -267,8 +308,17 @@ const Home = () => {
     border: '2px solid white',
   });
 
+  
+
   return (
     <div className={styles.container}>
+       {loading ? (
+        <div className={styles.loaderContainer}>
+        <div className={styles.loader}></div>
+        </div>
+      ) : (
+        <>
+
       <header>
         {/* Header content here */}
       </header>
@@ -385,9 +435,10 @@ const Home = () => {
                     Fiat Wallet
                     </div>
                     <div style={{ position: 'relative', left: '180px'}}>
-                    <button onClick={handlemywallet}>
-                    <IoWallet style={{fontSize: '23px'}}/>
-                    </button>
+                    <button onClick={() => handleNavigation('/FiatManagement/MyWallet')}>
+                    <IoWallet style={{ fontSize: '23px' }} />
+                  </button>
+
                     </div>
                 </div>
                 <hr style={{ color: 'gray' }} />
@@ -427,7 +478,7 @@ const Home = () => {
                         <GoCheck className={styles.checkIcon} />
                       </div>
                   </div>
-                  <button className={styles.viewprofileButton} onClick={handleUserProfileWallet}>
+                  <button className={styles.viewprofileButton} onClick={() => handleNavigation('/UserProfile')}>
                     <span className={styles.text}>View your profile</span>
                   </button>
                 </div>
@@ -465,17 +516,20 @@ const Home = () => {
                     <GoCheck className={styles.checkIcon} />
                   </div>
                 </div>
-                <button className={styles.viewprofileButton} onClick={handleUserProfileWallet}>
+                <button className={styles.viewprofileButton} onClick={() => handleNavigation('/UserProfile')}>
                   <span className={styles.text}>View your profile</span>
                 </button>
+
               </div>
             </div>
-            <button className={styles.manageWalletsButton} onClick={handleManageprofileWallets}>
+            <button className={styles.manageWalletsButton} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
               <span className={styles.text}>Add & manage wallets</span>
               <FontAwesomeIcon icon={faCog} className={styles.settingsIcon} />
             </button>
           </div>
         </div>
+      )}
+       </>
       )}
     </div>
   );

@@ -1,32 +1,60 @@
 'use client';
-import React, { useState, ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import { useState, useEffect} from 'react';
 import styles from './importwallet.module.css';
 import { useRouter } from 'next/navigation';
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { redirect } from 'next/navigation';
 
-const Importwallet: React.FC = () => {
+
+const Importwallet = () => {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState<string>('');
-  const [error, setError] = useState<string>('');
-  const [isLinkVisible, setIsLinkVisible] = useState<boolean>(true);
+  const [loading, setLoading] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [error, setError] = useState('');
+  const [isLinkVisible, setIsLinkVisible] = useState(true);
+  // const [userId, setUserId] = useState(null);
 
-  const handleBackClick = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // const storedUserId = localStorage.getItem('user_id');
+      // setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      // console.log(storedUserId)
+      // console.log(userId);
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setLoading(false);
+        // setShowForm(true);
+    }, 2000); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleBackClick = () => {
+    setLoading(true); // Show loading text
+    setTimeout(() => {
     router.push('/Userauthorization/Dashboard/addmanagewallets_btn');
+    setLoading(false); 
+  }, 1000); 
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     if (e.target.value) {
       setError('');
     }
   };
-
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+  
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleImportClick();
     }
   };
+  
 
   const handleImportClick = () => {
     if (validateInput(inputValue)) {

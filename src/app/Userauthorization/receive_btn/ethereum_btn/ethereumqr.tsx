@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { IoMdClose } from 'react-icons/io';
 import QRCode from 'qrcode.react';
@@ -13,6 +13,17 @@ export default function EthereumPage() {
     const address = searchParams ? searchParams.get('address') ?? '' : '';
     const [copied, setCopied] = useState<boolean>(false);
     const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          // const storedUserId = localStorage.getItem('user_id');
+          // setUserId(storedUserId);
+          // setAlertMessage('User Need To Login')
+          // if (storedUserId === null) redirect('http://localhost:3000/');
+          // console.log(storedUserId)
+        //   console.log(userId);
+        }
+      }, []);
 
     const handleCopyClick = () => {
         if (address) {

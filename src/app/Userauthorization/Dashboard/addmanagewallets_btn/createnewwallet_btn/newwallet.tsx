@@ -1,19 +1,54 @@
 'use client';
 import React from 'react';
 import styles from './newwallet.module.css';
+import { useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation'
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { redirect } from 'next/navigation';
+
 
 const Newwallet = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  // const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // const storedUserId = localStorage.getItem('user_id');
+      // setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      // console.log(storedUserId)
+      // console.log(userId);
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setLoading(false);
+        // setShowForm(true);
+    }, 2000); // 2 seconds delay
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleBackClick = () => {
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn')
+    setLoading(true); // Show loading text
+    setTimeout(() => {
+    router.push('/Userauthorization/Dashboard/addmanagewallets_btn');
+    setLoading(false); 
+      }, 1000); 
   }
   return (
     <div className={styles.container}>
+      {loading ? (
+        <div className={styles.loaderContainer}>
+        <div className={styles.loader}></div>
+        </div>
+      ) : (
+        <>
       <div className={styles.backButton} onClick={() => console.log('Back button clicked')}>
-      <IoMdArrowRoundBack onClick={handleBackClick} style={{ color: '#fff' }}/>
+        <IoMdArrowRoundBack onClick={handleBackClick} style={{ color: '#fff' }} />
       </div>
       <div className={styles.progressBar}></div>
       <h1 className={styles.heading} >Create a new wallet</h1>
@@ -27,6 +62,8 @@ const Newwallet = () => {
       <button className={styles.continueButton} onClick={() => console.log('Continue button clicked')}>
         Continue
       </button>
+      </>
+      )}
     </div>
   );
 };

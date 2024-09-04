@@ -1,13 +1,27 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './history.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { redirect } from 'next/navigation';
+
 
 const History = () => {
   const router = useRouter();
+  // const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // const storedUserId = localStorage.getItem('user_id');
+      // setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      // console.log(storedUserId)
+      // console.log(userId);
+    }
+  }, []);
   const [historyItems, setHistoryItems] = useState([
     // Sample history items
     { id: 1, title: 'Google', url: 'https://www.google.com' },
@@ -20,8 +34,19 @@ const History = () => {
   };
 
   const handleHistoryItemClick = (url: string) => {
-    router.push(url);
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      window.open(url, '_blank');
+    } else {
+      try {
+        router.push(url);
+      } catch (error) {
+        console.error('Navigation error:', error);
+      }
+    }
   };
+  
+  
+  
 
   return (
     <div className={styles.container}>

@@ -1,31 +1,53 @@
 "use client"; // This marks the component as a client component
 
-import { useEffect, useState } from 'react';
-import HomeIcon from '@mui/icons-material/Home';
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import { FaRegUserCircle } from "react-icons/fa";
-import Typography from '@mui/material/Typography';
-import { FiGlobe } from "react-icons/fi";
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import axios from 'axios'; // Ensure axios is imported
-import styles from './BottomNavBar.module.css'; // Import the CSS module
+import axios from 'axios';
+import styles from './BottomNavBar.module.css';
 
-const BottomNavBar: React.FC = () => {
+// Define types for NavItem props
+interface NavItemProps {
+  icon: JSX.Element;
+  label?: string;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+const NavItem = ({ icon, label, isSelected, onClick }: NavItemProps) => {
+  return (
+    <div
+      onClick={onClick}
+      className={`${styles.navItem} ${isSelected ? styles.selected : ''}`}
+    >
+      {icon}
+      {label && <div className={styles.label}>{label}</div>}
+    </div>
+  );
+};
+
+// Optional: Lazy load icons with TypeScript
+const HomeIcon = lazy(() => import('@mui/icons-material/Home').then(module => ({ default: module.default })));
+const AssessmentIcon = lazy(() => import('@mui/icons-material/Assessment').then(module => ({ default: module.default })));
+const FaRegUserCircle = lazy(() => import('react-icons/fa').then(module => ({ default: module.FaRegUserCircle })));
+const FiGlobe = lazy(() => import('react-icons/fi').then(module => ({ default: module.FiGlobe })));
+
+const BottomNavBar = () => {
   const [selected, setSelected] = useState<string>('');
   const [profileImage, setProfileImage] = useState<string>('');
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
   const pathname = usePathname();
   const userId = 'DupC0001';
 
   useEffect(() => {
     // Update selected state based on current route
-    if (pathname === '/Userauthentication/Dashboard') {
+    if (pathname === '/Userauthorization/Dashboard') {
       setSelected('home');
-    } else if (pathname === '/Userauthentication/Dashboard/BottomNavBar/transaction_btn') {
+    } else if (pathname === '/Userauthorization/Dashboard/BottomNavBar/transaction_btn') {
       setSelected('transaction');
-    } else if (pathname === '/Userauthentication/Dashboard/BottomNavBar/profileicon_btn') {
+    } else if (pathname === '/Userauthorization/Dashboard/BottomNavBar/profileicon_btn') {
       setSelected('profileicon');
-    } else if (pathname === '/Userauthentication/Dashboard/BottomNavBar/browser_btn') {
+    } else if (pathname === '/Userauthorization/Dashboard/BottomNavBar/browser_btn') {
       setSelected('browser');
     }
   }, [pathname]);
@@ -33,6 +55,7 @@ const BottomNavBar: React.FC = () => {
   useEffect(() => {
     // Fetch the user profile image
     const fetchUserProfile = async () => {
+      setLoading(true); // Set loading state
       try {
         const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
         if (response.data.user_profile_photo) {
@@ -55,84 +78,67 @@ const BottomNavBar: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching user profile:', error);
+      } finally {
+        setLoading(false); // Reset loading state
       }
     };
 
     fetchUserProfile();
-  }, []);
+  }, [userId]);
 
   const handleNavigation = (navItem: string) => {
     setSelected(navItem);
-    if (navItem === 'home') {
-      router.push('/Userauthorization/Dashboard');
-    } else if (navItem === 'transaction') {
-      router.push('/Userauthorization/Dashboard/BottomNavBar/transaction_btn');
-    } else if (navItem === 'profileicon') {
-      router.push('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn');
-    } else if (navItem === 'browser') {
-      router.push('/Userauthorization/Dashboard/BottomNavBar/browser_btn');
-    }
+    const routeMap: Record<string, string> = {
+      'home': '/Userauthorization/Dashboard',
+      'transaction': '/Userauthorization/Dashboard/BottomNavBar/transaction_btn',
+      'profileicon': '/Userauthorization/Dashboard/BottomNavBar/profileicon_btn',
+      'browser': '/Userauthorization/Dashboard/BottomNavBar/browser_btn',
+    };
+    router.push(routeMap[navItem]);
   };
 
   return (
     <div className={styles.bottomNavBar}>
-      <NavItem
-        icon={<HomeIcon />}
-        isSelected={selected === 'home'}
-        onClick={() => handleNavigation('home')}
-      />
-      <NavItem
-        icon={<FiGlobe style={{ fontSize: '24px' }} />}
-        isSelected={selected === 'browser'}
-        onClick={() => handleNavigation('browser')}
-      />
-      <NavItem
-        icon={<AssessmentIcon />}
-        isSelected={selected === 'transaction'}
-        onClick={() => handleNavigation('transaction')}
-      />
-      <NavItem
-        icon={
-          profileImage ? (
-            <img
-              src={profileImage}
-              alt="Profile"
-              style={{
-                width: '30px',
-                height: '30px',
-                borderRadius: '50%',
-                objectFit: 'cover',
-                marginRight: '5px',
-                marginTop: '8px',
-                border: '2px solid white'
-              }}
-            />
-          ) : (
-            <FaRegUserCircle style={{ fontSize: '22px' }} />
-          )
-        }
-        isSelected={selected === 'profileicon'}
-        onClick={() => handleNavigation('profileicon')}
-      />
-    </div>
-  );
-};
-
-interface NavItemProps {
-  icon: React.ReactNode;
-  label?: string;
-  isSelected: boolean;
-  onClick: () => void;
-}
-
-const NavItem: React.FC<NavItemProps> = ({ icon, label, isSelected, onClick }) => {
-  return (
-    <div
-      onClick={onClick}
-      className={`${styles.navItem} ${isSelected ? styles.selected : ''}`}
-    >
-      {icon}
-      {label && <div className={styles.label}>{label}</div>}
+      <Suspense fallback={<div>Loading...</div>}>
+        <NavItem
+          icon={<HomeIcon />}
+          isSelected={selected === 'home'}
+          onClick={() => handleNavigation('home')}
+        />
+        <NavItem
+          icon={<FiGlobe style={{ fontSize: '24px' }} />}
+          isSelected={selected === 'browser'}
+          onClick={() => handleNavigation('browser')}
+        />
+        <NavItem
+          icon={<AssessmentIcon />}
+          isSelected={selected === 'transaction'}
+          onClick={() => handleNavigation('transaction')}
+        />
+        <NavItem
+          icon={
+            profileImage ? (
+              <img
+                src={profileImage}
+                alt="Profile"
+                style={{
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  marginRight: '5px',
+                  marginTop: '8px',
+                  border: '2px solid white'
+                }}
+              />
+            ) : (
+              <FaRegUserCircle style={{ fontSize: '22px' }} />
+            )
+          }
+          isSelected={selected === 'profileicon'}
+          onClick={() => handleNavigation('profileicon')}
+        />
+      </Suspense>
     </div>
   );
 };

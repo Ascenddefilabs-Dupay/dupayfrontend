@@ -5,9 +5,23 @@ import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './tabs.module.css';
+import { redirect } from 'next/navigation';
+
 
 const Tabs = () => {
   const router = useRouter();
+  // const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // const storedUserId = localStorage.getItem('user_id');
+      // setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      // console.log(storedUserId)
+      // console.log(userId);
+    }
+  }, []);
   const [tabs, setTabs] = useState([
     { id: 1, title: 'Google', url: 'https://www.google.com' },
     { id: 2, title: 'YouTube', url: 'https://www.youtube.com' },
@@ -29,8 +43,13 @@ const Tabs = () => {
     router.push(url);
   };
 
-  const handleCloseTab = (id: number | string) => {
+  const handleCloseTab = (id: number) => {
     setTabs(tabs.filter(tab => tab.id !== id));
+  };
+
+  type Tab = {
+    id: number; // Or string, depending on your use case
+    title: string;
   };
 
   const handleAddTab = () => {
@@ -51,11 +70,11 @@ const Tabs = () => {
         </button>
       </div>
       <div className={styles.tabList}>
-        {tabs.map((tab) => (
+      {tabs.map(tab => (
           <div key={tab.id} className={styles.tabItem}>
             <div onClick={() => handleTabClick(tab.url)} className={styles.tabContent}>
               <p className={styles.title}>{tab.title}</p>
-              <p className={styles.url}>{tab.url}</p>
+              <p className={styles.url}>{tab.id}</p>
             </div>
             <button onClick={() => handleCloseTab(tab.id)} className={styles.closeButton}>
               <FontAwesomeIcon icon={faTimes} />
