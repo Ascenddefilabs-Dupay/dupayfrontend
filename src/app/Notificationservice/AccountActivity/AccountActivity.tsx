@@ -35,7 +35,7 @@ const AccountActivity: React.FC = () => {
       return;
     }
 
-    axios.post('http://localhost:8000/accountactivityapi/create-account-activity/', {
+    axios.post('http://notificationservice-rcfpsxcera-uc.a.run.app/accountactivityapi/create-account-activity/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -55,7 +55,7 @@ const AccountActivity: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://localhost:8000/accountactivityapi/get-account-activity-user-ids/')
+    axios.get('http://notificationservice-rcfpsxcera-uc.a.run.app/accountactivityapi/get-account-activity-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {
