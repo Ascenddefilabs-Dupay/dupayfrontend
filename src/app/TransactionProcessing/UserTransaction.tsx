@@ -338,7 +338,7 @@ const UserTransaction: React.FC = () => {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/transactionprocessing_api/wallet-transactions/', {
+      const response = await axios.get('http://transactionprocess-ind-255574993735.asia-south1.run.app/transactionprocessing_api/wallet-transactions/', {
         params: { user_id: userId },
       });
       setTransactions(response.data.transactions);

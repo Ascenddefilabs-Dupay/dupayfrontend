@@ -51,7 +51,7 @@
 //     const transactionDescription = 'fiat address transaction';
 
 //     try {
-//       const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/address-transfer/', {
+//       const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/api/address-transfer/', {
 //         transaction_amount: transactionAmount,
 //         transaction_currency: transactionCurrency,
 //         transaction_type: 'Debit',
@@ -490,7 +490,7 @@ const AddressBasedTransactionForm: React.FC = () => {
     }
 
     try {
-        const response = await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/validate-transaction/', {
+        const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
             transaction_amount: transactionAmount,
             transaction_currency: transactionCurrency,
             fiat_address: fiatAddress,
@@ -509,7 +509,7 @@ const AddressBasedTransactionForm: React.FC = () => {
 
             if (paymentSuccess) {
                 try {
-                    await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/address-transfer/', {
+                    await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
                         transaction_amount: transactionAmount,
                         transaction_currency: transactionCurrency,
                         transaction_type: 'Transfer',
