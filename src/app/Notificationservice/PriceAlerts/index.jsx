@@ -38,7 +38,7 @@ const PriceAlerts = () => {
       return;
     }
 
-    axios.post('http://notificationservice-rcfpsxcera-uc.a.run.app/pricealertsapi/create-price-alerts/', {
+    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/create-price-alerts/', {
       email_id: 'user@example.com',  // Adjust this to dynamically fetch user email if needed
       message: 'This is a price alerts just for you!',
     }, {
@@ -62,7 +62,7 @@ const PriceAlerts = () => {
   useEffect(() => {
     requestNotificationPermission();  // Request notification permission when component mounts
 
-    axios.get('http://notificationservice-rcfpsxcera-uc.a.run.app/pricealertsapi/get-price-alerts-user-ids/')
+    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/get-price-alerts-user-ids/')
       .then(response => {
         if (response.data.user_ids && response.data.user_ids.length > 0) {
           setUserId(response.data.user_ids[0]);  // Set the first user ID
