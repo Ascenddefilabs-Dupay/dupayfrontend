@@ -1,7 +1,7 @@
 
 
 "use client";
-import AddCurrencyForm from "./AddCurrencyForm";
+import AddCurrencyForm from './AddCurrencyForm'
 
 const AddCurrency: React.FC = () => {
   return (

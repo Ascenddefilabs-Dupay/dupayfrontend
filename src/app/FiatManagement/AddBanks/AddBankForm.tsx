@@ -21,17 +21,29 @@ const AddBankForm: React.FC = () => {
   const [bankIcon, setBankIcon] = useState<File | null>(null);
   const [statusMessage, setStatusMessage] = useState<string>('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const router = useRouter();
   const [alertMessage, setAlertMessage] = useState<string>('');
-  const { isAuthenticated, hasRole } = useAuth();
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const { isLoggedIn, userData, clearSession } = UseSession();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [dots, setDots] = useState<number>(0); // State for dots animation
+
+  const router = useRouter();
+  const { isAuthenticated, hasRole } = useAuth();
+  const { isLoggedIn } = UseSession();
 
   useEffect(() => {
     if (!isLoggedIn) {
       // router.push('http://localhost:3000/Userauthentication/SignIn');
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isSubmitting) {
+      const interval = setInterval(() => {
+        setDots((prevDots) => (prevDots + 1) % 4); // Cycles through 0 to 3
+      }, 500); // Adjust timing for faster/slower animation
+      return () => clearInterval(interval); // Cleanup interval on unmount or when isSubmitting changes
+    }
+  }, [isSubmitting]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,6 +53,8 @@ const AddBankForm: React.FC = () => {
         setErrors({ message: 'Please fill all fields' });
         return;
       }
+
+      setIsSubmitting(true);  // Set isSubmitting to true when form submission starts
 
       const formData = new FormData();
       formData.append('bank_name', bankName);
@@ -54,7 +68,7 @@ const AddBankForm: React.FC = () => {
 
         if (res.ok) {
           setAlertMessage('Bank added successfully!');
-          router.push('/Userauthorization/Dashboard');
+          // router.push('/Userauthorization/Dashboard');
           setBankName('');
           setBankIcon(null);
           setStatusMessage('');
@@ -69,6 +83,8 @@ const AddBankForm: React.FC = () => {
         console.error('Error:', error);
         setAlertMessage(`An error occurred: ${error.message}`);
         setStatusMessage('An error occurred.');
+      } finally {
+        setIsSubmitting(false);  // Reset isSubmitting after form submission is completed
       }
     },
     [bankName, bankIcon, router]
@@ -140,7 +156,9 @@ const AddBankForm: React.FC = () => {
             className={styles.input}
           />
         </div>
-        <button type="submit" className={styles.submitButton}>Add</button>
+        <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
+          {isSubmitting ? `Processing${'.'.repeat(dots)}` : 'Add'}
+        </button>
       </form>
       {statusMessage && <p className={styles.statusMessage}>{statusMessage}</p>}
     </div>

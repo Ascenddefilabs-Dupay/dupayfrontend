@@ -25,6 +25,7 @@ const AddCurrencyForm: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [buttonText, setButtonText] = useState<string>('Add');
   const { isAuthenticated, hasRole } = useAuth(); // Use custom hook for protected routing
   const { isLoggedIn, userData, clearSession } = UseSession();
   const router = useRouter();
@@ -43,6 +44,13 @@ const AddCurrencyForm: React.FC = () => {
       return;
     }
 
+    setButtonText('Processing');
+    let dotCount = 0;
+    const intervalId = setInterval(() => {
+      dotCount = (dotCount + 1) % 4; // Rotate through 0, 1, 2, 3
+      setButtonText(`Processing${'.'.repeat(dotCount)}`);
+    }, 500); // Update dots every 500ms
+
     const formData = new FormData();
     formData.append('currency_code', currencyCode.toUpperCase());
     formData.append('currency_country', currencyCountry.toUpperCase());
@@ -54,6 +62,8 @@ const AddCurrencyForm: React.FC = () => {
         body: formData,
       });
 
+      clearInterval(intervalId); // Stop the dot animation
+
       if (res.ok) {
         setAlertMessage('Currency added successfully!');
         setCurrencyCode('');
@@ -61,16 +71,19 @@ const AddCurrencyForm: React.FC = () => {
         setCurrencyIcon(null);
         setStatusMessage('');
         setErrors({});
+        setButtonText('Add');
       } else {
         const errorData = await res.json();
         const errorMessages = Object.values(errorData).flat().join(', ');
         setAlertMessage(`Failed to add currency: ${errorMessages}`);
         setStatusMessage('Failed to add currency.');
+        setButtonText('Add');
       }
     } catch (error) {
       console.error('Error:', error);
       setAlertMessage(`An error occurred: ${(error as Error).message}`);
       setStatusMessage('An error occurred.');
+      setButtonText('Add');
     }
   }, [currencyCode, currencyCountry, currencyIcon]);
 
@@ -165,7 +178,7 @@ const AddCurrencyForm: React.FC = () => {
             className={styles.input}
           />
         </div>
-        <button type="submit" className={styles.submitButton}>Add</button>
+        <button type="submit" className={styles.submitButton}>{buttonText}</button>
       </form>
       {statusMessage && <p className={styles.statusMessage}>{statusMessage}</p>}
     </div>
