@@ -9,7 +9,7 @@ const QRCodeList = () => {
     useEffect(() => {
         const fetchQRCodeList = async () => {
             try {
-                const response = await axios.get('https://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/qr_code_list/');
+                const response = await axios.get('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qr_code_list/');
                 setUsers(response.data);
             } catch (error) {
                 setError('Error fetching QR codes');

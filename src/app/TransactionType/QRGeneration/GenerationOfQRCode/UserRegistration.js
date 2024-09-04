@@ -11,7 +11,7 @@
 //         e.preventDefault();
 
 //         try {
-//             const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/api/register/', {
+//             const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/api/register/', {
 //                 name,
 //                 mobile_number: mobileNumber,
 //             });
@@ -71,7 +71,7 @@ const UserRegistration = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/register/', {
+            const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/register/', {
                 name,
                 mobile_number: mobileNumber,
             });
