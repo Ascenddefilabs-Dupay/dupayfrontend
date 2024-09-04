@@ -135,7 +135,7 @@ const UserProfile: React.FC = () => {
   const fetchUserProfile = useCallback(async () => {
     if (!userId) return;
     try {
-      const response = await axios.get<UserProfileData>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfileData>(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
       const data: UserProfileData = response.data;
       setUserProfile(data);
       setName(data.name || '');
@@ -143,7 +143,7 @@ const UserProfile: React.FC = () => {
       console.log('User profile data:', data);
 
       if (data.user_profile_photo) {
-        const baseURL = 'http://fiatmanagement-ind-255574993735.asia-south1.run.app/profile_photos';
+        const baseURL = 'http://userprofile-ind-255574993735.asia-south1.run.app/profile_photos';
         let imageUrl = '';
 
         if (typeof data.user_profile_photo === 'string' && data.user_profile_photo.startsWith('http')) {
@@ -199,7 +199,7 @@ const UserProfile: React.FC = () => {
     formData.append('user_id', users.user_id || '');
     formData.append('user_profile_photo', file);
     try {
-      await axios.put(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
+      await axios.put(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -138,12 +138,12 @@ const UserProfile: React.FC = () => {
     if (!userId) return;
 
     try {
-      const response = await axios.get<UserProfile>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfile>(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
       console.log('User profile data:', response.data);
 
       if (response.data.user_profile_photo) {
-        const baseURL = 'http://fiatmanagement-ind-255574993735.asia-south1.run.app/profile_photos';
+        const baseURL = 'http://userprofile-ind-255574993735.asia-south1.run.app/profile_photos';
         let imageUrl = '';
 
         const profilePhoto = response.data.user_profile_photo;
@@ -216,7 +216,7 @@ const UserProfile: React.FC = () => {
     formData.append('user_pin_code', users.user_pin_code || '');
 
     try {
-      await axios.put(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
+      await axios.put(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

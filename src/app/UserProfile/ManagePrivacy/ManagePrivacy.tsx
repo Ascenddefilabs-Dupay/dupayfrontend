@@ -137,7 +137,7 @@ const ManagePrivacy: React.FC = () => {
     if (!userId) return;
     console.log(userId)
     try {
-      const response = await axios.get<UserProfileResponse>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfileResponse>(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
       setIsPublic(response.data.profile_privacy === 'public');
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -153,7 +153,7 @@ const ManagePrivacy: React.FC = () => {
 
   const handleToggle = (publicStatus: boolean) => {
       setIsPublic(publicStatus);
-      axios.patch(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, { profile_privacy: publicStatus ? 'public' : 'private' })
+      axios.patch(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, { profile_privacy: publicStatus ? 'public' : 'private' })
           .then(response => {
               console.log('Privacy updated successfully', response.data);
               setClose(true);
