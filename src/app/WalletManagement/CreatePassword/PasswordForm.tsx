@@ -27,7 +27,7 @@ const PasswordForm: React.FC = () => {
     const generateWalletId = async (): Promise<string> => {
         const prefix = 'DUP';
         try {
-            const response = await axios.get('https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/latest_wallet_id/');
+            const response = await axios.get('https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/latest_wallet_id/');
             const lastId = response.data.wallet_id;
             let newId;
             if (lastId) {

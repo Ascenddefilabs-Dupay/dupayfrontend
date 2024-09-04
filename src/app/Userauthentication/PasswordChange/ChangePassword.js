@@ -15,7 +15,7 @@ const ChangePassword = () => {
 
   const checkEmailExists = async (user_email) => {
     try {
-      const response = await axios.get(`https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-email/?email=${user_email}`);
+      const response = await axios.get(`https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/check-email/?email=${user_email}`);
       if (response.data.exists) {
         setEmailError('');
       } else {
@@ -28,7 +28,7 @@ const ChangePassword = () => {
 
   const checkOldPassword = async (user_password) => {
     try {
-      const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-old-password/', {
+      const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/check-old-password/', {
         user_email,
         user_password
       });
@@ -73,7 +73,7 @@ const ChangePassword = () => {
       return;
     }
 
-    axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/update-password/', {
+    axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/update-password/', {
       user_email,
       user_password,
       new_password: newPassword,
