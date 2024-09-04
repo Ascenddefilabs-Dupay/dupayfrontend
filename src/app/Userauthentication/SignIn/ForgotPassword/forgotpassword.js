@@ -5,6 +5,7 @@ import styles from './ForgotPassword.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link'; 
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
