@@ -13,6 +13,7 @@ const CurrencyForm = () => {
     const [message, setMessage] = useState(''); // State to store the success message
     const [alertMessage, setAlertMessage] = useState(''); 
     const router = useRouter();
+    const [showLoader, setShowLoader] = useState(false);
 
     useEffect(() => {
         // Load Razorpay script
@@ -136,12 +137,20 @@ const CurrencyForm = () => {
     };
 
     const settinghandleBackClick = () => {
-        let redirectUrl = '/WalletTransactionInterface';
-        router.push(redirectUrl);
+        setShowLoader(true);
+        setTimeout(() => {
+        router.push('/TransactionType/WalletTransactionInterface');
+        setShowLoader(false); 
+        }, 2000);
     };
 
     return (
         <form className="currency-form" onSubmit={handleSubmit}>
+            {showLoader && (
+                <div className="loaderContainer">
+                    <div className="loader"></div>
+                </div>
+            )}
             <div className="form-group">
                 {alertMessage && (
                     <div className="customAlert">

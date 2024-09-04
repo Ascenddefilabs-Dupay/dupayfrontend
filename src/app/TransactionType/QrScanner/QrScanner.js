@@ -193,8 +193,11 @@ const QRScanner = () => {
   const [alertMessage, setAlertMessage] = useState(''); 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [showLoader, setShowLoader] = useState(false);
+  const userId = 'DupC0001';
 
   useEffect(() => {
+    console.log(userId);
     // Load Razorpay script
     const script = document.createElement('script');
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -269,8 +272,13 @@ const QRScanner = () => {
   };
   
   const handleBackClick = () => {
-    let redirectUrl = '/WalletTransactionInterface';
-    router.push(redirectUrl);
+        setShowLoader(true);
+        setTimeout(() => {
+        router.push('/TransactionType/WalletTransactionInterface');
+        setShowLoader(false); 
+        }, 2000);
+    // let redirectUrl = 'TransactionType/WalletTransactionInterface';
+    // router.push(redirectUrl);
   };
 
   const handleSubmit = async e => {
@@ -294,6 +302,7 @@ const QRScanner = () => {
         transaction_amount: amount,
         transaction_currency: currency,
         user_phone_number: mobileNumber,
+        user_id: userId,
       });
 
       if (response.data.status === 'failure') {
@@ -324,6 +333,7 @@ const QRScanner = () => {
                 user_phone_number: mobileNumber,
                 transaction_hash: transactionHash,
                 transaction_method: 'QR transaction',
+                user_id: userId,
               });
               setAlertMessage('Transaction successful!');
               setAmount('');
@@ -351,6 +361,11 @@ const QRScanner = () => {
 
   return (
     <div className="qr-scanner-container no-scroll">
+      {showLoader && (
+                <div className="loaderContainer">
+                    <div className="loader"></div>
+                </div>
+            )}
       {alertMessage && (
         <div className="customAlert">
           <p>{alertMessage}</p>
