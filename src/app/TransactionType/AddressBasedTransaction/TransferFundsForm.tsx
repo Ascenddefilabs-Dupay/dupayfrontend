@@ -490,7 +490,7 @@ const AddressBasedTransactionForm: React.FC = () => {
     }
 
     try {
-        const response = await axios.post('http://127.0.0.1:8000/transaction_api/validate-transaction/', {
+        const response = await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/validate-transaction/', {
             transaction_amount: transactionAmount,
             transaction_currency: transactionCurrency,
             fiat_address: fiatAddress,
@@ -509,7 +509,7 @@ const AddressBasedTransactionForm: React.FC = () => {
 
             if (paymentSuccess) {
                 try {
-                    await axios.post('http://127.0.0.1:8000/transaction_api/address-transfer/', {
+                    await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/address-transfer/', {
                         transaction_amount: transactionAmount,
                         transaction_currency: transactionCurrency,
                         transaction_type: 'Transfer',

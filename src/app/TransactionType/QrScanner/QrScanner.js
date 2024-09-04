@@ -298,7 +298,7 @@ const QRScanner = () => {
 
     try {
       // Step 1: Server-side validation
-      const response = await axios.post('http://127.0.0.1:8000/transaction_api/validation-qrcode/', {
+      const response = await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/validation-qrcode/', {
         transaction_amount: amount,
         transaction_currency: currency,
         user_phone_number: mobileNumber,
@@ -324,7 +324,7 @@ const QRScanner = () => {
       
           if (paymentSuccess) {
             try {
-              await axios.post('http://127.0.0.1:8000/transaction_api/qrcode/', {
+              await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/qrcode/', {
                 transaction_type: 'Debit',
                 transaction_amount: amount,
                 transaction_currency: currency,
