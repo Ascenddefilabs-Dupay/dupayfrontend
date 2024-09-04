@@ -1,7 +1,8 @@
 "use client";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 const Send: React.FC = () => {
     const router = useRouter();
@@ -18,8 +19,19 @@ const Send: React.FC = () => {
         setLoading(true); // Show loading text
         setTimeout(() => {
             router.push('/FiatManagement/Currency_Conversion'); // Navigate after delay
-        }, 15000); // Adjust delay if needed
+        }, 500); // Adjust delay if needed
     };
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          // const storedUserId = localStorage.getItem('user_id');
+          // setUserId(storedUserId);
+          // setAlertMessage('User Need To Login')
+          // if (storedUserId === null) redirect('http://localhost:3000/');
+          // console.log(storedUserId)
+        //   console.log(userId);
+        }
+      }, []);
 
     return (
         <div style={{ backgroundColor: 'black', width: '400px', margin: '0 auto', height: '100vh', color: 'white', borderRadius: '12px', top: '1px', alignItems: 'center', }}>

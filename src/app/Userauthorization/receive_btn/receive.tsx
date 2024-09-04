@@ -22,10 +22,32 @@ export default function Receive() {
     const userId = 'DupC0001';
     const ethereumAddress = '0x0b77...3E32'; // Example address
     const bitcoinAddress = 'bc1qdg...yr62'; // Example address
+    const [showLoader, setShowLoader] = useState<boolean>(true); // Explicitly type the state
 
+
+    
     useEffect(() => {
+        if (typeof window !== 'undefined') {
+          // const storedUserId = localStorage.getItem('user_id');
+          // setUserId(storedUserId);
+          // setAlertMessage('User Need To Login')
+          // if (storedUserId === null) redirect('http://localhost:3000/');
+          // console.log(storedUserId)
+        //   console.log(userId);
+        }
+      }, []);
+
+      useEffect(() => {
         fetchUserProfile();
     }, []);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowLoader(false);
+            // setShowForm(true);
+        }, 2000); // 2 seconds delay
+    
+        return () => clearTimeout(timer);
+        }, []);
 
     const fetchUserProfile = async () => {
         try {
@@ -56,10 +78,19 @@ export default function Receive() {
 
     const handleQr = (e: React.MouseEvent<SVGSVGElement>, type: string) => {
         e.stopPropagation();
+    
         if (type === 'ethereum') {
+            setShowLoader(true);
+            setTimeout(() => {
             router.push(`/Userauthorization/receive_btn/ethereum_btn?address=${ethereumAddress}`);
+            setShowLoader(false); 
+        }, 1000); 
         } else if (type === 'bitcoin') {
+            setShowLoader(true);
+            setTimeout(() => {
             router.push(`/Userauthorization/receive_btn/bitcoin_btn?address=${bitcoinAddress}`);
+            setShowLoader(false); 
+        }, 1000); 
         }
     };
     
@@ -118,9 +149,19 @@ export default function Receive() {
 
     return (
         <div className={styles.container}>
-            <div className="recive_header_re">
-                <ArrowBackIcon onClick={handleBackClick} className="receive_se_icon" />
-                <span>Received crypto and NFTs</span>
+              {showLoader && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                </div>
+            )}
+            <div>
+                <ArrowBackIcon 
+                    onClick={handleBackClick} 
+                    className={`${styles.backIcon} ${styles.iconHover}`} 
+                />
+                <h1 className={styles.heading}>
+                    Received crypto and NFTs
+                </h1>
             </div>
             <div className={styles.searchContainer}>
                 <div className={styles.search}>
@@ -232,7 +273,7 @@ export default function Receive() {
                             backgroundColor: 'rgb(50, 53, 61)',
                             borderRadius: '40px',
                             position: 'relative',
-                            left: '60px',
+                            left: '80px',
                         }}
                     >
                         <FontAwesomeIcon
@@ -250,7 +291,7 @@ export default function Receive() {
                             width: '40px',
                             backgroundColor: 'rgb(50, 53, 61)',
                             borderRadius: '40px',
-                            marginLeft: '10px',
+                            marginLeft: '-15px',
                         }}
                     >
                         <FontAwesomeIcon
@@ -300,7 +341,7 @@ export default function Receive() {
                             backgroundColor: 'rgb(50, 53, 61)',
                             borderRadius: '40px',
                             position: 'relative',
-                            left: '60px',
+                            left: '95px',
                         }}
                     >
                         <FontAwesomeIcon
@@ -318,7 +359,7 @@ export default function Receive() {
                             width: '40px',
                             backgroundColor: 'rgb(50, 53, 61)',
                             borderRadius: '40px',
-                            marginLeft: '10px',
+                            marginLeft: '0px',
                         }}
                     >
                         <FontAwesomeIcon
@@ -357,3 +398,10 @@ export default function Receive() {
         </div>
     );
 }
+
+
+
+
+
+
+

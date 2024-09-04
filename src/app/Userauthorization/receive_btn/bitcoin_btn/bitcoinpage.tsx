@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams, } from 'next/navigation';
 import { IoMdClose } from 'react-icons/io';
 import QRCode from 'qrcode.react';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ interface BitcoinPageProps {}
 
 const BitcoinPage: React.FC<BitcoinPageProps> = () => {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [address, setAddress] = useState<string | null>(null);
     const [copied, setCopied] = useState<boolean>(false);
     const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -22,6 +23,17 @@ const BitcoinPage: React.FC<BitcoinPageProps> = () => {
         const addressParam = query.get('address');
         setAddress(addressParam);
     }, []);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          // const storedUserId = localStorage.getItem('user_id');
+          // setUserId(storedUserId);
+          // setAlertMessage('User Need To Login')
+          // if (storedUserId === null) redirect('http://localhost:3000/');
+          // console.log(storedUserId)
+        //   console.log(userId);
+        }
+      }, []);
 
     const handleCopyClick = () => {
         if (address) {

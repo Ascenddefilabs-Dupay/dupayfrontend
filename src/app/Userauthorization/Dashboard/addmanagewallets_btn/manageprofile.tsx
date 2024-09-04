@@ -1,118 +1,184 @@
-'use client';
-import React, { useEffect } from 'react';
-import { IconButton } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaUserCircle, FaChevronDown } from 'react-icons/fa';
+// 'use client';
+// import React, { useEffect, useState, useCallback } from 'react';
+// import { IconButton } from '@mui/material';
+// import { FaUserCircle } from 'react-icons/fa';
+// import { BiImport } from 'react-icons/bi';
+// import { useRouter } from 'next/navigation';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+// import AddIcon from '@mui/icons-material/Add';
+// import FolderIcon from '@mui/icons-material/Folder';
+// import PlugIcon from '@mui/icons-material/Power';
+// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+// import styles from './manageprofile.module.css';
 
+// const ManageProfile = () => {
+//   const router = useRouter();
+//   const [loading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds delay
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   const handleNavigation = useCallback((path, timeout = 1000) => {
+//     setLoading(true);
+//     setTimeout(() => {
+//       router.push(path);
+//       setLoading(false);
+//     }, timeout);
+//   }, [router]);
+
+//   return (
+//     <div className="container">
+//       {loading ? (
+//         <div className={styles.loaderContainer}>
+//           <div className={styles.loader}></div>
+//         </div>
+//       ) : (
+//         <>
+//           <div className="titleContainer">
+//             <IconButton className="backarrow" onClick={() => handleNavigation('/Userauthorization/Dashboard')} sx={{ color: '#fff' }}>
+//               <ArrowBackIcon />
+//             </IconButton>
+//             <h1 className="title">Add & manage wallets</h1>
+//           </div>
+//           <div className="section">
+//             <h2 className="sectionTitle">WALLET 1</h2>
+//             <button className="button" onClick={() => handleNavigation('/Manageprofile/ViewProfile')}>
+//               <div className="walletItem">
+//                 <FaUserCircle className="profileIcon" />
+//                 <div className="walletInfo">
+//                   <div className="walletAddress">srinivass7420.cb.id</div>
+//                   <div className="walletBalance">$0.00</div>
+//                 </div>
+//                 <ArrowForwardIosIcon className="arrowIcon" />
+//               </div>
+//             </button>
+//           </div>
+//           <div>
+//             <button className="button" onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/addaddress_btn', 1000)}>
+//               <AddIcon className="buttonIcon" />
+//               Add address
+//               <ArrowForwardIosIcon className="arrowIcon" />
+//             </button>
+//             <button className="button" onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/createnewwallet_btn', 1000)}>
+//               <FolderIcon className="buttonIcon" />
+//               Create new wallet
+//               <ArrowForwardIosIcon className="arrowIcon" />
+//             </button>
+//             <button className="button" onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/importwallet_btn', 1000)}>
+//               <BiImport className="buttonIcon" />
+//               <div className="buttonimportcls">
+//                 <div className="buttonimport">Import a wallet</div>
+//                 <div className="buttonDescription">Recovery phrase & private key</div>
+//               </div>
+//               <ArrowForwardIosIcon className="arrowIcon" />
+//             </button>
+//             <button className="button" onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/connectledger_btn', 1000)}>
+//               <PlugIcon className="buttonIcon" />
+//               Connect Ledger wallet
+//               <ArrowForwardIosIcon className="arrowIcon" />
+//             </button>
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default ManageProfile;
+
+
+
+
+
+
+
+
+'use client';
+import React, { useEffect, useState, useCallback } from 'react';
+import { IconButton } from '@mui/material';
+import { FaUserCircle } from 'react-icons/fa';
+import { BiImport } from 'react-icons/bi';
+import { useRouter } from 'next/navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddIcon from '@mui/icons-material/Add';
 import FolderIcon from '@mui/icons-material/Folder';
-import KeyIcon from '@mui/icons-material/VpnKey';
 import PlugIcon from '@mui/icons-material/Power';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { BiImport } from "react-icons/bi";
-import { useRouter } from 'next/navigation';
-import './manageprofile.css';
+import styles from './manageprofile.module.css'; // Ensure path is correct and CSS is global if needed
 
 const ManageProfile = () => {
   const router = useRouter();
-  
-  const handleBackClick = () => {
-    console.log('Back button clicked');
-    router.push('/Userauthorization/Dashboard')
-  };
+  const [loading, setLoading] = useState(false);
 
-  const navigateToWalletDetails = () => {
-    router.push('/Manageprofile/ViewProfile')
-    // Add your navigation logic here
-  };
-
-  const navigateToAddAddress= () => {
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/addaddress_btn')
-    // Add your navigation logic here
-  };
-  
-  const navigateToCreateWallet = () => {
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/createnewwallet_btn');
-  };  
-
-  const navigateToImportWallet = () => {
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/importwallet_btn')
-    // Add your navigation logic here
-  };
-
-  const navigateToCreateLedgerWallet = () => {
-    console.log('Connect Ledger wallet clicked');
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn/connectledger_btn')
-  };
-  
   useEffect(() => {
-    // Ensure that navigation actions are wrapped in useEffect
-  }, [router]);
+    const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleNavigation = useCallback((path: string, timeout = 1000) => {
+    setLoading(true);
+    setTimeout(() => {
+      router.push(path);
+      setLoading(false);
+    }, timeout);
+}, [router]);
 
   return (
-    <div className="container">
-      <div className="titleContainer">
-        <IconButton className="backarrow" onClick={handleBackClick} style={{ color: '#fff' }}>
-          <ArrowBackIcon />
-        </IconButton>
-        <h1 className="title">Add & manage wallets</h1>
-      </div>
-      <div className="section">
-        <h2 className="sectionTitle">WALLET 1</h2>
-        <button
-          className="button"
-          onClick={navigateToWalletDetails}
-        >
-          <div className="walletItem" >
-          <FaUserCircle className="profileIcon" />
-            <div className="walletInfo">   
-              <div className="walletAddress">srinivass7420.cb.id</div>
-              <div className="walletBalance">$0.00</div>
-            </div>
-            <ArrowForwardIosIcon className="arrowIcon" />   
+    <div className={styles.container}>
+      {loading ? (
+        <div className={styles.loaderContainer}>
+          <div className={styles.loader}></div>
+        </div>
+      ) : (
+        <>
+          <div className={styles.titleContainer}>
+            <IconButton className={styles.backarrow} onClick={() => handleNavigation('/Userauthorization/Dashboard')} sx={{ color: '#fff' }}>
+              <ArrowBackIcon />
+            </IconButton>
+            <h1 className={styles.title}>Add & manage wallets</h1>
           </div>
-        </button> 
-      </div>
-      <div>
-        <button
-          className="button"
-          onClick={navigateToAddAddress }
-        >
-          <AddIcon className="buttonIcon" />
-          Add address
-          <ArrowForwardIosIcon className="arrowIcon" />
-        </button>
-        <button
-          className="button"
-          onClick={navigateToCreateWallet}
-        >
-          <FolderIcon className="buttonIcon" />
-          Create new wallet
-          <ArrowForwardIosIcon className="arrowIcon" />
-        </button>
-        
-        <button
-          className="button"
-          onClick={navigateToImportWallet}
-        >
-          <BiImport className="buttonIcon" />
-          <div className='buttonimportcls'>
-            <div className='buttonimport'>Import a wallet</div>
-            <div className="buttonDescription">Recovery phrase & private key</div>
+          <div className={styles.section}>
+            <h2 className={styles.sectionTitle}>WALLET 1</h2>
+            <button className={styles.button} onClick={() => handleNavigation('/Manageprofile/ViewProfile')}>
+              <div className={styles.walletItem}>
+                <FaUserCircle className={styles.profileIcon} />
+                <div className={styles.walletInfo}>
+                  <div className={styles.walletAddress}>srinivass7420.cb.id</div>
+                  <div className={styles.walletBalance}>$0.00</div>
+                </div>
+                <ArrowForwardIosIcon className={styles.arrowIcon} />
+              </div>
+            </button>
           </div>
-          <ArrowForwardIosIcon className="arrowIcon" />
-        </button>
-        
-        <button
-          className="button"
-          onClick={() => navigateToCreateLedgerWallet}
-        >
-          <PlugIcon className="buttonIcon" />
-          Connect Ledger wallet
-          <ArrowForwardIosIcon className="arrowIcon" />
-        </button>
-      </div>
+          <div>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/addaddress_btn', 1000)}>
+              <AddIcon className={styles.buttonIcon} />
+              Add address
+              <ArrowForwardIosIcon className={styles.arrowIcon} />
+            </button>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/createnewwallet_btn', 1000)}>
+              <FolderIcon className={styles.buttonIcon} />
+              Create new wallet
+              <ArrowForwardIosIcon className={styles.arrowIcon} />
+            </button>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/importwallet_btn', 1000)}>
+              <BiImport className={styles.buttonIcon} />
+              <div className={styles.buttonimportcls}>
+                <div className={styles.buttonimport}>Import a wallet</div>
+                <div className={styles.buttonDescription}>Recovery phrase & private key</div>
+              </div>
+              <ArrowForwardIosIcon className={styles.arrowIcon} />
+            </button>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/connectledger_btn', 1000)}>
+              <PlugIcon className={styles.buttonIcon} />
+              Connect Ledger wallet
+              <ArrowForwardIosIcon className={styles.arrowIcon} />
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

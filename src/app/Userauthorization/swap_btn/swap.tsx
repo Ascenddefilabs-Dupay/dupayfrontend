@@ -3,11 +3,23 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FaCheck } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 export default function Swap(): JSX.Element {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          // const storedUserId = localStorage.getItem('user_id');
+          // setUserId(storedUserId);
+          // setAlertMessage('User Need To Login')
+          // if (storedUserId === null) redirect('http://localhost:3000/');
+          // console.log(storedUserId)
+        //   console.log(userId);
+        }
+      }, []);
 
     const handleBackClick = (): void => {
         setLoading(true); // Show loading text
