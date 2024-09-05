@@ -241,7 +241,7 @@ const handleButtonClick = (buttonName: string) => {
       switch (iconName) {
         case 'Buy':
           // router.push('/Userauthorization/Dashboard/buy_btn');
-          window.location.href = '/FiatManagement/Currency_Conversion';
+          window.location.href = '/WalletManagement/Transak';
           break;
         case 'Swap':
           router.push('/Userauthorization/swap_btn');
