@@ -420,3 +420,190 @@
     color: #ffffff; 
     padding-bottom: 7px;
   }
+
+ /* Popup animation styles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8); /* Scale down */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1); /* Normal scale */
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.showPopupAnimation {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.hidePopupAnimation {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+.loaderContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  z-index: 2;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+
+.loader {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #ff007b, #007bff); 
+  animation: spin 1s linear infinite;
+  transform: rotate(45deg); 
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
+  border-radius: 12%; 
+}
+
+
+.loader::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(255, 0, 123, 0.3); 
+  border-radius: 15%;
+  animation: pulse 1.5s infinite ease-in-out;
+  z-index: -1;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(45deg); }
+  100% { transform: rotate(405deg); }
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Mobile popup style */
+.mobilePopup {
+  width: 300px;
+  height: 250px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Confirm button styling with pulse animation */
+.confirmButton {
+  background-color: #4caf50;
+  color: white;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.confirmButton::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s ease-out;
+  border-radius: 50%;
+}
+
+.confirmButton:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.confirmButton:hover {
+  background-color: #45a049;
+}
+
+.confirmButton:active {
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Cancel button styling */
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cancelButton:hover {
+  background-color: #e53935;
+}
+
+@media (max-width: 768px) {
+  /* Ensure popup looks good on mobile */
+  .mobilePopup {
+    width: 90%; /* Take 90% of the screen width on mobile */
+    height: auto;
+  }
+}

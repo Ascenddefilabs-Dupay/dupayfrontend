@@ -10,6 +10,11 @@ import { styled } from '@mui/system'; // Import styled from @mui/system
 import { FaUserCircle } from 'react-icons/fa';
 import Typography from '@mui/material/Typography';
 import axios from 'axios'; // Ensure axios is imported
+import { redirect } from 'next/navigation';
+import { toast, ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 export default function Receive() {
     const [user, setUserProfile] = useState({});
@@ -24,7 +29,7 @@ export default function Receive() {
     const bitcoinAddress = 'bc1qdg...yr62'; // Example address
     const [showLoader, setShowLoader] = useState<boolean>(true); // Explicitly type the state
 
-
+    // const [userId, setUserId] = useState(null);
     
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -112,6 +117,7 @@ export default function Receive() {
                 .then(() => {
                     setCopyType(type);
                     setCopyState((prevState) => ({ ...prevState, [type]: true }));
+                    toast.success(`${type.charAt(0).toUpperCase() + type.slice(1)} copied to clipboard!`); // Show toast notification
                     setTimeout(() => {
                         setCopyState((prevState) => ({ ...prevState, [type]: false }));
                         setCopyType('');
@@ -149,6 +155,15 @@ export default function Receive() {
 
     return (
         <div className={styles.container}>
+             <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={true}
+                closeOnClick={true}
+                pauseOnHover={true}
+                transition={Slide}  // Use the Slide transition
+            />
+
               {showLoader && (
                 <div className={styles.loaderContainer}>
                     <div className={styles.loader}></div>
@@ -252,7 +267,7 @@ export default function Receive() {
                 >
                     <div>
                         <img
-                            src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933124/bitcoin_img1_okht2d.png"
+                            src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933125/ethereum_image_pjztx6.jpg"
                             alt="Ethereum_image"
                             style={{
                                 height: '35px',
@@ -320,13 +335,14 @@ export default function Receive() {
                 >
                     <div>
                         <img
-                            src="https://res.cloudinary.com/dgfv6j82t/image/upload/v172493344/bitcoin_img2_pgj5gh.png"
+                            src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724933124/bitcoin_img1_okht2d.png"
                             alt="Bitcoin_image"
                             style={{
                                 height: '35px',
                                 width: '35px',
                                 borderRadius: '50px',
                                 border: '1px solid white',
+                                objectFit: 'cover',
                             }}
                         />
                     </div>

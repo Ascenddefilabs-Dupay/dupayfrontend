@@ -4,10 +4,28 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { IoMdClose } from 'react-icons/io';
 import QRCode from 'qrcode.react';
 import styles from './ethereum.module.css';
+import { redirect } from 'next/navigation';
+
 
 export default function EthereumPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
+
+    const [userId, setUserId] = useState<string | null>(null);
+        useEffect(() => {
+            if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            // if (sessionDataString) {
+            //   const sessionData = JSON.parse(sessionDataString);
+            //   const storedUserId = sessionData.user_id;
+            //   setUserId( );
+            //   console.log(storedUserId);
+            //   console.log(sessionData.user_email);
+            // } else {
+            //   redirect('http://localhost:3000/Userauthentication/SignIn');
+            // }
+            }
+        }, []);
     
     // Safely extract address with a fallback if searchParams is null
     const address = searchParams ? searchParams.get('address') ?? '' : '';

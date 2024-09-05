@@ -4,6 +4,10 @@ import { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import axios from 'axios';
 import styles from './BottomNavBar.module.css';
+import { redirect } from 'next/navigation';
+
+
+
 
 // Define types for NavItem props
 interface NavItemProps {
@@ -38,6 +42,9 @@ const BottomNavBar = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const pathname = usePathname();
   const userId = 'DupC0001';
+
+  // const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
+
 
   useEffect(() => {
     // Update selected state based on current route
