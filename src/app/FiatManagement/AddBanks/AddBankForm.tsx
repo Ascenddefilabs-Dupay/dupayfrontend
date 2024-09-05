@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useCallback, useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
@@ -31,10 +32,20 @@ const AddBankForm: React.FC = () => {
   const { isLoggedIn } = UseSession();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      // router.push('http://localhost:3000/Userauthentication/SignIn');
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        // setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+ 
+      } else {
+        router.push('http://localhost:3000/Userauthentication/SignIn')
+      }
     }
-  }, [isLoggedIn]);
+  }, []);
 
   useEffect(() => {
     if (isSubmitting) {

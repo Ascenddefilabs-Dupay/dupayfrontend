@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AddBankAccount.module.css'; // Import CSS
 import { FaArrowLeft } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 interface Bank {
   id: number;
@@ -17,6 +18,23 @@ interface AddBankAccountsProps {
 const AddBankAccounts: React.FC<AddBankAccountsProps> = ({ onAddBankClick, selectedBank }) => {
   const [linkedBanks, setLinkedBanks] = useState<Bank[]>([]);
   const [noBanksMessage, setNoBanksMessage] = useState<string>('No linked bank accounts.');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        // setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+ 
+      } else {
+        router.push('http://localhost:3000/Userauthentication/SignIn')
+      }
+    }
+  }, []);
 
   useEffect(() => {
     // Fetch linked banks

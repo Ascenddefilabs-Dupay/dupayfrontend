@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, Suspense } from 'react';
 import styles from './DepositForm.module.css';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -59,14 +60,23 @@ const DepositForm: React.FC = () => {
     const [pendingAmount, setPendingAmount] = useState<number | null>(null);
     const [showForm, setShowForm] = useState<boolean>(true);
     const [showLoader, setShowLoader] = useState<boolean>(false);
-    const { isLoggedIn } = UseSession();
     const router = useRouter();
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            // router.push('http://localhost:3000/Userauthentication/SignIn');
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            // setUserId(storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+     
+          } else {
+            router.push('http://localhost:3000/Userauthentication/SignIn')
+          }
         }
-    }, [isLoggedIn, router]);
+      }, []);
 
     const handleApiError = (error: any, context: string) => {
         console.error(`Error during ${context}:`, error);
