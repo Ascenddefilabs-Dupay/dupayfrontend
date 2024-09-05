@@ -1,9 +1,28 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import './Account.css';
 
 const AddAccount: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const [userId, setUserId] = useState<string | null>(null);
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId: string = sessionData.user_id;
+        setUserId(storedUserId);
+        // console.log(storedUserId);
+        // console.log(sessionData.user_email);
+      } else {
+        // router.push('/Userauthentication/SignIn');
+      }
+    }
+  }, [router]);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 0);

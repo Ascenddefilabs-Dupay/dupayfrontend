@@ -5,6 +5,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.css';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 
 const SuccessPage: React.FC = () => {
 
@@ -16,6 +18,23 @@ const SuccessPage: React.FC = () => {
     const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(false);
     const [userId, setUserId] = useState<string | null>(null);
+    const router = useRouter();
+
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            if (sessionDataString) {
+                const sessionData = JSON.parse(sessionDataString);
+                const storedUserId: string = sessionData.user_id;
+                setUserId(storedUserId);
+                // console.log(storedUserId);
+                // console.log(sessionData.user_email);
+            } else {
+                // router.push('/Userauthentication/SignIn');
+            }
+        }
+    }, [router]);
 
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false));
@@ -69,14 +88,14 @@ const SuccessPage: React.FC = () => {
     };
     useEffect(() => {
         if (typeof window !== 'undefined') {
-          const sessionDataString = window.localStorage.getItem('session_data');
-          if (sessionDataString) {
-            const sessionData = JSON.parse(sessionDataString);
-            const storedUserId: string = sessionData.user_id;
-            setUserId(storedUserId);
-            console.log(storedUserId);
-            console.log(sessionData.user_email);
-          } 
+            const sessionDataString = window.localStorage.getItem('session_data');
+            if (sessionDataString) {
+                const sessionData = JSON.parse(sessionDataString);
+                const storedUserId: string = sessionData.user_id;
+                setUserId(storedUserId);
+                console.log(storedUserId);
+                console.log(sessionData.user_email);
+            }
         }
     }, []);
 
@@ -114,7 +133,7 @@ const SuccessPage: React.FC = () => {
                     console.log("Uer_id", user_id)
 
                     // Send data to the backend
-                        await axios.post('https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/save-wallet-data/', {
+                    await axios.post('https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/save-wallet-data/', {
                         // await axios.post('http://127.0.0.1:8000/walletmanagementapi/save-wallet-data/', {
                         wallet_id: walletId,
                         password,
