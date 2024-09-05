@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useRouter } from 'next/navigation';
 import "./AddAccount.css";
 import config from "./config.json";
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
@@ -66,6 +67,23 @@ const AddAccount = () => {
   const accounts = useRef<AccountData[]>(loadAccounts());
   const [modalContent, setModalContent] = useState<string>(" ");
   const [balances, setBalances] = useState<Map<string, number>>(new Map()); // Map<Sui address, SUI balance>
+  const router = useRouter();
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId: string = sessionData.user_id;
+        setUserId(storedUserId);
+        // console.log(storedUserId);
+        // console.log(sessionData.user_email);
+      } else {
+        // router.push('/Userauthentication/SignIn');
+      }
+    }
+  }, [router]);
   
 
   useEffect(() => {

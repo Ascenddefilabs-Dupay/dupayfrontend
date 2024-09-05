@@ -3,12 +3,30 @@ import './RecoveryPhraseForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const RecoveryPhraseForm: React.FC = () => {
     const [phrases, setPhrases] = useState<string[]>(Array(12).fill(''));
     const [showPhrases, setShowPhrases] = useState<boolean[]>(Array(12).fill(false));
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
+    const [userId, setUserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            if (sessionDataString) {
+                const sessionData = JSON.parse(sessionDataString);
+                const storedUserId: string = sessionData.user_id;
+                setUserId(storedUserId);
+                // console.log(storedUserId);
+                // console.log(sessionData.user_email);
+            } else {
+                // router.push('/Userauthentication/SignIn');
+            }
+        }
+    }, [router]);
 
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 1000); // Adjust timer as needed

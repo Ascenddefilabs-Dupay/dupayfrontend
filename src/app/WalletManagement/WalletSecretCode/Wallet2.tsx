@@ -14,8 +14,25 @@ const Wallet2: React.FC = () => {
     const [isClient, setIsClient] = useState<boolean>(false);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState<boolean>(false);
     const [randomWords, setRandomWords] = useState<string>('');
-    const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
+    const [userId, setUserId] = useState<string | null>(null);
+
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            if (sessionDataString) {
+                const sessionData = JSON.parse(sessionDataString);
+                const storedUserId: string = sessionData.user_id;
+                setUserId(storedUserId);
+                // console.log(storedUserId);
+                // console.log(sessionData.user_email);
+            } else {
+                // router.push('/Userauthentication/SignIn');
+            }
+        }
+    }, [router]);
 
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 1000); // Adjust timer as needed

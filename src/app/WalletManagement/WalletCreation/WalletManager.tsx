@@ -20,7 +20,7 @@ const WalletManager: React.FC = () => {
         console.log(storedUserId);
         console.log(sessionData.user_email);
       } else {
-        router.push('/Userauthentication/SignIn');
+        // router.push('/Userauthentication/SignIn');
       }
     }
   }, [router]);

@@ -4,6 +4,7 @@ import './UpdatePassword.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 
 const PasswordForm: React.FC = () => {
     const [walletId, setWalletId] = useState<string | null>(null);
@@ -18,6 +19,24 @@ const PasswordForm: React.FC = () => {
     const [message, setMessage] = useState<string>(''); // State for messages
     const [messageType, setMessageType] = useState<'success' | 'error'>(); // State for message type ('success' or 'error')
     const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
+    const [userId, setUserId] = useState<string | null>(null);
+
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            if (sessionDataString) {
+                const sessionData = JSON.parse(sessionDataString);
+                const storedUserId: string = sessionData.user_id;
+                setUserId(storedUserId);
+                // console.log(storedUserId);
+                // console.log(sessionData.user_email);
+            } else {
+                // router.push('/Userauthentication/SignIn');
+            }
+        }
+    }, [router]);
 
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 1000); // Adjust timer as needed

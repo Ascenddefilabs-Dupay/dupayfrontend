@@ -1,15 +1,36 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const TransakWidget: React.FC = () => {
+  const router = useRouter();
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId: string = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        // router.push('/Userauthentication/SignIn');
+      }
+    }
+  }, [router]);
+
   useEffect(() => {
     const buyCryptoBtn = document.getElementById('buyCryptoBtn') as HTMLButtonElement;
     const transakContainer = document.getElementById('transakContainer') as HTMLDivElement;
     const transakIframe = document.getElementById('transakIframe') as HTMLIFrameElement;
 
     buyCryptoBtn.addEventListener('click', () => {
+      buyCryptoBtn.style.display = 'none';
       // Show the Transak container
       transakContainer.style.display = 'block';
+      
 
       // Set the Transak iframe src with your API key and any required query parameters
       transakIframe.src = 'https://global-stg.transak.com/?apiKey=a413d789-c5cf-4955-ae22-ff724c620d36&environment=staging';
@@ -39,7 +60,7 @@ const TransakWidget: React.FC = () => {
         style={{
           padding: '10px 20px',
           fontSize: '18px',
-          backgroundColor: '#1461db',
+          background: 'linear-gradient(90deg, #007bff9f, #800080)',
           color: 'white',
           border: 'none',
           borderRadius: '5px',
