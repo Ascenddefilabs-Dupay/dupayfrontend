@@ -18,41 +18,39 @@ const Networkmod = () => {
         router.push(redirectUrl);
       };
   
-    return (
-        <div className='network_container'>    
-            <div className='network_card'>
-                <div className="network_top-bar">
-                    <ArrowBackIcon className="arrow-circle-left-icon" onClick={handleBackClicknet} />
-                    <span className="title">Networks</span>
-                    <AddIcon className="add-icon" />
-                </div>
-                <div className="search-container">
-                    <SearchIcon className="search-icon" />
-                    <input id="search" type="text" placeholder="Search" />
-                </div>
-                <div className="tabs">
-                    <button 
-                        className={`tab ${activeTab === 'mainnets' ? 'active' : ''}`} 
-                        onClick={() => setActiveTab('mainnets')}
-                    >
-                        Mainnets
-                    </button>
-                    <button 
-                        className={`tab ${activeTab === 'testnets' ? 'active' : ''}`} 
-                        onClick={() => setActiveTab('testnets')}
-                    >
-                        Testnets
-                    </button >
-                </div>
-                <div className="tab-content">
-                {activeTab === 'mainnets' ? (
-                    <div>Mainnets Content</div>
-                ) : (
-                    <div>Testnets Content</div>
-                )}
-                </div>
-                
+    return (  
+        <div className='network_card'>
+            <div className="network_top-bar">
+                <ArrowBackIcon className="arrow-circle-left-icon" onClick={handleBackClicknet} />
+                <span className="title">Networks</span>
+                <AddIcon className="add-icon" />
             </div>
+            <div className="search-container">
+                <SearchIcon className="search-icon" />
+                <input id="search" type="text" placeholder="Search" />
+            </div>
+            <div className="tabs">
+                <button 
+                    className={`tab ${activeTab === 'mainnets' ? 'active' : ''}`} 
+                    onClick={() => setActiveTab('mainnets')}
+                >
+                    Mainnets
+                </button>
+                <button 
+                    className={`tab ${activeTab === 'testnets' ? 'active' : ''}`} 
+                    onClick={() => setActiveTab('testnets')}
+                >
+                    Testnets
+                </button >
+            </div>
+            <div className="tab-content">
+            {activeTab === 'mainnets' ? (
+                <div>Mainnets Content</div>
+            ) : (
+                <div>Testnets Content</div>
+            )}
+            </div>
+            
         </div>
 
     );

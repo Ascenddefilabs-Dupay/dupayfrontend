@@ -63,147 +63,150 @@ const Newsetting = () => {
     router.push(redirectUrl);
   }
   return (
-    <div className='container'>
-      <div className="card0">
-        <div className="settings">
-          <ArrowBackIcon className="setting_back_icon" onClick={settinghandleBackClick} />
-          <span className='settings_back_label'>Setting</span>
+    <div className="card0">
+      
+      <div className="settings">
+        <ArrowBackIcon className="setting_back_icon" onClick={settinghandleBackClick} />
+        <span className='settings_back_label'>Setting</span>
+      </div>
+      
+      <div className="card"> 
+        <div className="search-container">
+          <SearchIcon className="search-icon" />
+          <input id="search" type="text" placeholder="Search" />
         </div>
-        <div className="cards0">
-          <div className="card"> 
-            <div className="search-container">
-              <SearchIcon className="search-icon" />
-              <input id="search" type="text" placeholder="Search" />
-            </div>
-          </div>
-    
-          <div className="card1">
-            <button className="wallet-button">
-              <AccountBalanceWalletIcon className="wallet-icon" />
-              <span className="button-text">Wallet</span>
-            </button>
+      </div>
 
-          </div>
-
-          <div className="subcard">
-            <div className="card2">
-              <button className="username" onClick={profileHandleClick}>
-                <img className="card-image" />
-                <div className="labels0">
-                  <span className="user">username.co.id </span>
-                  <span className="recovery">Recovery phase, Profile, connections and more</span>
-                </div>
-                <ChevronRightIcon className="righticon" />
-              </button>
-            </div>
-
-            <div className="card3">
-              <button className="manage_wallet">
-                <AddCircleIcon className="add_circle" />
-                <span className="button-text">Manage all wallets</span>
-                <ChevronRightIcon className="righticon0" />
-              </button>
-
-            </div>
-            
-          </div>
-          
-          <div className="card6">
-            <button className="developers">
-              <PhoneIphoneIcon className="phone_icon" />
-              <div className="labels2">
-                <span className="develop">Simple Mode</span>
-                <span className="develop1">Perfect for beginner</span>
-              </div>
-                <label className="simple_switch">
-                  <Switch
-                    checked={simpleMode} onChange={handleSwitch}/>
-                </label>
-            </button>
-          </div>
-          <div className="card4">
-            <button className="networks" onClick={handleNavigation}>
-              <LanguageIcon className="globe_icon" />
-              <div className="labels">
-                <span className="network">Networks </span>
-                <span className="network1">Edit or add Networks</span>
-              </div>
-              <ChevronRightIcon className="righticon1" />
-            </button>
-          </div>
-          <div className="card5">
-            <button className="securities" onClick={handleSecurity}>
-              <LockIcon className="lock_icon" />
-              <div className="handle_securty">
-                <span className="handle_security">Security </span>
-                <span className="handle_security1">Lock timer, Password</span>
-              </div>
-              <ChevronRightIcon className="righticon2" />
-            </button>
-          </div>
-          
-          <div className="card7">
-            <button className="displays" onClick={handleDisplay}>
-              <ShieldMoonIcon className="shield_moon_icon" />
-              <div className="labels3">
-                <span className="display">Display </span>
-                <span className="display1">Dark mode, currency, balances</span>
-              </div>
-              <ChevronRightIcon className="righticon4" />
-            </button>
-          </div>
-          <div className="card8">
-            <button className="notifications"  onClick={handleNotification}>
-              <NotificationsIcon className="notifications_icon" />
-              <div className="labels4">
-                <span className="notification">Notifications </span>
-                <span className="notification1">Preferences, notification types</span>
-              </div>
-              <ChevronRightIcon className="righticon5" />
-            </button>
-          </div>
-          <div className="card9">
-            <button className="helps">
-              <HelpCenterIcon className="help-icon" />
-              <div className="labels5">
-                <span className="help">Help </span>
-                <span className="help1">Help Centers & supports</span>
-              </div>
-              <OpenInNewIcon className="open_in_new_icon" />
-            </button>
-          </div>
-
-          <hr className="gray-hr"/>
-
-          <div className="card10">
-            <button className="terms">
-              <span className='term'>Terms and services </span>
-              <OpenInNewIcon className="open_in_new_icon1" />
-            </button>
-          </div>
-          <div className="card11">
-            <button className="privacy">
-              <span className='policy'>Privacy Policy </span>
-              <OpenInNewIcon className="open_in_new_icon2" />
-            </button>
-          </div>
-          <div className="card12">
-            <button className="version">
-              <span className='versions'>Version </span>
-            </button>
-            <span className='versions1'>3.11.17 </span>
-          </div>
-          
-          <div className='card14'>
-            <button className='signout' onClick={handleSignOut}>
-              <span className='sign'>Sign out </span>
-            </button>
-          </div>
-
-
-        </div>
+      <div className="card1">
+        <button className="wallet-button">
+          <AccountBalanceWalletIcon className="wallet-icon" />
+          <span className="button-text">Wallet</span>
+        </button>
 
       </div>
+
+      <div className="subcard">
+        <div className="card2">
+          <button className="username" onClick={profileHandleClick}>
+            <img className="card-image" />
+            <div className="labels0">
+              <span className="user">username.co.id </span>
+              <span className="recovery">Recovery phase, Profile, connections and more</span>
+            </div>
+            <ChevronRightIcon className="righticon" />
+          </button>
+        </div>
+
+        <div className="card3">
+          <button className="manage_wallet">
+            <AddCircleIcon className="add_circle" />
+            <span className="button-text">Manage all wallets</span>
+            <ChevronRightIcon className="righticon0" />
+          </button>
+
+        </div>
+        
+      </div>
+      
+      <div className="card6">
+        <button className="developers">
+          <PhoneIphoneIcon className="phone_icon" />
+          <div className="labels2">
+            <span className="develop">Simple Mode</span>
+            <span className="develop1">Perfect for beginner</span>
+          </div>
+            <label className="simple_switch">
+              <Switch
+                checked={simpleMode} onChange={handleSwitch}/>
+            </label>
+        </button>
+      </div>
+
+      <div className="card4">
+        <button className="networks" onClick={handleNavigation}>
+          <LanguageIcon className="globe_icon" />
+          <div className="labels">
+            <span className="network">Networks </span>
+            <span className="network1">Edit or add Networks</span>
+          </div>
+          <ChevronRightIcon className="righticon1" />
+        </button>
+      </div>
+
+      <div className="card5">
+        <button className="securities" onClick={handleSecurity}>
+          <LockIcon className="lock_icon" />
+          <div className="handle_securty">
+            <span className="handle_security">Security </span>
+            <span className="handle_security1">Lock timer, Password</span>
+          </div>
+          <ChevronRightIcon className="righticon2" />
+        </button>
+      </div>
+      
+      <div className="card7">
+        <button className="displays" onClick={handleDisplay}>
+          <ShieldMoonIcon className="shield_moon_icon" />
+          <div className="labels3">
+            <span className="display">Display </span>
+            <span className="display1">Dark mode, currency, balances</span>
+          </div>
+          <ChevronRightIcon className="righticon4" />
+        </button>
+      </div>
+
+      <div className="card8">
+        <button className="notifications"  onClick={handleNotification}>
+          <NotificationsIcon className="notifications_icon" />
+          <div className="labels4">
+            <span className="notification">Notifications </span>
+            <span className="notification1">Preferences, notification types</span>
+          </div>
+          <ChevronRightIcon className="righticon5" />
+        </button>
+      </div>
+
+      <div className="card9">
+        <button className="helps">
+          <HelpCenterIcon className="help-icon" />
+          <div className="labels5">
+            <span className="help">Help </span>
+            <span className="help1">Help Centers & supports</span>
+          </div>
+          <OpenInNewIcon className="open_in_new_icon" />
+        </button>
+      </div>
+
+      <hr className="gray-hr"/>
+
+      <div className="card10">
+        <button className="terms">
+          <span className='term'>Terms and services </span>
+          <OpenInNewIcon className="open_in_new_icon1" />
+        </button>
+      </div>
+
+      <div className="card11">
+        <button className="privacy">
+          <span className='policy'>Privacy Policy </span>
+          <OpenInNewIcon className="open_in_new_icon2" />
+        </button>
+      </div>
+
+      <div className="card12">
+        <button className="version">
+          <span className='versions'>Version </span>
+        </button>
+        <span className='versions1'>3.11.17 </span>
+      </div>
+      
+      <div className='card14'>
+        <button className='signout' onClick={handleSignOut}>
+          <span className='sign'>Sign out </span>
+        </button>
+      </div>
+
+
     </div>
   );
 };
