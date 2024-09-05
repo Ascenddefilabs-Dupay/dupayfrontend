@@ -131,7 +131,7 @@ const ManageProfile: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoader(false);
-    }, 2000); // 2 seconds delay
+    }, ); // 2 seconds delay
 
     return () => clearTimeout(timer);
   }, []);
@@ -141,7 +141,7 @@ const ManageProfile: React.FC = () => {
     setTimeout(() => {
       window.location.href = '/Userauthorization/Dashboard';
       setShowLoader(false);
-    }, 1000);
+    }, );
   };
 
   return (

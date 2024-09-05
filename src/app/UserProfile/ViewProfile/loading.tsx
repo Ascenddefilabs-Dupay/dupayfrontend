@@ -7,7 +7,7 @@ const Loading: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false); // Hide the loading animation after the specified delay
-    }, 5000); // Set the delay time in milliseconds (e.g., 5000ms = 5 seconds)
+    },); // Set the delay time in milliseconds (e.g., 5000ms = 5 seconds)
 
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, []);
