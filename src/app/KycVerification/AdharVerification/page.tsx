@@ -1,11 +1,9 @@
 import AadharForm from "./adhar";
 
-
-const Home = () => {
+const Home: React.FC = () => {
     return (
         <div>
             <AadharForm />
-
         </div>
     );
 };

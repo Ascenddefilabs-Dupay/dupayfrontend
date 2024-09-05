@@ -1,6 +1,7 @@
+import React from 'react';
 import UserRegistration from './UserRegistration';
 
-const QRGenerationPage = () => {
+const QRGenerationPage: React.FC = () => {
     return (
         <div>
             <UserRegistration />
