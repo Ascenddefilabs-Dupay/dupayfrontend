@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/UserProfile/ManageProfile.ts", "src/app/UserProfile/EditProfile/EditProfile.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/UserProfile/ManageProfile.ts", "src/app/UserProfile/EditProfile/EditProfile.js", "src/app/KycVerification/PersonalDetails/PersonalDetailsForm.js", "src/app/KycVerification/PersonalDetails/PersonalDetailsForm.js", "src/app/KycVerification/PersonalDetails/page.jsx", "src/app/KycVerification/PersonalDetails/page.jsx", "src/app/KycVerification/AdharVerification/page.tsx", "src/app/KycVerification/AdharVerification/page.tsx", "src/app/KycVerification/AdharVerification/page.tsx", "src/app/KycVerification/AdharVerification/page.tsx", "src/app/KycVerification/AdharVerification/page.tsx", "src/app/TransactionType/QrScanner/QrScanner.tsx", "src/app/TransactionType/QrScanner/page.tsx"],
   "exclude": ["node_modules"]
 }

@@ -15,7 +15,7 @@ html, body {
   margin: 0px auto;
   padding: 25px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   text-align: center;
   background-color: black;
   height: 100vh;
