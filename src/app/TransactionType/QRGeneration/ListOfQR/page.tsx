@@ -1,6 +1,6 @@
 import QRCodeList from './QRCodeList';
 
-const QRCodePage = () => {
+const QRCodePage: React.FC = () => {
     return (
         <div>
             <h1>QR Code List</h1>

@@ -1,3 +1,5 @@
+
+
 // 'use client'
 
 // import React, { useState } from 'react';
@@ -16,6 +18,9 @@
 //   const [message, setMessage] = useState('');
 //   const [error, setError] = useState('');
 //   const [imageError, setImageError] = useState('');
+//   const [showAlert, setShowAlert] = useState(false);
+//   const [alertMessage, setAlertMessage] = useState('');
+//   const [redirect, setRedirect] = useState(false); // New state for redirect
 //   const router = useRouter();
 
 //   const aadharNumberRegex = /^[0-9 ]{14}$/;
@@ -51,25 +56,24 @@
 //     }
 
 //     try {
-//       const response = await axios.post('https://kycverification-ind-255574993735.asia-south1.run.app/api/kyc-details/', formData, {
+//       await axios.post('https://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/kyc-details/', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //         },
 //       });
-//       setMessage('Aadhar submitted successfully!');
+//       setAlertMessage('Aadhar submitted successfully!');
+//       setShowAlert(true);
+//       setRedirect(true); // Trigger redirect state
 //       setAadharNumber('');
 //       setAadharFrontImage(null);
 //       setAadharFrontImageUrl(null);
 //       setAadharBackImage(null);
 //       setAadharBackImageUrl(null);
-
-//       setTimeout(() => {
-//         router.push('/KycVerification/PanVerification');
-//       });
-
 //     } catch (error) {
 //       console.error('Error submitting Aadhar:', error);
-//       setMessage('Error submitting Aadhar. Please try again.');
+//       setAlertMessage('Error submitting Aadhar. Please try again.');
+      
+//       setShowAlert(true);
 //     }
 //   };
 
@@ -97,8 +101,15 @@
 //   };
 
 //   const handleBackClick = () => {
-//     router.push('/KycVerification/kycform1'); // Adjust the path as needed
-// };
+//     router.push('/KycVerification/kycform1');
+//   };
+
+//   const handleCloseAlert = () => {
+//     setShowAlert(false);
+//     if (redirect) {
+//       router.push('/KycVerification/PanVerification');
+//     }
+//   };
 
 //   return (
 //     <div className={styles.formContainer}>
@@ -137,6 +148,7 @@
 //                 className={styles.inputFile}
 //                 onChange={(e) => handleImageChange(e, setAadharFrontImage, setAadharFrontImageUrl)}
 //                 required
+
 //               />
 //               {aadharFrontImageUrl && (
 //                 <img src={aadharFrontImageUrl} alt="Aadhar Front Preview" className={styles.uploadedImage} />
@@ -169,6 +181,13 @@
 //           {message && <p className={styles.message}>{message}</p>}
 //         </form>
 //       </div>
+//       {/* Custom alert box */}
+//       {showAlert && (
+//         <div className={styles.customAlert}>
+//           <p>{alertMessage}</p>
+//           <button className={styles.closeButton} onClick={handleCloseAlert}>Ok</button>
+//         </div>
+//       )}
 //     </div>
 //   );
 // };
@@ -176,32 +195,34 @@
 // export default AadharForm;
 
 
+
+
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './AadharForm.module.css';
 import ProgressBar from '../kycform1/ProgressBar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const AadharForm = () => {
-  const [aadharNumber, setAadharNumber] = useState('');
-  const [aadharFrontImage, setAadharFrontImage] = useState(null);
-  const [aadharFrontImageUrl, setAadharFrontImageUrl] = useState(null);
-  const [aadharBackImage, setAadharBackImage] = useState(null);
-  const [aadharBackImageUrl, setAadharBackImageUrl] = useState(null);
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
-  const [imageError, setImageError] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [redirect, setRedirect] = useState(false); // New state for redirect
+const AadharForm: React.FC = () => {
+  const [aadharNumber, setAadharNumber] = useState<string>('');
+  const [aadharFrontImage, setAadharFrontImage] = useState<File | null>(null);
+  const [aadharFrontImageUrl, setAadharFrontImageUrl] = useState<string | null>(null);
+  const [aadharBackImage, setAadharBackImage] = useState<File | null>(null);
+  const [aadharBackImageUrl, setAadharBackImageUrl] = useState<string | null>(null);
+  const [message, setMessage] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [imageError, setImageError] = useState<string>('');
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [redirect, setRedirect] = useState<boolean>(false);
   const router = useRouter();
 
   const aadharNumberRegex = /^[0-9 ]{14}$/;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!aadharNumber || !aadharNumberRegex.test(aadharNumber)) {
@@ -239,7 +260,7 @@ const AadharForm = () => {
       });
       setAlertMessage('Aadhar submitted successfully!');
       setShowAlert(true);
-      setRedirect(true); // Trigger redirect state
+      setRedirect(true);
       setAadharNumber('');
       setAadharFrontImage(null);
       setAadharFrontImageUrl(null);
@@ -248,13 +269,16 @@ const AadharForm = () => {
     } catch (error) {
       console.error('Error submitting Aadhar:', error);
       setAlertMessage('Error submitting Aadhar. Please try again.');
-      
       setShowAlert(true);
     }
   };
 
-  const handleImageChange = (e, setImage, setImageUrl) => {
-    const file = e.target.files[0];
+  const handleImageChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    setImage: React.Dispatch<React.SetStateAction<File | null>>,
+    setImageUrl: React.Dispatch<React.SetStateAction<string | null>>
+  ) => {
+    const file = e.target.files?.[0] || null;
     if (file) {
       if (file.size > 2 * 1024 * 1024) {
         setImageError('Image size should be within 2MB.');
@@ -268,7 +292,7 @@ const AadharForm = () => {
     }
   };
 
-  const handleAadharNumberChange = (e) => {
+  const handleAadharNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\s/g, '');
     if (value.length <= 12) {
       const formattedValue = value.replace(/(\d{4})(?=\d)/g, '$1 ');
@@ -290,7 +314,6 @@ const AadharForm = () => {
   return (
     <div className={styles.formContainer}>
       <div className={styles.card}>
-        {/* Back Arrow */}
         <ArrowBackIcon className={styles.setting_back_icon} onClick={handleBackClick} />
         <form onSubmit={handleSubmit} className={styles.form}>
           <h2 className={styles.heading}>Aadhar Verification</h2>
@@ -324,7 +347,6 @@ const AadharForm = () => {
                 className={styles.inputFile}
                 onChange={(e) => handleImageChange(e, setAadharFrontImage, setAadharFrontImageUrl)}
                 required
-
               />
               {aadharFrontImageUrl && (
                 <img src={aadharFrontImageUrl} alt="Aadhar Front Preview" className={styles.uploadedImage} />
@@ -357,7 +379,6 @@ const AadharForm = () => {
           {message && <p className={styles.message}>{message}</p>}
         </form>
       </div>
-      {/* Custom alert box */}
       {showAlert && (
         <div className={styles.customAlert}>
           <p>{alertMessage}</p>
