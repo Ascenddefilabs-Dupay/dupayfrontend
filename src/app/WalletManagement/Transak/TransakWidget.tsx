@@ -26,7 +26,7 @@ const TransakWidget: React.FC = () => {
     const transakContainer = document.getElementById('transakContainer') as HTMLDivElement;
     const transakIframe = document.getElementById('transakIframe') as HTMLIFrameElement;
 
-    buyCryptoBtn.addEventListener('click', () => {
+    // buyCryptoBtn.addEventListener('click', () => {
       buyCryptoBtn.style.display = 'none';
       // Show the Transak container
       transakContainer.style.display = 'block';
@@ -49,7 +49,7 @@ const TransakWidget: React.FC = () => {
         //   console.log('Order Data: ', message?.data?.data);
         }
       });
-    });
+    // });
   }, []);
 
   return (
@@ -58,6 +58,7 @@ const TransakWidget: React.FC = () => {
       <button
         id="buyCryptoBtn"
         style={{
+          display:'none',
           padding: '10px 20px',
           fontSize: '18px',
           background: 'linear-gradient(90deg, #007bff9f, #800080)',
