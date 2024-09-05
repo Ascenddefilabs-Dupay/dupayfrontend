@@ -28,16 +28,9 @@ const Page: React.FC = () => {
   return (
     <>
       <AuthNavbar />
-<<<<<<< HEAD:src/app/Userauthentication/SignUp/page.tsx
-      <main className="pt-20 md:pt-24 p-4 md:p-11">
-        {/* Adjust padding to account for navbar height */}
-        <div className="mb-5">
-          <h1 className="text-2xl font-bold">Welcome to Dupay</h1>
-=======
       <main className={styles.main}>
         <div className={styles.welcome}>
           <h1 className={styles.heading}>Welcome to Dupay</h1>
->>>>>>> 738fe1825f90a3ff57c13bdc244b2b82867e5673:src/app/Userauthentication/SignUp/page.jsx
         </div>
 
         <div className={styles.accountType}>
@@ -94,22 +87,11 @@ const Page: React.FC = () => {
           </aside>
         </div>
 
-<<<<<<< HEAD:src/app/Userauthentication/SignUp/page.tsx
-        <div className="mt-8">
-          <button
-            className="bg-gradient-to-r from-[#7f2ee3] to-[#4246f7] text-white rounded-lg py-2 px-4 md:py-2 md:px-6 hover:bg-blue-700 transition-colors duration-300 w-full md:w-auto"
-            onClick={handleGetStarted}
-          >
-=======
         <div className={styles.getStarted}>
           <button className={styles.getStartedButton} onClick={handleGetStarted}>
->>>>>>> 738fe1825f90a3ff57c13bdc244b2b82867e5673:src/app/Userauthentication/SignUp/page.jsx
             Get Started
           </button>
-          
         </div>
-        <br></br>
-        <br></br>
       </main>
     </>
   );

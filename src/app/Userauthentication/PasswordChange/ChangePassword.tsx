@@ -67,24 +67,27 @@ const ChangePassword: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     if (newPassword !== verifyNewPassword) {
       alert("New passwords don't match!");
       return;
     }
-
-    axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/update-password/', {
-      user_email,
-      user_password,
-      new_password: newPassword,
-      verify_new_password: verifyNewPassword,
-    })
-    .then(response => {
+  
+    try {
+      await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/update-password/', {
+        user_email,
+        user_password,
+        new_password: newPassword,
+        verify_new_password: verifyNewPassword,
+      });
       alert('Password changed successfully!');
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Error updating password');
+    } catch (error) {
+      // Ensure error is cast to `any` type to access response data
+      const errorMsg = (error as any)?.response?.data?.message || 'Error updating password';
+      alert(errorMsg);
     }
   };
+  
 
   return (
     <div className="container">
