@@ -1,26 +1,26 @@
 "use client";
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import Head from 'next/head';
 import styles from './ForgotPassword.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import Link from 'next/link'; 
+import Link from 'next/link';
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [retypeNewPassword, setRetypeNewPassword] = useState('');
-  const [showOtpField, setShowOtpField] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false); // State for new password visibility
-  const [showRetypeNewPassword, setShowRetypeNewPassword] = useState(false); // State for retype new password visibility
+  const [email, setEmail] = useState<string>('');
+  const [otp, setOtp] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [retypeNewPassword, setRetypeNewPassword] = useState<string>('');
+  const [showOtpField, setShowOtpField] = useState<boolean>(false);
+  const [showNewPassword, setShowNewPassword] = useState<boolean>(false); // State for new password visibility
+  const [showRetypeNewPassword, setShowRetypeNewPassword] = useState<boolean>(false); // State for retype new password visibility
   const router = useRouter();
 
-  const handleEmailSubmit = async (event) => {
+  const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/loginapi/generate-otp/', { user_email: email });
+      const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/generate-otp/', { user_email: email });
       if (response.status === 200) {
         setShowOtpField(true);
         alert('OTP sent to your email');
@@ -30,14 +30,14 @@ export default function ForgotPassword() {
     }
   };
 
-  const handlePasswordSubmit = async (event) => {
+  const handlePasswordSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (newPassword !== retypeNewPassword) {
       alert('Passwords do not match');
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/loginapi/reset-password/', {
+      const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/reset-password/', {
         user_email: email,
         otp,
         new_password: newPassword,
@@ -75,7 +75,7 @@ export default function ForgotPassword() {
                       type="email"
                       id="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                       required
                     />
                   </label>
@@ -94,7 +94,7 @@ export default function ForgotPassword() {
                       type="text"
                       id="otp"
                       value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => setOtp(e.target.value)}
                       required
                     />
                   </label>
@@ -107,7 +107,7 @@ export default function ForgotPassword() {
                         type={showNewPassword ? "text" : "password"}
                         id="newPassword"
                         value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
                         required
                         className={styles.passwordInput}
                       />
@@ -126,7 +126,7 @@ export default function ForgotPassword() {
                         type={showRetypeNewPassword ? "text" : "password"}
                         id="retypeNewPassword"
                         value={retypeNewPassword}
-                        onChange={(e) => setRetypeNewPassword(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setRetypeNewPassword(e.target.value)}
                         required
                         className={styles.passwordInput}
                       />

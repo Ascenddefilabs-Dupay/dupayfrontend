@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import AuthNavbar from './AuthNavbar';
 import styles from './page1.module.css';
 
-const Page = () => {
-  const [selectedAccount, setSelectedAccount] = useState('Individual');
+const Page: React.FC = () => {
+  const [selectedAccount, setSelectedAccount] = useState<string>('Individual');
   const router = useRouter();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Page = () => {
     setSelectedAccount('Individual');
   }, []);
 
-  const handleSelectAccount = (accountType) => {
+  const handleSelectAccount = (accountType: string) => {
     setSelectedAccount(accountType);
   };
 
@@ -22,7 +22,7 @@ const Page = () => {
       alert('Please select an account type before proceeding.');
       return;
     }
-    router.push('/Userauthentication/SignUp/SecondaryNavbar'); 
+    router.push('/Userauthentication/SignUp/SecondaryNavbar');
   };
 
   return (
@@ -91,10 +91,7 @@ const Page = () => {
           <button className={styles.getStartedButton} onClick={handleGetStarted}>
             Get Started
           </button>
-          
         </div>
-        <br></br>
-        <br></br>
       </main>
     </>
   );
