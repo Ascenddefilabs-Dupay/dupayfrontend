@@ -15,7 +15,7 @@ const ChangePassword: React.FC = () => {
 
   const checkEmailExists = async (email: string) => {
     try {
-      const response = await axios.get(`https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-email/?email=${email}`);
+      const response = await axios.get(`https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-email/?email=${user_email}`);
       if (response.data.exists) {
         setEmailError('');
       } else {
@@ -28,7 +28,7 @@ const ChangePassword: React.FC = () => {
 
   const checkOldPassword = async (password: string) => {
     try {
-      const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-old-password/', {
+      const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/check-old-password/', {
         user_email,
         user_password: password,
       });
@@ -73,13 +73,13 @@ const ChangePassword: React.FC = () => {
       return;
     }
 
-    try {
-      await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/update-password/', {
-        user_email,
-        user_password,
-        new_password: newPassword,
-        verify_new_password: verifyNewPassword,
-      });
+    axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/update-password/', {
+      user_email,
+      user_password,
+      new_password: newPassword,
+      verify_new_password: verifyNewPassword,
+    })
+    .then(response => {
       alert('Password changed successfully!');
     } catch (error: any) {
       alert(error.response?.data?.message || 'Error updating password');

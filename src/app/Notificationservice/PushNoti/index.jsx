@@ -40,7 +40,7 @@ const Index = () => {
       return;
     }
 
-    axios.post('https://notificationservice-rcfpsxcera-uc.a.run.app/messagenotificationapi/create-notification/', {
+    axios.post('https://notificationservice-ind-255574993735.asia-south1.run.app/messagenotificationapi/create-notification/', {
       email_id: 'user@example.com',
       message: 'This is your notification message!!',
       type: 'push notification',
@@ -63,7 +63,7 @@ const Index = () => {
   useEffect(() => {
     requestNotificationPermission(); // Ask for permission once
 
-    axios.get('https://notificationservice-rcfpsxcera-uc.a.run.app/messagenotificationapi/get-user-ids/')
+    axios.get('https://notificationservice-ind-255574993735.asia-south1.run.app/messagenotificationapi/get-user-ids/')
       .then(response => {
         if (response.data.user_ids && response.data.user_ids.length > 0) {
           setUserId(response.data.user_ids[0]); // Set the first user ID

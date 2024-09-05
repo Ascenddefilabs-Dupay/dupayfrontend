@@ -13,6 +13,7 @@ const CurrencyForm = () => {
     const [message, setMessage] = useState(''); // State to store the success message
     const [alertMessage, setAlertMessage] = useState(''); 
     const router = useRouter();
+    const [showLoader, setShowLoader] = useState(false);
 
     useEffect(() => {
         // Load Razorpay script
@@ -100,7 +101,7 @@ const CurrencyForm = () => {
         // Step 2: Server-side validation and initiate Razorpay payment only if validation succeeds
         try {
             const transactionHash = uuidv4();
-            const validationResponse = await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/transaction_validation/', {
+            const validationResponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
                 transaction_amount: amount,
                 transaction_currency: currency,
                 user_phone_number: mobileNumber,
@@ -112,7 +113,7 @@ const CurrencyForm = () => {
             }else{
                 const paymentSuccess = await initiateRazorpayPayment();
             if (paymentSuccess) {
-                await axios.post('http://transactiontype-rcfpsxcera-uc.a.run.app/transaction_api/wallet_transfer/', {
+                await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
                     transaction_type: 'Debit',
                     transaction_amount: amount,
                     transaction_currency: currency,
@@ -136,12 +137,20 @@ const CurrencyForm = () => {
     };
 
     const settinghandleBackClick = () => {
-        let redirectUrl = '/WalletTransactionInterface';
-        router.push(redirectUrl);
+        setShowLoader(true);
+        setTimeout(() => {
+        router.push('/TransactionType/WalletTransactionInterface');
+        setShowLoader(false); 
+        }, 2000);
     };
 
     return (
         <form className="currency-form" onSubmit={handleSubmit}>
+            {showLoader && (
+                <div className="loaderContainer">
+                    <div className="loader"></div>
+                </div>
+            )}
             <div className="form-group">
                 {alertMessage && (
                     <div className="customAlert">

@@ -2,9 +2,9 @@ import React from 'react';
 
 const Loading: React.FC = () => {
   return (
-    <div style={styles.loadingContainer}>
-      <div style={styles.spinner}></div>
-      <p style={styles.loadingText}>LOADING, please wait...</p>
+    <div style={styles.loadingContainer as React.CSSProperties}>
+      <div style={styles.spinner as React.CSSProperties}></div>
+      <p style={styles.loadingText as React.CSSProperties}>LOADING, please wait...</p>
       <style>{`
         @keyframes spin {
           0% { transform: rotate(0deg); }
@@ -16,7 +16,7 @@ const Loading: React.FC = () => {
 };
 
 // Inline CSS styles
-const styles: React.CSSProperties = {
+const styles = {
   loadingContainer: {
     display: 'flex',
     flexDirection: 'column',

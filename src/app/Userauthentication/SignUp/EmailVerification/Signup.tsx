@@ -58,7 +58,12 @@ export default function Home1() {
       return;
     }
     try {
+<<<<<<< HEAD:src/app/Userauthentication/SignUp/EmailVerification/Signup.tsx
       const emailCheckResponse = await fetch('https://userauthentication-rcfpsxcera-uc.a.run.app/signupapi/check-email/', {
+=======
+      // Check if the email is already in use
+      const emailCheckResponse = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/check-email/', {
+>>>>>>> 738fe1825f90a3ff57c13bdc244b2b82867e5673:src/app/Userauthentication/SignUp/EmailVerification/Signup.js
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +77,7 @@ export default function Home1() {
       }
 
       const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-      const response = await fetch('https://userauthentication-rcfpsxcera-uc.a.run.app/signupapi/generate-otp/', {
+      const response = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/generate-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,7 +149,7 @@ export default function Home1() {
     formDataToSend.append('user_password', newPassword);
 
     try {
-      const response = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/signupapi/register/', formDataToSend, {
+      const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/register/', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -175,7 +180,7 @@ export default function Home1() {
     try {
       const idToken = response.credential;
 
-      const backendResponse = await fetch('https://userauthentication-rcfpsxcera-uc.a.run.app/signupapi/google-signup/', {
+      const backendResponse = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/google-signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

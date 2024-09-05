@@ -1,68 +1,93 @@
-import React from 'react'
+import React from 'react';
 import Link from 'next/link';
-import ExtensionNavbar from './ExtensionNavbar'
-import { FaAppStoreIos } from "react-icons/fa"
-import { FaBrave } from "react-icons/fa6"
+import ExtensionNavbar from './ExtensionNavbar';
+import { FaAppStoreIos } from "react-icons/fa";
+import { FaBrave } from "react-icons/fa6";
+import styles from './page3.module.css'; // Import the new CSS module
 
 const Extension = () => {
   return (
-    <>
+    <div className={`${styles.container}`}>
       <ExtensionNavbar />
-      <div className="p-4 mt-40">
-        {/* Paragraphs */}
-        <div className="mb-4">
-          <p className="text-4xl font-semibold ml-6">Dupay Wallet</p>
+      <main className={styles.main}>
+        <div className={styles.header}>
+          <p className={styles.title}>Dupay Wallet</p>
         </div>
-        <div className="mb-12">
-          <p className="text-base pt-4 ml-6">
+        <div className={styles.subheader}>
+          <p className={styles.description}>
             Dupay Wallet is available as a mobile app and desktop browser extension.
           </p>
         </div>
 
-        {/* Card Structure */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <a href="https://apps.apple.com/" target="_blank" rel="noopener noreferrer" className="border p-4 rounded-lg shadow-lg h-64 bg-gray-50 pt-10 hover:scale-y-105">
-            <h3 className="text-4xl font-semibold mb-2">
+        <div className={styles.cardGrid}>
+          <a 
+            href="https://apps.apple.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.card}
+          >
+            <h3 className={styles.icon}>
               <FaAppStoreIos color="#007AFF" />
             </h3>
-            <p className='mt-4 text-xl pt-2'>Download For iOS</p>
-            <p className='mt-4 text-sm pt-2'>Get the Dupay wallet mobile app from the Appstore</p>
+            <p className={styles.cardTitle}>Download For iOS</p>
+            <p className={styles.cardDescription}>
+              Get the Dupay wallet mobile app from the Appstore
+            </p>
           </a>
+
           <Link href="/Userauthentication/SignUp/EmailVerification" passHref>
-            <div className="border p-4 rounded-lg shadow-lg h-64 bg-gray-50 pt-10 hover:scale-y-105">
-              <h3 className="text-4xl font-semibold mb-2">
+            <div className={styles.card}>
+              <h3 className={styles.icon}>
                 <img 
                   src='/images/playstore.png'   
                   alt='Descriptive Alt Text' 
-                  className='w-[40px] h-[40px] object-cover' 
+                  className={styles.image} 
                 />
               </h3>
-              <p className='mt-4 text-xl pt-2'>Download For Android</p>
-              <p className='mt-4 text-sm pt-2'>Get the Dupay wallet mobile app from the Playstore</p>
+              <p className={styles.cardTitle}>Download For Android</p>
+              <p className={styles.cardDescription}>
+                Get the Dupay wallet mobile app from the Playstore
+              </p>
             </div>
           </Link>
-          <a href="https://chrome.google.com/webstore/" target="_blank" rel="noopener noreferrer" className="border p-4 rounded-lg shadow-lg h-64 bg-gray-50 pt-10 hover:scale-y-105">
-            <h3 className="text-4xl font-semibold mb-2">
+
+          <a 
+            href="https://chrome.google.com/webstore/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.card}
+          >
+            <h3 className={styles.icon}>
               <img 
                 src='/images/chrome.png'   
                 alt='Descriptive Alt Text' 
-                className='w-[40px] h-[40px] object-cover' 
+                className={styles.image} 
               />
             </h3>
-            <p className='mt-4 text-xl pt-2'>Download for Chrome</p>
-            <p className='mt-4 text-sm pt-2'>Get the Dupay wallet extension from the Chrome web store</p>
+            <p className={styles.cardTitle}>Download for Chrome</p>
+            <p className={styles.cardDescription}>
+              Get the Dupay wallet extension from the Chrome web store
+            </p>
           </a>
-          <a href="https://brave.com/" target="_blank" rel="noopener noreferrer" className="border p-4 rounded-lg shadow-lg h-64 bg-gray-50 pt-10 hover:scale-y-105">
-            <h3 className="text-4xl font-semibold mb-2">
+
+          <a 
+            href="https://brave.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.card}
+          >
+            <h3 className={styles.icon}>
               <FaBrave color="#FB542B" />
             </h3>
-            <p className='mt-4 text-xl pt-2'>Download For Brave</p>
-            <p className='mt-4 text-sm pt-2'>Get the Dupay wallet extension from the Brave store</p>
+            <p className={styles.cardTitle}>Download For Brave</p>
+            <p className={styles.cardDescription}>
+              Get the Dupay wallet extension from the Brave store
+            </p>
           </a>
         </div>
-      </div>
-    </>
-  )
+      </main>
+    </div>
+  );
 }
 
-export default Extension
+export default Extension;

@@ -2,7 +2,7 @@
 import React from 'react';
 import ManagePrivacy from './ManagePrivacy';
 
-function ManagePrivacyPage() {  // Fixed typo here
+const ManagePrivacyPage: React.FC = () => {
   return (
     <div>
       <ManagePrivacy />
@@ -10,4 +10,4 @@ function ManagePrivacyPage() {  // Fixed typo here
   );
 }
 
-export default ManagePrivacyPage;  // Fixed typo here
+export default ManagePrivacyPage;

@@ -1,85 +1,154 @@
 .container {
-    position: relative;
-    bottom: 5px;
-    /* top: 1px; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: black;
-    color: white;
-    height: 100vh;
-    width: 400px;
-    padding: 20px;
-    margin: 0 auto;
+  position: relative;
+  bottom: 5px;
+  /* top: 1px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: white;
+  height: 100vh;
+  width: 400px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.backButton {
+  align-self: flex-start;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: -25px;
+}
+
+.progressBar {
+  width: 10%;
+  height: 4px;
+  background-color: blue;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-right: 60px;
+}
+
+.heading {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  position: relative;
+  right: 40px;
+
+  /* align-items: center; */
+  
+}
+
+.imageContainer {
+  margin-bottom: 10px;
+  margin-top: -15px;
+  
+}
+
+.imageContainer img {
+  width: 280px; /* Adjust based on your image size */
+  height: 180px;
+}
+
+.paragraph {
+  text-align: center;
+  margin-bottom: 0px;
+  color: gray;
+}
+
+.link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.continueButton {
+  background: linear-gradient(90deg, #007bff9f, #800080);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  height: 10%;
+  width: 85%;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
+
+}
+
+.continueButton:hover {
+  background-color: rgb(71, 126, 246);
+}
+
+
+
+
+.loaderContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  z-index: 2;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+
+.loader {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #ff007b, #007bff); 
+  animation: spin 1s linear infinite;
+  transform: rotate(45deg); 
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
+  border-radius: 12%; 
+}
+
+
+.loader::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(255, 0, 123, 0.3); 
+  border-radius: 15%;
+  animation: pulse 1.5s infinite ease-in-out;
+  z-index: -1;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(45deg); }
+  100% { transform: rotate(405deg); }
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  .backButton {
-    align-self: flex-start;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    margin-bottom: -25px;
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
   }
-  
-  .progressBar {
-    width: 10%;
-    height: 4px;
-    background-color: blue;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    margin-right: 60px;
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  .heading {
-    font-size: 28px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    position: relative;
-    right: 40px;
-  
-    /* align-items: center; */
-    
-  }
-  
-  .imageContainer {
-    margin-bottom: 10px;
-    margin-top: -15px;
-    
-  }
-  
-  .imageContainer img {
-    width: 280px; /* Adjust based on your image size */
-    height: 180px;
-  }
-  
-  .paragraph {
-    text-align: center;
-    margin-bottom: 0px;
-    color: gray;
-  }
-  
-  .link {
-    color: blue;
-    text-decoration: underline;
-  }
-  
-  .continueButton {
-    background: linear-gradient(90deg, #007bff9f, #800080);
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    height: 10%;
-    width: 85%;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-    font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
-  
-  }
-  
-  .continueButton:hover {
-    background-color: rgb(71, 126, 246);
-  }
-  
+}
