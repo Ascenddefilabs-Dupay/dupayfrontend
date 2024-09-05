@@ -82,11 +82,31 @@ body, html {
     height: 100vh;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    /* border: 1px solid #ddd; */
+    /* border-radius: 8px; */
     background-color: black;
     position: relative; /* Add this to position the loader within this container */
+    max-width: 100%;
+    max-height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
   }
+
+  /* for other devices*/
+@media (max-width: 1024px) {
+  .wallet-transaction {
+    width: 100%; 
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .wallet-transaction {
+
+    width: 100%; 
+  }
+}
+
   
   .loaderContainer {
     position: absolute;
