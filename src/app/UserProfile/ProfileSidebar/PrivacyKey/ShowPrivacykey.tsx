@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, MouseEvent } from 'react';
 import { Box, Button, Container, IconButton, InputAdornment, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
