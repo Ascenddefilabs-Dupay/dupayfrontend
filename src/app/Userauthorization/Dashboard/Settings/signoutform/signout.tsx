@@ -30,7 +30,7 @@ const SignOutDialog = () => {
             checked={isChecked} 
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="recoveryCheckbox">I've saved my recovery phrase.</label>
+          <label htmlFor="recoveryCheckbox">I&aposve saved my recovery phrase.</label>
         </div>
         <button className="sign-out-button" disabled={!isChecked}>Sign out now</button>
         <button className="go-back-button" onClick={handleGoBack}>Go back</button>

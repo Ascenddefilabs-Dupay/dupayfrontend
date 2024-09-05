@@ -1,22 +1,12 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;  
-    justify-content: center;
-    overflow: hidden;
-    margin: 0 auto;
-}
-  
 .display_card {
     width: 400px;
-    margin: 10px auto;
+    margin: auto;
     padding: 16px;
     background-color: black;
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     font-family: Arial, sans-serif;
     color: #fff;
-    height: 550px; 
+    height: 120vh; 
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
@@ -367,7 +357,7 @@
     cursor: pointer;
     color: #fff;
     min-height: 50px;
-    padding-bottom: 15px;
+    padding-bottom: 50px;
 }
 .displays_button3:hover {
     background-color: rgb(33, 36, 38);
@@ -395,3 +385,36 @@
 .tab_switch {
     margin-left: 10px; 
 }  
+
+
+@media (min-width: 768px) {
+    .display_card {
+        width: 100%; /* Adjust width for tablets and small laptops */
+        height: 100vh;
+        max-width: 400px;
+    }
+
+    .display_label, .display_header, .display_labels1, .display_labels2 {
+        font-size: 1.5rem;
+    }
+
+    .display_icon {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .display_card {
+        width: 100%; /* Adjust width for larger screens */
+        height: 100vh;
+        max-width: 400px;
+    }
+
+    .display_label, .display_header, .display_labels1, .display_labels2 {
+        font-size: 18px;
+    }
+
+    .display_icon {
+        font-size: 3rem;
+    }
+}
