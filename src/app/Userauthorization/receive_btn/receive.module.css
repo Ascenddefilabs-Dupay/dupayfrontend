@@ -3,12 +3,10 @@
     background-color: black;
     width:auto;
     max-width: 400px;
-    top: 2px;
     margin: 0 auto;
     color: white;
     height:auto;
     min-height: 100vh;
-    border-radius: 15px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;

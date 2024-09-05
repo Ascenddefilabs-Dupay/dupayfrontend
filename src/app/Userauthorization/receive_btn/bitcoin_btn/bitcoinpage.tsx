@@ -5,6 +5,9 @@ import { IoMdClose } from 'react-icons/io';
 import QRCode from 'qrcode.react';
 import Link from 'next/link';
 import styles from './bitcoinpage.module.css';
+import { redirect } from 'next/navigation';
+
+// const [userId, setUserId] = useState(null);
 
 // Define the types for the props and state
 interface BitcoinPageProps {}
@@ -17,6 +20,7 @@ const BitcoinPage: React.FC<BitcoinPageProps> = () => {
     const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
     const [activeTab, setActiveTab] = useState<'Segwit' | 'Legacy'>('Segwit');
 
+   
     useEffect(() => {
         // Retrieve query parameters on component mount
         const query = new URLSearchParams(window.location.search);
@@ -24,16 +28,22 @@ const BitcoinPage: React.FC<BitcoinPageProps> = () => {
         setAddress(addressParam);
     }, []);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-          // const storedUserId = localStorage.getItem('user_id');
-          // setUserId(storedUserId);
-          // setAlertMessage('User Need To Login')
-          // if (storedUserId === null) redirect('http://localhost:3000/');
-          // console.log(storedUserId)
-        //   console.log(userId);
-        }
-      }, []);
+    const [userId, setUserId] = useState<string | null>(null);
+    
+        useEffect(() => {
+            if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            // if (sessionDataString) {
+            //   const sessionData = JSON.parse(sessionDataString);
+            //   const storedUserId = sessionData.user_id;
+            //   setUserId( );
+            //   console.log(storedUserId);
+            //   console.log(sessionData.user_email);
+            // } else {
+            //   redirect('http://localhost:3000/Userauthentication/SignIn');
+            // }
+            }
+        }, []);
 
     const handleCopyClick = () => {
         if (address) {

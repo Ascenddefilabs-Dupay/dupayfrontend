@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Swal from 'sweetalert2';
 import styles from './Home.module.css';
 import { styled } from '@mui/material/styles';
+import { redirect } from 'next/navigation';
+
 // Dynamic imports
 const Headerbar = dynamic(() => import('./Headernavbar/headernavbar'), {
   loading: () => <div>Loading Header...</div>,
@@ -27,7 +29,10 @@ const IoMdSend = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdSe
 const IoMdWallet = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdWallet));
 const IoWallet = dynamic(() => import('react-icons/io5').then((mod) => mod.IoWallet));
 
-
+// interface UserProfileData {
+//   user_id: string;
+//   user_profile_photo?: string | { data: number[] };
+// }
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
   const [activeAction, setActiveAction] = useState('');
@@ -44,50 +49,63 @@ const Home = () => {
 
   const [isFiatTabSelected, setIsFiatTabSelected] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [userId, setUserId] = useState(null);
+  // const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
+  // const [userId, setUserId] = useState<string | null>(null);
+
+
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // const storedUserId = localStorage.getItem('user_id');
-      // setUserId(storedUserId);
-      // setAlertMessage('User Need To Login')
-      // if (storedUserId === null) redirect('http://localhost:3000/');
-      // console.log(storedUserId)
-      // console.log(userId)
+      const sessionDataString = window.localStorage.getItem('session_data');
+      // if (sessionDataString) {
+      //   const sessionData = JSON.parse(sessionDataString);
+      //   const storedUserId = sessionData.user_id;
+      //   setUserId( );
+      //   console.log(storedUserId);
+      //   console.log(sessionData.user_email);
+      // } else {
+      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      // }
     }
   }, []);
 
   const handleTabClick = async (tab: string) => {
     if (tab === 'Fiat') {
-      // Check if the fiatWalletId is empty
       if (!fiatWalletId) {
-        // Show registration alert first
+        // Show registration alert first with mobile screen dimensions and centered design
         const result = await Swal.fire({
-          title: 'You are not registered in Fiat',
-          text: 'Would you like to register?',
-          icon: 'warning',
+          title: 'Register for Fiat',
+          text: 'You are not registered in Fiat. Would you like to register?',
           showCancelButton: true,
           confirmButtonText: 'Yes, register',
-          cancelButtonText: 'No, thanks'
+          cancelButtonText: 'No, thanks',
+          customClass: {
+            popup: styles.mobilePopup, // Apply custom styles for mobile screen size
+            confirmButton: styles.confirmButton,
+            cancelButton: styles.cancelButton,
+          },
+          backdrop: 'rgba(0, 0, 0, 0.2)', // Dark gray backdrop with higher opacity
+          showClass: {
+            popup: styles.showPopupAnimation // Custom animation for showing the popup
+          },
+          hideClass: {
+            popup: styles.hidePopupAnimation // Custom animation for hiding the popup
+          }
         });
   
         if (result.isConfirmed) {
-          // Redirect to the fiat creation page if the user clicks "Yes, register"
-          setLoading(true); // Show loading text
+          setLoading(true); 
           setTimeout(() => {
             router.push('/FiatManagement/FiatWalletAccount/');
-            setLoading(false); 
-          }, 2000); 
+            setLoading(false);
+          }, 2000);
         } else {
-          // Ensure the Fiat dropdown remains visible if the user cancels registration
           setFiatDropdownVisible(true);
         }
       } else {
-        // If fiatWalletId exists, show the dropdown
         setFiatDropdownVisible(true);
       }
     } else {
-      // Close Fiat dropdown when switching to other tabs
       setFiatDropdownVisible(false);
     }
   
@@ -337,10 +355,10 @@ const handleButtonClick = (buttonName: string) => {
           </div>
         </div>
         <div className={styles.rightSection}>
-          <header className={styles.righttopicons}>
-            <Headerbar userId={userId} onCopyUserId={handleCopyUserId} />
-          </header>
-        </div>
+            <header className={styles.righttopicons}>
+                <Headerbar userId={userId} onCopyUserId={handleCopyUserId} />
+            </header>
+    </div>
       </div>
       <div className={styles.balance}>
           {(userId === fetchedUserId && fiatWalletId) ? (

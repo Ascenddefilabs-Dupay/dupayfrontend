@@ -1,7 +1,10 @@
 "use client";
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { MdOutlineCancel } from "react-icons/md";
 import React, { useState } from 'react';
+import { redirect } from 'next/navigation';
+
 
 // Define the type for your component's state if needed
 type CashoutProps = {};
@@ -9,6 +12,24 @@ type CashoutProps = {};
 const Cashout: React.FC<CashoutProps> = () => {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
+    
+
+    const [userId, setUserId] = useState<string | null>(null);
+
+      useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+        //   if (sessionDataString) {
+        //     const sessionData = JSON.parse(sessionDataString);
+        //     const storedUserId = sessionData.user_id;
+        //     setUserId(storedUserId);
+        //     console.log(storedUserId);
+        //     console.log(sessionData.user_email);
+        //   } else {
+        //     redirect('http://localhost:3000/Userauthentication/SignIn');
+        //   }
+        }
+      }, []);
 
     const handleBackClick = () => {
         setLoading(true); // Show loading text

@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Use next/navigation for routing
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faQrcode, faCopy, faPlus } from '@fortawesome/free-solid-svg-icons'; // Add faPlus for the Add icon
 import QrScanner from 'react-qr-scanner';
 import styles from './header.module.css';
+import { redirect } from 'next/navigation';
+
+
+
+
 
 interface HeadernavbarProps {
     userId: string;
@@ -13,6 +18,18 @@ interface HeadernavbarProps {
 const Headernavbar: React.FC<HeadernavbarProps> = ({ userId, onCopyUserId }) => {
     const [isScanning, setIsScanning] = useState<boolean>(false);
     const router = useRouter(); // Initialize useRouter
+
+    // const [userId, setUserId] = useState(null);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+        // const storedUserId = localStorage.getItem('user_id');
+        // setUserId(storedUserId);
+        // setAlertMessage('User Need To Login')
+        // if (storedUserId === null) redirect('http://localhost:3000/');
+        // console.log(storedUserId)
+        // console.log(userId)
+        }
+    }, []);
 
     const handleIconClick = (iconName: string) => {
         console.log(`${iconName} button clicked`);
