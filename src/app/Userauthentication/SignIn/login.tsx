@@ -1,51 +1,62 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
 import styles from './login.module.css';
 import Navbar from '../LandingPage/Navbar';
-import Cookies from 'js-cookie';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link'; 
+import Link from 'next/link';
 import UseSession from './hooks/UseSession';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+
+// Define types for the Google response
+interface GoogleResponse {
+  credential: string;
+}
+
+interface UserData {
+  user_id: string;
+  user_first_name: string;
+  user_email: string;
+  user_phone_number: string;
+  session_id: string;
+}
+
 export default function Login() {
   const router = useRouter();
-  const [heading, setHeading] = useState('Login');
+  const [heading, setHeading] = useState<string>('Login');
   const { isLoggedIn, userData, clearSession } = UseSession();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [otp, setOtp] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [loginMode, setLoginMode] = useState('password');
-  const [otpTimer, setOtpTimer] = useState(0);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [otp, setOtp] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loginMode, setLoginMode] = useState<'password' | 'otp'>('password');
+  const [otpTimer, setOtpTimer] = useState<number>(0);
 
   useEffect(() => {
-  const initializeGoogleSignIn = () => {
-    window.google.accounts.id.initialize({
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      callback: handleGoogleResponse,
-    });
-    window.google.accounts.id.renderButton(
-      document.getElementById("google-signin-button"),
-      { theme: "outline", size: "large" }
-    );
-  };
+    const initializeGoogleSignIn = () => {
+      if (typeof window !== 'undefined' && (window as any).google) {
+        (window as any).google.accounts.id.initialize({
+          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+          callback: handleGoogleResponse,
+        });
+        (window as any).google.accounts.id.renderButton(
+          document.getElementById("google-signin-button")!,
+          { theme: "outline", size: "large" }
+        );
+      } else {
+        const script = document.createElement("script");
+        script.src = "https://accounts.google.com/gsi/client";
+        script.async = true;
+        script.onload = initializeGoogleSignIn;
+        document.body.appendChild(script);
+      }
+    };
 
-  if (window.google) {
     initializeGoogleSignIn();
-  } else {
-    const script = document.createElement("script");
-    script.src = "https://accounts.google.com/gsi/client";
-    script.async = true;
-    script.onload = initializeGoogleSignIn;
-    document.body.appendChild(script);
-  }
-}, []);
+  }, []);
 
-
-  const handleGoogleResponse = async (response) => {
+  const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
       const res = await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/loginapi/google-login/', {
         token: response.credential,
@@ -64,11 +75,8 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    sessionStorage.setItem("user_id","DupC0003");
-    sessionStorage.setItem("wallet_id","Wa0000000003");
-
 
     if (loginMode === 'password') {
       try {
@@ -122,7 +130,7 @@ export default function Login() {
     }
   };
 
-  const LocalStorage = (user_id, user_first_name, user_email, user_phone_number, session_id) => {
+  const LocalStorage = (user_id: string, user_first_name: string, user_email: string, user_phone_number: string, session_id: string) => {
     const expirationDate = new Date();
     expirationDate.setMinutes(expirationDate.getMinutes() + 2);
 
@@ -136,7 +144,6 @@ export default function Login() {
     };
     localStorage.setItem('session_data', JSON.stringify(sessionData));
   };
-
 
   return (
     <div className={styles.container}>
@@ -152,7 +159,7 @@ export default function Login() {
       <main className={styles.main} style={{ marginTop: '80px' }}>
         {!isLoggedIn ? (
           <div className={styles.card}>
-            <h1 className={styles.title}>{heading}</h1> 
+            <h1 className={styles.title}>{heading}</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <label htmlFor="email">
@@ -161,7 +168,7 @@ export default function Login() {
                     type="email"
                     id="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     required
                     placeholder="Enter your Email"
                     disabled={loginMode === 'otp' && otpTimer > 0}
@@ -177,17 +184,20 @@ export default function Login() {
                         type={showPassword ? "text" : "password"}
                         id="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                         placeholder="Enter your password"
                         required
                         className={styles.passwordInput}
                       />
                       <i
                         className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} ${styles.eyeIcon}`}
-                        onClick={() => setShowPassword((prev) => !prev)}
+                        onClick={() => setShowPassword(prev => !prev)}
                       />
                     </div>
                   </label>
+                  <Link href="/Userauthentication/SignIn/ForgotPassword" className={styles.forgotPassword}>
+                    Forgot Password?
+                  </Link>
                 </div>
               )}
               {loginMode === 'otp' && (
@@ -209,54 +219,50 @@ export default function Login() {
                         type="text"
                         id="otp"
                         value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setOtp(e.target.value)}
                         required
                       />
                     </label>
                   </div>
                 </>
               )}
-              <div className={styles.checkboxContainer}>
-                {loginMode === 'password' && (
-                  <>
-                    <label htmlFor="rememberMe">
-                      <input
-                        type="checkbox"
-                        id="rememberMe"
-                        className={styles.checkbox}
-                      />
-                      Remember Me
-                    </label>
-                    <a href="/Userauthentication/SignIn/ForgotPassword" className={styles.forgotPassword}>Forgot Password?</a>
-                  </>
-                )}
+              <div className={styles.formGroup}>
+                <button type="submit" className={styles.button}>
+                  {loginMode === 'password' ? 'Login' : 'Verify OTP'}
+                </button>
               </div>
-              <button type="submit" className={styles.button}>
-                {loginMode === 'otp' ? 'Verify OTP' : 'Login'}
-              </button>
               {loginMode === 'password' && (
-                <>
+                <div className={styles.formGroup}>
                   <button
                     type="button"
                     className={styles.button}
-                    onClick={() => setLoginMode('otp')|| setHeading('Login with OTP')} 
+                    onClick={() => {
+                      setLoginMode('otp');
+                      setHeading('OTP Login');
+                      setOtp('');
+                    }}
                   >
                     Login with OTP
                   </button>
-                  <label className={styles.or}>or</label>
-                  <div className={styles.googleWrapper}>
-                    <div id="google-signin-button" className={styles.googleButton}></div>
-                  </div>
-                </>
+                </div>
+              )}
+              {loginMode === 'password' && (
+                <div id="google-signin-button" />
               )}
             </form>
+            <p className={styles.text}>
+              Don't have an account? <Link href="/Userauthentication/SignUp">Sign Up</Link>
+            </p>
           </div>
         ) : (
           <div className={styles.card}>
-            <h1 className={styles.title}>Welcome, {userData.user_first_name}!</h1>
-            <p>Email: {userData.user_email}</p>
-            <p>Phone: {userData.user_phone_number}</p>
-            <p>session_id:{userData.session_id}</p>
+            {/* <h1 className={styles.title}>Welcome back, {userData.user_first_name}</h1> */}
+            <button
+              onClick={clearSession}
+              className={styles.button}
+            >
+              Logout
+            </button>
           </div>
         )}
       </main>
