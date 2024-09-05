@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './FiatWalletForm.module.css';
@@ -37,20 +38,23 @@ export default function FiatWalletForm() {
   const [selectedCurrency, setSelectedCurrency] = useState<SingleValue<CurrencyOption>>({ value: 'INR', label: 'INR' });
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
-  const { isLoggedIn, userData } = UseSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoggedIn) {
-      setUserId(userData?.user_id || null);
-
-    } else {
-      console.log('User is not logged in');
-      // router.push('/Userauthentication/SignIn')
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+ 
+      } else {
+        // router.push('http://localhost:3000/Userauthentication/SignIn')
+      }
     }
-    console.log(userId);
-  }, [isLoggedIn, userData]);
-  // const userId="DupC001";
+  }, []);
 
   const validateFields = (): boolean => {
     const newError: ErrorState = {};

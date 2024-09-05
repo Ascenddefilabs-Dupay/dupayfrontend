@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Select, { SingleValue, StylesConfig } from 'react-select';
@@ -80,11 +81,21 @@ const WithdrawForm: React.FC = () => {
     setShowForm(true);
 };
 
-    useEffect(() => {
-        if (!isLoggedIn) {
-            // router.push('http://localhost:3000/Userauthentication/SignIn');
-        }
-    }, [isLoggedIn]);
+useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        // setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+ 
+      } else {
+        router.push('http://localhost:3000/Userauthentication/SignIn')
+      }
+    }
+  }, []);
 
     const currencySymbols: Record<string, string> = {
         INR: '₹',
@@ -97,7 +108,7 @@ const WithdrawForm: React.FC = () => {
 
     useEffect(() => {
         if (!isAuthenticated) {
-            router.push('Userauthentication/login');
+            router.push('/Userauthentication/SignIn');
         }
     }, [isAuthenticated, router]);
 

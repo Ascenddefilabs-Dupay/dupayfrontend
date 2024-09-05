@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, KeyboardEvent } from 'react';
 import axios from 'axios';
 import Select, { SingleValue } from 'react-select';
@@ -22,13 +23,22 @@ interface CurrencyOption {
 const MyWallet: React.FC = () => {
     const router = useRouter();
     const [showLoader, setShowLoader] = useState(false);
-    const { isLoggedIn } = UseSession();
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            // router.push('http://localhost:3000/Userauthentication/SignIn');
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            // setUserId(storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+     
+          } else {
+            router.push('http://localhost:3000/Userauthentication/SignIn')
+          }
         }
-    }, [isLoggedIn]);
+      }, []);
 
     // Define the shape of the balances state
     const [balances, setBalances] = useState<Record<string, number>>({
