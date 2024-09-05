@@ -69,13 +69,6 @@ const NavItem = styled('li')({
   margin: '2.5rem 0',
 });
 
-const NavLink = styled(Link)({
-  color: '#FFFFFF',
-  textDecoration: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  '&:hover': {},
-});
 
 const Arrow = styled(ArrowForwardIos)({
   marginLeft: 'auto',
@@ -97,7 +90,14 @@ const FooterItem = styled('div')({
   color: '#FFFFFF',
   cursor: 'pointer',
 });
-
+const NavLink = styled(Link)({
+  color: '#FFFFFF',
+  textDecoration: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%', // Ensure it takes full width
+  justifyContent: 'space-between',
+});
 const container = {
   display: 'flex',
   justifyContent: 'center',
@@ -162,7 +162,7 @@ const ManageProfile: React.FC = () => {
               <NavLink href="/UserProfile/EditProfile">
                 Edit Profile Details
                 <Arrow
-                  style={{ fontSize: '1rem', marginLeft: '180px' }} // Add margin-left to create space
+                  style={{ fontSize: '1rem', marginLeft: '100px' }} // Add margin-left to create space
                   onClick={() => router.push('/UserProfile/EditProfile')}
                 />
               </NavLink>
@@ -171,7 +171,7 @@ const ManageProfile: React.FC = () => {
               <NavLink href="/UserProfile/ManagePrivacy">
                 Manage Privacy
                 <Arrow
-                  style={{ fontSize: '1rem', marginLeft: '195px' }} // Add margin-left to create space
+                  style={{ fontSize: '1rem', marginLeft: '100px' }} // Add margin-left to create space
                   onClick={() => router.push('/UserProfile/ManagePrivacy')}
                 />
               </NavLink>
@@ -180,7 +180,7 @@ const ManageProfile: React.FC = () => {
               <NavLink href="/UserProfile/ViewProfile">
                 View Your Profile
                 <Arrow
-                  style={{ fontSize: '1rem', marginLeft: '190px' }} // Add margin-left to create space
+                  style={{ fontSize: '1rem', marginLeft: '100px' }} // Add margin-left to create space
                   onClick={() => router.push('/UserProfile/ViewProfile')}
                 />
               </NavLink>

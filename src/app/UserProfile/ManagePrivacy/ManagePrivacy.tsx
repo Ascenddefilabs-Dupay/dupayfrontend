@@ -177,12 +177,13 @@ const ManagePrivacy: React.FC = () => {
             <Link href="/UserProfile">
             <BackArrow />
             </Link>
-        </header>
-        <Box display="flex" justifyContent="flex-start" width="100%">
+            <Box display="flex" justifyContent="flex-start" width="100%">
             <Typography variant="h5" gutterBottom>
                 Manage Privacy
             </Typography>
         </Box>
+        </header>
+        
         <Box sx={stylesObject.privacyOptions}>
             <Card
                 style={{ ...stylesObject.privacyCard, ...(isPublic ? stylesObject.active : {}) }}
