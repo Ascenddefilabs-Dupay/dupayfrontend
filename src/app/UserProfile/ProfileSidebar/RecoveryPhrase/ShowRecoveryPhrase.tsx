@@ -32,7 +32,13 @@ const ShowRecoveryPhrase: React.FC = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
   };
-
+  const stylesObject = {
+    header: {
+      display: 'flex',
+      alignItems: 'center',
+      width: '100%',
+      marginBottom: '1rem',
+    }};
   const BackArrow = styled(FaArrowLeft)({
     cursor: 'pointer',
     color: '#FFFFFF',
@@ -58,12 +64,16 @@ const ShowRecoveryPhrase: React.FC = () => {
           </div>
         )}
         <Container component="main" className={styles.mainContent}>
-          <IconButton color="inherit" href="/UserProfile/ProfileSidebar">
-            <BackArrow style={{ position: 'relative', right: '10px' }} className={styles.footerIcon} />
-          </IconButton>
-          <Typography variant="h6" sx={{ mt: 3, mb: 1 }}>
+        <header style={stylesObject.header}>
+            <Link href="/UserProfile/ProfileSidebar">
+            <BackArrow />
+            </Link>
+            <Box display="flex" justifyContent="flex-start" width="100%">
+            <Typography variant="h5" gutterBottom>
             Show Recovery Phrase
-          </Typography>
+            </Typography>
+        </Box>
+        </header>
           <Typography variant="body2" sx={{ mb: 3 }}>
             Enter your password to show your recovery phrase. Turn off screen sharing. Dont share it with anyone.
           </Typography>
