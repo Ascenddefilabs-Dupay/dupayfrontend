@@ -35,12 +35,12 @@ export default function Login() {
 
   useEffect(() => {
     const initializeGoogleSignIn = () => {
-      if (typeof window !== 'undefined' && (window as any).google) {
-        (window as any).google.accounts.id.initialize({
+      if (window.google) {
+        window.google.accounts.id.initialize({
           client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
           callback: handleGoogleResponse,
         });
-        (window as any).google.accounts.id.renderButton(
+        window.google.accounts.id.renderButton(
           document.getElementById("google-signin-button")!,
           { theme: "outline", size: "large" }
         );
@@ -48,32 +48,44 @@ export default function Login() {
         const script = document.createElement("script");
         script.src = "https://accounts.google.com/gsi/client";
         script.async = true;
-        script.onload = initializeGoogleSignIn;
+        script.onload = () => {
+          if (window.google) {
+            window.google.accounts.id.initialize({
+              client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+              callback: handleGoogleResponse,
+            });
+            window.google.accounts.id.renderButton(
+              document.getElementById("google-signin-button")!,
+              { theme: "outline", size: "large" }
+            );
+          }
+        };
         document.body.appendChild(script);
       }
     };
 
     initializeGoogleSignIn();
   }, []);
-
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
-      const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
-        token: response.credential,
-      });
+        const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/google-login/', {
+            token: response.credential,
+        });
 
-      if (res.status === 200) {
-        const { user_id, user_first_name, user_email, user_phone_number, session_id } = res.data;
-        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
-        alert('Logged in successfully with Google');
-        window.location.href = '/KycVerification/PersonalDetails';
-      } else {
-        alert('Google login failed.');
-      }
+        if (res.status === 200) {
+            const { user_id, user_first_name, user_email, user_phone_number, session_id } = res.data;
+            LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
+            alert('Logged in successfully with Google');
+            window.location.href = '/KycVerification/PersonalDetails';
+        } else {
+            alert('Google login failed.');
+        }
     } catch (error) {
-      alert('Error during Google login.');
+        console.error('Error during Google login:', error);
+        alert('Error during Google login.');
     }
-  };
+};
+
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
