@@ -1,16 +1,30 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { IconButton } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faEllipsisV, faChevronLeft, faChevronRight, faHome, faClock, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './bookmark.module.css';
+import { redirect } from 'next/navigation';
+
 
 const Buypage = () => {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
+  // const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // const storedUserId = localStorage.getItem('user_id');
+      // setUserId(storedUserId);
+      // setAlertMessage('User Need To Login')
+      // if (storedUserId === null) redirect('http://localhost:3000/');
+      // console.log(storedUserId)
+      // console.log(userId)
+    }
+  }, []);
+
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);

@@ -178,7 +178,7 @@ export default function Home1() {
     try {
       const idToken = response.credential;
 
-      const backendResponse = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/google-signup/', {
+      const backendResponse = await fetch('http://127.0.0.1:8000//signupapi/google-signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

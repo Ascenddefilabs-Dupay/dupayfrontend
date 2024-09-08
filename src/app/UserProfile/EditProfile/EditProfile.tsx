@@ -74,12 +74,15 @@ const StyledContainer = styled(Box)({
   flexDirection: 'column',
   alignItems: 'flex-start',
   backgroundColor: '#000000',
+  borderRadius: '0px',
   color: '#FFFFFF',
   width: '428px',
+  height: 'auto',
   minHeight: '130vh',
+  overflowY: 'auto',
+  scrollbarWidth: 'none', // For Firefox
   padding: '20px',
-  margin: '0 auto',
-  boxSizing: 'border-box',
+  margin:'0 auto',
 });
 
 const ProfileWrapper = styled(Box)({
@@ -102,7 +105,19 @@ const ProfileImage = styled(Avatar)({
   width: '100%',
   height: '100%',
 });
-
+const stylesObject = {
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: '1rem',
+  }};
+const BackArrow = styled(FaArrowLeft)({
+    cursor: 'pointer',
+    color: '#FFFFFF',
+    fontSize: '1.0rem', // Adjust size as needed
+    marginRight: '1rem', // Adjust spacing from the text
+  });
 const UploadInput = styled('input')({
   display: 'none',
 });
@@ -120,15 +135,15 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
-      if (sessionDataString) {
-        const sessionData = JSON.parse(sessionDataString);
-        const storedUserId = sessionData.user_id;
-        setUserId(storedUserId);
-        console.log(storedUserId);
-        console.log(sessionData.user_email);
-      } else {
-        redirect('http://localhost:3000/Userauthentication/SignIn');
-      }
+      // if (sessionDataString) {
+      //   const sessionData = JSON.parse(sessionDataString);
+      //   const storedUserId = sessionData.user_id;
+      //   setUserId(storedUserId);
+      //   console.log(storedUserId);
+      //   console.log(sessionData.user_email);
+      // } else {
+      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      // }
     }
   }, []);
 
@@ -215,12 +230,16 @@ const UserProfile: React.FC = () => {
   return (
     <div>
       <StyledContainer>
-        <header style={styles.header}>
-          <Link href="/UserProfile">
-            <FaArrowLeft style={styles.backArrow} />
-          </Link>
+        <header style={stylesObject.header}>
+            <Link href="/UserProfile">
+            <BackArrow />
+            </Link>
+            <Box display="flex" justifyContent="flex-start" width="100%">
+            <Typography variant="h5" gutterBottom>
+            Edit profile details
+            </Typography>
+        </Box>
         </header>
-        <Typography variant="h6" style={styles.manage}>Edit profile details</Typography>
         <Typography variant="body1" style={{ ...styles.description, marginLeft: '1px' }} gutterBottom>
           Your profile is private. You can make it public in <span style={styles.recommended}>Manage privacy</span>. All fields are optional.
         </Typography>
