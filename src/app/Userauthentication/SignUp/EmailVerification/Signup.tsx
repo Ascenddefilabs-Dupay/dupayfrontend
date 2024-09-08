@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+
+
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -204,8 +206,10 @@ export default function Home1() {
   };
 
   return (
+    
     <GoogleOAuthProvider clientId={CLIENT_ID}>
       <div className={styles.container}>
+
         <div className={styles.formWrapper}>
           <h1 className={styles.title}>Signup</h1>
           <div className={styles.formContent}>
@@ -310,12 +314,18 @@ export default function Home1() {
                 <button type="submit" className={styles.submitButton}>Register</button>
               </form>
             )}
-
+            <div className={styles.googleButtonWrapper}>
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               // onError={handleGoogleFailure}
               // logo
             />
+          </div>
+          <div className={styles.signInLinkWrapper}>
+                  <Link href="/Userauthentication/SignIn" className={styles.signInLink}>
+                    Already have an account? Sign In
+                  </Link>
+          </div>
           </div>
         </div>
       </div>

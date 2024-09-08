@@ -227,3 +227,28 @@
   margin-bottom: 2px;
   
 }
+
+@media (max-width: 768px) {
+
+  .formWrapper {
+    width: 100%; /* Make card fill the entire width */
+    height: 100%; /* Make card fill the entire height */
+    max-width: none; /* Remove max-width to allow flexibility */
+    padding: 5rem; /* Reduce padding on smaller screens */
+    margin: 0; /* Remove any margin */
+    border-radius: 0; /* Remove border-radius for full screen look */
+    box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+  }
+}
+@media (max-width: 480px) {
+
+  .formWrapper {
+    width: 100%; /* Make card fill the entire width */
+    height: 100%; /* Make card fill the entire height */
+    max-width: none; /* Remove max-width to allow flexibility */
+    padding: 3rem; /* Reduce padding on smaller screens */
+    margin: 0; /* Remove any margin */
+    border-radius: 0; /* Remove border-radius for full screen look */
+    box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+  }
+}
