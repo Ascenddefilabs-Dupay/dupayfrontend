@@ -1,143 +1,159 @@
 .html, .body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-  .main {
-    min-height: 100vh; /* Full viewport height */
-    padding-top: 5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    background-color: black;
-    color: white;
-    
-  }
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.main {
+  min-height: 100vh; /* Full viewport height */
+  padding-top: 5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: black;
+  color: white;
   
-  .welcome {
-    margin-bottom: 1.5rem;
-    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
-  }
-  
-  .heading {
-    margin-top: 1rem;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .accountType {
-    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
-    margin-bottom: 1.25rem;
-  }
-  
-  .subheading {
-    
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-  
-  .accountOptions {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-  
-  @media (min-width: 768px) {
-    .accountOptions {
-      flex-direction: row;
-    }
-  }
-  
-  .accountColumn {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    width: 100%;
-  }
-  
-  @media (min-width: 768px) {
-    .accountColumn {
-      width: 50%;
-    }
-  }
-  
-  .accountCard {
-    background-color: #333;
-    color: white;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-    height: 8rem;
-  }
-  .cardcontent{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-style: italic;
-  }
-  .activeCard {
-    border-color: #007bff;
-  }
-  
-  .cardTitle {
-    font-family: Arial, sans-serif;
-    font-size: 1.125rem;
-    font-weight: 600;
-  }
-  
-  .accountDetails {
-    font-family: Arial, sans-serif;
-    margin-top: 1.25rem;
-  }
-  
-  @media (min-width: 768px) {
-    .accountDetails {
-      margin-top: 0;
-      margin-left: 0.5rem;
-      flex-grow: 1;
-      max-width: 100%;
-    }
-  }
-  
-  .detailTitle {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .detailSubtitle {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .detailText {
-    margin-bottom: 0.5rem;
-  }
-  
-  .getStarted {
-    margin-top: 2rem;
+}
 
+.welcome {
+  margin-bottom: 1.5rem;
+  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+}
+
+.heading {
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.accountType {
+  font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+  margin-bottom: 1.25rem;
+}
+
+.subheading {
   
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.accountOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .accountOptions {
+    flex-direction: row;
   }
+}
+
+.accountColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .accountColumn {
+    width: 50%;
+  }
+}
+
+.IndividualaccountCard {
+  background-color: #333;
+  color: white;
+  border: 1px solid #ccc;
+
+  border-radius: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  height: 8rem;
+}
+.VendoraccountCard {
+  background-color: #333;
+  color: white;
+  border: 1px solid #ccc;
   
+  border-radius: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  height: 9.5rem;
+}
+.cardcontent{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: italic;
+ 
+}
+.activeCard {
+  border-color: #007bff;
+  padding:20px;
+  
+  
+
+}
+
+.cardTitle {
+  font-family: Arial, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.accountDetails {
+  font-family: Arial, sans-serif;
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .accountDetails {
+    margin-top: 0;
+    margin-left: 0.5rem;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+}
+
+.detailTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.detailSubtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.detailText {
+  margin-bottom: 0.5rem;
+}
+
+.getStarted {
+  margin-top: 2rem;
+
+
+}
+
+.getStartedButton {
+  background: linear-gradient(to right, #007bff9f, #800080);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
   .getStartedButton {
-    background: linear-gradient(to right, #007bff9f, #800080);
-    color: white;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
+    width: auto;
   }
-  
-  @media (min-width: 768px) {
-    .getStartedButton {
-      width: auto;
-    }
-  }
-  
-  .getStartedButton:hover {
-    background-color: #005bb5;
-  }
-  
+}
+
+.getStartedButton:hover {
+  background-color: #005bb5;
+}

@@ -168,7 +168,7 @@ export default function Login() {
 
       <Navbar />
 
-      <main className={styles.main} style={{ marginTop: '80px' }}>
+      <main className={styles.main} >
         {!isLoggedIn ? (
           <div className={styles.card}>
             <h1 className={styles.title}>{heading}</h1>
@@ -256,14 +256,15 @@ export default function Login() {
                   >
                     Login with OTP
                   </button>
+                  
                 </div>
               )}
               {loginMode === 'password' && (
-                <div id="google-signin-button" />
+                <div id="google-signin-button" className={styles.googleWrapper}/>
               )}
             </form>
             <p className={styles.text}>
-              Don't have an account? <Link href="/Userauthentication/SignUp">Sign Up</Link>
+            <Link href="/Userauthentication/SignUp/EmailVerification" className={styles.signupLink}> New user? Sign up</Link>
             </p>
           </div>
         ) : (
