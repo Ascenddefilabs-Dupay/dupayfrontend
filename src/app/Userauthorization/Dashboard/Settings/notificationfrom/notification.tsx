@@ -27,7 +27,7 @@ const Notification = () => {
         setNotificationSettings(updatedSettings);
 
         try {
-            await axios.post('http://localhost:8000/api/notification/', updatedSettings, {
+            await axios.post('http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/notification/', updatedSettings, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

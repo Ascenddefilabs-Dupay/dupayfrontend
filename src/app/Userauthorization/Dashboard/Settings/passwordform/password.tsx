@@ -17,7 +17,7 @@ const Password = () => {
             
             if (newPasscode.length === 6) {
                 try{
-                    const response = await axios.post('http://localhost:8000/api/password/', {
+                    const response = await axios.post('http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/password/', {
                         password_creation : newPasscode,
                     });
                 }

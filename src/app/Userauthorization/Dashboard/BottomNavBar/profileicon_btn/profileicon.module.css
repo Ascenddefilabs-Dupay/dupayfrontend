@@ -122,7 +122,6 @@
 .viewprofileButton,
 .manageWalletsButton {
     font-weight: bold;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -171,8 +170,6 @@
 }
 
 .card {
-    /* background: linear-gradient(90deg, #007bff9f, #800080); */
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: white;
     width: 350px;
     margin-left: -10px;

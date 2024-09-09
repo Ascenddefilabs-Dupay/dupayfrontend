@@ -235,7 +235,6 @@
   }
   
   .actionButton {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: #ffffff;
     padding: 10px;
     border-radius: 50%;
@@ -324,7 +323,6 @@
   }
   
   .addCryptoButton {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -356,7 +354,6 @@
     font-weight: bold;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif; 
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: #ffffff;
     border: rgb(253, 244, 244);
     padding: 10px 20px;
@@ -444,7 +441,6 @@
     margin-top: -5px;
     align-items: center;
     font-weight: bold;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -462,7 +458,6 @@
   
   .manageWalletsButton {
     font-weight: bold;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -539,7 +534,6 @@
   }
   
   .walletButton {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     padding-top: 10px;
     border-radius: 50%;
     height: 60px;
