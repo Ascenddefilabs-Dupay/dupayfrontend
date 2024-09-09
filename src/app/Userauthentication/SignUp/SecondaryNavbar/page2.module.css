@@ -48,7 +48,7 @@
   }
   
   .button {
-    background: linear-gradient(to right, rgba(0, 123, 255, 0.62), #800080);
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: white;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
