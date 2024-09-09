@@ -1,9 +1,12 @@
 .container {
     position: relative;
+    height: 100vh;
+    max-height: auto;
+    width: 400px;
+    max-width: 100%;
     bottom: 45px;
     top: 0;
     background-color: black;
-    height: 100vh;
     color: white;
     display: flex;
     padding-top: 10px;
@@ -11,7 +14,6 @@
     padding-right: 10px;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 400px;
     margin: 0 auto;
     overflow: hidden; 
 }
@@ -22,6 +24,14 @@
 
     }
   }
+
+  @media (min-width: 360px) and (max-width: 414px) {
+    .container {
+        width: 100%;
+        padding: 5px;
+      }
+  }
+
 
 .emailBar {
     background-color: black;
@@ -112,7 +122,7 @@
 .viewprofileButton,
 .manageWalletsButton {
     font-weight: bold;
-    background: linear-gradient(90deg, #007bff9f, #800080);
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -161,7 +171,8 @@
 }
 
 .card {
-    background: linear-gradient(90deg, #007bff9f, #800080);
+    /* background: linear-gradient(90deg, #007bff9f, #800080); */
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: white;
     width: 350px;
     margin-left: -10px;

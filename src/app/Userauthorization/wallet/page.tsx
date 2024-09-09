@@ -1,10 +1,10 @@
 import React from 'react';
-import Cryptowallet from './cryptowallet';
+import Wallet from './wallet'
 
 const page = () => {
   return (
     <div>
-      <Cryptowallet />
+        <Wallet />
     </div>
   )
 }

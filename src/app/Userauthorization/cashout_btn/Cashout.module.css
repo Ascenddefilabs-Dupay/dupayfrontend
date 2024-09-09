@@ -1,0 +1,223 @@
+/* Container for the entire component */
+.container {
+    background-color: black;
+    height: 100vh;
+    max-height: auto;
+    width: 400px;
+    max-width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    box-sizing: border-box;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    margin: 0 auto; /* Center align the container */
+    overflow: hidden; /* Ensure no overflow issues */
+}
+
+/* Style for the cancel icon */
+.cancelIcon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Heading style */
+.heading {
+    margin-top: 60px;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Image container */
+.imageContainer {
+    margin-top: 40px;
+}
+
+/* Responsive image */
+.image {
+    height: auto;
+    max-height: 150px; /* Adjusted size for better fit */
+    width: 100%;
+    object-fit: contain; /* Ensure the image scales correctly */
+}
+
+/* Text container for the redirect message */
+.textContainer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Footer text style */
+.footerText {
+    color: gray;
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+/* Button style */
+.button {
+    padding: 12px;
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    width: 90%;
+    max-width: 300px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* Loader container */
+.loaderContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7); /* Adjusted for better visibility */
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    z-index: 2;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Loader animation */
+.loader {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff007b, #007bff);
+    border-radius: 12%;
+    animation: spin 1s linear infinite;
+    transform: rotate(45deg);
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
+}
+
+/* Keyframes for the spin animation */
+@keyframes spin {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1440px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+    .heading {
+        font-size: 1.5rem;
+    }
+    .image {
+        max-height: 130px;
+    }
+    .footerText {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+    .heading {
+        font-size: 1.4rem;
+    }
+    .image {
+        max-height: 120px;
+    }
+    .footerText {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .cancelIcon {
+        font-size: 20px;
+        top: 10px;
+        right: 10px;
+    }
+    .heading {
+        font-size: 1.25rem;
+    }
+    .image {
+        max-height: 100px;
+    }
+    .footerText {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .cancelIcon {
+        font-size: 18px;
+        top: 5px;
+        right: 5px;
+    }
+    .heading {
+        font-size: 1rem;
+    }
+    .image {
+        max-height: 80px;
+    }
+    .footerText {
+        font-size: 0.6rem;
+    }
+}
+
+/* Additional media queries for tablets and large screens */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        width: 100%;
+        max-width: 600px;
+    }
+    .heading {
+        font-size: 1.4rem;
+    }
+    .image {
+        max-height: 120px;
+    }
+    .footerText {
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .container {
+        width: 100%;
+        max-width: 400px;
+    }
+    .heading {
+        font-size: 1.5rem;
+    }
+    .image {
+        max-height: 130px;
+    }
+    .footerText {
+        font-size: 0.75rem;
+    }
+}
