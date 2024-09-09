@@ -3,8 +3,8 @@
     background-color: black;
     width:auto;
     max-width: 400px;
-    height:auto;
-    max-height: 120vh;
+    height:100vh;
+    max-height: auto;
     margin: 0 auto;
     color: white;
     display: flex;
@@ -191,6 +191,8 @@
 }
 
 .buyButtonDiv {
+    position: relative;
+    bottom: 10px;
     cursor: pointer;
 }
 .loaderContainer {
@@ -298,9 +300,16 @@
 
 /* Responsive adjustments */
 
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 430px) {
     .container {
-        padding: 10px; /* Smaller padding for mobile */
+        max-width: auto;
+        min-width: 400px;
+        height:auto;
+        min-height: 100vh;
+        max-height: auto;
+        overflow: hidden;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .heading {
