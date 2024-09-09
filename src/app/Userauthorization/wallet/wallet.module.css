@@ -46,33 +46,34 @@
 .buttonContainer {
     align-items: center;
     justify-content: center;
-    display: flex;
+    /* display: flex; */
     gap: 20px; /* Space between buttons */
     margin-top: 20px;
 }
 
 .button {
-    width: 80px; /* Increased size for better visibility */
-    height: 80px; /* Increased height to fit text below the icon */
+    position: relative;
+    left: 70px;
+    width: 200px; /* Increased size for better visibility */
+    height: 100px; /* Increased height to fit text below the icon */
     background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: white;
-    border-radius: 50%;
+    /* border-radius: 8%; */
     display: flex;
     flex-direction: column; /* Stack children vertically */
     align-items: center;
     justify-content: center;
-    font-size: 12px; /* Adjusted font size */
+    font-size: 16px; /* Adjusted font size */
     text-align: center;
     cursor: pointer;
-    border: none;
+    /* border: 1px solid white; */
+    border-radius: 8px;
     outline: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 10px; /* Added padding */
+    margin-bottom: 30px;
 }
 
-.button:hover {
-    background: linear-gradient(90deg, #0056b3, #800080); /* Adjusted hover effect */
-}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

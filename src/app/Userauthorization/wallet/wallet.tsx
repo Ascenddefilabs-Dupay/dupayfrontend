@@ -47,6 +47,7 @@ const Wallet: React.FC = () => {
     };
 
     const handleMyWalletClick = () => {
+        router.push('/FiatManagement/MyWallet')
         setFiatDropdownVisible(prev => !prev);
     };
 
@@ -84,11 +85,11 @@ const Wallet: React.FC = () => {
                         </div>
                         <div className={styles.buttonContainer}>
                             <button className={styles.button} onClick={handleCreateWalletClick}>
-                                <div><IoWallet size={24} /></div>
+                                <div><IoWallet size={28} /></div>
                                 <div>Create Wallet</div>
                             </button>
                             <button className={styles.button} onClick={handleMyWalletClick}>
-                                <div><IoMdWallet size={24} /></div>
+                                <div><IoMdWallet size={28} /></div>
                                 <div>My Wallet</div>
                             </button>
                         </div>
@@ -101,7 +102,7 @@ const Wallet: React.FC = () => {
                                         <div style={{ display: 'flex' }}>
                                             <div>Fiat Wallet</div>
                                             <div className={styles.walleticon}>
-                                                <button onClick={() => handleNavigation('/Userauthorization/FiatManagement/MyWallet')}>
+                                                <button onClick={() => handleNavigation('/FiatManagement/MyWallet')}>
                                                     <IoWallet style={{ fontSize: '23px' }} />
                                                 </button>
                                             </div>
