@@ -1,33 +1,51 @@
 .container {
     position: relative;
-    bottom: 40px;
-    top: 0;
-    background-color: black;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
     max-height: auto;
     width: 400px;
     max-width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
     margin: 0 auto;
+    padding: 20px;
+    bottom: 40px;
+    background-color: black;
+    top: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden; /* Hides horizontal scrolling */
+    overflow-y: hidden; /* Hides vertical scrolling */
+    box-sizing: border-box;
     
   }
   @media (max-width: 1024px), (max-width: 768px) {
     .container {
       width: 100%;
-
+      padding: 20px;
     }
   }
 
-  @media (max-width: 360px) {
-    .container {
-      width: 100%;
-
-    }
+ 
+/* For screens with width between 375px and 414px */
+@media (min-width: 360px) and (max-width: 414px) {
+  .container {
+    padding-top: 30px;
+    /* padding: 20px; Slightly larger padding for larger mobile screens */
   }
+
+  .navbar {
+    width: 60%; /* Keep some padding on the sides */
+    padding: 0 0px;
+  }
+  .iconButton {
+    background: none;
+    border: none;
+    color: white;
+    left: 20px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+}
+  
   
   .navbar {
     display: flex;
@@ -59,7 +77,26 @@
     color: white;
     margin-left: 10px;
   }
-  
+  @media (max-width: 1024px) {
+    .container {
+        width: 100%;
+        padding: 5px; /* Adjust padding for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 5px;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 414px) {
+    .container {
+        width: 100%;
+        padding: 5px;
+    }
+}
   
   .iconButton {
     background: none;
@@ -78,7 +115,21 @@
     margin: 0 10px;
     color: rgb(255, 255, 255);
   }
-  
+  .globe{
+     position: relative;
+     left: 10px;
+  }
+  .plus{
+    position: 'relative';
+    left: 10px;
+    margin-left: 10px;
+    color: white;
+    font-size: 14px 
+  }
+  .EllipsisV{
+    position: relative;
+    left: 20px; 
+  }
   .tabs {
     display: flex;
     align-items: center;

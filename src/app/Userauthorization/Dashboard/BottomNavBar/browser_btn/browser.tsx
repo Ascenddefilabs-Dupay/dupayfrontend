@@ -118,15 +118,15 @@ const Browser = () => {
         </form>
         <div className={styles.iconButton}>
           <button>
-            <FontAwesomeIcon icon={faGlobe} style={{ position: 'relative', left: '10px' }} />
+            <FontAwesomeIcon icon={faGlobe} className={styles.globe} />
           </button>
         </div>
         <div className={styles.tabs} onClick={handleOpenNewTab}>
-          <FontAwesomeIcon icon={faPlus} style={{ position: 'relative', left: '10px', color: 'white', fontSize: '14px' }} />
-          <span className={styles.tabCount} style={{ position: 'relative', left: '10px' }}>{tabCount}</span>
+          <FontAwesomeIcon icon={faPlus} className={styles.plus}  />
+          <span className={styles.tabCount} style={{ position: 'relative', left: '0px' }}>{tabCount}</span>
         </div>
         <button onClick={toggleDropdown} className={styles.iconButton}>
-          <FontAwesomeIcon icon={faEllipsisV} style={{ position: 'relative', left: '30px' }} />
+          <FontAwesomeIcon icon={faEllipsisV} className={styles.EllipsisV} />
         </button>
         {showDropdown && (
           <div className={styles.dropdown}>

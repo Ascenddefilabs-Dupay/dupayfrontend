@@ -1,40 +1,90 @@
 .container {
     position: relative;
     height: 100vh;
-    width: 400px;    
     max-height: auto;
+    width: 400px;
     max-width: 100%;
     margin: 0 auto;
-    margin-top: 0;  
     padding: 20px;
     background-color: #030303;
-    
     color: #fff;
-    bottom: 20px; 
-    
-    
-    margin-bottom: 10px;
-    font-family: Arial, Helvetica, sans-serif; 
-  
+    font-family: Arial, Helvetica, sans-serif;   
+  }
+  .walleticon{
+    position: relative;
+    left: 180px;  
   }
   @media (max-width: 1024px) {
     .container {
       width: 100%; 
+      overflow-y: hidden;
     }
   }
-  
-  @media (max-width: 768px) {
+
+  @media (max-width: 740px) {
     .container {
-      width: 100%; 
+      position: fixed; /* or absolute */
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      overflow-y: hidden;
+      /* height: 50px; Adjust the height as needed */
     }
+    
+  }
+  @media (max-width: 414px) {
+    .container {
+      position: fixed; /* or absolute */
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      overflow-y: hidden;
+      /* height: 50px; Adjust the height as needed */
+    }
+    .buttonContainer {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      gap: 20px;
+    }
+    
+  }
+  @media (max-width: 430px) {
+    .container {
+      position: fixed; /* or absolute */
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      overflow-y: hidden;
+      /* height: 50px; Adjust the height as needed */
+    }
+    .buttonContainer {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      gap: 30px;
+    }
+    
   }
   
   
   .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
   }
   
   .leftSection {
@@ -72,20 +122,101 @@
     cursor: pointer;
     margin-right: 150px;
   }
-  @media (min-width: 375px) and (max-width: 768px) {
+  @media (max-width: 375px)  {
     .rightSection {
       cursor: pointer;
       margin-right: 130px;
       margin-top: 15px;
     }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      gap: 4px;
+    }
   }
+  @media (min-width: 414px)  {
+    .rightSection {
+      cursor: pointer;
+      margin-right: 130px;
+      margin-top: 15px;
+    }
+    
+    .buttonContainer {
+      display: flex;
+      align-items: center;
+      gap: 5px; /* Use a positive gap */
+    }
+    
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      gap: 20px; /* Use a positive gap */
+    }
+  }
+  
+    
+
+
+  @media ((max-width: 768px)) {
+    .rightSection {
+      cursor: pointer;
+      margin-right: 130px;
+      margin-top: 15px;
+    }
+  
+    .buttonContainer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    .actions {
+      display: flex;
+      justify-content: start;
+      margin: 5px 0;
+      gap: 15px;
+    }
+  }
+  
 
   @media ((max-width: 360px)){
     .rightSection{
       cursor: pointer;
       margin-top: 20px;
       margin-right: 100px;
-
+    }
+    .buttonContainer {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin: 19px 0;
+    }
+    .walleticon{
+      left: 150px;  
+    }
+  }
+  @media ((max-width: 412px)){
+    .rightSection{
+      cursor: pointer;
+      margin-top: 20px;
+      margin-right: 100px;
+    }
+    .buttonContainer {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      gap: 55px;
     }
   }
   
@@ -99,11 +230,11 @@
   .actions {
     display: flex;
     justify-content: space-between;
-    margin: 9px 0;
+    margin: 7px 0;
+    gap: 2px;
   }
   
   .actionButton {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25% , rgba(243, 66, 235, 1)100%);
     color: #ffffff;
     padding: 10px;
     border-radius: 50%;
@@ -192,7 +323,6 @@
   }
   
   .addCryptoButton {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25% , rgba(243, 66, 235, 1)100%);
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -224,7 +354,6 @@
     font-weight: bold;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif; 
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25% , rgba(243, 66, 235, 1)100%);
     color: #ffffff;
     border: rgb(253, 244, 244);
     padding: 10px 20px;
@@ -312,7 +441,6 @@
     margin-top: -5px;
     align-items: center;
     font-weight: bold;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25% , rgba(243, 66, 235, 1)100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -330,7 +458,6 @@
   
   .manageWalletsButton {
     font-weight: bold;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25% , rgba(243, 66, 235, 1)100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -341,6 +468,21 @@
     gap: 40px;
     margin-right: 20px; 
     margin-left: -8px;
+  }
+  .manageWalletsButton1 {
+    font-weight: bold;
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    width: 115%;
+    gap: 40px;
+    margin-top: 13px;
+    margin-right: 20px; 
+    margin-left: -40px;
   }
   .settingsIcon {
     align-items: right;
@@ -380,8 +522,6 @@
     transition: background-color 0.3s, color 0.3s;
   }
   
-  
-  
   .actions {
     display: flex;
     flex-wrap: wrap;
@@ -390,11 +530,10 @@
   .buttonContainer {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 35px;
   }
   
   .walletButton {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25% , rgba(243, 66, 235, 1)100%);
     padding-top: 10px;
     border-radius: 50%;
     height: 60px;
@@ -474,7 +613,7 @@
 .loader {
   width: 60px;
   height: 60px;
-  background: linear-gradient(45deg, #ff007b, #007bff); 
+  background: linear-gradient(to right, #4C208C, #BF5FFF);
   animation: spin 1s linear infinite;
   transform: rotate(45deg); 
   position: relative;
@@ -606,9 +745,54 @@
     width: 90%; /* Take 90% of the screen width on mobile */
     height: auto;
   }
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 }
-@media (max-width: 1024px), (max-width: 768px) {
+@media (max-width: 1024px) {
   .container {
     width: 100%;
   }
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+      padding: 25px; /* Further adjust padding for very small devices */
+      overflow-x: hidden; 
+  }
+  
+  .cryptoContent {
+    height: 200px;
+  }
+  .addNameStart{
+    width: 120%;
+    left: -10px;
+  }
+  
+
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    gap: 2px;
+  }
+  .viewprofileButton {
+    width: 112%;
+    gap: 40px; 
+    margin-right: 150px;
+    margin-left: -25px;
+  }
+  
 }

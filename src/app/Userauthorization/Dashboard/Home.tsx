@@ -158,10 +158,11 @@ const handleButtonClick = (buttonName: string) => {
     
     const routes: { [key: string]: string }  = {
       'Add Bank': '/FiatManagement/AddBanks',
-      'Deposit': '/FiatManagement/DepositForm',
-      'Withdraw': '/FiatManagement/WithdrawForm',
-      'Send': '/TransactionType/WalletTransactionInterface',
-      'Top-up': '/FiatManagement/WithdrawForm',
+      // 'Wallet': '/FiatManagement/DepositForm',
+      'Wallet': '/Userauthorization/wallet',
+      // 'Withdraw': '/FiatManagement/WithdrawForm',
+      'Swap': '/TransactionType/WalletTransactionInterface',
+      'Transfer': '/FiatManagement/WithdrawForm',
     };
   
     if (buttonName === 'Deposit') {
@@ -383,21 +384,21 @@ const handleButtonClick = (buttonName: string) => {
               <RiBankLine className={styles.icon} />
               <div className={styles.buttonLabel}>Add Bank</div>
             </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Deposit')}>
+            <button className={styles.walletButton} onClick={() => handleButtonClick('Wallet')}>
               <PiHandDepositBold className={styles.icon} />
-              <div className={styles.buttonLabel}>Deposit</div>
+              <div className={styles.buttonLabel}>Wallet</div>
             </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Withdraw')}>
+            {/* <button className={styles.walletButton} onClick={() => handleButtonClick('Withdraw')}>
               <PiHandWithdrawBold className={styles.icon} />
               <div className={styles.buttonLabel}>Withdraw</div>
-            </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Send')}>
+            </button> */}
+            <button className={styles.walletButton} onClick={() => handleButtonClick('Swap')}>
               <IoMdSend className={styles.icon} />
-              <div className={styles.buttonLabel}>Send</div>
+              <div className={styles.buttonLabel}>Swap</div>
             </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Top-up')}>
+            <button className={styles.walletButton} onClick={() => handleButtonClick('Transfer')}>
               <IoMdWallet className={styles.icon} />
-              <div className={styles.buttonLabel}>Top-up</div>
+              <div className={styles.buttonLabel}>Transfer</div>
             </button>
           </div>
         ) : (
@@ -444,18 +445,16 @@ const handleButtonClick = (buttonName: string) => {
             </div>
           </div>
         )}
-        {activeTab === 'Fiat' && fiatDropdownVisible && (
+        {/* {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
             <div className={styles.dropdownContent}>
               <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold', textAlign: 'left', marginBottom: '10px' }}>
                 <div style={{display: 'flex'}}>
-                    <div>
-                    Fiat Wallet
-                    </div>
-                    <div style={{ position: 'relative', left: '180px'}}>
+                    <div>   Fiat Wallet  </div>
+                    <div className={styles.walleticon}>
                     <button onClick={() => handleNavigation('/FiatManagement/MyWallet')}>
-                    <IoWallet style={{ fontSize: '23px' }} />
-                  </button>
+                      <IoWallet style={{ fontSize: '23px' }} />
+                    </button>
 
                     </div>
                 </div>
@@ -496,14 +495,22 @@ const handleButtonClick = (buttonName: string) => {
                         <GoCheck className={styles.checkIcon} />
                       </div>
                   </div>
+                  <div>
                   <button className={styles.viewprofileButton} onClick={() => handleNavigation('/UserProfile')}>
-                    <span className={styles.text}>View your profile</span>
+                    <span className={styles.text}>Top-up</span>
                   </button>
+                  </div>
+                  
+                 <div>
+                 <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/UserProfile')}>
+                    <span className={styles.text}>Withdraw</span>
+                  </button>
+                 </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
+        )} */}
         {activeTab === 'NFTs' && <div>NFTs Content</div>}
       </div>
       {dropdownVisible && (

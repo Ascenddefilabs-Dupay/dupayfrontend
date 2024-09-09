@@ -1,0 +1,205 @@
+/* Container for the entire component */
+.container {
+    background-color: black;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    height: 100vh;
+    color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items */
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden; /* Ensure no overflow issues */
+}
+.backIcon{
+    position: relative;
+    right: 175px;
+}
+.title{
+    position: relative;
+    right: 125px;
+    bottom: 25px;
+    font-size: 20px;
+}
+.description{
+    position: relative;
+    left: 30px;
+    align-items: end;
+}
+.d1{
+    position: relative;
+    left: 15px;
+}
+.d2{
+    position: relative;
+    left: 70px;
+}
+.additionalInfo{
+    position: relative;
+    right: 20px;
+}
+.ai2{
+    position: relative;
+    left: 20px;
+}
+
+/* Loader container */
+.loaderContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    z-index: 2;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Loader animation */
+.loader {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff007b, #007bff);
+    border-radius: 12%;
+    animation: spin 1s linear infinite;
+    transform: rotate(45deg);
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
+}
+
+/* Keyframes for the spin animation */
+@keyframes spin {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+}
+
+/* Button styles */
+.button {
+    margin-top: 50px;
+    padding: 10px;
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    color: white;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive styles */
+
+/* Extra-large screens (1920px and up) */
+@media (min-width: 1920px) {
+    .container {
+        padding: 30px;
+    }
+}
+
+/* Large screens (1440px to 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+    .container {
+        padding: 20px;
+    }
+}
+
+/* Medium screens (1024px to 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .container {
+        padding: 15px;
+    }
+}
+
+/* Tablets and small screens (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 10px;
+    }
+    .button {
+        font-size: 15px;
+        margin-top: 60px;
+    }
+}
+
+/* Large phones (481px to 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .container {
+        padding: 10px;
+    }
+    .button {
+        font-size: 14px;
+        margin-top: 60px;
+    }
+}
+
+/* Small phones (480px and below) */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+        max-width: 100%; /* Ensure full width on very small screens */
+    }
+    .button {
+        padding: 8px;
+        font-size: 14px;
+        margin-top: 60px;
+        width: calc(100% - 20px);
+    }
+    .loader {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Specific device adjustments */
+
+/* iPhone XR (414px x 896px) */
+@media screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+    .container {
+        width: 100%; /* Ensure it uses full width */
+        max-width: 414px; /* Match the device width */
+        padding: 15px;
+    }
+    .button {
+        width: calc(100% - 30px); /* Adjust button size for better spacing */
+    }
+    .loaderContainer {
+        width: 100%; /* Make sure the loader container fits */
+        max-width: 414px;
+    }
+}
+
+/* iPhone 14 Pro Max (430px x 932px) */
+@media screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) {
+    .container {
+        max-width: 430px;
+        padding: 15px;
+    }
+}
+
+/* Pixel 7 (412px x 915px) */
+@media screen and (device-width: 412px) and (device-height: 915px) and (-webkit-device-pixel-ratio: 2) {
+    .container {
+        max-width: 412px;
+        padding: 15px;
+    }
+}
+
+/* Samsung Galaxy S20 Ultra (1440px x 3200px) */
+@media screen and (device-width: 1440px) and (device-height: 3200px) and (-webkit-device-pixel-ratio: 3) {
+    .container {
+        max-width: 500px; /* Increased max-width to accommodate large screen */
+        padding: 20px;
+    }
+}

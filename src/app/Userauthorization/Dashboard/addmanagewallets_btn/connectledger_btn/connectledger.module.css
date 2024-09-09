@@ -1,19 +1,105 @@
 .container {
   position: relative;
-  /* bottom: 10px; */
-  top: 0.5px;
+  top: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: black;
   color: white;
+  max-height: auto;
+  max-width: 100%;
   height: 100vh;
   width: 400px;
   padding: 20px;
   margin: 0 auto;
-  font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
+  font-family: Arial, Helvetica, sans-serif; 
 
 }
+/* Smaller screens like mobile devices */
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%; /* Full width for mobile screens */
+    padding: 15px;
+  }
+
+  .heading {
+    font-size: 20px;
+  }
+
+  .imageContainer img {
+    width: 120px; /* Smaller size for mobile */
+    height: 120px;
+  }
+
+  .connectNowButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .ol {
+    padding-left: 15px;
+  }
+
+  .link {
+    font-size: 15px;
+  }
+
+  .backButton {
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+}
+
+/* Medium screens like tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+
+  .imageContainer img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .connectNowButton {
+    font-size: 15px;
+    padding: 10px 18px;
+  }
+
+  .backButton {
+    font-size: 20px;
+  }
+}
+
+/* Large screens like desktops */
+@media screen and (min-width: 769px) {
+  .container {
+    width: 400px;
+  }
+
+  .heading {
+    font-size: 24px;
+  }
+
+  .imageContainer img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .connectNowButton {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+
+  .backButton {
+    font-size: 22px;
+  }
+}
+
 
 .backButton {
   align-self: flex-start;
@@ -42,7 +128,7 @@
 }
 
 .imageContainer img {
-  width: 160px; /* Adjust based on your image size */
+  width: 160px; 
   height: 160px;
 }
 
@@ -75,13 +161,13 @@
 }
 
 .ol{
-  list-style-type: decimal; /* Ensures the ordered list uses numbers */
-  padding-left: 20px; /* Adds some padding for better readability */
-  margin: 10px 0; /* Adds some margin for spacing */
+  list-style-type: decimal; 
+  padding-left: 20px; 
+  margin: 10px 0; 
 }
 
 .li{
-  margin-bottom: 0px; /* Adds some space between list items */
+  margin-bottom: 0px; 
 }
 
 .link {
@@ -109,7 +195,6 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-
 .loader {
   width: 60px;
   height: 60px;
@@ -121,7 +206,6 @@
   box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
   border-radius: 12%; 
 }
-
 
 .loader::before {
   content: "";
@@ -136,12 +220,10 @@
   z-index: -1;
 }
 
-
 @keyframes spin {
   0% { transform: rotate(45deg); }
   100% { transform: rotate(405deg); }
 }
-
 
 @keyframes pulse {
   0% {

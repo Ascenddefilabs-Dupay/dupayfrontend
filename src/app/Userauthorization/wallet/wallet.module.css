@@ -1,0 +1,175 @@
+.loaderContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7); /* Adjusted for better visibility */
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    z-index: 2;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Loader animation */
+.loader {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff007b, #007bff);
+    border-radius: 12%;
+    animation: spin 1s linear infinite;
+    transform: rotate(45deg);
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
+}
+
+.container {
+    padding: 20px;
+    background-color: black;
+    width: 400px;
+    max-width: auto;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    color: white;
+    flex-direction: column;
+}
+
+.buttonContainer {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+.button {
+    width: 80px; /* Increased size for better visibility */
+    height: 80px; /* Increased height to fit text below the icon */
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; /* Adjusted font size */
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 10px; /* Added padding */
+}
+
+.button:hover {
+    background: linear-gradient(90deg, #0056b3, #800080); /* Adjusted hover effect */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.manageWalletsButton1 {
+    font-weight: bold;
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    width: 115%;
+    gap: 40px;
+    margin-top: 13px;
+    margin-right: 20px; 
+    margin-left: -40px;
+  }
+  .viewprofileButton {
+    margin-right: 20px;
+    margin-top: -5px;
+    align-items: center;
+    font-weight: bold;
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 5px; 
+    width: 115%;
+    gap: 40px; 
+    margin-right: 150px;
+    margin-left: -40px;
+  }
+  .checkIcon {
+    margin-left: 235px;
+    font-size: 25px;
+    position: relative;
+    left: 18px;
+    top: -52px;
+    color: blue;
+  } 
+  .userid{
+    font-weight: bold;
+  }
+  .textContainer {
+    flex-grow: 50s; 
+  }
+  .profileIcon2{
+    margin-right: 4px;
+    font-size: 30px;
+    position: relative;
+    top: -60px;
+  }
+  .profileImagesrc{
+    margin-bottom: 65px;
+    font-size: 40px;
+    left: 10px;
+  }
+  .dropdownItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    left: 100px;
+  } 
+  .walleticon{
+    position: relative;
+    left: 180px;  
+  }
+  .dropdownContent {
+    padding: 20px;
+  }
+/* Fiat Dropdown Styles */
+.fiatDropdown {
+    position: relative;
+    top: 30px;
+    right: -5px;
+    width: 96%;
+    background-color: #1a1d23;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    margin-left: 5px;
+  }
+  
+  /* Fiat Dropdown Content Styles */
+  .fiatDropdownContent {
+    padding: 20px;
+  }
+  
+  .fiatDropdownItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    left: 100px;
+  }
+  

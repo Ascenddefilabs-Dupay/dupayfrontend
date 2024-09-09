@@ -1,21 +1,57 @@
-.container {
+/* .container {
   position: relative;
-  top: 1px;
+  height: 100vh;
+    max-height: auto;
+    width: 400px;
+    max-width: 100%;
   background-color: #121212;
   color: #ffffff;
-  padding-top: 30px;
+  padding-top: 40px;
   padding-left: 15px;
-  /* padding: 15px ; */
-  width: 400px;
   margin: 0 auto;
   font-size: 14px;
+  box-sizing: border-box; /* Includes padding in the width */
+  /* overflow-x: hidden; Prevents horizontal overflow */
+  /* font-family: Arial, Helvetica, sans-serif; Set the font for the entire container */
+
+/* }  */
+
+.container {
+  position: relative;
   height: 100vh;
-  border-radius: 8px;
+  max-height: auto;
+  width: 100%; /* Ensures the container takes up the full width */
+  max-width: 400px; /* Limits the container width for larger screens */
+  background-color: #121212;
+  color: #ffffff;
+  padding-top: 40px;
+  padding-left: 15px;
+  margin: 0 auto;
+  font-size: 14px;
   box-sizing: border-box; /* Includes padding in the width */
   overflow-x: hidden; /* Prevents horizontal overflow */
   font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
-
 }
+
+/* iPhone 14 Pro Max (430px x 932px) and iPhone XR (414px x 896px) */
+@media only screen and (max-width: 430px) {
+  .container {
+    width: 100%; /* Takes up the full width on smaller screens */
+    max-width: none; /* Removes max-width restriction */
+    padding-left: 10px; /* Adjust padding for smaller screens */
+    padding-right: 10px; /* Optional: Add right padding */
+    font-size: 13px; /* Slightly smaller font size for readability */
+  }
+}
+
+/* Adjust padding and font size for larger screens */
+@media only screen and (min-width: 768px) {
+  .container {
+    padding-top: 50px;
+    font-size: 16px;
+  }
+}
+
 
 /* Title container styles */
 .titleContainer {
@@ -129,29 +165,6 @@
   right: 0px;
 }
 
-/* Responsive styles */
-@media (max-width: 600px) {
-  .container {
-    padding: 15px;
-  }
-
-  .title {
-    font-size: 20px;
-  }
-
-  .sectionTitle {
-    font-size: 14px;
-  }
-
-  .button {
-    width: 100%; /* Ensures buttons use full width on small screens */
-    font-size: 14px;
-  }
-
-  .buttonIcon, .arrowIcon {
-    font-size: 20px;
-  }
-}
 
 .loaderContainer {
   position: absolute;
