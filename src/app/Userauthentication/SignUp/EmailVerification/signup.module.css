@@ -16,7 +16,7 @@
   padding: 2rem;
   width: 100%;
   max-width: 360px;
-  margin-top: 10px;
+  
   min-height: 400px; 
   display: flex;
   flex-direction: column;
@@ -181,7 +181,7 @@
 .otpButton {
   width: 100%; /* Ensure buttons take full width */
   height: 45px; /* Consistent height with input fields */
-  background: linear-gradient(90deg, #007bff9f, #800080);
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   border: none;
   color: #fff;
   cursor: pointer;

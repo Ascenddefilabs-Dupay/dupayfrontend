@@ -21,6 +21,8 @@
   display: flex;
   align-items: center;
   color: white;
+  position: absolute; /* Change this to position it within the navbar */
+  right: 1rem; /* Align the icon to the right */
 }
 
 .menuButton {
@@ -83,7 +85,7 @@
 }
 
 .loginauthButton {
-  background: linear-gradient(90deg, #007bff9f, #800080);
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   color: white;
   margin-right: 10px;
   border: none;
@@ -95,7 +97,7 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .signupauthButton {
-  background: linear-gradient(90deg, #007bff9f, #800080);
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   color: white;
   border: none;
   padding:5px 20px;
@@ -159,7 +161,7 @@
 }
 
 .mobileAuthButton {
-  background: linear-gradient(90deg, #007bff9f, #800080);/* Blue color */
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
