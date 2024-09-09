@@ -66,9 +66,10 @@ export default function Login() {
 
     initializeGoogleSignIn();
   }, []);
+
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
-        const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/google-login/', {
+        const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
             token: response.credential,
         });
 
