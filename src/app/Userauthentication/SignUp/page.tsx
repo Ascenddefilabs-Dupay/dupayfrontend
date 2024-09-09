@@ -40,7 +40,7 @@ const Page: React.FC = () => {
         <div className={styles.accountOptions}>
           <div className={styles.accountColumn}>
             <div
-              className={`${styles.accountCard} ${selectedAccount === 'Individual' ? styles.activeCard : ''}`}
+              className={`${styles.IndividualaccountCard} ${selectedAccount === 'Individual' ? styles.activeCard : ''}`}
               onClick={() => handleSelectAccount('Individual')}
             >
               <h3 className={styles.cardTitle}>Individual</h3>
@@ -48,7 +48,7 @@ const Page: React.FC = () => {
             </div>
 
             <div
-              className={`${styles.accountCard} ${selectedAccount === 'Vendor' ? styles.activeCard : ''}`}
+              className={`${styles.VendoraccountCard} ${selectedAccount === 'Vendor' ? styles.activeCard : ''}`}
               onClick={() => handleSelectAccount('Vendor')}
             >
               <h3 className={styles.cardTitle}>Vendor</h3>
@@ -91,7 +91,10 @@ const Page: React.FC = () => {
           <button className={styles.getStartedButton} onClick={handleGetStarted}>
             Get Started
           </button>
+          
         </div>
+        <br></br>
+        <br></br>
       </main>
     </>
   );

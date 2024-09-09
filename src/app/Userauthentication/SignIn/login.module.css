@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 0;
   padding-top: 50px;
   padding-bottom: 50px;
 }
@@ -68,6 +68,19 @@
   cursor: pointer;
   color:black /* Optional: color for the icon */
 }
+.signupLink {
+  font-size: 0.89rem;
+  display: block;
+  margin-top: 10px;
+  color: purple;
+  text-align: center;
+  text-decoration: none;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}
+
 .passwordInput {
   width: 100%;
   padding-right: 40px; /* Make space for the eye icon */
@@ -105,7 +118,7 @@
 }
 
 .forgotPassword {
-  color: #9067b1;
+  color: purple;
   text-decoration: none;
   font-size: 0.75rem;
 }
@@ -117,7 +130,6 @@
 .button {
   padding: 0.65rem;
   width: 100%;
-  
   border-radius: 2px;
   background: linear-gradient(90deg, #007bff9f, #800080);
   color: white;
@@ -125,33 +137,18 @@
   cursor: pointer;
   margin-bottom: 0.5rem;
   font-family: Arial, Helvetica, sans-serif; /* Consistent font for buttons */
+
 }
 
-/* .googlebutton {
-  background-color: rgb(201, 22, 22);
-  padding: 0.5rem;
-  width: 100%;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-bottom: 0.5rem;
-  font-family: Arial, Helvetica, sans-serif; 
-} */
 
-/* .loginMessage {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  color: green;
-  font-size: 1rem;
-  text-align: center;
-} */
+
+
+
 
 .or {
   align-self: center;
   color: grey;
-  margin-bottom: 2px;
+  margin-bottom: 0;
   
 }
 
@@ -166,4 +163,70 @@
   width: 100%;
   background-color: white;
   border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex; /* Full viewport height on mobile */
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%; /* Make card fill the entire width */
+    height: 100%; /* Make card fill the entire height */
+    max-width: none; /* Remove max-width to allow flexibility */
+    padding: 3rem; /* Reduce padding on smaller screens */
+    margin: 0; /* Remove any margin */
+    border-radius: 0; /* Remove border-radius for full screen look */
+    box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+  }
+
+  .title {
+    font-size: 1.1rem; /* Adjust title font size for mobile */
+  }
+
+  .formGroup input {
+    font-size: 0.85rem; /* Increase input font size for better readability */
+  }
+
+  .button {
+    padding: 0.5rem; /* Reduce button padding */
+    font-size: 0.75rem; /* Adjust button font size */
+  }
+
+  .signupLink {
+    font-size: 0.75rem; /* Adjust signup link font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex; /* Full viewport height on mobile */
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%; /* Fill entire width */
+    height: 100vh; /* Fill entire height */
+    padding: 2.5rem; /* Further reduce padding for smaller screens */
+    margin: 0; /* No margin on smaller screens */
+    border-radius: 0; /* Remove border-radius */
+  }
+
+  .title {
+    font-size: 1rem; /* Further reduce title size */
+  }
+
+  .button {
+    padding: 0.4rem; /* Smaller padding for buttons */
+    font-size: 0.7rem; /* Smaller button text */
+  }
 }
