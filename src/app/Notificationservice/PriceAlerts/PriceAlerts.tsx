@@ -2,25 +2,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const PriceAlerts = () => {
-  const [userId, setUserId] = useState('');
+const PriceAlerts: React.FC = () => {
+  const [userId, setUserId] = useState<string>('');
 
   // Function to send a browser notification
-  const sendNotification = (title, message, icon, link) => {
+  const sendNotification = (title: string, message: string, icon: string, link: string) => {
     if ('Notification' in window && Notification.permission === 'granted') {
       const notification = new Notification(title, {
-        body: message, // Ensure the message is set correctly
-        icon: icon,    // Ensure the icon is set correctly
+        body: message,
+        icon: icon,
       });
 
-      // Handle notification click event
       notification.onclick = () => {
         window.open(link, '_blank');
       };
     }
   };
 
-  // Function to request notification permission from the user
   const requestNotificationPermission = () => {
     if ('Notification' in window && Notification.permission !== 'granted') {
       Notification.requestPermission().then(permission => {
@@ -31,7 +29,6 @@ const PriceAlerts = () => {
     }
   };
 
-  // Function to create and trigger the Price Alerts notification
   const createPriceAlertsNotification = () => {
     if (!userId) {
       alert("User ID is not available.");
@@ -39,18 +36,15 @@ const PriceAlerts = () => {
     }
 
     axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/create-price-alerts/', {
-      email_id: 'user@example.com',  // Adjust this to dynamically fetch user email if needed
-      message: 'This is a price alerts just for you!',
+      user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then(response => {
-        // Extract message from the response or use default message
-        const message = response.data.message || 'This is a price alerts just for you!';
-        // Send notification
-        sendNotification('Price Alerts', message, './images/logo.png', 'https://www.pricealerts.inc/');
+      .then((response) => {
+        const message = response.data.price_alerts_content;  // Use the dynamic content from the backend
+        sendNotification('Price Alerts', message, 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1725254311/logo3_ln9n43.png', 'https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages');
       })
       .catch(error => {
         console.error('Error:', error);
@@ -58,14 +52,14 @@ const PriceAlerts = () => {
       });
   };
 
-  // Fetch user IDs who have price alerts enabled
   useEffect(() => {
-    requestNotificationPermission();  // Request notification permission when component mounts
+    requestNotificationPermission();
 
     axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/get-price-alerts-user-ids/')
       .then(response => {
-        if (response.data.user_ids && response.data.user_ids.length > 0) {
-          setUserId(response.data.user_ids[0]);  // Set the first user ID
+        const userIds = response.data.user_ids;
+        if (userIds && userIds.length > 0) {
+          setUserId(userIds[0]);  // Set the first user ID
         } else {
           alert('No users with price alerts enabled.');
         }
