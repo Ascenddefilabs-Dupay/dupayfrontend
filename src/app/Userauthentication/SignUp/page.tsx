@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import AuthNavbar from './AuthNavbar';
 import styles from './page1.module.css';
 
-const Page = () => {
-  const [selectedAccount, setSelectedAccount] = useState('Individual');
+const Page: React.FC = () => {
+  const [selectedAccount, setSelectedAccount] = useState<string>('Individual');
   const router = useRouter();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Page = () => {
     setSelectedAccount('Individual');
   }, []);
 
-  const handleSelectAccount = (accountType) => {
+  const handleSelectAccount = (accountType: string) => {
     setSelectedAccount(accountType);
   };
 
@@ -22,7 +22,7 @@ const Page = () => {
       alert('Please select an account type before proceeding.');
       return;
     }
-    router.push('/Userauthentication/SignUp/SecondaryNavbar'); 
+    router.push('/Userauthentication/SignUp/SecondaryNavbar');
   };
 
   return (
@@ -40,7 +40,7 @@ const Page = () => {
         <div className={styles.accountOptions}>
           <div className={styles.accountColumn}>
             <div
-              className={`${styles.accountCard} ${selectedAccount === 'Individual' ? styles.activeCard : ''}`}
+              className={`${styles.IndividualaccountCard} ${selectedAccount === 'Individual' ? styles.activeCard : ''}`}
               onClick={() => handleSelectAccount('Individual')}
             >
               <h3 className={styles.cardTitle}>Individual</h3>
@@ -48,7 +48,7 @@ const Page = () => {
             </div>
 
             <div
-              className={`${styles.accountCard} ${selectedAccount === 'Vendor' ? styles.activeCard : ''}`}
+              className={`${styles.VendoraccountCard} ${selectedAccount === 'Vendor' ? styles.activeCard : ''}`}
               onClick={() => handleSelectAccount('Vendor')}
             >
               <h3 className={styles.cardTitle}>Vendor</h3>

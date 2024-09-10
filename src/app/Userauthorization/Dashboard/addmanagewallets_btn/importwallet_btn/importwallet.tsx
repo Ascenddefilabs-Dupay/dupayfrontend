@@ -12,16 +12,20 @@ const Importwallet = () => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
   const [isLinkVisible, setIsLinkVisible] = useState(true);
-  // const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // const storedUserId = localStorage.getItem('user_id');
-      // setUserId(storedUserId);
-      // setAlertMessage('User Need To Login')
-      // if (storedUserId === null) redirect('http://localhost:3000/');
-      // console.log(storedUserId)
-      // console.log(userId);
+      const sessionDataString = window.localStorage.getItem('session_data');
+      // if (sessionDataString) {
+      //   const sessionData = JSON.parse(sessionDataString);
+      //   const storedUserId = sessionData.user_id;
+      //   setUserId(storedUserId);
+      //   console.log(storedUserId);
+      //   console.log(sessionData.user_email);
+      // } else {
+      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      // }
     }
   }, []);
 

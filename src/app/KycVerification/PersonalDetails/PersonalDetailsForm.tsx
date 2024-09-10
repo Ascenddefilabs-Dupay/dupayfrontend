@@ -653,6 +653,22 @@ const PersonalDetailsForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const { isLoggedIn, userData } = UseSession();
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        const sessionDataString = window.localStorage.getItem('session_data');
+        if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId: string = sessionData.user_id;
+            setUserId(storedUserId);
+            console.log(storedUserId);
+            // console.log(sessionData.user_email);
+        } else {
+            // router.push('/Userauthentication/SignIn');
+        }
+    }
+}, [router]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -734,7 +750,7 @@ const PersonalDetailsForm: React.FC = () => {
     if (validateForm()) {
       setLoading(true);
       try {
-        const response = await axios.post('http://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/personal-details/', {
+        const response = await axios.post('http://127.0.0.1:8000/kycverification_api/personal-details/', {
           user_id: userData?.user_id, // Include user_id
           user_first_name: formData.firstName,
           user_last_name: formData.lastName,

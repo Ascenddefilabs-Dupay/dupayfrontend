@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './FiatWalletForm.module.css';
@@ -8,7 +9,7 @@ import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
 interface CurrencyOption {
   value: string;
-  label: JSX.Element;
+  label: JSX.Element | string;
 }
 
 interface Currency {
@@ -27,7 +28,7 @@ interface ErrorState {
 
 export default function FiatWalletForm() {
   const [walletType, setWalletType] = useState<string>('');
-  const [walletCurrency, setWalletCurrency] = useState<string>('');
+  const [walletCurrency, setWalletCurrency] = useState<string>('INR');
   const [username, setUsername] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [error, setError] = useState<ErrorState>({});
@@ -37,24 +38,27 @@ export default function FiatWalletForm() {
   const [selectedCurrency, setSelectedCurrency] = useState<SingleValue<CurrencyOption>>({ value: 'INR', label: 'INR' });
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
-  const { isLoggedIn, userData } = UseSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoggedIn) {
-      setUserId(userData?.user_id || null);
-
-    } else {
-      console.log('User is not logged in');
-      // router.push('/Userauthentication/SignIn')
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+ 
+      } else {
+        // router.push('http://localhost:3000/Userauthentication/SignIn')
+      }
     }
-    console.log(userId);
-  }, [isLoggedIn, userData]);
-  // const userId="DupC001";
+  }, []);
 
   const validateFields = (): boolean => {
     const newError: ErrorState = {};
-
+  
     if (!walletType) {
       newError.walletType = 'Wallet Type is required.';
     }
@@ -68,12 +72,12 @@ export default function FiatWalletForm() {
     if (!phoneNumber.match(phoneRegex)) {
       newError.phoneNumber = 'Invalid phone number format.';
     }
-
-    setError(newError);  // Set errors to state
-    setAlertMessage(Object.keys(newError).length > 0 ? 'Please correct the errors before submitting.' : '');
-
+  
+    setError(newError);
+  
     return Object.keys(newError).length === 0;
   };
+  
 // setUserId("DupC0001");
   useEffect(() => {
     axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/`)
@@ -99,8 +103,18 @@ export default function FiatWalletForm() {
   }, []);
 
   const handleCurrencyChange = (option: SingleValue<CurrencyOption>) => {
-    setSelectedCurrency(option);
-    setWalletCurrency(option?.value || ''); // Update walletCurrency when a new currency is selected
+    if (option) {
+      setSelectedCurrency(option);
+      setWalletCurrency(option.value);
+  
+      // Clear the currency error only if it exists
+      setError((prevError) => {
+        if (prevError.walletCurrency) {
+          return { ...prevError, walletCurrency: '' };
+        }
+        return prevError;
+      });
+    }
   };
   
 
@@ -130,53 +144,60 @@ export default function FiatWalletForm() {
     event.preventDefault();
     setSuccess(null);
     setAlertMessage('');
-
+    
+    // Run validation only when the user submits the form
     if (!validateFields()) {
       return;
     }
- 
+  
     try {
       setShowLoader(true);
-
+  
       const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/', {
         fiat_wallet_type: walletType,
         fiat_wallet_currency: walletCurrency.toUpperCase(),
         fiat_wallet_username: username,
         fiat_wallet_phone_number: phoneNumber,
-        user: userId
+        user: userId, // Use the state userId here
       });
-
+  
       setSuccess('Wallet created successfully!');
       setAlertMessage('Wallet created successfully!');
       setPhoneNumber('');
       setUsername('');
-      setWalletCurrency('');
+      setWalletCurrency('INR'); // Set a default value or as needed
       setWalletType('');
-      setError({}); // Clear errors on success
+      setError({});
     } catch (error) {
       let errorMessage: string;
-
-      if (error.response && error.response.data) {
-        if (error.response.data.fiat_wallet_username) {
-          errorMessage = error.response.data.fiat_wallet_username;
-        } else if (error.response.data.fiat_wallet_phone_number) {
-          errorMessage = error.response.data.fiat_wallet_phone_number;
-        } else if (error.response.data.detail) {
-          errorMessage = error.response.data.detail; 
+  
+      if (axios.isAxiosError(error)) {
+        // Handle Axios error
+        if (error.response && error.response.data) {
+          if (error.response.data.fiat_wallet_username) {
+            errorMessage = error.response.data.fiat_wallet_username;
+          } else if (error.response.data.fiat_wallet_phone_number) {
+            errorMessage = error.response.data.fiat_wallet_phone_number;
+          } else if (error.response.data.detail) {
+            errorMessage = error.response.data.detail;
+          } else {
+            errorMessage = 'Error creating wallet';
+          }
         } else {
           errorMessage = 'Error creating wallet';
         }
       } else {
         errorMessage = 'Error creating wallet';
       }
-
+  
       setAlertMessage(errorMessage);
       console.error('Error creating wallet:', error);
     } finally {
       setShowLoader(false); 
     }
   };
-
+  
+  
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {

@@ -1,3 +1,4 @@
+"use client"
 import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import country_list from './country-list';

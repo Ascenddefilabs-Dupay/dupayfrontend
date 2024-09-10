@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, Suspense } from 'react';
 import styles from './DepositForm.module.css';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -12,12 +13,12 @@ const API_BASE_URL = 'https://fiatmanagement-ind-255574993735.asia-south1.run.ap
 
 interface CurrencyOption {
     value: string;
-    label: JSX.Element;
+    label: JSX.Element | string;
 }
 
 interface BankOption {
     value: string;
-    label: JSX.Element;
+    label: JSX.Element | string;
 }
 
 interface WalletDetails {
@@ -59,14 +60,25 @@ const DepositForm: React.FC = () => {
     const [pendingAmount, setPendingAmount] = useState<number | null>(null);
     const [showForm, setShowForm] = useState<boolean>(true);
     const [showLoader, setShowLoader] = useState<boolean>(false);
-    const { isLoggedIn } = UseSession();
     const router = useRouter();
+    const parsedAmount = parseFloat(amount);
 
-    useEffect(() => {
-        if (!isLoggedIn) {
-            // router.push('http://localhost:3000/Userauthentication/SignIn');
-        }
-    }, [isLoggedIn, router]);
+
+    // useEffect(() => {
+    //     if (typeof window !== 'undefined') {
+    //       const sessionDataString = window.localStorage.getItem('session_data');
+    //       if (sessionDataString) {
+    //         const sessionData = JSON.parse(sessionDataString);
+    //         const storedUserId = sessionData.user_id;
+    //         // setUserId(storedUserId);
+    //         console.log(storedUserId);
+    //         console.log(sessionData.user_email);
+     
+    //       } else {
+    //         router.push('http://localhost:3000/Userauthentication/SignIn')
+    //       }
+    //     }
+    //   }, []);
 
     const handleApiError = (error: any, context: string) => {
         console.error(`Error during ${context}:`, error);
@@ -308,11 +320,11 @@ const DepositForm: React.FC = () => {
           // Make the API call to update UserCurrency
           await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/create_or_update/', depositData);
           setPendingAmount(parsedAmount);
-          // setAlertMessage('Deposit successful!');
-          //     setBalances(prevBalances => ({
-          //         ...prevBalances,
-          //         [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
-          //     }));
+          setAlertMessage('Deposit successful!');
+              setBalances(prevBalances => ({
+                  ...prevBalances,
+                  [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
+              }));
           // Record the transaction
           await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/transactions/', {
               wallet_id: walletDetails.fiat_wallet_id,
@@ -329,10 +341,10 @@ const DepositForm: React.FC = () => {
           });
   
           // Update local balances and reset form
-          setBalances(prevBalances => ({
-              ...prevBalances,
-              [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount,
-          }));
+        //   setBalances(prevBalances => ({
+        //       ...prevBalances,
+        //       [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount,
+        //   }));
           setAmount('');
           setError('');
           setSubmitted(false);
@@ -352,9 +364,9 @@ const DepositForm: React.FC = () => {
 
   const handleCloseAlert = () => {
     if (pendingAmount !== null && selectedCurrency.value === 'INR') {
-        const newBalance = parseFloat(walletDetails.fiat_wallet_balance) + pendingAmount;
+        const newBalance = parseFloat(walletDetails!.fiat_wallet_balance) + pendingAmount;
 
-        axios.put(`${API_BASE_URL}/fiat_wallets/${walletDetails.fiat_wallet_id}/`, {
+        axios.put(`${API_BASE_URL}/fiat_wallets/${walletDetails!.fiat_wallet_id}/`, {
             ...walletDetails,
             fiat_wallet_balance: newBalance,
         })
@@ -431,10 +443,10 @@ const DepositForm: React.FC = () => {
                 
                 <div className={styles.container}>
                     {showLoader && (
-                        <div className={styles.loaderContainer}>
-                            <div className={styles.loader}></div>
-                        </div>
-                    )}
+                      <div className={styles.loaderContainer}>
+                          <div className={styles.loader}></div>
+                      </div>
+                  )}
                     <Suspense fallback={<div>Loading...</div>}>
                     <div className={styles.topBar}>
                         <button className={styles.topBarButton}>

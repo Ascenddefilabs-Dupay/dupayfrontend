@@ -93,7 +93,7 @@
 }
 
 .setLimitButton {
-    background: linear-gradient(90deg, #007bff9f, #800080);
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: white;
     border: none;
     
@@ -136,34 +136,6 @@
     display: block;
     font-size: 14px;
 }
-.loaderContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #7b7373b3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(5px); 
-    z-index: 1; 
-  }
-  
-  
-  .loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
   .currencyOption {
     display: flex;
     align-items: center;

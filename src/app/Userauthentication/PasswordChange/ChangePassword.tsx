@@ -3,19 +3,19 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './ChangePassword.css';
 
-const ChangePassword = () => {
-  const [user_email, setEmail] = useState('');
-  const [user_password, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [verifyNewPassword, setVerifyNewPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [newPasswordError, setNewPasswordError] = useState('');
-  const [passwordMismatchError, setPasswordMismatchError] = useState('');
+const ChangePassword: React.FC = () => {
+  const [user_email, setEmail] = useState<string>('');
+  const [user_password, setOldPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [verifyNewPassword, setVerifyNewPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
+  const [newPasswordError, setNewPasswordError] = useState<string>('');
+  const [passwordMismatchError, setPasswordMismatchError] = useState<string>('');
 
-  const checkEmailExists = async (user_email) => {
+  const checkEmailExists = async (email: string) => {
     try {
-      const response = await axios.get(`https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/check-email/?email=${user_email}`);
+      const response = await axios.get(`https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-email/?email=${user_email}`);
       if (response.data.exists) {
         setEmailError('');
       } else {
@@ -26,11 +26,11 @@ const ChangePassword = () => {
     }
   };
 
-  const checkOldPassword = async (user_password) => {
+  const checkOldPassword = async (password: string) => {
     try {
       const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/check-old-password/', {
         user_email,
-        user_password
+        user_password: password,
       });
       if (response.data.valid) {
         setPasswordError('');
@@ -42,19 +42,19 @@ const ChangePassword = () => {
     }
   };
 
-  const handleNewPasswordChange = (e) => {
+  const handleNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setNewPassword(value);
     validatePasswords(value, verifyNewPassword);
   };
 
-  const handleVerifyNewPasswordChange = (e) => {
+  const handleVerifyNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setVerifyNewPassword(value);
     validatePasswords(newPassword, value);
   };
 
-  const validatePasswords = (newPassword, verifyNewPassword) => {
+  const validatePasswords = (newPassword: string, verifyNewPassword: string) => {
     if (newPassword === user_password) {
       setNewPasswordError('New password cannot be the same as old password');
     } else if (newPassword !== verifyNewPassword) {
@@ -65,27 +65,29 @@ const ChangePassword = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     if (newPassword !== verifyNewPassword) {
       alert("New passwords don't match!");
       return;
     }
-
-    axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/update-password/', {
-      user_email,
-      user_password,
-      new_password: newPassword,
-      verify_new_password: verifyNewPassword,
-    })
-    .then(response => {
+  
+    try {
+      await axios.post('https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/update-password/', {
+        user_email,
+        user_password,
+        new_password: newPassword,
+        verify_new_password: verifyNewPassword,
+      });
       alert('Password changed successfully!');
-    })
-    .catch(error => {
-      alert(error.response.data.message);
-    });
+    } catch (error) {
+      // Ensure error is cast to `any` type to access response data
+      const errorMsg = (error as any)?.response?.data?.message || 'Error updating password';
+      alert(errorMsg);
+    }
   };
+  
 
   return (
     <div className="container">
