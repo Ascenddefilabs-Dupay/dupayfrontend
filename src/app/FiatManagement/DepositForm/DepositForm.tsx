@@ -62,21 +62,21 @@ const DepositForm: React.FC = () => {
     const [showLoader, setShowLoader] = useState<boolean>(false);
     const router = useRouter();
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-          const sessionDataString = window.localStorage.getItem('session_data');
-          if (sessionDataString) {
-            const sessionData = JSON.parse(sessionDataString);
-            const storedUserId = sessionData.user_id;
-            // setUserId(storedUserId);
-            console.log(storedUserId);
-            console.log(sessionData.user_email);
+    // useEffect(() => {
+    //     if (typeof window !== 'undefined') {
+    //       const sessionDataString = window.localStorage.getItem('session_data');
+    //       if (sessionDataString) {
+    //         const sessionData = JSON.parse(sessionDataString);
+    //         const storedUserId = sessionData.user_id;
+    //         // setUserId(storedUserId);
+    //         console.log(storedUserId);
+    //         console.log(sessionData.user_email);
      
-          } else {
-            router.push('http://localhost:3000/Userauthentication/SignIn')
-          }
-        }
-      }, []);
+    //       } else {
+    //         router.push('http://localhost:3000/Userauthentication/SignIn')
+    //       }
+    //     }
+    //   }, []);
 
     const handleApiError = (error: any, context: string) => {
         console.error(`Error during ${context}:`, error);
@@ -318,11 +318,11 @@ const DepositForm: React.FC = () => {
           // Make the API call to update UserCurrency
           await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/create_or_update/', depositData);
           setPendingAmount(parsedAmount);
-          // setAlertMessage('Deposit successful!');
-          //     setBalances(prevBalances => ({
-          //         ...prevBalances,
-          //         [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
-          //     }));
+          setAlertMessage('Deposit successful!');
+              setBalances(prevBalances => ({
+                  ...prevBalances,
+                  [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
+              }));
           // Record the transaction
           await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/transactions/', {
               wallet_id: walletDetails.fiat_wallet_id,
@@ -339,10 +339,10 @@ const DepositForm: React.FC = () => {
           });
   
           // Update local balances and reset form
-          setBalances(prevBalances => ({
-              ...prevBalances,
-              [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount,
-          }));
+        //   setBalances(prevBalances => ({
+        //       ...prevBalances,
+        //       [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount,
+        //   }));
           setAmount('');
           setError('');
           setSubmitted(false);
