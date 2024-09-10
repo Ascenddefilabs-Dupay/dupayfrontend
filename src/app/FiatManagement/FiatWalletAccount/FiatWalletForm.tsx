@@ -9,7 +9,7 @@ import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
 interface CurrencyOption {
   value: string;
-  label: JSX.Element;
+  label: JSX.Element | string;
 }
 
 interface Currency {
@@ -144,7 +144,7 @@ export default function FiatWalletForm() {
     event.preventDefault();
     setSuccess(null);
     setAlertMessage('');
-  
+    
     // Run validation only when the user submits the form
     if (!validateFields()) {
       return;
@@ -158,27 +158,31 @@ export default function FiatWalletForm() {
         fiat_wallet_currency: walletCurrency.toUpperCase(),
         fiat_wallet_username: username,
         fiat_wallet_phone_number: phoneNumber,
-        user: "DupC0004"
+        user: userId, // Use the state userId here
       });
-      
   
       setSuccess('Wallet created successfully!');
       setAlertMessage('Wallet created successfully!');
       setPhoneNumber('');
       setUsername('');
-      setWalletCurrency('');
+      setWalletCurrency('INR'); // Set a default value or as needed
       setWalletType('');
       setError({});
     } catch (error) {
       let errorMessage: string;
   
-      if (error.response && error.response.data) {
-        if (error.response.data.fiat_wallet_username) {
-          errorMessage = error.response.data.fiat_wallet_username;
-        } else if (error.response.data.fiat_wallet_phone_number) {
-          errorMessage = error.response.data.fiat_wallet_phone_number;
-        } else if (error.response.data.detail) {
-          errorMessage = error.response.data.detail; 
+      if (axios.isAxiosError(error)) {
+        // Handle Axios error
+        if (error.response && error.response.data) {
+          if (error.response.data.fiat_wallet_username) {
+            errorMessage = error.response.data.fiat_wallet_username;
+          } else if (error.response.data.fiat_wallet_phone_number) {
+            errorMessage = error.response.data.fiat_wallet_phone_number;
+          } else if (error.response.data.detail) {
+            errorMessage = error.response.data.detail;
+          } else {
+            errorMessage = 'Error creating wallet';
+          }
         } else {
           errorMessage = 'Error creating wallet';
         }
@@ -192,6 +196,7 @@ export default function FiatWalletForm() {
       setShowLoader(false); 
     }
   };
+  
   
   const handleLeftArrowClick = () => {
     setShowLoader(true);

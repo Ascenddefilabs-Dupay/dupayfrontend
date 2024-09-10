@@ -18,6 +18,12 @@ const useAuth = () => {
   const hasRole = (role: Role) => role === 'admin'; // Replace with actual role checking logic
   return { isAuthenticated, hasRole };
 };
+declare global {
+  interface Window {
+    Razorpay: any; // Declare Razorpay as a property on the window object
+  }
+}
+
 
 const CurrencyConverter: React.FC = () => {
   const router = useRouter();
