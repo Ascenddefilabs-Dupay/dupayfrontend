@@ -365,13 +365,13 @@ const CurrencyForm: React.FC = () => {
                         user_phone_number: mobileNumber,
                         transaction_hash: transactionHash,
                     });
-                    setMessage('Transaction successful!', response.data);
+                    setMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`); // Only passing one argument to setMessage
                 }
             }
         } catch (error: any) {
             console.log(error.response ? error.response.data.detail : 'Error processing transaction');
         }
-    };
+    };    
 
     const handleCloseAlert = () => {
         setAlertMessage('');
