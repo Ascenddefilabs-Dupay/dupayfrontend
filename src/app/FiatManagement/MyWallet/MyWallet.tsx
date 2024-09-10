@@ -24,21 +24,21 @@ const MyWallet: React.FC = () => {
     const router = useRouter();
     const [showLoader, setShowLoader] = useState(false);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-          const sessionDataString = window.localStorage.getItem('session_data');
-          if (sessionDataString) {
-            const sessionData = JSON.parse(sessionDataString);
-            const storedUserId = sessionData.user_id;
-            // setUserId(storedUserId);
-            console.log(storedUserId);
-            console.log(sessionData.user_email);
+    // useEffect(() => {
+    //     if (typeof window !== 'undefined') {
+    //       const sessionDataString = window.localStorage.getItem('session_data');
+    //       if (sessionDataString) {
+    //         const sessionData = JSON.parse(sessionDataString);
+    //         const storedUserId = sessionData.user_id;
+    //         // setUserId(storedUserId);
+    //         console.log(storedUserId);
+    //         console.log(sessionData.user_email);
      
-          } else {
-            router.push('http://localhost:3000/Userauthentication/SignIn')
-          }
-        }
-      }, []);
+    //       } else {
+    //         router.push('http://localhost:3000/Userauthentication/SignIn')
+    //       }
+    //     }
+    //   }, []);
 
     // Define the shape of the balances state
     const [balances, setBalances] = useState<Record<string, number>>({
@@ -150,12 +150,25 @@ const MyWallet: React.FC = () => {
                 currency.currency_country.toLowerCase() === searchQuery.toLowerCase()
             );
             if (foundCurrency) {
-                setSelectedCurrency({ value: foundCurrency.currency_code, label: foundCurrency.currency_code });
+                setSelectedCurrency({
+                    value: foundCurrency.currency_code,
+                    label: (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <img
+                                src={foundCurrency.currency_icon}
+                                alt={foundCurrency.currency_code}
+                                style={{ marginRight: 8, width: 20, height: 20 }}
+                            />
+                            {foundCurrency.currency_code} - {foundCurrency.currency_country}
+                        </div>
+                    ),
+                });
             } else {
                 setAlertMessage('Currency not found.');
             }
         }
     };
+    
 
     const handleSetLimitClick = () => {
         router.push('/FiatManagement/SetLimit');

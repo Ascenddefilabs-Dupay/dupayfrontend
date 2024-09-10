@@ -13,12 +13,12 @@ const API_BASE_URL = 'https://fiatmanagement-ind-255574993735.asia-south1.run.ap
 
 interface CurrencyOption {
     value: string;
-    label: JSX.Element;
+    label: JSX.Element | string;
 }
 
 interface BankOption {
     value: string;
-    label: JSX.Element;
+    label: JSX.Element | string;
 }
 
 interface WalletDetails {
@@ -61,6 +61,8 @@ const DepositForm: React.FC = () => {
     const [showForm, setShowForm] = useState<boolean>(true);
     const [showLoader, setShowLoader] = useState<boolean>(false);
     const router = useRouter();
+    const parsedAmount = parseFloat(amount);
+
 
     // useEffect(() => {
     //     if (typeof window !== 'undefined') {
@@ -362,9 +364,9 @@ const DepositForm: React.FC = () => {
 
   const handleCloseAlert = () => {
     if (pendingAmount !== null && selectedCurrency.value === 'INR') {
-        const newBalance = parseFloat(walletDetails.fiat_wallet_balance) + pendingAmount;
+        const newBalance = parseFloat(walletDetails!.fiat_wallet_balance) + pendingAmount;
 
-        axios.put(`${API_BASE_URL}/fiat_wallets/${walletDetails.fiat_wallet_id}/`, {
+        axios.put(`${API_BASE_URL}/fiat_wallets/${walletDetails!.fiat_wallet_id}/`, {
             ...walletDetails,
             fiat_wallet_balance: newBalance,
         })
@@ -441,10 +443,10 @@ const DepositForm: React.FC = () => {
                 
                 <div className={styles.container}>
                     {showLoader && (
-                        <div className={styles.loaderContainer}>
-                            <div className={styles.loader}></div>
-                        </div>
-                    )}
+                      <div className={styles.loaderContainer}>
+                          <div className={styles.loader}></div>
+                      </div>
+                  )}
                     <Suspense fallback={<div>Loading...</div>}>
                     <div className={styles.topBar}>
                         <button className={styles.topBarButton}>

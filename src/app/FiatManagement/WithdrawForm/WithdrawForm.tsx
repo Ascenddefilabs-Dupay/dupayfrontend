@@ -382,9 +382,9 @@ const WithdrawForm: React.FC = () => {
     };
     const handleCloseAlert = async () => {
         if (pendingAmount !== null && selectedCurrency.value === 'INR') {
-            const newBalance = parseFloat(walletDetails.fiat_wallet_balance) - pendingAmount;
+            const newBalance = parseFloat(walletDetails!.fiat_wallet_balance) - pendingAmount;
     
-            axios.put(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/${walletDetails.fiat_wallet_id}/`, {
+            axios.put(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/${walletDetails!.fiat_wallet_id}/`, {
                 ...walletDetails,
                 fiat_wallet_balance: newBalance,
             })
