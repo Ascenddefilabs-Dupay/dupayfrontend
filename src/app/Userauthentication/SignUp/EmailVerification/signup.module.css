@@ -1,11 +1,18 @@
+.html, .body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+}
+
 .container {
   display: flex;
-  
+  margin-top: 0; /* Remove margin-top */
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh; /* 100% of the viewport height */
   background-color: white;
-  
+  overflow: hidden; /* Prevent scrolling within the container */
 }
 
 .formWrapper {
@@ -14,10 +21,12 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  width: 100%;
+  width: 100%; /* Adjust width */
   max-width: 360px;
-  
-  min-height: 400px; 
+  padding-top: 8.5rem;
+  padding-bottom: 8rem;
+  margin-top: 0;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -100,7 +109,7 @@
 }
 
 .link {
-  color: purple;
+  color: rgba(119, 6, 211, 1);
   text-decoration: none;
 }
 
