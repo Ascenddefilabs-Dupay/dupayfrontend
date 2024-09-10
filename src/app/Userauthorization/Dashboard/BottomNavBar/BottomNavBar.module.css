@@ -1,8 +1,9 @@
 .bottomNavBar {
     position: fixed;
+    bottom: 0px;
     right: 0px;
     margin-left: 20px;
-    bottom: 2px;
+    margin-bottom: 40px;
     margin: 0 auto;
     width: 400px;
     display: flex;
@@ -13,9 +14,51 @@
     padding: 0 0.5rem;
     left: 1px;
     font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
-  
+    overflow-y: hidden;
+  }
+  @media (max-width: 768px) {
+    .bottomNavBar {
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+    }
+  }
+  @media (max-width: 740px) {
+    .bottomNavBar {
+      position: fixed; /* or absolute */
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      overflow-y: hidden;
+      /* height: 50px; Adjust the height as needed */
+    }
   }
   
+  @media (max-width: 1024px) {
+    .bottomNavBar {
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+    }
+  }
+  @media (max-width: 360px) {
+    .bottomNavBar {
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      z-index: 1000; /* Ensure it's above other elements */
+      /* padding: 10px 0; Adjust padding if needed */
+
+    }
+  }
+  @media (max-width: 375px) {
+    .bottomNavBar {
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      overflow-x: hidden;
+    }
+  }
   .navItem {
     display: flex;
     flex-direction: column;

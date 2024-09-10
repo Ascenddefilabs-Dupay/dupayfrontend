@@ -16,7 +16,7 @@
   padding: 2rem;
   width: 100%;
   max-width: 360px;
-  margin-top: 10px;
+  
   min-height: 400px; 
   display: flex;
   flex-direction: column;
@@ -181,7 +181,7 @@
 .otpButton {
   width: 100%; /* Ensure buttons take full width */
   height: 45px; /* Consistent height with input fields */
-  background: linear-gradient(90deg, #007bff9f, #800080);
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   border: none;
   color: #fff;
   cursor: pointer;
@@ -226,4 +226,29 @@
   color: grey;
   margin-bottom: 2px;
   
+}
+
+@media (max-width: 768px) {
+
+  .formWrapper {
+    width: 100%; /* Make card fill the entire width */
+    height: 100%; /* Make card fill the entire height */
+    max-width: none; /* Remove max-width to allow flexibility */
+    padding: 5rem; /* Reduce padding on smaller screens */
+    margin: 0; /* Remove any margin */
+    border-radius: 0; /* Remove border-radius for full screen look */
+    box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+  }
+}
+@media (max-width: 480px) {
+
+  .formWrapper {
+    width: 100%; /* Make card fill the entire width */
+    height: 100%; /* Make card fill the entire height */
+    max-width: none; /* Remove max-width to allow flexibility */
+    padding: 3rem; /* Reduce padding on smaller screens */
+    margin: 0; /* Remove any margin */
+    border-radius: 0; /* Remove border-radius for full screen look */
+    box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+  }
 }

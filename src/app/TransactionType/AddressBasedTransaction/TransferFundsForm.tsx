@@ -407,6 +407,23 @@ const AddressBasedTransactionForm: React.FC = () => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const userId = 'DupC0001';
 
+  const [userID, setUserID] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        const sessionDataString = window.localStorage.getItem('session_data');
+        if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId: string = sessionData.user_id;
+            setUserID(storedUserId);
+            console.log(storedUserId);
+            // console.log(sessionData.user_email);
+        } else {
+            // router.push('/Userauthentication/SignIn');
+        }
+    }
+}, [router]);
+
 
   useEffect(() => {
     console.log(userId);

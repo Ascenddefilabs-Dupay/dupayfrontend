@@ -107,11 +107,28 @@ import FolderIcon from '@mui/icons-material/Folder';
 import PlugIcon from '@mui/icons-material/Power';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from './manageprofile.module.css'; // Ensure path is correct and CSS is global if needed
+import { redirect } from 'next/navigation';
+
 
 const ManageProfile = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      // if (sessionDataString) {
+      //   const sessionData = JSON.parse(sessionDataString);
+      //   const storedUserId = sessionData.user_id;
+      //   setUserId(storedUserId);
+      //   console.log(storedUserId);
+      //   console.log(sessionData.user_email);
+      // } else {
+      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      // }
+    }
+  }, []);
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds delay
     return () => clearTimeout(timer);

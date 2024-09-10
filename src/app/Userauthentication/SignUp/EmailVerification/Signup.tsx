@@ -1,6 +1,10 @@
 "use client";
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head';
+import Navbar from '../../LandingPage/Navbar';
+
+
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -58,12 +62,10 @@ export default function Home1() {
       return;
     }
     try {
-<<<<<<< HEAD:src/app/Userauthentication/SignUp/EmailVerification/Signup.tsx
-      const emailCheckResponse = await fetch('https://userauthentication-rcfpsxcera-uc.a.run.app/signupapi/check-email/', {
-=======
+
       // Check if the email is already in use
       const emailCheckResponse = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/check-email/', {
->>>>>>> 738fe1825f90a3ff57c13bdc244b2b82867e5673:src/app/Userauthentication/SignUp/EmailVerification/Signup.js
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -206,8 +208,15 @@ export default function Home1() {
   };
 
   return (
+    
     <GoogleOAuthProvider clientId={CLIENT_ID}>
       <div className={styles.container}>
+      <Head>
+        <title>Signup</title>
+        <meta name="description" content="Signup page" />
+      </Head>
+      <Navbar />
+
         <div className={styles.formWrapper}>
           <h1 className={styles.title}>Signup</h1>
           <div className={styles.formContent}>
@@ -312,12 +321,18 @@ export default function Home1() {
                 <button type="submit" className={styles.submitButton}>Register</button>
               </form>
             )}
-
+            <div className={styles.googleButtonWrapper}>
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               // onError={handleGoogleFailure}
               // logo
             />
+          </div>
+          <div className={styles.signInLinkWrapper}>
+                  <Link href="/Userauthentication/SignIn" className={styles.signInLink}>
+                    Already have an account? Sign In
+                  </Link>
+          </div>
           </div>
         </div>
       </div>
