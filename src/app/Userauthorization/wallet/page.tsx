@@ -1,10 +1,10 @@
 import React from 'react';
-import PushNoti from './index';
+import Wallet from './wallet'
 
 const page = () => {
   return (
     <div>
-      <PushNoti />
+        <Wallet />
     </div>
   )
 }

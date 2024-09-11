@@ -675,22 +675,22 @@ const QRScanner: React.FC = () => {
       {scanning ? (
         <div className="scanner-wrapper">
           <QrReader
-            onResult={(result, error) => {
-              if (result) {
-                const scannedText = result?.text;
-                const mobile = extractMobileNumber(scannedText);
-                setMobileNumber(mobile || '');
-                setScannedData(scannedText || '');
-                setScanning(false);
-              }
-
-              if (error) {
-                console.error(error);
-              }
-            }}
-            constraints={{ facingMode: 'environment' }}
-            style={{ width: '100%' }}
+          onResult={(result, error) => {
+            if (result) {
+              const scannedText = result?.getText(); // Use getText()
+              const mobile = extractMobileNumber(scannedText);
+              setMobileNumber(mobile || '');
+              setScannedData(scannedText || '');
+              setScanning(false);
+            }
+            if (error) {
+              console.error(error);
+            }
+          }}
+          constraints={{ facingMode: 'environment' }}
+          videoStyle={{ width: '100%' }} // Use videoStyle for controlling video dimension
           />
+
           <button className="cancel-button" onClick={handleCancel}>
             Cancel
           </button>

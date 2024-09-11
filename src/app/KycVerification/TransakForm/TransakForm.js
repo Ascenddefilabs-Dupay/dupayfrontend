@@ -156,7 +156,7 @@ const TransakForm = () => {
         <ArrowBackIcon className={styles.setting_back_icon} onClick={settinghandleBackClick} />
         <form className={styles.form} onSubmit={handleSubmit}>
           <h1 className={styles.h1}>Purpose of Transak</h1>
-          <h3 className={styles.h3}>What's your purpose for using Transak?</h3>
+          <h3 className={styles.h3}>What is your purpose for using Transak?</h3>
           <div className={styles.card1}>
             <label className={styles.label1}>
               <input className={styles.input}

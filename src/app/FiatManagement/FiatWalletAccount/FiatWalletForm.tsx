@@ -8,7 +8,11 @@ import { useRouter } from "next/navigation";
 
 interface AccountTypeOption {
   value: string;
+
   label: string; // Changed JSX.Element to string for simplicity
+
+  label: JSX.Element | string;
+
 }
 
 interface ErrorState {
@@ -24,10 +28,17 @@ interface AdminCMSData {
 }
 
 export default function FiatWalletForm() {
+
   const [accountType, setAccountType] = useState<string>("");
   const [walletName, setWalletName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [securityPin, setSecurityPin] = useState<string>("");
+
+  const [walletType, setWalletType] = useState<string>('');
+  const [walletCurrency, setWalletCurrency] = useState<string>('INR');
+  const [username, setUsername] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+
   const [error, setError] = useState<ErrorState>({});
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [selectedCurrency, setSelectedCurrency] = useState<SingleValue<AccountTypeOption>>(null);
@@ -76,8 +87,14 @@ export default function FiatWalletForm() {
   const validateFields = (): boolean => {
     const newError: ErrorState = {};
 
+
     if (!accountType) {
       newError.accountType = "Account type is required.";
+
+  
+    if (!walletType) {
+      newError.walletType = 'Wallet Type is required.';
+
     }
     if (!walletName) {
       newError.walletName = "Wallet name is required.";
@@ -88,12 +105,37 @@ export default function FiatWalletForm() {
     if (!securityPin || securityPin.length !== 4) {
       newError.securityPin = "Security PIN must be a 4-digit number.";
     }
+ fiatwallet
 
     setError(newError);
     setAlertMessage(Object.keys(newError).length > 0 ? "Please correct the errors before submitting." : "");
 
     return Object.keys(newError).length === 0;
   };
+
+  
+    setError(newError);
+  
+    return Object.keys(newError).length === 0;
+  };
+  
+// setUserId("DupC0001");
+  useEffect(() => {
+    axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/`)
+      .then(response => setCurrencies(response.data))
+      .catch(error => console.error('Error fetching currencies:', error));
+  }, []);
+
+  const currencyOptions: CurrencyOption[] = currencies.map(currency => ({
+    value: currency.currency_code,
+    label: (
+      <div className={styles.currencyOption}>
+        <img src={currency.currency_icon} alt={currency.currency_code} className={styles.currencyIcon} />
+        {currency.currency_code} - {currency.currency_country}
+      </div>
+    ),
+  }));
+
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -137,6 +179,25 @@ export default function FiatWalletForm() {
       }
     } finally {
       setShowLoader(false);
+
+
+    }, 3000); // 3 seconds delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleCurrencyChange = (option: SingleValue<CurrencyOption>) => {
+    if (option) {
+      setSelectedCurrency(option);
+      setWalletCurrency(option.value);
+  
+      // Clear the currency error only if it exists
+      setError((prevError) => {
+        if (prevError.walletCurrency) {
+          return { ...prevError, walletCurrency: '' };
+        }
+        return prevError;
+      });
+
     }
   };
   
@@ -163,6 +224,78 @@ export default function FiatWalletForm() {
       color: "white",
     }),
   };
+
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setSuccess(null);
+    setAlertMessage('');
+    
+    // Run validation only when the user submits the form
+    if (!validateFields()) {
+      return;
+    }
+  
+    try {
+      setShowLoader(true);
+  
+      const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/', {
+        fiat_wallet_type: walletType,
+        fiat_wallet_currency: walletCurrency.toUpperCase(),
+        fiat_wallet_username: username,
+        fiat_wallet_phone_number: phoneNumber,
+        user: userId, // Use the state userId here
+      });
+  
+      setSuccess('Wallet created successfully!');
+      setAlertMessage('Wallet created successfully!');
+      setPhoneNumber('');
+      setUsername('');
+      setWalletCurrency('INR'); // Set a default value or as needed
+      setWalletType('');
+      setError({});
+    } catch (error) {
+      let errorMessage: string;
+  
+      if (axios.isAxiosError(error)) {
+        // Handle Axios error
+        if (error.response && error.response.data) {
+          if (error.response.data.fiat_wallet_username) {
+            errorMessage = error.response.data.fiat_wallet_username;
+          } else if (error.response.data.fiat_wallet_phone_number) {
+            errorMessage = error.response.data.fiat_wallet_phone_number;
+          } else if (error.response.data.detail) {
+            errorMessage = error.response.data.detail;
+          } else {
+            errorMessage = 'Error creating wallet';
+          }
+        } else {
+          errorMessage = 'Error creating wallet';
+        }
+      } else {
+        errorMessage = 'Error creating wallet';
+      }
+  
+      setAlertMessage(errorMessage);
+      console.error('Error creating wallet:', error);
+    } finally {
+      setShowLoader(false); 
+    }
+  };
+  
+  
+  const handleLeftArrowClick = () => {
+    setShowLoader(true);
+    setTimeout(() => {
+      window.location.href = '/Userauthorization/Dashboard';
+      setShowLoader(false);
+    }, 3000);
+  };
+
+  const handleCloseAlert = () => {
+    setAlertMessage('');
+  };
+
 
   return (
     <div className={styles.container}>

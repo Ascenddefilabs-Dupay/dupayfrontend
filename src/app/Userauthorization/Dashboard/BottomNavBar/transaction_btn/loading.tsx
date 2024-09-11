@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from 'react';
 
@@ -61,7 +60,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     WebkitBackdropFilter: 'blur(10px) saturate(180%)',
     zIndex: 2,
     padding: '20px',
-    borderRadius: '20px',
     width:'400px',
     margin:'0 auto',
     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',

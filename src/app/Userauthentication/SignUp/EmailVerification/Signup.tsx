@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head';
+import Navbar from '../../LandingPage/Navbar';
 
 
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
@@ -209,6 +211,11 @@ export default function Home1() {
     
     <GoogleOAuthProvider clientId={CLIENT_ID}>
       <div className={styles.container}>
+      <Head>
+        <title>Signup</title>
+        <meta name="description" content="Signup page" />
+      </Head>
+      <Navbar />
 
         <div className={styles.formWrapper}>
           <h1 className={styles.title}>Signup</h1>

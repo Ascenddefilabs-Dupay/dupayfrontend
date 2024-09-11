@@ -1,10 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const TransakWidget: React.FC = () => {
   const router = useRouter();
   const [userId, setUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -26,49 +28,51 @@ const TransakWidget: React.FC = () => {
     const transakContainer = document.getElementById('transakContainer') as HTMLDivElement;
     const transakIframe = document.getElementById('transakIframe') as HTMLIFrameElement;
 
-    // buyCryptoBtn.addEventListener('click', () => {
-      buyCryptoBtn.style.display = 'none';
-      // Show the Transak container
-      transakContainer.style.display = 'block';
-      
+    buyCryptoBtn.addEventListener('click', () => {
+      setLoading(true);
+      window.location.href = '/Userauthorization/Dashboard';
+    });
+    buyCryptoBtn.style.display = 'block';
+    // Show the Transak container
+    transakContainer.style.display = 'block';
 
-      // Set the Transak iframe src with your API key and any required query parameters
-      transakIframe.src = 'https://global-stg.transak.com/?apiKey=a413d789-c5cf-4955-ae22-ff724c620d36&environment=staging';
 
-      // Set up the event listener for messages from the iframe
-      const iframeWindow = transakIframe.contentWindow;
-      window.addEventListener('message', (message) => {
-        if (message.source !== iframeWindow) return;
+    // Set the Transak iframe src with your API key and any required query parameters
+    transakIframe.src = 'https://global-stg.transak.com/?apiKey=a413d789-c5cf-4955-ae22-ff724c620d36&environment=staging';
 
-        // To get all the events
-        // console.log('Event ID: ', message?.data?.event_id);
-        // console.log('Data: ', message?.data?.data);
+    // Set up the event listener for messages from the iframe
+    const iframeWindow = transakIframe.contentWindow;
+    window.addEventListener('message', (message) => {
+      if (message.source !== iframeWindow) return;
 
-        // This will trigger when the user marks payment as made
-        if (message?.data?.event_id === 'TRANSAK_ORDER_SUCCESSFUL') {
+      // To get all the events
+      // console.log('Event ID: ', message?.data?.event_id);
+      // console.log('Data: ', message?.data?.data);
+
+      // This will trigger when the user marks payment as made
+      if (message?.data?.event_id === 'TRANSAK_ORDER_SUCCESSFUL') {
         //   console.log('Order Data: ', message?.data?.data);
-        }
-      });
+      }
+    });
     // });
   }, []);
-
-  return (
-    <div style={{ height: '100vh', display: 'grid', placeItems: 'center', margin: 'auto', padding: '20px', maxWidth: '438px', backgroundColor: 'Black'  }}>
+return (
+    <div style={{ height: '100vh', display: 'grid', margin: 'auto', padding: '20px', maxWidth: '430px', backgroundColor: 'Black' }}>
       {/* Buy Crypto Button */}
       <button
         id="buyCryptoBtn"
         style={{
-          display:'none',
-          padding: '10px 20px',
+          display: 'none',
+          justifyContent: 'left',
+          padding: '0',
           fontSize: '18px',
-          background: 'linear-gradient(90deg, #007bff9f, #800080)',
           color: 'white',
-          border: 'none',
-          borderRadius: '5px',
           cursor: 'pointer',
+          width: '20px',
         }}
       >
-        Buy Crypto
+        {/* Buy Crypto */}
+        <FaArrowLeft />
       </button>
 
       {/* Hidden Div for Transak Widget */}

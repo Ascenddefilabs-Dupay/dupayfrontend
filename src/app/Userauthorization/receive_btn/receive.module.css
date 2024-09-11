@@ -3,19 +3,37 @@
     background-color: black;
     width:auto;
     max-width: 400px;
+    height:100vh;
+    max-height: auto;
     margin: 0 auto;
     color: white;
-    height:auto;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding-top: 15px;
     padding-left: 10px;
     cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
+    font-family: Arial, Helvetica, sans-serif; 
+ } 
 
-}
+/* .container {
+    position: relative;
+    background-color: black;
+    width: 100%; 
+    max-width: 100%; 
+    height: auto;
+    min-height: 100vh; 
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px; 
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+} */
 
 .profileIcon {
     margin-right: 2px;
@@ -173,6 +191,8 @@
 }
 
 .buyButtonDiv {
+    position: relative;
+    bottom: 10px;
     cursor: pointer;
 }
 .loaderContainer {
@@ -241,3 +261,217 @@
       opacity: 1;
     }
   }
+  /* General styling remains here */
+
+/* iPhone XR (414px width) */
+@media only screen and (max-width: 414px) {
+    .container {
+        max-width: auto;
+        min-width: 400px;
+        height:auto;
+        min-height: 100vh;
+        max-height: auto;
+        overflow: hidden;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+
+    .button {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .search {
+        width: 90%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+
+    .iconContainer {
+        left: 40px;
+    }
+}
+
+/* Responsive adjustments */
+
+@media only screen and (max-width: 430px) {
+    .container {
+        max-width: auto;
+        min-width: 400px;
+        height:auto;
+        min-height: 100vh;
+        max-height: auto;
+        overflow: hidden;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+
+    .button {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .search {
+        width: 90%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+
+    .iconContainer {
+        left: 40px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .container {
+        padding: 8px; /* Reduced padding for smaller devices */
+        min-width: 100%; /* Avoid fixed width */
+        min-height: 100vh; /* Ensure full height without scrolling */
+    }
+
+    .heading {
+        font-size: 16px;
+    }
+
+    .button {
+        padding: 7px;
+        font-size: 13px;
+    }
+
+    .search {
+        width: 85%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+    .profileDiv {
+        cursor: pointer;
+        position: relative;
+        position: relative;
+        right: 20px;
+    }
+    
+    .ethereumDiv {
+        width: 100%;
+        cursor: pointer;
+        position: relative;
+        right: 20px;
+    }
+    
+    .bitcoinDiv {
+        width: 100%;
+        cursor: pointer;
+        position: relative;
+        right: 20px;
+    }
+    
+    .buyButtonDiv {
+        cursor: pointer;
+        position: relative;
+        right: 20px;
+    }
+
+    .iconContainer {
+        left: 35px;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .container {
+        padding: 5px;
+        min-width: 100%;
+        min-height: 100vh;
+    }
+
+    .heading {
+        font-size: 16px;
+    }
+
+    .button {
+        padding: 7px;
+        font-size: 13px;
+    }
+
+    .search {
+        width: 85%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+
+    .iconContainer {
+        left: 35px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        padding: 10px;
+        min-width: 100%;
+        min-height: 100vh;
+    }
+
+    .heading {
+        font-size: 20px;
+    }
+
+    .button {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .search {
+        width: 95%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+
+    .iconContainer {
+        left: 50px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .container {
+        padding: 15px;
+        min-width: 100%;
+        min-height: 100vh;
+    }
+
+    .heading {
+        font-size: 22px;
+    }
+
+    .button {
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .search {
+        width: 95%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+
+    .iconContainer {
+        left: 55px;
+    }
+}

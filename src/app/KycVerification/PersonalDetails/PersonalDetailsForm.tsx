@@ -750,7 +750,7 @@ const PersonalDetailsForm: React.FC = () => {
     if (validateForm()) {
       setLoading(true);
       try {
-        const response = await axios.post('http://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/personal-details/', {
+        const response = await axios.post('http://127.0.0.1:8000/kycverification_api/personal-details/', {
           user_id: userData?.user_id, // Include user_id
           user_first_name: formData.firstName,
           user_last_name: formData.lastName,

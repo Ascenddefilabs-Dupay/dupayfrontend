@@ -1,18 +1,18 @@
-.container {
+/* .container {
   position: relative;
-  bottom: 45px;
-  top: 1px;
+  height: 100vh;
+  max-height: auto;
+  width: 100%; 
+  max-width: 400px; 
+  top: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: black;
   color: white;
-  height: 100vh;
-  width: 400px;
   padding: 20px;
   margin: 0 auto;
-  font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
-
+  font-family: Arial, Helvetica, sans-serif; 
 }
 
 .backButton {
@@ -140,5 +140,255 @@
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .heading {
+    font-size: 22px; 
+  }
+  .paragraph {
+    font-size: 14px; 
+  }
+  .image {
+    width: 140px;
+    height: 140px;
+  }
+  .continueButton {
+    width: 90%;
+    padding: 12px; 
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .heading {
+    font-size: 26px;
+  }
+  .paragraph {
+    font-size: 15px;
+  }
+  .image {
+    width: 160px;
+    height: 160px;
+  }
+  .continueButton {
+    width: 80%; 
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .container {
+    max-width: 500px; 
+  }
+  .heading {
+    font-size: 32px;
+  }
+  .paragraph {
+    font-size: 18px;
+  }
+  .image {
+    width: 200px;
+    height: 200px; 
+  }
+} */
+
+
+
+
+.container {
+  position: relative;
+  height: 100vh;
+  width: 100%; 
+  max-width: 100%; /* Remove fixed width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+.backButton {
+  align-self: flex-start;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: -25px;
+}
+
+.heading {
+  font-size: 28px;
+  margin: 20px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.imageContainer {
+  margin-bottom: 30px;
+}
+
+.image {
+  width: 180px;
+  height: 180px;
+}
+
+.paragraph {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center; /* Center text for better layout on all screens */
+  line-height: normal;
+  margin: 10px 0;
+  color: gray;
+}
+
+.continueButton {
+  background: linear-gradient(90deg, #007bff9f, #800080);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  width: 85%;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.continueButton:hover {
+  background-color: rgb(71, 126, 246);
+}
+
+.loaderContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  z-index: 2;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #ff007b, #007bff);
+  animation: spin 1s linear infinite;
+  transform: rotate(45deg);
+  box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
+  border-radius: 12%;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(255, 0, 123, 0.3);
+  border-radius: 15%;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes spin {
+  0% { transform: rotate(45deg); }
+  100% { transform: rotate(405deg); }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Media Queries */
+@media only screen and (max-width: 576px) { /* For small phones */
+  .heading {
+    font-size: 22px; 
+  }
+  .paragraph {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .image {
+    width: 120px;
+    height: 120px;
+  }
+  .continueButton {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 768px) { /* For tablets */
+  .heading {
+    font-size: 24px;
+  }
+  .paragraph {
+    font-size: 15px;
+  }
+  .image {
+    width: 150px;
+    height: 150px;
+  }
+  .continueButton {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) { /* For iPads and similar */
+  .heading {
+    font-size: 26px;
+  }
+  .paragraph {
+    font-size: 16px;
+  }
+  .image {
+    width: 160px;
+    height: 160px;
+  }
+  .continueButton {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 1025px) { /* For larger screens */
+  .container {
+    max-width: 600px; /* Increase max width for larger screens */
+  }
+  .heading {
+    font-size: 32px;
+  }
+  .paragraph {
+    font-size: 18px;
+  }
+  .image {
+    width: 200px;
+    height: 200px; 
+  }
+  .continueButton {
+    width: 70%;
   }
 }

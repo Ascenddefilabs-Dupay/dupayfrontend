@@ -1,0 +1,109 @@
+/* Container for the entire component */
+.container {
+    position: relative;
+    background-color: black;
+    height: 100vh;
+    max-height: auto;
+    width: 400px;
+    max-width: 100%; 
+    margin: 0 auto;
+    color: white;
+    min-height: 100vh;  
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    cursor: pointer;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Loader container */
+.loaderContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    z-index: 2;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Loader animation */
+.loader {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff007b, #007bff);
+    border-radius: 12%;
+    animation: spin 1s linear infinite;
+    transform: rotate(45deg);
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
+}
+
+/* Keyframes for the spin animation */
+@keyframes spin {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+}
+
+/* Button styles */
+.button {
+    padding: 10px;
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.button.learnMore {
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+/* @media (max-width: 1440px) {
+    .container {
+        width: 95%;
+    }
+} */
+
+@media (max-width: 1024px) {
+    .container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .button {
+        padding: 8px;
+        font-size: 14px;
+    }
+    .loader {
+        width: 50px;
+        height: 50px;
+    }
+}

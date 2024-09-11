@@ -6,7 +6,7 @@ import QrScanner from 'react-qr-scanner';
 import styles from './header.module.css';
 import { redirect } from 'next/navigation';
 
-
+ 
 
 
 
