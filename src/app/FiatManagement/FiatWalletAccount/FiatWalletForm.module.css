@@ -2,14 +2,17 @@
   width: 400px; 
   max-width: 100%;
   padding: 20px;
-  /* border-radius: 8px; */
+  padding-top: 4rem;
+  padding-bottom: 8rem; 
   margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background: black;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  height: 100vh;
-  max-height: auto;
+  height: 110vh;
   position: relative;
+  display: flex; /* Ensure flexbox is used */
+  flex-direction: column; /* Arrange content vertically */
+  justify-content: center; /* Center content vertically */
 }
 
 /* for other devices*/
@@ -78,14 +81,18 @@
 .submitButton {
   background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   color: white;
+  margin-bottom: 2rem;
+  padding: 10px 32px; /* Increased padding for a bigger size */
+  text-align: center;
+  font-size: 20px; /* Increased font size */
   border: none;
-  padding: 10px;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
   margin-top: 20px;
-  margin-right: 0;
+   width: 100%; /*Ensures it spans the full width */
+  max-width: 400px; 
   
+  align-self: center; /* This centers the button horizontally */
 }
 
 .submitButton:hover {
@@ -159,7 +166,7 @@
   align-items: center;
   gap: 20px; /* Add spacing between icon and title if needed */
   margin-bottom: 30px;
-  margin-top: 1px; /* Adjust this value to move up */
+  margin-top: 6rem; /* Adjust this value to move up */
 }
 
 .topBarButton {
@@ -179,7 +186,8 @@
 .topBarTitle {
   font-size: 24px;
   color: white;
-  margin-top: 0; /* Remove or adjust this if needed */
+  gap: 50px;
+  margin-top: 1px; 
 }
 
 .loaderContainer {
