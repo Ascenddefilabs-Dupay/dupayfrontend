@@ -602,7 +602,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './PersonalDetailsForm.module.css';
-import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
+// import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
 interface FormData {
   firstName: string;
@@ -652,8 +652,9 @@ const PersonalDetailsForm: React.FC = () => {
   const [redirect, setRedirect] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { isLoggedIn, userData } = UseSession();
+  // const { isLoggedIn, userData } = UseSession();
   const [userId, setUserId] = useState<string | null>(null);
+  
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -670,13 +671,13 @@ const PersonalDetailsForm: React.FC = () => {
     }
 }, [router]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      console.log('User ID:', userData?.user_id);
-    } else {
-      console.log('User is not logged in');
-    }
-  }, [isLoggedIn, userData]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     console.log('User ID:', userData?.user_id);
+  //   } else {
+  //     console.log('User is not logged in');
+  //   }
+  // }, [isLoggedIn, userData]);
 
   const validateField = useCallback((name: keyof FormData, value: string) => {
     let error = '';
@@ -749,9 +750,10 @@ const PersonalDetailsForm: React.FC = () => {
     e.preventDefault();
     if (validateForm()) {
       setLoading(true);
+      localStorage.setItem('user_details', JSON.stringify(formData));
       try {
-        const response = await axios.post('http://127.0.0.1:8000/kycverification_api/personal-details/', {
-          user_id: userData?.user_id, // Include user_id
+        const response = await axios.post('http://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/personal-details/', {
+          user_id: userId, // Include user_id
           user_first_name: formData.firstName,
           user_last_name: formData.lastName,
           user_phone_number: formData.mobileNumber,

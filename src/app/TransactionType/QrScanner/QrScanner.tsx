@@ -481,7 +481,7 @@ const QRScanner: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const userId = 'DupC0001';
+  // const userId = 'DupC0004';
 
   const [userID, setUserID] = useState<string | null>(null);
 
@@ -501,7 +501,7 @@ const QRScanner: React.FC = () => {
 }, [router]);
 
   useEffect(() => {
-    console.log(userId);
+    // console.log(userId);
     const script = document.createElement('script');
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
@@ -601,7 +601,7 @@ const QRScanner: React.FC = () => {
         transaction_amount: amount,
         transaction_currency: currency,
         user_phone_number: mobileNumber,
-        user_id: userId,
+        user_id: userID,
       });
 
       if (response.data.status === 'failure') {
@@ -629,7 +629,7 @@ const QRScanner: React.FC = () => {
               user_phone_number: mobileNumber,
               transaction_hash: transactionHash,
               transaction_method: 'QR transaction',
-              user_id: userId,
+              user_id: userID,
             });
             setAlertMessage('Transaction successful!');
             setAmount('');

@@ -405,7 +405,7 @@ const AddressBasedTransactionForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const userId = 'DupC0001';
+  // const userId = 'DupC0004';
 
   const [userID, setUserID] = useState<string | null>(null);
 
@@ -426,7 +426,7 @@ const AddressBasedTransactionForm: React.FC = () => {
 
 
   useEffect(() => {
-    console.log(userId);
+    // console.log(userId);
 
     const script = document.createElement('script');
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -512,7 +512,7 @@ const AddressBasedTransactionForm: React.FC = () => {
             transaction_currency: transactionCurrency,
             fiat_address: fiatAddress,
             transaction_method: 'fiat address transaction',
-            user_id: userId,
+            user_id: userID,
         });
 
         if (response.data.status === 'address_failure') {
@@ -535,7 +535,7 @@ const AddressBasedTransactionForm: React.FC = () => {
                         transaction_fee: 0.0,
                         transaction_hash: uuidv4(),
                         transaction_method: 'fiat address transaction',
-                        user_id: userId,
+                        user_id: userID,
                     });
                     setAlertMessage('Transaction successful!');
                     setTransactionAmount('');
