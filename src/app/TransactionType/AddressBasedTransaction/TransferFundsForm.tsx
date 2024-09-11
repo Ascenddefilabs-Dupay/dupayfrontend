@@ -542,19 +542,30 @@ const AddressBasedTransactionForm: React.FC = () => {
                     setTransactionCurrency('');
                     setFiatAddress('');
                     window.location.href = '/Userauthorization/Dashboard';
-                } catch (error) {
-                    setAlertMessage('Error storing transaction data.');
-                    console.error('Error storing transaction data:', error.response ? error.response.data : error.message);
+                } catch (error: unknown) {
+                    if (axios.isAxiosError(error)) {
+                        setAlertMessage('Error storing transaction data.');
+                        console.error('Error storing transaction data:', error.response?.data ?? error.message);
+                    } else {
+                        setAlertMessage('An unknown error occurred.');
+                        console.error('Unknown error:', error);
+                    }
                 }
             } else {
                 setAlertMessage('Payment failed!');
             }
         }
-    } catch (error) {
-        setAlertMessage(error.response ? error.response.data.detail : 'Error submitting transaction');
-        console.error('Error submitting transaction:', error.response ? error.response.data : error.message);
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            setAlertMessage(error.response?.data?.detail ?? 'Error submitting transaction');
+            console.error('Error submitting transaction:', error.response?.data ?? error.message);
+        } else {
+            setAlertMessage('An unknown error occurred during submission.');
+            console.error('Unknown error:', error);
+        }
     }
-  };
+};
+
 
   const handleContinue = () => {
     router.push('TransactionType/WalletTransactionInterface');

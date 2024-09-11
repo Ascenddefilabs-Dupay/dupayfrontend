@@ -24,7 +24,7 @@ const Index = () => {
         </div>
         <div className={styles.text}>
           <h1 className={styles.heading}>THE FUTURE OF MONEY IS HERE</h1>
-          <p className={styles.subtext}>We're the most trusted place for people and businesses to buy, sell, and manage crypto.</p>
+          <p className={styles.subtext}>We are the most trusted place for people and businesses to buy, sell, and manage crypto.</p>
           <button onClick={handleSignUpClick} className={styles.signupButton}>Sign up</button>
         </div>
       </div>

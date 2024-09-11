@@ -18,6 +18,7 @@ const SuccessPage: React.FC = () => {
     const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(false);
     const [userId, setUserId] = useState<string | null>(null);
+    const [creationState, setCreationState] = useState<boolean>(false);
     const router = useRouter();
 
 
@@ -121,6 +122,7 @@ const SuccessPage: React.FC = () => {
             if (isCorrect && user_id !== null) {
                 setIsSuccess(true);
                 setLoading(true)
+                setCreationState(true);
                 try {
                     // Retrieve wallet_id and password from localStorage
 
@@ -139,6 +141,7 @@ const SuccessPage: React.FC = () => {
                         password,
                         recovery_phrases: recoveryWords.join(' '),
                         user_id,
+                        creation_state: true,
                     });
 
                     // Clear local storage

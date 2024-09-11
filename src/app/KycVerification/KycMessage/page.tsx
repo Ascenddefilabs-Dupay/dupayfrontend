@@ -6,26 +6,26 @@ const IDProofAndSelfie = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = 'http://localhost:3000/KycVerification/PersonalDetails';
-    }, 2000); // 5000 milliseconds = 5 seconds
+    }, 2000); // 2000 milliseconds = 2 seconds
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div style={styles.container}>
-      <div style ={styles.card}>
-        <h2 style={styles.title}>ID Proof</h2><br/><br/>
+      <div style={styles.card}>
+        <h2 style={styles.title}>ID Proof</h2><br /><br />
         <ProgressBar step={3} totalSteps={3} />
         <div style={styles.checkmarkContainer}>
           <div style={styles.checkmark}>✓</div>
         </div>
         <p style={styles.thankYou}>Thank you</p>
-        <p style={styles.message}>That's all we need to start verifying your identity</p>
+        <p style={styles.message}>That is all we need to start verifying your identity</p>
       </div>
     </div>
   );
 };
 
-const styles = {
+const styles: { [key: string]: React.CSSProperties } = {
   container: {
     display: 'flex',
     alignItems: 'center',
@@ -35,7 +35,7 @@ const styles = {
   },
   card: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column' as 'column', // Explicitly typed value for flexDirection
     alignItems: 'center',
     textAlign: 'center',
     backgroundColor: 'black',
@@ -84,6 +84,6 @@ const styles = {
     fontSize: '16px',
     color: '#999',
   },
-}
+};
 
 export default IDProofAndSelfie;

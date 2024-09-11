@@ -151,7 +151,7 @@ export default function Home1() {
     formDataToSend.append('user_password', newPassword);
 
     try {
-      const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/register/', formDataToSend, {
+      const response = await axios.post('http://localhost:8000/signupapi/register/', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
