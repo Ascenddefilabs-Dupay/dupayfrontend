@@ -131,7 +131,7 @@ const PasswordForm: React.FC = () => {
                         <div className="column right">
                         </div>
                     </div>
-                    <p>Set a password to unlock your wallet each time you use your computer. It can't be used to recover your wallet.</p>
+                    <p>Set a password to unlock your wallet each time you use your computer. It can not be used to recover your wallet.</p>
                     <form onSubmit={handleSubmit}>
                         <div>
                             <label>New Password</label>

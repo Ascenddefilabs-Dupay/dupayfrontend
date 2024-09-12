@@ -37,7 +37,7 @@ const Page = () => {
                     <p className={styles.linkText}>
                       Already have a Dupay account?
                     </p>
-                    <Link href='/Userauthentication/signin'>
+                    <Link href="/Userauthentication/SignIn">
                       <span className={styles.link}>
                         Sign In
                       </span>

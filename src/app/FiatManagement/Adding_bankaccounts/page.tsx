@@ -13,7 +13,8 @@ interface Bank {
 
 const AddingBankAccountsPage: React.FC = () => {
   const [view, setView] = useState<'add' | 'bankList'>('add'); // State to toggle views
-  const [selectedBank, setSelectedBank] = useState<Bank | null>(null); // State for selected bank
+  const [selectedBank, setSelectedBank] = useState<Bank | undefined>(undefined);
+
 
   const handleAddBankClick = () => {
     setView('bankList'); // Switch view to BankList

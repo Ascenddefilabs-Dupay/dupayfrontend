@@ -38,7 +38,7 @@ const Newsetting = () => {
     }
   };
   const handleSignOut = () => {
-    let redirectUrl = '/Userauthentication/SignIn';
+    let redirectUrl = '/Userauthorization/Dashboard/Settings/signoutform';
     router.push(redirectUrl);
   };
   // const handleDeveloper = () => {

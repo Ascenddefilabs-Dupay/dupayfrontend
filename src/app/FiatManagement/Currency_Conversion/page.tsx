@@ -6,8 +6,6 @@ import country_list from '../CurrencyDropdown/country-list';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaArrowLeft, FaEllipsisV, FaChevronRight } from 'react-icons/fa';
-import networkOptions from '../NetworkPage/NetworkOptions';
-import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
 // Type definitions
 type Role = 'admin' | 'user' | 'guest'; // Add more roles as needed
@@ -18,6 +16,12 @@ const useAuth = () => {
   const hasRole = (role: Role) => role === 'admin'; // Replace with actual role checking logic
   return { isAuthenticated, hasRole };
 };
+declare global {
+  interface Window {
+    Razorpay: any; // Declare Razorpay as a property on the window object
+  }
+}
+
 
 const CurrencyConverter: React.FC = () => {
   const router = useRouter();
@@ -42,21 +46,21 @@ const CurrencyConverter: React.FC = () => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const sessionDataString = window.localStorage.getItem('session_data');
-      if (sessionDataString) {
-        const sessionData = JSON.parse(sessionDataString);
-        const storedUserId = sessionData.user_id;
-        // setUserId(storedUserId);
-        console.log(storedUserId);
-        console.log(sessionData.user_email);
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const sessionDataString = window.localStorage.getItem('session_data');
+  //     if (sessionDataString) {
+  //       const sessionData = JSON.parse(sessionDataString);
+  //       const storedUserId = sessionData.user_id;
+  //       // setUserId(storedUserId);
+  //       console.log(storedUserId);
+  //       console.log(sessionData.user_email);
  
-      } else {
-        router.push('http://localhost:3000/Userauthentication/SignIn')
-      }
-    }
-  }, []);
+  //     } else {
+  //       router.push('http://localhost:3000/Userauthentication/SignIn')
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (selectedCurrency) {
@@ -267,18 +271,18 @@ const CurrencyConverter: React.FC = () => {
     return (
       
       <div className="converterContainer">
-            {alertMessage && (
-                <div className='customAlert'>
-                    <p>{alertMessage}</p>
-                    <button onClick={handleCloseAlert} className="closeButton">OK</button>
-                </div>
-            )}
-            {showLoader && (
-                <div className="loaderContainer">
-                    <div className="loader"></div>
-                </div>
-            )}
-            <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
+        {alertMessage && (
+          <div className='customAlert'>
+            <p>{alertMessage}</p>
+            <button onClick={handleCloseAlert} className="closeButton">OK</button>
+          </div>
+        )}
+        {showLoader && (
+          <div className="loaderContainer">
+            <div className="loader"></div>
+          </div>
+        )}
             <div className="topBar">
                 <button className="topBarButton">
                     <FaArrowLeft className="topBarIcon" onClick={navigateToDashboard} />

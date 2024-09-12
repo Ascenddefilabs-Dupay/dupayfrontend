@@ -481,7 +481,7 @@ const QRScanner: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const userId = 'DupC0001';
+  // const userId = 'DupC0004';
 
   const [userID, setUserID] = useState<string | null>(null);
 
@@ -501,7 +501,7 @@ const QRScanner: React.FC = () => {
 }, [router]);
 
   useEffect(() => {
-    console.log(userId);
+    // console.log(userId);
     const script = document.createElement('script');
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
@@ -601,7 +601,7 @@ const QRScanner: React.FC = () => {
         transaction_amount: amount,
         transaction_currency: currency,
         user_phone_number: mobileNumber,
-        user_id: userId,
+        user_id: userID,
       });
 
       if (response.data.status === 'failure') {
@@ -629,7 +629,7 @@ const QRScanner: React.FC = () => {
               user_phone_number: mobileNumber,
               transaction_hash: transactionHash,
               transaction_method: 'QR transaction',
-              user_id: userId,
+              user_id: userID,
             });
             setAlertMessage('Transaction successful!');
             setAmount('');
@@ -675,22 +675,22 @@ const QRScanner: React.FC = () => {
       {scanning ? (
         <div className="scanner-wrapper">
           <QrReader
-            onResult={(result, error) => {
-              if (result) {
-                const scannedText = result?.text;
-                const mobile = extractMobileNumber(scannedText);
-                setMobileNumber(mobile || '');
-                setScannedData(scannedText || '');
-                setScanning(false);
-              }
-
-              if (error) {
-                console.error(error);
-              }
-            }}
-            constraints={{ facingMode: 'environment' }}
-            style={{ width: '100%' }}
+          onResult={(result, error) => {
+            if (result) {
+              const scannedText = result?.getText(); // Use getText()
+              const mobile = extractMobileNumber(scannedText);
+              setMobileNumber(mobile || '');
+              setScannedData(scannedText || '');
+              setScanning(false);
+            }
+            if (error) {
+              console.error(error);
+            }
+          }}
+          constraints={{ facingMode: 'environment' }}
+          videoStyle={{ width: '100%' }} // Use videoStyle for controlling video dimension
           />
+
           <button className="cancel-button" onClick={handleCancel}>
             Cancel
           </button>

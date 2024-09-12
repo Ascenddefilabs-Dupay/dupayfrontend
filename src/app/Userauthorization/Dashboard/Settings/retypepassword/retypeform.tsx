@@ -16,14 +16,14 @@ const Retype = () => {
             // Redirect to /Dashboard after 6 digits
             if (retypepasscode.length === 6) {
                 try {
-                    const response = await axios.post('http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/repassword/', {
+                    const response = await axios.post('http://localhost:8000/api/repassword/', {
                         retype_password: retypepasscode,
                     });
 
                     if (response.data.status === 'password_failure') {
                         alert("Password Must Be Same");
                     } else {
-                        router.push('/Userauthentication/SignIn');
+                        router.push('/Userauthorization/Dashboard');
                     }
                 } catch (error) {
                     console.error('Error submitting transaction:');

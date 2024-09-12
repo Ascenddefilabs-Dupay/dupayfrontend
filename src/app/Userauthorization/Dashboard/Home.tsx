@@ -445,7 +445,7 @@ const handleButtonClick = (buttonName: string) => {
             </div>
           </div>
         )}
-        {/* {activeTab === 'Fiat' && fiatDropdownVisible && (
+        {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
             <div className={styles.dropdownContent}>
               <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold', textAlign: 'left', marginBottom: '10px' }}>
@@ -510,7 +510,7 @@ const handleButtonClick = (buttonName: string) => {
               </div>
             </div>
           </div>
-        )} */}
+        )}
         {activeTab === 'NFTs' && <div>NFTs Content</div>}
       </div>
       {dropdownVisible && (
