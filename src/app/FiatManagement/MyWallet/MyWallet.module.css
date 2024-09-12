@@ -214,3 +214,21 @@
       opacity: 1;
     }
   }
+
+  .buttonContainer {
+    margin-top: 20px;
+}
+
+.topUpButton, .withdrawButton {
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 100%;
+}

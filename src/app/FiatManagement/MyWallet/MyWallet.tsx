@@ -5,7 +5,6 @@ import Select, { SingleValue } from 'react-select';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft, FaSearch } from 'react-icons/fa'; 
 import styles from './MyWallet.module.css';
-import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
 // Define types for currency data and select options
 interface Currency {
@@ -24,23 +23,6 @@ const MyWallet: React.FC = () => {
     const router = useRouter();
     const [showLoader, setShowLoader] = useState(false);
 
-    // useEffect(() => {
-    //     if (typeof window !== 'undefined') {
-    //       const sessionDataString = window.localStorage.getItem('session_data');
-    //       if (sessionDataString) {
-    //         const sessionData = JSON.parse(sessionDataString);
-    //         const storedUserId = sessionData.user_id;
-    //         // setUserId(storedUserId);
-    //         console.log(storedUserId);
-    //         console.log(sessionData.user_email);
-     
-    //       } else {
-    //         router.push('http://localhost:3000/Userauthentication/SignIn')
-    //       }
-    //     }
-    //   }, []);
-
-    // Define the shape of the balances state
     const [balances, setBalances] = useState<Record<string, number>>({
         INR: 0.00,
         USD: 0.00,
@@ -169,9 +151,24 @@ const MyWallet: React.FC = () => {
         }
     };
     
-
     const handleSetLimitClick = () => {
         router.push('/FiatManagement/SetLimit');
+    };
+
+    const handleTopUpClick = () => {
+        setShowLoader(true);
+        setTimeout(() => {
+            router.push('/FiatManagement/Topup');
+            setShowLoader(false);
+        }, 2000); // Show loader for 2 seconds
+    };
+
+    const handleWithdrawClick = () => {
+        setShowLoader(true);
+        setTimeout(() => {
+            router.push('/FiatManagement/WithdrawForm');
+            setShowLoader(false);
+        }, 2000); // Show loader for 2 seconds
     };
 
     const handleLeftArrowClick = () => {
@@ -256,8 +253,12 @@ const MyWallet: React.FC = () => {
                 onChange={handleCurrencyChange}
                 styles={customSelectStyles}
             />
+            <div className={styles.buttonContainer}>
+                <button className={styles.topUpButton} onClick={handleTopUpClick}>TOP UP</button>
+                <button className={styles.withdrawButton} onClick={handleWithdrawClick}>WITHDRAW</button>
+            </div>
         </div>
     );
-};
+}
 
 export default MyWallet;
