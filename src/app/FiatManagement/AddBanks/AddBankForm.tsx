@@ -31,21 +31,21 @@ const AddBankForm: React.FC = () => {
   const { isAuthenticated, hasRole } = useAuth();
   const { isLoggedIn } = UseSession();
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const sessionDataString = window.localStorage.getItem('session_data');
-  //     if (sessionDataString) {
-  //       const sessionData = JSON.parse(sessionDataString);
-  //       const storedUserId = sessionData.user_id;
-  //       // setUserId(storedUserId);
-  //       console.log(storedUserId);
-  //       console.log(sessionData.user_email);
+  useEffect(() => {
+    // if (typeof window !== 'undefined') {
+    //   const sessionDataString = window.localStorage.getItem('session_data');
+    //   if (sessionDataString) {
+    //     const sessionData = JSON.parse(sessionDataString);
+    //     const storedUserId = sessionData.user_id;
+    //     // setUserId(storedUserId);
+    //     console.log(storedUserId);
+    //     console.log(sessionData.user_email);
  
-  //     } else {
-  //       router.push('http://localhost:3000/Userauthentication/SignIn')
-  //     }
-  //   }
-  // }, []);
+    //   } else {
+    //     router.push('http://localhost:3000/Userauthentication/SignIn')
+    //   }
+    // }
+  }, []);
 
   useEffect(() => {
     if (isSubmitting) {
