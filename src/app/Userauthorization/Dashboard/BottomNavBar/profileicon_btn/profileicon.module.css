@@ -168,6 +168,7 @@
     flex-direction: column;
     align-items: center;
     
+    
 }
 
 .card {
@@ -254,3 +255,26 @@
     padding: 10px;
     cursor: pointer;
 }
+.circularButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 37px; /* Adjust size as needed */
+    height: 37px; /* Adjust size as needed */
+    border-radius: 50%;
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    color: white;
+    box-shadow: none; /* Remove any default shadow */
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  
+  .circularButton:hover {
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+    box-shadow: none; /* Remove any hover shadow */
+  }
+  
+  .icon {
+    font-size: 16px; /* Adjust icon size as needed */
+  }
+  

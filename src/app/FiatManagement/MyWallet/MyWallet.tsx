@@ -23,6 +23,23 @@ const MyWallet: React.FC = () => {
     const router = useRouter();
     const [showLoader, setShowLoader] = useState(false);
 
+    useEffect(() => {
+        // if (typeof window !== 'undefined') {
+        //   const sessionDataString = window.localStorage.getItem('session_data');
+        //   if (sessionDataString) {
+        //     const sessionData = JSON.parse(sessionDataString);
+        //     const storedUserId = sessionData.user_id;
+        //     // setUserId(storedUserId);
+        //     console.log(storedUserId);
+        //     console.log(sessionData.user_email);
+     
+        //   } else {
+        //     router.push('http://localhost:3000/Userauthentication/SignIn')
+        //   }
+        // }
+      }, []);
+
+    // Define the shape of the balances state
     const [balances, setBalances] = useState<Record<string, number>>({
         INR: 0.00,
         USD: 0.00,
@@ -174,7 +191,8 @@ const MyWallet: React.FC = () => {
     const handleLeftArrowClick = () => {
         setShowLoader(true);
         setTimeout(() => {
-            window.location.href = '/Userauthorization/Dashboard';
+            // window.location.href = '/Userauthorization/Dashboard';
+            router.back();
             setShowLoader(false); 
         }, 3000); 
     };

@@ -171,15 +171,20 @@ const Profileicon: React.FC = () => {
                         {!scannerOpen && (
                             <div className={styles.buttonGroup}>
                                 <div className={styles.buttonContainer}>
-                                    <Fab size="small" color="primary" onClick={() => handleTopButtonClick('Buy')} sx={{ background: 'linear-gradient(90deg, #007bff9f, #800080)', color: 'white' }}>
-                                        <FaPlus fontSize="18px" color="white" />
-                                    </Fab>
+                                    <div className={styles.circularButton} onClick={() => handleTopButtonClick('Buy')}>
+                                        <FaPlus className={styles.icon} />
+                                    </div>
                                     <Typography variant="caption">Buy</Typography>
                                 </div>
                                 <div className={styles.buttonContainer}>
-                                    <Fab size="small" color="primary" onClick={() => handleTopButtonClick('Receive')} sx={{ background: 'linear-gradient(90deg, #007bff9f, #800080)', color: 'white' }}>
+                                    {/* <Fab size="small" color="secondary" onClick={() => handleTopButtonClick('Receive')} sx={{ background: 'linear-gradient(90deg, #007bff9f, #800080)', color: 'white' }}>
                                         <FaArrowDown fontSize="20px" color="white" />
-                                    </Fab>
+                                    </Fab> */}
+                                    <div className={styles.circularButton} onClick={() => handleTopButtonClick('Receive')}>
+                                        <FaArrowDown className={styles.icon} />
+                                    </div>
+
+                                    
                                     <Typography variant="caption">Receive</Typography>
                                 </div>
                             </div>
