@@ -69,31 +69,36 @@ export default function Login() {
 
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
-        const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
-            token: response.credential,
-        });
+      const res = await axios.post('http://localhost:8000/loginapi/google-login/', {
+        token: response.credential,
+      });
 
-        if (res.status === 200) {
-            const { user_id, user_first_name, user_email, user_phone_number, session_id } = res.data;
-            LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
-            alert('Logged in successfully with Google');
-            window.location.href = '/KycVerification/PersonalDetails';
+      if (res.status === 200) {
+        const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = res.data;
+
+        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
+        alert('Logged in successfully with Google');
+        
+        if (registration_status==true) {
+          router.push('/Userauthorization/Dashboard');
         } else {
-            alert('Google login failed.');
+          router.push('/KycVerification/PersonalDetails');
         }
+      } else {
+        alert('Google login failed.');
+      }
     } catch (error) {
-        console.error('Error during Google login:', error);
-        alert('Error during Google login.');
+      console.error('Error during Google login:', error);
+      alert('Error during Google login.');
     }
-};
-
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (loginMode === 'password') {
       try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
+        const response = await axios.post('http://localhost:8000/loginapi/login/', {
           user_email: email,
           user_password: password,
         });
@@ -112,16 +117,21 @@ export default function Login() {
       }
     } else if (loginMode === 'otp') {
       try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/verify-otp/', {
+        const response = await axios.post('http://localhost:8000/loginapi/verify-otp/', {
           user_email: email,
           user_otp: otp,
         });
 
         if (response.status === 200) {
-          const { user_id, user_first_name, user_email, user_phone_number, session_id } = response.data;
+          const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = response.data;
           LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
           alert('Logged in successfully');
-          window.location.href = '/KycVerification/PersonalDetails';
+          
+          if (registration_status==true) {
+            router.push('/dashboard');
+          } else {
+            router.push('/KycVerification/PersonalDetails');
+          }
         } else {
           alert('Invalid OTP.');
         }
@@ -133,7 +143,7 @@ export default function Login() {
 
   const sendOtp = async () => {
     try {
-      await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/', {
+      await axios.post('http://localhost:8000/loginapi/generate-otp/', {
         user_email: email,
       });
       setOtpTimer(30);
@@ -169,7 +179,7 @@ export default function Login() {
 
       <Navbar />
 
-      <main className={styles.main} >
+      <main className={styles.main}>
         {!isLoggedIn ? (
           <div className={styles.card}>
             <h1 className={styles.title}>{heading}</h1>
@@ -257,26 +267,16 @@ export default function Login() {
                   >
                     Login with OTP
                   </button>
-                  
                 </div>
               )}
               {loginMode === 'password' && (
-                <div id="google-signin-button" className={styles.googleWrapper}/>
+                <div id="google-signin-button" className={styles.googleSignIn}></div>
               )}
             </form>
-            <p className={styles.text}>
-            <Link href="/Userauthentication/SignUp/EmailVerification" className={styles.signupLink}> New user? Sign up</Link>
-            </p>
           </div>
         ) : (
-          <div className={styles.card}>
-            {/* <h1 className={styles.title}>Welcome back, {userData.user_first_name}</h1> */}
-            <button
-              onClick={clearSession}
-              className={styles.button}
-            >
-              Logout
-            </button>
+          <div>
+            <p>Already logged in. Redirecting...</p>
           </div>
         )}
       </main>

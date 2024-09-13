@@ -7,9 +7,14 @@ import Select, { SingleValue } from 'react-select';
 import { useRouter } from 'next/navigation';
 
 
+interface AccountTypeOption {
+  value: string;
+  label: string; // Changed JSX.Element to string for simplicity
+
 interface CurrencyOption {
   value: string;
   label: JSX.Element | string;
+
 }
 
 interface Currency {
@@ -27,10 +32,17 @@ interface ErrorState {
 }
 
 export default function FiatWalletForm() {
+
+  const [accountType, setAccountType] = useState<string>("");
+  const [walletName, setWalletName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [securityPin, setSecurityPin] = useState<string>("");
+
   const [walletType, setWalletType] = useState<string>('');
   const [walletCurrency, setWalletCurrency] = useState<string>('INR');
   const [username, setUsername] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+
   const [error, setError] = useState<ErrorState>({});
   const [success, setSuccess] = useState<string | null>(null);
   const [alertMessage, setAlertMessage] = useState<string>('');
@@ -58,9 +70,15 @@ export default function FiatWalletForm() {
 
   const validateFields = (): boolean => {
     const newError: ErrorState = {};
+
+
+    if (!accountType) {
+      newError.accountType = "Account type is required.";
+
   
     if (!walletType) {
       newError.walletType = 'Wallet Type is required.';
+
     }
     if (!walletCurrency) {
       newError.walletCurrency = 'Currency is required.';
@@ -72,6 +90,60 @@ export default function FiatWalletForm() {
     if (!phoneNumber.match(phoneRegex)) {
       newError.phoneNumber = 'Invalid phone number format.';
     }
+
+
+    setError(newError);
+    setAlertMessage(Object.keys(newError).length > 0 ? "Please correct the errors before submitting." : "");
+
+    return Object.keys(newError).length === 0;
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setAlertMessage("");
+  
+    if (!validateFields()) {
+      return;
+    }
+  
+    const payload = {
+      fiat_wallet_type: accountType,
+      fiat_wallet_currency: selectedCurrency?.value || "",
+      fiat_wallet_email: email,
+      fiat_wallet_address: "", // Ensure this is handled server-side
+      // fiat_wallet_phone_number: "", // Optional
+      fiat_wallet_balance: 0, // Default balance
+      user: userId,
+    };
+  
+    try {
+      setShowLoader(true);
+  
+      const response = await axios.post("https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
+      setAlertMessage("Wallet created successfully!");
+      setAccountType("");
+      setWalletName("");
+      setEmail("");
+      setSecurityPin("");
+      setSelectedCurrency(null);
+      setError({});
+      router.push("/Userauthorization/Dashboard");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.detail || "Error creating wallet";
+        setAlertMessage(errorMessage);
+        console.error("Error creating wallet:", error.response?.data);
+      } else {
+        setAlertMessage("Error creating wallet");
+        console.error("Error creating wallet:", error);
+      }
+    } finally {
+      setShowLoader(false);
+    }
+  };
+  
+  
+
   
     setError(newError);
   
@@ -118,6 +190,7 @@ export default function FiatWalletForm() {
   };
   
 
+
   const customSelectStyles = {
     control: (base: any) => ({
       ...base,
@@ -139,6 +212,7 @@ export default function FiatWalletForm() {
       color: 'white',
     }),
   };
+
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
