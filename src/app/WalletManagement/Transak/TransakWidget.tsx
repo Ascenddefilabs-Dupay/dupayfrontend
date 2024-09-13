@@ -41,7 +41,7 @@ const TransakWidget: React.FC = () => {
 
   const fetchUserData = async (userId: string) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/walletmanagementapi/user/${userId}/`);
+      const response = await fetch(`https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/user/${userId}/`);
       if (response.ok) {
         const data = await response.json();
         setUserData({
