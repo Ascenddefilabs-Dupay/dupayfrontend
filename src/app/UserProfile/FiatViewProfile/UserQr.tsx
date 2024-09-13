@@ -40,7 +40,7 @@ const QRCodeComponent: React.FC = () => {
     useEffect(() => {
         const fetchQRCode = async () => {
             try {
-                const response = await axios.get(`http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/fetch-qr-code/?user_id=${userID}`);
+                const response = await axios.get(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/fetch-qr-code/?user_id=${userID}`);
                 setQrCode(response.data.qr_code);
                 setEmail(response.data.email);
                 setMobileNumber(response.data.mobile_number);
