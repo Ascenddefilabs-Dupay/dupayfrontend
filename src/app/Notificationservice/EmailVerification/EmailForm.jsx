@@ -18,7 +18,7 @@ const EmailForm = ({ onEmailSent }) => {
 
   return (
     <div className="email-form-container">
-      <h2>Let's Verify Your Details</h2>
+      <h2>Lets Verify Your Details</h2>
       <div className="form-group">
         <label>Email Address*</label>
         <div className="email-input-container">
