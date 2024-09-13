@@ -32,19 +32,19 @@ const Buypage = () => {
 
   const handleBackClick = () => {
     console.log('Back button clicked');
-    router.push('/Crypto_Wallet/Dashboard/BottomNavBar/browser_btn');
+    router.push('/Userauthorization/Dashboard/BottomNavBar/browser_btn');
   };
 
   const handleBookmarksClick = () => {
-    router.push('/Crypto_Wallet/Dashboard/BottomNavBar/browser_btn/bookmarks');
+    router.push('/Userauthorization/Dashboard/BottomNavBar/browser_btn/bookmarks');
   };
 
   const handleHome = () => {
-    router.push('/Crypto_Wallet/Dashboard/BottomNavBar/browser_btn');
+    router.push('/Userauthorization/Dashboard/BottomNavBar/browser_btn');
   };
 
   const handleHistoryClick = () => {
-    router.push('/Crypto_Wallet/Dashboard/BottomNavBar/browser_btn/history');
+    router.push('/Userauthorization/Dashboard/BottomNavBar/browser_btn/history');
   };
 
   return (

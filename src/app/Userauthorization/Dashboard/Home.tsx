@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -33,9 +32,11 @@ const IoWallet = dynamic(() => import('react-icons/io5').then((mod) => mod.IoWal
 //   user_id: string;
 //   user_profile_photo?: string | { data: number[] };
 // }
+
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
-  const [activeAction, setActiveAction] = useState('');
+  // const [activeTab, setActiveTab] = useState('fiat'); // Default active tab to 'fiat'
+  const [activeAction, setActiveAction] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [fiatDropdownVisible, setFiatDropdownVisible] = useState(false);
   const [profileImage, setProfileImage] = useState('');
@@ -60,22 +61,54 @@ const Home = () => {
       // if (sessionDataString) {
       //   const sessionData = JSON.parse(sessionDataString);
       //   const storedUserId = sessionData.user_id;
-      //   setUserId( );
+      //   setUserId( storedUserId);
       //   console.log(storedUserId);
       //   console.log(sessionData.user_email);
       // } else {
-      //   redirect('http://localhost:3000/Userauthentication/SignIn');
+      //   // redirect('http://localhost:3000/Userauthentication/SignIn');
       // }
     }
   }, []);
 
+  useEffect(() => {
+    // On component mount, check localStorage for the active tab
+    const savedTab = localStorage.getItem('activeTab');
+    const savedDropdownState = localStorage.getItem('dropdownOpen') === 'true';
+
+    if (savedTab === 'Fiat') {
+      setActiveTab(savedTab); // Restore the active tab
+      setIsFiatTabSelected(true);
+    }
+    setFiatDropdownVisible(savedDropdownState); // Restore the dropdown state
+
+  }, []);
+
+  // On component mount, check localStorage for saved tab and dropdown state
+  // useEffect(() => {
+  //   const savedTab = localStorage.getItem('activeTab');
+  //   const savedDropdownState = localStorage.getItem('dropdownOpen') === 'true';
+
+  //   if (savedTab) {
+  //     setActiveTab(savedTab); // Restore the active tab
+  //     setIsFiatTabSelected(true);
+  //   }
+
+  //   setFiatDropdownVisible(savedDropdownState); // Restore the dropdown state
+  // }, []);
+
   const handleTabClick = async (tab: string) => {
+   
     if (tab === 'Fiat') {
+      setIsFiatTabSelected(true);
+      setActiveTab(tab); // Update active tab state
+      localStorage.setItem('activeTab', 'Fiat');
+      setActiveTab(tab); // Update active tab state
+      localStorage.setItem('activeTab', tab); // Save active tab to localStorage
+
       if (!fiatWalletId) {
         // Show registration alert first with mobile screen dimensions and centered design
         const result = await Swal.fire({
-          title: 'Register for Fiat',
-          text: 'You are not registered in Fiat. Would you like to register?',
+          text: "You haven't created Fiat wallet. Would you like to create it?",
           showCancelButton: true,
           confirmButtonText: 'Yes, register',
           cancelButtonText: 'No, thanks',
@@ -104,9 +137,14 @@ const Home = () => {
         }
       } else {
         setFiatDropdownVisible(true);
+        // setFiatDropdownVisible(false);
+        localStorage.setItem('dropdownOpen', 'false');
       }
     } else {
+      setIsFiatTabSelected(false);
+      localStorage.setItem('activeTab', tab);
       setFiatDropdownVisible(false);
+      localStorage.setItem('dropdownOpen', 'false');
     }
   
     setActiveTab(tab);
@@ -115,9 +153,12 @@ const Home = () => {
   
   
   // Function to handle dropdown toggle manually
-  const toggleFiatDropdown = () => {
-    setFiatDropdownVisible(!fiatDropdownVisible);
-  };
+  // const toggleFiatDropdown = () => {
+  //   const newDropdownState = !fiatDropdownVisible;
+  //   setFiatDropdownVisible(newDropdownState);
+  //   localStorage.setItem('dropdownOpen', newDropdownState.toString()); // Persist dropdown state
+  //   setFiatDropdownVisible(!fiatDropdownVisible);
+  // };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -161,8 +202,8 @@ const handleButtonClick = (buttonName: string) => {
       // 'Wallet': '/FiatManagement/DepositForm',
       'Wallet': '/Userauthorization/wallet',
       // 'Withdraw': '/FiatManagement/WithdrawForm',
-      'Swap': '/TransactionType/WalletTransactionInterface',
-      'Transfer': '/FiatManagement/WithdrawForm',
+      'Swap': '/FiatManagement/FiatSwap',
+      'Transfer': '/TransactionType/WalletTransactionInterface',
     };
   
     if (buttonName === 'Deposit') {
@@ -183,7 +224,9 @@ const handleButtonClick = (buttonName: string) => {
 
       const fetchFiatWalletId = async () => {
         try {
-          const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          // const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+
           console.log('Fetched Fiat Wallet ID:', response.data); // Debugging
           const { fiat_wallet_id, fiat_wallet_balance, user } = response.data;
           setFiatWalletId(fiat_wallet_id);
@@ -232,7 +275,11 @@ const handleButtonClick = (buttonName: string) => {
   };
 
   const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
+    setDropdownVisible(!dropdownVisible);    
+    const newDropdownState = !fiatDropdownVisible;
+    setFiatDropdownVisible(newDropdownState);
+    localStorage.setItem('dropdownOpen', newDropdownState.toString()); // Persist dropdown state
+  
   };
 
   const handleIconClick = (iconName: string) => {
@@ -364,12 +411,12 @@ const handleButtonClick = (buttonName: string) => {
       <div className={styles.balance}>
           {(userId === fetchedUserId && fiatWalletId) ? (
               <button onClick={handlebuyclick}>
-                  {isFiatTabSelected ? (
-                      <div>{fiatWalletBalance || '₹0.00'}</div>
-                  ) : (
-                      <div>₹0.00</div>
-                  )}
-              </button>
+              {isFiatTabSelected ? (
+                <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
+              ) : (
+                <div>₹0.00</div>
+              )}
+            </button>
           ) : (
               <button onClick={handlebuyclick}>
                   <div>₹0.00</div>
@@ -385,7 +432,7 @@ const handleButtonClick = (buttonName: string) => {
               <div className={styles.buttonLabel}>Add Bank</div>
             </button>
             <button className={styles.walletButton} onClick={() => handleButtonClick('Wallet')}>
-              <PiHandDepositBold className={styles.icon} />
+              <IoMdWallet className={styles.icon} />
               <div className={styles.buttonLabel}>Wallet</div>
             </button>
             {/* <button className={styles.walletButton} onClick={() => handleButtonClick('Withdraw')}>
@@ -393,11 +440,11 @@ const handleButtonClick = (buttonName: string) => {
               <div className={styles.buttonLabel}>Withdraw</div>
             </button> */}
             <button className={styles.walletButton} onClick={() => handleButtonClick('Swap')}>
-              <IoMdSend className={styles.icon} />
+              <FontAwesomeIcon icon={faExchangeAlt} className={styles.icon} />
               <div className={styles.buttonLabel}>Swap</div>
             </button>
             <button className={styles.walletButton} onClick={() => handleButtonClick('Transfer')}>
-              <IoMdWallet className={styles.icon} />
+              <IoMdSend className={styles.icon} />
               <div className={styles.buttonLabel}>Transfer</div>
             </button>
           </div>
@@ -408,7 +455,7 @@ const handleButtonClick = (buttonName: string) => {
                 key={action}
                 className={`${styles.actionButton} ${activeAction === action ? styles.activeAction : ''}`}
                 onClick={() => {
-                  setActiveAction(action);
+                  // setActiveAction(action);
                   handleIconClick(action);
                 }}
               >
@@ -420,22 +467,29 @@ const handleButtonClick = (buttonName: string) => {
         )}
       </div>
 
-      <div className={styles.tabs}>
-        {['Crypto', 'Fiat', 'NFTs'].map(tab => (
-          <button
-            key={tab}
-            className={activeTab === tab ? styles.activeTab : styles.tab}
-            onClick={() => handleTabClick(tab)}
-          >
-            {tab}
-          </button>
-        ))}
+        <div className={styles.tabs}>
+          {['Crypto', 'Fiat', 'NFTs'].map(tab => (
+            <button
+              key={tab}
+              className={activeTab === tab ? styles.activeTab : styles.tab}
+              onClick={() => handleTabClick(tab)}
+            >
+                { /* Only show the Fiat dropdown button for the Fiat tab */ }
+                {tab === 'Fiat' && (
+                  <div onClick={toggleDropdown}>
+                   {/* {fiatDropdownVisible ? 'Show' : 'Hide'} */}
+                   {fiatDropdownVisible && null}
+                  </div>
+                )} 
+                {tab}
+            </button>
+          ))}
       </div>
       <div className={styles.content}>
         {activeTab === 'Crypto' && (
           <div className={styles.cryptoContent}>
             <div className={styles.cryptoIcons}>
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911011/crypto_bwvuwf.png" alt="Crypto Icon 1" className={styles.cryptoIcon} />
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726049066/Crypto_image_wceong.png" alt="Crypto Icon 1" className={styles.cryptoIcon} />
             </div>
             <div className={'button-container'}>
               <h2 className={styles.addNameStart}>Add crypto to get started</h2>
@@ -447,15 +501,15 @@ const handleButtonClick = (buttonName: string) => {
         )}
         {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
-            <div className={styles.dropdownContent}>
+            <div className={styles.dropdownContent1}>
               <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold', textAlign: 'left', marginBottom: '10px' }}>
                 <div style={{display: 'flex'}}>
+                      
                     <div>   Fiat Wallet  </div>
                     <div className={styles.walleticon}>
                     <button onClick={() => handleNavigation('/FiatManagement/MyWallet')}>
                       <IoWallet style={{ fontSize: '23px' }} />
                     </button>
-
                     </div>
                 </div>
                 <hr style={{ color: 'gray' }} />
@@ -471,12 +525,12 @@ const handleButtonClick = (buttonName: string) => {
                 )}
                 <div className={styles.textContainer}>
                   <div className={styles.userid}>
-                  <Typography variant="h6" style={{ marginTop: '1rem' }}>
+                  <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
                       {userId === fetchedUserId ? (
                           fiatWalletId ? (
                               <>
                                   <div>{fiatWalletId}</div>
-                                  <div>{fiatWalletBalance}</div>
+                                  <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
                               </>
                           ) : (
                               'Loading Fiat Wallet details...'
@@ -488,25 +542,58 @@ const handleButtonClick = (buttonName: string) => {
                  
                   </div>
                   <div>
-                      <span style={{ marginLeft: '8px' }}>
+                      <span style={{ marginLeft: '15px', position: 'relative', bottom: '15px' }}>
                         {userId === fetchedUserId ? '' : '₹0.00'}
                       </span>
-                      <div className={styles.icons}>
-                        <GoCheck className={styles.checkIcon} />
-                      </div>
                   </div>
                   <div>
-                  <button className={styles.viewprofileButton} onClick={() => handleNavigation('/UserProfile')}>
+                  <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
                     <span className={styles.text}>Top-up</span>
                   </button>
                   </div>
-                  
                  <div>
-                 <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/UserProfile')}>
+                 <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
                     <span className={styles.text}>Withdraw</span>
                   </button>
                  </div>
                 </div>
+                {/* <div className={styles.dropdownItem}> */}
+                  {/* {profileImage ? (
+                    <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
+                  ) : (
+                    <FaUserCircle className={styles.profileIcon2} />
+                  )} */}
+                  {/* <div className={styles.textContainer}>
+                    <div className={styles.userid}>
+                      <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
+                        {userId === fetchedUserId ? (
+                          fiatWalletId ? (
+                            <>
+                              <div>{fiatWalletId}</div>
+                              <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(2)}` : '₹0.00'}</div>
+                            </>
+                          ) : (
+                            'Loading Fiat Wallet details...'
+                          )
+                        ) : (
+                          'Loading Fiat Wallet details...'
+                        )}
+                      </Typography>
+                    </div>
+
+                    <div style={{ width: '100%' }}> {/* Ensure buttons are full width */}
+                      {/* <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
+                        <span className={styles.text}>Top-up</span>
+                      </button>
+
+                      <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
+                        <span className={styles.text}>Withdraw</span>
+                      </button>
+                    </div>
+                  </div>
+                </div> */} 
+
+
               </div>
             </div>
           </div>
@@ -527,19 +614,19 @@ const handleButtonClick = (buttonName: string) => {
               {profileImage ? (
                 <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
               ) : (
-                <FaUserCircle className={styles.profileIcon2} />
+                <FaUserCircle className={styles.profileIcon1} />
               )}
               <div className={styles.textContainer}>
                 <div className={styles.userid}>
-                  <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px' }}>
+                  <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px', position: 'relative', bottom: '15px' }}>
                     {userId}
                   </Typography>
                 </div>
                 <div>
-                  <span style={{ marginLeft: '8px'}}>$0.00</span>
-                  <div className={styles.icons}>
+                  <span style={{ marginLeft: '8px', position: 'relative', bottom: '15px'}}>$0.00</span>
+                  {/* <div className={styles.icons}>
                     <GoCheck className={styles.checkIcon} />
-                  </div>
+                  </div> */}
                 </div>
                 <button className={styles.viewprofileButton} onClick={() => handleNavigation('/UserProfile')}>
                   <span className={styles.text}>View your profile</span>
