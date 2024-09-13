@@ -241,6 +241,8 @@ const CurrencyForm: React.FC = () => {
     const router = useRouter();
     const [showLoader, setShowLoader] = useState<boolean>(false);
 
+    // const userId = 'DupC0004';
+
     const [userID, setUserID] = useState<string | null>(null);
 
   useEffect(() => {
@@ -260,6 +262,7 @@ const CurrencyForm: React.FC = () => {
 
 
     useEffect(() => {
+        // console.log(userId);
         // Load Razorpay script
         const script = document.createElement('script');
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -348,6 +351,7 @@ const CurrencyForm: React.FC = () => {
                 transaction_amount: amount,
                 transaction_currency: currency,
                 user_phone_number: mobileNumber,
+                user_id: userID,
             });
     
             if (validationResponse.data.status !== 'success') {
@@ -364,8 +368,10 @@ const CurrencyForm: React.FC = () => {
                         transaction_fee: 0.0,
                         user_phone_number: mobileNumber,
                         transaction_hash: transactionHash,
+                        user_id: userID,
                     });
                     setMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`); // Only passing one argument to setMessage
+                    window.location.href = '/Userauthorization/Dashboard';
                 }
             }
         } catch (error: any) {

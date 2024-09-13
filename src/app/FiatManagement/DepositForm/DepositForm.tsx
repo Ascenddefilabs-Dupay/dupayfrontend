@@ -42,7 +42,7 @@ interface Bank {
 
 interface UserCurrency {
     currency_type: string;
-    balance: number;
+    balance: number ;
 }
 
 const DepositForm: React.FC = () => {
@@ -474,7 +474,9 @@ const DepositForm: React.FC = () => {
                             {/* <p className={styles.balanceLabel}>Balance:</p> */}
                             <p className={styles.balanceAmount}>
                                 {currencySymbols[selectedCurrency.value] || ''}{' '}
-                                {balances[selectedCurrency.value]?.toFixed(2) || '0.00'}
+                                {balances[selectedCurrency.value] !== undefined
+                                    ? balances[selectedCurrency.value].toFixed(2)
+                                    : '0.00'}
                             </p>
                         </div>
                     </div>

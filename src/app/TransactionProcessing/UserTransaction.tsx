@@ -417,12 +417,12 @@ const UserTransaction: React.FC = () => {
     }
   }, [router]);
 
-  const userId = 'DupC0001';  // Just an example user ID
+  // const userId = 'DupC0001';  // Just an example user ID
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/transactionprocessing_api/wallet-transactions/', {
-        params: { user_id: userId },
+      const response = await axios.get('http://transactionprocess-ind-255574993735.asia-south1.run.app/transactionprocessing_api/wallet-transactions/', {
+        params: { user_id: userID },
       });
       setTransactions(response.data.transactions);
       setError(null);
