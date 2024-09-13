@@ -20,6 +20,7 @@ interface UserData {
   user_email: string;
   user_phone_number: string;
   session_id: string;
+  registration_status: boolean;
 }
 
 export default function Login() {
@@ -69,7 +70,7 @@ export default function Login() {
 
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
-      const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
+      const res = await axios.post('http://localhost:8000/loginapi/google-login/', {
         token: response.credential,
       });
 
@@ -79,7 +80,8 @@ export default function Login() {
         LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
         alert('Logged in successfully with Google');
         
-        if (registration_status==true) {
+        // Navigate based on registration_status
+        if (registration_status) {
           router.push('/Userauthorization/Dashboard');
         } else {
           router.push('/KycVerification/PersonalDetails');
@@ -98,7 +100,7 @@ export default function Login() {
 
     if (loginMode === 'password') {
       try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
+        const response = await axios.post('http://localhost:8000/loginapi/login/', {
           user_email: email,
           user_password: password,
         });
@@ -117,7 +119,7 @@ export default function Login() {
       }
     } else if (loginMode === 'otp') {
       try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/verify-otp/', {
+        const response = await axios.post('http://localhost:8000/loginapi/verify-otp/', {
           user_email: email,
           user_otp: otp,
         });
@@ -127,8 +129,9 @@ export default function Login() {
           LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
           alert('Logged in successfully');
           
-          if (registration_status==true) {
-            router.push('/dashboard');
+          // Navigate based on registration_status
+          if (registration_status) {
+            router.push('/Userauthorization/Dashboard');
           } else {
             router.push('/KycVerification/PersonalDetails');
           }
@@ -143,7 +146,7 @@ export default function Login() {
 
   const sendOtp = async () => {
     try {
-      await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/', {
+      await axios.post('http://localhost:8000/loginapi/generate-otp/', {
         user_email: email,
       });
       setOtpTimer(30);
@@ -277,6 +280,7 @@ export default function Login() {
         ) : (
           <div>
             <p>Already logged in. Redirecting...</p>
+            {/* Handle redirection if needed */}
           </div>
         )}
       </main>
