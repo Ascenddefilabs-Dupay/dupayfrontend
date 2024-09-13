@@ -4,8 +4,8 @@ import axios from 'axios';
 
 const PriceAlerts: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
+  const [priceAlertMessage, setPriceAlertMessage] = useState<string>('');
 
-  // Function to send a browser notification
   const sendNotification = (title: string, message: string, icon: string, link: string) => {
     if ('Notification' in window && Notification.permission === 'granted') {
       const notification = new Notification(title, {
@@ -29,59 +29,57 @@ const PriceAlerts: React.FC = () => {
     }
   };
 
-  const createPriceAlertsNotification = () => {
-    if (!userId) {
-      alert("User ID is not available.");
-      return;
-    }
+  const fetchPriceAlerts = async () => {
+    try {
+      const response = await axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/get-price-alerts-user-ids/');
+      const userIds = response.data.user_ids;
 
-    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/create-price-alerts/', {
-      user_id: userId,  // Pass user ID dynamically
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        const message = response.data.price_alerts_content;  // Use the dynamic content from the backend
-        sendNotification('Price Alerts', message, 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1725254311/logo3_ln9n43.png', 'https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to create price alerts notification.');
+      if (userIds && userIds.length > 0) {
+        setUserId(userIds[0]);  // Set the first user ID
+      } else {
+        alert('No users with price alerts enabled.');
+      }
+    } catch (error) {
+      console.error('Error fetching user IDs:', error);
+    }
+  };
+
+  const pollPriceAlerts = async () => {
+    try {
+      const response = await axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/create-price-alerts/', {
+        user_id: userId,
       });
+
+      const message = response.data.price_alerts_content;  // Dynamic content from the backend
+      if (message) {
+        setPriceAlertMessage(message);
+        sendNotification('Price Alerts', message, 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1725254311/logo3_ln9n43.png', 'https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages');
+      }
+    } catch (error) {
+      console.error('Error triggering price alerts:', error);
+    }
   };
 
   useEffect(() => {
     requestNotificationPermission();
+    fetchPriceAlerts();
 
-    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/get-price-alerts-user-ids/')
-      .then(response => {
-        const userIds = response.data.user_ids;
-        if (userIds && userIds.length > 0) {
-          setUserId(userIds[0]);  // Set the first user ID
-        } else {
-          alert('No users with price alerts enabled.');
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching user IDs:', error);
-      });
-  }, []);
+    const interval = setInterval(() => {
+      pollPriceAlerts();
+    }, 60000); // 60 seconds
+
+    return () => clearInterval(interval);
+  }, [userId]);
 
   return (
     <div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <h1 className='text-4xl font-bold'>Price Alerts Notification</h1>
-        <button
-          onClick={createPriceAlertsNotification}
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4'
-        >
-          Trigger Price Alerts Notification
-        </button>
+        <p>{priceAlertMessage}</p>
       </main>
     </div>
   );
 };
 
 export default PriceAlerts;
+
