@@ -67,7 +67,8 @@
   border-radius: 50px;
   padding: 10px 20px;
   /* background-color: #007bff; Adjust the color as needed */
-  background: linear-gradient(90deg, #007bff9f, #800080);
+  /* background: linear-gradient(90deg, #007bff9f, #800080); */
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   border: none;
@@ -78,7 +79,8 @@
 
 .buttonContainer button:hover {
   /* background-color: #0056b3; Adjust the hover color as needed */
-  background: linear-gradient(90deg, #007bff9f, #800080);
+  /* background: linear-gradient(90deg, #007bff9f, #800080); */
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   font-family: Arial, Helvetica, sans-serif;
 }
 .profileName {
