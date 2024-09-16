@@ -57,7 +57,7 @@ const Wallet: React.FC = () => {
                             <button className={styles.button} onClick={handleMyWalletClick}>
                                 <div className={styles.buttonContent}>
                                     <IoMdWallet size={28} />
-                                    <span>My Wallet</span>
+                                    <span>My Wallets</span>
                                 </div>
                             </button>
                         </div>

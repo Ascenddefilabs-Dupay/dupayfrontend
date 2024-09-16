@@ -2,10 +2,12 @@
     position: fixed;
     bottom: 0px;
     right: 0px;
-    margin-left: 20px;
+    margin-left: 16px;
     margin-bottom: 40px;
     margin: 0 auto;
-    width: 400px;
+    width: 100%; /* Full width for small screens */
+    max-width: 399px; /* Fixed maximum width for larger screens */
+    
     display: flex;
     align-items: center;
     height: 3.5rem;

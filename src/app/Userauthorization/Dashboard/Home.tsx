@@ -10,6 +10,12 @@ import Swal from 'sweetalert2';
 import styles from './Home.module.css';
 import { styled } from '@mui/material/styles';
 import { redirect } from 'next/navigation';
+import { FaCircleArrowDown } from "react-icons/fa6";
+import { IoMdAddCircle } from "react-icons/io";
+import { RiUserSettingsFill } from "react-icons/ri";
+import { color, fontSize } from '@mui/system';
+
+
 
 // Dynamic imports
 const Headerbar = dynamic(() => import('./Headernavbar/headernavbar'), {
@@ -17,16 +23,12 @@ const Headerbar = dynamic(() => import('./Headernavbar/headernavbar'), {
 });
 const FaUserCircle = dynamic(() => import('react-icons/fa').then((mod) => mod.FaUserCircle));
 
-const GoCheck = dynamic(() => import('react-icons/go').then((mod) => mod.GoCheck));
 const IoCashOutline = dynamic(() => import('react-icons/io5').then((mod) => mod.IoCashOutline));
 const FaArrowUpLong = dynamic(() => import('react-icons/fa6').then((mod) => mod.FaArrowUpLong));
 const FaArrowDownLong = dynamic(() => import('react-icons/fa6').then((mod) => mod.FaArrowDownLong));
 const RiBankLine = dynamic(() => import('react-icons/ri').then((mod) => mod.RiBankLine));
-const PiHandDepositBold = dynamic(() => import('react-icons/pi').then((mod) => mod.PiHandDepositBold));
-const PiHandWithdrawBold = dynamic(() => import('react-icons/pi').then((mod) => mod.PiHandWithdrawBold));
 const IoMdSend = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdSend));
 const IoMdWallet = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdWallet));
-const IoWallet = dynamic(() => import('react-icons/io5').then((mod) => mod.IoWallet));
 
 // interface UserProfileData {
 //   user_id: string;
@@ -53,8 +55,6 @@ const Home = () => {
   // const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   // const [userId, setUserId] = useState<string | null>(null);
 
-
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
@@ -70,112 +70,165 @@ const Home = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // On component mount, check localStorage for the active tab
-    const savedTab = localStorage.getItem('activeTab');
-    const savedDropdownState = localStorage.getItem('dropdownOpen') === 'true';
-
-    if (savedTab === 'Fiat') {
-      setActiveTab(savedTab); // Restore the active tab
-      setIsFiatTabSelected(true);
-    }
-    setFiatDropdownVisible(savedDropdownState); // Restore the dropdown state
-
-  }, []);
-
-  // On component mount, check localStorage for saved tab and dropdown state
   // useEffect(() => {
+  //   // On component mount, check localStorage for the active tab
   //   const savedTab = localStorage.getItem('activeTab');
   //   const savedDropdownState = localStorage.getItem('dropdownOpen') === 'true';
 
-  //   if (savedTab) {
+  //   if (savedTab === 'Fiat') {
   //     setActiveTab(savedTab); // Restore the active tab
   //     setIsFiatTabSelected(true);
   //   }
-
   //   setFiatDropdownVisible(savedDropdownState); // Restore the dropdown state
+
   // }, []);
 
-  const handleTabClick = async (tab: string) => {
+   // Restore state on component mount
+   useEffect(() => {
+    const savedTab = localStorage.getItem('activeTab') || 'Crypto';
+    const savedCryptoDropdownState = localStorage.getItem('cryptoDropdownOpen') === 'true';
+    const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
+
+    setActiveTab(savedTab);
+    setDropdownVisible(savedCryptoDropdownState); // Restore Crypto dropdown state
+    setFiatDropdownVisible(savedFiatDropdownState); // Restore Fiat dropdown state
+
+    if (savedTab === 'Fiat') {
+      setFiatDropdownVisible(savedFiatDropdownState); // Show Fiat dropdown if active
+      setDropdownVisible(false); // Hide Crypto dropdown if Fiat is active
+      setIsFiatTabSelected(true);
+    } else if (savedTab === 'Crypto') {
+      setDropdownVisible(savedCryptoDropdownState); // Show Crypto dropdown if active
+      setFiatDropdownVisible(false); // Hide Fiat dropdown if Crypto is active
+    } else {
+      setDropdownVisible(false);
+      setFiatDropdownVisible(false);
+    }
+  }, []);
+
+  // const handleTabClick = async (tab: string) => {
    
+  //   if (tab === 'Fiat') {
+  //     setIsFiatTabSelected(true);
+  //     setActiveTab(tab); // Update active tab state
+  //     localStorage.setItem('activeTab', 'Fiat');
+  //     setActiveTab(tab); // Update active tab state
+  //     localStorage.setItem('activeTab', tab); // Save active tab to localStorage
+
+  //     if (!fiatWalletId) {
+  //       // Show registration alert first with mobile screen dimensions and centered design
+  //       const result = await Swal.fire({
+  //         text: "You haven't created Fiat wallet. Would you like to create it?",
+  //         showCancelButton: true,
+  //         confirmButtonText: 'Yes, register',
+  //         cancelButtonText: 'No, thanks',
+  //         customClass: {
+  //           popup: styles.mobilePopup, 
+  //           confirmButton: styles.confirmButton,
+  //           cancelButton: styles.cancelButton,
+  //         },
+  //         backdrop: 'rgba(0, 0, 0, 0.2)',
+  //         showClass: {
+  //           popup: styles.showPopupAnimation
+  //         },
+  //         hideClass: {
+  //           popup: styles.hidePopupAnimation 
+  //         }
+  //       });
+  
+  //       if (result.isConfirmed) {
+  //         setLoading(true); 
+  //         setTimeout(() => {
+  //           router.push('/FiatManagement/FiatWalletAccount/');
+  //           setLoading(false);
+  //         }, 2000);
+  //       } else {
+  //         setFiatDropdownVisible(true);
+  //       }
+  //     } else {
+  //       setFiatDropdownVisible(true);
+  //       // setFiatDropdownVisible(false);
+  //       localStorage.setItem('dropdownOpen', 'false');
+  //     }
+  //   } else {
+  //     setIsFiatTabSelected(false);
+  //     localStorage.setItem('activeTab', tab);
+  //     setFiatDropdownVisible(false);
+  //     localStorage.setItem('dropdownOpen', 'false');
+  //   }
+  
+  //   setActiveTab(tab);
+  //   setIsFiatTabSelected(tab === 'Fiat');
+  // };
+  
+
+
+  const handleTabClick = async (tab: string) => {
     if (tab === 'Fiat') {
       setIsFiatTabSelected(true);
-      setActiveTab(tab); // Update active tab state
+      setActiveTab(tab);
       localStorage.setItem('activeTab', 'Fiat');
-      setActiveTab(tab); // Update active tab state
-      localStorage.setItem('activeTab', tab); // Save active tab to localStorage
 
       if (!fiatWalletId) {
-        // Show registration alert first with mobile screen dimensions and centered design
         const result = await Swal.fire({
-          text: "You haven't created Fiat wallet. Would you like to create it?",
+          text: "You haven't created a Fiat wallet. Would you like to create it?",
           showCancelButton: true,
           confirmButtonText: 'Yes, register',
           cancelButtonText: 'No, thanks',
           customClass: {
-            popup: styles.mobilePopup, // Apply custom styles for mobile screen size
+            popup: styles.mobilePopup,
             confirmButton: styles.confirmButton,
             cancelButton: styles.cancelButton,
           },
-          backdrop: 'rgba(0, 0, 0, 0.2)', // Dark gray backdrop with higher opacity
-          showClass: {
-            popup: styles.showPopupAnimation // Custom animation for showing the popup
-          },
-          hideClass: {
-            popup: styles.hidePopupAnimation // Custom animation for hiding the popup
-          }
+          backdrop: 'rgba(0, 0, 0, 0.2)',
         });
-  
+
         if (result.isConfirmed) {
-          setLoading(true); 
+          setLoading(true);
           setTimeout(() => {
             router.push('/FiatManagement/FiatWalletAccount/');
             setLoading(false);
           }, 2000);
         } else {
           setFiatDropdownVisible(true);
+          localStorage.setItem('fiatDropdownOpen', 'true');
         }
       } else {
         setFiatDropdownVisible(true);
-        // setFiatDropdownVisible(false);
-        localStorage.setItem('dropdownOpen', 'false');
+        localStorage.setItem('fiatDropdownOpen', 'true');
       }
     } else {
       setIsFiatTabSelected(false);
+      setActiveTab(tab);
       localStorage.setItem('activeTab', tab);
-      setFiatDropdownVisible(false);
-      localStorage.setItem('dropdownOpen', 'false');
+
+      if (tab === 'Crypto') {
+        setFiatDropdownVisible(false);
+        setDropdownVisible(true);
+        localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
+        localStorage.setItem('cryptoDropdownOpen', 'true'); // Open Crypto dropdown
+      } else {
+        setFiatDropdownVisible(false);
+        setDropdownVisible(false);
+        localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
+        localStorage.setItem('cryptoDropdownOpen', 'false'); // Close Crypto dropdown
+      }
     }
-  
-    setActiveTab(tab);
-    setIsFiatTabSelected(tab === 'Fiat');
   };
-  
-  
-  // Function to handle dropdown toggle manually
-  // const toggleFiatDropdown = () => {
-  //   const newDropdownState = !fiatDropdownVisible;
-  //   setFiatDropdownVisible(newDropdownState);
-  //   localStorage.setItem('dropdownOpen', newDropdownState.toString()); // Persist dropdown state
-  //   setFiatDropdownVisible(!fiatDropdownVisible);
-  // };
 
   useEffect(() => {
     const timer = setTimeout(() => {
         setLoading(false);
-        // setShowForm(true);
-    }, 2000); // 2 seconds delay
+    }, 2000); 
 
     return () => clearTimeout(timer);
   }, []);
-  // Ensure the dropdown remains visible even if clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownVisible(false);
       }
       if (fiatDropdownVisible && fiatDropdownRef.current && !fiatDropdownRef.current.contains(event.target as Node)) {
-        // Allow manual toggle to close Fiat dropdown
         if (!fiatDropdownRef.current.contains(event.target as Node)) {
           setFiatDropdownVisible(false);
         }
@@ -190,7 +243,7 @@ const Home = () => {
 const handleButtonClick = (buttonName: string) => {
 
     const navigateWithLoading = (route: string) => {
-      setLoading(true); // Show loading text
+      setLoading(true); 
       setTimeout(() => {
         router.push(route);
         setLoading(false);
@@ -199,9 +252,7 @@ const handleButtonClick = (buttonName: string) => {
     
     const routes: { [key: string]: string }  = {
       'Add Bank': '/FiatManagement/AddBanks',
-      // 'Wallet': '/FiatManagement/DepositForm',
       'Wallet': '/Userauthorization/wallet',
-      // 'Withdraw': '/FiatManagement/WithdrawForm',
       'Swap': '/FiatManagement/FiatSwap',
       'Transfer': '/TransactionType/WalletTransactionInterface',
     };
@@ -254,7 +305,6 @@ const handleButtonClick = (buttonName: string) => {
       if (response.data.user_profile_photo) {
         const baseURL = '/profile_photos';
         let imageUrl = '';
-
         if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
           imageUrl = response.data.user_profile_photo;
         } else if (response.data.user_profile_photo && response.data.user_profile_photo.startsWith('/')) {
@@ -273,14 +323,25 @@ const handleButtonClick = (buttonName: string) => {
       console.error('Error fetching user profile:', error);
     }
   };
-
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);    
-    const newDropdownState = !fiatDropdownVisible;
-    setFiatDropdownVisible(newDropdownState);
-    localStorage.setItem('dropdownOpen', newDropdownState.toString()); // Persist dropdown state
+  // const toggleDropdown = () => {
+  //   setDropdownVisible(!dropdownVisible);    
+  //   const newDropdownState = !fiatDropdownVisible;
+  //   setFiatDropdownVisible(newDropdownState);
+  //   localStorage.setItem('dropdownOpen', newDropdownState.toString()); // Persist dropdown state
   
-  };
+  // };
+ // Toggle dropdown function for Crypto and Fiat tabs
+ const toggleDropdown = (tab: string) => {
+  if (tab === 'Crypto') {
+    const newState = !dropdownVisible;
+    setDropdownVisible(newState);
+    localStorage.setItem('cryptoDropdownOpen', newState.toString()); // Save state
+  } else if (tab === 'Fiat') {
+    const newState = !fiatDropdownVisible;
+    setFiatDropdownVisible(newState);
+    localStorage.setItem('fiatDropdownOpen', newState.toString()); // Save state
+  }
+};
 
   const handleIconClick = (iconName: string) => {
     if (iconName === 'Fiat') {
@@ -327,34 +388,20 @@ const handleButtonClick = (buttonName: string) => {
     handleIconClick('Add crypto');
     router.push('/Userauthorization/Dashboard/addcrypto_btn'); // Ensure the correct path here
   };
-  
-  const handleManageprofileWallets = () => {
-    router.push('/Userauthorization/Dashboard/addmanagewallets_btn'); // Adjust the route as needed
-  };
-
-  const handleUserProfileWallet = () => {
-    router.push('/UserProfile'); // Adjust the route as needed
-  };
-
-  const handleNavigation = (route: string) => {
-    setLoading(true); // Show loading text
+    const handleNavigation = (route: string) => {
+    setLoading(true); 
     setTimeout(() => {
-      router.push(route); // Navigate to the dynamic route
+      router.push(route); 
       setLoading(false);
     }, 2000);
   };
-
-
-
   const handlebuyclick = () => {
-    setLoading(true); // Show loading text
+    setLoading(true); 
     
     setTimeout(() => {
       if (userId !== fetchedUserId) {
-        // Route to cryptowallet if IDs do not match
         router.push('/Userauthorization/Dashboard/cryptowallet');
       } else {
-        // Route to DepositForm if IDs match
         router.push('/FiatManagement/DepositForm');
       }
       setLoading(false); 
@@ -374,8 +421,6 @@ const handleButtonClick = (buttonName: string) => {
     border: '2px solid white',
   });
 
-  
-
   return (
     <div className={styles.container}>
        {loading ? (
@@ -384,13 +429,12 @@ const handleButtonClick = (buttonName: string) => {
         </div>
       ) : (
         <>
-
       <header>
         {/* Header content here */}
       </header>
       <div className={styles.header}>
-        <div className={styles.leftSection} onClick={toggleDropdown}>
-          <div className={styles.walletAddress} onClick={toggleDropdown}>
+        <div className={styles.leftSection} >
+          <div className={styles.walletAddress} >
             {profileImage ? (
               <ProfileImage src={profileImage} alt="Profile Image" />
             ) : (
@@ -423,7 +467,6 @@ const handleButtonClick = (buttonName: string) => {
               </button>
           )}
       </div>
-      
       <div className={styles.actions}>
         {isFiatTabSelected ? (
           <div className={styles.buttonContainer}>
@@ -435,10 +478,6 @@ const handleButtonClick = (buttonName: string) => {
               <IoMdWallet className={styles.icon} />
               <div className={styles.buttonLabel}>Wallet</div>
             </button>
-            {/* <button className={styles.walletButton} onClick={() => handleButtonClick('Withdraw')}>
-              <PiHandWithdrawBold className={styles.icon} />
-              <div className={styles.buttonLabel}>Withdraw</div>
-            </button> */}
             <button className={styles.walletButton} onClick={() => handleButtonClick('Swap')}>
               <FontAwesomeIcon icon={faExchangeAlt} className={styles.icon} />
               <div className={styles.buttonLabel}>Swap</div>
@@ -467,24 +506,59 @@ const handleButtonClick = (buttonName: string) => {
         )}
       </div>
 
-        <div className={styles.tabs}>
-          {['Crypto', 'Fiat', 'NFTs'].map(tab => (
-            <button
-              key={tab}
-              className={activeTab === tab ? styles.activeTab : styles.tab}
-              onClick={() => handleTabClick(tab)}
-            >
-                { /* Only show the Fiat dropdown button for the Fiat tab */ }
-                {tab === 'Fiat' && (
-                  <div onClick={toggleDropdown}>
-                   {/* {fiatDropdownVisible ? 'Show' : 'Hide'} */}
-                   {fiatDropdownVisible && null}
+            {/* <div className={styles.tabs}>
+              {['Crypto', 'Fiat', 'NFTs'].map(tab => (
+                <button
+                  key={tab}
+                  className={activeTab === tab ? styles.activeTab : styles.tab}
+                  onClick={() => handleTabClick(tab)}
+                >
+                  {(tab  === 'Fiat') && (
+                    // <div onClick={toggleDropdown}  >
+                    //   {fiatDropdownVisible ? 'Hide' : 'Show'}
+                    // </div>
+                    <div 
+                      onClick={toggleDropdown} 
+                      style={{ visibility: fiatDropdownVisible ? 'hidden' : 'hidden' }}
+                    >
+                      {fiatDropdownVisible ? 'Hide' : 'Show'}
+                    </div>
+
+                  )}
+                  {tab}
+                </button>
+              ))}
+            </div> */}
+                  <div className={styles.tabs}>
+                    {['Crypto', 'Fiat', 'NFTs'].map((tab) => (
+                      <button
+                        key={tab}
+                        className={activeTab === tab ? styles.activeTab : styles.tab}
+                        onClick={() => handleTabClick(tab)}
+                      >
+                        {/* Dropdown button only for Crypto and Fiat */}
+                        {tab === 'Crypto' && (
+                          <div
+                            onClick={() => toggleDropdown('Crypto')}
+                            style={{ position: 'absolute', opacity: 0 }} // Hide the text but don't affect layout
+                          >
+                            {dropdownVisible ? 'Hide' : 'Show'}
+                          </div>
+                        )}
+                        {tab === 'Fiat' && (
+                          <div
+                            onClick={() => toggleDropdown('Fiat')}
+                            style={{ position: 'absolute', opacity: 0 }} // Hide the text but don't affect layout
+                          >
+                            {fiatDropdownVisible ? 'Hide' : 'Show'}
+                          </div>
+                        )}
+                        {tab}
+                      </button>
+                    ))}
                   </div>
-                )} 
-                {tab}
-            </button>
-          ))}
-      </div>
+
+
       <div className={styles.content}>
         {activeTab === 'Crypto' && (
           <div className={styles.cryptoContent}>
@@ -502,27 +576,16 @@ const handleButtonClick = (buttonName: string) => {
         {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
             <div className={styles.dropdownContent1}>
-              <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold', textAlign: 'left', marginBottom: '10px' }}>
-                <div style={{display: 'flex'}}>
-                      
-                    <div>   Fiat Wallet  </div>
-                    <div className={styles.walleticon}>
-                    <button onClick={() => handleNavigation('/FiatManagement/MyWallet')}>
-                      <IoWallet style={{ fontSize: '23px' }} />
-                    </button>
-                    </div>
-                </div>
-                <hr style={{ color: 'gray' }} />
-                <h4 style={{ color: 'gray', fontSize: '14px', fontWeight: 'bold', textAlign: 'left', marginBottom: '15px' }}>
-                  Fiat Account
-                </h4>
-              </div>
+              <div style={{fontSize: '20px'}}>   Fiat Accounts  </div>
+              <hr style={{ color: 'gray' }} />
               <div className={styles.dropdownItem}>
-                {profileImage ? (
+               <button onClick={() => handleNavigation('/UserProfile/FiatViewProfile')}>
+               {profileImage ? (
                   <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
                 ) : (
                   <FaUserCircle className={styles.profileIcon2} />
                 )}
+               </button>
                 <div className={styles.textContainer}>
                   <div className={styles.userid}>
                   <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
@@ -533,67 +596,37 @@ const handleButtonClick = (buttonName: string) => {
                                   <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
                               </>
                           ) : (
-                              'Loading Fiat Wallet details...'
+                            <div style={{ whiteSpace: 'pre-line' , fontSize: '16px'}}>
+                            Loading...
+                          </div>
                           )
                       ) : (
-                          'Loading Fiat Wallet details...'
+                        <div style={{ whiteSpace: 'pre-line', fontSize: '16px'}}>
+                        Loading.....
+                      </div>
                       )}
-                  </Typography>
-                 
+                  </Typography>              
                   </div>
                   <div>
-                      <span style={{ marginLeft: '15px', position: 'relative', bottom: '15px' }}>
+                      <span style={{ marginLeft: '0px', position: 'relative', bottom: '15px' }}>
                         {userId === fetchedUserId ? '' : '₹0.00'}
                       </span>
                   </div>
-                  <div>
-                  <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
-                    <span className={styles.text}>Top-up</span>
-                  </button>
-                  </div>
-                 <div>
-                 <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
-                    <span className={styles.text}>Withdraw</span>
-                  </button>
-                 </div>
-                </div>
-                {/* <div className={styles.dropdownItem}> */}
-                  {/* {profileImage ? (
-                    <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
-                  ) : (
-                    <FaUserCircle className={styles.profileIcon2} />
-                  )} */}
-                  {/* <div className={styles.textContainer}>
-                    <div className={styles.userid}>
-                      <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
-                        {userId === fetchedUserId ? (
-                          fiatWalletId ? (
-                            <>
-                              <div>{fiatWalletId}</div>
-                              <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(2)}` : '₹0.00'}</div>
-                            </>
-                          ) : (
-                            'Loading Fiat Wallet details...'
-                          )
-                        ) : (
-                          'Loading Fiat Wallet details...'
-                        )}
-                      </Typography>
-                    </div>
-
-                    <div style={{ width: '100%' }}> {/* Ensure buttons are full width */}
-                      {/* <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
-                        <span className={styles.text}>Top-up</span>
+                  <div className={styles.buttonContainer1}>
+                    <div>
+                      <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
+                      <IoMdAddCircle className={styles.icon1}/>
+                        <span className={styles.text1}>Top-up</span>
                       </button>
-
+                    </div>
+                    <div>
                       <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
-                        <span className={styles.text}>Withdraw</span>
+                      <FaCircleArrowDown className={styles.icon2}/>
+                        <span className={styles.text2}>Withdraw</span>
                       </button>
                     </div>
                   </div>
-                </div> */} 
-
-
+                </div>
               </div>
             </div>
           </div>
@@ -603,41 +636,38 @@ const handleButtonClick = (buttonName: string) => {
       {dropdownVisible && (
         <div ref={dropdownRef} className={styles.dropdown}>
           <div className={styles.dropdownContent}>
-            <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold', textAlign: 'left', marginBottom: '10px' }}>
+            <div className={styles.Wallets}>
               Wallets
-              <hr style={{ color: 'gray'}} />
-              <h4 style={{ color: 'gray', fontSize: '14px', fontWeight: 'bold', textAlign: 'left', marginBottom: '15px' }}>
+              
+              <hr style={{ color: 'gray', position: 'relative', top: '0px'}} />
+              <h4 className={styles.Wallet1}>
                 Wallet 1
               </h4>
             </div>
             <div className={styles.dropdownItem}>
-              {profileImage ? (
+             <button onClick={() => handleNavigation('/UserProfile')}>
+             {profileImage ? (
                 <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
               ) : (
                 <FaUserCircle className={styles.profileIcon1} />
               )}
+             </button>
               <div className={styles.textContainer}>
                 <div className={styles.userid}>
-                  <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px', position: 'relative', bottom: '15px' }}>
+                  <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px', position: 'relative', bottom: '25px' }}>
                     {userId}
                   </Typography>
                 </div>
-                <div>
-                  <span style={{ marginLeft: '8px', position: 'relative', bottom: '15px'}}>$0.00</span>
-                  {/* <div className={styles.icons}>
-                    <GoCheck className={styles.checkIcon} />
-                  </div> */}
-                </div>
-                <button className={styles.viewprofileButton} onClick={() => handleNavigation('/UserProfile')}>
-                  <span className={styles.text}>View your profile</span>
+                <div className={styles.profilesettingdiv}>
+                <button onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
+                <RiUserSettingsFill className={styles.profilesettingicon} />
                 </button>
-
+              </div>
+                <div>
+                  <span style={{ marginLeft: '8px', position: 'relative', top: '-55px'}}>$0.00</span>
+                </div>
               </div>
             </div>
-            <button className={styles.manageWalletsButton} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
-              <span className={styles.text}>Add & manage wallets</span>
-              <FontAwesomeIcon icon={faCog} className={styles.settingsIcon} />
-            </button>
           </div>
         </div>
       )}
