@@ -42,7 +42,7 @@ interface Bank {
 
 interface UserCurrency {
     currency_type: string;
-    balance: number ;
+    balance: string ;
 }
 
 const DepositForm: React.FC = () => {

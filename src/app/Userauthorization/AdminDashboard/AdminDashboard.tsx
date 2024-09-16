@@ -33,7 +33,8 @@ import {
   faUniversity,
   faSignOutAlt,
   faFilter,
-  faBars, // Add the menu icon
+  faBars,
+  faBell, 
 } from "@fortawesome/free-solid-svg-icons";
 
 ChartJS.register(
@@ -233,6 +234,13 @@ const AdminDashboard: React.FC = () => {
                 className={styles.navIcon}
               />
               <Link href="/user-management">User Management</Link>
+            </li>
+            <li>
+              <FontAwesomeIcon
+                icon={faBell}
+                className={styles.navIcon}
+              />
+              <Link href="/Notificationservice/AdminNotificationScreen">Notification</Link>
             </li>
             <li>
               <FontAwesomeIcon
