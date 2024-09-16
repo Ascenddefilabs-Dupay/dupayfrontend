@@ -73,15 +73,18 @@ export default function Login() {
       const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
         token: response.credential,
       });
-
+  
       if (res.status === 200) {
-        const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = res.data;
-
+        const { user_id, user_first_name, user_email, user_phone_number, session_id, user_status } = res.data;
+  
+        // Ensure user_status is a boolean
+        const isUserStatus = user_status === 'true' ? true : user_status === 'false' ? false : user_status;
+  
         LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
         alert('Logged in successfully with Google');
         
-        // Navigate based on registration_status
-        if (registration_status) {
+        // Navigate based on user_status
+        if (isUserStatus) {
           router.push('/Userauthorization/Dashboard');
         } else {
           router.push('/KycVerification/PersonalDetails');
@@ -94,6 +97,7 @@ export default function Login() {
       alert('Error during Google login.');
     }
   };
+  
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
