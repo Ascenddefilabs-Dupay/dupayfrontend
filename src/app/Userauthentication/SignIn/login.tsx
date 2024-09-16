@@ -20,6 +20,7 @@ interface UserData {
   user_email: string;
   user_phone_number: string;
   session_id: string;
+  registration_status: boolean;
 }
 
 export default function Login() {
@@ -69,24 +70,34 @@ export default function Login() {
 
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
-        const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
-            token: response.credential,
-        });
-
-        if (res.status === 200) {
-            const { user_id, user_first_name, user_email, user_phone_number, session_id } = res.data;
-            LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
-            alert('Logged in successfully with Google');
-            window.location.href = '/KycVerification/PersonalDetails';
+      const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
+        token: response.credential,
+      });
+  
+      if (res.status === 200) {
+        const { user_id, user_first_name, user_email, user_phone_number, session_id, user_status } = res.data;
+  
+        // Ensure user_status is a boolean
+        const isUserStatus = user_status === 'true' ? true : user_status === 'false' ? false : user_status;
+  
+        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
+        alert('Logged in successfully with Google');
+        
+        // Navigate based on user_status
+        if (isUserStatus) {
+          router.push('/Userauthorization/Dashboard');
         } else {
-            alert('Google login failed.');
+          router.push('/KycVerification/PersonalDetails');
         }
+      } else {
+        alert('Google login failed.');
+      }
     } catch (error) {
-        console.error('Error during Google login:', error);
-        alert('Error during Google login.');
+      console.error('Error during Google login:', error);
+      alert('Error during Google login.');
     }
-};
-
+  };
+  
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -118,10 +129,16 @@ export default function Login() {
         });
 
         if (response.status === 200) {
-          const { user_id, user_first_name, user_email, user_phone_number, session_id } = response.data;
+          const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = response.data;
           LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
           alert('Logged in successfully');
-          window.location.href = '/KycVerification/PersonalDetails';
+          
+          // Navigate based on registration_status
+          if (registration_status) {
+            router.push('/Userauthorization/Dashboard');
+          } else {
+            router.push('/KycVerification/PersonalDetails');
+          }
         } else {
           alert('Invalid OTP.');
         }
@@ -169,7 +186,7 @@ export default function Login() {
 
       <Navbar />
 
-      <main className={styles.main} >
+      <main className={styles.main}>
         {!isLoggedIn ? (
           <div className={styles.card}>
             <h1 className={styles.title}>{heading}</h1>
@@ -257,26 +274,17 @@ export default function Login() {
                   >
                     Login with OTP
                   </button>
-                  
                 </div>
               )}
               {loginMode === 'password' && (
-                <div id="google-signin-button" className={styles.googleWrapper}/>
+                <div id="google-signin-button" className={styles.googleSignIn}></div>
               )}
             </form>
-            <p className={styles.text}>
-            <Link href="/Userauthentication/SignUp/EmailVerification" className={styles.signupLink}> New user? Sign up</Link>
-            </p>
           </div>
         ) : (
-          <div className={styles.card}>
-            {/* <h1 className={styles.title}>Welcome back, {userData.user_first_name}</h1> */}
-            <button
-              onClick={clearSession}
-              className={styles.button}
-            >
-              Logout
-            </button>
+          <div>
+            <p>Already logged in. Redirecting...</p>
+            {/* Handle redirection if needed */}
           </div>
         )}
       </main>

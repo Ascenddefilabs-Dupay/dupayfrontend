@@ -1,0 +1,102 @@
+.topUpFormContainer {
+  width: 400px; 
+  max-width: 100%;
+  padding: 20px;
+  /* border-radius: 8px; */
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 100vh;
+  max-height: auto;
+  position: relative;
+}
+
+.backButton {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.backButton:hover {
+  text-decoration: underline;
+}
+
+.topUpFormContent {
+  width: 100%;
+}
+
+.select {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.amountInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.topUpButton {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.topUpButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.topUpButton:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: #dc3545;
+  margin-top: 10px;
+}
+
+.alert {
+  color: #28a745;
+  margin-top: 10px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #007bff;
+}
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color:white;
+}
+
+.select {
+  width: 100%;
+}
+
+.amountInput {
+  width: 100%;
+}
