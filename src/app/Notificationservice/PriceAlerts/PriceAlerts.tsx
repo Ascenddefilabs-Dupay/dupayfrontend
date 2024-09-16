@@ -31,7 +31,7 @@ const PriceAlerts: React.FC = () => {
 
   const fetchPriceAlerts = async () => {
     try {
-      const response = await axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/get-price-alerts-user-ids/');
+      const response = await axios.get('http://localhost:8000/pricealertsapi/get-price-alerts-user-ids/');
       const userIds = response.data.user_ids;
 
       if (userIds && userIds.length > 0) {
@@ -46,7 +46,7 @@ const PriceAlerts: React.FC = () => {
 
   const pollPriceAlerts = async () => {
     try {
-      const response = await axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/create-price-alerts/', {
+      const response = await axios.post('http://localhost:8000/pricealertsapi/create-price-alerts/', {
         user_id: userId,
       });
 
