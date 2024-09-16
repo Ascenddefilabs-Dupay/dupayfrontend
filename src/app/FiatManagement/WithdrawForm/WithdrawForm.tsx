@@ -76,7 +76,7 @@ const WithdrawForm: React.FC = () => {
   }
   interface UserCurrency {
     currency_type: string;
-    balance: number;
+    balance: string;
 }
   const handleApiError = (error: any, context: string) => {
     console.error(`Error during ${context}:`, error);

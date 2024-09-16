@@ -76,7 +76,12 @@ const CurrencyConverter: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
+  useEffect(() => {
+    if (typeof window !== 'undefined' && selectedCurrency) {
+      setToCurrency(selectedCurrency);
+      setShowBottomSheet(true);
+    }
+  }, [selectedCurrency]);
   useEffect(() => {
     const storedNetwork = localStorage.getItem('selectedNetwork');
     if (storedNetwork) {

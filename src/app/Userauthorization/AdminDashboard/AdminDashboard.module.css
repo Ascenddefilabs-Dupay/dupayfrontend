@@ -12,7 +12,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
+  padding-left: 4px;
   background-color: #1a1a1a;
   position: relative;
   z-index: 2;
@@ -22,6 +23,7 @@
   display: flex;
   align-items: center;
   font-size: 28px;
+left: 0;
 }
 
 .logo {
@@ -64,7 +66,7 @@
   height: calc(100vh - 80px);
   position: fixed;
   left: 0;
-  top: 103px;
+  top: 100px;
   z-index: 1;
   overflow-y: auto;
   box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
@@ -232,7 +234,7 @@
 
   .menuIcon {
     display: block;
-    font-size: 30px;
+    font-size: 20px;
     z-index: 1;
   }
 
@@ -262,7 +264,7 @@
 
   .menuIcon {
     display: block;
-    font-size: 30px;
+    font-size: 20px;
     z-index: 1;
   }
 
@@ -298,7 +300,7 @@
 
   .menuIcon {
     display: block;
-    font-size: 30px;
+    font-size: 20px;
     z-index: 1;
   }
 
@@ -342,7 +344,7 @@
 
   .menuIcon {
     display: block;
-    font-size: 30px;
+    font-size: 20px;
     z-index: 1;
   }
 
@@ -360,15 +362,12 @@
     margin-left: -25px;
   }
   .menuIcon {
-    
     font-size: 20px;
     left: 0;
-    
-  }
+    }
   .header {
     padding: 1px;
     margin-left: 5px;
-    margin-right: 5px;
-    
+    margin-right: 5px; 
   }
 }

@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 interface AccountTypeOption {
   value: string;
   label: string; // Changed JSX.Element to string for simplicity
-
+}
 interface CurrencyOption {
   value: string;
   label: JSX.Element | string;
