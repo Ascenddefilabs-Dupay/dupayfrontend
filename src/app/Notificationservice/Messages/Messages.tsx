@@ -35,7 +35,7 @@ const Messages: React.FC = () => {
       return;
     }
 
-    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/messagenotificationapi/create-messages/', {
+    axios.post('http://localhost:8000/messagenotificationapi/create-messages/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -55,7 +55,7 @@ const Messages: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/messagenotificationapi/get-messages-user-ids/')
+    axios.get('http://localhost:8000/messagenotificationapi/get-messages-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {

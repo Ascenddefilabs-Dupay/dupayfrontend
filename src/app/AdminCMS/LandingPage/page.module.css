@@ -1,58 +1,137 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: black;
-    font-family: Arial, sans-serif;
-  }
-  
-  .title {
-    font-size: 2rem;
-    color:white;
-    margin-bottom: 2rem;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-  
-  .buttonContainer {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-  
-  .textBoxContainer {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-  
-  .input {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    
-  }
-  
-  .addButton {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    background: green;
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: black;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-left: 1rem; 
+  margin-bottom: 2rem;/* Space between the icon and the title */
+}
+
+.backArrowIcon {
+  font-size: 0.8rem;
+  color: white;
+  cursor: pointer;
+  align-self:self-start;
+  margin-top: 0;
+
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+
+}
+
+.activeButton {
+  background-color: rgba(243, 66, 235, 0.7); /* Color for the active button */
+}
+
+.textBoxContainer {
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.inputEdit {
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: black;
+  border-radius: 4px;
+  border: 1px solid #999;
+}
+
+.addButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.addButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.1rem;
+}
+
+.tableContainer {
+  width: 24%;
+  max-width: 800px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: black;
+  background-color: white;
+}
+
+.table th, .table td {
+  padding: 0.5rem;
+  text-align: left;
+  color: black;
+}
+
+.tableRow {
+  display: flex;
+  align-items: center;
+  color:black;
+}
+
+.actionIcons {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.icon {
+  cursor: pointer;
+  color: black;
+  font-size: 0.8rem;
+}
+
+.icon:hover {
+  color: purple; /* Change color on hover */
+}

@@ -1,0 +1,175 @@
+/* Notifications/styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    background-color: #000; /* Ensure background covers full page */
+}
+
+.container {
+    background-color: #000; /* Black background */
+    color: #fff;
+    /* min-height: 100vh; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    width: 100%; /* Full width */
+    max-width: 400px; /* Maximum width */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.backButton {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.notificationList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1; /* Ensures content grows with the page */
+    overflow-y: auto; /* Allows scrolling */
+    width: 100%; /* Full width */
+    max-width: 400px;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+.notificationList::-webkit-scrollbar {
+    width: 12px; /* Slightly wider to resemble default, can adjust */
+}
+
+.notificationList::-webkit-scrollbar-thumb {
+    background-color: #b0b0b0; /* Default scrollbar color, lighter grey */
+    border-radius: 6px; /* Slightly rounded corners */
+    border: 3px solid transparent; /* Space around the thumb to make it more visible */
+}
+
+.notificationList::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Light grey background of the scrollbar track */
+}
+
+/* Optional: For Firefox and other browsers */
+.notificationList {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #b0b0b0 #f1f1f1; /* Thumb and track color */
+}
+
+.card {
+    background-color: #333;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.content {
+    font-size: 16px;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #bbb;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+
+    .content {
+        font-size: 14px;
+    }
+
+    .timestamp {
+        font-size: 10px;
+    }
+}
+
+
+.loaderContainer {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    width: 400px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    z-index: 1000;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .loader {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff007b, #007bff);
+    animation: spin 1s linear infinite;
+    transform: rotate(45deg);
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
+    border-radius: 12%;
+  }
+  
+  .loader::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: rgba(255, 0, 123, 0.3);
+    border-radius: 15%;
+    animation: pulse 1.5s infinite ease-in-out;
+    z-index: -1;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }

@@ -35,7 +35,7 @@ const ProductAnnouncement: React.FC = () => {
       return;
     }
 
-    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/productannouncementapi/create-product-announcement/', {
+    axios.post('http://localhost:8000/productannouncementapi/create-product-announcement/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -55,7 +55,7 @@ const ProductAnnouncement: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/productannouncementapi/get-product-announcement-user-ids/')
+    axios.get('http://localhost:8000/productannouncementapi/get-product-announcement-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {
