@@ -201,7 +201,7 @@ const DepositForm: React.FC = () => {
     useEffect(() => {
         if (showForm) {
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_wallets/Wa0000000001/`)
+                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_wallets/Wa0000000002/`)
                 .then((response) => setWalletDetails(response.data))
                 .catch((error) => handleApiError(error, 'fetching wallet details'));
 

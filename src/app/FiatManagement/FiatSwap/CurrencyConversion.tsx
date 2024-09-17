@@ -42,6 +42,7 @@ const CurrencyConversion: React.FC = () => {
           handler: (response: any) => {
             setShowForm(true);
             setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+            handleCurrencyConversion();
             resolve(true);
           },
           prefill: {
@@ -175,6 +176,46 @@ const CurrencyConversion: React.FC = () => {
     }
   };
 
+
+  const handleCurrencyConversion = async () => {
+    if (!amount || !conversionRate) {
+      setAlertMessage('Invalid conversion data.');
+      return;
+    }
+  
+    setShowLoader(true);
+  
+    const walletId = 'Wa0000000002'; 
+    const postData = {
+      wallet_id: walletId,
+      source_currency: sourceCurrency,
+      destination_currency: destinationCurrency,
+      amount: parseFloat(amount),
+      conversion_rate: parseFloat(conversionRate),
+    };
+  
+    try {
+      const response = await fetch('http://127.0.0.1:8000/fiatmanagementapi/convert_currency/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(postData),
+      });
+  
+      const result = await response.json();
+      if (result.status === 'success') {
+        setAlertMessage('Currency conversion successful!');
+      } else {
+        setAlertMessage(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Error converting currency:', error);
+      setAlertMessage('An error occurred. Please try again later.');
+    } finally {
+      setShowLoader(false);
+    }
+  };
+  
+
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
@@ -182,6 +223,8 @@ const CurrencyConversion: React.FC = () => {
       setShowLoader(false);
     }, 3000);
   };
+
+
 
   return (
     <div>
