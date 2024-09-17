@@ -29,6 +29,7 @@ interface ErrorState {
   username?: string;
   phoneNumber?: string;
   form?: string;
+  accountType?:string;
 }
 
 export default function FiatWalletForm() {
