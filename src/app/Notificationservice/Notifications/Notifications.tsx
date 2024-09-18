@@ -1,3 +1,4 @@
+// Notifications.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -13,46 +14,51 @@ interface Notification {
 
 export default function Notifications() {
     const [notifications, setNotifications] = useState<Notification[]>([]);
-    const [userId, setUserId] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true); // Set initial state to true to show loader initially
+    // const [userId, setUserId] = useState<string | null>(null);
+    // const [walletId, setwalletId] = useState<string | null>(null);
+    const [userId] = useState<string>('DupC0015');
+    const [walletId] = useState<string>('Wa0000000002'); // Hardcoded wallet_id
+    const [loading, setLoading] = useState(true); 
     const router = useRouter();
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const sessionDataString = window.localStorage.getItem('session_data');
-            if (sessionDataString) {
-                const sessionData = JSON.parse(sessionDataString);
-                const storedUserId = sessionData.user_id;
-                setUserId(storedUserId);
-            } else {
-                router.push('/Userauthentication/SignIn'); // Redirect if no session data
-            }
-        }
+        // if (typeof window !== 'undefined') {
+        //     const sessionDataString = window.localStorage.getItem('session_data');
+        //     if (sessionDataString) {
+        //         const sessionData = JSON.parse(sessionDataString);
+        //         const storedUserId = sessionData.user_id;
+        //         setUserId(storedUserId);
+        //         const storewalletId = sessionData.wallet_id;
+        //         setwalletId(storewalletId);
+        //     } else {
+        //         router.push('/Userauthentication/SignIn'); 
+        //     }
+        // }
     }, [router]);
 
     useEffect(() => {
         const fetchNotifications = async () => {
-            if (userId) { // Only fetch if userId is not null
-                setLoading(true); // Set loading to true before fetching
+            if (userId) { 
+                setLoading(true); 
                 try {
-                    const response = await axios.get(`http://localhost:8000/notificationsapi/fetch-notifications/?user_id=${userId}`);
+                    const response = await axios.get(`http://localhost:8000/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
                     setNotifications(response.data);
                 } catch (error) {
                     console.error('Error fetching notifications:', error);
                 } finally {
-                    setLoading(false); // Always hide loader after fetch attempt
+                    setLoading(false); 
                 }
             }
         };
 
         fetchNotifications();
-    }, [userId]); // Fetch notifications only when userId is available
+    }, [userId, walletId]);
 
     const handleBackClick = () => {
-        setLoading(true); // Show loading text
+        setLoading(true); 
         setTimeout(() => {
             router.push('/Userauthorization/Dashboard')
-            setLoading(false); // Hide loading text after delay
+            setLoading(false); 
         }, 1000);
     };
 
@@ -83,4 +89,3 @@ export default function Notifications() {
         </div>
     );
 }
-
