@@ -18,9 +18,19 @@ interface ErrorState {
   securityPin?: string;
 }
 
+
 interface AdminCMSData {
   account_type: string;
   currency_type: string;
+
+interface ErrorState {
+  walletType?: string;
+  walletCurrency?: string;
+  username?: string;
+  phoneNumber?: string;
+  form?: string;
+  accountType?:string;
+
 }
 
 export default function FiatWalletForm() {

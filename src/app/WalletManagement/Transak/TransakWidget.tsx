@@ -80,7 +80,7 @@ const TransakWidget: React.FC = () => {
     buyCryptoBtn.style.display = 'block';
     transakContainer.style.display = 'block';
 
-    if (userData.firstName && userData.lastName && userData.email && userData.dob && userData.mobileNumber && userData.email && userData.addressLine1 && userData.addressLine2 && userData.city && userData.state && userData.postCode && userData.countryCode != 'null') {
+    if (userData.firstName && userData.lastName && userData.email && userData.dob && userData.mobileNumber && userData.email && userData.addressLine1 && userData.city && userData.state && userData.postCode && userData.countryCode != 'null') {
 
       transakIframe.src = `https://global-stg.transak.com/?apiKey=a413d789-c5cf-4955-ae22-ff724c620d36&environment=staging&cryptoCurrencyCode=SUI&walletAddress=${walletAddress}&userData=%7B%22firstName%22%3A%22${userData.firstName}%22%2C%22lastName%22%3A%22${userData.lastName}%22%2C%22email%22%3A%22${userData.email}%22%2C%22mobileNumber%22%3A%22${userData.mobileNumber}%22%2C%22dob%22%3A%22${userData.dob}%22%2C%22address%22%3A%7B%22addressLine1%22%3A%22${userData.addressLine1}%22%2C%22addressLine2%22%3A%22${userData.addressLine2}%22%2C%22city%22%3A%22${userData.city}%22%2C%22state%22%3A%22${userData.state}%22%2C%22postCode%22%3A%22${userData.postCode}%22%2C%22countryCode%22%3A%22${userData.countryCode}%22%7D%7D`;
     }else{
