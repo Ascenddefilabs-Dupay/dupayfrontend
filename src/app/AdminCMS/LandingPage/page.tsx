@@ -1,6 +1,8 @@
 "use client";
 import { useState } from 'react';
-import { FaEdit, FaTrash, FaSave, FaArrowLeft } from 'react-icons/fa'; 
+import { FaEdit, FaTrash, FaSave, FaArrowLeft, FaPlus } from 'react-icons/fa'; 
+import { toast, ToastContainer, ToastOptions } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './page.module.css'; 
 
 interface RequestBody {
@@ -22,13 +24,15 @@ const Home = () => {
   const [editMode, setEditMode] = useState<number | null>(null); 
   const [editedValue, setEditedValue] = useState<string>(''); 
   const [backButtonVisible, setBackButtonVisible] = useState<boolean>(false); 
-  const [activeButton, setActiveButton] = useState<string>(''); // State for active button
-  // Fetch values from the backend when a button is clicked
+  const [activeButton, setActiveButton] = useState<string>(''); 
+  const [isInputVisible, setIsInputVisible] = useState<boolean>(false); 
+
   const handleButtonClick = async (type: string) => {
     setShowTextBox(type); 
     setInputValue(''); 
     setBackButtonVisible(true); 
-    setActiveButton(type); // Show the back button when a type is selected
+    setActiveButton(type);  
+    setIsInputVisible(false);
 
     try {
       const response = await fetch(`http://localhost:8000/api/admincms/${type}/`);
@@ -40,22 +44,26 @@ const Home = () => {
       }
     } catch (error) {
       console.error('Error fetching data:', error);
+      toast.error('An error occurred while fetching data.', { autoClose: false });
       setFetchedValues([]);
     }
   };
 
-  // Handle the Back button click (now with arrow)
   const handleBackClick = () => {
     setShowTextBox(''); 
     setFetchedValues([]); 
     setBackButtonVisible(false); 
-    setActiveButton('');// Hide the back button
+    setActiveButton('');  
+    setIsInputVisible(false);
   };
 
-  // Handle adding a new value
+  const handlePlusClick = () => {
+    setIsInputVisible(true); 
+  };
+
   const handleAddClick = async () => {
     if (showTextBox === '' || inputValue.trim() === '') {
-      alert('Please provide a valid input.');
+      toast.warning('Please provide a valid input.', { autoClose: false });
       return;
     }
 
@@ -76,24 +84,24 @@ const Home = () => {
         const responseData = await response.json();
         setFetchedValues(prev => [...prev, { id: responseData.data.id, [showTextBox + '_type']: inputValue }]);
         setInputValue('');
+        setIsInputVisible(false); 
+        toast.success('Added successfully.', { autoClose: 1000 });
       } else {
-        alert('Failed to add value');
+        toast.error('Failed to add value.', { autoClose: false });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred');
+      toast.error('An error occurred while adding the value.', { autoClose: false });
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Handle editing an existing item
   const handleEdit = (id: number, currentValue: string) => {
     setEditMode(id); 
     setEditedValue(currentValue); 
   };
 
-  // Handle saving the edited value
   const handleSave = async (id: number) => {
     const requestBody: RequestBody = {};
     if (showTextBox === 'account') requestBody.account_type = editedValue;
@@ -107,68 +115,72 @@ const Home = () => {
       });
 
       if (response.ok) {
-        alert('Updated successfully');
+        toast.success('Updated successfully.', { autoClose: 1000 });
         setFetchedValues(prev =>
           prev.map(item => (item.id === id ? { ...item, [showTextBox + '_type']: editedValue } : item))
         );
         setEditMode(null); 
       } else {
-        alert('Failed to update');
+        toast.error('Failed to update.', { autoClose: false });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred');
+      toast.error('An error occurred while updating.', { autoClose: false });
     }
   };
 
-  // Handle deleting an existing item
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      try {
-        const response = await fetch(`http://localhost:8000/api/admincms/${id}/`, {
-          method: 'DELETE',
-        });
-
+    if (await toast.promise(
+      fetch(`http://localhost:8000/api/admincms/${id}/`, {
+        method: 'DELETE',
+      }).then(response => {
         if (response.ok) {
           setFetchedValues(fetchedValues.filter(item => item.id !== id)); 
+          return 'Deleted successfully.';
         } else {
-          alert('Failed to delete');
+          throw new Error('Failed to delete.');
         }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred');
-      }
+      }),
+      {
+        pending: 'Deleting...',
+        success: 'Deleted successfully.',
+        error: 'Failed to delete.',
+      },
+      { autoClose: 1000 }
+    )) {
+      // Successfully deleted
     }
   };
 
   return (
     <div className={styles.container}>
-      {backButtonVisible && (
-        <FaArrowLeft onClick={handleBackClick} className={styles.backArrowIcon} />
-      )}
-      <h1 className={styles.title}>Content Management</h1>
-
+      <nav className={styles.navbar}>
+        {backButtonVisible && (
+          <div className={styles.backButtonContainer}>
+            <FaArrowLeft className={styles.backArrowIcon} onClick={handleBackClick} />
+            
+          </div>
+        )}
+        <h1 className={styles.navbarTitle}>Content Management</h1>
+      </nav>
 
       <div className={styles.buttonContainer}>
         <button 
           onClick={() => handleButtonClick('account')} 
-          className={`${styles.button} ${activeButton === 'account' ? styles.activeButton : ''}`}
-          disabled={showTextBox === 'currency'} // Disable the other button
+          className={`${styles.button} ${activeButton === 'account' ? styles.activeButton : styles.inactiveButton}`}
+          disabled={activeButton === 'currency'}
         >
           Account Type
         </button>
         <button 
           onClick={() => handleButtonClick('currency')} 
-          className={`${styles.button} ${activeButton === 'currency' ? styles.activeButton : ''}`}
-          disabled={showTextBox === 'account'} // Disable the other button
+          className={`${styles.button} ${activeButton === 'currency' ? styles.activeButton : styles.inactiveButton}`}
+          disabled={activeButton === 'account'}
         >
           Currency Type
         </button>
       </div>
-
-
-
-      {showTextBox && (
+      {isInputVisible && (
         <div className={styles.textBoxContainer}>
           <input
             type="text"
@@ -188,7 +200,10 @@ const Home = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>{showTextBox === 'account' ? 'Account Type' : 'Currency Type'}</th>
+                <th>
+                  {showTextBox === 'account' ? 'Account Type' : 'Currency Type'}
+                  <FaPlus className={styles.plusIcon} onClick={handlePlusClick} />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -200,7 +215,7 @@ const Home = () => {
                         type="text"
                         value={editedValue}
                         onChange={(e) => setEditedValue(e.target.value)}
-                        className={styles.inputEdit} // Different style for editable input
+                        className={styles.inputEdit} 
                       />
                     ) : (
                       showTextBox === 'account' ? item.account_type : item.currency_type
@@ -217,7 +232,7 @@ const Home = () => {
                               showTextBox === 'account' ? (item.account_type ?? '') : (item.currency_type ?? '')
                             )}
                           />
-                          <FaTrash className={styles.icon} onClick={() => handleDelete(item.id)} />
+                          <FaTrash className={styles.deleteicon} onClick={() => handleDelete(item.id)} />
                         </>
                       )}
                     </div>
@@ -228,6 +243,9 @@ const Home = () => {
           </table>
         </div>
       )}
+
+
+      <ToastContainer position="top-center" />
     </div>
   );
 };
