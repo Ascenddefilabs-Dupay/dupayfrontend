@@ -198,7 +198,7 @@ export default function Login() {
       const { fiat_wallet_id } = walletResponse.data;
   
       const expirationDate = new Date();
-      expirationDate.setMinutes(expirationDate.getMinutes() + 2);
+      expirationDate.setMinutes(expirationDate.getMinutes() + 20);
   
       const sessionData = {
         session_id,
