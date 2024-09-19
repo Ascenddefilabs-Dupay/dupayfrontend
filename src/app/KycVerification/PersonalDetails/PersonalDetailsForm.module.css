@@ -180,3 +180,47 @@
     opacity: 1;
   }
 }
+
+
+
+
+
+
+
+.mobileContainer {
+  display: flex;
+  align-items: center;
+}
+
+.select {
+    color: white;
+    width: 35%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 37px;
+    background-color: rgba(128, 128, 128, 0.253);
+}
+
+.inputMobile {
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 35px;
+    background-color: rgba(128, 128, 128, 0.253);
+  
+}
+
+.formGroup {
+  margin-bottom: 16px; /* Space between form groups */
+}
+
+
+.select option {
+  background-color: rgb(37, 35, 35); /* Background color for options */
+  color: white; /* Text color for options */
+}
