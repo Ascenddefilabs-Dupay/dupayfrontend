@@ -206,6 +206,10 @@ font-weight: bold;
   border-radius: 12%; 
 }
 
+.required {
+  color: red;
+  margin-left: 0.2rem;
+}
 
 .loader::before {
   content: "";

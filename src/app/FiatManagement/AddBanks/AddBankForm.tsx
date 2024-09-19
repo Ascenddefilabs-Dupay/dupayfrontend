@@ -416,7 +416,7 @@ const AddBankForm: React.FC = () => {
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>Bank Name:</label>
+          <label className={styles.label}>Bank Name<span className={styles.required}>*</span></label>
           <input
             type="text"
             value={bankName}
@@ -428,7 +428,7 @@ const AddBankForm: React.FC = () => {
 
         {/* Account Holder Name Field */}
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>Account Holder Name:</label>
+          <label className={styles.label}>Account Holder Name<span className={styles.required}>*</span></label>
           <input
             type="text"
             value={accountHolderName}
@@ -440,7 +440,7 @@ const AddBankForm: React.FC = () => {
 
         {/* Account Number Field */}
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>Account Number:</label>
+          <label className={styles.label}>Account Number<span className={styles.required}>*</span></label>
           <input
             type="number"
             value={accountNumber}
@@ -452,7 +452,7 @@ const AddBankForm: React.FC = () => {
 
         {/* IFSC Code Field */}
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>IFSC Code:</label>
+          <label className={styles.label}>IFSC Code <span className={styles.required}>*</span></label>
           <input
             type="text"
             value={ifscCode}
@@ -465,7 +465,7 @@ const AddBankForm: React.FC = () => {
 
         {/* Branch Name Field */}
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>Branch Name:</label>
+          <label className={styles.label}>Branch Name<span className={styles.required}>*</span></label>
           <input
             type="text"
             value={branchName}
@@ -477,7 +477,7 @@ const AddBankForm: React.FC = () => {
 
         {/* SWIFT/BIC Code Field */}
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>SWIFT/BIC Code:</label>
+          <label className={styles.label}>SWIFT/BIC Code <span className={styles.required}>*</span></label>
           <input
             type="text"
             value={swiftBicCode}
@@ -489,7 +489,7 @@ const AddBankForm: React.FC = () => {
 
         {/* Currency Field */}
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>Currency:</label>
+          <label className={styles.label}>Currency <span className={styles.required}>*</span></label>
           <input
             type="text"
             value={currency}
@@ -501,7 +501,7 @@ const AddBankForm: React.FC = () => {
 
         {/* Upload Icon Field */}
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>KYC/Verification Document Upload :</label>
+          <label className={styles.label}>KYC/Verification Document Upload <span className={styles.required}>*</span></label>
           <input
             type="file"
             onChange={(e) => setBankIcon(e.target.files ? e.target.files[0] : null)}
@@ -514,6 +514,7 @@ const AddBankForm: React.FC = () => {
           {isSubmitting ? `Processing${'.'.repeat(dots)}` : 'Add'}
         </button>
       </form>
+
       {statusMessage && <p className={styles.statusMessage}>{statusMessage}</p>}
     </div>
   );
