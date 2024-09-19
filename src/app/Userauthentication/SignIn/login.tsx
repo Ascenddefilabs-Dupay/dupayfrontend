@@ -70,17 +70,21 @@ export default function Login() {
 
   const fetchFiatWalletId = async (userId: string) => {
     try {
-      const response = await axios.get(`https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat-wallet/${userId}/`);
-      if (response.status === 200) {
-        const { fiat_wallet_id } = response.data;
-        localStorage.setItem('fiat_wallet_id', fiat_wallet_id);
+      const response = await axios.get(`https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat_wallet/${userId}/`);
+      const { fiat_wallet_id } = response.data;
+      
+      if (fiat_wallet_id === null) {
+        console.log("No wallet found, setting wallet ID to null.");
+        // Handle case where no wallet is found, you can set the state accordingly
       } else {
-        console.error('Failed to fetch fiat wallet ID.');
+        console.log("Wallet found: ", fiat_wallet_id);
+        // Proceed with the wallet ID
       }
     } catch (error) {
-      console.error('Error fetching fiat wallet ID:', error);
+      console.error("Error fetching fiat wallet ID: ", error);
     }
   };
+  
   
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
@@ -91,14 +95,17 @@ export default function Login() {
       if (res.status === 200) {
         const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = res.data;
   
+        // Convert registration_status to a boolean if it is not already
+        const isRegistered = registration_status == 'true' || registration_status === true;
+  
         // Store user data and fetch fiat_wallet_id
-        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, registration_status);
+        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, isRegistered);
         await fetchFiatWalletId(user_id); // Fetch fiat_wallet_id and store it
   
         alert('Logged in successfully with Google');
   
         // Navigate based on registration_status
-        if (registration_status === 'true') {
+        if (isRegistered) {
           router.push('/Userauthorization/Dashboard');
         } else {
           router.push('/KycVerification/PersonalDetails');
@@ -111,6 +118,7 @@ export default function Login() {
       alert('Error during Google login.');
     }
   };
+  
   
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -142,7 +150,15 @@ export default function Login() {
         });
   
         if (response.status === 200) {
-          const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = response.data;
+          const {
+            user_id = '', 
+            user_first_name = '', 
+            user_email = '', 
+            user_phone_number = '', 
+            session_id = '', 
+            registration_status = false 
+          } = response.data || {};  // Handle null values or missing data
+  
           LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, registration_status);
           await fetchFiatWalletId(user_id); // Fetch fiat_wallet_id and store it
           alert('Logged in successfully');
@@ -190,7 +206,7 @@ export default function Login() {
         user_first_name,
         user_email,
         user_phone_number,
-        fiat_wallet_id,  // Add fiat_wallet_id here
+        fiat_wallet_id: fiat_wallet_id || null,  // Default to null if fiat_wallet_id is missing
         expiration: expirationDate.toISOString(),
       };
       localStorage.setItem('session_data', JSON.stringify(sessionData));

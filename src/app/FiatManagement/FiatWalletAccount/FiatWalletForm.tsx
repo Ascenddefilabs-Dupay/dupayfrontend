@@ -22,7 +22,7 @@ interface ErrorState {
 interface AdminCMSData {
   account_type: string;
   currency_type: string;
-
+}
 interface ErrorState {
   walletType?: string;
   walletCurrency?: string;
