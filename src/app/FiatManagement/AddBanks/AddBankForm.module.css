@@ -1,7 +1,7 @@
 .container {
-  height: 100vh;
+  height: 150vh;
   width: 400px;
-  max-height: auto;
+
   max-width: 100%;
   color: white;
   padding: 20px;
@@ -10,7 +10,7 @@
   margin-top: 0;  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   background: black;
-  position: relative;
+  position:relative;
 
 }
 @media (max-width: 1024px) {
@@ -240,4 +240,9 @@ font-weight: bold;
     transform: scale(1);
     opacity: 1;
   }
+}
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
