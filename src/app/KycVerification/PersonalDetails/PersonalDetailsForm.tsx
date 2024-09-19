@@ -1142,7 +1142,7 @@ const PersonalDetailsForm: React.FC = () => {
 
       
       try {
-        const response = await axios.post('http://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/personal-details/', {
+        const response = await axios.post('https://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/personal-details/', {
           user_id: userId,
           user_first_name: formData.firstName,
           user_last_name: formData.lastName,
