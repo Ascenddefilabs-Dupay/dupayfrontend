@@ -105,7 +105,22 @@
   color: #888;
   font-size: 0.75rem; /* Slightly smaller placeholder text */
 }
+.signInLinkWrapper {
+  margin-top: 15px;
+  text-align: center;
+}
 
+.signInLink {
+  color: #800080;
+  text-decoration: none;
+  font-size:0.85rem;
+}
+
+.signInLink:hover {
+  text-decoration: underline;
+  color: white;
+  
+}
 .checkboxContainer {
   display:flex;
   align-items: center; 
