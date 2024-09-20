@@ -14,6 +14,100 @@
   position: relative;
   left: 180px;  
 }
+
+
+.fiat {
+  background-color: #1a1d23;
+  position: relative;
+  padding: 10px;
+  width: 108%;
+  margin: 0 auto;
+  left: -14px;
+}
+
+.table {
+  width: 100%;
+}
+.modaloverlay {
+  left: -14px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  margin: 0 auto;
+  height: 100vh;
+  /* background-color: rgba(0, 0, 0, 0.7); Dim the background */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  z-index: 1000;
+  pointer-events: auto;
+  backdrop-filter: blur(10px);
+}
+.modalcontent {
+  /* background-color: #fff; */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+.modalbuttons {
+  display: flex;
+  flex-direction: column; /* Arrange buttons vertically */
+  gap: 10px; /* Add space between buttons */
+}
+
+.modalbutton {
+  margin: 5px;
+  padding: 10px;
+  /* background-color: #1a1d23; */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  pointer-events: auto;
+  /* width: 50px; */
+  display: flex;
+  margin: 0 auto;
+}
+.icon1{
+  /* background-color: #fff; */
+  margin-right: 10px;
+}
+
+.closebutton {
+  /* background-color: red; */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  /* margin-top: 20px; */
+  pointer-events: auto;
+}
+
+.blur {
+  filter: blur(0px);
+  transition: filter 0.3s ease-in-out;
+  pointer-events: none; 
+}
+
+.noBlur {
+  filter:blur(0px); /* or set to your desired state */
+  backdrop-filter: none; /* if you're using backdrop-filter for blur */
+}
+
+.th {
+  padding: 10px;
+  border-bottom: 1px solid white;
+}
+
+.td{
+  padding: 10px;
+  text-align: center;
+}
+
 .header {
   display: flex;
   justify-content: start;
