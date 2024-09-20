@@ -2,6 +2,8 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import './styles.css';  // Importing the custom CSS file
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const ButtonsComponent: React.FC = () => {
     const router = useRouter();
@@ -38,28 +40,26 @@ const ButtonsComponent: React.FC = () => {
 
     return (
         <div className="container">
+            <Link className="link" href="/Userauthorization/AdminDashboard">
+            <FaArrowLeft  style={{position: 'relative' ,right:'10px', color: 'white'}} />
+            </Link>
             <h1 className="heading">Notifications</h1>
             <div className="button-grid">
                 <button onClick={goToMessages} className="button button-blue">
                     Messages
                 </button>
-
                 <button onClick={goToProductAnnouncement} className="button button-green">
                     Product Announcement
                 </button>
-
                 <button onClick={goToSpecialOffers} className="button button-purple">
                     Special Offers
                 </button>
-
                 <button onClick={goToInsightsTips} className="button button-yellow">
                     Insights & Tips
                 </button>
-
                 <button onClick={goToPriceAlerts} className="button button-red">
                     Price Alerts
                 </button>
-
                 <button onClick={goToAccountActivity} className="button button-indigo">
                     Account Activity
                 </button>

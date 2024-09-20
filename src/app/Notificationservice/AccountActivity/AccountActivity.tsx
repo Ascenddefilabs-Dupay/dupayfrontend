@@ -1,6 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './accountactivity.module.css';
+import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const AccountActivity: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
@@ -35,7 +39,7 @@ const AccountActivity: React.FC = () => {
       return;
     }
 
-    axios.post('http://localhost:8000/accountactivityapi/create-account-activity/', {
+    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/accountactivityapi/create-account-activity/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -55,7 +59,7 @@ const AccountActivity: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://localhost:8000/accountactivityapi/get-account-activity-user-ids/')
+    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/accountactivityapi/get-account-activity-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {
@@ -70,16 +74,29 @@ const AccountActivity: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1 className='text-4xl font-bold'>Account Activity Notification</h1>
-        <button
-          onClick={createAccountActivityNotification}
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4'
-        >
-          Trigger Account Activity Notification
-        </button>
-      </main>
+    <div className={styles.container}>
+      <div className="main">
+      <header className={styles.header}>
+        <Link href="/Notificationservice/AdminNotificationScreen">
+          <FaArrowLeft  style={{position: 'relative' ,right:'10px', color: 'white'}} />
+        </Link>
+          <center>
+            <div className="centeredBox">
+              <Typography variant="h4" gutterBottom>
+              Account Activity Notification
+              </Typography>
+            </div>
+            <button
+              onClick={createAccountActivityNotification}
+              className={styles.button}
+              >
+              Trigger Account Activity Notification
+            </button>
+            <h6 className={styles.messagetext}>Needs to trigger the Account Activity Notification users will get the Notification.</h6>
+          </center>
+        </header>
+      </div>
+      
     </div>
   );
 };

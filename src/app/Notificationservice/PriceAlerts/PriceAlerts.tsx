@@ -1,6 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './pricealerts.module.css';
+import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const PriceAlerts: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
@@ -31,7 +35,7 @@ const PriceAlerts: React.FC = () => {
 
   const fetchPriceAlerts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/pricealertsapi/get-price-alerts-user-ids/');
+      const response = await axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/get-price-alerts-user-ids/');
       const userIds = response.data.user_ids;
 
       if (userIds && userIds.length > 0) {
@@ -46,7 +50,7 @@ const PriceAlerts: React.FC = () => {
 
   const pollPriceAlerts = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/pricealertsapi/create-price-alerts/', {
+      const response = await axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/pricealertsapi/create-price-alerts/', {
         user_id: userId,
       });
 
@@ -72,11 +76,22 @@ const PriceAlerts: React.FC = () => {
   }, [userId]);
 
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1 className='text-4xl font-bold'>Price Alerts Notification</h1>
-        <p>{priceAlertMessage}</p>
-      </main>
+    <div className={styles.container}>
+      <div className="main">
+        <header className={styles.header}>
+          <Link href="/Notificationservice/AdminNotificationScreen">
+            <FaArrowLeft  style={{position: 'relative' ,right:'10px', color: 'white'}} />
+          </Link>
+          <center>
+            <div className="centeredBox">
+              <Typography variant="h4" gutterBottom>
+                Price Alerts Notification
+              </Typography>
+            </div>
+            <h6 className={styles.messagetext}>No need to trigger the Price Alerts Notification users will directly get the Notification based on the price changes.</h6>
+          </center>
+        </header>
+      </div>
     </div>
   );
 };

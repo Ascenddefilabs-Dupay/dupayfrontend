@@ -1,6 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './insightstips.module.css';
+import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const InsightsTips: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
@@ -35,7 +39,7 @@ const InsightsTips: React.FC = () => {
       return;
     }
 
-    axios.post('http://localhost:8000/insightstipsapi/create-insights-tips/', {
+    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/insightstipsapi/create-insights-tips/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -55,7 +59,7 @@ const InsightsTips: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://localhost:8000/insightstipsapi/get-insights-tips-user-ids/')
+    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/insightstipsapi/get-insights-tips-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {
@@ -70,16 +74,28 @@ const InsightsTips: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1 className='text-4xl font-bold'>Insights Tips Notification</h1>
-        <button
-          onClick={createInsightsTipsNotification}
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4'
-        >
-          Trigger Insights Tips Notification
-        </button>
-      </main>
+    <div className={styles.container}>
+      <div className="main">
+      <header className={styles.header}>
+        <Link href="/Notificationservice/AdminNotificationScreen">
+          <FaArrowLeft  style={{position: 'relative' ,right:'10px', color: 'white'}} />
+        </Link>
+          <center>
+            <div className="centeredBox">
+              <Typography variant="h4" gutterBottom>
+              Insights Tips Notification
+              </Typography>
+            </div>
+            <button
+              onClick={createInsightsTipsNotification}
+              className={styles.button}
+              >
+              Trigger Insights Tips Notification
+            </button>
+            <h6 className={styles.messagetext}>Needs to trigger the Insights Tips Notification users will get the Notification.</h6>
+          </center>
+        </header>
+      </div>
     </div>
   );
 };
