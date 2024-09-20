@@ -68,6 +68,24 @@ export default function Login() {
     initializeGoogleSignIn();
   }, []);
 
+  const fetchFiatWalletId = async (userId: string) => {
+    try {
+      const response = await axios.get(`https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat_wallet/${userId}/`);
+      const { fiat_wallet_id } = response.data;
+      
+      if (fiat_wallet_id === null) {
+        console.log("No wallet found, setting wallet ID to null.");
+        // Handle case where no wallet is found, you can set the state accordingly
+      } else {
+        console.log("Wallet found: ", fiat_wallet_id);
+        // Proceed with the wallet ID
+      }
+    } catch (error) {
+      console.error("Error fetching fiat wallet ID: ", error);
+    }
+  };
+  
+  
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
       const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
@@ -75,16 +93,19 @@ export default function Login() {
       });
   
       if (res.status === 200) {
-        const { user_id, user_first_name, user_email, user_phone_number, session_id, user_status } = res.data;
+        const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = res.data;
   
-        // Ensure user_status is a boolean
-        const isUserStatus = user_status === 'true' ? true : user_status === 'false' ? false : user_status;
+        // Convert registration_status to a boolean if it is not already
+        const isRegistered = registration_status == 'true' || registration_status === true;
   
-        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
+        // Store user data and fetch fiat_wallet_id
+        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, isRegistered);
+        await fetchFiatWalletId(user_id); // Fetch fiat_wallet_id and store it
+  
         alert('Logged in successfully with Google');
-        
-        // Navigate based on user_status
-        if (isUserStatus) {
+  
+        // Navigate based on registration_status
+        if (isRegistered) {
           router.push('/Userauthorization/Dashboard');
         } else {
           router.push('/KycVerification/PersonalDetails');
@@ -98,17 +119,17 @@ export default function Login() {
     }
   };
   
-
+  
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     if (loginMode === 'password') {
       try {
         const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
           user_email: email,
           user_password: password,
         });
-
+  
         if (response.status === 200) {
           await sendOtp();
           setOtpTimer(30);
@@ -127,15 +148,24 @@ export default function Login() {
           user_email: email,
           user_otp: otp,
         });
-
+  
         if (response.status === 200) {
-          const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = response.data;
-          LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
+          const {
+            user_id = '', 
+            user_first_name = '', 
+            user_email = '', 
+            user_phone_number = '', 
+            session_id = '', 
+            registration_status = false 
+          } = response.data || {};  // Handle null values or missing data
+  
+          LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, registration_status);
+          await fetchFiatWalletId(user_id); // Fetch fiat_wallet_id and store it
           alert('Logged in successfully');
-          
+  
           // Navigate based on registration_status
-          if (registration_status) {
-            router.push('/Userauthorization/Dashboard');
+          if (registration_status === 'true') {
+            router.push('/dashboard');
           } else {
             router.push('/KycVerification/PersonalDetails');
           }
@@ -147,6 +177,7 @@ export default function Login() {
       }
     }
   };
+  
 
   const sendOtp = async () => {
     try {
@@ -160,20 +191,31 @@ export default function Login() {
     }
   };
 
-  const LocalStorage = (user_id: string, user_first_name: string, user_email: string, user_phone_number: string, session_id: string) => {
-    const expirationDate = new Date();
-    expirationDate.setMinutes(expirationDate.getMinutes() + 2);
-
-    const sessionData = {
-      session_id,
-      user_id,
-      user_first_name,
-      user_email,
-      user_phone_number,
-      expiration: expirationDate.toISOString(),
-    };
-    localStorage.setItem('session_data', JSON.stringify(sessionData));
+  const LocalStorage = async (user_id: string, user_first_name: string, user_email: string, user_phone_number: string, session_id: string, registration_status: boolean) => {
+    try {
+      // Fetch fiat_wallet_id using user_id
+      const walletResponse = await axios.get(`https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat_wallet/${user_id}/`);
+      const { fiat_wallet_id } = walletResponse.data;
+  
+      const expirationDate = new Date();
+      expirationDate.setMinutes(expirationDate.getMinutes() + 20);
+  
+      const sessionData = {
+        session_id,
+        user_id,
+        user_first_name,
+        user_email,
+        user_phone_number,
+        fiat_wallet_id: fiat_wallet_id || null,  // Default to null if fiat_wallet_id is missing
+        expiration: expirationDate.toISOString(),
+      };
+      localStorage.setItem('session_data', JSON.stringify(sessionData));
+    } catch (error) {
+      console.error('Error fetching fiat_wallet_id:', error);
+      alert('Error fetching wallet information.');
+    }
   };
+  
 
   return (
     <div className={styles.container}>
@@ -279,6 +321,11 @@ export default function Login() {
               {loginMode === 'password' && (
                 <div id="google-signin-button" className={styles.googleSignIn}></div>
               )}
+                <div className={styles.signInLinkWrapper}>
+                  <Link href="/Userauthentication/SignUp/EmailVerification" className={styles.signInLink}>
+                    New User? Sign up
+                  </Link>
+                </div>
             </form>
           </div>
         ) : (

@@ -1,129 +1,121 @@
-"use client"
+"use client";
 import React, { useState, useCallback, useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import styles from './AddBankForm.module.css';
-import dynamic from 'next/dynamic';
-import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
-interface UseAuth {
-  isAuthenticated: boolean;
-  hasRole: (role: string) => boolean;
-}
-
-const useAuth = (): UseAuth => {
-  const isAuthenticated = true; 
-  const hasRole = (role: string) => role === 'admin'; 
-  return { isAuthenticated, hasRole };
+// Define the IFSC code validation function
+const validateIfscCode = (ifscCode: string): boolean => {
+  const ifscPattern = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+  return ifscPattern.test(ifscCode);
 };
 
 const AddBankForm: React.FC = () => {
+  const [userId, setUserId] = useState<string | null>(null);
   const [bankName, setBankName] = useState<string>('');
+  const [accountHolderName, setAccountHolderName] = useState<string>('');
+  const [accountNumber, setAccountNumber] = useState<string>('');
+  const [ifscCode, setIfscCode] = useState<string>('');
+  const [branchName, setBranchName] = useState<string>('');
+  const [swiftBicCode, setSwiftBicCode] = useState<string>('');
+  const [currency, setCurrency] = useState<string>('');
   const [bankIcon, setBankIcon] = useState<File | null>(null);
   const [statusMessage, setStatusMessage] = useState<string>('');
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [dots, setDots] = useState<number>(0); // State for dots animation
 
   const router = useRouter();
-  const { isAuthenticated, hasRole } = useAuth();
-  const { isLoggedIn } = UseSession();
 
+  // Fetch user_id from localStorage when component mounts
   useEffect(() => {
-    // if (typeof window !== 'undefined') {
-    //   const sessionDataString = window.localStorage.getItem('session_data');
-    //   if (sessionDataString) {
-    //     const sessionData = JSON.parse(sessionDataString);
-    //     const storedUserId = sessionData.user_id;
-    //     // setUserId(storedUserId);
-    //     console.log(storedUserId);
-    //     console.log(sessionData.user_email);
- 
-    //   } else {
-    //     router.push('http://localhost:3000/Userauthentication/SignIn')
-    //   }
-    // }
-  }, []);
-
-  useEffect(() => {
-    if (isSubmitting) {
-      const interval = setInterval(() => {
-        setDots((prevDots) => (prevDots + 1) % 4); // Cycles through 0 to 3
-      }, 500); // Adjust timing for faster/slower animation
-      return () => clearInterval(interval); // Cleanup interval on unmount or when isSubmitting changes
+    const storedSessionData = localStorage.getItem('session_data');
+    
+    if (storedSessionData) {
+      try {
+        const userData = JSON.parse(storedSessionData);
+        const userId = userData?.user_id;
+        if (userId) {
+          setUserId(userId);
+        }
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+      }
     }
-  }, [isSubmitting]);
-
+  }, []);
+  
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
-      if (!bankName || !bankIcon) {
-        setErrors({ message: 'Please fill all fields' });
+  
+      // Validate fields
+      if (!bankName || !accountHolderName || !accountNumber || !ifscCode || !branchName || !swiftBicCode || !currency || !bankIcon) {
+        setStatusMessage('Please fill all fields');
         return;
       }
-
-      setIsSubmitting(true);  // Set isSubmitting to true when form submission starts
-
+  
+      // Validate IFSC Code
+      if (!validateIfscCode(ifscCode)) {
+        setStatusMessage('Invalid IFSC Code');
+        return;
+      }
+  
+      setIsSubmitting(true);
+  
       const formData = new FormData();
+      formData.append('user_id', userId !== null ? userId.toString() : '');
       formData.append('bank_name', bankName);
-      formData.append('bank_icon', bankIcon);
-
+      formData.append('account_holder_name', accountHolderName);
+      formData.append('account_number', accountNumber);
+      formData.append('ifsc_code', ifscCode);
+      formData.append('branch_name', branchName);
+      formData.append('bic_code', swiftBicCode);
+      formData.append('currency', currency);
+      formData.append('kyc_document', bankIcon);
+  
       try {
-        const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/banks/', {
+        const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/add/', {
           method: 'POST',
           body: formData,
         });
-
+  
         if (res.ok) {
           setAlertMessage('Bank added successfully!');
-          // router.push('/Userauthorization/Dashboard');
+          
+          // Clear all form fields after successful submission
           setBankName('');
+          setAccountHolderName('');
+          setAccountNumber('');
+          setIfscCode('');
+          setBranchName('');
+          setSwiftBicCode('');
+          setCurrency('');
           setBankIcon(null);
           setStatusMessage('');
-          setErrors({});
         } else {
           const errorData = await res.json();
-          const errorMessages = Object.values(errorData).flat().join(', ');
-          setAlertMessage(`Failed to add bank: ${errorMessages}`);
-          setStatusMessage('Failed to add bank.');
+          setAlertMessage('Failed to add bank.');
         }
       } catch (error: any) {
-        console.error('Error:', error);
-        setAlertMessage(`An error occurred: ${error.message}`);
-        setStatusMessage('An error occurred.');
+        setAlertMessage('An error occurred while submitting.');
       } finally {
-        setIsSubmitting(false);  // Reset isSubmitting after form submission is completed
+        setIsSubmitting(false);
       }
     },
-    [bankName, bankIcon, router]
+    [bankName, accountHolderName, accountNumber, ifscCode, branchName, swiftBicCode, currency, bankIcon, userId]
   );
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoader(false);
-    }, 3000); 
-
-    return () => clearTimeout(timer);
-  }, []);
-
+  
   const handleLeftArrowClick = useCallback(() => {
     setShowLoader(true);
     setTimeout(() => {
       window.location.href = '/Userauthorization/Dashboard';
-      setShowLoader(false); 
-    }, 1000); 
+      setShowLoader(false);
+    }, 1000);
   }, []);
 
   const handleCloseAlert = useCallback(() => {
     setAlertMessage('');
   }, []);
-
-  if (!isAuthenticated || !hasRole('admin')) {
-    return <p>You are not authorized to access this page.</p>;
-  }
 
   return (
     <div className={styles.container}>
@@ -133,7 +125,7 @@ const AddBankForm: React.FC = () => {
           <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
         </div>
       )}
-        
+
       <div className={styles.topBar}>
         {showLoader && (
           <div className={styles.loaderContainer}>
@@ -141,14 +133,14 @@ const AddBankForm: React.FC = () => {
           </div>
         )}
         <button className={styles.topBarButton}>
-          <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick}/>
+          <FaArrowLeft className={styles.topBarIcon} onClick={handleLeftArrowClick} />
         </button>
         <h2 className={styles.topBarTitle}>Add Bank</h2>
       </div>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>Bank Name:</label>
+          <label className={styles.label}>Bank Name<span className={styles.required}>*</span></label>
           <input
             type="text"
             value={bankName}
@@ -156,24 +148,95 @@ const AddBankForm: React.FC = () => {
             required
             className={styles.input}
           />
-          {errors.bank_name && <p className={styles.error}>{errors.bank_name}</p>}
         </div>
+
         <div className={styles.fieldContainer}>
-          <label className={styles.label}>Upload Icon:</label>
+          <label className={styles.label}>Account Holder Name<span className={styles.required}>*</span></label>
           <input
-            type="file"
-            onChange={(e) => setBankIcon(e.target.files ? e.target.files[0] : null)}
+            type="text"
+            value={accountHolderName}
+            onChange={(e) => setAccountHolderName(e.target.value)}
             required
             className={styles.input}
           />
         </div>
-        <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
-          {isSubmitting ? `Processing${'.'.repeat(dots)}` : 'Add'}
+
+        <div className={styles.fieldContainer}>
+          <label className={styles.label}>Account Number<span className={styles.required}>*</span></label>
+          <input
+            type="number"
+            value={accountNumber}
+            onChange={(e) => setAccountNumber(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.fieldContainer}>
+          <label className={styles.label}>IFSC Code <span className={styles.required}>*</span></label>
+          <input
+            type="text"
+            value={ifscCode}
+            onChange={(e) => setIfscCode(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.fieldContainer}>
+          <label className={styles.label}>Branch Name<span className={styles.required}>*</span></label>
+          <input
+            type="text"
+            value={branchName}
+            onChange={(e) => setBranchName(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.fieldContainer}>
+          <label className={styles.label}>SWIFT/BIC Code<span className={styles.required}>*</span></label>
+          <input
+            type="text"
+            value={swiftBicCode}
+            onChange={(e) => setSwiftBicCode(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.fieldContainer}>
+          <label className={styles.label}>Currency<span className={styles.required}>*</span></label>
+          <input
+            type="text"
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.fieldContainer}>
+          <label className={styles.label}>KYC/Bank Icon<span className={styles.required}>*</span></label>
+          <input
+            type="file"
+            onChange={(e) => {
+              if (e.target.files?.[0]) {
+                setBankIcon(e.target.files[0]);
+              }
+            }}
+            required
+            className={styles.fileInput}
+          />
+        </div>
+
+        {statusMessage && <p className={styles.statusMessage}>{statusMessage}</p>}
+        <button type="submit" disabled={isSubmitting} className={styles.submitButton}>
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </form>
-      {statusMessage && <p className={styles.statusMessage}>{statusMessage}</p>}
     </div>
   );
 };
 
-export default dynamic(() => Promise.resolve(AddBankForm), { ssr: false });
+export default AddBankForm;

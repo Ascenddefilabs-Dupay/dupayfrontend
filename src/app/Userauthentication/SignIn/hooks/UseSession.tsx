@@ -28,7 +28,7 @@ const UseSession = () => {
         if (now > expirationDate) {
           clearSession();
           alert('Session expired. Please log in again.');
-          router.push('/SignIn');
+          router.push('/Userauthentication/SignIn');
           window.location.reload();
         } else {
           setIsLoggedIn(true);
@@ -37,7 +37,7 @@ const UseSession = () => {
           const timeUntilExpiration = expirationDate.getTime() - now.getTime();
           setTimeout(() => {
             clearSession();
-            router.push('/SignIn');
+            router.push('/Userauthentication/SignIn');
             window.location.reload();
           }, timeUntilExpiration);
         }
