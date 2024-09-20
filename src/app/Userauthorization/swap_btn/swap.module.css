@@ -32,7 +32,7 @@
     -webkit-backdrop-filter: blur(10px) saturate(180%);
     z-index: 2;
     border-radius: 20px;
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     margin: 0 auto;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);

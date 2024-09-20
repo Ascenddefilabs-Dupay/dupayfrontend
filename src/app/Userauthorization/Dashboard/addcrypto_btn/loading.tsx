@@ -68,7 +68,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: '60px',
     height: '60px',
     background: 'linear-gradient(45deg, #ff007b, #007bff)',
-    borderRadius: '12%',
+    // borderRadius: '12%',
     animation: 'spin 1s linear infinite',
     transform: 'rotate(45deg)',
     position: 'relative',

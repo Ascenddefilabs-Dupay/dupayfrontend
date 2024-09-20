@@ -193,7 +193,7 @@ const Profileicon: React.FC = () => {
                 </AppBar>
 
                 <p style={{ fontWeight: 'bold', marginLeft: '20px' }}>New to Dupay Wallet?</p>
-                <p style={{ fontSize: '12px', marginLeft: '20px', color: 'gray' }}>Here's how to get started.</p>
+                <p style={{ fontSize: '12px', marginLeft: '20px', color: 'gray' }}>Here is how to get started.</p>
 
                 <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', justifyContent: 'center', flex: 1, marginBottom: '200px' }}>
                     <Card className={styles.card}>

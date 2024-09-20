@@ -84,7 +84,7 @@ const Importwallet = () => {
       <div className={styles.progressBar}></div>
       <h1 className={styles.heading}>Import wallet</h1>
       <p className={styles.paragraph}>
-        Enter your wallet's 12-word recovery phrase or private key.
+        Enter your wallets 12-word recovery phrase or private key.
         You can import any Ethereum, Solana, or Bitcoin recovery phrase.
         Only Ethereum private keys are supported.
       </p>
