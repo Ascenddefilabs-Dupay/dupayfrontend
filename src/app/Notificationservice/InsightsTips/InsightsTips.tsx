@@ -39,7 +39,7 @@ const InsightsTips: React.FC = () => {
       return;
     }
 
-    axios.post('http://localhost:8000/insightstipsapi/create-insights-tips/', {
+    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/insightstipsapi/create-insights-tips/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -59,7 +59,7 @@ const InsightsTips: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://localhost:8000/insightstipsapi/get-insights-tips-user-ids/')
+    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/insightstipsapi/get-insights-tips-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {

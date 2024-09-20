@@ -39,7 +39,7 @@ const SpecialOffers: React.FC = () => {
       return;
     }
 
-    axios.post('http://localhost:8000/specialoffersapi/create-special-offers/', {
+    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/specialoffersapi/create-special-offers/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -59,7 +59,7 @@ const SpecialOffers: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://localhost:8000/specialoffersapi/get-special-offers-user-ids/')
+    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/specialoffersapi/get-special-offers-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {
