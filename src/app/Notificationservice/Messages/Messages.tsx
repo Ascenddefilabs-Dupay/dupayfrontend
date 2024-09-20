@@ -1,6 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './messages.module.css';
+import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
+
+
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Messages: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
@@ -70,16 +77,29 @@ const Messages: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1 className='text-4xl font-bold'>Messages Notification</h1>
-        <button
-          onClick={createMessagesNotification}
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4'
-        >
-          Trigger Messages Notification
-        </button>
-      </main>
+    <div className={styles.container}>
+      <div className="main">
+        {/* <h1 className='text-4xl font-bold'>Messages Notification</h1> */}
+        <header className={styles.header}>
+          <Link href="/Notificationservice/AdminNotificationScreen">
+          <FaArrowLeft  style={{position: 'relative' ,right:'10px', color: 'white'}} />
+          </Link>
+            <center>
+              <div className="centeredBox">
+                <Typography variant="h4" gutterBottom>
+                  Messages Notification
+                </Typography>
+              </div>
+              <button
+                onClick={createMessagesNotification}
+                className={styles.button}
+              >
+                Trigger Messages Notification
+              </button>
+              <h6 className={styles.messagetext}>Needs to trigger the messsage notification users will get the Notification.</h6>
+            </center>
+          </header>
+      </div>
     </div>
   );
 };

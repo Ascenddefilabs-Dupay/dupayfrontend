@@ -1,6 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './productannouncement.module.css';
+import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
+
 
 const ProductAnnouncement: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
@@ -70,16 +75,28 @@ const ProductAnnouncement: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1 className='text-4xl font-bold'>Product Announcement Notification</h1>
-        <button
-          onClick={createProductAnnouncementNotification}
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4'
-        >
-          Trigger Product Announcement Notification
-        </button>
-      </main>
+    <div className={styles.container}>
+      <div className="main">
+        <header className={styles.header}>
+          <Link href="/Notificationservice/AdminNotificationScreen">
+            <FaArrowLeft  style={{position: 'relative' ,right:'10px', color: 'white'}} />
+          </Link>
+          <center>
+            <div className="centeredBox">
+              <Typography variant="h4" gutterBottom>
+                Product Announcement Notification
+              </Typography>
+            </div>
+            <button
+              onClick={createProductAnnouncementNotification}
+              className={styles.button}
+            >
+              Trigger Product Announcement Notification
+            </button>
+            <h6 className={styles.messagetext}>Needs to trigger the Product Announcement Notification users will get the Notification.</h6>
+          </center>
+        </header>
+      </div>
     </div>
   );
 };
