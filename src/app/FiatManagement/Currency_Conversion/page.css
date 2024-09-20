@@ -593,9 +593,29 @@ body {
     padding: 30px;
     border-radius: 10px;
     z-index: 1000;
-    width: 30%;
-    max-width: 320px;
+    width: 25%;
+    max-width: auto;
     text-align: center;
+  }
+  
+  @media (max-width: 1040px) {
+    .customAlert {
+      width: 80%;
+      padding: 15px;
+    }
+  }
+  @media (max-width: 768px) {
+    .customAlert {
+      width: 90%;
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .customAlert {
+      width: 95%;
+      padding: 10px;
+    }
   }
   
   .customAlert p {

@@ -8,10 +8,11 @@ import styles from './MyWallet.module.css';
 
 // Define types for currency data and select options
 interface Currency {
-    currency_code: string;
-    currency_country: string;
-    currency_icon: string;
+    // currency_code: string;
+    // currency_country: string;
+    // currency_icon: string;
     balance?: string;
+    currency_type:string;
 }
 
 interface CurrencyOption {
@@ -57,11 +58,12 @@ const MyWallet: React.FC = () => {
         GBP: '£',
         AUD: 'A$',
         CAD: 'C$',
+        AUS:'A$',
     };
 
     const [selectedCurrency, setSelectedCurrency] = useState<SingleValue<{ value: string; label: JSX.Element }> | null>({
         value: 'INR',
-        label: <div>INR - India</div>,
+        label: <div>INR</div>,
     });
 
     const [selectedCountry, setSelectedCountry] = useState<string>('India');
@@ -80,12 +82,12 @@ const MyWallet: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userCurrenciesResponse = await axios.get('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000001');
+                const userCurrenciesResponse = await axios.get('http://127.0.0.1:8000/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000002');
                 const userCurrencies: Currency[] = userCurrenciesResponse.data;
                 const updatedBalances: Record<string, number> = {};
 
                 userCurrencies.forEach(currency => {
-                    updatedBalances[currency.currency_code] = parseFloat(currency.balance || '0.00');
+                    updatedBalances[currency.currency_type] = parseFloat(currency.balance || '0.00');
                 });
 
                 setBalances(prevBalances => ({
@@ -93,15 +95,15 @@ const MyWallet: React.FC = () => {
                     ...updatedBalances,
                 }));
 
-                const currenciesResponse = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/');
+                const currenciesResponse = await fetch('http://127.0.0.1:8000/fiatmanagementapi/account-types/');
                 const data: Currency[] = await currenciesResponse.json();
                 setCurrencies(data);
 
-                const defaultCurrency = data.find(currency => currency.currency_code === 'INR');
-                if (defaultCurrency) {
-                    setSelectedCurrencyImage(defaultCurrency.currency_icon);
-                    setSelectedCountry(defaultCurrency.currency_country);
-                }
+                const defaultCurrency = data.find(currency => currency.currency_type === 'INR');
+                // if (defaultCurrency) {
+                //     setSelectedCurrencyImage(defaultCurrency.currency_icon);
+                //     setSelectedCountry(defaultCurrency.currency_country);
+                // }
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setAlertMessage('An error occurred while fetching data.');
@@ -112,28 +114,30 @@ const MyWallet: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const selected = currencies.find(currency => currency.currency_code === selectedCurrency?.value);
-        if (selected) {
-            setSelectedCurrencyImage(selected.currency_icon);
-            setSelectedCountry(selected.currency_country);
-        }
+        const selected = currencies.find(currency => currency.currency_type === selectedCurrency?.value);
+        // if (selected) {
+        //     setSelectedCurrencyImage(selected.currency_icon);
+        //     setSelectedCountry(selected.currency_country);
+        // }
     }, [selectedCurrency, currencies]);
 
+    // const filteredCurrencies = currencies.filter(currency =>
+    //     currency.currency_type.toLowerCase().includes(searchQuery.toLowerCase()) 
+    //     // currency.currency_country.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
     const filteredCurrencies = currencies.filter(currency =>
-        currency.currency_code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        currency.currency_country.toLowerCase().includes(searchQuery.toLowerCase())
+        currency.currency_type && currency.currency_type.toLowerCase().includes(searchQuery.toLowerCase()) // Ensure currency_type is defined before calling toLowerCase
     );
-
     const currencyOptions: CurrencyOption[] = filteredCurrencies.map(currency => ({
-        value: currency.currency_code,
+        value: currency.currency_type,
         label: (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img
+                {/* <img
                     src={currency.currency_icon}
                     alt={currency.currency_code}
                     style={{ marginRight: 8, width: 20, height: 20 }}
-                />
-                {currency.currency_code} - {currency.currency_country}
+                /> */}
+                {currency.currency_type}
             </div>
         ),
     }));
@@ -145,20 +149,20 @@ const MyWallet: React.FC = () => {
     const handleSearchKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             const foundCurrency = filteredCurrencies.find(currency =>
-                currency.currency_code.toLowerCase() === searchQuery.toLowerCase() ||
-                currency.currency_country.toLowerCase() === searchQuery.toLowerCase()
+                currency.currency_type.toLowerCase() === searchQuery.toLowerCase() 
+                // currency.currency_country.toLowerCase() === searchQuery.toLowerCase()
             );
             if (foundCurrency) {
                 setSelectedCurrency({
-                    value: foundCurrency.currency_code,
+                    value: foundCurrency.currency_type,
                     label: (
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <img
+                            {/* <img
                                 src={foundCurrency.currency_icon}
                                 alt={foundCurrency.currency_code}
                                 style={{ marginRight: 8, width: 20, height: 20 }}
-                            />
-                            {foundCurrency.currency_code} - {foundCurrency.currency_country}
+                            /> */}
+                            {foundCurrency.currency_type}
                         </div>
                     ),
                 });
@@ -236,14 +240,14 @@ const MyWallet: React.FC = () => {
             </div>
             <div className={styles.balanceCard}>
                 <div className={styles.balanceDetails}>
-                    <img 
+                    {/* <img 
                         src={selectedCurrencyImage} 
                         alt={selectedCurrency?.value} 
                         className={styles.currencyImage} 
-                    />
+                    /> */}
                     <div className={styles.currencyText}>
                         <span className={styles.currencyCode}>{selectedCurrency?.value}</span>
-                        <span className={styles.currencyCountry}>{selectedCountry}</span>
+                        {/* <span className={styles.currencyCountry}>{selectedCountry}</span> */}
                     </div>
                     <div className={styles.balanceAmount}>
                     <p className={styles.balanceAmount}>
@@ -260,7 +264,7 @@ const MyWallet: React.FC = () => {
                     placeholder="Search currency..."
                     className={styles.searchInput}
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => setSearchQuery(e.target.value || '')}
                     onKeyPress={handleSearchKeyPress}
                 />
             </div>
@@ -270,6 +274,7 @@ const MyWallet: React.FC = () => {
                 value={selectedCurrency}
                 onChange={handleCurrencyChange}
                 styles={customSelectStyles}
+                
             />
             <div className={styles.buttonContainer}>
                 <button className={styles.topUpButton} onClick={handleTopUpClick}>TOP UP</button>

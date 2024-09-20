@@ -10,9 +10,10 @@ import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 
 // Types for data structures
 interface Currency {
-    currency_code: string;
-    currency_country: string;
-    currency_icon: string;
+    // currency_code: string;
+    // currency_country: string;
+    // currency_icon: string;
+    currency_type:string;
 }
 
 interface Bank {
@@ -108,6 +109,7 @@ useEffect(() => {
         GBP: '£',
         AUD: 'A$',
         CAD: 'C$',
+        AUS:'A$',
     };
 
     useEffect(() => {
@@ -139,17 +141,17 @@ useEffect(() => {
     useEffect(() => {
         
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/Wa0000000001/`)
+                .get(`http://127.0.0.1:8000/fiatmanagementapi/fiat_wallets/Wa0000000002/`)
                 .then((response) => setWalletDetails(response.data))
                 .catch((error) => handleApiError(error, 'fetching wallet details'));
 
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/`)
+                .get(`http://127.0.0.1:8000/fiatmanagementapi/account-types/`)
                 .then((response) => setCurrencies(response.data))
                 .catch((error) => handleApiError(error, 'fetching currencies'));
 
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/banks/`)
+                .get(`http://127.0.0.1:8000/fiatmanagementapi/banks/`)
                 .then((response) => setBanks(response.data))
                 .catch((error) => handleApiError(error, 'fetching banks'));
         
@@ -157,7 +159,7 @@ useEffect(() => {
     useEffect(() => {
         if (walletDetails) {
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
+                .get(`http://127.0.0.1:8000/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
                 .then((response) => {
                     const userCurrencies = response.data.reduce((acc: { [key: string]: number }, currency: UserCurrency) => {
                         acc[currency.currency_type] = parseFloat(currency.balance);
@@ -210,11 +212,11 @@ useEffect(() => {
   }));
 
   const currencyOptions: CurrencyOption[] = currencies.map((currency) => ({
-      value: currency.currency_code,
+      value: currency.currency_type,
       label: (
           <div className={styles.currencyOption}>
-              <img src={currency.currency_icon} alt={currency.currency_code} className={styles.currencyIcon} />
-              {currency.currency_code} - {currency.currency_country}
+              {/* <img src={currency.currency_icon} alt={currency.currency_code} className={styles.currencyIcon} /> */}
+              {currency.currency_type}
           </div>
       ),
   }));
@@ -440,16 +442,16 @@ useEffect(() => {
                   <div className={styles.cardContainer}>
                       <div className={styles.balanceCard}>
                           <div className={styles.currencyInfo}>
-                              <img
+                              {/* <img
                                   src={currencies.find(currency => currency.currency_code === selectedCurrency.value)?.currency_icon || ''}
                                   alt={selectedCurrency.value}
                                   className={styles.currencyIconInCard}
-                              />
+                              /> */}
                               <h3 className={styles.currency}>
                                   {selectedCurrency.value}
-                                  <span className={styles.country}>
+                                  {/* <span className={styles.country}>
                                       {currencies.find(currency => currency.currency_code === selectedCurrency.value)?.currency_country || ''}
-                                  </span>
+                                  </span> */}
                               </h3>
                           </div>
 
