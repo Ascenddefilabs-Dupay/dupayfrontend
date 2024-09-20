@@ -15,7 +15,30 @@ import { IoMdAddCircle } from "react-icons/io";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { color, fontSize } from '@mui/system';
 
+interface FiatWallet {
+  // fiat_wallet_address: string;
+  // fiat_wallet_balance: string;
+  // fiat_wallet_created_time: string;
+  // fiat_wallet_currency: string;
+  // fiat_wallet_email: string;
+  // fiat_wallet_id: string;
+  // fiat_wallet_phone_number: string;
+  // fiat_wallet_type: string;
+  // fiat_wallet_updated_time: string;
+  // qr_code: string;
+  // user_id: string;
+  
+balance: string; 
+currency_type: string;
+wallet_id: string;
+}
 
+const currencySymbols: { [key: string]: string } = {
+  'INR': '₹',
+  'USD': '$',
+  'EUR': '€',
+  'GBP': '£',
+};
 
 // Dynamic imports
 const Headerbar = dynamic(() => import('./Headernavbar/headernavbar'), {
@@ -54,6 +77,8 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   const [userId, setUserId] = useState<string | null>(null);
+  const [isBlurred, setIsBlurred] = useState(false);
+  const [walletData, setWalletData] = useState<WalletType[]>([]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -428,7 +453,8 @@ const handleButtonClick = (buttonName: string) => {
   };
 
   const handleCopyUserId = () => {
-    navigator.clipboard.writeText(userId);
+    if (userId !== null){
+    navigator.clipboard.writeText(userId);}
   };
 
   const ProfileImage = styled('img')({
@@ -440,8 +466,34 @@ const handleButtonClick = (buttonName: string) => {
     border: '2px solid white',
   });
 
+  const handleButtonClickblur = () => {
+    setIsBlurred(true); // Trigger the blur effect when any button is clicked
+  };
+
+  const closeModal = () => {
+    setIsBlurred(false); // Close the modal and remove the blur effect
+  };
+
+  useEffect(() => {
+    // Fetch data from the API
+    axios
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${userId}/`)
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/Wa0000000006/`)
+      .then((response) => {
+        console.log('responsed data',response.data);
+        setWalletData(response.data.fiat_wallets); // Set the array of wallets to state
+        setLoading(false); // Stop the loading state
+      })
+      .catch((err) => {
+        // setError(err.message); // Set the error if request fails
+        setLoading(false); // Stop the loading state
+      });
+  }, []);
+
+
   return (
-    <div className={styles.container}>
+    // <div className={styles.container}>
+    <div className={`${styles.container} ${isBlurred ? styles.blur : ''}`}>
        {loading ? (
         <div className={styles.loaderContainer}>
         <div className={styles.loader}></div>
@@ -467,7 +519,7 @@ const handleButtonClick = (buttonName: string) => {
         </div>
         <div className={styles.rightSection}>
             <header className={styles.righttopicons}>
-                <Headerbar userId={userId} onCopyUserId={handleCopyUserId} />
+                {/* <Headerbar userId={userId} onCopyUserId={handleCopyUserId} /> */}
             </header>
     </div>
       </div>
@@ -593,62 +645,114 @@ const handleButtonClick = (buttonName: string) => {
           </div>
         )}
         {activeTab === 'Fiat' && fiatDropdownVisible && (
-          <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
-            <div className={styles.dropdownContent1}>
-              <div style={{fontSize: '20px'}}>   Fiat Accounts  </div>
-              <hr style={{ color: 'gray' }} />
-              <div className={styles.dropdownItem}>
-               <button onClick={() => handleNavigation('/UserProfile/FiatViewProfile')}>
-               {profileImage ? (
-                  <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
-                ) : (
-                  <FaUserCircle className={styles.profileIcon2} />
-                )}
-               </button>
-                <div className={styles.textContainer}>
-                  <div className={styles.userid}>
-                  <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
-                      {userId === fetchedUserId ? (
-                          fiatWalletId ? (
-                              <>
-                                  <div>{fiatWalletId}</div>
-                                  <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
-                              </>
-                          ) : (
-                            <div style={{ whiteSpace: 'pre-line' , fontSize: '16px'}}>
-                            Loading...
-                          </div>
-                          )
-                      ) : (
-                        <div style={{ whiteSpace: 'pre-line', fontSize: '16px'}}>
-                        Loading.....
-                      </div>
-                      )}
-                  </Typography>              
-                  </div>
-                  <div>
-                      <span style={{ marginLeft: '0px', position: 'relative', bottom: '15px' }}>
-                        {userId === fetchedUserId ? '' : '₹0.00'}
-                      </span>
-                  </div>
-                  <div className={styles.buttonContainer1}>
-                    <div>
-                      <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
-                      <IoMdAddCircle className={styles.icon1}/>
-                        <span className={styles.text1}>Top-up</span>
-                      </button>
-                    </div>
-                    <div>
-                      <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
-                      <FaCircleArrowDown className={styles.icon2}/>
-                        <span className={styles.text2}>Withdraw</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          // <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
+          //   <div className={styles.dropdownContent1}>
+          //     <div style={{fontSize: '20px'}}>   Fiat Accounts  </div>
+          //     <hr style={{ color: 'gray' }} />
+          //     <div className={styles.dropdownItem}>
+          //      <button onClick={() => handleNavigation('/UserProfile/FiatViewProfile')}>
+          //      {profileImage ? (
+          //         <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
+          //       ) : (
+          //         <FaUserCircle className={styles.profileIcon2} />
+          //       )}
+          //      </button>
+          //       <div className={styles.textContainer}>
+          //         <div className={styles.userid}>
+          //         <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
+          //             {userId === fetchedUserId ? (
+          //                 fiatWalletId ? (
+          //                     <>
+          //                         <div>{fiatWalletId}</div>
+          //                         <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
+          //                     </>
+          //                 ) : (
+          //                   <div style={{ whiteSpace: 'pre-line' , fontSize: '16px'}}>
+          //                   Loading...
+          //                 </div>
+          //                 )
+          //             ) : (
+          //               <div style={{ whiteSpace: 'pre-line', fontSize: '16px'}}>
+          //               Loading.....
+          //             </div>
+          //             )}
+          //         </Typography>              
+          //         </div>
+          //         <div>
+          //             <span style={{ marginLeft: '0px', position: 'relative', bottom: '15px' }}>
+          //               {userId === fetchedUserId ? '' : '₹0.00'}
+          //             </span>
+          //         </div>
+          //         <div className={styles.buttonContainer1}>
+          //           <div>
+          //             <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
+          //             <IoMdAddCircle className={styles.icon1}/>
+          //               <span className={styles.text1}>Top-up</span>
+          //             </button>
+          //           </div>
+          //           <div>
+          //             <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
+          //             <FaCircleArrowDown className={styles.icon2}/>
+          //               <span className={styles.text2}>Withdraw</span>
+          //             </button>
+          //           </div>
+          //         </div>
+          //       </div>
+          //     </div>
+          //   </div>
+          // </div>
+          <div>
+          <div className={styles.fiat}>
+          <table className={styles.table}>
+            <thead className={styles.thead}>
+              <tr className={styles.tr}>
+                <th className={styles.th} >Currency</th>
+                <th className={styles.th} >Balance</th>
+              </tr>
+            </thead>
+            <tbody className={styles.tbody}>
+              {['INR', 'USD', 'GBP', 'EUR'].map((currency, index) => {
+                // Find wallet data matching the current currency
+                const wallet = walletData.find((w: { currency_type: string; }) => w.currency_type === currency);
+                const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
+        
+                return (
+                  <tr className={styles.tr} key={index}>
+                    <td className={styles.td}>
+                    <button className={styles.button} onClick={handleButtonClickblur}>{currency}</button>
+                    </td>
+                    <td className={styles.td}>
+                      <button className={styles.button} onClick={handleButtonClickblur}>{`${currencySymbols[currency] || ''}${balance}`}</button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
           </div>
+          {isBlurred &&(
+            <div className={styles.modaloverlay}>
+              <div className={styles.modalcontent}>
+              <div className={styles.modalbuttons}>
+              <button className={styles.modalbutton}><label className={styles.icon1}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_348_4903)">
+                  <path d="M14 13C13.1667 13 12.4583 12.7083 11.875 12.125C11.2917 11.5417 11 10.8333 11 10C11 9.16667 11.2917 8.45833 11.875 7.875C12.4583 7.29167 13.1667 7 14 7C14.8333 7 15.5417 7.29167 16.125 7.875C16.7083 8.45833 17 9.16667 17 10C17 10.8333 16.7083 11.5417 16.125 12.125C15.5417 12.7083 14.8333 13 14 13ZM7 16C6.45 16 5.97917 15.8042 5.5875 15.4125C5.19583 15.0208 5 14.55 5 14V6C5 5.45 5.19583 4.97917 5.5875 4.5875C5.97917 4.19583 6.45 4 7 4H21C21.55 4 22.0208 4.19583 22.4125 4.5875C22.8042 4.97917 23 5.45 23 6V14C23 14.55 22.8042 15.0208 22.4125 15.4125C22.0208 15.8042 21.55 16 21 16H7ZM9 14H19C19 13.45 19.1958 12.9792 19.5875 12.5875C19.9792 12.1958 20.45 12 21 12V8C20.45 8 19.9792 7.80417 19.5875 7.4125C19.1958 7.02083 19 6.55 19 6H9C9 6.55 8.80417 7.02083 8.4125 7.4125C8.02083 7.80417 7.55 8 7 8V12C7.55 12 8.02083 12.1958 8.4125 12.5875C8.80417 12.9792 9 13.45 9 14ZM20 20H3C2.45 20 1.97917 19.8042 1.5875 19.4125C1.19583 19.0208 1 18.55 1 18V7H3V18H20V20Z" fill="#E8EAED" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_348_4903">
+                    <rect width="24" height="24" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg></label><label> CashOut</label></button>
+                <button className={styles.modalbutton}>Swap</button>
+                <button className={styles.modalbutton}>Recive</button>
+                <button className={styles.modalbutton}>Send</button>
+                <button className={styles.modalbutton}>Buy</button>
+                </div>
+                <button className={styles.closebutton} onClick={closeModal}>Close</button>
+              </div>
+            </div>)}
+        </div>     
         )}
         {activeTab === 'NFTs' && <div>NFTs Content</div>}
       </div>
