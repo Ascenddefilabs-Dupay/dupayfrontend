@@ -30,10 +30,10 @@ const RiBankLine = dynamic(() => import('react-icons/ri').then((mod) => mod.RiBa
 const IoMdSend = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdSend));
 const IoMdWallet = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdWallet));
 
-// interface UserProfileData {
-//   user_id: string;
-//   user_profile_photo?: string | { data: number[] };
-// }
+interface UserProfileData {
+  user_id: string;
+  user_profile_photo?: string | { data: number[] };
+}
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
@@ -45,28 +45,28 @@ const Home = () => {
   const [fiatWalletId, setFiatWalletId] = useState(''); // New state for fiat_wallet_id
   const [fiatWalletBalance, setFiatWalletBalance] = useState(''); // New state for fiat_wallet_balance
   const [fetchedUserId, setFetchedUserId] = useState(''); // Added state for fetchedUserId
-  const userId = 'DupC0001';
+  // const userId = 'DupC0005';
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const fiatDropdownRef = useRef<HTMLDivElement | null>(null);
 
   const [isFiatTabSelected, setIsFiatTabSelected] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
-  // const [userId, setUserId] = useState<string | null>(null);
+  const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
-      // if (sessionDataString) {
-      //   const sessionData = JSON.parse(sessionDataString);
-      //   const storedUserId = sessionData.user_id;
-      //   setUserId( storedUserId);
-      //   console.log(storedUserId);
-      //   console.log(sessionData.user_email);
-      // } else {
-      //   // redirect('http://localhost:3000/Userauthentication/SignIn');
-      // }
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId = sessionData.user_id;
+        setUserId( storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } else {
+        // redirect('http://localhost:3000/Userauthentication/SignIn');
+      }
     }
   }, []);
 
@@ -349,20 +349,39 @@ const handleButtonClick = (buttonName: string) => {
     } else {
       switch (iconName) {
         case 'Buy':
-          // router.push('/Userauthorization/Dashboard/buy_btn');
+          setLoading(true);
+          setTimeout(() => {
           window.location.href = '/WalletManagement/Transak';
+          setLoading(false);
+        }, 2000);
           break;
         case 'Swap':
+          setLoading(true);
+          setTimeout(() => {
           router.push('/Userauthorization/swap_btn');
+          setLoading(false);
+        }, 2000);
           break;
         case 'Cashout':
+          setLoading(true);
+          setTimeout(() => {
           router.push('/Userauthorization/cashout_btn');
+          setLoading(false);
+        }, 4000);
           break;
         case 'Send':
+          setLoading(true);
+          setTimeout(() => {
           router.push('/Userauthorization/send_btn');
+          setLoading(false);
+        }, 2000);
           break;
         case 'Receive':
+          setLoading(true);
+          setTimeout(() => {
           router.push('/Userauthorization/receive_btn');
+          setLoading(false);
+        }, 2000);
           break;
         default:
           break;
@@ -443,7 +462,7 @@ const handleButtonClick = (buttonName: string) => {
             <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
               {userId}
             </Typography>
-            <FontAwesomeIcon icon={faChevronDown} className={styles.dropdownIcon} />
+            {/* <FontAwesomeIcon icon={faChevronDown} className={styles.dropdownIcon} /> */}
           </div>
         </div>
         <div className={styles.rightSection}>

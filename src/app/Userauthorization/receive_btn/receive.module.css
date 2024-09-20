@@ -16,25 +16,6 @@
     font-family: Arial, Helvetica, sans-serif; 
  } 
 
-/* .container {
-    position: relative;
-    background-color: black;
-    width: 100%; 
-    max-width: 100%; 
-    height: auto;
-    min-height: 100vh; 
-    margin: 0 auto;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; 
-    padding-top: 15px;
-    padding-left: 10px;
-    padding-right: 10px; 
-    cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif;
-} */
-
 .profileIcon {
     margin-right: 2px;
     font-size: 30px;
@@ -209,7 +190,6 @@
     -webkit-backdrop-filter: blur(10px) saturate(180%);
     z-index: 2;
     padding: 20px;
-    border-radius: 20px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
   }
   
@@ -223,7 +203,7 @@
     position: relative;
     z-index: 3;
     box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
-    border-radius: 12%; 
+    /* border-radius: 12%;  */
   }
   
   
@@ -235,7 +215,7 @@
     right: -10px;
     bottom: -10px;
     background: rgba(255, 0, 123, 0.3); 
-    border-radius: 15%;
+    /* border-radius: 15%; */
     animation: pulse 1.5s infinite ease-in-out;
     z-index: -1;
   }

@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Use next/navigation for routing
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faQrcode, faCopy, faPlus } from '@fortawesome/free-solid-svg-icons'; // Add faPlus for the Add icon
-import QrScanner from 'react-qr-scanner';
+// import QrScanner from 'react-qr-scanner';
 import styles from './header.module.css';
 import { redirect } from 'next/navigation';
 
@@ -38,7 +38,7 @@ const Headernavbar: React.FC<HeadernavbarProps> = ({ userId, onCopyUserId }) => 
                 setIsScanning(true);
                 break;
             case 'Notification':
-                // Handle notification logic here
+                router.push('/Notificationservice/Notifications');
                 break;
             case 'Copy':
                 copyToClipboard(userId);
@@ -96,7 +96,7 @@ const Headernavbar: React.FC<HeadernavbarProps> = ({ userId, onCopyUserId }) => 
                     />
                 </div>
             </div>
-            {isScanning && (
+            {/* {isScanning && (
                 <div className={styles.fullScreenScanner}>
                     <QrScanner
                         delay={300}
@@ -106,7 +106,7 @@ const Headernavbar: React.FC<HeadernavbarProps> = ({ userId, onCopyUserId }) => 
                     />
                     <button className={styles.closeButton} onClick={() => setIsScanning(false)}>Close Scanner</button>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
