@@ -125,7 +125,7 @@ const AddAccount = () => {
     // Start the OAuth flow with the OpenID provider
     const urlParamsBase = {
       nonce: nonce,
-      redirect_uri: `http://walletmanagement-ind-255574993735.asia-south1.run.app/WalletManagement/WalletCreation/CreateAccount/ZkDetails`,
+      redirect_uri: `http://localhost:3000/WalletManagement/WalletCreation/CreateAccount/ZkDetails`,
       response_type: "id_token",
       scope: "openid",
     };

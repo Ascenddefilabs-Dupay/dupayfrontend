@@ -286,12 +286,17 @@ function ZkDetails() {
   }
 
   function loadAccounts(): AccountData[] {
-    const dataRaw = sessionStorage.getItem(accountDataKey);
-    if (!dataRaw) {
-      return [];
+    // Check if we're in a browser environment
+    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+      const dataRaw = sessionStorage.getItem(accountDataKey);
+      if (!dataRaw) {
+        return [];
+      }
+      return JSON.parse(dataRaw) as AccountData[];
     }
-    const data: AccountData[] = JSON.parse(dataRaw);
-    return data;
+  
+    // Return an empty array when running server-side
+    return [];
   }
 
   const openIdProviders: OpenIdProvider[] = ["Google"];
