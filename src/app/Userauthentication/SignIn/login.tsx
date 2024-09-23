@@ -8,7 +8,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import UseSession from './hooks/UseSession';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Define types for the Google response
 interface GoogleResponse {
   credential: string;
@@ -102,7 +103,7 @@ export default function Login() {
         LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, isRegistered);
         await fetchFiatWalletId(user_id); // Fetch fiat_wallet_id and store it
   
-        alert('Logged in successfully with Google');
+        // alert('Logged in successfully with Google');
   
         // Navigate based on registration_status
         if (isRegistered) {
@@ -140,7 +141,7 @@ export default function Login() {
           alert('Invalid email or password.');
         }
       } catch (error) {
-        alert('Username or password is incorrect.');
+        window.alert('Username or password is incorrect.');
       }
     } else if (loginMode === 'otp') {
       try {
@@ -161,7 +162,7 @@ export default function Login() {
   
           LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, registration_status);
           await fetchFiatWalletId(user_id); // Fetch fiat_wallet_id and store it
-          alert('Logged in successfully');
+          // alert('Logged in successfully');
   
           // Navigate based on registration_status
           if (registration_status === 'true') {

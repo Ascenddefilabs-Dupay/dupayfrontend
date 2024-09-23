@@ -330,7 +330,7 @@ export default function Home1() {
           </div>
           <div className={styles.signInLinkWrapper}>
                   <Link href="/Userauthentication/SignIn" className={styles.signInLink}>
-                    Already have an account? Sign In
+                    Already have an account? Login
                   </Link>
           </div>
           </div>
