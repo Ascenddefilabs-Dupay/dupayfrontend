@@ -1,0 +1,130 @@
+/* Container styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 411px;
+  max-width: 100%;
+  max-height: auto;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #17171A;
+  background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
+  background-repeat: no-repeat;
+  background-position: 90% 0; 
+  background-size: 60% 50%; 
+  color: white;
+  /* font-family: 'Arial', sans-serif; */
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 100%; 
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%; 
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: -20px;
+}
+.dots {
+  display: flex;
+  gap: 5px;
+  Background:"On Light";
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #888;
+  border-radius: 50%;
+}
+
+.dot.active {
+  background-color: #ff00ff;
+}
+.skipButton {
+font-size: 14px;
+color: #aaa;
+cursor: pointer;
+}
+
+/* Text content styles */
+.textContent {
+  text-align: left;
+  /* padding-top: 20px; */
+}
+
+.title {
+  font-weight: bold;
+  margin: 20px 0;
+  font-family: Poppins;
+  font-size: 40px;
+  font-weight: 300;
+  /* line-height: 56px; */
+  text-align: left;
+ margin-top: 80%;
+}
+
+.highlight {
+  /* color: #ff00ff; */
+  background: linear-gradient(180deg, #FF89C2 100%, #F65BA4 50%, #BD46F4 0%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.highlights {
+/* color: #ff00ff; */
+background: linear-gradient(180deg,#BD46F4 90%,#F65BA4 50%, #FF89C2 0%  );
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.highlighted {
+  /* color: #ff00ff; */
+  background: linear-gradient(180deg,#F65BA4 70%, #FF89C2 10%  ,#BD46F4 40%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
+.subText {
+  font-size: 16px;
+  color: #ffffff;
+  font-family: Poppins;
+  font-size: 22px;
+  font-weight: 300;
+  /* line-height: 44px; */
+  text-align: left;
+}
+
+/* Get started button styles */
+.getStartedButton {
+  background-color: #2A2D3C;
+  border: none;
+  color: #5F97FF;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-family: Poppins;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Adjust hover states */
+.getStartedButton:hover {
+  background-color: #4e4e61;
+}

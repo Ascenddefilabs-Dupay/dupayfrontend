@@ -9,62 +9,103 @@
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden; 
-  font-family: Arial, Helvetica, sans-serif; /* Set the font for the entire container */
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+.imageLogo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.title {
+  font-family: SF Pro;
+  font-size: 26.43px;
+  font-weight: 700;
+  line-height: 11.74px;
+  text-align: center;
+  color: #ffffff;
+  margin: 5px;
+
 }
 
-.title {
-  font-size: 1.2rem; /* Adjusted for a balanced header size */
-  margin-bottom: 1rem;
-  text-align: center;
+.graphics{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #E34D67 0%, #7746F4 100%);
+
 }
 
 .main {
   padding: 0;
-  
+  width: 411px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 0.5rem;
   padding-top: 50px;
   padding-bottom: 50px;
+  background-color:  #242429;
+  background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
+  background-repeat: no-repeat;
+  background-position: 100% 0; 
+  background-size: 80% 40%; 
 }
 
 .card {
-  background-color: black;
+  background-color: #17171AE5;
   color: white;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  padding-top: 6.5rem;
+  /* padding-top: 6.5rem; */
+  margin-top: 70%;
   padding-bottom: 6rem;
-  width: 200%;
-  max-width: 360px;
+  width: 411px;
+  max-width: 100%;
   overflow: hidden; 
   min-height: 400px; 
   display: flex;
-  
-  flex-direction: column;
+   flex-direction: column;
   justify-content: center;
+  
 }
+
 
 .form {
   display: flex;
   flex-direction: column;
   width: 100%;
+  opacity: 0px;
 }
 
 .formGroup {
   margin-bottom: 1rem;
   position: relative;
+  border-radius: 8px 8px 8px 8px;
+  opacity: 0px;
+  
+
+  
+
 }
 
 .formGroup label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 1rem; /* Consistent label font size */
+  font-size: 1rem;
+  color: #888DAA;
+  font-family: Poppins;
+  
+
 }
 .passwordWrapper {
   position: relative;
+  
+
+
 }
 .eyeIcon {
   position: absolute;
@@ -72,7 +113,15 @@
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-  color:black /* Optional: color for the icon */
+  color:#ffffff ;/* Optional: color for the icon */
+  width: 24px;
+  height: 24px;
+  /* top: 20px;
+  left: 307px; */
+  padding: 5px 3px 5px 3px;
+  gap: 0px;
+  opacity: 0px;
+
 }
 .signupLink {
   font-size: 0.89rem;
@@ -90,20 +139,48 @@
 .passwordInput {
   width: 100%;
   padding-right: 40px; /* Make space for the eye icon */
+
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  /* background: #17171A; */
+  border: 1px solid #2A2D3C;
+
+
+
+
 }
 .formGroup input {
   width: 100%;
-  padding: 0.5rem;
-  
+  padding: 0.7rem;
   border-radius: 2px;
-  color: black;
+  /* color: black; */
   font-size: 0.75rem; /* Match input font size to label size */
-  font-family: Arial, Helvetica, sans-serif; /* Ensure consistency in font */
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 24px;
+  text-align: left;
+  /* background: #17171A; */
+  border: 1px solid #2A2D3C;
+
+  border-radius: 8px;
+background-color: rgba(0, 0, 0, 0);
+border: 1px solid #2a2d3c;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+
+
 }
 
 .formGroup input::placeholder {
-  color: #888;
+  color: #888DAA;
   font-size: 0.75rem; /* Slightly smaller placeholder text */
+  font-family: Poppins;
 }
 .signInLinkWrapper {
   margin-top: 15px;
@@ -139,9 +216,15 @@
 }
 
 .forgotPassword {
-  color: rgba(119, 6, 211, 1);
-  text-decoration: none;
+  color: #888DAA;
+ text-decoration: none;
   font-size: 0.75rem;
+
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
 }
 
 .forgotPassword:hover {
@@ -151,40 +234,34 @@
 .button {
   padding: 0.65rem;
   width: 100%;
-  border-radius: 2px;
-  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-  color: white;
+  color: #000000;
   font-size: 0.8rem;
   cursor: pointer;
-  margin-bottom: 0.5rem;
-  font-family: Arial, Helvetica, sans-serif; /* Consistent font for buttons */
+  /* margin-bottom: 0.5rem; */
+  border-radius: 8px 8px 8px 8px;
+  opacity: 0px;
+  background: #E2F0FF;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  /* line-height: 24px; */
+  text-align: center;
+
 
 }
 
-
-
-
-
-
-.or {
-  align-self: center;
-  color: grey;
-  margin-bottom: 0;
-  
-}
 
 .container, .main, .form, .button, .title, .formGroup label, .formGroup input {
-  font-family: Arial, Helvetica, sans-serif; /* Global font-family consistency */
+  font-family:Poppins; 
 }
-/* Add these styles to your login.module.css */
 
-.googleWrapper {
+/* .googleWrapper {
   display: flex;
   justify-content: center;
   width: 100%;
   background-color: white;
   border-radius: 2px;
-}
+} */
 
 @media (max-width: 768px) {
   .main {
@@ -215,7 +292,7 @@
   }
 
   .button {
-    padding: 0.5rem; /* Reduce button padding */
+    padding: 0.6rem; /* Reduce button padding */
     font-size: 0.75rem; /* Adjust button font size */
   }
 
@@ -247,10 +324,185 @@
   }
 
   .button {
-    padding: 0.4rem; /* Smaller padding for buttons */
+    padding: 0.6rem; /* Smaller padding for buttons */
     font-size: 0.7rem; /* Smaller button text */
   }
 }
+.orContinueWith {
+  text-align: center;
+  margin: 10px ;
+  color: #ffffff; /* Adjust based on your design */
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  /* line-height: 24px; */
+}
+
+.account {
+  text-align: center;
+  margin: 10px 0;
+  color: #ffffff; /* Adjust based on your design */
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #5F97FF;
+}
+.googleSignIn {
+  display: flex;
+  justify-content: center;
+  /* margin-top: 10px; */
+}
+
+.googleIcon {
+  width: 50px; /* Adjust the size */
+  height: auto;
+  cursor: pointer;
+}
+
+.otpGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Adjust spacing between the inputs */
+}
+
+.otpInput {
+  width: 40px; /* Adjust the width of the input */
+  height: 40px; /* Adjust the height for better line appearance */
+  border: none; /* Remove the border */
+  border-bottom: 2px solid black; /* Add a bottom border for the line effect */
+  font-size: 24px;
+  text-align: center;
+  outline: none; 
+  /* background-color: #f5f5f5; */
+}
+
+.otpInput:focus {
+  border-bottom: 2px solid white; /* Change the color when focused */
+}
+
+.customKeyboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  /* margin-top: 15px; */
+  justify-items: center;
+}
+
+.keyboardButton {
+  border-radius: 52.32px;
+  background-color: #23262a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.3px 0px 0px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 20.57px;
+  color: #fff;
+  font-family: Roboto;
+  width: 30.1px;
+  height: 30.1px;
+  height: 100%;
+  flex: 1;
+  width: 100%;
+}
+.keyboardButton img{
+height: 27.3px;
+width: 27.3px;
+}
+.keyboardButton1 {
+  border-radius: 52.32px;
+  background-color: #4f6375;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.3px 0px 0px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 20.57px;
+  color: #fff;
+  font-family: Roboto;
+  width: 30.1px;
+  height: 30.1px;
+  height: 100%;
+  flex: 1;
+  width: 100%;
+}
+.keyboardButton2 {
+  border-radius: 52.32px;
+  background-color: #588ab9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.3px 0px 0px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 20.57px;
+  color: #fff;
+  font-family: Roboto;
+  width: 30.1px;
+  height: 30.1px;
+  height: 100%;
+  flex: 1;
+  width: 100%;
+}
+
+
+.keyboardButton:hover {
+  background-color: #e0e0e0;
+}
+.keyboardButton1:hover {
+  background-color: #e0e0e0;
+}
+.keyboardButton2:hover {
+  background-color: #e0e0e0;
+}
+.otpGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.otpInput {
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.chevronButton{
+  margin-top: -10px;
+}
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .customKeyboard {
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 8px;
+  }
+
+  .keyboardButton {
+    font-size: 16px;
+    padding: 8px;
+  }
+  .keyboardButton1 {
+    font-size: 16px;
+    padding: 8px;
+  }
+  .keyboardButton2 {
+    font-size: 16px;
+    padding: 8px;
+  }
+  .otpInput {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 
 
 .notification {
