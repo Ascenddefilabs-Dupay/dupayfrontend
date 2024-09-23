@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent,useRef } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
 import styles from './login.module.css';
@@ -30,10 +30,13 @@ export default function Login() {
   const { isLoggedIn, userData, clearSession } = UseSession();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [otp, setOtp] = useState<string>('');
+  // const [otp, setOtp] = useState<string>('');
+  const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginMode, setLoginMode] = useState<'password' | 'otp'>('password');
   const [otpTimer, setOtpTimer] = useState<number>(0);
+  const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     const initializeGoogleSignIn = () => {
@@ -216,23 +219,82 @@ export default function Login() {
       alert('Error fetching wallet information.');
     }
   };
+
+  const handleOtpChange = (index: number, value: string) => {
+    if (/^\d$/.test(value)) { // Only allow digits
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      // Move to the next input field if available
+      if (index < otp.length - 1 && value !== "") {
+        inputRefs.current[index + 1]?.focus();
+      }
+    }
+  };
+  const toggleKeyboard = () => {
+    setKeyboardVisible(false);
+  };
   
+
+  // Handle custom keyboard clicks
+  const handleKeyboardClick = (num: string) => {
+    // Find the first empty input field
+    for (let i = 0; i < otp.length; i++) {
+      if (otp[i] === "") {
+        handleOtpChange(i, num);
+        break;
+      }
+    }
+  };
+
+  // Handle backspace for deletion (works for both physical and custom keyboard)
+  const handleBackspace = () => {
+    for (let i = otp.length - 1; i >= 0; i--) {
+      if (otp[i] !== '') {
+        const newOtp = [...otp];
+        newOtp[i] = '';
+        setOtp(newOtp);
+
+        // Move focus to the current input field
+        inputRefs.current[i]?.focus();
+        break;
+      }
+    }
+  };
+  
+
+  // Capture physical keyboard input (only for backspace or navigation)
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (event.key === "Backspace") {
+      handleBackspace(); // Trigger backspace behavior
+    }
+  };
+
 
   return (
     <div className={styles.container}>
-      <Head>
+      {/* <Head>
         <title>Login</title>
         <meta name="description" content="Login page" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head>  */}
+      <header>
+          <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
+      </header>
 
-      <Navbar />
+        <Navbar />
 
       <main className={styles.main}>
         {!isLoggedIn ? (
           <div className={styles.card}>
-            <h1 className={styles.title}>{heading}</h1>
+            <div className={styles.imageLogo}>
+              <div className={styles.graphics}>
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804054/dupay_rhft2i.png" alt="logo" />
+              </div>
+              <h1 className={styles.title}>Dupay</h1>
+            </div>
+
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <label htmlFor="email">
@@ -288,15 +350,30 @@ export default function Login() {
                   <div className={styles.formGroup}>
                     <label htmlFor="otp">
                       Enter OTP
+                      <div className={styles.otpGroup}>
+                      {Array(6)
+                    .fill('')
+                    .map((_, index) => (
                       <input
+                        key={index}
+                        ref={el => {
+                          inputRefs.current[index] = el;
+                        }}
                         type="text"
-                        id="otp"
-                        value={otp}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => setOtp(e.target.value)}
+                        maxLength={1}
+                        value={otp[index] || ''}
+                        className={styles.otpInput}
                         required
+                        onFocus={() => setKeyboardVisible(true)}
+                        onChange={(e) => handleOtpChange(index, e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, index)} 
                       />
+                    ))}
+                      </div>
+                  
                     </label>
                   </div>
+                  
                 </>
               )}
               <div className={styles.formGroup}>
@@ -304,6 +381,43 @@ export default function Login() {
                   {loginMode === 'password' ? 'Login' : 'Verify OTP'}
                 </button>
               </div>
+              {keyboardVisible && (
+              <div className={styles.customKeyboard}>
+                {/* First row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('1')}>1</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('2')}>2</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('3')}>3</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('-')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903509/minus_ohgd12.png" alt="space-img" /></button>
+
+                {/* Second row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('4')}>4</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('5')}>5</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('6')}>6</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('?')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903513/space_ygxsze.png" alt="space-img" /></button>
+                
+                   
+
+                {/* Third row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('7')}>7</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('8')}>8</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('9')}>9</button>
+                <button className={styles.keyboardButton1} onClick={handleBackspace}>
+                  <i className="fa fa-backspace"></i> {/* FontAwesome backspace icon */}
+                </button>
+
+                {/* Fourth row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick(',')}>,</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('0')}>0</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('.')}>.</button>
+                <form className={styles.keyboardButton2} onSubmit={handleSubmit}>
+                  <button  type="submit">
+                    <i className="fa fa-arrow-right"></i> {/* FontAwesome submit icon */}
+                  </button>
+                </form>
+                <button className={styles.chevronButton} onClick={toggleKeyboard}>
+                  <i className="fa fa-chevron-down"></i>
+                </button>
+              </div>)}
               {loginMode === 'password' && (
                 <div className={styles.formGroup}>
                   <button
@@ -312,21 +426,57 @@ export default function Login() {
                     onClick={() => {
                       setLoginMode('otp');
                       setHeading('OTP Login');
-                      setOtp('');
+                      setOtp(Array(6).fill(""));
                     }}
                   >
                     Login with OTP
                   </button>
                 </div>
+                
               )}
               {loginMode === 'password' && (
-                <div id="google-signin-button" className={styles.googleSignIn}></div>
+                <div className={styles.orContinueWith}>
+                  <p>or continue with</p>
+                </div>
               )}
-                <div className={styles.signInLinkWrapper}>
+              {loginMode === 'password' && (
+                <div id="google-signin-button" className={styles.googleSignIn}>
+                  <img 
+                    src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804058/google_qolmfs.png" 
+                    alt="Google sign-in"
+                    className={styles.googleIcon}
+                  />
+                </div>
+
+              )}
+
+              {/* <div id="google-signin-button" className={styles.googleSignIn}>
+                <img 
+                  src="/mnt/data/image.png" 
+                  alt="Google sign-in"
+                  className={styles.googleIcon}
+                  onClick={() => {
+
+                    if (window.google) {
+                      window.google.accounts.id.prompt();
+                    }
+                  }}
+                />
+              </div> */}
+              {loginMode === 'password' && (
+                <div className={styles.orContinueWith}>
+                  <p>Don't have an account? <Link href="/Userauthentication/SignUp/EmailVerification">
+                <span className={styles.account}>Sign up</span>
+              </Link></p>
+                </div>
+                
+          
+              )}
+                {/* <div className={styles.signInLinkWrapper}>
                   <Link href="/Userauthentication/SignUp/EmailVerification" className={styles.signInLink}>
                     New User? Sign up
                   </Link>
-                </div>
+                </div> */}
             </form>
           </div>
         ) : (

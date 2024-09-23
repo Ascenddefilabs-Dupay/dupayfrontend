@@ -1,0 +1,196 @@
+/* FutureOfMoney.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 411px;
+    max-height: auto;
+    max-width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #17171A ;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+
+    
+}
+@media (max-width: 1024px) {
+    .container {
+      width: 100%; 
+    }
+  }
+  
+  /* For mobile devices */
+  @media (max-width: 768px) {
+    .container {
+      width: 100%; 
+    }
+  }
+/* Header with dots and skip button */
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: Poppins;
+    margin-top: 13px;
+}
+
+.dots {
+    display: flex;
+    gap: 5px;
+    Background:"On Light";
+    width: 100%;
+    position: relative;
+    height: 8px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #888;
+    border-radius: 50%;
+}
+
+
+.dot.active {
+    background-color: #ff00ff;
+}
+
+.skipButton {
+    font-size: 16px;
+    color: #787D9C;
+    cursor: pointer;
+}
+
+/* Content with heading, subheading, and button */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    justify-content: center;
+}
+.graphics::after{
+    color: #17171A ;
+}
+.graphics img {
+    width: 400px;
+    height: 300px;
+    top: 108px;
+    margin-left: -20px;
+    padding: 0px 0.01px 0px 0px;
+    /* gap: 0px; */
+    opacity: 1; 
+    object-fit: cover;
+    filter: brightness(1);
+}
+
+
+
+.heading {
+    font-size: 2rem;
+    margin: 20px 0;
+    color: #ffffff;
+    font-family: Poppins;
+    font-size: 40px;
+    font-weight: 300;
+    /* line-height: 56px; */
+    text-align: left;
+    align-items: left;
+    margin-left: -100px;
+
+}
+
+.highlight {
+    /* color: #ff00ff; */
+    background: linear-gradient(180deg, #FF89C2 0%, #F65BA4 50%, #BD46F4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlights {
+  /* color: #ff00ff; */
+  background: linear-gradient(180deg,#BD46F4 100%,#F65BA4 50%, #FF89C2 0%  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subheading {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 60px;
+    font-size: 22px;
+    font-family: Poppins;
+    font-weight: 300;
+    /* line-height: 44px; */
+    text-align: left;
+    width: 347px;
+    height: 88px;
+    gap: 0px;
+    opacity: 0px;
+    margin-left: -30px;
+}
+
+.discoverButton {
+    /* padding: 15px 40px; */
+    background-color: #2A2D3C;
+    border: none;
+    border-radius: 25px;
+    color: #5F97FF;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    /* height:48px; */
+    /* top: 8px; */
+    left: 24px;
+    padding: 12px 16px 12px 16px;
+    gap: 0px;
+    border-radius: 8px 8px 8px 8px;
+    opacity: 0px;
+    font: Poppins;
+    font-weight: 600;
+    /* margin-bottom: 20px; */
+}
+
+
+
+.discoverButton:hover {
+    
+        background-color: #4e4e61;
+      }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .heading {
+        font-size: 1.5rem;
+    }
+
+    .subheading {
+        font-size: 0.9rem;
+    }
+
+    .discoverButton {
+        padding: 10px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: 1.3rem;
+    }
+
+    .subheading {
+        font-size: 0.8rem;
+    }
+
+    .discoverButton {
+        padding: 8px 20px;
+    }
+}

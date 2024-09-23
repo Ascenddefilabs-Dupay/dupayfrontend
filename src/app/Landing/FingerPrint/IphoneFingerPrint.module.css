@@ -1,0 +1,166 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: auto;
+    width: 411px;
+    max-width: 100%;
+    padding: 0; /* Remove padding */
+    margin: 0 auto;
+    background-color: #17171A;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+   
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726833959/image_o6akso.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: brightness(30%);
+    z-index: 0;
+}
+
+.imageLogo {
+    margin-top: 0; /* Remove space from top */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.title {
+    font-family: SF Pro;
+    font-size: 26.43px;
+    font-weight: 700;
+    text-align: center;
+    color: #ffffff;
+    margin: 0; /* Remove margins */
+}
+
+.graphics {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #E34D67 0%, #7746F4 100%);
+}
+
+.imageContainer {
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    z-index: 2;
+    margin-top: 0; /* Remove space above */
+    margin-left: 37%;
+}
+
+.imageContainer img {
+    object-fit: contain;
+}
+
+.title1 {
+    width: 200px;
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+    flex-shrink: 0;
+    margin: 0; 
+}
+
+.title2 {
+    align-self: stretch;
+    position: relative;
+    font-size: 40px;
+    font-weight: 300;
+    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0; /* Remove margins */
+}
+
+.titleParent {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    font-family: Poppins;
+    margin: 0; /* Remove margins */
+}
+
+.title3 {
+    width: 100px;
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+    flex-shrink: 0;
+    font-size: 16px;
+    text-decoration: underline;
+    margin: 0; /* Remove margin */
+    margin-bottom: 10px; 
+    margin-top: 20px;
+}
+
+.title4 {
+    align-self: stretch;
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+    font-family: Poppins;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    margin: 0; /* Remove margins */
+}
+
+.titleParent1 {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    color: #fff;
+    font-family: Poppins;
+    margin: 0; 
+}
+
+.orContinueWith {
+    text-align: center;
+    margin: 10px ;
+    color: #ffffff; /* Adjust based on your design */
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    /* line-height: 24px; */
+    margin-bottom: 100px;
+  }
+  
+  .account {
+    text-align: center;
+    margin: 10px 0;
+    color: #ffffff; /* Adjust based on your design */
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #5F97FF;
+
+  }
