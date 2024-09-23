@@ -20,9 +20,12 @@
   background-color: #1a1d23;
   position: relative;
   padding: 10px;
-  width: 108%;
+  width: auto;
+  min-width: 105%;
+  max-width: 108%;
   margin: 0 auto;
-  left: -14px;
+  left: -9px;
+  overflow: hidden;
 }
 
 .table {
@@ -33,7 +36,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 400px;
+  width: 100%;
   margin: 0 auto;
   height: 100vh;
   /* background-color: rgba(0, 0, 0, 0.7); Dim the background */
@@ -44,6 +47,7 @@
   pointer-events: auto;
   backdrop-filter: blur(10px);
 }
+
 .modalcontent {
   /* background-color: #fff; */
   padding: 20px;
@@ -54,37 +58,63 @@
 }
 .modalbuttons {
   display: flex;
-  flex-direction: column; /* Arrange buttons vertically */
-  gap: 10px; /* Add space between buttons */
+  flex-direction: column; /* Keeps buttons stacked vertically */
+  gap: 10px; 
+  align-items: flex-start; 
 }
 
 .modalbutton {
-  margin: 5px;
-  padding: 10px;
-  /* background-color: #1a1d23; */
+  margin: 5px 0; /* Adjust spacing (top and bottom) */
+  margin-left: 40%;
+  padding: 6px 12px; /* Smaller padding to reduce button size */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   pointer-events: auto;
-  /* width: 50px; */
   display: flex;
-  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: auto;
 }
 .icon1{
-  /* background-color: #fff; */
   margin-right: 10px;
 }
 
 .closebutton {
-  /* background-color: red; */
   color: white;
   border: none;
   padding: 10px;
   cursor: pointer;
   border-radius: 5px;
-  /* margin-top: 20px; */
   pointer-events: auto;
+}
+.svg{
+  margin-right: 20px;
+  /* background: linear-gradient(91.26deg, #70A2FF 0%, #F76E64 100%); */
+
+}
+
+.tr {
+ 
+  background-color: #1a1d23;
+  transition: background-color 0.3s ease;
+}
+.trd {
+  
+  /* background-color:#6b75886e; */
+  transition: background-color 0.3s ease;
+}
+
+.trd:hover {
+  background-color: #6b75886e;
+  /* color: black; */
+}
+.td{
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
 }
 
 .blur {
@@ -103,10 +133,7 @@
   border-bottom: 1px solid white;
 }
 
-.td{
-  padding: 10px;
-  text-align: center;
-}
+
 
 .header {
   display: flex;
