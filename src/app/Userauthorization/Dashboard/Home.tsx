@@ -14,6 +14,17 @@ import { FaCircleArrowDown } from "react-icons/fa6";
 import { IoMdAddCircle } from "react-icons/io";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { color, fontSize } from '@mui/system';
+import { json } from 'stream/consumers';
+import { BsBank2 } from "react-icons/bs";
+import { PiHandWithdraw } from 'react-icons/pi'; 
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { CiCirclePlus } from "react-icons/ci";
+import { BiTransfer } from "react-icons/bi";
+import { LuPlusCircle } from "react-icons/lu";
+
+
+
+
 
 interface FiatWallet {
   // fiat_wallet_address: string;
@@ -31,6 +42,10 @@ interface FiatWallet {
 balance: string; 
 currency_type: string;
 wallet_id: string;
+}
+
+interface FiatWalletData{
+  fiat_wallet_id: string;
 }
 
 const currencySymbols: { [key: string]: string } = {
@@ -78,7 +93,8 @@ const Home = () => {
   const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   const [userId, setUserId] = useState<string | null>(null);
   const [isBlurred, setIsBlurred] = useState(false);
-  const [walletData, setWalletData] = useState<WalletType[]>([]);
+  const [walletData, setWalletData] = useState<FiatWallet[]>([]);
+  const [fiatwalletData, setFiatWalletData] = useState<FiatWalletData[]>([]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -94,6 +110,17 @@ const Home = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if(typeof window !== 'undefined'){
+      const sessionStorageDataString = window.localStorage.getItem('session_data');
+      if(sessionStorageDataString){
+        const wallet_id = JSON.parse(sessionStorageDataString);
+        setFiatWalletData(wallet_id.fiat_wallet_id);
+        console.log('session data',fiatwalletData)
+      }
+    }
+  })
 
   // useEffect(() => {
   //   // On component mount, check localStorage for the active tab
@@ -474,11 +501,12 @@ const handleButtonClick = (buttonName: string) => {
     setIsBlurred(false); // Close the modal and remove the blur effect
   };
 
+
   useEffect(() => {
     // Fetch data from the API
     axios
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${userId}/`)
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/Wa0000000006/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000006/`)
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
       .then((response) => {
         console.log('responsed data',response.data);
         setWalletData(response.data.fiat_wallets); // Set the array of wallets to state
@@ -717,12 +745,12 @@ const handleButtonClick = (buttonName: string) => {
                 const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
         
                 return (
-                  <tr className={styles.tr} key={index}>
+                  <tr className={styles.trd} key={index}>
                     <td className={styles.td}>
-                    <button className={styles.button} onClick={handleButtonClickblur}>{currency}</button>
+                    <button className={styles.buttond} onClick={handleButtonClickblur}>{currency}</button>
                     </td>
                     <td className={styles.td}>
-                      <button className={styles.button} onClick={handleButtonClickblur}>{`${currencySymbols[currency] || ''}${balance}`}</button>
+                      <button className={styles.buttond} onClick={handleButtonClickblur}>{`${currencySymbols[currency] || ''}${balance}`}</button>
                     </td>
                   </tr>
                 );
@@ -730,30 +758,132 @@ const handleButtonClick = (buttonName: string) => {
             </tbody>
           </table>
           </div>
-          {isBlurred &&(
-            <div className={styles.modaloverlay}>
-              <div className={styles.modalcontent}>
-              <div className={styles.modalbuttons}>
-              <button className={styles.modalbutton}><label className={styles.icon1}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_348_4903)">
-                  <path d="M14 13C13.1667 13 12.4583 12.7083 11.875 12.125C11.2917 11.5417 11 10.8333 11 10C11 9.16667 11.2917 8.45833 11.875 7.875C12.4583 7.29167 13.1667 7 14 7C14.8333 7 15.5417 7.29167 16.125 7.875C16.7083 8.45833 17 9.16667 17 10C17 10.8333 16.7083 11.5417 16.125 12.125C15.5417 12.7083 14.8333 13 14 13ZM7 16C6.45 16 5.97917 15.8042 5.5875 15.4125C5.19583 15.0208 5 14.55 5 14V6C5 5.45 5.19583 4.97917 5.5875 4.5875C5.97917 4.19583 6.45 4 7 4H21C21.55 4 22.0208 4.19583 22.4125 4.5875C22.8042 4.97917 23 5.45 23 6V14C23 14.55 22.8042 15.0208 22.4125 15.4125C22.0208 15.8042 21.55 16 21 16H7ZM9 14H19C19 13.45 19.1958 12.9792 19.5875 12.5875C19.9792 12.1958 20.45 12 21 12V8C20.45 8 19.9792 7.80417 19.5875 7.4125C19.1958 7.02083 19 6.55 19 6H9C9 6.55 8.80417 7.02083 8.4125 7.4125C8.02083 7.80417 7.55 8 7 8V12C7.55 12 8.02083 12.1958 8.4125 12.5875C8.80417 12.9792 9 13.45 9 14ZM20 20H3C2.45 20 1.97917 19.8042 1.5875 19.4125C1.19583 19.0208 1 18.55 1 18V7H3V18H20V20Z" fill="#E8EAED" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_348_4903">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg></label><label> CashOut</label></button>
-                <button className={styles.modalbutton}>Swap</button>
-                <button className={styles.modalbutton}>Recive</button>
-                <button className={styles.modalbutton}>Send</button>
-                <button className={styles.modalbutton}>Buy</button>
+                  {isBlurred && (
+                    <div className={styles.modaloverlay}>
+                      <div className={styles.modalcontent}>
+                        <div className={styles.modalbuttons}>
+                          <button className={styles.modalbutton}><svg className={styles.svg} width="48"  height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)"
+                            />
+                            {/* Replace the existing <path> with the BsBank2 icon */}
+                            <g clipPath="url(#clip0_348_4902)">
+                              <foreignObject x="12" y="12" width="24" height="24">
+                                <BsBank2 size="24" color="#E8EAED" />
+                              </foreignObject>
+                            </g>
+                            <defs>
+                              <linearGradient
+                                id="paint0_linear_348_4902"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="48"
+                                gradientUnits="userSpaceOnUse"
+                              >
+                                <stop stopColor="#E34D67" />
+                                <stop offset="1" stopColor="#7746F4" />
+                              </linearGradient>
+                              <clipPath id="clip0_348_4902">
+                                <rect width="24" height="24" fill="white" transform="translate(12 12)" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                            AddBack</button>
+                          <button className={styles.modalbutton}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4890)" />
+                            <g clip-path="url(#clip0_348_4890)">
+                              <path d="M29.5 33.5L28 32L29.5 30.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M28 32H30C30.7956 32 31.5587 31.6839 32.1213 31.1213C32.6839 30.5587 33 29.7956 33 29" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M18.5 14.5L20 16L18.5 17.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 16H18C17.2044 16 16.4413 16.3161 15.8787 16.8787C15.3161 17.4413 15 18.2044 15 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M26 25V29.554C26 29.9375 25.8477 30.3053 25.5765 30.5765C25.3053 30.8477 24.9375 31 24.554 31H16.446C16.0625 31 15.6947 30.8477 15.4235 30.5765C15.1523 30.3053 15 29.9375 15 29.554V24.446C15 24.0625 15.1523 23.6947 15.4235 23.4235C15.6947 23.1523 16.0625 23 16.446 23H24C24.5304 23 25.0391 23.2107 25.4142 23.5858C25.7893 23.9609 26 24.4696 26 25Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20.5 28.5C21.3284 28.5 22 27.8284 22 27C22 26.1716 21.3284 25.5 20.5 25.5C19.6716 25.5 19 26.1716 19 27C19 27.8284 19.6716 28.5 20.5 28.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M22 20V18.446C22 18.0625 22.1523 17.6947 22.4235 17.4235C22.6947 17.1523 23.0625 17 23.446 17H31C31.5304 17 32.0391 17.2107 32.4142 17.5858C32.7893 17.9609 33 18.4696 33 19V23.554C33 23.9375 32.8477 24.3053 32.5765 24.5765C32.3053 24.8477 31.9375 25 31.554 25H29" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M26.4404 19.94C26.5778 19.7926 26.7434 19.6744 26.9274 19.5924C27.1114 19.5105 27.31 19.4664 27.5114 19.4628C27.7128 19.4593 27.9128 19.4963 28.0996 19.5718C28.2864 19.6472 28.4561 19.7595 28.5985 19.9019C28.7409 20.0444 28.8532 20.214 28.9287 20.4008C29.0041 20.5876 29.0412 20.7876 29.0376 20.989C29.0341 21.1905 28.99 21.3891 28.908 21.5731C28.826 21.7571 28.7078 21.9227 28.5604 22.06" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
+                            <defs>
+                              <linearGradient id="paint0_linear_348_4890" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#E34D67" />
+                                <stop offset="1" stop-color="#7746F4" />
+                              </linearGradient>
+                              <clipPath id="clip0_348_4890">
+                                <rect width="24" height="24" fill="white" transform="translate(12 12)" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                            Swap</button>
+                          <button className={styles.modalbutton}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
+                            <g clip-path="url(#clip0_348_4902)">
+                              {/* Removed the old path and replaced it with the PiHandWithdraw icon */}
+                              <foreignObject x="12" y="12" width="24" height="24">
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                                  <PiHandWithdraw size={24} color="#E8EAED" />
+                                </div>
+                              </foreignObject>
+                            </g>
+                            <defs>
+                              <linearGradient id="paint0_linear_348_4902" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#E34D67" />
+                                <stop offset="1" stopColor="#7746F4" />
+                              </linearGradient>
+                              <clipPath id="clip0_348_4902">
+                                <rect width="24" height="24" fill="white" transform="translate(12 12)" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                            WithDraw</button>
+                          <button className={styles.modalbutton}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
+                            {/* Instead of using the <path>, we render the BiTransfer icon here */}
+                            <foreignObject x="12" y="12" width="24" height="24">
+                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                                <BiTransfer color="#E8EAED" size="24px" />
+                              </div>
+                            </foreignObject>
+                            <defs>
+                              <linearGradient id="paint0_linear_348_4902" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#E34D67" />
+                                <stop offset="1" stopColor="#7746F4" />
+                              </linearGradient>
+                            </defs>
+                          </svg>
+                            Transfor</button>
+                          <button className={styles.modalbutton}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
+                            <g clipPath="url(#clip0_348_4902)">
+                              {/* Remove the path here */}
+                              <foreignObject x="12" y="12" width="24" height="24">
+                                <LuPlusCircle style={{ width: '100%', height: '100%', color: '#E8EAED' }} />
+                              </foreignObject>
+                            </g>
+                            <defs>
+                              <linearGradient id="paint0_linear_348_4902" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#E34D67" />
+                                <stop offset="1" stopColor="#7746F4" />
+                              </linearGradient>
+                              <clipPath id="clip0_348_4902">
+                                <rect width="24" height="24" fill="white" transform="translate(12 12)" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                            TopUp</button>
+                        </div>
+                        <button className={styles.closebutton} onClick={closeModal}><svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="24.6758" cy="24" r="24" fill="url(#paint0_linear_348_4905)" />
+                          <path d="M17.0833 34.5416L15.0684 32.5267L23.1281 24.467L15.0684 16.4073L17.0833 14.3923L25.143 22.452L33.2027 14.3923L35.2176 16.4073L27.1579 24.467L35.2176 32.5267L33.2027 34.5416L25.143 26.4819L17.0833 34.5416Z" fill="white" />
+                          <defs>
+                            <linearGradient id="paint0_linear_348_4905" x1="0.675781" y1="0" x2="0.675781" y2="48" gradientUnits="userSpaceOnUse">
+                              <stop stop-color="#E34D67" />
+                              <stop offset="1" stop-color="#7746F4" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        </button>
+                      </div>
+                    </div>)}
                 </div>
-                <button className={styles.closebutton} onClick={closeModal}>Close</button>
-              </div>
-            </div>)}
-        </div>     
-        )}
+              )}
         {activeTab === 'NFTs' && <div>NFTs Content</div>}
       </div>
       {dropdownVisible && (
