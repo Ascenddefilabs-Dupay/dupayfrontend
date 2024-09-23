@@ -548,6 +548,9 @@ const handleButtonClick = (buttonName: string) => {
         <div className={styles.rightSection}>
             <header className={styles.righttopicons}>
                 {/* <Headerbar userId={userId} onCopyUserId={handleCopyUserId} /> */}
+                <Headerbar onCopyUserId={handleCopyUserId} userId={''} />
+
+                {/* <Headerbar /> */}
             </header>
     </div>
       </div>

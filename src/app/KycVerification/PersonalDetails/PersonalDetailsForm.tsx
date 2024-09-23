@@ -619,7 +619,8 @@ const PersonalDetailsForm: React.FC = () => {
           <div className={styles.frameGroup}>
             <div className={styles.frameContainer}>
               <div className={styles.dupayLogoParent}>
-                <img className={styles.dupayLogoIcon} alt="" src="/DupayAnimation.png" />
+                {/* <img className={styles.dupayLogoIcon} alt="" src="/DupayAnimation.png" /> */}
+                <img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
                 <b className={styles.dupay}>Dupay</b>
               </div>
             </div>
