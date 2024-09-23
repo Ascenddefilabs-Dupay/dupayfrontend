@@ -8,7 +8,7 @@
   }
   
   .form {
-    background-color: black;
+    background-color: #17171a;
     padding: 20px;
     /* border-radius: 8px; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -33,11 +33,13 @@
     display: block;
     margin-bottom: 8px;
     font-size: 16px;
-    color: white;
+    /* color: white; */
+    color: #fbfcff;
   }
   
   .input {
     color: white;
+    
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -190,6 +192,14 @@
 .mobileContainer {
   display: flex;
   align-items: center;
+  position: relative;
+  left: 20px;
+
+}
+.countryCodeContainer{
+  position: relative;
+  left: 0px;
+  top: 30px;
 }
 
 .select {
@@ -204,15 +214,20 @@
 }
 
 .inputMobile {
-    color: white;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    height: 35px;
-    background-color: rgba(128, 128, 128, 0.253);
+    background-color: transparent; /* Makes the background of the input transparent */
+    border: none; /* Removes the border of the input */
+    color: white; /* Ensures the entered numbers are visible */
+    outline: none; /* Removes the focus outline */
+    font-size: 18px; /* Adjust the size if needed */
+    width: 100%; /* Make the input take up the full width */
+    position: relative; /* Keep it in place but make the textbox invisible */
+    top: 2px;
+    left: 0; /* Position the textbox */
+    height: 25px;
   
+}
+.inputMobile::placeholder {
+  color: transparent; /* Hides the placeholder */
 }
 
 .formGroup {
@@ -224,3 +239,440 @@
   background-color: rgb(37, 35, 35); /* Background color for options */
   color: white; /* Text color for options */
 }
+.frameParent {
+  /* position: absolute;
+  top: 106px;
+  left: 32px; */
+  width: 347px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 32px;
+}
+.title{
+  position: relative;
+  font-family: 'Poppins', sans-serif;   
+  line-height: 28px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  text-align: left;
+}
+.title2 {
+  font-family: 'Roboto',sans-serif;
+  width: 100%;
+  position: relative;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+  color: #fbfcff;
+  text-align: left;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+.personalDetails {
+  width: 430px;
+  height: 100vh;
+  position: fixed; 
+  background-color: #17171a;
+  height: 1453px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 26.43px;
+  color: #fff;
+  font-family: 'SF Pro', sans-serif;
+  margin: 0 auto;
+}
+
+.dupay {
+  position: relative;
+  font-size: 26.43px;
+  line-height: 11.74px;
+  font-family: 'SF Pro', sans-serif;
+  color: #fff;
+  text-align: center;
+}
+.dupayLogoIcon {
+  width: 50px;
+  position: relative;
+  height: 50px;
+}
+.dupayLogoParent {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.frameContainer {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: flex-start;
+ } 
+ .frameDiv {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  text-align: left;
+  font-size: 18px;
+  font-family: Poppins;
+}
+.frameGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 43px;
+}
+.frameWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.label {
+  font-family: 'Poppins', sans-serif; 
+  font-size: 14px;  
+  position: relative;
+  line-height: 24px;
+  font-weight: 600;
+  color: #888daa;
+  /* color: white; */
+  text-align: left;
+}
+.inputinput {
+  font-family: 'Poppins', sans-serif;   
+  font-size: 12px;
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 12px 16px;
+  font-size: 12px;
+}
+.label2 {
+  position: relative;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;  
+  color: #888daa;
+  /* color: white; */
+  text-align: left;
+}
+
+.label21 {
+  position: relative;
+  bottom: 55px;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;  
+  color: #888daa;
+  text-align: left;
+}
+.inputinput2 {
+  font-family: 'Poppins', sans-serif;   
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px 16px;
+}
+.inputinput2 {
+  font-family: 'Poppins', sans-serif;   
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px 16px;
+}
+.inputinput21 {
+  font-family: 'Poppins', sans-serif;   
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 20px 16px;
+  height: 115px;
+}
+.inputinput3 {
+  font-family: 'Poppins', sans-serif; 
+  font-size: 18px;  
+  align-self: stretch;
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid #2a2d3c;
+  box-sizing: border-box;
+  height: 64px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.label3 {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: 16px;
+  font-size: 16px;
+  color: #888daa;
+  /* color: white; */
+  line-height: 24px;
+  font-weight: 600;
+  font-family: Poppins,sans-serif;
+  line-height: 24px;
+  font-weight: 600;
+}
+.iconcalendar {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.btnmbBtnFab {
+  position: absolute;
+  /* top: 1355px; */
+  bottom: -80px;
+  left: 0px;
+  background-color: #17171a;
+  width: 400px;
+  height: 98px;
+  font-size: 16px;
+  color: #000;
+  font-family: 'Poppins', sans-serif;   
+}
+.btnbtn {
+  position: absolute;
+  width: calc(100% - 48px);
+  top: 8px;
+  right: 24px;
+  left: 24px;
+  border-radius: 8px;
+  background-color: #e2f0ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+.text{
+  position: relative;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #000;
+  text-align: center;
+}
+/* .inputinput2 {
+  font-family: 'Poppins', sans-serif;
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px 16px;
+  position: relative; 
+}
+
+.inputinput2 input {
+  display: block;
+  width: 100%;
+  padding-top: 1.06667rem; 
+  border: none;
+  border-radius: 0; 
+  color: white;
+  background: black; 
+  font-size: 16px; 
+  transition: 0.3s ease;
+}
+
+.inputinput2 input:focus {
+  outline: none;
+}
+
+.inputinput2 input:focus + label,
+.inputinput2 input:valid + label {
+  top: 0;
+  font-weight: 700;
+  font-size: 14px; 
+  color: #ff5722; 
+}
+
+.inputinput2 label {
+  position: absolute;
+  top: 20px; 
+  left: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: 0.25s ease;
+  cursor: text;
+} */
+
+.inputinput2 {
+  font-family: 'Poppins', sans-serif;
+  /* font-size: 12px; */
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid #2a2d3c;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  height: auto; 
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px; 
+    
+  }
+
+.inputinput2 input {
+  font-family: 'Poppins', sans-serif;
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px; /* Adjust based on your design */
+  padding-top: 16px; /* Adjust based on your design */
+  border: none;
+  border-radius: 0; /* For iOS */
+  color: white;
+  color-scheme: dark;
+  background-color: rgba(0, 0, 0, 0);
+  transition: 0.3s ease;
+}
+
+.inputinput2 input:focus {
+  outline: none;
+}
+.inputinput21:focus {
+  outline: none;
+}
+/* .inputinput21 input:focus + label,
+.inputinput21 input:valid + label {
+  font-family: 'Poppins', sans-serif;
+  top: 0;
+  font-weight: 700;
+  font-size: 14px;
+  color: #888daa;
+}   */
+
+.inputinput2 input:focus + label,
+.inputinput2 input:valid + label {
+  font-family: 'Poppins', sans-serif;
+  top: 0;
+  font-weight: 700;
+  font-size: 14px; /* Smaller label size when focused or filled */
+  color: #888daa;
+  /* color: white; */
+}  
+.inputinput2 input:focus + label2,
+.inputinput2 input:valid + label2 {
+  font-family: 'Poppins', sans-serif;
+  top: 0;
+  font-weight: 700;
+  font-size: 14px; /* Smaller label size when focused or filled */
+  color: #888daa;
+  /* color: white; */
+}  
+
+.inputinput2 label {
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  top: 16px; /* Start position */
+  left: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #888daa;
+  /* color: white; */
+  transition: 0.25s ease;
+  cursor: text;
+}
+.inputinput2 .label2{
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  top: 16px; /* Start position */
+  left: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #888daa;
+  /* color: white; */
+  transition: 0.25s ease;
+  cursor: text;
+}
+
+.inputinput {
+  position: relative; /* Needed for label positioning */
+  margin-bottom: 20px; /* Space between inputs */
+}
+
+.inputinput input {
+  display: block;
+  width: 100%;
+  padding: 16px 0; /* Adjust padding for top space */
+  border: none;
+  /* border-bottom: 2px solid #2a2d3c;  */
+  color: white;
+  background: transparent; /* Adjust background as necessary */
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.inputinput input:focus {
+  outline: none;
+  /* color: #888daa; */
+}
+
+.inputinput input:focus + label,
+.inputinput input:valid + label {
+  top: -2px; /* Move label up when focused or filled */
+  font-weight: 600;
+  font-size: 14px; 
+  color: #888daa;
+  /* color: white; */
+ }
+
+.label {
+  position: absolute;
+  top: 16px; /* Initial position */
+  left: 0;
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #888daa;
+  /* color: white; */
+  transition: 0.25s ease;
+  cursor: text;
+  margin-left: 10px;
+}
+
