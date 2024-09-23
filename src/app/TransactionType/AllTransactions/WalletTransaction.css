@@ -1,0 +1,277 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  
+  /* .wallet-transaction {
+      width: 400px;
+      margin: 0px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: black;
+      height: 100vh;
+    }
+     */
+    .wallet-transaction_heading{
+      text-align: center;
+      margin-bottom: 20px;
+      color: white;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+      flex-grow: 1;
+      
+    }
+    .currency-lable {
+      display: flex;
+      align-items: center;
+      padding-bottom: 20px;
+      padding-top: 20px;
+    }
+
+    .currency-label,
+    .currency-value {
+        width: 50%; /* Each takes 50% of the width */
+        box-sizing: border-box; /* Include padding/border in width calculation */
+        text-align: left; /* Align text to the left */
+      }
+
+    .currency-value {
+        color: white; /* Optional spacing */
+        padding-left: 40px;
+        display: inline-block; /* Allow box styling */
+          padding: 10px; /* Padding inside the box */
+          border-radius: 2px; /* Rounded corners */
+          background-color: rgba(128, 128, 128, 0.253); /* Light background color */
+          font-weight: bold; /* Bold text */
+          text-align: center; 
+        }
+    
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    select {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    
+    .button_class {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+      margin-top: 15px;
+    }
+    
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  
+    .setting_back_icon {
+      margin-right: 20px; 
+      color: #fff; 
+      font-size: 26px; 
+    }
+    
+    .back_container{
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+    }
+  
+    .wallet-transaction {
+      width: 400px;
+      height: 100vh;
+      margin: 0 auto;
+      padding: 20px;
+      /* border: 1px solid #ddd; */
+      /* border-radius: 8px; */
+      background-color: black;
+      position: relative; /* Add this to position the loader within this container */
+      max-width: 100%;
+      max-height: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+    }
+  
+    /* for other devices*/
+  @media (max-width: 1024px) {
+    .wallet-transaction {
+      width: 100%; 
+    }
+  }
+  
+  /* For mobile devices */
+  @media (max-width: 768px) {
+    .wallet-transaction {
+  
+      width: 100%; 
+    }
+  }
+  
+    
+    .loaderContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5); 
+      backdrop-filter: blur(10px) saturate(180%);
+      -webkit-backdrop-filter: blur(10px) saturate(180%);
+      z-index: 2;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .loader {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, #ff007b, #007bff); 
+      animation: spin 1s linear infinite;
+      transform: rotate(45deg); 
+      position: relative;
+      z-index: 3;
+      box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
+      border-radius: 12%; 
+    }
+    
+    .loader::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: rgba(255, 0, 123, 0.3); 
+      border-radius: 15%;
+      animation: pulse 1.5s infinite ease-in-out;
+      z-index: -1;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(45deg); }
+      100% { transform: rotate(405deg); }
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+
+
+    .form-heading {
+      text-align: center;
+      font-size: 20px;
+      color: #000;
+      margin-bottom: 10px;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      padding-left: 12%;
+      padding-top: 3%;
+    }
+
+
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: rgba(128, 128, 128, 0.253);
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+
+    .scanner {
+      position: relative;
+      /* display: inline-block; */
+      height: 20px;
+      width: 100%;
+    }
+
+    select option {
+      background-color: #333; 
+      color: white;
+    }
+
+
+    .customAlert {
+      position: fixed;
+      top: 11%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: gray;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 1000;
+      width: 45%;
+      max-width: 300px;
+      text-align: center;
+      font-size: 17px;
+    }
+    
+    .customAlert p {
+      margin: 0 0 15px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .closeButton {
+      background-color: #f0f0f0;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: black;
+      font-weight: bold;
+      width: 30%;
+    }
+
+    .back{
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+      justify-items: center;
+    }
