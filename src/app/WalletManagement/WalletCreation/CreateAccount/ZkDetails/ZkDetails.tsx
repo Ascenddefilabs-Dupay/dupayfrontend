@@ -25,6 +25,7 @@ import { log } from "console";
 import { decodeSuiPrivateKey } from "@mysten/sui/cryptography";
 import { Transaction } from "@mysten/sui/transactions";
 import { genAddressSeed, getZkLoginSignature } from "@mysten/zklogin";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import axios from "axios";
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
@@ -99,7 +100,7 @@ function ZkDetails() {
         const Salt = result.salt;
         const Address = result.address;
       }
-    })//;
+    }); //;
 
     const jwtPayload = jwtDecode(jwt);
     if (!jwtPayload.sub || !jwtPayload.aud) {
@@ -109,7 +110,7 @@ function ZkDetails() {
     console.log("jwtpayload", jwtPayload);
 
     // === Get the salt ===
-    const response =await getUserSaltAndAddress(jwt);
+    const response = await getUserSaltAndAddress(jwt);
     console.log(response);
     const userSalt = response?.salt;
 
@@ -166,7 +167,8 @@ function ZkDetails() {
       ephemeralPrivateKey: setupData.ephemeralPrivateKey,
       userSalt: userSalt.toString(),
       sub: jwtPayload.sub,
-      aud: typeof jwtPayload.aud === "string" ? jwtPayload.aud : jwtPayload.aud[0],
+      aud:
+        typeof jwtPayload.aud === "string" ? jwtPayload.aud : jwtPayload.aud[0],
       maxEpoch: setupData.maxEpoch,
     });
   }
@@ -178,12 +180,12 @@ function ZkDetails() {
     try {
       const tx = new Transaction();
       tx.setSender(account.userAddr);
-      console.log("UserAddress",account.userAddr);
+      console.log("UserAddress", account.userAddr);
 
       const ephemeralKeyPair = keypairFromSecretKey(
         account.ephemeralPrivateKey
       );
-      console.log("Key Pair",ephemeralKeyPair);
+      console.log("Key Pair", ephemeralKeyPair);
 
       const { bytes, signature: userSignature } = await tx.sign({
         client: suiClient,
@@ -245,7 +247,7 @@ function ZkDetails() {
 
   async function getUserSaltAndAddress(userJwt: string) {
     console.log("JWt inside enoki", userJwt);
-  
+
     const url = "https://api.enoki.mystenlabs.com/v1/zklogin";
     const headers = {
       Authorization: "Bearer enoki_public_6771382f7ef797a6473a2871dbfbca4a", // Replace with your actual API key
@@ -324,35 +326,73 @@ function ZkDetails() {
   //     console.log("saveAccount accounts.current", newAccounts);
   //   }
 
+  const generateWalletId = async (): Promise<string> => {
+    const prefix = "DUP";
+    try {
+      const response = await axios.get(
+        "https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/latest_wallet_id/"
+      );
+      const lastId = response.data.wallet_id;
+      let newId;
+      if (lastId) {
+        const numberPart = parseInt(lastId.replace(prefix, ""), 10);
+        newId = `${prefix}${String(numberPart + 1).padStart(4, "0")}`;
+      } else {
+        newId = `${prefix}0001`;
+      }
+      localStorage.setItem("last_wallet_id", newId); // Storing the new ID
+      return newId;
+    } catch (error) {
+      console.error("Error fetching the latest wallet ID:", error);
+      return `${prefix}0001`; // fallback
+    }
+  };
+
   async function saveAccount(account: AccountData): Promise<void> {
-    const newAccounts = [account, ...accounts.current];
+    const newWalletId = await generateWalletId();
+    // const newAccounts = [account];
+    const newAccounts = [
+      {
+        ...account,
+        wallet_id: newWalletId, // Add wallet_id to the account data
+      },
+    ];
     sessionStorage.setItem(accountDataKey, JSON.stringify(newAccounts));
     accounts.current = newAccounts;
     console.log("saveAccount accounts.current", newAccounts);
-
-    // Send account data to Django backend
+    console.log("saveAccount Address", account.userAddr);
+    console.log("balance", (balances.get(account.userAddr)?.toFixed(2))?.toString());
+    // console.log("WalletID",account.);
     try {
-      const response = await axios.post("http://", {
-        user_addr: account.userAddr,
-        balance: balances.get(account.userAddr) || 0,
-      });
+      const response = await axios.post(
+        "http://localhost:8000/zklogin_api/save_account/",
+        {
+          sui_address: account.userAddr,
+          balance: (balances.get(account.userAddr)?.toFixed(2) || "0.00").toString(),
+          wallet_id: "DUP057",
+          //newWalletId // Include the new wallet_id
+        }
+      );
       console.log("Account data saved to backend:", response.data);
     } catch (error) {
       console.error("Failed to save account data to backend:", error);
     }
   }
-
   function handleContinueClick() {
     // Assuming you want to save the first account in the list when Continue is clicked
     if (accounts.current.length > 0) {
       saveAccount(accounts.current[0])
         .then(() => {
-          router.push("/Userauthentication/Dashboard"); // Redirect after saving
+          router.push("/Userauthorization/Dashboard"); // Redirect after saving
         })
         .catch((error) => {
           console.error("Error during saveAccount:", error);
         });
     }
+  }
+
+  function handlePreviousClick() {
+    router.push("/WalletManagement/WalletCreation/CreateAccount");
   }
 
   function loadAccounts(): AccountData[] {
@@ -376,10 +416,17 @@ function ZkDetails() {
       <div className="add-account-container">
         <div className="add-account-header">
           <div>
-            <h1>ZkDetials Account </h1>
+            <div className="header-container">
+              <button onClick={handlePreviousClick}
+                className="back-button"
+                >
+                <IoMdArrowRoundBack />
+              </button>
+              <h1 className="padded-heading">ZkDetials Account </h1>
+            </div>
             <br />
             <br />
-            <br />
+            <br /><br /><br />
 
             {accounts.current.length > 0 && (
               <div id="accounts" className="section white-text">
@@ -404,7 +451,7 @@ function ZkDetails() {
                           target="_blank"
                           rel="noopener noreferrer"
                           href={explorerLink}
-                        >  
+                        >
                           {shortenAddress(acct.userAddr)}
                         </a>
                       </div>
@@ -416,19 +463,54 @@ function ZkDetails() {
                           : `${balance} SUI`}
                       </div>
                       <button
-                        className={`transaction-button ${
+                        className={` ${
                           !balance ? "disabled" : ""
                         }`}
                         disabled={!balance}
                         onClick={() => {
                           sendTransaction(acct);
                         }}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          textAlign: 'center',
+                          width: '100%',
+                          padding: '10px',
+                          fontSize: '18px',
+                          borderRadius: '0.5rem',
+                          border: 'none',
+                          background: 'linear-gradient(90deg, #007bff9f, #800080)',
+                          color: 'white',
+                          cursor: 'pointer',
+                          transition: 'all .6s ease',
+                          marginTop: '10px',
+                          marginBottom: '10px',
+                          fontFamily: 'Arial, Helvetica, sans-serif',
+                        }}
                       >
                         Send transaction
                       </button>
                       {balance === 0 && (
                         <button
-                          className="transaction-button"
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          textAlign: 'center',
+                          width: '100%',
+                          padding: '10px',
+                          fontSize: '18px',
+                          borderRadius: '0.5rem',
+                          border: 'none',
+                          background: 'linear-gradient(90deg, #007bff9f, #800080)',
+                          color: 'white',
+                          cursor: 'pointer',
+                          transition: 'all .6s ease',
+                          marginTop: '10px',
+                          marginBottom: '10px',
+                          fontFamily: 'Arial, Helvetica, sans-serif',
+                        }}
                           onClick={() => {
                             requestSuiFromFaucet(NETWORK, acct.userAddr);
                             setModalContent(
@@ -449,7 +531,24 @@ function ZkDetails() {
               </div>
             )}
           </div>
-          <button className="transaction-button" onClick={handleContinueClick}>
+          <button style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              width: '100%',
+              padding: '10px',
+              fontSize: '18px',
+              borderRadius: '0.5rem',
+              border: 'none',
+              background: 'linear-gradient(90deg, #007bff9f, #800080)',
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'all .6s ease',
+              marginTop: '10px',
+              marginBottom: '10px',
+              fontFamily: 'Arial, Helvetica, sans-serif',
+            }} onClick={handleContinueClick}>
             Continue
           </button>
         </div>

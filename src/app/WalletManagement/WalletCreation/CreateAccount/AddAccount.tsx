@@ -461,6 +461,7 @@ const AddAccount = () => {
               fontFamily: 'Arial, Helvetica, sans-serif',
             }}
           >
+            <i className="fab fa-google" style={{ marginRight: '8px' }}></i>
             Continue with {provider}
           </button>
         ))} 
