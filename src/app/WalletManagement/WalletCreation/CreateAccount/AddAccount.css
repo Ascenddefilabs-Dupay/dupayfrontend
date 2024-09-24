@@ -1,3 +1,6 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+
 .wallet-manager {
   display: flex;
   justify-content: center;
@@ -10,6 +13,24 @@
 .white-text {
   color: white;
   text-align: left;
+}
+
+.padded-heading {
+  padding-left: 32px; /* Adjust the value as needed */
+}
+
+.header-container {
+  display: flex;
+  align-items: center; /* Align items vertically centered */
+}
+
+.back-button {
+  background: transparent;
+  border: none;
+  font-size: 24px; /* Adjust size as needed */
+  cursor: pointer;
+  color: white; /* Change color as needed */
+  margin-right: 10px; /* Space between button and title */
 }
 
 .add-account-container {

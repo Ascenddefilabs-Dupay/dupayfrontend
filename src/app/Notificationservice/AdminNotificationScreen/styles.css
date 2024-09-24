@@ -3,10 +3,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     min-height: 100vh;
     background: black;
     padding: 2rem;
+    box-sizing: border-box;
+    border-radius: 0px;
+    position: relative;
+}
+
+.container2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.link{
+    display: flex;
+    align-items: left;
+    position: relative;
+    bottom: 13px;
+    right: 612px;
 }
 
 h1 {

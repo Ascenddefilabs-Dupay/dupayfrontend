@@ -2,7 +2,7 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import Head from 'next/head';
 import styles from './ForgotPassword.module.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'; // Font Awesome for icons
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
@@ -13,8 +13,8 @@ export default function ForgotPassword() {
   const [newPassword, setNewPassword] = useState<string>('');
   const [retypeNewPassword, setRetypeNewPassword] = useState<string>('');
   const [showOtpField, setShowOtpField] = useState<boolean>(false);
-  const [showNewPassword, setShowNewPassword] = useState<boolean>(false); // State for new password visibility
-  const [showRetypeNewPassword, setShowRetypeNewPassword] = useState<boolean>(false); // State for retype new password visibility
+  const [showNewPassword, setShowNewPassword] = useState<boolean>(false); 
+  const [showRetypeNewPassword, setShowRetypeNewPassword] = useState<boolean>(false); 
   const router = useRouter();
 
   const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -64,6 +64,11 @@ export default function ForgotPassword() {
 
       <main className={styles.main}>
         <div className={styles.card}>
+          {/* Back Arrow Icon */}
+          <Link href="/Userauthentication/SignIn">
+            <i className={`fas fa-arrow-left ${styles.backArrow}`} />
+          </Link>
+
           {!showOtpField ? (
             <>
               <h1 className={styles.title}>Forgot Password</h1>

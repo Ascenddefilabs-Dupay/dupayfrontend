@@ -1,6 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './specialoffers.module.css';
+import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const SpecialOffers: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
@@ -35,7 +39,7 @@ const SpecialOffers: React.FC = () => {
       return;
     }
 
-    axios.post('http://localhost:8000/specialoffersapi/create-special-offers/', {
+    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/specialoffersapi/create-special-offers/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -55,7 +59,7 @@ const SpecialOffers: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://localhost:8000/specialoffersapi/get-special-offers-user-ids/')
+    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/specialoffersapi/get-special-offers-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {
@@ -70,18 +74,29 @@ const SpecialOffers: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1 className='text-4xl font-bold'>Special Offers Notification</h1>
-        <button
-          onClick={createSpecialOffersNotification}
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4'
-        >
-          Trigger Special Offers Notification
-        </button>
-      </main>
+    <div className={styles.container}>
+      <div className="main">
+        <header className={styles.header}>
+          <Link href="/Notificationservice/AdminNotificationScreen">
+            <FaArrowLeft  style={{position: 'relative' ,right:'10px', color: 'white'}} />
+          </Link>
+            <center>
+              <div className="centeredBox">
+                <Typography variant="h4" gutterBottom>
+                Special Offers Notification
+                </Typography>
+              </div>
+              <button
+                onClick={createSpecialOffersNotification}
+                className={styles.button}
+              >
+                Trigger Special Offers Notification
+              </button>
+              <h6 className={styles.messagetext}>Needs to trigger the Special Offers Notification users will get the Notification.</h6>
+            </center>
+        </header>
+      </div>
     </div>
   );
 };
-
 export default SpecialOffers;

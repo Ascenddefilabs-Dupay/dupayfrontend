@@ -61,7 +61,7 @@
 }
 
 .footer {
-  background: linear-gradient(90deg, #007bffec, #800080);
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
   padding: 20px 0;
   text-align: center;
   width: 100%;

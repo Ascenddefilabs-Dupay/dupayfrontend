@@ -61,7 +61,7 @@ const Newwallet = () => {
       </div>
       <p className={styles.paragraph}>
         Your new wallet will be secured by a secret recovery phrase. To keep your crypto safe, 
-        write it down and don't share it with anyone. <a href="#" className={styles.link}>Learn more</a>
+        write it down and do not share it with anyone. <a href="#" className={styles.link}>Learn more</a>
       </p>
       <button className={styles.continueButton} onClick={() => console.log('Continue button clicked')}>
         Continue

@@ -1,7 +1,7 @@
 .container {
-  height: 100vh;
+  height: 150vh;
   width: 400px;
-  max-height: auto;
+
   max-width: 100%;
   color: white;
   padding: 20px;
@@ -10,7 +10,7 @@
   margin-top: 0;  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   background: black;
-  position: relative;
+  position:relative;
 
 }
 @media (max-width: 1024px) {
@@ -147,18 +147,38 @@ font-size: 0.875rem;
 margin-top: 0.25rem;
 }
 .customAlert {
-position: fixed;
-top: 15%;
-left: 50%;
-transform: translate(-50%, -50%);
-background-color: gray;
-color: white;
-padding: 30px;
-border-radius: 10px;
-z-index: 1000;
-width: 30%;
-max-width: 320px;
-text-align: center;
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: gray;
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  z-index: 1000;
+  width: 25%;
+  max-width: auto;
+  text-align: center;
+}
+
+@media (max-width: 1040px) {
+  .customAlert {
+    width: 80%;
+    padding: 15px;
+  }
+}
+@media (max-width: 768px) {
+  .customAlert {
+    width: 90%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .customAlert {
+    width: 95%;
+    padding: 10px;
+  }
 }
 
 .customAlert p {
@@ -206,6 +226,10 @@ font-weight: bold;
   border-radius: 12%; 
 }
 
+.required {
+  color: red;
+  margin-left: 0.2rem;
+}
 
 .loader::before {
   content: "";
@@ -240,4 +264,9 @@ font-weight: bold;
     transform: scale(1);
     opacity: 1;
   }
+}
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

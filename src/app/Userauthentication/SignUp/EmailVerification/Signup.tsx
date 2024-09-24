@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent , useRef} from 'react';
 import { useRouter } from 'next/navigation';
 import Head from 'next/head';
 import Navbar from '../../LandingPage/Navbar';
@@ -11,6 +11,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 import styles from './signup.module.css'; // Adjust the path according to your project structure
+
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
@@ -26,7 +27,7 @@ export default function Home1() {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [errors, setErrors] = useState<Errors>({});
-  const [otp, setOtp] = useState<string>('');
+  // const [otp, setOtp] = useState<string>('');
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState<boolean>(false);
   const [otpSent, setOtpSent] = useState<boolean>(false);
@@ -37,6 +38,40 @@ export default function Home1() {
   const [otpExpired, setOtpExpired] = useState<boolean>(false);
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  // const [showKeyboard, setShowKeyboard] = useState(false);
+  const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
+  const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [keyboardAlphaVisible, setkeyboardAlphaVisible] = useState<boolean>(false);
+  const [bottomVisible, setBottomVisible] = useState<boolean>(true);
+
+  const [isShift, setIsShift] = useState(false);
+  const [isNumeric, setIsNumeric] = useState(false);
+  
+  // Function to handle a regular key press
+  const handleKeyPress = (key: string) => {
+    setEmail((prevEmail) => prevEmail + key); // Append the key to the current email value
+  };
+
+  // Function to handle shift key press
+  const handleShiftPress = () => {
+    setIsShift(!isShift);
+  };
+
+  // Function to handle backspace
+  const handleDelete = () => {
+    setEmail((prevEmail) => prevEmail.slice(0, -1));
+  };
+
+  // Function to toggle between numeric and alpha keyboard
+  // const handleKeyboardNavigation = () => {
+  //   setIsNumeric(!isNumeric);
+  // };
+
+  // Function to dismiss the keyboard
+  // const handleDismiss = () => {
+  //   onDismiss();
+  // };
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -124,12 +159,14 @@ export default function Home1() {
 
   const handleOtpSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const combinedOtp = otp.join('');
+    console.log('OTP Submitted:', otp.join(''));
     if (otpExpired) {
       alert('Invalid or expired OTP. Please request a new OTP.');
-    } else if (otp === otpFromBackend) {
+    } else if (combinedOtp === otpFromBackend) {
       setVerificationSuccessful(true);
       setOtpSent(false);
-      setOtp('');
+      setOtp(Array(6).fill(""));
       setOtpFromBackend('');
       alert('OTP verified successfully!');
     } else {
@@ -206,7 +243,92 @@ export default function Home1() {
     console.error('Google Sign-In Failure:', error);
     alert('Google Sign-In failed. Please try again.');
   };
+  const handleOtpChange = (index: number, value: string) => {
+    if (/^\d$/.test(value)) { // Only allow digits
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      // Move to the next input field if available
+      if (index < otp.length - 1 && value !== "") {
+        inputRefs.current[index + 1]?.focus();
+      }
+    }
+  };
 
+  const toggleKeyboard = () => {
+    setKeyboardVisible(false);
+  };
+
+  const toggleKeyboards = () => {
+    setkeyboardAlphaVisible(false);
+  };
+
+
+  
+  
+  // Handle custom keyboard clicks
+  const handleSecondKeyboardClick = (num: string) => {
+    if (isNumeric) {
+        // Handle the numeric key click for OTP input
+        for (let i = 0; i < otp.length; i++) {
+            if (otp[i] === "") {
+                handleOtpChange(i, num);  // Fill the OTP input
+                break;
+            }
+        }
+    }
+};
+
+const handleKeyboardClick = (num: string) => {
+    // Handle OTP input
+    for (let i = 0; i < otp.length; i++) {
+        if (otp[i] === "") {
+            handleOtpChange(i, num);
+            break;
+        }
+    }
+};
+const handleNumericKeyPress = (key: string) => {
+  // Ensure that the correct OTP field is in focus after pressing a number
+  handleKeyboardClick(key);
+};
+
+  // Handle backspace for deletion (works for both physical and custom keyboard)
+  const handleBackspace = () => {
+    for (let i = otp.length - 1; i >= 0; i--) {
+      if (otp[i] !== '') {
+        const newOtp = [...otp];
+        newOtp[i] = '';
+        setOtp(newOtp);
+
+        // Move focus to the current input field
+        inputRefs.current[i]?.focus();
+        break;
+      }
+    }
+  };
+  
+
+  // Capture physical keyboard input (only for backspace or navigation)
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (event.key === "Backspace") {
+      handleBackspace(); // Trigger backspace behavior
+    }
+  };
+  const handleKeyboardNavigation = () => {
+    setIsNumeric(true);  // Set this to true when switching to numeric
+    setKeyboardVisible(true);
+    setkeyboardAlphaVisible(false);
+};
+
+const handleAlphaKeyboardNavigation = () => {
+    setIsNumeric(false);  // Set this to false when switching to alphabetic
+    setkeyboardAlphaVisible(true);
+    setKeyboardVisible(false);
+};
+
+  
+  
   return (
     
     <GoogleOAuthProvider clientId={CLIENT_ID}>
@@ -216,68 +338,493 @@ export default function Home1() {
         <meta name="description" content="Signup page" />
       </Head>
       <Navbar />
+      <header>
+          <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
+      </header>
 
         <div className={styles.formWrapper}>
-          <h1 className={styles.title}>Signup</h1>
+        <div className={styles.card}>
+        <div className={styles.imageLogo}>
+              <div className={styles.graphics}>
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804054/dupay_rhft2i.png" alt="logo" />
+              </div>
+              <h1 className={styles.title}>Dupay</h1>
+            </div>
           <div className={styles.formContent}>
             {!otpSent && !verificationSuccessful && (
               <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.inputGroup}>
                   <label>Email Address*</label>
                   <div className={styles.inputWithButton}>
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className={`${styles.input} ${errors.email ? styles.errorInput : ''}`}
-                      required
-                    />
-                    {!verificationSuccessful && (
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onFocus={(e) => {
+                      e.preventDefault();
+                      setkeyboardAlphaVisible(true);  
+                      setBottomVisible(false);        
+                    }}
+                    // onBlur={() => {
+                    //   setkeyboardAlphaVisible(false);
+                    //   setBottomVisible(true);         
+                    // }}
+                    className={`${styles.input} ${styles.errorInput}`}
+                    required
+                  />
+
+             
+                    
+                    {/* {!verificationSuccessful && (
                       <button type="button" onClick={sendOtp} className={styles.otpButton}>
                         Send OTP
                       </button>
-                    )}
+                    )} */}
                   </div>
                   {errors.email && <span className={styles.error}>{errors.email}</span>}
                 </div>
 
+                
+                {/* <button type="submit" className={styles.submitButton}>
+                  {verificationSuccessful ? 'Proceed to Password Setup' : 'Send OTP'}
+                </button> */}
+                {!verificationSuccessful && (
+                      <button type="button" onClick={sendOtp} className={styles.submitButton}>
+                        Send OTP
+                      </button>
+                    )}
+
                 <div className={styles.checkboxGroup}>
-                  <input type="checkbox" id="terms" required />
+                  {/* <input type="checkbox" id="terms" required /> */}
                   <label htmlFor="terms" className={styles.checkboxLabel}>
-                    I have read and agree to the <a href="#" className={styles.link}>Terms and Conditions</a> and{' '}
-                    <a href="#" className={styles.link}>Privacy Policy</a>.
+                  By proceeding, you agree to these <a href="#" className={styles.link}>Term and <br />Conditions.</a> and <a href="#" className={styles.link}>Privacy Policy</a>
+                  {/* <a href="#" className={styles.link}></a> */}
+                   {/* <a href="#" className={styles.link}>Terms and Conditions</a> and{' '} */}
                   </label>
                 </div>
-                <button type="submit" className={styles.submitButton}>
-                  {verificationSuccessful ? 'Proceed to Password Setup' : 'Submit'}
+                {keyboardAlphaVisible && (
+                  <div className={styles.keyboardDefault}>
+                  <div className={styles.toolbar}>
+                  <div className={styles.back}>
+                  <div className={styles.iconArrowLeft} >
+                  <img className={styles.vectorIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067208/1826c340-1853-453d-9ad0-6cafb099b947.png" />
+                  </div>
+                  </div>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.unionIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067251/1cc81d3a-0003-441b-85b1-eaf619058c2c.png" />
+                  </div>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067288/8bed908b-816a-4e98-8925-7739c99b1c62.png" />
+                  </div>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.unionIcon1} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067323/46e9c034-1c6e-4f78-a167-395473ec2e8f.png" />
+                  </div>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.vectorIcon1} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067364/1ef39f67-4084-4d83-b97c-92167e6708a4.png" />
+                  </div>
+                  <div className={styles.divider} />
+                  
+                  <div className={styles.iconSticker}>
+                  <img className={styles.vectorIcon3} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067428/0ea27218-2a82-4b99-a4f2-391939a2198d.png" />
+                  </div>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.vectorIcon2} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067530/9a37047b-a061-4737-a0f0-611fa0c0b460.png" />
+                  </div>
+                  </div>
+                  <div className={styles.qwer} >
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>1</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress('q')}>
+                  <div className={styles.a}>q</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary} >
+                  <div className={styles.number}>
+                  <div className={styles.div}>2</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("w")}>
+                  <div className={styles.a}>w</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>3</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("e")}>
+                  <div className={styles.a}>e</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>4</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("r")}>
+                  <div className={styles.a}>r</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>5</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("t")}>
+                  <div className={styles.a}>t</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>6</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("y")}>
+                  <div className={styles.a}>y</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>7</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("u")}>
+                  <div className={styles.a}>u</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>8</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("i")}>
+                  <div className={styles.a}>i</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>9</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("o")}>
+                  <div className={styles.a}>o</div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary}>
+                  <div className={styles.number}>
+                  <div className={styles.div}>0</div>
+                  </div>
+                  <div className={styles.letter} onClick={() => handleKeyPress("p")}>
+                  <div className={styles.a}>p</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.asdf}>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("a")}>
+                  <div className={styles.a10}>a</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("s")}>
+                  <div className={styles.a10}>s</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("d")}>
+                  <div className={styles.a10}>d</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("f")}>
+                  <div className={styles.a10}>f</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("g")}>
+                  <div className={styles.a10}>g</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("h")}>
+                  <div className={styles.a10}>h</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("j")}>
+                  <div className={styles.a10}>j</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("k")}>
+                  <div className={styles.a10}>k</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("l")}>
+                  <div className={styles.a10}>l</div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.asdf}>
+                  <div className={styles.keyFunction}>
+                  <div className={styles.iconShiftOff}>
+                  <img className={styles.arrowIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067590/79c3c29a-53a7-4df0-8741-1f85af2e8164.png" />
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("z")}>
+                  <div className={styles.a10}>z</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("x")}>
+                  <div className={styles.a10}>x</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("c")}>
+                  <div className={styles.a10}>c</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("v")}>
+                  <div className={styles.a10}>v</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("b")}>
+                  <div className={styles.a10}>b</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("n")}>
+                  <div className={styles.a10}>n</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary10}>
+                  <div className={styles.key}>
+                  <div className={styles.letter10} onClick={() => handleKeyPress("m")}>
+                  <div className={styles.a10}>m</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyFunction} onCanPlay={handleDelete}>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.deleteIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067636/6a140b73-fefd-445b-8fdf-fc4d21d6898b.png" />
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.functions} >
+                  <div className={styles.keySpecialFunction}>
+                  <div className={styles.div} onClick={handleKeyboardNavigation}>?123</div>
+                  </div>
+                  <div className={styles.keyFunction2} onClick={() => handleKeyPress(",")}>
+                  <div className={styles.a}>,</div>
+                  </div>
+                  <div className={styles.keyPrimary26}>
+                  <div className={styles.key}>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.smileyIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067679/a0d18135-ae9d-4391-9d72-c387e9556d70.png" />
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.keyPrimary27}>
+                  <div className={styles.key17} />
+                  </div>
+                  <div className={styles.keyFunction2} onClick={() => handleKeyPress(".")}>
+                  <div className={styles.a}>.</div>
+                  </div>
+                  <div className={styles.keySpecialFunction1}>
+                  <div className={styles.iconSticker}>
+                  <img className={styles.arrowIcon1} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067751/84f6495a-204d-47bb-abba-6fc1082fd5b7.png" />
+                  </div>
+                  </div>
+                  </div>
+                  <div className={styles.navigation}>
+                  <div className={styles.dismissKeyboard}>
+                  <div className={styles.iconArrowDown}>
+                  <img className={styles.vectorIcon4} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067823/d9b65ddc-9b07-4222-9237-1c0e9fd3e612.png" />
+                  </div>
+                  </div>
+                  <div className={styles.navigationBar}>
+                  {/* <div className={styles.homeIndicator} /> */}
+                  </div>
+                  </div>
+                  </div>
+                )}
+              {bottomVisible && (
+                <div className='BottomClass'>
+                <div className={styles.orContinueWith}>
+                      <p>or continue with</p>
+                    </div>
+                    <div id="google-signin-button" className={styles.googleSignIn}>
+                      <img 
+                        src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804058/google_qolmfs.png" 
+                        alt="Google sign-in"
+                        className={styles.googleIcon}
+                      />
+                    </div>
+                <div className={styles.googleButtonWrapper}>
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  // onError={handleGoogleFailure}
+                  // logo
+                />
+              </div>
+
+              <div className={styles.orContinueWith}>
+                      <p>Already have an account? <Link href="/Userauthentication/SignIn">
+                    <span className={styles.account}>Sign In</span>
+                  </Link></p>
+              </div>
+              </div>
+              )}
+              {keyboardVisible && (
+              <div className={styles.customKeyboard}>
+                {/* First row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('1')}>1</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('2')}>2</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('3')}>3</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('-')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903509/minus_ohgd12.png" alt="space-img" /></button>
+
+                {/* Second row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('4')}>4</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('5')}>5</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('6')}>6</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('?')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903513/space_ygxsze.png" alt="space-img" /></button>
+                
+                   
+
+                {/* Third row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('7')}>7</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('8')}>8</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('9')}>9</button>
+                <button className={styles.keyboardButton1} onClick={handleBackspace}>
+                  <i className="fa fa-backspace"></i> 
                 </button>
+
+                {/* Fourth row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick(',')}>,</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('0')}>0</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('.')}>.</button>
+                <button className={styles.keyboardButton2} onClick={handleSubmit}>
+                  <i className="fa fa-arrow-right"></i> 
+                </button>
+                <button className={styles.chevronButton} onClick={toggleKeyboard}>
+                  <i className="fa fa-chevron-down"></i>
+                </button>
+              </div>
+            )}
+                
               </form>
             )}
+            
 
             {otpSent && !verificationSuccessful && (
               <form onSubmit={handleOtpSubmit} className={styles.form}>
                 <div className={styles.inputGroup}>
+                  
                   <label>Enter OTP*</label>
-                  <input
-                    type="text"
-                    placeholder="Enter OTP"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    className={`${styles.input} ${errors.otp ? styles.errorInput : ''}`}
-                    required
-                  />
+                  <div className={styles.otpGroup}>
+                  {Array(6)
+                    .fill('')
+                    .map((_, index) => (
+                      <input
+                        key={index}
+                        ref={el => {
+                          inputRefs.current[index] = el;
+                        }}
+                        type="text"
+                        maxLength={1}
+                        value={otp[index] || ''}
+                        className={styles.otpInput}
+                        required
+                        onFocus={() => setKeyboardVisible(true)}
+                        onChange={(e) => handleOtpChange(index, e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, index)} 
+                      />
+                    ))}
+                  </div>
+                  
                   {errors.otp && <span className={styles.error}>{errors.otp}</span>}
-                </div>
-                <div className={styles.timerGroup}>
-                  <span>{timer > 0 ? `00:${timer < 10 ? `0${timer}` : timer}` : '00:00'}</span>
-                  {showResendOtp && !otpExpired && (
-                    <button type="button" onClick={sendOtp} className={styles.resendOtpButton}>
-                      Resend OTP
-                    </button>
+                    </div>
+                    <div className={styles.timerGroup}>
+                      <span>{timer > 0 ? `00:${timer < 10 ? `0${timer}` : timer}` : '00:00'}</span>
+                      {showResendOtp && !otpExpired && (
+                        <button type="button" onClick={sendOtp} className={styles.resendOtpButton}>
+                          Resend OTP
+                        </button>
                   )}
                 </div>
-                <button type="submit" className={styles.submitButton}>Verify OTP</button>
+                <div className={styles.orContinueWith}>
+                  <p>Did not  receive the code? <Link href="/Userauthentication/SignUp/EmailVerification">
+                <span className={styles.account}>Request here.</span>
+              </Link></p>
+                </div>
+                <button type="submit" className={styles.submitButton}>Next</button>
+                {keyboardVisible && (
+              <div className={styles.customKeyboard}>
+                {/* First row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('1')}>1</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('2')}>2</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('3')}>3</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('-')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903509/minus_ohgd12.png" alt="space-img" /></button>
+
+                {/* Second row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('4')}>4</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('5')}>5</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('6')}>6</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('?')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903513/space_ygxsze.png" alt="space-img" /></button>
+                
+                   
+
+                {/* Third row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('7')}>7</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('8')}>8</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('9')}>9</button>
+                <button className={styles.keyboardButton1} onClick={handleBackspace}>
+                  <i className="fa fa-backspace"></i> 
+                </button>
+
+                {/* Fourth row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick(',')}>,</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('0')}>0</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('.')}>.</button>
+                <button className={styles.keyboardButton2} onClick={handleSubmit}>
+                  <i className="fa fa-arrow-right"></i> 
+                </button>
+                <button className={styles.chevronButton} onClick={toggleKeyboard}>
+                  <i className="fa fa-chevron-down"></i>
+                </button>
+              </div>
+            )}
+          
               </form>
             )}
 
@@ -319,6 +866,7 @@ export default function Home1() {
                   {errors.confirmPassword && <span className={styles.error}>{errors.confirmPassword}</span>}
                 </div>
                 <button type="submit" className={styles.submitButton}>Register</button>
+
               </form>
             )}
             <div className={styles.googleButtonWrapper}>
@@ -334,6 +882,7 @@ export default function Home1() {
                   </Link>
           </div>
           </div>
+        </div>
         </div>
       </div>
     </GoogleOAuthProvider>
