@@ -128,32 +128,64 @@ export default function Login() {
     event.preventDefault();
   
     if (loginMode === 'password') {
-      try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
-          user_email: email,
-          user_password: password,
-        });
+        try {
+            const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
+                user_email: email,
+                user_password: password,
+            });
   
-        if (response.status === 200) {
-          await sendOtp();
-          setOtpTimer(30);
-          alert('OTP sent to your email.');
-          setLoginMode('otp');
-          setHeading('Two-Factor Authentication');
-        } else {
-          alert('Invalid email or password.');
+            if (response.status === 200) {
+                await sendOtp();
+                setOtpTimer(30);
+                alert('OTP sent to your email.');
+                setLoginMode('otp');
+                setHeading('Two-Factor Authentication');
+            } else {
+                alert('Invalid email or password.');
+            }
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                console.error('Login error:', error.response);
+                alert('An error occurred during login. Please try again.');
+            } else {
+                console.error('Unexpected error:', error);
+                alert('An unexpected error occurred.');
+            }
         }
+
       } catch (error) {
         window.alert('Username or password is incorrect.');
       }
+
     } else if (loginMode === 'otp') {
-      try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/verify-otp/', {
-          user_email: email,
-          user_otp: otp,
+        try {
+        const response = await axios.post('http://localhost:8000/loginapi/verify-otp/', {
+            user_email: email,
+            user_otp: otp,
         });
-  
+
         if (response.status === 200) {
+
+            const {
+                user_id,
+                user_first_name,
+                user_email,
+                user_phone_number,
+                session_id,
+                registration_status,
+            } = response.data;
+
+            LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, registration_status);
+            await fetchFiatWalletId(user_id);
+            alert('Logged in successfully');
+
+            // Navigate based on registration status
+            if (registration_status) { // Check if registration_status is true
+                router.push('/Userauthorization/Dashboard');
+            } else {
+                router.push('/KycVerification/PersonalDetails');
+            }
+
           const {
             user_id = '', 
             user_first_name = '', 
@@ -173,19 +205,37 @@ export default function Login() {
           } else {
             router.push('/KycVerification/PersonalDetails');
           }
+
         } else {
-          alert('Invalid OTP.');
+            alert('Invalid OTP.');
         }
-      } catch (error) {
-        alert('Error verifying OTP.');
-      }
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            console.error('OTP verification error:', error.response?.data);
+
+            // Extract error message from response
+            const errorMessage = error.response?.data?.error;
+
+            // Show specific error message from the server
+            if (errorMessage) {
+                alert(errorMessage);  // This will show "OTP has expired or not found"
+            } else {
+                alert('Invalid OTP. Please try again.');
+            }
+        } else {
+            console.error('Unexpected error:', error);
+            alert('An unexpected error occurred. Please try again.');
+        }
     }
-  };
+}
+
+};
+
   
 
   const sendOtp = async () => {
     try {
-      await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/', {
+      await axios.post('http://localhost:8000/loginapi/generate-otp/', {
         user_email: email,
       });
       setOtpTimer(30);
