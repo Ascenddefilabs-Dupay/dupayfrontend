@@ -271,6 +271,10 @@ export default function Home1() {
     setMainKeyboard(false);
     setkeyboardAlphaVisible(false);
     setBottomVisible(true);
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      marginTop: '35%', 
+    }));
   };
 
   const toggleKeyboards = () => {

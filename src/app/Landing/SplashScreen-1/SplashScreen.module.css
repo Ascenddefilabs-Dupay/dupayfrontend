@@ -172,3 +172,32 @@ margin: 0; line-height: normal;
       min-height: 100vh; 
     }
   }
+  .label {
+    position: relative;
+    line-height: 16px;
+}
+.text {
+    position: relative;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+    color: #fff;
+}
+.inputinput {
+    width: 100%;
+    position: relative;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #2a2d3c;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    color: #888daa;
+    font-family: Poppins;
+}
+

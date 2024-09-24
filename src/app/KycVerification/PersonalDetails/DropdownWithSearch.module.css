@@ -15,6 +15,7 @@
     color: white;
     background-color: rgba(128, 128, 128, 0.253);
     max-height: 37px;
+    background-color: #1e1e1e;
   }
   
   .arrow {
@@ -29,18 +30,32 @@
     border: 1px solid #ddd;
     border-top: none;
     border-radius: 4px;
-    background-color: #fff;
     z-index: 1000;
     max-height: 200px;
     overflow-y: auto;
     width: 100px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+  .dropdownMenu.selected {
+    background-color: #f2eeee;
+  }
+  .optionsContainer::-webkit-scrollbar {
+    display: none;
   }
   
+  /* Hide scrollbar for other browsers */
+  .optionsContainer {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
   .searchInput {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    color: #ffffff;
+    background-color: #1e1e1e;
   }
   
   .optionsContainer {
@@ -54,7 +69,7 @@
   }
   
   .option:hover {
-    background-color: #f0f0f0;
+    background-color: #333;
   }
   
   .noOptions {
