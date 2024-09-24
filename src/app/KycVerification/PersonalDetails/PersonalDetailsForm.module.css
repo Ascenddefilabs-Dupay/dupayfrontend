@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
 .formContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    height: 100%;
     background-color: #f8f9fa;
     /* position: relative; */
   }
@@ -12,10 +16,23 @@
     padding: 20px;
     /* border-radius: 8px; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    width: 400px;
+    max-width: 100%;
+    height: 100%;
+    max-height: auto;
     box-sizing: border-box;
     position: relative;
+  }
+  @media (max-width: 1024px) {
+    .form {
+      width: 100%; 
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .form {
+      width: 100%; 
+    }
   }
   
   .heading {
@@ -198,8 +215,9 @@
 }
 .countryCodeContainer{
   position: relative;
-  left: 0px;
-  top: 30px;
+  right:10px;
+  top: 0;
+  
 }
 
 .select {
@@ -213,22 +231,7 @@
     background-color: rgba(128, 128, 128, 0.253);
 }
 
-.inputMobile {
-    background-color: transparent; /* Makes the background of the input transparent */
-    border: none; /* Removes the border of the input */
-    color: white; /* Ensures the entered numbers are visible */
-    outline: none; /* Removes the focus outline */
-    font-size: 18px; /* Adjust the size if needed */
-    width: 100%; /* Make the input take up the full width */
-    position: relative; /* Keep it in place but make the textbox invisible */
-    top: 2px;
-    left: 0; /* Position the textbox */
-    height: 25px;
-  
-}
-.inputMobile::placeholder {
-  color: transparent; /* Hides the placeholder */
-}
+
 
 .formGroup {
   margin-bottom: 16px; /* Space between form groups */
@@ -253,7 +256,7 @@
 }
 .title{
   position: relative;
-  font-family: 'Poppins', sans-serif;   
+  font-family: 'Poppins';   
   line-height: 28px;
   font-weight: 600;
   font-size: 18px;
@@ -282,7 +285,7 @@
   text-align: center;
   font-size: 26.43px;
   color: #fff;
-  font-family: 'SF Pro', sans-serif;
+  font-family: 'SF Pro';
   margin: 0 auto;
 }
 
@@ -290,7 +293,7 @@
   position: relative;
   font-size: 26.43px;
   line-height: 11.74px;
-  font-family: 'SF Pro', sans-serif;
+  font-family: 'SF Pro';
   color: #fff;
   text-align: center;
 }
@@ -340,7 +343,7 @@
   color: white;
 }
 .label {
-  font-family: 'Poppins', sans-serif; 
+  font-family: 'Poppins'; 
   font-size: 14px;  
   position: relative;
   line-height: 24px;
@@ -350,8 +353,65 @@
   text-align: left;
 }
 .inputinput {
-  font-family: 'Poppins', sans-serif;   
+  font-family: 'Poppins';   
   font-size: 12px;
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 12px;
+  padding: 12px 16px;
+}
+.label2 {
+  position: relative;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: 'Poppins';  
+  color: #888daa;
+  /* color: white; */
+  text-align: left;
+  left: 16px;
+  top: 16px;
+}
+
+.label21 {
+  position: relative;
+  top: 5px;
+  bottom: 0;
+  font-size: 15px;
+  /* line-height: 24px; */
+  width: 100vw;
+  /* left: 0; */
+  /* margin-left: -185px; */
+  font-weight: 600;
+  font-family: 'Poppins';  
+  color: #888daa;
+  text-align: left;
+  
+}
+.inputMobile {
+  background-color: transparent; /* Makes the background of the input transparent */
+  border: none; /* Removes the border of the input */
+  color: white; /* Ensures the entered numbers are visible */
+  outline: none; /* Removes the focus outline */
+  font-size: 16px; /* Adjust the size if needed */
+  width: 100%; 
+  position: relative; /* Keep it in place but make the textbox invisible */
+  top: 2px;
+  left: 0; /* Position the textbox */
+  height: 25px;
+  margin-right: 100px;
+}
+.inputMobile::placeholder {
+color: transparent; 
+}
+.inputinput2 {
+  font-family: 'Poppins';   
   align-self: stretch;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0);
@@ -361,68 +421,38 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding: 12px 16px;
-  font-size: 12px;
-}
-.label2 {
-  position: relative;
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;  
-  color: #888daa;
-  /* color: white; */
-  text-align: left;
+  /* CSS to hide the default placeholder text */
 }
 
-.label21 {
-  position: relative;
-  bottom: 55px;
-  font-size: 15px;
-  line-height: 24px;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;  
-  color: #888daa;
-  text-align: left;
+.inputinput2 :global(input[type="date"]::-webkit-datetime-edit) {
+  color: transparent;
 }
-.inputinput2 {
-  font-family: 'Poppins', sans-serif;   
-  align-self: stretch;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #2a2d3c;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 20px 16px;
+
+.inputinput2 :global(input[type="date"]::-webkit-datetime-edit-month-field),
+.inputinput2 :global(input[type="date"]::-webkit-datetime-edit-day-field),
+.inputinput2 :global(input[type="date"]::-webkit-datetime-edit-year-field) {
+  color: #888daa; 
 }
-.inputinput2 {
-  font-family: 'Poppins', sans-serif;   
-  align-self: stretch;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #2a2d3c;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 20px 16px;
+
+.inputinput2 :global(input[type="date"]:focus::-webkit-datetime-edit) {
+  color: initial;
 }
+
 .inputinput21 {
-  font-family: 'Poppins', sans-serif;   
+  font-family: 'Poppins';   
   align-self: stretch;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid #2a2d3c;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
   justify-content: center;
-  padding: 20px 16px;
-  height: 115px;
+  padding: 12px 16px;
+  /* height: 115px; */
 }
 .inputinput3 {
-  font-family: 'Poppins', sans-serif; 
+  font-family: 'Poppins'; 
   font-size: 18px;  
   align-self: stretch;
   position: relative;
@@ -432,6 +462,7 @@
   height: 64px;
   overflow: hidden;
   flex-shrink: 0;
+  padding: 12px 16px;
 }
 .label3 {
   position: absolute;
@@ -464,7 +495,7 @@
   height: 98px;
   font-size: 16px;
   color: #000;
-  font-family: 'Poppins', sans-serif;   
+  font-family: 'Poppins';   
 }
 .btnbtn {
   position: absolute;
@@ -486,12 +517,12 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   color: #000;
   text-align: center;
 }
 /* .inputinput2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   align-self: stretch;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0);
@@ -541,7 +572,7 @@
 } */
 
 .inputinput2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   /* font-size: 12px; */
   align-self: stretch;
   border-radius: 8px;
@@ -552,11 +583,12 @@
   overflow: hidden;
   position: relative;
   margin-bottom: 20px; 
+  padding: 12px 16px;
     
   }
 
 .inputinput2 input {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   display: block;
   width: 100%;
   font-weight: 600;
@@ -568,17 +600,20 @@
   color-scheme: dark;
   background-color: rgba(0, 0, 0, 0);
   transition: 0.3s ease;
+  padding: 12px 16px;
+  justify-content: flex-start;
 }
 
 .inputinput2 input:focus {
   outline: none;
+  margin-left: -16px;
 }
 .inputinput21:focus {
   outline: none;
 }
 /* .inputinput21 input:focus + label,
 .inputinput21 input:valid + label {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   top: 0;
   font-weight: 700;
   font-size: 14px;
@@ -587,7 +622,7 @@
 
 .inputinput2 input:focus + label,
 .inputinput2 input:valid + label {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   top: 0;
   font-weight: 700;
   font-size: 14px; /* Smaller label size when focused or filled */
@@ -596,7 +631,7 @@
 }  
 .inputinput2 input:focus + label2,
 .inputinput2 input:valid + label2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   top: 0;
   font-weight: 700;
   font-size: 14px; /* Smaller label size when focused or filled */
@@ -606,9 +641,9 @@
 
 .inputinput2 label {
   position: absolute;
-  font-family: 'Poppins', sans-serif;
-  top: 16px; /* Start position */
-  left: 16px;
+  font-family: 'Poppins';
+  top: 16px; 
+  /* left: 16px; */
   line-height: 24px;
   font-weight: 600;
   font-size: 16px;
@@ -619,9 +654,9 @@
 }
 .inputinput2 .label2{
   position: absolute;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   top: 16px; /* Start position */
-  left: 16px;
+  left: 12px;
   line-height: 24px;
   font-weight: 600;
   font-size: 16px;
@@ -630,10 +665,14 @@
   transition: 0.25s ease;
   cursor: text;
 }
+.label21{
+  left: 12px;
+}
 
 .inputinput {
   position: relative; /* Needed for label positioning */
   margin-bottom: 20px; /* Space between inputs */
+  /* padding: 12px 16px; */
 }
 
 .inputinput input {
@@ -646,11 +685,15 @@
   background: transparent; /* Adjust background as necessary */
   font-size: 16px;
   transition: 0.3s ease;
+  padding: 12px 16px;
+  justify-content: flex-start;
 }
 
 .inputinput input:focus {
   outline: none;
+  justify-content: flex-start;
   /* color: #888daa; */
+  margin-left: -16px;
 }
 
 .inputinput input:focus + label,
@@ -676,3 +719,121 @@
   margin-left: 10px;
 }
 
+.iconfaceid {
+  width: 24px;
+  position: relative;
+  height: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.title {
+  flex: 1;
+  position: relative;
+  line-height: 24px;
+  font-weight: 600;
+}
+.listmbListItemitemLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.swichswitchChild {
+  width: 24px;
+  position: relative;
+  border-radius: 17px;
+  background-color: #fff;
+  height: 24px;
+}
+.swichswitch {
+  border-radius: 62px;
+  background-color: #222531;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 4px 46px 4px 4px;
+}
+.listmbListItemBasic {
+  width: 100%;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  gap: 10px;
+  text-align: left;
+  font-size: 16px;
+  color: #fff;
+  font-family: Poppins;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 16px;
+  
+  
+}
+
+.label21 {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Poppins';
+  color: #888daa;
+  text-align: left;
+  margin-bottom: 5px;
+  
+  
+}
+
+.textFieldWrapper {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  border-radius: 5px;
+  padding: 8px;
+  width: 100%;
+  height: 60px;
+  margin-bottom: 12px; /* Ensure consistent spacing */
+}
+
+.countryCodeContainer {
+  margin-left: 40px;
+  width: 10%; /* Adjust to your preference */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputMobile {
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+  margin-left: 30px;
+  
+}
+
+.inputMobile::placeholder {
+  color: #888daa;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Poppins';
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

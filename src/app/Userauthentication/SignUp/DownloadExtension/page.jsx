@@ -35,7 +35,7 @@ const Extension = () => {
             </p>
           </a>
 
-          <Link href="/Userauthentication/SignUp/EmailVerification" passHref>
+          <Link href="/Landing/SplashScreen-1" passHref>
             <div className={styles.card}>
               <h3 className={styles.icon}>
                 <img 
