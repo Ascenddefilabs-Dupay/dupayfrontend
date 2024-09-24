@@ -48,7 +48,7 @@ const BottomNavBar = () => {
 
   useEffect(() => {
     // Update selected state based on current route
-    if (pathname === '/Userauthorization/Dashboard') {
+    if (pathname === '/Userauthorization/Dashboard/Home') {
       setSelected('home');
     } else if (pathname === '/Userauthorization/Dashboard/BottomNavBar/transaction_btn') {
       setSelected('transaction');
@@ -96,7 +96,7 @@ const BottomNavBar = () => {
   const handleNavigation = (navItem: string) => {
     setSelected(navItem);
     const routeMap: Record<string, string> = {
-      'home': '/Userauthorization/Dashboard',
+      'home': '/Userauthorization/Dashboard/Home',
       'transaction': '/Userauthorization/Dashboard/BottomNavBar/transaction_btn',
       'profileicon': '/Userauthorization/Dashboard/BottomNavBar/profileicon_btn',
       'browser': '/Userauthorization/Dashboard/BottomNavBar/browser_btn',

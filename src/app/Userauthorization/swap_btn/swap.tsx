@@ -31,7 +31,7 @@ export default function Swap(): JSX.Element {
     const handleBackClick = (): void => {
         setLoading(true); // Show loading text
         setTimeout(() => {
-            router.push('/Userauthorization/Dashboard');
+            router.push('/Userauthorization/Dashboard/Home');
         }, 500); // Adjust delay if needed
     };
 
@@ -45,7 +45,7 @@ export default function Swap(): JSX.Element {
     const handleLearnMoreClick = (): void => {
         setLoading(true); // Show loading text
         setTimeout(() => {
-            router.push('/Userauthorization/Dashboard'); // Adjust the route as needed
+            router.push('/Userauthorization/Dashboard/Home'); // Adjust the route as needed
         }, 500); // Adjust delay if needed
     };
 

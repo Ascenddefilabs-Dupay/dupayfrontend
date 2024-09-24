@@ -22,7 +22,7 @@ const ManageProfile = () => {
   };
 
   const handleBackClick = () => {
-    router.push('/Userauthorization/Dashboard'); // Navigate to WalletInterface page
+    router.push('/Userauthorization/Dashboard/Home'); // Navigate to WalletInterface page
   };
 
   return (

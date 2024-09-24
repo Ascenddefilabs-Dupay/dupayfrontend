@@ -19,7 +19,7 @@ const Wallet: React.FC = () => {
     const handleBackClick = () => {
         setLoading(true);
         setTimeout(() => {
-            // router.push('/Userauthorization/Dashboard');
+            // router.push('/Userauthorization/Dashboard/Home');
             router.back();
         }, 500);
     };

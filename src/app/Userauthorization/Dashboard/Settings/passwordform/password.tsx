@@ -1,30 +1,52 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import '../passwordform/password.css';
 import axios from 'axios';
-
+import bcrypt from 'bcryptjs'; 
 
 const Password = () => {
     const [passcode, setPasscode] = useState("");
     const router = useRouter();
+    const [userId, setUserId] = useState<string | null>(null);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            setUserId( storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+          } else {
+            // redirect('http://localhost:3000/Userauthentication/SignIn');
+          }
+        }
+      }, [router]);
+    
 
     const handleNumberClick = async (number: any) => {
         if (passcode.length < 6) {
             const newPasscode = passcode + number;
             setPasscode(newPasscode);
 
-            
             if (newPasscode.length === 6) {
-                try{
-                    const response = await axios.post('http://localhost:8000/api/password/', {
-                        password_creation : newPasscode,
+                try {
+                    // Hash the passcode before sending it to the server
+                    const salt = bcrypt.genSaltSync(10);
+                    const hashedPasscode = bcrypt.hashSync(newPasscode, salt);
+                    console.log(userId);
+
+                    // Send the hashed passcode to the server
+                    await axios.post('http://127.0.0.1:8000/userauthorizationapi/password/', {
+                        password_creation: newPasscode,
+                        userId: userId,
                     });
+
+                    router.push('/Userauthorization/Dashboard/Settings/retypepassword');
+                } catch (error) {
+                    console.error('Error submitting transaction:', error);
                 }
-                catch(error){
-                    console.error('Error submitting transaction:');
-                }
-                router.push('/Userauthorization/Dashboard/Settings/retypepassword');
             }
         }
     };

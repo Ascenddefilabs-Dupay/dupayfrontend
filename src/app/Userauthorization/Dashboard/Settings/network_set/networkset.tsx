@@ -1,17 +1,32 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import '../network_set/net.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+
 
     
 
 const Networkmod = () => {
     const [activeTab, setActiveTab] = useState('mainnets');
     const router = useRouter();
+    const [userId, setUserId] = useState<string | null>(null);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            setUserId( storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+          } else {
+            // redirect('http://localhost:3000/Userauthentication/SignIn');
+          }
+        }
+      }, []);
 
     const handleBackClicknet = () => {
         let redirectUrl = '/Userauthorization/Dashboard/Settings';

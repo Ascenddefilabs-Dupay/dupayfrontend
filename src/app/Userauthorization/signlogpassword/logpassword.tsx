@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import '../retypepassword/retypeform.css';
-import Swal from 'sweetalert2'
+import '../signlogpassword/logpassword.css';
+import Swal from 'sweetalert2';
 
-const Retype = () => {
+const Logpasscode = () => {
     const [passcode, setPasscode] = useState("");
+    const [hasError, setHasError] = useState(false);
+    const router = useRouter();
     const [userId, setUserId] = useState<string | null>(null);
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -22,32 +24,41 @@ const Retype = () => {
           }
         }
       }, []);
-    const router = useRouter();
 
     const handleNumberClick1 = async (number: any) => {
         if (passcode.length < 6) {
-            const retypepasscode = passcode + number;
-            setPasscode(retypepasscode);
+            const signpasscode = passcode + number;
+            setPasscode(signpasscode);
 
-            // Redirect to /Dashboard after 6 digits
-            if (retypepasscode.length === 6) {
+            // After 6 digits are entered
+            if (signpasscode.length === 6) {
                 try {
                     // Send the retypepasscode to the backend without hashing
-                    const response = await axios.post('http://127.0.0.1:8000/userauthorizationapi/repassword/', {
-                        retype_password: retypepasscode,
+                    const response = await axios.post('http://127.0.0.1:8000/userauthorizationapi/logpassword1/', {
+                        logmain_password: signpasscode,
                         userId: userId,
                     });
+                    // console.log(response.data)
 
                     if (response.data.status === 'password_failure') {
+                        // Trigger vibration on password mismatch
+                        if (navigator.vibrate) {
+                            navigator.vibrate(300); // Vibrates for 300 milliseconds
+                        }
+
+                        // Show alert and reset passcode
                         Swal.fire({
                             position: "center",
                             icon: "warning",
-                            title: "Passwork Mismatch",
+                            title: "Password Mismatch",
                             showConfirmButton: false,
                             timer: 1500
-                          });
+                        });
+
+                        setPasscode(""); // Clear passcode
                     } else {
-                        router.push('/Userauthentication/SignIn');
+                        router.push('/Userauthorization/Dashboard/Home');
+                        setHasError(true);
                     }
                 } catch (error) {
                     console.error('Error submitting transaction:', error);
@@ -61,33 +72,39 @@ const Retype = () => {
     };
 
     return (
-        <div className="passcode-screen">
+        <div className="log_passcode-screen">
             <h1>Unlock your wallet</h1>
-            <div className="passcode-dots">
+            <div className="log_passcode-dots">
                 {Array.from({ length: 6 }).map((_, index) => (
                     <div
                         key={index}
-                        className={`dot ${index < passcode.length ? 'filled' : ''}`}
+                        className={`log_dot ${index < passcode.length ? 'filled' : ''}`}
                     ></div>
                 ))}
             </div>
-            <p>Retype Passcode</p>
-            <div className="number-pad">
+            <p>Enter Passcode</p>
+            <div className="log_number-pad">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((number, index) => (
                     <button
                         key={index}
-                        className="number-button"
+                        className="log_number-button"
                         onClick={() => handleNumberClick1(number.toString())}
                     >
                         {number}
                     </button>
                 ))}
-                <button className="backspace-button" onClick={handleBackspace1}>
+                <button className="log_backspace-button" onClick={handleBackspace1}>
                     &#x232B;
+                </button>
+            </div>
+
+            <div className="log_card1">
+                <button className="log_password_button">
+                    <span className="log_button_text">Recovery Passcode</span>
                 </button>
             </div>
         </div>
     );
 };
 
-export default Retype;
+export default Logpasscode;

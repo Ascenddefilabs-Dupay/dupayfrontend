@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import '../notificationfrom/notification_set.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -7,6 +7,22 @@ import { Switch } from '@mui/material';
 import axios from 'axios';
 
 const Notification = () => {
+    const [userId, setUserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            setUserId( storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+          } else {
+            // redirect('http://localhost:3000/Userauthentication/SignIn');
+          }
+        }
+      }, []);
     const [notificationSettings, setNotificationSettings] = useState({
         product_announcement: true,
         insights_tips: true,
@@ -17,6 +33,7 @@ const Notification = () => {
     });
 
     const router = useRouter();
+    
 
     const handleNotificationChange = async (field: string, value: boolean) => {
         const updatedSettings = {
@@ -27,11 +44,24 @@ const Notification = () => {
         setNotificationSettings(updatedSettings);
 
         try {
-            await axios.post('http://localhost:8000/api/notification/', updatedSettings, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            // await axios.post('http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/notification/', updatedSettings, {
+            // await axios.post('http://127.0.0.1:8000/userauthorizationapi/notification/', updatedSettings, {
+                
+                
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            // });
+            await axios.post('http://127.0.0.1:8000/userauthorizationapi/notification/', {
+                product_announcement: true,
+                insights_tips: true,
+                special_offers: true,
+                price_alerts: true,
+                account_activity: true,
+                messages: true,
+                userId: userId,
             });
+            console.log(userId);
         } catch (error) {
             console.error('Error updating notification:', error);
         }

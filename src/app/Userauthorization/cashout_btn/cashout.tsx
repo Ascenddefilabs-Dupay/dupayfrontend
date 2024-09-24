@@ -31,7 +31,7 @@ const Cashout: React.FC<CashoutProps> = () => {
     const handleBackClick = () => {
         setLoading(true);
         setTimeout(() => {
-            router.push('/Userauthorization/Dashboard');
+            router.push('/Userauthorization/Dashboard/Home');
         }, 500);
     };
 

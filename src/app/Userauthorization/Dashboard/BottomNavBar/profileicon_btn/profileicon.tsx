@@ -103,7 +103,7 @@ const Profileicon: React.FC = () => {
 
     const handleNavChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setNavValue(newValue);
-        router.push('/Userauthorization/Dashboard');
+        router.push('/Userauthorization/Dashboard/Home');
     };
 
     const handleCopyEmail = () => {
