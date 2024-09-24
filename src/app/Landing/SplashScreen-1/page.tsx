@@ -1,11 +1,11 @@
 "use client";
 import React from 'react';
-import SplashScreen from './SplashScreen';
+import Oboarding from './SplashScreen';
 
 const SplashScreen1: React.FC = () => {
   return (
     <div>
-      <SplashScreen />
+      <Oboarding />
     </div>
   );
 };

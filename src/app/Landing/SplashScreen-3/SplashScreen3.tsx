@@ -16,17 +16,12 @@ export default function SplashScreen3() {
 
   return (
     <div className={styles.container}>
-      <header>
-          <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
-      </header>
-      <div className={styles.header}>
-        <div className={styles.dots}>
-            <span className={styles.dot} onClick={handleNavigation1}></span>
-            <span className={styles.dot} onClick={handleNavigation2}></span>
-            <span className={`${styles.dot} ${styles.active}`}></span>
-        </div>
-        <div className={styles.skipButton}>Skip</div>
-    </div>
+      <div className={styles.carouselIndicator}>
+          <img className={styles.imagecarouselIndicatorcompoIcon}  onClick={handleNavigation1} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727097900/7a0e1444-2ce5-45b2-b41e-c6bf2c442382.png" />
+          <img className={styles.imagecarouselIndicatorcompoIcon1} onClick={handleNavigation2} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727097939/0fb5d95e-5436-4573-8e7e-1f483c09a1f6.png" />
+          
+          <img className={styles.imagecarouselIndicatorcompoIcon2}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727097939/0fb5d95e-5436-4573-8e7e-1f483c09a1f6" />
+      </div>
       <div className={styles.textContent}>
         <h1 className={styles.title}>
           <span className={styles.highlight}> Buy, Sell &amp;</span>
