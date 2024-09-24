@@ -15,29 +15,29 @@ interface Notification {
 
 export default function Notifications() {
     const [notifications, setNotifications] = useState<Notification[]>([]);
-    // const [userId, setUserId] = useState<string | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
     // const [walletId, setwalletId] = useState<string | null>(null);
     const [filteredNotifications, setFilteredNotifications] = useState<Notification[]>([]); // State for filtered notifications
     const [filter, setFilter] = useState<string>('All'); // Default filter
     const [showDropdown, setShowDropdown] = useState(false); // For dropdown visibility
-    const [userId] = useState<string>('DupC0015');
+    // const [userId] = useState<string>('DupC0015');
     const [walletId] = useState<string>('Wa0000000002');
     const [loading, setLoading] = useState(true); 
     const router = useRouter();
 
     useEffect(() => {
-        // if (typeof window !== 'undefined') {
-        //     const sessionDataString = window.localStorage.getItem('session_data');
-        //     if (sessionDataString) {
-        //         const sessionData = JSON.parse(sessionDataString);
-        //         const storedUserId = sessionData.user_id;
-        //         setUserId(storedUserId);
-        //         const storewalletId = sessionData.wallet_id;
-        //         setwalletId(storewalletId);
-        //     } else {
-        //         router.push('/Userauthentication/SignIn'); 
-        //     }
-        // }
+        if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            if (sessionDataString) {
+                const sessionData = JSON.parse(sessionDataString);
+                const storedUserId = sessionData.user_id;
+                setUserId(storedUserId);
+                const storewalletId = sessionData.wallet_id;
+                // setwalletId(storewalletId);
+            } else {
+                router.push('/Userauthentication/SignIn'); 
+            }
+        }
     }, [router]);
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function Notifications() {
             if (userId) {
                 setLoading(true);
                 try {
-                    const response = await axios.get(`http://notificationservice-ind-255574993735.asia-south1.run.app/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
+                    const response = await axios.get(`http://localhost:8000/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
                     setNotifications(response.data);
                     setFilteredNotifications(response.data); // Initially, show all notifications
                 } catch (error) {
@@ -73,7 +73,7 @@ export default function Notifications() {
     const handleBackClick = () => {
         setLoading(true);
         setTimeout(() => {
-            router.push('/Userauthorization/Dashboard');
+            router.push('/Userauthorization/Dashboard/Home');
             setLoading(false);
         }, 1000);
     };
@@ -88,6 +88,7 @@ export default function Notifications() {
     };
 
     return (
+        <div className='page'>
         <div className="container">
             {loading ? (
                 <div className="loaderContainer">
@@ -112,15 +113,27 @@ export default function Notifications() {
                         </div>
                     </div>
                     <div className="notificationList">
-                        {filteredNotifications.map((notif, index) => (
-                            <div key={index} className="card">
-                                <p className="content">{notif.content}</p>
-                                <p className="timestamp">{notif.created_at}</p>
+                        {filteredNotifications.length === 0 ? (
+                            <div className="noNotifications">
+                                <img 
+                                    src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727171771/NO_NOTIFICATION_1_-removebg-preview_1_lheqfu.jpg" 
+                                    alt="No Notifications Icon" 
+                                    className="noNotificationsIcon"
+                                />
+                                <p>No Notifications</p>
                             </div>
-                        ))}
+                        ) : (
+                            filteredNotifications.map((notif, index) => (
+                                <div key={index} className="card">
+                                    <p className="content">{notif.content}</p>
+                                    <p className="timestamp">{notif.created_at}</p>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </>
             )}
+        </div>
         </div>
     );
 }
@@ -177,7 +190,7 @@ export default function Notifications() {
 //             if (userId) { 
 //                 setLoading(true); 
 //                 try {
-//                     const response = await axios.get(`http://notificationservice-ind-255574993735.asia-south1.run.app/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
+//                     const response = await axios.get(`http://localhost:8000/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
 //                     setNotifications(response.data);
 //                 } catch (error) {
 //                     console.error('Error fetching notifications:', error);
@@ -193,7 +206,7 @@ export default function Notifications() {
 //     const handleBackClick = () => {
 //         setLoading(true); 
 //         setTimeout(() => {
-//             router.push('/Userauthorization/Dashboard')
+//             router.push('/Userauthorization/Dashboard/Home')
 //             setLoading(false); 
 //         }, 1000);
 //     };

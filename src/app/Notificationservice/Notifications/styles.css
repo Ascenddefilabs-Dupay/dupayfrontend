@@ -23,6 +23,10 @@ body, html {
     margin: 0 auto; /* Center the container horizontally */
 }
 
+.page{
+    background-color: #fff;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -45,13 +49,14 @@ body, html {
 .notificationList {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1px;
     flex-grow: 1; /* Ensures content grows with the page */
     overflow-y: auto; /* Allows scrolling */
     width: 100%; /* Full width */
     max-width: 400px;
     padding-right: 10px;
     margin-left: 10px;
+
 }
 
 /* For WebKit browsers (Chrome, Safari) */
@@ -60,14 +65,31 @@ body, html {
 }
 
 .notificationList::-webkit-scrollbar-thumb {
-    background-color: #b0b0b0; /* Default scrollbar color, lighter grey */
-    border-radius: 6px; /* Slightly rounded corners */
-    border: 3px solid transparent; /* Space around the thumb to make it more visible */
+    background-color: #b0b0b0;
+    border-radius: 8px;
+    border: px solid transparent;
 }
 
-.notificationList {
-    scrollbar-width: thin; /* Thin scrollbar */
-    scrollbar-color: #b0b0b0 #f1f1f1; /* Thumb and track color */
+/* .notificationList {
+    scrollbar-width: thin;
+    scrollbar-color: #b0b0b0 #f1f1f1;
+} */
+
+.noNotifications {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    font-size: 18px;
+    color: #bbb;
+    text-align: center;
+}
+
+.noNotificationsIcon {
+    width: 150px; /* Adjust the size of the icon */
+    height: auto;
+    margin-bottom: 20px; /* Space between the icon and the text */
 }
 
 .card {

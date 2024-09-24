@@ -42,7 +42,7 @@ const Messages: React.FC = () => {
       return;
     }
 
-    axios.post('http://notificationservice-ind-255574993735.asia-south1.run.app/messagenotificationapi/create-messages/', {
+    axios.post('http://localhost:8000/messagenotificationapi/create-messages/', {
       user_id: userId,  // Pass user ID dynamically
     }, {
       headers: {
@@ -51,7 +51,7 @@ const Messages: React.FC = () => {
     })
       .then((response) => {
         const message = response.data.messages_content;  // Use the dynamic content from the backend
-        sendNotification('Messages', message, 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1725254311/logo3_ln9n43.png', 'https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages');
+        sendNotification('Messages', message, 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png', 'https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages');
       })
       .catch(error => {
         console.error('Error:', error);
@@ -62,7 +62,7 @@ const Messages: React.FC = () => {
   useEffect(() => {
     requestNotificationPermission();
 
-    axios.get('http://notificationservice-ind-255574993735.asia-south1.run.app/messagenotificationapi/get-messages-user-ids/')
+    axios.get('http://localhost:8000/messagenotificationapi/get-messages-user-ids/')
       .then(response => {
         const userIds = response.data.user_ids;
         if (userIds && userIds.length > 0) {
