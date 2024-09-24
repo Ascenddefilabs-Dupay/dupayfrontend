@@ -14,6 +14,11 @@ import { FaCircleArrowDown } from "react-icons/fa6";
 import { IoMdAddCircle } from "react-icons/io";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { color, fontSize } from '@mui/system';
+import Select from 'react-select';
+import { stringify } from 'flatted';
+
+
+
 
 
 
@@ -34,6 +39,10 @@ const IoMdWallet = dynamic(() => import('react-icons/io').then((mod) => mod.IoMd
 //   user_id: string;
 //   user_profile_photo?: string | { data: number[] };
 // }
+interface AccountTypeOption {
+  value: string;
+  label: string;
+}
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
@@ -45,7 +54,7 @@ const Home = () => {
   const [fiatWalletId, setFiatWalletId] = useState(''); // New state for fiat_wallet_id
   const [fiatWalletBalance, setFiatWalletBalance] = useState(''); // New state for fiat_wallet_balance
   const [fetchedUserId, setFetchedUserId] = useState(''); // Added state for fetchedUserId
-  const userId = 'DupC0001';
+  const userId = 'DupC0007';
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const fiatDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -54,6 +63,20 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   // const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   // const [userId, setUserId] = useState<string | null>(null);
+  // const [accountTypeOptions, setAccountTypeOptions] = useState<AccountTypeOption[]>([]);
+  // const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
+  const [walletName, setWalletName] = useState("");
+  const [email, setEmail] = useState("");
+  const [securityPin, setSecurityPin] = useState("");
+  const [walletFormVisible, setWalletFormVisible] = useState(false);
+  const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
+  const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
+  // const [loading, setLoading] = useState(true);
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [error, setError] = useState<ErrorState>({});
+  
+  
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -162,13 +185,90 @@ const Home = () => {
   // };
   
 
+  useEffect(() => {
+    axios
+      .get<AdminCMSData[]>('http://localhost:8000/fiatmanagementapi/account-types/')
+      .then((response) => {
+        setAdminCMSData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching account types:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  const accountTypeOptions: AccountTypeOption[] = adminCMSData
+    .filter((data) => data.account_type !== null)
+    .map((data) => ({
+      value: data.account_type,
+      label: data.account_type,
+    }));
+
+    const validateFields = (): boolean => {
+      const newError: ErrorState = {};
+      if (!accountType) newError.accountType = "Account type is required.";
+      if (!walletName) newError.walletName = "Wallet name is required.";
+      if (!email) newError.email = "Email is required.";
+      if (!securityPin || securityPin.length !== 4) {
+        newError.securityPin = "Security PIN must be a 4-digit number.";
+      }
+      setError(newError);
+      setAlertMessage(Object.keys(newError).length > 0 ? "Please correct the errors before submitting." : "");
+      return Object.keys(newError).length === 0;
+    };
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      setAlertMessage('');
+  
+      if (!validateFields()) return;
+  
+      const payload = {
+        fiat_wallet_id: "generated_id_here",
+        fiat_wallet_type: selectedAccountType.value, 
+        // fiat_wallet_currency: null, // Ensure this is a valid currency code
+        fiat_wallet_address: "", // Check if an empty string is acceptable
+        fiat_wallet_balance: 0, // Ensure this is a valid value
+        fiat_wallet_created_time: new Date().toISOString(),
+        fiat_wallet_updated_time: new Date().toISOString(),
+        fiat_wallet_phone_number: "", // Provide a valid phone number if required
+        fiat_wallet_email: email, // Ensure this is a valid email format
+        qr_code: "", // Ensure this is acceptable or provide a valid QR code
+        user_id: userId, // Ensure this is a valid user ID
+        };
+  
+      try {
+        setLoading(true);
+        const response = await axios.post("http://localhost:8000/fiatmanagementapi/fiat_wallets/", payload);
+        setAlertMessage("Wallet created successfully!");
+        resetForm();
+        setTimeout(() => router.push("/Userauthorization/Dashboard"), 2000);
+      } catch (error) {
+        const errorMessage = axios.isAxiosError(error)
+          ? error.response?.data?.detail || "Error creating wallet"
+          : "Error creating wallet";
+        setAlertMessage(errorMessage);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    const resetForm = () => {
+      setSelectedAccountType(null);
+      setWalletName('');
+      setEmail('');
+      setSecurityPin('');
+      setWalletFormVisible(false);
+    };
+    
 
   const handleTabClick = async (tab: string) => {
+    setActiveTab(tab);
+    localStorage.setItem('activeTab', tab);
+  
     if (tab === 'Fiat') {
       setIsFiatTabSelected(true);
-      setActiveTab(tab);
-      localStorage.setItem('activeTab', 'Fiat');
-
+  
       if (!fiatWalletId) {
         const result = await Swal.fire({
           text: "You haven't created a Fiat wallet. Would you like to create it?",
@@ -182,13 +282,10 @@ const Home = () => {
           },
           backdrop: 'rgba(0, 0, 0, 0.2)',
         });
-
+  
         if (result.isConfirmed) {
-          setLoading(true);
-          setTimeout(() => {
-            router.push('/FiatManagement/FiatWalletAccount/');
-            setLoading(false);
-          }, 2000);
+          setWalletFormVisible(true); // Show the wallet creation form
+          setLoading(false); // Stop loading if applicable
         } else {
           setFiatDropdownVisible(true);
           localStorage.setItem('fiatDropdownOpen', 'true');
@@ -199,22 +296,19 @@ const Home = () => {
       }
     } else {
       setIsFiatTabSelected(false);
-      setActiveTab(tab);
-      localStorage.setItem('activeTab', tab);
-
+      setFiatDropdownVisible(false); // Close Fiat dropdown on non-Fiat tab
+      localStorage.setItem('fiatDropdownOpen', 'false');
+  
       if (tab === 'Crypto') {
-        setFiatDropdownVisible(false);
         setDropdownVisible(true);
-        localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
         localStorage.setItem('cryptoDropdownOpen', 'true'); // Open Crypto dropdown
       } else {
-        setFiatDropdownVisible(false);
         setDropdownVisible(false);
-        localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
         localStorage.setItem('cryptoDropdownOpen', 'false'); // Close Crypto dropdown
       }
     }
   };
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -423,255 +517,302 @@ const handleButtonClick = (buttonName: string) => {
 
   return (
     <div className={styles.container}>
-       {loading ? (
+      {loading ? (
         <div className={styles.loaderContainer}>
-        <div className={styles.loader}></div>
+          <div className={styles.loader}></div>
         </div>
       ) : (
         <>
-      <header>
-        {/* Header content here */}
-      </header>
-      <div className={styles.header}>
-        <div className={styles.leftSection} >
-          <div className={styles.walletAddress} >
-            {profileImage ? (
-              <ProfileImage src={profileImage} alt="Profile Image" />
-            ) : (
-              <FaUserCircle className={styles.profileIcon} />
-            )}
-            <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
-              {userId}
-            </Typography>
-            <FontAwesomeIcon icon={faChevronDown} className={styles.dropdownIcon} />
-          </div>
-        </div>
-        <div className={styles.rightSection}>
-            <header className={styles.righttopicons}>
-                <Headerbar userId={userId} onCopyUserId={handleCopyUserId} />
-            </header>
-    </div>
-      </div>
-      <div className={styles.balance}>
-          {(userId === fetchedUserId && fiatWalletId) ? (
-              <button onClick={handlebuyclick}>
-              {isFiatTabSelected ? (
-                <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
-              ) : (
-                <div>₹0.00</div>
-              )}
-            </button>
-          ) : (
-              <button onClick={handlebuyclick}>
-                  <div>₹0.00</div>
-              </button>
-          )}
-      </div>
-      <div className={styles.actions}>
-        {isFiatTabSelected ? (
-          <div className={styles.buttonContainer}>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Add Bank')}>
-              <RiBankLine className={styles.icon} />
-              <div className={styles.buttonLabel}>Add Bank</div>
-            </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Wallet')}>
-              <IoMdWallet className={styles.icon} />
-              <div className={styles.buttonLabel}>Wallet</div>
-            </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Swap')}>
-              <FontAwesomeIcon icon={faExchangeAlt} className={styles.icon} />
-              <div className={styles.buttonLabel}>Swap</div>
-            </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Transfer')}>
-              <IoMdSend className={styles.icon} />
-              <div className={styles.buttonLabel}>Transfer</div>
-            </button>
-          </div>
-        ) : (
-          <>
-            {[ 'Buy', 'Swap', 'Send', 'Receive', 'Cashout'].map(action => (
-              <button
-                key={action}
-                className={`${styles.actionButton} ${activeAction === action ? styles.activeAction : ''}`}
-                onClick={() => {
-                  // setActiveAction(action);
-                  handleIconClick(action);
-                }}
-              >
-                {getIcon(action)}
-                <span>{action}</span>
-              </button>
-            ))}
-          </>
-        )}
-      </div>
-
-            {/* <div className={styles.tabs}>
-              {['Crypto', 'Fiat', 'NFTs'].map(tab => (
-                <button
-                  key={tab}
-                  className={activeTab === tab ? styles.activeTab : styles.tab}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {(tab  === 'Fiat') && (
-                    // <div onClick={toggleDropdown}  >
-                    //   {fiatDropdownVisible ? 'Hide' : 'Show'}
-                    // </div>
-                    <div 
-                      onClick={toggleDropdown} 
-                      style={{ visibility: fiatDropdownVisible ? 'hidden' : 'hidden' }}
-                    >
-                      {fiatDropdownVisible ? 'Hide' : 'Show'}
-                    </div>
-
-                  )}
-                  {tab}
-                </button>
-              ))}
-            </div> */}
-                  <div className={styles.tabs}>
-                    {['Crypto', 'Fiat', 'NFTs'].map((tab) => (
-                      <button
-                        key={tab}
-                        className={activeTab === tab ? styles.activeTab : styles.tab}
-                        onClick={() => handleTabClick(tab)}
-                      >
-                        {/* Dropdown button only for Crypto and Fiat */}
-                        {tab === 'Crypto' && (
-                          <div
-                            onClick={() => toggleDropdown('Crypto')}
-                            style={{ position: 'absolute', opacity: 0 }} // Hide the text but don't affect layout
-                          >
-                            {dropdownVisible ? 'Hide' : 'Show'}
-                          </div>
-                        )}
-                        {tab === 'Fiat' && (
-                          <div
-                            onClick={() => toggleDropdown('Fiat')}
-                            style={{ position: 'absolute', opacity: 0 }} // Hide the text but don't affect layout
-                          >
-                            {fiatDropdownVisible ? 'Hide' : 'Show'}
-                          </div>
-                        )}
-                        {tab}
-                      </button>
-                    ))}
-                  </div>
-
-
-      <div className={styles.content}>
-        {activeTab === 'Crypto' && (
-          <div className={styles.cryptoContent}>
-            <div className={styles.cryptoIcons}>
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726049066/Crypto_image_wceong.png" alt="Crypto Icon 1" className={styles.cryptoIcon} />
-            </div>
-            <div className={'button-container'}>
-              <h2 className={styles.addNameStart}>Add crypto to get started</h2>
-              <button className={styles.addCryptoButton} onClick={handleAddCryptoClick}>
-                Add crypto
-              </button>
-            </div>
-          </div>
-        )}
-        {activeTab === 'Fiat' && fiatDropdownVisible && (
-          <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
-            <div className={styles.dropdownContent1}>
-              <div style={{fontSize: '20px'}}>   Fiat Accounts  </div>
-              <hr style={{ color: 'gray' }} />
-              <div className={styles.dropdownItem}>
-               <button onClick={() => handleNavigation('/UserProfile/FiatViewProfile')}>
-               {profileImage ? (
-                  <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
+          <header>
+            {/* Header content here */}
+          </header>
+          <div className={styles.header}>
+            <div className={styles.leftSection}>
+              <div className={styles.walletAddress}>
+                {profileImage ? (
+                  <ProfileImage src={profileImage} alt="Profile Image" />
                 ) : (
-                  <FaUserCircle className={styles.profileIcon2} />
+                  <FaUserCircle className={styles.profileIcon} />
                 )}
-               </button>
-                <div className={styles.textContainer}>
-                  <div className={styles.userid}>
-                  <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
-                      {userId === fetchedUserId ? (
-                          fiatWalletId ? (
-                              <>
-                                  <div>{fiatWalletId}</div>
-                                  <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
-                              </>
-                          ) : (
-                            <div style={{ whiteSpace: 'pre-line' , fontSize: '16px'}}>
-                            Loading...
-                          </div>
-                          )
-                      ) : (
-                        <div style={{ whiteSpace: 'pre-line', fontSize: '16px'}}>
-                        Loading.....
-                      </div>
-                      )}
-                  </Typography>              
-                  </div>
-                  <div>
-                      <span style={{ marginLeft: '0px', position: 'relative', bottom: '15px' }}>
-                        {userId === fetchedUserId ? '' : '₹0.00'}
-                      </span>
-                  </div>
-                  <div className={styles.buttonContainer1}>
-                    <div>
-                      <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
-                      <IoMdAddCircle className={styles.icon1}/>
-                        <span className={styles.text1}>Top-up</span>
-                      </button>
-                    </div>
-                    <div>
-                      <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
-                      <FaCircleArrowDown className={styles.icon2}/>
-                        <span className={styles.text2}>Withdraw</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <Typography
+                  variant="body1"
+                  style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}
+                >
+                  {userId}
+                </Typography>
+                <FontAwesomeIcon icon={faChevronDown} className={styles.dropdownIcon} />
               </div>
             </div>
-          </div>
-        )}
-        {activeTab === 'NFTs' && <div>NFTs Content</div>}
-      </div>
-      {dropdownVisible && (
-        <div ref={dropdownRef} className={styles.dropdown}>
-          <div className={styles.dropdownContent}>
-            <div className={styles.Wallets}>
-              Wallets
-              
-              <hr style={{ color: 'gray', position: 'relative', top: '0px'}} />
-              <h4 className={styles.Wallet1}>
-                Wallet 1
-              </h4>
+            <div className={styles.rightSection}>
+              <header className={styles.righttopicons}>
+                <Headerbar userId={userId} onCopyUserId={handleCopyUserId} />
+              </header>
             </div>
-            <div className={styles.dropdownItem}>
-             <button onClick={() => handleNavigation('/UserProfile')}>
-             {profileImage ? (
-                <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
-              ) : (
-                <FaUserCircle className={styles.profileIcon1} />
-              )}
-             </button>
-              <div className={styles.textContainer}>
-                <div className={styles.userid}>
-                  <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px', marginLeft: '8px', position: 'relative', bottom: '25px' }}>
-                    {userId}
-                  </Typography>
-                </div>
-                <div className={styles.profilesettingdiv}>
-                <button onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
-                <RiUserSettingsFill className={styles.profilesettingicon} />
+          </div>
+
+          {/* Create Wallet Button */}
+          {/* <button onClick={handleCreateWallet}>Create Wallet</button> */}
+
+          
+          
+          <div className={styles.balance}>
+            {(userId === fetchedUserId && fiatWalletId) ? (
+              <button onClick={handlebuyclick}>
+                {isFiatTabSelected ? (
+                  <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
+                ) : (
+                  <div>₹0.00</div>
+                )}
+              </button>
+            ) : (
+              <button onClick={handlebuyclick}>
+                <div>₹0.00</div>
+              </button>
+            )}
+          </div>
+
+          <div className={styles.actions}>
+            {isFiatTabSelected ? (
+              <div className={styles.buttonContainer}>
+                <button className={styles.walletButton} onClick={() => handleButtonClick('Add Bank')}>
+                  <RiBankLine className={styles.icon} />
+                  <div className={styles.buttonLabel}>Add Bank</div>
+                </button>
+                <button className={styles.walletButton} onClick={() => handleButtonClick('Wallet')}>
+                  <IoMdWallet className={styles.icon} />
+                  <div className={styles.buttonLabel}>Wallet</div>
+                </button>
+                <button className={styles.walletButton} onClick={() => handleButtonClick('Swap')}>
+                  <FontAwesomeIcon icon={faExchangeAlt} className={styles.icon} />
+                  <div className={styles.buttonLabel}>Swap</div>
+                </button>
+                <button className={styles.walletButton} onClick={() => handleButtonClick('Transfer')}>
+                  <IoMdSend className={styles.icon} />
+                  <div className={styles.buttonLabel}>Transfer</div>
                 </button>
               </div>
-                <div>
-                  <span style={{ marginLeft: '8px', position: 'relative', top: '-55px'}}>$0.00</span>
+            ) : (
+              <>
+                {['Buy', 'Swap', 'Send', 'Receive', 'Cashout'].map(action => (
+                  <button
+                    key={action}
+                    className={`${styles.actionButton} ${activeAction === action ? styles.activeAction : ''}`}
+                    onClick={() => handleIconClick(action)}
+                  >
+                    {getIcon(action)}
+                    <span>{action}</span>
+                  </button>
+                ))}
+              </>
+            )}
+          </div>
+
+          <div className={styles.tabs}>
+          {['Crypto', 'Fiat', 'NFTs'].map((tab) => (
+            <button
+              key={tab}
+              className={activeTab === tab ? styles.activeTab : styles.tab}
+              onClick={() => handleTabClick(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        
+
+        <div className={styles.scrollableContainer}>
+            {walletFormVisible && (
+              <div className={styles.walletFormContainer}>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="accountType" className={styles.label}>
+                      Account Type:
+                    </label>
+                    <Select
+                    id="accountType"
+                    className={styles.selectInput}
+                    options={accountTypeOptions}
+                    value={selectedAccountType}
+                    onChange={(option) => setSelectedAccountType(option)}
+                    placeholder="Select an account type"
+                    isClearable
+                    required
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="walletName" className={styles.label}>
+                      Wallet Name:
+                    </label>
+                    <input
+                      id="walletName"
+                      type="text"
+                      className={styles.inputField}
+                      value={walletName}
+                      onChange={(e) => setWalletName(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="email" className={styles.label}>
+                      Email:
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      className={styles.inputField}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="securityPin" className={styles.label}>
+                      Security PIN:
+                    </label>
+                    <input
+                      id="securityPin"
+                      type="password"
+                      maxLength={4}
+                      className={styles.inputField}
+                      value={securityPin}
+                      onChange={(e) => setSecurityPin(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                  <button type="submit" className={styles.submitButton}>Create Wallet</button>
+                  <button type="button" className={styles.cancelButton} onClick={() => setWalletFormVisible(false)}>Cancel</button>
+                </div>
+                </form>
+              </div>
+            )}
+          </div>
+
+          <div className={styles.content}>
+            {activeTab === 'Crypto' && (
+              <div className={styles.cryptoContent}>
+                <div className={styles.cryptoIcons}>
+                  <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726049066/Crypto_image_wceong.png" alt="Crypto Icon 1" className={styles.cryptoIcon} />
+                </div>
+                <div className={'button-container'}>
+                  <h2 className={styles.addNameStart}>Add crypto to get started</h2>
+                  <button className={styles.addCryptoButton} onClick={handleAddCryptoClick}>
+                    Add crypto
+                  </button>
+                </div>
+              </div>
+            )}
+            {activeTab === 'Fiat' && fiatDropdownVisible && (
+              <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
+                <div className={styles.dropdownContent1}>
+                  <div style={{ fontSize: '20px' }}>Fiat Accounts</div>
+                  <hr style={{ color: 'gray' }} />
+                  <div className={styles.dropdownItem}>
+                    <button onClick={() => handleNavigation('/UserProfile/FiatViewProfile')}>
+                      {profileImage ? (
+                        <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
+                      ) : (
+                        <FaUserCircle className={styles.profileIcon2} />
+                      )}
+                    </button>
+                    <div className={styles.textContainer}>
+                      <div className={styles.userid}>
+                        <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
+                          {userId === fetchedUserId ? (
+                            fiatWalletId ? (
+                              <>
+                                <div>{fiatWalletId}</div>
+                                <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
+                              </>
+                            ) : (
+                              <div style={{ whiteSpace: 'pre-line', fontSize: '16px' }}>
+                                Loading...
+                              </div>
+                            )
+                          ) : (
+                            <div style={{ whiteSpace: 'pre-line', fontSize: '16px' }}>
+                              Loading.....
+                            </div>
+                          )}
+                        </Typography>
+                      </div>
+                      <div>
+                        <span style={{ marginLeft: '0px', position: 'relative', bottom: '15px' }}>
+                          {userId === fetchedUserId ? '' : '₹0.00'}
+                        </span>
+                      </div>
+                      <div className={styles.buttonContainer1}>
+                        <div>
+                          <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
+                            <IoMdAddCircle className={styles.icon1} />
+                            <span className={styles.text1}>Top-up</span>
+                          </button>
+                        </div>
+                        <div>
+                          <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
+                            <FaCircleArrowDown className={styles.icon2} />
+                            <span className={styles.text2}>Withdraw</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {activeTab === 'NFTs' && <div>NFTs Content</div>}
+          </div>
+
+          {dropdownVisible && (
+            <div ref={dropdownRef} className={styles.dropdown}>
+              <div className={styles.dropdownContent}>
+                <div className={styles.Wallets}>
+                  Wallets
+                  <hr style={{ color: 'gray', position: 'relative', top: '0px' }} />
+                  <h4 className={styles.Wallet1}>Wallet 1</h4>
+                </div>
+                <div className={styles.dropdownItem}>
+                  <button onClick={() => handleNavigation('/UserProfile')}>
+                    {profileImage ? (
+                      <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
+                    ) : (
+                      <FaUserCircle className={styles.profileIcon1} />
+                    )}
+                  </button>
+                  <div className={styles.textContainer}>
+                    <div className={styles.userid}>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          color: '#ffffff',
+                          fontWeight: 'bold',
+                          fontSize: '15px',
+                          marginLeft: '8px',
+                          position: 'relative',
+                          bottom: '25px'
+                        }}
+                      >
+                        {userId}
+                      </Typography>
+                    </div>
+                    <div className={styles.profilesettingdiv}>
+                      <button onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
+                        <RiUserSettingsFill className={styles.profilesettingicon} />
+                      </button>
+                    </div>
+                    <div>
+                      <span style={{ marginLeft: '8px', position: 'relative', top: '-55px' }}>$0.00</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-       </>
+          )}
+        </>
       )}
     </div>
   );
@@ -684,7 +825,7 @@ const getIcon = (action: string) => {
     case 'Swap':
       return <FontAwesomeIcon icon={faExchangeAlt} />;
     case 'Cashout':
-      return <IoCashOutline style={{fontSize: '30px'}} />;
+      return <IoCashOutline style={{ fontSize: '30px' }} />;
     case 'Send':
       return <FaArrowUpLong />;
     case 'Receive':

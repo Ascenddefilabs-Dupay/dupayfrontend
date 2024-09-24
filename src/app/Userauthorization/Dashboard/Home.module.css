@@ -967,3 +967,107 @@
     padding: 15px;
   }
 }
+.walletFormContainer {
+  /* width: 400px; 
+  max-width: 100%;
+  padding: 20px; */
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.label {
+  color: #f5f5f5;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.inputField {
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  width: 100%;
+  background: #2a2a2a;
+  color: #f5f5f5;
+}
+
+.selectInput {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: #2a2a2a;
+  color:black;
+}
+
+.submitButton {
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cancelButton {
+  background: transparent;
+  color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.scrollableContainer {
+  max-height: 600px; 
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px; /* Optional padding for spacing */
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  background-color: #2a2a2a; /* Optional background color for tabs */
+  padding: 10px 0; /* Optional padding */
+}
+
+.tab {
+  background: none;
+  color: rgb(21, 5, 5);
+  border: none;
+  cursor: pointer;
+}
+
+.activeTab {
+  font-weight: bold;
+  border-bottom: 2px solid #0070f3; /* Highlight active tab */
+}
+
+.walletFormContainer {
+  background: #2a2a2a; /* Background for the form */
+  padding: 20px;
+  border-radius: 5px;
+}
