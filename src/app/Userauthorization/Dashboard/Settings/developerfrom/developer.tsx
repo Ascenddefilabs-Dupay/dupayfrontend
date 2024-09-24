@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import '../developerfrom/developer.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -10,6 +10,21 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 const Developer = () => {
   const [testnetsEnabled, setTestnetsEnabled] = useState(false);
   const router = useRouter();
+  const [userId, setUserId] = useState<string | null>(null);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            setUserId( storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+          } else {
+            // redirect('http://localhost:3000/Userauthentication/SignIn');
+          }
+        }
+      }, []);
 
   const toggleTestnets = () => {
     setTestnetsEnabled(!testnetsEnabled);

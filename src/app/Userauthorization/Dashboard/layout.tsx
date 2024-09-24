@@ -1,24 +1,22 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-// import ";
-import BottomNavBar from "./BottomNavBar/BottomNavBar";
-import Headernavbar from "./Headernavbar/headernavbar"
+import React, { ReactNode } from 'react';
+import BottomNavBar from './BottomNavBar/BottomNavBar'; // Import actual BottomNavBar
 
-
-
-export default function Bottomnavbar({ children })    {
-    return(
-        <div>
-        {/* <header>
-          {<Headernavbar /> } 
-                <h1>hello </h1>
-        </header>  */}
-            {children}
-        <footer>
-            <BottomNavBar />
-        </footer>
-        </div>
-    )
+interface BottomnavbarProps {
+  children: ReactNode; // To handle any children passed inside Bottomnavbar
+  showBottomNav?: boolean; // Optional boolean to control visibility of BottomNavBar
 }
 
+const Bottomnavbar: React.FC<BottomnavbarProps> = ({ children, showBottomNav = true }) => {
+  return (
+    <div>
+      {children}
+      {showBottomNav && ( // Conditionally render BottomNavBar if showBottomNav is true
+        <footer>
+          <BottomNavBar />
+        </footer>
+      )}
+    </div>
+  );
+};
 
+export default Bottomnavbar;

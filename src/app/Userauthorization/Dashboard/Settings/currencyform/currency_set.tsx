@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import country_list from './country-list';
 import styles from '../currencyform/currency_form.module.css';
@@ -13,6 +13,21 @@ const CurrencySelector = () => {
   const [search, setSearch] = useState<string>('');
   const [selectedCurrency, setSelectedCurrency] = useState<string>('');
   const router = useRouter();
+  const [userId, setUserId] = useState<string | null>(null);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            setUserId( storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+          } else {
+            // redirect('http://localhost:3000/Userauthentication/SignIn');
+          }
+        }
+      }, []);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);

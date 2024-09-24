@@ -1,11 +1,26 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './SignOutDialog.css';
 
 const SignOutDialog = () => {
   const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
+  const [userId, setUserId] = useState<string | null>(null);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            const storedUserId = sessionData.user_id;
+            setUserId( storedUserId);
+            console.log(storedUserId);
+            console.log(sessionData.user_email);
+          } else {
+            // redirect('http://localhost:3000/Userauthentication/SignIn');
+          }
+        }
+      }, []);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);

@@ -76,7 +76,7 @@ const Cryptowallet: React.FC = () => {
     const handleBackClick = () => {
         setLoading(true); // Show loading text
         setTimeout(() => {
-            router.push('/Userauthorization/Dashboard'); // Navigate after delay
+            router.push('/Userauthorization/Dashboard/Home'); // Navigate after delay
         }, 500); // Adjust delay if needed
     };
 

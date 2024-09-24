@@ -832,7 +832,7 @@
 
 .card14 {
   max-width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 70px;
   background-color: black; 
   padding: 10px;
   padding-top: 0.1%;
@@ -855,7 +855,7 @@
   width: 100%;
   align-items: center; 
   justify-content: center;
-  height: 55px;
+  height: 45px;
   text-align: center;
 }
 
@@ -868,7 +868,7 @@
   display: block;
   margin-bottom: 4px;
   font-size: 18px;
-  color: #7f0606;
+  color: white;
   font-weight: bold;
    
 }

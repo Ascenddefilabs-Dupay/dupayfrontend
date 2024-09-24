@@ -21,7 +21,7 @@ const AddCrypto = () => {
   const handleBackClick = () => {
     setLoading(true); // Show loading text
     setTimeout(() => {
-      router.push('/Userauthorization/Dashboard'); // Ensure the correct path here
+      router.push('/Userauthorization/Dashboard/Home'); // Ensure the correct path here
       setLoading(false); 
     }, 1000); 
   };
