@@ -28,7 +28,7 @@
   align-items: center;
   margin-top: 0.5rem;
   padding-top: 50px;
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
   background-color:  #242429;
   background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
   background-repeat: no-repeat;
@@ -43,8 +43,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 0 2rem 2rem 2rem ;
   /* padding-top: 6.5rem; */
-  margin-top: 40%;
-  padding-bottom: 3rem;
+  margin-top: 35%;
+  /* padding-bottom: 3rem; */
   width: 411px;
   max-width: 100%;
   overflow: hidden; 
@@ -459,6 +459,8 @@ align-items: flex-start;
   margin-top: 15px;
   justify-items: center;
   width: 100%;
+  /* margin-left: -25px;
+  margin-right: -20px; */
 }
 
 .keyboardButton {
@@ -474,7 +476,7 @@ align-items: flex-start;
   font-size: 29.57px;
   color: #fff;
   font-family: Roboto;
-  width: 34.1px;
+  width: 92.1px;
   height: 42.1px;
   height: 100%;
   flex: 1;
@@ -629,6 +631,10 @@ width: 27.3px;
   flex: 1;
   width: 100%;
   background-color: #4f6375;
+  }
+  .chevronButton{
+    font-size: 10px;
+    margin-top: 20px;
   }
 .keyboardButtons2 {
   position: relative;
@@ -951,7 +957,7 @@ width: 27.3px;
   	position: relative;
   	height: 6.3px;
   	object-fit: contain;
-    margin-top: -50px;
+    /* margin-top: -50px; */
   }
 .iconArrowDown {
   	width: 27.3px;
@@ -999,21 +1005,23 @@ width: 27.3px;
   	padding: 22.8px 0px 0px;
 }
 .keyboardDefault {
-  	width: 100%;
+  	/* width: 100%; */
   	position: relative;
   	background-color: #1b1d1f;
   	display: flex;
   	flex-direction: column;
   	align-items: center;
   	justify-content: flex-end;
-  	padding: 10.3px 6.8px 0px;
+  	/* padding: 10.3px 6.8px 0px; */
   	box-sizing: border-box;
   	gap: 12.5px;
   	text-align: center;
   	font-size: 25.06px;
   	color: #fff;
   	font-family: Roboto;
-    width: 411px;
+    min-width: 411px;
+    /* padding-left: 20px; */
+    margin-left: -30px;
     max-width: 100%;
 }
 

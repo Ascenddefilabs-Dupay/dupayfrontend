@@ -1,4 +1,7 @@
 /* Container styles */
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 .container {
   display: flex;
   flex-direction: column;
@@ -17,6 +20,7 @@
   color: white;
   /* font-family: 'Arial', sans-serif; */
   position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 1024px) {
@@ -31,40 +35,41 @@
   }
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  margin-bottom: 20px;
-  margin-top: -20px;
-}
-.dots {
-  display: flex;
-  gap: 5px;
-  Background:"On Light";
-}
-
-.dot {
+.imagecarouselIndicatorcompoIcon {
+  position: absolute;
+  top: calc(50% - 4px);
+  left: calc(50% + 10px);
   width: 8px;
   height: 8px;
-  background-color: #888;
-  border-radius: 50%;
+}
+.imagecarouselIndicatorcompoIcon1 {
+  position: absolute;
+  top: calc(50% - 4px);
+  left: calc(50% - 18px);
+  width: 8px;
+  height: 8px;
 }
 
-.dot.active {
-  background-color: #ff00ff;
+.imagecarouselIndicatorcompoIcon2 {
+  position: absolute;
+  top: calc(50% - 4px);
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
 }
-.skipButton {
-font-size: 14px;
-color: #aaa;
-cursor: pointer;
+.carouselIndicator {
+  position: absolute;
+  top: 93px;
+  left: 32px;
+  width: 36px;
+  height: 8px;
+  z-index: 2;
 }
 
 /* Text content styles */
 .textContent {
   text-align: left;
-  /* padding-top: 20px; */
+  padding-top: 40px;
 }
 
 .title {
@@ -76,6 +81,7 @@ cursor: pointer;
   /* line-height: 56px; */
   text-align: left;
  margin-top: 80%;
+ z-index: 2;
 }
 
 .highlight {

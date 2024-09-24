@@ -4,35 +4,37 @@ import Link from 'next/link';
 
 const Welcome = () => {
   return (
-    <div className={styles.container}>
-        <header>
-          <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
-      </header>
-      <div className={styles.imageLogo}>
-        <div className={styles.graphics}>
-          <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804054/dupay_rhft2i.png" alt="logo" />
-        </div>
-        <h1 className={styles.title}>Dupay</h1>
-      </div>
-      <div className={styles.titleParent}>
-        <div className={styles.title1}>Welcome back</div>
-        <div className={styles.title2}>Anuroop Nair</div>
-    </div>
-      <div className={styles.imageContainer}>
-        <img src="/images/fingerprint.png" alt="Scanner" />
-      </div>
-      <div className={styles.titleParent1}>
-        <div className={styles.title3}>Not you</div>
-        <div className={styles.title4}>App Version 2.03</div>
-    </div>
-    <div className={styles.orContinueWith}>
-        <p>Don't have an account? <Link href="/Userauthentication/SignUp/EmailVerification">
-      <span className={styles.account}>Sign up</span>
-    </Link></p>
-    </div>
-      {/* <p className={styles.notYou}>Not you</p>
-      <p className={styles.appVersion}>App Version 2.03</p> */}
-    </div>
+    <div className={styles.loginSecondTime}>
+<div className={styles.homeScreenBackground}>
+<div className={styles.background} />
+</div>
+<img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726833959/image_o6akso.png" />
+<div className={styles.frameParent}>
+<div className={styles.frameGroup}>
+<div className={styles.dupayLogoParent}>
+<img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804054/dupay_rhft2i.png" />
+<b className={styles.dupay}>Dupay</b>
+</div>
+<div className={styles.titleParent}>
+<div className={styles.title}>Welcome back</div>
+<div className={styles.title1}>Anuroop Nair</div>
+</div>
+</div>
+<div className={styles.frameContainer}>
+<div className={styles.layer1Wrapper}>
+<img className={styles.layer1Icon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727103280/a47ae1be-06a2-4e4b-a88b-b4b818c7695b.png" />
+</div>
+<div className={styles.title2}>Not you</div>
+<div className={styles.title3}>App Version 2.03</div>
+</div>
+</div>
+<div className={styles.title4}>
+<span>Already have an account?</span>
+<span className={styles.span}>{` `}</span>
+<span className={styles.signIn}>Sign in</span>
+</div>
+
+</div>
   );
 };
 

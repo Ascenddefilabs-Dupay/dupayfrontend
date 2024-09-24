@@ -11,6 +11,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 import styles from './signup.module.css'; // Adjust the path according to your project structure
+import { margin, style } from '@mui/system';
 
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
@@ -44,34 +45,43 @@ export default function Home1() {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [keyboardAlphaVisible, setkeyboardAlphaVisible] = useState<boolean>(false);
   const [bottomVisible, setBottomVisible] = useState<boolean>(true);
-
   const [isShift, setIsShift] = useState(false);
   const [isNumeric, setIsNumeric] = useState(false);
+  const [mainKeyboard , setMainKeyboard]= useState(false);
+  const [style, setStyle] = useState({ marginTop: '35%' });
   
-  // Function to handle a regular key press
+  const handleFocus = () => {
+
+    if(isNumeric){
+      setStyle((prevStyle) => ({
+        ...prevStyle,
+        marginTop: '35%', 
+      }));
+    }
+    else
+    {
+      setStyle((prevStyle) => ({
+        ...prevStyle,
+        marginTop: '20%', 
+      }));
+    }
+  };
+ 
+  
   const handleKeyPress = (key: string) => {
     setEmail((prevEmail) => prevEmail + key); // Append the key to the current email value
   };
 
   // Function to handle shift key press
-  const handleShiftPress = () => {
-    setIsShift(!isShift);
-  };
-
+  
   // Function to handle backspace
   const handleDelete = () => {
     setEmail((prevEmail) => prevEmail.slice(0, -1));
   };
 
-  // Function to toggle between numeric and alpha keyboard
-  // const handleKeyboardNavigation = () => {
-  //   setIsNumeric(!isNumeric);
-  // };
-
-  // Function to dismiss the keyboard
-  // const handleDismiss = () => {
-  //   onDismiss();
-  // };
+  const handleEnter = () => {
+    setEmail((prev) => prev + '\n');
+  };
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -257,27 +267,35 @@ export default function Home1() {
 
   const toggleKeyboard = () => {
     setKeyboardVisible(false);
+    setIsNumeric(false);
+    setMainKeyboard(false);
+    setkeyboardAlphaVisible(false);
+    setBottomVisible(true);
   };
 
   const toggleKeyboards = () => {
-    setkeyboardAlphaVisible(false);
+    // setkeyboardAlphaVisible(false);
+    setIsNumeric(true);
+    // setBottomVisible(false);
+    // setMainKeyboard(false);
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      marginTop: '35%', 
+    }));
+  };
+  const toggleAlphaNumericKeyboards = () => {
+    // setkeyboardAlphaVisible(true);
+    setIsNumeric(false);
+    
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      marginTop: '20%', 
+    }));
+       
+    // setBottomVisible(false);
+    // setMainKeyboard(false);
   };
 
-
-  
-  
-  // Handle custom keyboard clicks
-  const handleSecondKeyboardClick = (num: string) => {
-    if (isNumeric) {
-        // Handle the numeric key click for OTP input
-        for (let i = 0; i < otp.length; i++) {
-            if (otp[i] === "") {
-                handleOtpChange(i, num);  // Fill the OTP input
-                break;
-            }
-        }
-    }
-};
 
 const handleKeyboardClick = (num: string) => {
     // Handle OTP input
@@ -287,10 +305,6 @@ const handleKeyboardClick = (num: string) => {
             break;
         }
     }
-};
-const handleNumericKeyPress = (key: string) => {
-  // Ensure that the correct OTP field is in focus after pressing a number
-  handleKeyboardClick(key);
 };
 
   // Handle backspace for deletion (works for both physical and custom keyboard)
@@ -315,20 +329,12 @@ const handleNumericKeyPress = (key: string) => {
       handleBackspace(); // Trigger backspace behavior
     }
   };
-  const handleKeyboardNavigation = () => {
-    setIsNumeric(true);  // Set this to true when switching to numeric
-    setKeyboardVisible(true);
-    setkeyboardAlphaVisible(false);
+  const handleSpace = () => {
+    console.log("hello")
+    setEmail((prevEmail) => prevEmail + ' ');
 };
-
-const handleAlphaKeyboardNavigation = () => {
-    setIsNumeric(false);  // Set this to false when switching to alphabetic
-    setkeyboardAlphaVisible(true);
-    setKeyboardVisible(false);
-};
-
   
-  
+
   return (
     
     <GoogleOAuthProvider clientId={CLIENT_ID}>
@@ -343,7 +349,7 @@ const handleAlphaKeyboardNavigation = () => {
       </header>
 
         <div className={styles.formWrapper}>
-        <div className={styles.card}>
+        <div className={styles.card} style={style}>
         <div className={styles.imageLogo}>
               <div className={styles.graphics}>
                 <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804054/dupay_rhft2i.png" alt="logo" />
@@ -363,9 +369,11 @@ const handleAlphaKeyboardNavigation = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     onFocus={(e) => {
                       e.preventDefault();
-                      setkeyboardAlphaVisible(true);  
-                      setBottomVisible(false);        
+                      handleFocus();
+                      setMainKeyboard(true);
+                      setBottomVisible(false);
                     }}
+                    
                     // onBlur={() => {
                     //   setkeyboardAlphaVisible(false);
                     //   setBottomVisible(true);         
@@ -403,7 +411,10 @@ const handleAlphaKeyboardNavigation = () => {
                    {/* <a href="#" className={styles.link}>Terms and Conditions</a> and{' '} */}
                   </label>
                 </div>
-                {keyboardAlphaVisible && (
+                
+                
+                {!isNumeric &&
+                mainKeyboard && (
                   <div className={styles.keyboardDefault}>
                   <div className={styles.toolbar}>
                   <div className={styles.back}>
@@ -634,7 +645,7 @@ const handleAlphaKeyboardNavigation = () => {
                   </div>
                   </div>
                   </div>
-                  <div className={styles.keyFunction} onCanPlay={handleDelete}>
+                  <div className={styles.keyFunction} onClick={handleDelete}>
                   <div className={styles.iconSticker}>
                   <img className={styles.deleteIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067636/6a140b73-fefd-445b-8fdf-fc4d21d6898b.png" />
                   </div>
@@ -642,7 +653,7 @@ const handleAlphaKeyboardNavigation = () => {
                   </div>
                   <div className={styles.functions} >
                   <div className={styles.keySpecialFunction}>
-                  <div className={styles.div} onClick={handleKeyboardNavigation}>?123</div>
+                  <div className={styles.div} onClick={toggleKeyboards}>?123</div>
                   </div>
                   <div className={styles.keyFunction2} onClick={() => handleKeyPress(",")}>
                   <div className={styles.a}>,</div>
@@ -654,21 +665,21 @@ const handleAlphaKeyboardNavigation = () => {
                   </div>
                   </div>
                   </div>
-                  <div className={styles.keyPrimary27}>
+                  <div className={styles.keyPrimary27} onClick={handleSpace}>
                   <div className={styles.key17} />
                   </div>
                   <div className={styles.keyFunction2} onClick={() => handleKeyPress(".")}>
                   <div className={styles.a}>.</div>
                   </div>
-                  <div className={styles.keySpecialFunction1}>
-                  <div className={styles.iconSticker}>
+                  <div className={styles.keySpecialFunction1} onClick={handleEnter}>
+                  <div className={styles.iconSticker} >
                   <img className={styles.arrowIcon1} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067751/84f6495a-204d-47bb-abba-6fc1082fd5b7.png" />
                   </div>
                   </div>
                   </div>
                   <div className={styles.navigation}>
                   <div className={styles.dismissKeyboard}>
-                  <div className={styles.iconArrowDown}>
+                  <div className={styles.iconArrowDown} onClick={toggleKeyboard}>
                   <img className={styles.vectorIcon4} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067823/d9b65ddc-9b07-4222-9237-1c0e9fd3e612.png" />
                   </div>
                   </div>
@@ -678,18 +689,61 @@ const handleAlphaKeyboardNavigation = () => {
                   </div>
                   </div>
                 )}
+              
+                
+              {isNumeric && 
+              mainKeyboard&&(
+
+                <div className={styles.customKeyboard}>
+                {/* First row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('1')}>1</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('2')}>2</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('3')}>3</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('@')}>@</button>
+
+                {/* Second row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('4')}>4</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('5')}>5</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('6')}>6</button>
+                <button className={styles.keyboardButton} onClick={toggleAlphaNumericKeyboards}>abc</button>
+                
+                   
+
+                {/* Third row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('7')}>7</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('8')}>8</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('9')}>9</button>
+                <button className={styles.keyboardButton1} onClick={handleBackspace}>
+                  <i className="fa fa-backspace"></i> 
+                </button>
+
+                {/* Fourth row */}
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress(',')}>,</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('0')}>0</button>
+                <button className={styles.keyboardButton} onClick={() => handleKeyPress('.')}>.</button>
+                <button className={styles.keyboardButton2} onClick={handleSubmit}>
+                  <i className="fa fa-arrow-right"></i> 
+                </button>
+                <button className={styles.chevronButton} onClick={toggleKeyboard}>
+                  <i className="fa fa-chevron-down"></i>
+                </button>
+                
+
+              </div>
+              
+ )}
               {bottomVisible && (
                 <div className='BottomClass'>
                 <div className={styles.orContinueWith}>
                       <p>or continue with</p>
                     </div>
-                    <div id="google-signin-button" className={styles.googleSignIn}>
+                    {/* <div id="google-signin-button" className={styles.googleSignIn}>
                       <img 
                         src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804058/google_qolmfs.png" 
                         alt="Google sign-in"
                         className={styles.googleIcon}
                       />
-                    </div>
+                    </div> */}
                 <div className={styles.googleButtonWrapper}>
                 <GoogleLogin
                   onSuccess={handleGoogleSuccess}
@@ -869,18 +923,8 @@ const handleAlphaKeyboardNavigation = () => {
 
               </form>
             )}
-            <div className={styles.googleButtonWrapper}>
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              // onError={handleGoogleFailure}
-              // logo
-            />
-          </div>
-          <div className={styles.signInLinkWrapper}>
-                  <Link href="/Userauthentication/SignIn" className={styles.signInLink}>
-                    Already have an account? Sign In
-                  </Link>
-          </div>
+            
+          
           </div>
         </div>
         </div>
@@ -888,3 +932,52 @@ const handleAlphaKeyboardNavigation = () => {
     </GoogleOAuthProvider>
   );
 }
+
+
+// </div>
+//                 {isNumeric && (
+//         <div className={styles.customKeyboard}>
+//           {/* First row */}
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('1')}>1</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('2')}>2</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('3')}>3</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('-')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903509/minus_ohgd12.png" alt="minus-img" /></button>
+
+//           {/* Second row */}
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('4')}>4</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('5')}>5</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('6')}>6</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('?')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903513/space_ygxsze.png" alt="space-img" /></button>
+
+//           {/* Third row */}
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('7')}>7</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('8')}>8</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('9')}>9</button>
+//           <button className={styles.keyboardButton1} onClick={handleBackspace}><i className="fa fa-backspace"></i></button>
+
+//           {/* Fourth row */}
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress(',')}>,</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('0')}>0</button>
+//           <button className={styles.keyboardButton} onClick={() => handleKeyPress('.')}>.</button>
+//           <button className={styles.keyboardButton2} onClick={handleSubmit}><i className="fa fa-arrow-right"></i></button>
+//           <button className={styles.chevronButton} onClick={toggleKeyboard}><i className="fa fa-chevron-down"></i></button>
+//         </div>
+//       )}
+
+//       {/* Default Keyboard */}
+//       {!isNumeric && (
+//         <div className={styles.keyboardDefault}>
+//           {/* First row */}
+//           <div className={styles.keyPrimary}>
+//             <div className={styles.letter} onClick={() => handleKeyPress('q')}>q</div>
+//           </div>
+//           <div className={styles.keyPrimary}>
+//             <div className={styles.letter} onClick={() => handleKeyPress('w')}>w</div>
+//           </div>
+
+//           {/* Add more letters as needed */}
+
+//           {/* Toggle button */}
+//           <button className={styles.toggleButton} onClick={toggleKeyboard}>123?</button>
+//         </div>
+//       )}
