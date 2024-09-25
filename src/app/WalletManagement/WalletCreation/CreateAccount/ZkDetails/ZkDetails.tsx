@@ -63,6 +63,7 @@ function ZkDetails() {
   const accounts = useRef<AccountData[]>(loadAccounts());
   const [modalContent, setModalContent] = useState<string>(" ");
   const [balances, setBalances] = useState<Map<string, number>>(new Map());
+  const [userId, setUserId] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -74,6 +75,19 @@ function ZkDetails() {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionDataString = window.localStorage.getItem('session_data');
+      if (sessionDataString) {
+        const sessionData = JSON.parse(sessionDataString);
+        const storedUserId: string = sessionData.user_id;
+        setUserId(storedUserId);
+        console.log(storedUserId);
+        console.log(sessionData.user_email);
+      } 
+    }
+}, []);
 
   // Enoki API integration for getting the salt
 
@@ -203,6 +217,7 @@ function ZkDetails() {
       console.log("account.zkProofs", account.zkProofs);
       console.log("addressSeed", addressSeed);
       console.log("bytes", bytes);
+      console.log("max epoch", account.maxEpoch );
 
       const zkLoginSignature = getZkLoginSignature({
         inputs: {
@@ -330,9 +345,10 @@ function ZkDetails() {
     const prefix = "DUP";
     try {
       const response = await axios.get(
-        "https://walletmanagement-rcfpsxcera-uc.a.run.app/walletmanagementapi/latest_wallet_id/"
+        "http://localhost:8000/walletmanagementapi/latest_wallet_id/"
       );
       const lastId = response.data.wallet_id;
+      console.log(lastId);
       let newId;
       if (lastId) {
         const numberPart = parseInt(lastId.replace(prefix, ""), 10);
@@ -340,6 +356,7 @@ function ZkDetails() {
       } else {
         newId = `${prefix}0001`;
       }
+      console.log("new ID",newId);
       localStorage.setItem("last_wallet_id", newId); // Storing the new ID
       return newId;
     } catch (error) {
@@ -350,11 +367,14 @@ function ZkDetails() {
 
   async function saveAccount(account: AccountData): Promise<void> {
     const newWalletId = await generateWalletId();
+    const user_id = userId
+    console.log(user_id);
     // const newAccounts = [account];
     const newAccounts = [
       {
         ...account,
         wallet_id: newWalletId, // Add wallet_id to the account data
+        user_id: user_id,
       },
     ];
     sessionStorage.setItem(accountDataKey, JSON.stringify(newAccounts));
@@ -368,9 +388,14 @@ function ZkDetails() {
         "http://localhost:8000/zklogin_api/save_account/",
         {
           sui_address: account.userAddr,
-          balance: (balances.get(account.userAddr)?.toFixed(2) || "0.00").toString(),
-          wallet_id: "DUP057",
-          //newWalletId // Include the new wallet_id
+          balance: (balances.get(account.userAddr) || "0.00").toString(),
+          wallet_id: newWalletId, 
+          user_id: user_id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
         }
       );
       console.log("Account data saved to backend:", response.data);
