@@ -37,7 +37,7 @@
 //       ) : (
 //         <>
 //           <div className="titleContainer">
-//             <IconButton className="backarrow" onClick={() => handleNavigation('/Userauthorization/Dashboard')} sx={{ color: '#fff' }}>
+//             <IconButton className="backarrow" onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')} sx={{ color: '#fff' }}>
 //               <ArrowBackIcon />
 //             </IconButton>
 //             <h1 className="title">Add & manage wallets</h1>
@@ -151,7 +151,7 @@ const ManageProfile = () => {
       ) : (
         <>
           <div className={styles.titleContainer}>
-            <IconButton className={styles.backarrow} onClick={() => handleNavigation('/Userauthorization/Dashboard')} sx={{ color: '#fff' }}>
+            <IconButton className={styles.backarrow} onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')} sx={{ color: '#fff' }}>
               <ArrowBackIcon />
             </IconButton>
             <h1 className={styles.title}>Add & manage wallets</h1>

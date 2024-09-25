@@ -296,7 +296,7 @@ const Home = () => {
               // Now TypeScript understands that this is an AxiosError
               if (error.response?.data?.error) {
                   alert(error.response.data.error);  // Show specific error message to the user
-                  router.push('/Userauthorization/Dashboard');
+                  router.push('/Userauthorization/Dashboard/Home');
               } else {
                   alert("An unexpected error occurred.");
               }

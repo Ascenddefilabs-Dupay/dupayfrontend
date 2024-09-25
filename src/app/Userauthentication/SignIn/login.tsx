@@ -85,7 +85,7 @@ export default function Login() {
         
         // Navigate based on user_status
         if (isUserStatus) {
-          router.push('/Userauthorization/Dashboard');
+          router.push('/Userauthorization/Dashboard/Home');
         } else {
           router.push('/KycVerification/PersonalDetails');
         }
@@ -135,7 +135,7 @@ export default function Login() {
           
           // Navigate based on registration_status
           if (registration_status) {
-            router.push('/Userauthorization/Dashboard');
+            router.push('/Userauthorization/Dashboard/Home');
           } else {
             router.push('/KycVerification/PersonalDetails');
           }

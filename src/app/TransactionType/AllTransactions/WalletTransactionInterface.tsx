@@ -159,7 +159,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                   });
                   console.log('Wallet transfer response:', response.data); // Log response
                   setAlertMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
-                  window.location.href = '/Userauthorization/Dashboard';
+                  window.location.href = '/Userauthorization/Dashboard/Home';
               }
           }
 
@@ -203,7 +203,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                           user_id: userID,
                       });
                       setAlertMessage('Transaction successful!');
-                      window.location.href = '/Userauthorization/Dashboard';
+                      window.location.href = '/Userauthorization/Dashboard/Home';
                   } catch (error) {
                       console.error('Error storing transaction data:', error);
                       setAlertMessage('Error storing transaction data.');
@@ -265,7 +265,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                           user_id: userID,
                       });
                       setAlertMessage('Transaction successful!');
-                      window.location.href = '/Userauthorization/Dashboard';
+                      window.location.href = '/Userauthorization/Dashboard/Home';
                   } catch (error) {
                       console.error('Error storing transaction data:', error);
                       setAlertMessage('Error storing transaction data.');
@@ -290,7 +290,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setShowLoader(true);
     setTimeout(() => {
       setShowLoader(false);
-      router.push('/Userauthorization/Dashboard');
+      router.push('/Userauthorization/Dashboard/Home');
     }, 2000); 
   };
 

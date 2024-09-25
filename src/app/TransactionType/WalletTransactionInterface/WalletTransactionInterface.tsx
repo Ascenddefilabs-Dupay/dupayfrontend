@@ -22,7 +22,7 @@
 //   };
 
 //   const handleBackClick = () => {
-//     let redirectUrl = '/Userauthorization/Dashboard';
+//     let redirectUrl = '/Userauthorization/Dashboard/Home';
 //     router.push(redirectUrl);
 //   };
 
@@ -91,7 +91,7 @@
 
 //     setTimeout(() => {
 //       setShowLoader(false);
-//       router.push('/Userauthorization/Dashboard');
+//       router.push('/Userauthorization/Dashboard/Home');
 //     }, 2000); // 2 seconds delay
 //   };
 
@@ -175,7 +175,7 @@ const WalletTransaction: React.FC = () => {
 
     setTimeout(() => {
       setShowLoader(false);
-      router.push('/Userauthorization/Dashboard');
+      router.push('/Userauthorization/Dashboard/Home');
     }, 2000); // 2 seconds delay
   };
 
