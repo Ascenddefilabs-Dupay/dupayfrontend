@@ -21,6 +21,12 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { CiCirclePlus } from "react-icons/ci";
 import { BiTransfer } from "react-icons/bi";
 import { LuPlusCircle } from "react-icons/lu";
+import Select from 'react-select';
+import React from 'react';
+
+
+
+
 
 
 
@@ -35,7 +41,11 @@ wallet_id: string;
 interface FiatWalletData{
   fiat_wallet_id: string;
 }
-
+interface AdminCMSData {
+  account_type: string;
+  
+  // Other fields based on API response
+}
 const currencySymbols: { [key: string]: string } = {
   'INR': '₹',
   'USD': '$',
@@ -60,6 +70,18 @@ interface UserProfileData {
   user_id: string;
   user_profile_photo?: string | { data: number[] };
 }
+interface ErrorState {
+  accountType?: string;
+  walletName?: string;
+  email?: string;
+  securityPin?: string;
+}
+interface AccountTypeOption {
+  value: string;
+  label: string;
+}
+
+
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
@@ -85,7 +107,13 @@ const Home = () => {
   const [addNewFiatWalletPage, setAddNewFiatWalletPage] = useState(false);
   const [walletData, setWalletData] = useState<FiatWallet[]>([]);
   const [fiatwalletData, setFiatWalletData] = useState<FiatWalletData[]>([]);
-
+  const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
+  const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [walletName, setWalletName] = useState("");
+  const [email, setEmail] = useState("");
+  const [securityPin, setSecurityPin] = useState("");
+  const [error, setError] = useState<ErrorState>({});
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
@@ -203,8 +231,87 @@ const Home = () => {
   //   setIsFiatTabSelected(tab === 'Fiat');
   // };
   
+  useEffect(() => {
+    axios
+      .get<AdminCMSData[]>('http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/')
+      .then((response) => {
+        setAdminCMSData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching account types:', error);
+        setLoading(false);
+      });
+  }, []);
+  const accountTypeOptions: AccountTypeOption[] = adminCMSData
+    .filter((data) => data.account_type !== null)
+    .map((data) => ({
+      value: data.account_type,
+      label: data.account_type,
+    }));
 
+    const validateFields = (): boolean => {
+      const newError: ErrorState = {};
+      if (!selectedAccountType) newError.accountType = "Account type is required.";
 
+      if (!walletName) newError.walletName = "Wallet name is required.";
+      if (!email) newError.email = "Email is required.";
+      if (!securityPin || securityPin.length !== 4) {
+        newError.securityPin = "Security PIN must be a 4-digit number.";
+      }
+      setError(newError);
+      setAlertMessage(Object.keys(newError).length > 0 ? "Please correct the errors before submitting." : "");
+      return Object.keys(newError).length === 0;
+    };
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      console.log("Form submitted!"); // Debugging
+      
+      if (!validateFields()) return;
+      
+      const payload = {
+        fiat_wallet_id: "generated_id_here",
+        fiat_wallet_type: selectedAccountType?.value, 
+        fiat_wallet_address: "",
+        fiat_wallet_balance: 0,
+        fiat_wallet_created_time: new Date().toISOString(),
+        fiat_wallet_updated_time: new Date().toISOString(),
+        fiat_wallet_phone_number: "",
+        fiat_wallet_email: email,
+        qr_code: "",
+        user_id: userId,
+      };
+      
+      console.log("Payload:", payload); // Debugging
+    
+      try {
+        setLoading(true);
+        const response = await axios.post("http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
+        console.log("Response:", response); // Debugging
+        setAlertMessage("Wallet created successfully!");
+        resetForm();
+        setTimeout(() => router.push("/Userauthorization/Dashboard"), 2000);
+      } catch (error) {
+          if (axios.isAxiosError(error)) {
+              // Now TypeScript understands that this is an AxiosError
+              if (error.response?.data?.error) {
+                  alert(error.response.data.error);  // Show specific error message to the user
+                  router.push('/Userauthorization/Dashboard');
+              } else {
+                  alert("An unexpected error occurred.");
+              }
+          } else {
+              alert("An unexpected error occurred.");
+          }
+      }
+    };
+    const resetForm = () => {
+      setSelectedAccountType(null);
+      setWalletName('');
+      setEmail('');
+      setSecurityPin('');
+      // setWalletFormVisible(false);
+    };
   const handleTabClick = async (tab: string) => {
     if (tab === 'Fiat') {
       setIsFiatTabSelected(true);
@@ -326,7 +433,7 @@ const handleButtonClick = (buttonName: string) => {
       const fetchFiatWalletId = async () => {
         try {
           // const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
-          const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          const response = await axios.get(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
 
           console.log('Fetched Fiat Wallet ID:', response.data); // Debugging
           const { fiat_wallet_id, fiat_wallet_balance, user } = response.data;
@@ -511,8 +618,8 @@ const handleButtonClick = (buttonName: string) => {
   useEffect(() => {
     // Fetch data from the API
     axios
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000006/`)
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
       .then((response) => {
         console.log('responsed data',response.data);
         setWalletData(response.data.fiat_wallets); // Set the array of wallets to state
@@ -891,37 +998,65 @@ const handleButtonClick = (buttonName: string) => {
        </>
       )}
        <div>
-        {addNewFiatWalletPage && (
+       {addNewFiatWalletPage && (
           <div className={styles.modalContentadd}>
             <div className={styles.addNewFiatWalletPage}>
               <h2>Create New Fiat Wallet</h2>
-              <form onClick={handleSubbmit}>
-                <div>
-                  <select>
-                    <option value="">Select account type</option>
-                    {/* Add account type options */}
-                  </select>
+              <form onSubmit={handleSubmit} className={styles.form}>
+                <div className={styles.formGroup}>
+                  <Select
+                    id="accountType"
+                    className={styles.selectInput}
+                    options={accountTypeOptions} // Your account type options array
+                    value={selectedAccountType}
+                    onChange={(option) => setSelectedAccountType(option)} // Update the selected account type
+                    placeholder="Select an account type"
+                    isClearable
+                    
+                    required
+                  />
                 </div>
-                <div>
-                  <input type="text" placeholder="Wallet name" />
+                <div className={styles.formGroup}>
+                  <input
+                    id="walletName"
+                    type="text"
+                    value={walletName}
+                    onChange={(e) => setWalletName(e.target.value)}
+                    placeholder="Wallet name"
+                    className={styles.input}
+                    required
+                  />
                 </div>
-                <div>
-                  <select>
-                    <option value="">Select currency type</option>
-                    {/* Add currency options */}
-                  </select>
+                <div className={styles.formGroup}>
+                  <input
+                    id="email"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    placeholder="Email address"
+                    className={styles.input}
+                    required
+                  />
                 </div>
-                <div>
-                  <input type="email" placeholder="Email address" />
+                <div className={styles.formGroup}>
+                  <input
+                    id="securityPin"
+                    type="password"
+                    maxLength={4}
+                    value={securityPin}
+                    onChange={(e) => setSecurityPin(e.target.value)}
+                    placeholder="Security PIN"
+                    className={styles.input}
+                    required
+                  />
                 </div>
-                <div>
-                  <input type="password" placeholder="Security PIN" />
-                </div>
-                <button type="submit">Submit</button>
+                <button type="submit" className={styles.submitButton}>Submit
+                </button>
               </form>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );

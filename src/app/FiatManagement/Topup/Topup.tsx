@@ -234,7 +234,8 @@ console.log(uniqueId);
   return (
     <div className={styles.topUpFormContainer}>
       <button className={styles.backButton} onClick={handleBack}>
-        <FaArrowLeft /> TopUp
+        <FaArrowLeft /> 
+        <span className="text">      TopUp</span>
       </button>
       {loading && <div className={styles.loading}>Processing...</div>}
       {alertMessage && <div className={styles.alert}>{alertMessage}</div>}
