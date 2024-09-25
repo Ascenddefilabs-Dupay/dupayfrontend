@@ -73,7 +73,7 @@ const Retype = () => {
             </div>
             <p>Retype Passcode</p>
             <div className="number-pad">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((number, index) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0].map((number, index) => (
                     <button
                         key={index}
                         className="number-button"

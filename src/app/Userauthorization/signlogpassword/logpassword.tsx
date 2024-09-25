@@ -52,8 +52,17 @@ const Logpasscode = () => {
                             icon: "warning",
                             title: "Password Mismatch",
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1500,
+                            background: '#2c2c2c',  // background color
+                            iconColor: 'red',        // icon color
+                            width: '200px', 
+                            
+                            customClass: {
+                                title: 'lock-title', // apply your class
+                                popup: 'lock-popup', // apply your class
+                            }
                         });
+                        
 
                         setPasscode(""); // Clear passcode
                     } else {
@@ -71,6 +80,10 @@ const Logpasscode = () => {
         setPasscode(passcode.slice(0, -1));
     };
 
+    const handleRecoverycode = () => {
+        router.push('/Userauthorization/Recoveryphase');
+      };
+
     return (
         <div className="log_passcode-screen">
             <h1>Unlock your wallet</h1>
@@ -84,7 +97,7 @@ const Logpasscode = () => {
             </div>
             <p>Enter Passcode</p>
             <div className="log_number-pad">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((number, index) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0].map((number, index) => (
                     <button
                         key={index}
                         className="log_number-button"
@@ -99,7 +112,7 @@ const Logpasscode = () => {
             </div>
 
             <div className="log_card1">
-                <button className="log_password_button">
+                <button className="log_password_button" onClick={handleRecoverycode}>
                     <span className="log_button_text">Recovery Passcode</span>
                 </button>
             </div>
