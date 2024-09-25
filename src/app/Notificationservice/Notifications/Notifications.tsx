@@ -16,12 +16,12 @@ interface Notification {
 export default function Notifications() {
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [userId, setUserId] = useState<string | null>(null);
-    // const [walletId, setwalletId] = useState<string | null>(null);
+    const [walletId, setwalletId] = useState<string | null>(null);
     const [filteredNotifications, setFilteredNotifications] = useState<Notification[]>([]); // State for filtered notifications
     const [filter, setFilter] = useState<string>('All'); // Default filter
     const [showDropdown, setShowDropdown] = useState(false); // For dropdown visibility
     // const [userId] = useState<string>('DupC0015');
-    const [walletId] = useState<string>('Wa0000000002');
+    // const [walletId] = useState<string>('Wa0000000002');
     const [loading, setLoading] = useState(true); 
     const router = useRouter();
 
@@ -33,7 +33,7 @@ export default function Notifications() {
                 const storedUserId = sessionData.user_id;
                 setUserId(storedUserId);
                 const storewalletId = sessionData.wallet_id;
-                // setwalletId(storewalletId);
+                setwalletId(storewalletId);
             } else {
                 router.push('/Userauthentication/SignIn'); 
             }
@@ -45,7 +45,7 @@ export default function Notifications() {
             if (userId) {
                 setLoading(true);
                 try {
-                    const response = await axios.get(`http://localhost:8000/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
+                    const response = await axios.get(`http://notificationservice-ind-255574993735.asia-south1.run.app/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
                     setNotifications(response.data);
                     setFilteredNotifications(response.data); // Initially, show all notifications
                 } catch (error) {
@@ -190,7 +190,7 @@ export default function Notifications() {
 //             if (userId) { 
 //                 setLoading(true); 
 //                 try {
-//                     const response = await axios.get(`http://localhost:8000/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
+//                     const response = await axios.get(`http://notificationservice-ind-255574993735.asia-south1.run.app/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
 //                     setNotifications(response.data);
 //                 } catch (error) {
 //                     console.error('Error fetching notifications:', error);

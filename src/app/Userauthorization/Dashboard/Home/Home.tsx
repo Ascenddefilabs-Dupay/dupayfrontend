@@ -21,24 +21,18 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { CiCirclePlus } from "react-icons/ci";
 import { BiTransfer } from "react-icons/bi";
 import { LuPlusCircle } from "react-icons/lu";
+import Select from 'react-select';
+import React from 'react';
+
+
+
+
 
 
 
 
 
 interface FiatWallet {
-  // fiat_wallet_address: string;
-  // fiat_wallet_balance: string;
-  // fiat_wallet_created_time: string;
-  // fiat_wallet_currency: string;
-  // fiat_wallet_email: string;
-  // fiat_wallet_id: string;
-  // fiat_wallet_phone_number: string;
-  // fiat_wallet_type: string;
-  // fiat_wallet_updated_time: string;
-  // qr_code: string;
-  // user_id: string;
-  
 balance: string; 
 currency_type: string;
 wallet_id: string;
@@ -47,7 +41,11 @@ wallet_id: string;
 interface FiatWalletData{
   fiat_wallet_id: string;
 }
-
+interface AdminCMSData {
+  account_type: string;
+  
+  // Other fields based on API response
+}
 const currencySymbols: { [key: string]: string } = {
   'INR': '₹',
   'USD': '$',
@@ -72,6 +70,18 @@ interface UserProfileData {
   user_id: string;
   user_profile_photo?: string | { data: number[] };
 }
+interface ErrorState {
+  accountType?: string;
+  walletName?: string;
+  email?: string;
+  securityPin?: string;
+}
+interface AccountTypeOption {
+  value: string;
+  label: string;
+}
+
+
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
@@ -93,9 +103,17 @@ const Home = () => {
   const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   const [userId, setUserId] = useState<string | null>(null);
   const [isBlurred, setIsBlurred] = useState(false);
+  const [addNewFiatWallet, setAddNewFiatWallet] = useState(false);
+  const [addNewFiatWalletPage, setAddNewFiatWalletPage] = useState(false);
   const [walletData, setWalletData] = useState<FiatWallet[]>([]);
   const [fiatwalletData, setFiatWalletData] = useState<FiatWalletData[]>([]);
-
+  const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
+  const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [walletName, setWalletName] = useState("");
+  const [email, setEmail] = useState("");
+  const [securityPin, setSecurityPin] = useState("");
+  const [error, setError] = useState<ErrorState>({});
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
@@ -213,8 +231,87 @@ const Home = () => {
   //   setIsFiatTabSelected(tab === 'Fiat');
   // };
   
+  useEffect(() => {
+    axios
+      .get<AdminCMSData[]>('http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/')
+      .then((response) => {
+        setAdminCMSData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching account types:', error);
+        setLoading(false);
+      });
+  }, []);
+  const accountTypeOptions: AccountTypeOption[] = adminCMSData
+    .filter((data) => data.account_type !== null)
+    .map((data) => ({
+      value: data.account_type,
+      label: data.account_type,
+    }));
 
+    const validateFields = (): boolean => {
+      const newError: ErrorState = {};
+      if (!selectedAccountType) newError.accountType = "Account type is required.";
 
+      if (!walletName) newError.walletName = "Wallet name is required.";
+      if (!email) newError.email = "Email is required.";
+      if (!securityPin || securityPin.length !== 4) {
+        newError.securityPin = "Security PIN must be a 4-digit number.";
+      }
+      setError(newError);
+      setAlertMessage(Object.keys(newError).length > 0 ? "Please correct the errors before submitting." : "");
+      return Object.keys(newError).length === 0;
+    };
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      console.log("Form submitted!"); // Debugging
+      
+      if (!validateFields()) return;
+      
+      const payload = {
+        fiat_wallet_id: "generated_id_here",
+        fiat_wallet_type: selectedAccountType?.value, 
+        fiat_wallet_address: "",
+        fiat_wallet_balance: 0,
+        fiat_wallet_created_time: new Date().toISOString(),
+        fiat_wallet_updated_time: new Date().toISOString(),
+        fiat_wallet_phone_number: "",
+        fiat_wallet_email: email,
+        qr_code: "",
+        user_id: userId,
+      };
+      
+      console.log("Payload:", payload); // Debugging
+    
+      try {
+        setLoading(true);
+        const response = await axios.post("http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
+        console.log("Response:", response); // Debugging
+        setAlertMessage("Wallet created successfully!");
+        resetForm();
+        setTimeout(() => router.push("/Userauthorization/Dashboard"), 2000);
+      } catch (error) {
+          if (axios.isAxiosError(error)) {
+              // Now TypeScript understands that this is an AxiosError
+              if (error.response?.data?.error) {
+                  alert(error.response.data.error);  // Show specific error message to the user
+                  router.push('/Userauthorization/Dashboard');
+              } else {
+                  alert("An unexpected error occurred.");
+              }
+          } else {
+              alert("An unexpected error occurred.");
+          }
+      }
+    };
+    const resetForm = () => {
+      setSelectedAccountType(null);
+      setWalletName('');
+      setEmail('');
+      setSecurityPin('');
+      // setWalletFormVisible(false);
+    };
   const handleTabClick = async (tab: string) => {
     if (tab === 'Fiat') {
       setIsFiatTabSelected(true);
@@ -222,31 +319,35 @@ const Home = () => {
       localStorage.setItem('activeTab', 'Fiat');
 
       if (!fiatWalletId) {
-        const result = await Swal.fire({
-          text: "You haven't created a Fiat wallet. Would you like to create it?",
-          showCancelButton: true,
-          confirmButtonText: 'Yes, register',
-          cancelButtonText: 'No, thanks',
-          customClass: {
-            popup: styles.mobilePopup,
-            confirmButton: styles.confirmButton,
-            cancelButton: styles.cancelButton,
-          },
-          backdrop: 'rgba(0, 0, 0, 0.2)',
-        });
+        setAddNewFiatWallet(true);
+        setFiatDropdownVisible(false);
+        // const result = await Swal.fire({
+        //   text: "You haven't created a Fiat wallet. Would you like to create it?",
+        //   showCancelButton: true,
+        //   confirmButtonText: 'Yes, register',
+        //   cancelButtonText: 'No, thanks',
+        //   customClass: {
+        //     popup: styles.mobilePopup,
+        //     confirmButton: styles.confirmButton,
+        //     cancelButton: styles.cancelButton,
+        //   },
+        //   backdrop: 'rgba(0, 0, 0, 0.2)',
+        // });
 
-        if (result.isConfirmed) {
-          setLoading(true);
-          setTimeout(() => {
-            router.push('/FiatManagement/FiatWalletAccount/');
-            setLoading(false);
-          }, 2000);
-        } else {
-          setFiatDropdownVisible(true);
-          localStorage.setItem('fiatDropdownOpen', 'true');
-        }
+        // if (result.isConfirmed) {
+        //   setLoading(true);
+        //   setTimeout(() => {
+        //     router.push('/FiatManagement/FiatWalletAccount/');
+        //     setLoading(false);
+        //   }, 2000);
+        // } else {
+        //   setFiatDropdownVisible(true);
+        //   localStorage.setItem('fiatDropdownOpen', 'true');
+        // }
       } else {
+        setAddNewFiatWallet(false);
         setFiatDropdownVisible(true);
+        setAddNewFiatWalletPage(false);
         localStorage.setItem('fiatDropdownOpen', 'true');
       }
     } else {
@@ -255,13 +356,17 @@ const Home = () => {
       localStorage.setItem('activeTab', tab);
 
       if (tab === 'Crypto') {
+        setAddNewFiatWallet(false);
         setFiatDropdownVisible(false);
         setDropdownVisible(true);
+        setAddNewFiatWalletPage(false);
         localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
         localStorage.setItem('cryptoDropdownOpen', 'true'); // Open Crypto dropdown
       } else {
         setFiatDropdownVisible(false);
+        setAddNewFiatWalletPage(false);
         setDropdownVisible(false);
+        setAddNewFiatWallet(false);
         localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
         localStorage.setItem('cryptoDropdownOpen', 'false'); // Close Crypto dropdown
       }
@@ -328,7 +433,7 @@ const handleButtonClick = (buttonName: string) => {
       const fetchFiatWalletId = async () => {
         try {
           // const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
-          const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          const response = await axios.get(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
 
           console.log('Fetched Fiat Wallet ID:', response.data); // Debugging
           const { fiat_wallet_id, fiat_wallet_balance, user } = response.data;
@@ -501,12 +606,20 @@ const handleButtonClick = (buttonName: string) => {
     setIsBlurred(false); // Close the modal and remove the blur effect
   };
 
+  const handleAddFiatWallet = () => {
+    setAddNewFiatWalletPage(true); // Close the modal and remove the blur effect
+  };
+
+  const handleSubbmit = () => {
+    // setAddNewFiatWalletPage(false); // Close the modal and remove the blur effect
+  };
+
 
   useEffect(() => {
     // Fetch data from the API
     axios
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000006/`)
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
       .then((response) => {
         console.log('responsed data',response.data);
         setWalletData(response.data.fiat_wallets); // Set the array of wallets to state
@@ -675,92 +788,47 @@ const handleButtonClick = (buttonName: string) => {
             </div>
           </div>
         )}
+        {addNewFiatWallet && (
+              <div>
+                <div className={styles.newwalleticon}><svg width="132" height="111" viewBox="0 0 132 111" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M83 21C83 29.8366 75.8366 37 67 37C58.1634 37 51 29.8366 51 21C51 12.1634 58.1634 5 67 5C75.8366 5 83 12.1634 83 21ZM87.7873 23.9999C86.3317 34.1769 77.5794 42 67 42C55.402 42 46 32.598 46 21C46 9.40202 55.402 0 67 0C77.9234 0 86.8988 8.34011 87.906 18.9999H95.5002V9.41416C95.5002 6.29596 99.2702 4.73442 101.475 6.93929L130.061 35.5251C131.428 36.8919 131.428 39.108 130.061 40.4748L101.311 69.2245C100.226 70.3097 98.7647 70.432 97.6591 70.0648C96.5718 69.7037 95.5489 68.7905 95.224 67.4308C94.7411 65.4102 93.6693 63.0385 91.7695 61.1997C89.924 59.4135 87.1698 57.9999 83.0002 57.9999H68.9998V58.0001H48.9998C43.5597 58.0001 39.5507 56.1007 36.7532 53.3931C34.7248 51.4298 33.403 49.1123 32.5906 46.9448L6.53538 73.0001L31.4998 97.9645V90.5001C31.4998 88.5671 33.0669 87.0001 34.9998 87.0001H46.2127C47.6683 76.8232 56.4206 69 67 69C78.598 69 88 78.402 88 90C88 101.598 78.598 111 67 111C56.0766 111 47.1012 102.66 46.094 92.0001H36.4998V101.586C36.4998 104.704 32.7298 106.266 30.525 104.061L1.93919 75.4749C0.57235 74.1081 0.572357 71.892 1.93919 70.5252L30.6889 41.7755C31.7741 40.6903 33.2353 40.568 34.3409 40.9352C35.4282 41.2963 36.4511 42.2095 36.776 43.5692C37.2589 45.5898 38.3307 47.9615 40.2305 49.8003C42.076 51.5865 44.8302 53.0001 48.9998 53.0001H63.0002V52.9999H83.0002C88.4403 52.9999 92.4493 54.8993 95.2468 57.6069C97.2752 59.5702 98.597 61.8877 99.4094 64.0552L125.465 37.9999L100.5 13.0355V20.4999C100.5 22.4329 98.9332 23.9999 97.0002 23.9999H87.7873ZM67 106C75.8366 106 83 98.8366 83 90C83 81.1634 75.8366 74 67 74C58.1634 74 51 81.1634 51 90C51 98.8366 58.1634 106 67 106ZM63.518 28.6742C64.0596 28.8722 64.6368 29.0139 65.2495 29.0994V31.7C65.2495 31.8657 65.3838 32 65.5495 32H67.9727C68.1384 32 68.2727 31.8657 68.2727 31.7V29.0924C68.9551 28.995 69.569 28.8295 70.1142 28.5959C71.0486 28.1953 71.7632 27.6294 72.2579 26.898C72.7526 26.1666 73 25.3047 73 24.3121C73 23.215 72.5877 22.2224 71.7632 21.3343C70.957 20.4288 69.8118 19.8019 68.3277 19.4536L66.0465 18.9051C65.4235 18.7658 64.9288 18.5481 64.5624 18.2521C64.2142 17.9386 64.0402 17.5294 64.0402 17.0244C64.0402 16.3975 64.2692 15.9099 64.7273 15.5616C65.1853 15.1959 65.8083 15.0131 66.5962 15.0131C67.4024 15.0131 68.062 15.2047 68.5751 15.5878C69.014 15.8898 69.3342 16.2395 69.5355 16.6366C69.6069 16.7774 69.7647 16.8598 69.9164 16.8161L72.6885 16.0171C72.8565 15.9687 72.9483 15.7871 72.8784 15.6268C72.5923 14.971 72.2023 14.4007 71.7082 13.916C71.1402 13.3414 70.4348 12.906 69.592 12.61C69.1856 12.4641 68.7458 12.3541 68.2727 12.2802V10.3C68.2727 10.1343 68.1384 10 67.9727 10H65.5495C65.3838 10 65.2495 10.1343 65.2495 10.3V12.2548C63.9598 12.4226 62.9154 12.8284 62.1163 13.472C61.0536 14.3427 60.5222 15.5529 60.5222 17.1028C60.5222 17.9212 60.6963 18.6439 61.0444 19.2708C61.3925 19.8803 61.8872 20.394 62.5285 20.8119C63.1698 21.2298 63.9119 21.552 64.7548 21.7784L67.0085 22.3008C67.7597 22.4749 68.346 22.7448 68.7674 23.1105C69.2072 23.4588 69.4271 23.8767 69.4271 24.3643C69.4271 24.9738 69.1522 25.4614 68.6025 25.8271C68.0712 26.1928 67.3749 26.3669 66.5137 26.3495C65.6892 26.3321 65.0021 26.1405 64.4524 25.7748C64.0074 25.4539 63.678 25.0842 63.4643 24.6655C63.394 24.5278 63.2393 24.4485 63.0904 24.4902L60.2789 25.2787C60.1233 25.3223 60.0289 25.4819 60.0806 25.635C60.275 26.2102 60.6329 26.7532 61.1543 27.2637C61.7773 27.8558 62.5652 28.3259 63.518 28.6742ZM60 99.309C60 99.4195 60.0895 99.509 60.2 99.509H62.8842C62.9947 99.509 63.0842 99.5986 63.0842 99.709V100.8C63.0842 100.91 63.1738 101 63.2842 101H65.1974C65.3078 101 65.3974 100.91 65.3974 100.8V99.709C65.3974 99.5986 65.4869 99.509 65.5974 99.509H66.1684L66.7395 99.5089C66.8499 99.5089 66.9395 99.5985 66.9395 99.7089V100.8C66.9395 100.91 67.029 101 67.1395 101H69.3602C69.4706 101 69.5602 100.91 69.5602 100.8V99.709C69.5602 99.5986 69.6498 99.5092 69.7603 99.5074C70.9721 99.4871 72.0342 99.2819 72.9466 98.8917C73.9089 98.4801 74.6584 97.8717 75.195 97.0665C75.7317 96.2612 76 95.286 76 94.1408C76 93.1029 75.7502 92.2171 75.2505 91.4835C74.8258 90.82 74.2352 90.2751 73.4787 89.8487C73.3438 89.7726 73.332 89.5772 73.4567 89.4854C74.0031 89.0829 74.4345 88.6216 74.7509 88.1015C75.1395 87.4752 75.3338 86.7952 75.3338 86.0616C75.3338 84.8805 75.0562 83.8964 74.5011 83.109C73.9459 82.3038 73.1687 81.7043 72.1694 81.3107C71.1701 80.917 69.8237 80.7201 69.3478 80.7201C69.2952 80.7201 69.2526 80.6775 69.2526 80.625V79.2C69.2526 79.0895 69.1631 79 69.0526 79H67.0441C66.9336 79 66.8441 79.0895 66.8441 79.2V80.5201C66.8441 80.6306 66.7546 80.7201 66.6441 80.7201L65.5974 80.7201C65.4869 80.7201 65.3974 80.6306 65.3974 80.5201V79.2C65.3974 79.0895 65.3078 79 65.1974 79L62.9939 79C62.8834 79 62.7938 79.0896 62.7938 79.2V80.5201C62.7938 80.6306 62.7043 80.7201 62.5938 80.7201H60.2C60.0895 80.7201 60 80.8097 60 80.9201V83.4458C60 83.5563 60.0895 83.6458 60.2 83.6458H61.8933C62.0037 83.6458 62.0933 83.7354 62.0933 83.8458V96.0612C62.0933 96.1717 62.0037 96.2612 61.8933 96.2612H60.2C60.0895 96.2612 60 96.3508 60 96.4612V99.309ZM66.0128 96.2612C65.9024 96.2612 65.8129 96.1717 65.8129 96.0612V91.5761C65.8129 91.4657 65.9024 91.3761 66.0128 91.3761H68.894C69.8933 91.3761 70.6797 91.5998 71.2534 92.0471C71.8271 92.4766 72.1139 93.0761 72.1139 93.8455C72.1139 94.5792 71.8548 95.1697 71.3367 95.617C70.8185 96.0465 70.1061 96.2612 69.1993 96.2612H66.0128ZM66.0128 88.3699C65.9024 88.3699 65.8129 88.2804 65.8129 88.1699V83.8458C65.8129 83.7354 65.9024 83.6458 66.0128 83.6458H68.4499C69.3751 83.6458 70.1061 83.8516 70.6427 84.2632C71.1794 84.6748 71.4477 85.2563 71.4477 86.0079C71.4477 86.7594 71.2071 87.341 70.726 87.7525C70.2449 88.1641 69.5879 88.3699 68.7552 88.3699H66.0128Z" fill="url(#paint0_linear_541_4855)" />
+                  <defs>
+                    <linearGradient id="paint0_linear_541_4855" x1="0.914062" y1="0" x2="133.855" y2="3.42172" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#70A2FF" />
+                      <stop offset="1" stop-color="#F76E64" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                  <h3>Add Fiat to get started</h3>
+                </div>
+                <button className={styles.newwalletbutton} onClick={handleAddFiatWallet}>Add new Fiat wallet</button>
+                <p className={styles.newwalletpara}>Requires password security each time you create a wallet.</p>
+              </div>
+            )}
         {activeTab === 'Fiat' && fiatDropdownVisible && (
-          // <div ref={fiatDropdownRef} className={styles.fiatDropdown}>
-          //   <div className={styles.dropdownContent1}>
-          //     <div style={{fontSize: '20px'}}>   Fiat Accounts  </div>
-          //     <hr style={{ color: 'gray' }} />
-          //     <div className={styles.dropdownItem}>
-          //      <button onClick={() => handleNavigation('/UserProfile/FiatViewProfile')}>
-          //      {profileImage ? (
-          //         <ProfileImage src={profileImage} alt="Profile Image" className={styles.profileImagesrc} />
-          //       ) : (
-          //         <FaUserCircle className={styles.profileIcon2} />
-          //       )}
-          //      </button>
-          //       <div className={styles.textContainer}>
-          //         <div className={styles.userid}>
-          //         <Typography variant="h6" style={{ position: 'relative', bottom: '15px' }}>
-          //             {userId === fetchedUserId ? (
-          //                 fiatWalletId ? (
-          //                     <>
-          //                         <div>{fiatWalletId}</div>
-          //                         <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
-          //                     </>
-          //                 ) : (
-          //                   <div style={{ whiteSpace: 'pre-line' , fontSize: '16px'}}>
-          //                   Loading...
-          //                 </div>
-          //                 )
-          //             ) : (
-          //               <div style={{ whiteSpace: 'pre-line', fontSize: '16px'}}>
-          //               Loading.....
-          //             </div>
-          //             )}
-          //         </Typography>              
-          //         </div>
-          //         <div>
-          //             <span style={{ marginLeft: '0px', position: 'relative', bottom: '15px' }}>
-          //               {userId === fetchedUserId ? '' : '₹0.00'}
-          //             </span>
-          //         </div>
-          //         <div className={styles.buttonContainer1}>
-          //           <div>
-          //             <button className={styles.viewprofileButton1} onClick={() => handleNavigation('/FiatManagement/DepositForm')}>
-          //             <IoMdAddCircle className={styles.icon1}/>
-          //               <span className={styles.text1}>Top-up</span>
-          //             </button>
-          //           </div>
-          //           <div>
-          //             <button className={styles.manageWalletsButton1} onClick={() => handleNavigation('/FiatManagement/WithdrawForm')}>
-          //             <FaCircleArrowDown className={styles.icon2}/>
-          //               <span className={styles.text2}>Withdraw</span>
-          //             </button>
-          //           </div>
-          //         </div>
-          //       </div>
-          //     </div>
-          //   </div>
-          // </div>
           <div>
           <div className={styles.fiat}>
-          <table className={styles.table}>
-            <thead className={styles.thead}>
-              <tr className={styles.tr}>
-                <th className={styles.th} >Currency</th>
-                <th className={styles.th} >Balance</th>
-              </tr>
-            </thead>
-            <tbody className={styles.tbody}>
-              {['INR', 'USD', 'GBP', 'EUR'].map((currency, index) => {
-                // Find wallet data matching the current currency
-                const wallet = walletData.find((w: { currency_type: string; }) => w.currency_type === currency);
-                const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
-        
-                return (
-                  <tr className={styles.trd} key={index}>
-                    <td className={styles.td}>
-                    <button className={styles.buttond} onClick={handleButtonClickblur}>{currency}</button>
-                    </td>
-                    <td className={styles.td}>
-                      <button className={styles.buttond} onClick={handleButtonClickblur}>{`${currencySymbols[currency] || ''}${balance}`}</button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          </div>
+                    <ul className={styles.list}>
+                      <li className={styles.listHeader}>
+                        <span className={styles.span}>Your Fiat Wallets (6)</span>
+                        <button className={styles.addNew}>Add New</button>
+                      </li>
+                      {['INR', 'USD', 'GBP', 'EUR'].map((currency, index) => {
+                        // Find wallet data matching the current currency
+                        const wallet = walletData.find((w: { currency_type: string; }) => w.currency_type === currency);
+                        const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
+
+                        return (
+                          <li className={styles.listItem} key={index}>
+                            <div className={styles.listbackground}>
+                            <button className={styles.button1} onClick={handleButtonClickblur}>{currency}</button>
+                            <button className={styles.button2} onClick={handleButtonClickblur}>{`${currencySymbols[currency] || ''}${balance}`}</button>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                   {isBlurred && (
                     <div className={styles.modaloverlay}>
                       <div className={styles.modalcontent}>
@@ -929,6 +997,67 @@ const handleButtonClick = (buttonName: string) => {
       )}
        </>
       )}
+       <div>
+       {addNewFiatWalletPage && (
+          <div className={styles.modalContentadd}>
+            <div className={styles.addNewFiatWalletPage}>
+              <h2>Create New Fiat Wallet</h2>
+              <form onSubmit={handleSubmit} className={styles.form}>
+                <div className={styles.formGroup}>
+                  <Select
+                    id="accountType"
+                    className={styles.selectInput}
+                    options={accountTypeOptions} // Your account type options array
+                    value={selectedAccountType}
+                    onChange={(option) => setSelectedAccountType(option)} // Update the selected account type
+                    placeholder="Select an account type"
+                    isClearable
+                    
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <input
+                    id="walletName"
+                    type="text"
+                    value={walletName}
+                    onChange={(e) => setWalletName(e.target.value)}
+                    placeholder="Wallet name"
+                    className={styles.input}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <input
+                    id="email"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    placeholder="Email address"
+                    className={styles.input}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <input
+                    id="securityPin"
+                    type="password"
+                    maxLength={4}
+                    value={securityPin}
+                    onChange={(e) => setSecurityPin(e.target.value)}
+                    placeholder="Security PIN"
+                    className={styles.input}
+                    required
+                  />
+                </div>
+                <button type="submit" className={styles.submitButton}>Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 };
