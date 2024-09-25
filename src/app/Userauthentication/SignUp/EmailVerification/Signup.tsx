@@ -2,7 +2,7 @@
 import { useState, useEffect, FormEvent , useRef} from 'react';
 import { useRouter } from 'next/navigation';
 import Head from 'next/head';
-import Navbar from '../../LandingPage/Navbar';
+// import Navbar from '../../LandingPage/Navbar';
 
 
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
@@ -347,7 +347,7 @@ const handleKeyboardClick = (num: string) => {
         <title>Signup</title>
         <meta name="description" content="Signup page" />
       </Head>
-      <Navbar />
+      {/* <Navbar /> */}
       <header>
           <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
       </header>
@@ -449,81 +449,81 @@ const handleKeyboardClick = (num: string) => {
                   </div>
                   <div className={styles.qwer} >
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>1</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress('q')}>
                   <div className={styles.a}>q</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary} >
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>2</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("w")}>
                   <div className={styles.a}>w</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>3</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("e")}>
                   <div className={styles.a}>e</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>4</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("r")}>
                   <div className={styles.a}>r</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>5</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("t")}>
                   <div className={styles.a}>t</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>6</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("y")}>
                   <div className={styles.a}>y</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>7</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("u")}>
                   <div className={styles.a}>u</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>8</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("i")}>
                   <div className={styles.a}>i</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>9</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("o")}>
                   <div className={styles.a}>o</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  <div className={styles.number}>
+                  {/* <div className={styles.number}>
                   <div className={styles.div}>0</div>
-                  </div>
+                  </div> */}
                   <div className={styles.letter} onClick={() => handleKeyPress("p")}>
                   <div className={styles.a}>p</div>
                   </div>
@@ -758,7 +758,7 @@ const handleKeyboardClick = (num: string) => {
 
               <div className={styles.orContinueWith}>
                       <p>Already have an account? <Link href="/Userauthentication/SignIn">
-                    <span className={styles.account}>Sign In</span>
+                    <span className={styles.account}>Login</span>
                   </Link></p>
               </div>
               </div>

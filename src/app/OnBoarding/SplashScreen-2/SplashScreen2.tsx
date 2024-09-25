@@ -6,13 +6,13 @@ const SplashScreen2: React.FC = () => {
     const router = useRouter();
     
     const handleNavigation3 = () => {
-        router.push('/Landing/SplashScreen-3'); // Updated route
+        router.push('/OnBoarding/SplashScreen-3'); // Updated route
     };
     const handleNavigation1 = () => {
-        router.push('/Landing/SplashScreen-1'); // Updated route
+        router.push('/OnBoarding/SplashScreen-1'); // Updated route
     };
 	const handleSkipClick = () => {
-        router.push('/Userauthentication/SignIn');
+        router.push('/Userauthentication/SignUp/EmailVerification');
     };
 
   	return (
@@ -46,7 +46,7 @@ const SplashScreen2: React.FC = () => {
 						ease of use.</p>
 					</div>
       			<img className={styles.lockBgIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727063179/2nd-screen_ms4not.png" />
-				  <button className={styles.getStartedButton} onClick={handleNavigation3}>See how it works</button>
+			<button className={styles.getStartedButton} onClick={handleNavigation3}>See how it works</button>
       			
     		</div>)
 };

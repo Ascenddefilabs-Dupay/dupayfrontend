@@ -195,7 +195,7 @@ const MyWallet: React.FC = () => {
     const handleLeftArrowClick = () => {
         setShowLoader(true);
         setTimeout(() => {
-            // window.location.href = '/Userauthorization/Dashboard';
+            // window.location.href = '/Userauthorization/Dashboard/Home';
             router.back();
             setShowLoader(false); 
         }, 3000); 

@@ -4,14 +4,14 @@ import { useRouter } from 'next/navigation';
 export default function SplashScreen3() {
     const router = useRouter();
     const handleNavigation2 = () => {
-        router.push('/Landing/SplashScreen-2'); // Updated route
+        router.push('/OnBoarding/SplashScreen-2'); // Updated route
     };
     
     const handleNavigation1 = () => {
-        router.push('/Landing/SplashScreen-1'); // Updated route
+        router.push('/OnBoarding/SplashScreen-1'); // Updated route
     };
-    const navigateToSignIn = () => {
-      router.push('/Userauthentication/SignIn'); // Updated route
+    const navigateToSignUp = () => {
+      router.push('/Userauthentication/SignUp/EmailVerification'); // Updated route
   };
 
   return (
@@ -31,7 +31,7 @@ export default function SplashScreen3() {
         <p className={styles.subText}>Industry-leading security and <br/>
           ease of use.</p>
       </div>
-      <button className={styles.getStartedButton} onClick={navigateToSignIn}>Get started</button>
+      <button className={styles.getStartedButton} onClick={navigateToSignUp}>Get started</button>
     </div>
   );
 }

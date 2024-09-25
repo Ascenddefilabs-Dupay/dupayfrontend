@@ -428,7 +428,14 @@ const PersonalDetailsForm: React.FC = () => {
   const [countryCodes, setCountryCodes] = useState<CountryCode[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
+  const [style, setStyle] = useState({ fontSize: '16px' });
 
+  const onFocus = () => {
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      fontSize: '12px', 
+    }));
+  }
   useEffect(() => {
     // Fetch country codes from REST Countries API
     const fetchCountryCodes = async () => {
@@ -639,30 +646,6 @@ const PersonalDetailsForm: React.FC = () => {
        
         <div className={styles.formGroup}>
           
-          {/* <label className={styles.label}>
-            First Name <span className={styles.required}>*</span>
-          </label>
-          
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-          {/* <div className={styles.inputinput}>
-              <div className={styles.label}>First name</div>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className={styles.input}
-                  required
-                />
-            {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
-              </div> */}
               <div className={styles.inputinput}>
                 <input
                   type="text"
@@ -679,30 +662,7 @@ const PersonalDetailsForm: React.FC = () => {
           {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
         </div>
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            Last Name <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-          {/* <div className={styles.inputinput}>
-                <div className={styles.label}>Last name</div>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className={styles.input}
-                  required
-                />
-          {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
-
-          </div> */}
+          
           <div className={styles.inputinput}>
             <input
               type="text"
@@ -721,77 +681,46 @@ const PersonalDetailsForm: React.FC = () => {
 
        
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            Mobile Number <span className={styles.required}>*</span>
-          </label> */}
-          {/* <div className={styles.mobileContainer}>
-              <div className={styles.countryCodeContainer}>
-                <DropdownWithSearch
-                  options={countryCodes}
-                  selectedOption={formData.countryCode}
-                  onSelect={handleCountryCodeChange}
-                />
-              </div>
-            <input
-              type="text"
-              name="mobileNumber"
-              value={formData.mobileNumber}
-              onChange={handleChange}
-              className={styles.inputMobile}
-              required
-            />
-          </div> */}
-          {/* <div className={styles.inputinput2}>
-                <div className={styles.label2}>Mobile number</div>
-          </div> */}
-          <div className={styles.inputContainer}>
-          {/* <label htmlFor="mobileNumber" className={styles.label21}>Mobile number</label> */}
-            <div className={styles.textFieldWrapper}>
-              <div className={styles.countryCodeContainer}>
-                <DropdownWithSearch
-                  options={countryCodes}
-                  selectedOption={formData.countryCode}
-                  onSelect={handleCountryCodeChange}
-                />
-              </div>
+          
+         <div className={styles.inputContainer}>
+          <div className={styles.textFieldWrapper}>
+            <div className={styles.countryCodeContainer}>
+              <DropdownWithSearch
+                options={countryCodes}
+                selectedOption={formData.countryCode}
+                onSelect={handleCountryCodeChange}
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <label
+                htmlFor="mobileNumber"
+                className={`${styles.label21} ${formData.mobileNumber ? styles.labelActive : ''}`}
+              >
+                Mobile number
+              </label>
               <input
                 type="text"
                 name="mobileNumber"
-                placeholder="Mobile Number"
+                id="mobileNumber"
                 value={formData.mobileNumber}
                 onChange={handleChange}
                 className={styles.inputMobile}
                 required
               />
             </div>
-  {/* {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>} */}
-</div>
-
-
-
+          </div>
+        </div>
           {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
         </div>
 
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            Date of Birth <span className={styles.required}>*</span>
-          </label> */}
-          {/* <input
-            type="date"
-            name="dob"
-            value={formData.dob}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-          {/* <div className={styles.inputinput3}>
-                <div className={styles.label3}>Date of birth</div>
-                <img className={styles.iconcalendar} alt="" src="/calender.png" />
-          </div> */}
+         
           <div className={styles.inputinput2}>
+          <label htmlFor="dateOfBirth" style={style} className={styles.label215}>Date of Birth</label>
           <input
             type="date"
             name="dob"
+            onFocus={onFocus}
             value={formData.dob}
             placeholder="Date of Birth"
             onChange={handleChange}
@@ -799,26 +728,13 @@ const PersonalDetailsForm: React.FC = () => {
             required
             id="dateOfBirth"
           />
-          {/* <label htmlFor="dateOfBirth" className={styles.label2}>Date of Birth</label> */}
+          
         </div>
           
           {errors.dob && <p className={styles.error}>{errors.dob}</p>}
         </div>
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            Address Line 1 <span className={styles.required}>*</span>
-          </label> */}
-          {/* <input
-            type="text"
-            name="addressLine1"
-            value={formData.addressLine1}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-          {/* <div className={styles.inputinput2}>
-                <div className={styles.label2}>{`Address line 1 `}</div>
-          </div> */}
+        
           <div className={styles.inputinput2}>
             <input type="text"
             name="addressLine1"
@@ -831,19 +747,7 @@ const PersonalDetailsForm: React.FC = () => {
           {errors.addressLine1 && <p className={styles.error}>{errors.addressLine1}</p>}
         </div>
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            Address Line 2
-          </label>
-          <input
-            type="text"
-            name="addressLine2"
-            value={formData.addressLine2}
-            onChange={handleChange}
-            className={styles.input}
-          /> */}
-          {/* <div className={styles.inputinput2}>
-                <div className={styles.label2}>Address line 2 (Optional)</div>
-          </div> */}
+         
           <div className={styles.inputinput2}>
             <input type="text"
             name="addressLine2"
@@ -854,46 +758,20 @@ const PersonalDetailsForm: React.FC = () => {
           </div>
         </div>
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            State/Region <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-          {/* <div className={styles.inputinput2}>
-                <div className={styles.label2}>State/Region</div>
-              </div> */}
-               <div className={styles.inputinput2}>
-      <input type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            className={styles.input}
-            required />
-      <label htmlFor="state" className={styles.label2}>State/Region</label>
-    </div>
+         
+          <div className={styles.inputinput2}>
+            <input type="text"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required />
+            <label htmlFor="state" className={styles.label2}>State/Region</label>
+          </div>
           {errors.state && <p className={styles.error}>{errors.state}</p>}
         </div>
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            City <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-          {/* <div className={styles.inputinput2}>
-              <div className={styles.label2}>City</div>
-          </div> */}
+          
           <div className={styles.inputinput2}>
             <input type="text"
             name="city"
@@ -906,21 +784,7 @@ const PersonalDetailsForm: React.FC = () => {
           {errors.city && <p className={styles.error}>{errors.city}</p>}
         </div>
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            Postal/Zip Code <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            name="postalCode"
-            value={formData.postalCode}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-            {/* <div className={styles.inputinput2}>
-              <input type="text" id="posta" required />
-              <label htmlFor="post" className={styles.label2}>Postal/Zip code</label>
-            </div> */}
+          
             <div className={styles.inputinput2}>
               <input type="text"
             name="postalCode"
@@ -934,20 +798,7 @@ const PersonalDetailsForm: React.FC = () => {
           {errors.postalCode && <p className={styles.error}>{errors.postalCode}</p>}
         </div>
         <div className={styles.formGroup}>
-          {/* <label className={styles.label}>
-            Country <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          /> */}
-          {/* <div className={styles.inputinput2}>
-              <div className={styles.label2}>Country</div>
-            </div> */}
+          
             <div className={styles.inputinput2}>
               <input type="text"
             name="country"
@@ -959,26 +810,17 @@ const PersonalDetailsForm: React.FC = () => {
             </div>
           {errors.country && <p className={styles.error}>{errors.country}</p>}
         </div>
-        <div className={styles.listmbListItemBasic}>
-          <div className={styles.listmbListItemitemLeft}>
-            <img className={styles.iconfaceid} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727161177/a964f468-e4a7-4c30-95e4-557f9485642f.png" />
-            <div className={styles.title}>Enable Face ID?</div>
-          </div>
-          <div className={styles.swichswitch}>
-            <div className={styles.swichswitchChild} />
-          </div>
-        </div>
-        <div className={styles.btnmbBtnFab}>
+        
+        {/* <div className={styles.btnmbBtnFab}>
             <div className={styles.btnbtn}>
-              <button type="submit" className={styles.text} disabled={loading}>
-                  {loading ? 'update...' : 'Update and create wallet'}
+              <button type="submit" className={styles.getStartedButton} disabled={loading}>
+                  
               </button>
-              {/* <div className={styles.text}>Update and create wallet</div> */}
+              
             </div>
-        </div>
-        {/* <button type="submit" className={styles.submitButton} disabled={loading}>
-          {loading ? 'Submitting...' : 'Submit'}
-        </button> */}
+        </div> */}
+        <button className={styles.getStartedButton} >{loading ? 'update...' : 'Update and create wallet'}</button>
+        
         
       </form>
     </div>

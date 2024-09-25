@@ -3,7 +3,7 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
 import styles from './login.module.css';
-import Navbar from '../LandingPage/Navbar';
+// import Navbar from '../LandingPage/Navbar';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -191,7 +191,7 @@ export default function Login() {
           <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
       </header>
 
-        <Navbar />
+        {/* <Navbar /> */}
 
       <main className={styles.main}>
         {!isLoggedIn ? (

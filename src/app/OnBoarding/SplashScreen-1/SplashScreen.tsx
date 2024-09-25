@@ -6,19 +6,20 @@ const Oboarding:NextPage = () => {
     const router = useRouter();
     
     const handleNavigation3 = () => {
-        router.push('/Landing/SplashScreen-3'); // Updated route
+        router.push('/OnBoarding/SplashScreen-3'); // Updated route
     };
     const handleNavigation2 = () => {
-        router.push('/Landing/SplashScreen-2'); // Updated route
+        router.push('/OnBoarding/SplashScreen-2'); // Updated route
     };
 	const handleSkipClick = () => {
-        router.push('/Userauthentication/SignIn');
+        router.push('/Userauthentication/SignUp/EmailVerification');
     };
   	return (
     		<div className={styles.oboarding4}>
       			{/* <div className={styles.homeScreenBackground}>
         				<div className={styles.background} />
       			</div> */}
+				
       			<div className={styles.carouselIndicator}>
         				
         				<img className={styles.imagecarouselIndicatorcompoIcon1}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727097939/0fb5d95e-5436-4573-8e7e-1f483c09a1f6.png" />
@@ -36,12 +37,9 @@ const Oboarding:NextPage = () => {
         				</div>
         				<div className={styles.title1}>Step into the next generation of finance with Dupay.</div>
       			</div>
+				<button className={styles.getStartedButton} onClick={handleNavigation2}>Discover more</button>
       			<img className={styles.techbgIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804632/image-1_a0ff1x.png" />
-      			<div className={styles.btnmbBtnFab}>
-        				<div className={styles.btnbtn} onClick={handleNavigation2}>
-          					<div className={styles.text}>Discover more</div>
-        				</div>
-      			</div>
+			
     		</div>);
 };
 
