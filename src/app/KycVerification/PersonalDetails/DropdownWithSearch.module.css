@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100px;
-    color: white;
+    color: #888daa;
     background-color: rgba(128, 128, 128, 0.253);
     max-height: 37px;
     background-color: #1e1e1e;
@@ -35,10 +35,10 @@
     overflow-y: auto;
     width: 100px;
     background-color: #1e1e1e;
-    color: #ffffff;
+    color: #888daa;
   }
   .dropdownMenu.selected {
-    background-color: #f2eeee;
+    background-color: #888daa;
   }
   .optionsContainer::-webkit-scrollbar {
     display: none;
@@ -54,7 +54,7 @@
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    color: #ffffff;
+    color: #888daa;
     background-color: #1e1e1e;
   }
   
@@ -66,6 +66,7 @@
   .option {
     padding: 10px;
     cursor: pointer;
+    color: #888daa;
   }
   
   .option:hover {
@@ -75,5 +76,6 @@
   .noOptions {
     padding: 10px;
     text-align: center;
+    color: #888daa;
   }
   

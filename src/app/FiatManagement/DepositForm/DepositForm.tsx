@@ -402,7 +402,7 @@ const DepositForm: React.FC = () => {
     const handleLeftArrowClick = () => {
         setShowLoader(true);
         setTimeout(() => {
-            window.location.href = '/Userauthorization/Dashboard';
+            window.location.href = '/Userauthorization/Dashboard/Home';
             setShowLoader(false);
         }, 3000);
     };

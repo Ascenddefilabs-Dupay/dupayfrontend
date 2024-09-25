@@ -377,6 +377,26 @@ align-items: flex-start;
   }
 
 }
+@media (max-width: 370px) {
+
+  .formWrapper {
+    width: 100%; /* Make card fill the entire width */
+    height: 100%; /* Make card fill the entire height */
+    max-width: none; /* Remove max-width to allow flexibility */
+    padding: 3rem; 
+    margin: 0; /* Remove any margin */
+    border-radius: 0; /* Remove border-radius for full screen look */
+    box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+  }
+  .card{
+    width: 100%;
+    height: 100%;
+    margin-top: 20%;
+    max-width: none; 
+  }
+
+
+}
 
 .orContinueWith {
   text-align: center;
@@ -957,7 +977,6 @@ width: 27.3px;
   	position: relative;
   	height: 6.3px;
   	object-fit: contain;
-    /* margin-top: -50px; */
   }
 .iconArrowDown {
   	width: 27.3px;
@@ -968,6 +987,7 @@ width: 27.3px;
   	flex-direction: column;
   	align-items: center;
   	justify-content: flex-end;
+    margin-bottom: 5%;
     
 }
 .dismissKeyboard {
@@ -1023,5 +1043,147 @@ width: 27.3px;
     /* padding-left: 20px; */
     margin-left: -30px;
     max-width: 100%;
+    
+}
+/* @media (max-width: 480px) {
+  .card{
+top: 35%;
+  }
+} */
+
+@media (max-width: 768px) and (min-height: 1024px) {
+  /* Styles for taller screens, like iPads or large iPhones */
+  .card{
+    margin-bottom: -20%;
+  }
+  .keyboardDefault {
+      padding: 1vh 1vw;
+      font-size: 3vw;
+  }
+  .keyPrimary, .keySpecialFunction {
+      width: 9vw;
+      height: 7vh;
+      font-size: 2vw;
+  }
 }
 
+/* Android device specific handling */
+@media (max-width: 1080px) {
+  .keyboardDefault {
+      padding: 1.5vh 2vw;
+      font-size: 2.5vw;
+  }
+  .keyPrimary, .keySpecialFunction {
+      width: 7vw;
+      height: 5vh;
+      font-size: 1.6vw;
+  }
+  .formWrapper{
+    width: 100%;
+  }
+  .card{
+    height: 100%;
+  }
+}
+/* Larger tablets */
+@media (min-width: 1024px) {
+  .keyboardDefault {
+      padding: 1vh 3vw;
+      font-size: 2vw;
+  }
+  .keyPrimary, .keySpecialFunction {
+      width: 6vw;
+      height: 5vh;
+      font-size: 1.5vw;
+  }
+}
+@media (max-width: 720px) {
+  .formWrapper{
+    width: 100%;
+  }
+  .card{
+    height: 100%;
+    width: 100%;
+  }
+}
+
+
+
+/* Smaller phones with narrow screens */
+@media (max-width: 480px) {
+  .keyboardDefault {
+      padding: 1vh 1vw;
+      font-size: 4vw;
+      margin-bottom: -20%;
+  }
+  .keyPrimary, .keySpecialFunction {
+      width: 12vw;
+      height: 8vh;
+      font-size: 3.5vw;
+  }
+  .formWrapper {
+    padding: 1rem; 
+  }
+  .card{
+    width: 120%;
+    max-width: 100%;
+    height: 100%;
+    margin-top: 30%;
+    max-width: none; 
+    margin-bottom: -20%;
+  }
+  .customKeyboard{
+    margin-bottom: -30%;
+  }
+}
+@media (max-width: 760px) {
+
+  
+}
+
+
+@media (max-width: 380px) {
+  .formWrapper {
+    padding: 1rem; 
+  }
+  .card{
+    width: 120%;
+    max-width: 100%;
+    height: 100%;
+    margin-top: 10%;
+    max-width: none; 
+  }
+  .customKeyboard{
+    margin-bottom: 17%;
+  }
+  .keyboardDefault {
+    padding: 1vh 1vw;
+    font-size: 4vw;
+    margin-bottom: 40px;
+}
+.keyPrimary, .keySpecialFunction {
+    width: 12vw;
+    height: 8vh;
+    font-size: 3.5vw;
+}
+}
+
+@media (max-width: 361px) {
+  .card{
+    width: 120%;
+    max-width: 100%;
+    height: 100%;
+    max-width: none; 
+  }
+  .customKeyboard{
+    margin-bottom: -10%;
+  }
+}
+@media (max-width: 345px) {
+  .customKeyboard{
+    margin-bottom: -40%;
+  }
+  .keyboardDefault{
+    margin-bottom: -30%;
+  }
+}

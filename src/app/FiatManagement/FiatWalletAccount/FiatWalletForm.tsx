@@ -144,7 +144,7 @@ export default function FiatWalletForm() {
       );
       setAlertMessage("Wallet created successfully!");
       resetForm();
-      setTimeout(() => router.push("/Userauthorization/Dashboard"), 2000);
+      setTimeout(() => router.push("/Userauthorization/Dashboard/Home"), 2000);
     } catch (error) {
       const errorMessage = axios.isAxiosError(error)
         ? error.response?.data?.detail || "Error creating wallet"

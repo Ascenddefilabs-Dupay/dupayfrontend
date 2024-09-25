@@ -108,7 +108,7 @@ const AddBankForm: React.FC = () => {
   const handleLeftArrowClick = useCallback(() => {
     setShowLoader(true);
     setTimeout(() => {
-      window.location.href = '/Userauthorization/Dashboard';
+      window.location.href = '/Userauthorization/Dashboard/Home';
       setShowLoader(false);
     }, 1000);
   }, []);

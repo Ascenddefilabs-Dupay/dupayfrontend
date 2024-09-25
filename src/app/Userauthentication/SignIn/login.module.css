@@ -113,7 +113,7 @@
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-  color:#ffffff ;/* Optional: color for the icon */
+  color:#ffffff ;
   width: 24px;
   height: 24px;
   /* top: 20px;
@@ -123,6 +123,7 @@
   opacity: 0px;
 
 }
+
 .signupLink {
   font-size: 0.89rem;
   display: block;

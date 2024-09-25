@@ -22,7 +22,7 @@
 }
 .skip {
   position: absolute;
-  top: 86px;
+  top: 40px;
   left: 346px;
   line-height: 22px;
   font-family: 'SF Pro';
@@ -51,7 +51,7 @@
 }
 .carouselIndicator {
   position: absolute;
-  top: 93px;
+  top: 50px;
   left: 32px;
   width: 36px;
   height: 8px;
@@ -173,6 +173,39 @@
 @media (max-width: 768px) {
   .oboarding5 {
     width: 100%; 
+  }
+}
+@media (max-width: 360px) {
+  .oboarding5 {
+    width: 100%;
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+
+  .title {
+    font-size: 32px; /* Reduce title size for smaller screens */
+    margin-top: 60%; /* Adjust the top margin */
+  }
+
+  .subText {
+    font-size: 18px; /* Reduce the size of the subtitle */
+    line-height: 22px;
+  }
+
+  .getStartedButton {
+    font-size: 0.9rem; /* Adjust button font size */
+    padding: 10px 14px; /* Adjust button padding */
+  }
+
+  .skip {
+    top: 20px;
+    left: auto;
+    right: 10px; /* Align skip button closer to the right edge */
+  }
+
+  .groupIcon {
+    top: 220px; /* Adjust image position */
+    margin-left: 30px; /* Adjust margin for smaller width */
   }
 }
 
