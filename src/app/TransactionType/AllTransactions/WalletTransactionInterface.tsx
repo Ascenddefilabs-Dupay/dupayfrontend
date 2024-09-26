@@ -372,9 +372,17 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           </div>
         )}
   
-        <div className="back">
-          <button onClick={handleBackClick}><ArrowBackIcon /></button>
-          <h2 className='form-heading'>Wallet Transaction Form</h2>
+        <div className="back" >
+          <div onClick={handleBackClick} style={{ cursor: 'pointer' }}>
+            <img
+                  className='iconarrowLeftBack'
+                  alt=""
+                  src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067208/1826c340-1853-453d-9ad0-6cafb099b947.png"
+                />
+              {/* <button onClick={handleBackClick}><ArrowBackIcon /></button> */}
+              </div>
+            <h2 className='form-heading'>Wallet Transaction Form</h2>
+       
         </div>
       </div>
   
@@ -387,7 +395,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             </div>
   
             <div className="form-group">
-              <label htmlFor="paymentMethod">Payment Method</label>
+              <label htmlFor="paymentMethod">Payment Through</label>
               <select
                 id="paymentMethod"
                 value={paymentMethod}
