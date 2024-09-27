@@ -50,6 +50,9 @@ const currencySymbols: { [key: string]: string } = {
   'USD': '$',
   'EUR': '€',
   'GBP': '£',
+  'AUS': 'A$',
+  'JPY': '¥',
+  'AED': 'AED',
 };
 
 // Dynamic imports
@@ -106,6 +109,7 @@ const Home = () => {
   const [addNewFiatWallet, setAddNewFiatWallet] = useState(false);
   const [addNewFiatWalletPage, setAddNewFiatWalletPage] = useState(false);
   const [walletData, setWalletData] = useState<FiatWallet[]>([]);
+  const [currencyIcons, setCurrencyIcons] = useState<{ currency_type: string; icon: string }[]>([]);
   const [fiatwalletData, setFiatWalletData] = useState<FiatWalletData[]>([]);
   const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
   const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
@@ -114,6 +118,8 @@ const Home = () => {
   const [email, setEmail] = useState("");
   const [securityPin, setSecurityPin] = useState("");
   const [error, setError] = useState<ErrorState>({});
+  const currencyList = ['INR', 'USD','AUS', 'JPY', 'AED'];
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
@@ -158,7 +164,7 @@ const Home = () => {
     const savedTab = localStorage.getItem('activeTab') || 'Crypto';
     const savedCryptoDropdownState = localStorage.getItem('cryptoDropdownOpen') === 'true';
     // const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
-    if (!fiatWalletId) {
+    if (fiatWalletId) {
       setAddNewFiatWallet(true);
     }else{
       setAddNewFiatWallet(false);
@@ -656,17 +662,55 @@ const handleButtonClick = (buttonName: string) => {
     // Fetch data from the API
     axios
       .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)
       .then((response) => {
         console.log('responsed data',response.data);
-        setWalletData(response.data.fiat_wallets); // Set the array of wallets to state
-        setLoading(false); // Stop the loading state
+        setWalletData(response.data.fiat_wallets);
+        setLoading(false); 
       })
-      .catch((err) => {
-        // setError(err.message); // Set the error if request fails
-        setLoading(false); // Stop the loading state
+      .catch((err) => {  
+        setLoading(false); 
       });
   }, []);
+
+  // useEffect(() => {
+  //   // Fetch data from the API
+  //   axios
+  //     .get<{  currency_icons: { currency_type: string; icon: string }[] }>(`http://127.0.0.1:8000/Fiat_Currency/icon/AED/`)
+  //     .then((response) => {
+  //       console.log('responsed data of icons',response.data);
+  //       setCurrencyIcons(response.data.currency_icons); 
+  //       setLoading(false);    
+  //     })
+  //     .catch((err) => {
+  //       console.error(err.message);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    // Fetch all currency icons from the API one by one
+    const fetchIcons = async () => {
+      try {
+        const requests = currencyList.map((currency) => 
+          axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
+            `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency}/`
+          )
+        );
+
+        const responses = await Promise.all(requests);
+        const allIcons = responses.flatMap(response => response.data.currency_icons);
+        setCurrencyIcons(allIcons); // Combine all fetched icons into one state
+        setLoading(false); // Stop loading
+      } catch (error) {
+        console.error('Error fetching currency icons:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchIcons();
+  }, []);
+
 
 
   return (
@@ -847,19 +891,26 @@ const handleButtonClick = (buttonName: string) => {
           <div className={styles.fiat}>
                     <ul className={styles.list}>
                       <li className={styles.listHeader}>
-                        <span className={styles.span}>Your Fiat Wallets (6)</span>
+                        <span className={styles.span}>Your Fiat Wallets  (6)</span>
                         <button className={styles.addNew}>Add New</button>
                       </li>
-                      {['INR', 'USD', 'GBP', 'EUR'].map((currency, index) => {
+                      {currencyList.map((currency, index) => {
                         // Find wallet data matching the current currency
-                        const wallet = walletData.find((w: { currency_type: string; }) => w.currency_type === currency);
+                        const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
                         const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
+
+                        // Find the icon matching the current currency
+                        const iconData = currencyIcons.find((icon) => icon.currency_type === currency);
+                        const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
+                        // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
 
                         return (
                           <li className={styles.listItem} key={index}>
-                            <div className={styles.listbackground}>
-                            <button className={styles.button1} onClick={() => handleButtonClickblur(currency)}>{currency}<label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label></button>
-                            </div>
+                            <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
+                            <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
+                            <button className={styles.button1} ><div>{currency}</div></button>
+                            <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
+                            </button>
                           </li>
                         );
                       })}
