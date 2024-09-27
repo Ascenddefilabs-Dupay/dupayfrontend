@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: #242429;
+}
+.homeScreenBackground {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 411px;
+    height: 823px;
+    overflow: hidden;
+}
+.shapeIcon {
+    position: absolute;
+    top: -166px;
+    left: 196px;
+    width: 399px;
+    height: 475.1px;
+}
+.google {
+    position: absolute;
+    top: 6px;
+    left: 43px;
+    font-weight: 500;
+    opacity: 0.7;
+}
+.systembarChild {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 50%;
+    background-color: #100f0f;
+    width: 28px;
+    height: 28px;
+}
+.systembarItem {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 4px;
+    height: 4px;
+    opacity: 0.5;
+}
+.systembarInner {
+    position: absolute;
+    top: 8px;
+    left: 340px;
+    width: 17px;
+    height: 13px;
+}
+.vectorIcon {
+    position: absolute;
+    top: 7px;
+    left: 320px;
+    border-radius: 1px;
+    width: 14px;
+    height: 14px;
+}
+.unionIcon {
+    position: relative;
+    width: 8px;
+    height: 13px;
+}
+.systembar {
+    position: absolute;
+    top: 19px;
+    left: 21px;
+    width: 370px;
+    height: 28px;
+    text-align: left;
+}
+.otpChild {
+    position: absolute;
+    top: 155px;
+    left: 0px;
+    background-color: rgba(23, 23, 26, 0.9);
+    width: 411px;
+    height: 510px;
+}
+.dupayLogoIcon {
+    width: 50px;
+    position: relative;
+    height: 50px;
+}
+.dupay {
+    position: relative;
+    line-height: 11.74px;
+}
+.dupayLogoParent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.component2 {
+    width: 25px;
+    height: 56px;
+    display: none;
+}
+.component2Parent {
+    width: 351px;
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 43px;
+}
+.frameChild {
+    flex: 1;
+    position: relative;
+    border-top: 1px solid #2a2d3c;
+    box-sizing: border-box;
+    height: 1px;
+}
+.lineParent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+}
+.frameGroup {
+    width: 366px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.span {
+    color: #45f0d1;
+}
+.requestHere {
+    color: #5f97ff;
+}
+.title {
+    width: 302px;
+    flex: 1;
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Poppins;
+    text-align: left;
+    display: inline-block;
+}
+.frameParent {
+    position: absolute;
+    top: 187px;
+    left: 32px;
+    width: 347px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 48px;
+    font-size: 26.43px;
+    font-family: 'SF Pro';
+}
+.a {
+    width: 17.1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.letter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 0px 2.3px;
+}
+.key {
+    width: 34.1px;
+    height: 42.1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.keyPrimary {
+    align-self: stretch;
+    flex: 1;
+    border-radius: 52.32px;
+    background-color: #23262a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.3px 0px 0px;
+}
+.iconRemove {
+    width: 27.3px;
+    position: relative;
+    height: 27.3px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.keyFunction {
+    flex: 1;
+    border-radius: 52.32px;
+    background-color: #23262a;
+    height: 47.8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.div {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5.7px;
+}
+.div1 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 2.3px 0px;
+    gap: 5.7px;
+}
+.deleteIcon {
+    width: 25.8px;
+    position: relative;
+    height: 20.5px;
+}
+.iconDelete {
+    width: 27.3px;
+    height: 27.3px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.keyFunction2 {
+    flex: 1;
+    border-radius: 52.32px;
+    background-color: #4f6375;
+    height: 47.8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.iconKeyboardTab {
+    width: 27.3px;
+    position: relative;
+    height: 27.3px;
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+.keySpecialFunction {
+    flex: 1;
+    border-radius: 52.32px;
+    background-color: #588ab9;
+    height: 47.8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 9.1px 0px;
+    box-sizing: border-box;
+}
+.vectorIcon1 {
+    width: 10.2px;
+    position: relative;
+    height: 6.3px;
+    object-fit: contain;
+}
+.iconArrowDown {
+    width: 27.3px;
+    height: 27.3px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+.dismissKeyboard {
+    width: 395.8px;
+    height: 10.2px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0px 0px 0px 45.5px;
+    box-sizing: border-box;
+}
+.homeIndicator {
+    width: 81.9px;
+    position: relative;
+    border-radius: 113.74px;
+    background-color: #49494a;
+    height: 2.3px;
+}
+.navigationBar {
+    width: 395.8px;
+    background-color: #1b1d1f;
+    height: 18.2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0px;
+    box-sizing: border-box;
+}
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 22.7px 0px 0px;
+}
+.keyboardDefault {
+    position: absolute;
+    top: 538.64px;
+    left: 1.52px;
+    background-color: #1b1d1f;
+    width: 409.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10.2px 6.8px 0px;
+    box-sizing: border-box;
+    gap: 4.5px;
+    font-size: 29.57px;
+}
+.text {
+    position: relative;
+    line-height: 24px;
+    font-weight: 600;
+}
+.btnbtn {
+    position: absolute;
+    top: 464px;
+    left: 32px;
+    border-radius: 8px;
+    background-color: #e2f0ff;
+    width: 347px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #000;
+    font-family: Poppins;
+}
+.otp {
+    width: 100%;
+    position: relative;
+    background-color: #242429;
+    height: 823px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    font-family: Roboto;
+}
+

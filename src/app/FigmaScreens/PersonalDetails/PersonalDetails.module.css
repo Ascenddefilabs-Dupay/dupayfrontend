@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.dupayLogoIcon {
+    width: 50px;
+    position: relative;
+    height: 50px;
+}
+.dupay {
+    position: relative;
+    line-height: 11.74px;
+}
+.dupayLogoParent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.frameContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.title {
+    position: relative;
+    line-height: 28px;
+    font-weight: 600;
+}
+.title1 {
+    align-self: stretch;
+    position: relative;
+    font-size: 40px;
+    line-height: 56px;
+    font-weight: 300;
+    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+.title2 {
+    align-self: stretch;
+    position: relative;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+    font-family: Roboto;
+    color: #fbfcff;
+}
+.frameDiv {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    text-align: left;
+    font-size: 18px;
+    font-family: Poppins;
+}
+.frameGroup {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 43px;
+}
+.frameWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.label {
+    position: relative;
+    line-height: 16px;
+}
+.text {
+    position: relative;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+    color: #fff;
+}
+.inputinput {
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #2a2d3c;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    font-size: 12px;
+}
+.label2 {
+    position: relative;
+    line-height: 24px;
+    font-weight: 600;
+}
+.inputinput2 {
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #2a2d3c;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px 16px;
+}
+.label3 {
+    position: absolute;
+    top: calc(50% - 12px);
+    left: 16px;
+    line-height: 24px;
+    font-weight: 600;
+}
+.iconcalendar {
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 16px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+.inputinput3 {
+    align-self: stretch;
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid #2a2d3c;
+    box-sizing: border-box;
+    height: 64px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.inputinputParent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+}
+.iconfaceid {
+    width: 24px;
+    position: relative;
+    height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.title3 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+    font-weight: 600;
+}
+.listmbListItemitemLeft {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.swichswitchChild {
+    width: 24px;
+    position: relative;
+    border-radius: 17px;
+    background-color: #fff;
+    height: 24px;
+}
+.swichswitch {
+    border-radius: 62px;
+    background-color: #222531;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 4px 46px 4px 4px;
+}
+.listmbListItemBasic {
+    align-self: stretch;
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 16px;
+    gap: 10px;
+    font-size: 16px;
+    color: #fff;
+}
+.frameParent1 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+    text-align: left;
+    font-size: 14px;
+    color: #888daa;
+    font-family: Poppins;
+}
+.frameParent {
+    position: absolute;
+    top: 48px;
+    left: 42px;
+    width: 347px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+}
+.google {
+    position: absolute;
+    top: 6px;
+    left: 43px;
+    font-weight: 500;
+    opacity: 0.7;
+}
+.systembarChild {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 50%;
+    background-color: #100f0f;
+    width: 28px;
+    height: 28px;
+}
+.systembarItem {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 4px;
+    height: 4px;
+    opacity: 0.5;
+}
+.systembarInner {
+    position: absolute;
+    top: 8px;
+    left: 340px;
+    width: 17px;
+    height: 13px;
+}
+.vectorIcon {
+    position: absolute;
+    top: 7px;
+    left: 320px;
+    border-radius: 1px;
+    width: 14px;
+    height: 14px;
+}
+.unionIcon {
+    position: relative;
+    width: 8px;
+    height: 13px;
+}
+.systembar {
+    position: absolute;
+    top: 19px;
+    left: 21px;
+    width: 370px;
+    height: 28px;
+    text-align: left;
+    font-size: 14px;
+    font-family: Roboto;
+}
+.btnbtn {
+    position: absolute;
+    width: calc(100% - 48px);
+    top: 8px;
+    right: 24px;
+    left: 24px;
+    border-radius: 8px;
+    background-color: #e2f0ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    box-sizing: border-box;
+}
+.btnmbBtnFab {
+    position: absolute;
+    top: 1355px;
+    left: 0px;
+    background-color: #17171a;
+    width: 411px;
+    height: 98px;
+    font-size: 16px;
+    color: #000;
+    font-family: Poppins;
+}
+.personalDetails {
+    width: 100%;
+    position: relative;
+    background-color: #17171a;
+    height: 1453px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 26.43px;
+    color: #fff;
+    font-family: 'SF Pro';
+}
+
