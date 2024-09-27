@@ -1,0 +1,245 @@
+
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: #242429;
+}
+.homeScreenBackground {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 411px;
+    height: 823px;
+    overflow: hidden;
+}
+.shapeIcon {
+    position: absolute;
+    top: -166px;
+    left: 196px;
+    width: 399px;
+    height: 475.1px;
+}
+.signUpChild {
+    position: absolute;
+    top: 231px;
+    left: 0px;
+    background-color: rgba(23, 23, 26, 0.9);
+    width: 411px;
+    height: 590px;
+}
+.dupayLogoIcon {
+    width: 50px;
+    position: relative;
+    height: 50px;
+}
+.dupay {
+    position: relative;
+    line-height: 11.74px;
+}
+.dupayLogoParent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    text-align: center;
+    font-size: 26.43px;
+    font-family: 'SF Pro';
+}
+.label {
+    position: relative;
+    line-height: 24px;
+    font-weight: 600;
+}
+.inputinput {
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #2a2d3c;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px 16px;
+}
+.inputinputWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.btnbtn {
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: #e2f0ff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+    font-size: 16px;
+    color: #000;
+}
+.termAndConditions {
+    text-decoration: underline;
+}
+.content {
+    width: 366px;
+    position: relative;
+    line-height: 24px;
+    color: #ababb0;
+    display: inline-block;
+}
+.frameGroup {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+    color: #888daa;
+}
+.title {
+    width: 113px;
+    position: relative;
+    line-height: 22px;
+    display: inline-block;
+    height: 22px;
+    flex-shrink: 0;
+}
+.icon24pxgoogle {
+    width: 44px;
+    position: relative;
+    height: 44px;
+}
+.googleButtonIos {
+    /* width: 100%; */
+    border-radius: 8px;
+    background-color: #4c516b;
+    height: 50px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.googleButtonIosWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.span {
+    color: #45f0d1;
+}
+.signIn {
+    color: #5f97ff;
+}
+.title1 {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+}
+.titleParent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+}
+.frameWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.frameParent {
+    position: absolute;
+    top: 263px;
+    left: 32px;
+    width: 347px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 48px;
+}
+.google {
+    position: absolute;
+    top: 6px;
+    left: 43px;
+    font-weight: 500;
+    opacity: 0.7;
+}
+.systembarChild {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 50%;
+    background-color: #100f0f;
+    width: 28px;
+    height: 28px;
+}
+.systembarItem {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 4px;
+    height: 4px;
+    opacity: 0.5;
+}
+.systembarInner {
+    position: absolute;
+    top: 8px;
+    left: 340px;
+    width: 17px;
+    height: 13px;
+}
+.vectorIcon {
+    position: absolute;
+    top: 7px;
+    left: 320px;
+    border-radius: 1px;
+    width: 14px;
+    height: 14px;
+}
+.unionIcon {
+    position: relative;
+    width: 8px;
+    height: 13px;
+}
+.systembar {
+    position: absolute;
+    top: 19px;
+    left: 21px;
+    width: 370px;
+    height: 28px;
+    font-family: Roboto;
+}
+.signUp {
+    width: 100%;
+    position: relative;
+    background-color: #242429;
+    height: 823px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 14px;
+    color: #fff;
+    font-family: Poppins;
+}

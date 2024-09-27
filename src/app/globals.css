@@ -3,6 +3,8 @@
 @tailwind utilities;
 body {
   overflow-x: hidden;
+    margin: 0; line-height: normal;
+
 }
 /* :root {
   --foreground-rgb: 0, 0, 0;

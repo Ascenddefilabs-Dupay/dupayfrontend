@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: #17171a;
+}
+.homeScreenBackground {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 411px;
+    height: 823px;
+    overflow: hidden;
+}
+.shapeIcon {
+    position: absolute;
+    top: -38px;
+    left: 146px;
+    width: 399px;
+    height: 475.1px;
+}
+.imagecarouselIndicatorcompoIcon {
+    position: absolute;
+    top: calc(50% - 4px);
+    left: calc(50% - 4px);
+    width: 8px;
+    height: 8px;
+}
+.imagecarouselIndicatorcompoIcon1 {
+    position: absolute;
+    top: calc(50% - 4px);
+    left: calc(50% - 18px);
+    width: 8px;
+    height: 8px;
+}
+.imagecarouselIndicatorcompoIcon2 {
+    position: absolute;
+    top: calc(50% - 4px);
+    left: calc(50% + 10px);
+    width: 8px;
+    height: 8px;
+}
+.carouselIndicator {
+    position: absolute;
+    top: 93px;
+    left: 32px;
+    width: 36px;
+    height: 8px;
+}
+.buySell {
+    background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.with {
+    color: #d9d9d9;
+}
+.title {
+    align-self: stretch;
+    position: relative;
+    line-height: 56px;
+    font-weight: 300;
+}
+.title1 {
+    align-self: stretch;
+    position: relative;
+    line-height: 44px;
+    font-weight: 300;
+}
+.titleWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 22px;
+}
+.titleParent {
+    position: absolute;
+    top: 412px;
+    left: 32px;
+    width: 347px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+}
+.text {
+    position: relative;
+    line-height: 24px;
+    font-weight: 600;
+}
+.btnbtn {
+    position: absolute;
+    width: calc(100% - 48px);
+    top: 8px;
+    right: 24px;
+    left: 24px;
+    border-radius: 8px;
+    background-color: #2a2d3c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    box-sizing: border-box;
+}
+.btnmbBtnFab {
+    position: absolute;
+    top: 725px;
+    left: 0px;
+    background-color: #17171a;
+    width: 411px;
+    height: 98px;
+    text-align: center;
+    font-size: 16px;
+    color: #5f97ff;
+}
+.google {
+    position: absolute;
+    top: 6px;
+    left: 43px;
+    font-weight: 500;
+    opacity: 0.7;
+}
+.systembarChild {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 50%;
+    background-color: #100f0f;
+    width: 28px;
+    height: 28px;
+}
+.systembarItem {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 4px;
+    height: 4px;
+    opacity: 0.5;
+}
+.systembarInner {
+    position: absolute;
+    top: 8px;
+    left: 340px;
+    width: 17px;
+    height: 13px;
+}
+.vectorIcon {
+    position: absolute;
+    top: 7px;
+    left: 320px;
+    border-radius: 1px;
+    width: 14px;
+    height: 14px;
+}
+.unionIcon {
+    position: relative;
+    width: 8px;
+    height: 13px;
+}
+.systembar {
+    position: absolute;
+    top: 19px;
+    left: 21px;
+    width: 370px;
+    height: 28px;
+    font-size: 14px;
+    font-family: Roboto;
+}
+.oboarding6 {
+    width: 100%;
+    position: relative;
+    background-color: #17171a;
+    height: 823px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 40px;
+    color: #fff;
+    font-family: Poppins;
+}
+
