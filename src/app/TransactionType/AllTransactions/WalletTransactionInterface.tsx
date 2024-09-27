@@ -21,6 +21,11 @@ const WalletTransaction: React.FC = () => {
   const [scannedData, setScannedData] = useState<string>('');
   const [currency, setCurrency] = useState<string | null>(null);
   const router = useRouter();
+  const [walletId, setWalletID] = useState<string | null>(null);
+  const [walletAmount, setWalletAmount] = useState<number | null>(null);
+  // const walletId = 'Wa0000000006'
+  const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
+  const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
   // const userID = 'DupC0003'
 
   useEffect(() => {
@@ -45,6 +50,54 @@ const WalletTransaction: React.FC = () => {
 }, [router]);
 
 
+useEffect(() => {
+  const fetchWalletAmount = async () => {
+    try {
+      const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
+        wallet_id: walletId,
+        currency: currency,
+      });
+      const { amount, error } = response.data;
+
+      if (error) {
+        setAlertMessage(error);
+        // router.push('/Userauthorization/Dashboard/Home');
+      } else {
+        setWalletAmount(amount);
+        setAlertMessage('');
+      }
+    } catch (error) {
+      const axiosError = error as { response?: { data: { error: string } } };
+      console.error("Error fetching wallet amount:", axiosError);
+    }
+  };
+
+  const fetchCurrencyIcon = async () => {
+    try {
+      const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+        currency: currency,
+      });
+
+      if (response.data && response.data.icon_url) {
+        const fullIconUrl = cloudinaryBaseUrl + response.data.icon_url; // Combine base URL with the relative path
+        console.log("Fetched full icon URL:", fullIconUrl);
+        setFlagIconUrl(fullIconUrl);
+      } else {
+        console.error("Icon URL not found in response:", response.data);
+        setAlertMessage('Currency icon not found.');
+      }
+    } catch (error) {
+      console.error("Error fetching currency icon:", error);
+      // setAlertMessage('Failed to load currency icon.');
+    }
+  };
+
+  
+  fetchCurrencyIcon();
+  fetchWalletAmount();
+});
+
+
   useEffect(() => {
     // console.log(userID);
     const script = document.createElement('script');
@@ -57,6 +110,8 @@ const WalletTransaction: React.FC = () => {
       document.body.removeChild(script);
     };
   }, []);
+
+  
 
 
   const initiateRazorpayPayment = (amount: string, currency: string): Promise<boolean> => {
@@ -389,7 +444,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                 />
               {/* <button onClick={handleBackClick}><ArrowBackIcon /></button> */}
               </div>
-            <h2 className='form-heading'>Wallet Transaction Form</h2>
+            <h2 className='form-heading'>Transfer Fiat {currency}</h2>
        
         </div>
       </div>
@@ -397,12 +452,27 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       <div className="wallet-form-container">
         <div className="form-container">
           <form onSubmit={handleSubmit}>
-            <div className="currency-lable">
-              <label htmlFor="currency" className="currency-label">Currency</label>
-              <span className="currency-value">{currency}</span>
+
+          <div className={"iconflagusParent"}>
+              {flagIconUrl && (
+                <img className={"flagicon"} alt="" src={flagIconUrl} />
+              )}
+              <div className={"content1"}>
+                <div className={"listmbListItemBasic"}>
+                  <div className={"listmbListItemitemLeft"}>
+                    <div className={"title"}>Total {currency}</div>
+                  </div>
+                  <div className={"listmbListItemitemRight"}>
+                    <div className={"title1"}>
+                      {walletAmount !== null ? `${walletAmount} ${currency}` : `0 ${currency}`}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
   
-            <div className="form-group">
+            <div className="form-group payment-method-group">
               <label htmlFor="paymentMethod">Payment Through</label>
               <select
                 id="paymentMethod"
