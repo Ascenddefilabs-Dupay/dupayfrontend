@@ -148,7 +148,6 @@ import { useRouter } from 'next/navigation'; // Use next/navigation for Next.js 
 import axios from 'axios';
 import LogPasscode from '../signlogpassword/logpassword';
 import Home from './Home/Home'; 
-import BottomNavBar from './BottomNavBar/BottomNavBar';
 import Loading from './loading'; 
 
 const Page = () => {
@@ -164,37 +163,38 @@ const Page = () => {
         const sessionData = JSON.parse(sessionDataString);
         const storedUserId = sessionData.user_id;
         setUserId(storedUserId);
-        console.log(storedUserId);
-        console.log(sessionData.user_email);
       } else {
-        // redirect('http://localhost:3000/Userauthentication/SignIn');
+        router.push('/Userauthentication/SignIn');
       }
     }
   }, [router]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const checkUserId = async () => {
       try {
-        const response = await axios.post('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/logpassword/', {
-          userId: userId,
+        const response = await axios.get('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/logpassword1/', {
+          params: { userId: userId },
         });
+        console.log(response.data)
+        console.log(userId)
 
-        if (response.data.status === 'Error') {  
-          setHasError(true);
+        if (response.data.status === 'Error') {
+          router.push('/Userauthorization/Dashboard/Home');  // Redirect to dashboard if user ID exists
         } else {
-          router.push('/Userauthorization/signlogpassword/');
+          router.push('/Userauthorization/signlogpassword/');  // Redirect to log password if user ID doesn't exist
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error checking user ID:', error);
+        setHasError(true);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     if (userId) { // Ensure userId is set before making the request
-      fetchData();
+      checkUserId();
     }
-  }, [router, userId]);
+  }, [userId, router]);
 
   if (loading) {
     return <Loading />; 
@@ -203,12 +203,13 @@ const Page = () => {
   return (
     <>
       {hasError ? (
-        <Home />
-      ) : (
-        <LogPasscode />
-      )}
-    </>
+          <Home />
+        ) : (
+          <LogPasscode />
+        )}
+   </>
   );
 };
 
 export default Page;
+
