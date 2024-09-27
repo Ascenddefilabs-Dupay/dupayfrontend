@@ -19,12 +19,19 @@ const WalletTransaction: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [scanning, setScanning] = useState<boolean>(false);
   const [scannedData, setScannedData] = useState<string>('');
+  const [currency, setCurrency] = useState<string | null>(null);
   const router = useRouter();
   // const userID = 'DupC0003'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
         const sessionDataString = window.localStorage.getItem('session_data');
+        const sessionCurrency = window.localStorage.getItem('SelectedCurrency');
+        if (sessionCurrency) {
+          setCurrency(sessionCurrency)
+          // console.log(sessionCurrency);
+        }
+        
         if (sessionDataString) {
             const sessionData = JSON.parse(sessionDataString);
             const storedUserId: string = sessionData.user_id;
@@ -120,7 +127,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       return;
   }
 
-  const fixedCurrency = 'INR';
+  const fixedCurrency = currency;
+  
   const transactionHash = uuidv4();
 
   try {
@@ -131,7 +139,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               return;
           }
 
-          const validationResponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/transaction_validation/', {
+          const validationResponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               user_phone_number: mobileNumber,
@@ -143,10 +151,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               setAlertMessage(validationResponse.data.message);
               return;
           } else {
-              const paymentSuccess = await initiateRazorpayPayment(amount, fixedCurrency);
+              const paymentSuccess = await initiateRazorpayPayment(amount,currency);
               console.log('Payment success:', paymentSuccess); // Log payment result
               if (paymentSuccess) {
-                  const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/wallet_transfer/', {
+                  const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
                       transaction_type: 'Debit',
                       transaction_amount: amount,
                       transaction_currency: fixedCurrency,
@@ -170,7 +178,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               return;
           }
 
-          const Addressresponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/validate-transaction/', {
+          const Addressresponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               fiat_address: walletAddress,
@@ -186,12 +194,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           } else if (Addressresponse.data.status === 'failure') {
               setAlertMessage('Insufficient funds for the transaction.');
           } else {
-              const paymentSuccess = await initiateRazorpayPayment(amount, fixedCurrency);
+              const paymentSuccess = await initiateRazorpayPayment(amount, currency);
               console.log('Payment success:', paymentSuccess); // Log payment result
 
               if (paymentSuccess) {
                   try {
-                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/address-transfer/', {
+                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
                           transaction_amount: amount,
                           transaction_currency: fixedCurrency,
                           transaction_type: 'Transfer',
@@ -227,7 +235,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           setMobileNumber(extractedMobileNumber);
           console.log('Extracted mobile number from QR code:', extractedMobileNumber); // Log extracted number
 
-          const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/validation-qrcode/', {
+          const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validation-qrcode/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               user_phone_number: mobileNumber,
@@ -248,12 +256,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             setAlertMessage('User Does not have Currency');
               return;
           } else {
-              const paymentSuccess = await initiateRazorpayPayment(amount, fixedCurrency);
+              const paymentSuccess = await initiateRazorpayPayment(amount, currency);
               console.log('Payment success:', paymentSuccess); // Log payment result
 
               if (paymentSuccess) {
                   try {
-                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/qrcode/', {
+                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qrcode/', {
                           transaction_type: 'Debit',
                           transaction_amount: amount,
                           transaction_currency: fixedCurrency,
@@ -391,7 +399,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           <form onSubmit={handleSubmit}>
             <div className="currency-lable">
               <label htmlFor="currency" className="currency-label">Currency</label>
-              <span className="currency-value">INR</span>
+              <span className="currency-value">{currency}</span>
             </div>
   
             <div className="form-group">
