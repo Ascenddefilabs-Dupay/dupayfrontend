@@ -34,12 +34,12 @@ const WalletReady: React.FC = () => {
 
   const handleClaim = () => {
     setLoading(true);
-    window.location.href = '/Userauthorization/Dashboard';
+    window.location.href = '/Userauthorization/Dashboard/Home';
   };
 
   const handleLater = () => {
     setLoading(true);
-    window.location.href = '/Userauthorization/Dashboard';
+    window.location.href = '/Userauthorization/Dashboard/Home';
   };
 
   const handleLeftArrowClick = () => {

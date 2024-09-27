@@ -88,7 +88,7 @@ const PasswordForm: React.FC = () => {
                 setMessage('Password updated successfully :)');
                 setMessageType('success');
                 sessionStorage.removeItem('wallet_id');
-                window.location.href = '/Userauthorization/Dashboard';
+                window.location.href = '/Userauthorization/Dashboard/Home';
             } catch (error) {
                 setMessage('Error updating password!');
                 setMessageType('error');

@@ -80,7 +80,7 @@
 
 //   const handleCloseAlert = () => {
 //     setAlertMessage('');
-//     window.location.href = '/Userauthorization/Dashboard';
+//     window.location.href = '/Userauthorization/Dashboard/Home';
 //   };
 
 //   const extractMobileNumber = data => {
@@ -338,7 +338,7 @@
 //               setAlertMessage('Transaction successful!');
 //               setAmount('');
 //               setCurrency('');
-//               window.location.href = '/Userauthorization/Dashboard';
+//               window.location.href = '/Userauthorization/Dashboard/Home';
 //             } catch (error) {
 //               setAlertMessage('Error storing transaction data.');
 //               console.error('Error storing transaction data:', error.response ? error.response.data : error.message);
@@ -634,7 +634,7 @@ const QRScanner: React.FC = () => {
             setAlertMessage('Transaction successful!');
             setAmount('');
             setCurrency('');
-            window.location.href = '/Userauthorization/Dashboard';
+            window.location.href = '/Userauthorization/Dashboard/Home';
           } catch (error: any) {
             setAlertMessage('Error storing transaction data.');
             console.error('Error storing transaction data:', error.response ? error.response.data : error.message);

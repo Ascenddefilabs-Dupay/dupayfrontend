@@ -74,7 +74,7 @@ const QRCodeComponent: React.FC = () => {
 
     const handleBackClick = () => {
         setTimeout(() => {
-          router.push('/Userauthorization/Dashboard');
+          router.push('/Userauthorization/Dashboard/Home');
         });
     };
 

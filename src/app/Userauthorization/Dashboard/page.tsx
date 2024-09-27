@@ -175,7 +175,7 @@ const Page = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/userauthorizationapi/logpassword/', {
+        const response = await axios.post('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/logpassword/', {
           userId: userId,
         });
 

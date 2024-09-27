@@ -19,12 +19,24 @@ const WalletTransaction: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [scanning, setScanning] = useState<boolean>(false);
   const [scannedData, setScannedData] = useState<string>('');
+  const [currency, setCurrency] = useState<string | null>(null);
   const router = useRouter();
+  const [walletId, setWalletID] = useState<string | null>(null);
+  const [walletAmount, setWalletAmount] = useState<number | null>(null);
+  // const walletId = 'Wa0000000006'
+  const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
+  const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
   // const userID = 'DupC0003'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
         const sessionDataString = window.localStorage.getItem('session_data');
+        const sessionCurrency = window.localStorage.getItem('SelectedCurrency');
+        if (sessionCurrency) {
+          setCurrency(sessionCurrency)
+          // console.log(sessionCurrency);
+        }
+        
         if (sessionDataString) {
             const sessionData = JSON.parse(sessionDataString);
             const storedUserId: string = sessionData.user_id;
@@ -36,6 +48,54 @@ const WalletTransaction: React.FC = () => {
         }
     }
 }, [router]);
+
+
+useEffect(() => {
+  const fetchWalletAmount = async () => {
+    try {
+      const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
+        wallet_id: walletId,
+        currency: currency,
+      });
+      const { amount, error } = response.data;
+
+      if (error) {
+        setAlertMessage(error);
+        // router.push('/Userauthorization/Dashboard/Home');
+      } else {
+        setWalletAmount(amount);
+        setAlertMessage('');
+      }
+    } catch (error) {
+      const axiosError = error as { response?: { data: { error: string } } };
+      console.error("Error fetching wallet amount:", axiosError);
+    }
+  };
+
+  const fetchCurrencyIcon = async () => {
+    try {
+      const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+        currency: currency,
+      });
+
+      if (response.data && response.data.icon_url) {
+        const fullIconUrl = cloudinaryBaseUrl + response.data.icon_url; // Combine base URL with the relative path
+        console.log("Fetched full icon URL:", fullIconUrl);
+        setFlagIconUrl(fullIconUrl);
+      } else {
+        console.error("Icon URL not found in response:", response.data);
+        setAlertMessage('Currency icon not found.');
+      }
+    } catch (error) {
+      console.error("Error fetching currency icon:", error);
+      // setAlertMessage('Failed to load currency icon.');
+    }
+  };
+
+  
+  fetchCurrencyIcon();
+  fetchWalletAmount();
+});
 
 
   useEffect(() => {
@@ -50,6 +110,8 @@ const WalletTransaction: React.FC = () => {
       document.body.removeChild(script);
     };
   }, []);
+
+  
 
 
   const initiateRazorpayPayment = (amount: string, currency: string): Promise<boolean> => {
@@ -120,7 +182,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       return;
   }
 
-  const fixedCurrency = 'INR';
+  const fixedCurrency = currency;
+  
   const transactionHash = uuidv4();
 
   try {
@@ -131,7 +194,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               return;
           }
 
-          const validationResponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/transaction_validation/', {
+          const validationResponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               user_phone_number: mobileNumber,
@@ -143,10 +206,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               setAlertMessage(validationResponse.data.message);
               return;
           } else {
-              const paymentSuccess = await initiateRazorpayPayment(amount, fixedCurrency);
+              const paymentSuccess = await initiateRazorpayPayment(amount,currency);
               console.log('Payment success:', paymentSuccess); // Log payment result
               if (paymentSuccess) {
-                  const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/wallet_transfer/', {
+                  const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
                       transaction_type: 'Debit',
                       transaction_amount: amount,
                       transaction_currency: fixedCurrency,
@@ -159,7 +222,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                   });
                   console.log('Wallet transfer response:', response.data); // Log response
                   setAlertMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
-                  window.location.href = '/Userauthorization/Dashboard';
+                  window.location.href = '/Userauthorization/Dashboard/Home';
               }
           }
 
@@ -170,7 +233,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               return;
           }
 
-          const Addressresponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/validate-transaction/', {
+          const Addressresponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               fiat_address: walletAddress,
@@ -186,12 +249,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           } else if (Addressresponse.data.status === 'failure') {
               setAlertMessage('Insufficient funds for the transaction.');
           } else {
-              const paymentSuccess = await initiateRazorpayPayment(amount, fixedCurrency);
+              const paymentSuccess = await initiateRazorpayPayment(amount, currency);
               console.log('Payment success:', paymentSuccess); // Log payment result
 
               if (paymentSuccess) {
                   try {
-                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/address-transfer/', {
+                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
                           transaction_amount: amount,
                           transaction_currency: fixedCurrency,
                           transaction_type: 'Transfer',
@@ -203,7 +266,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                           user_id: userID,
                       });
                       setAlertMessage('Transaction successful!');
-                      window.location.href = '/Userauthorization/Dashboard';
+                      window.location.href = '/Userauthorization/Dashboard/Home';
                   } catch (error) {
                       console.error('Error storing transaction data:', error);
                       setAlertMessage('Error storing transaction data.');
@@ -227,7 +290,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           setMobileNumber(extractedMobileNumber);
           console.log('Extracted mobile number from QR code:', extractedMobileNumber); // Log extracted number
 
-          const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/validation-qrcode/', {
+          const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validation-qrcode/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               user_phone_number: mobileNumber,
@@ -248,12 +311,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             setAlertMessage('User Does not have Currency');
               return;
           } else {
-              const paymentSuccess = await initiateRazorpayPayment(amount, fixedCurrency);
+              const paymentSuccess = await initiateRazorpayPayment(amount, currency);
               console.log('Payment success:', paymentSuccess); // Log payment result
 
               if (paymentSuccess) {
                   try {
-                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_api/qrcode/', {
+                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qrcode/', {
                           transaction_type: 'Debit',
                           transaction_amount: amount,
                           transaction_currency: fixedCurrency,
@@ -265,7 +328,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                           user_id: userID,
                       });
                       setAlertMessage('Transaction successful!');
-                      window.location.href = '/Userauthorization/Dashboard';
+                      window.location.href = '/Userauthorization/Dashboard/Home';
                   } catch (error) {
                       console.error('Error storing transaction data:', error);
                       setAlertMessage('Error storing transaction data.');
@@ -290,7 +353,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setShowLoader(true);
     setTimeout(() => {
       setShowLoader(false);
-      router.push('/Userauthorization/Dashboard');
+      router.push('/Userauthorization/Dashboard/Home');
     }, 2000); 
   };
 
@@ -372,22 +435,45 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           </div>
         )}
   
-        <div className="back">
-          <button onClick={handleBackClick}><ArrowBackIcon /></button>
-          <h2 className='form-heading'>Wallet Transaction Form</h2>
+        <div className="back" >
+          <div onClick={handleBackClick} style={{ cursor: 'pointer' }}>
+            <img
+                  className='iconarrowLeftBack'
+                  alt=""
+                  src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067208/1826c340-1853-453d-9ad0-6cafb099b947.png"
+                />
+              {/* <button onClick={handleBackClick}><ArrowBackIcon /></button> */}
+              </div>
+            <h2 className='form-heading'>Transfer Fiat {currency}</h2>
+       
         </div>
       </div>
   
       <div className="wallet-form-container">
         <div className="form-container">
           <form onSubmit={handleSubmit}>
-            <div className="currency-lable">
-              <label htmlFor="currency" className="currency-label">Currency</label>
-              <span className="currency-value">INR</span>
+
+          <div className={"iconflagusParent"}>
+              {flagIconUrl && (
+                <img className={"flagicon"} alt="" src={flagIconUrl} />
+              )}
+              <div className={"content1"}>
+                <div className={"listmbListItemBasic"}>
+                  <div className={"listmbListItemitemLeft"}>
+                    <div className={"title"}>Total {currency}</div>
+                  </div>
+                  <div className={"listmbListItemitemRight"}>
+                    <div className={"title1"}>
+                      {walletAmount !== null ? `${walletAmount} ${currency}` : `0 ${currency}`}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
   
-            <div className="form-group">
-              <label htmlFor="paymentMethod">Payment Method</label>
+            <div className="form-group payment-method-group">
+              <label htmlFor="paymentMethod">Payment Through</label>
               <select
                 id="paymentMethod"
                 value={paymentMethod}

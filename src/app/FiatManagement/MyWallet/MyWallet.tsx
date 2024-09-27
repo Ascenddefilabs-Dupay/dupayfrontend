@@ -187,7 +187,7 @@ const MyWallet: React.FC = () => {
     const handleWithdrawClick = () => {
         setShowLoader(true);
         setTimeout(() => {
-            router.push('/FiatManagement/WithdrawForm');
+            router.push('/FiatManagement/Withdraw');
             setShowLoader(false);
         }, 2000); // Show loader for 2 seconds
     };

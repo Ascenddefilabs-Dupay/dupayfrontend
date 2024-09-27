@@ -85,7 +85,7 @@
 
 //   const handleCloseAlert = () => {
 //     setAlertMessage('');
-//     window.location.href = '/Userauthorization/Dashboard';
+//     window.location.href = '/Userauthorization/Dashboard/Home';
 //   };
 
 //   const settinghandleBackClick = () => {
@@ -289,7 +289,7 @@
 //                     setTransactionAmount('');
 //                     setTransactionCurrency('');
 //                     setFiatAddress('');
-//                     window.location.href = '/Userauthorization/Dashboard';
+//                     window.location.href = '/Userauthorization/Dashboard/Home';
 //                 } catch (error) {
 //                     setAlertMessage('Error storing transaction data.');
 //                     console.error('Error storing transaction data:', error.response ? error.response.data : error.message);
@@ -541,7 +541,7 @@ const AddressBasedTransactionForm: React.FC = () => {
                     setTransactionAmount('');
                     setTransactionCurrency('');
                     setFiatAddress('');
-                    window.location.href = '/Userauthorization/Dashboard';
+                    window.location.href = '/Userauthorization/Dashboard/Home';
                 } catch (error: unknown) {
                     if (axios.isAxiosError(error)) {
                         setAlertMessage('Error storing transaction data.');

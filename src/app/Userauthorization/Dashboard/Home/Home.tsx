@@ -44,13 +44,15 @@ interface FiatWalletData{
 interface AdminCMSData {
   account_type: string;
   
-  // Other fields based on API response
 }
 const currencySymbols: { [key: string]: string } = {
   'INR': '₹',
   'USD': '$',
   'EUR': '€',
   'GBP': '£',
+  'AUS': 'A$',
+  'JPY': '¥',
+  'AED': 'AED',
 };
 
 // Dynamic imports
@@ -103,9 +105,11 @@ const Home = () => {
   const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   const [userId, setUserId] = useState<string | null>(null);
   const [isBlurred, setIsBlurred] = useState(false);
+  const [storedCurrency, setCurrency] = useState<string | null>(null);
   const [addNewFiatWallet, setAddNewFiatWallet] = useState(false);
   const [addNewFiatWalletPage, setAddNewFiatWalletPage] = useState(false);
   const [walletData, setWalletData] = useState<FiatWallet[]>([]);
+  const [currencyIcons, setCurrencyIcons] = useState<{ currency_type: string; icon: string }[]>([]);
   const [fiatwalletData, setFiatWalletData] = useState<FiatWalletData[]>([]);
   const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
   const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
@@ -114,6 +118,8 @@ const Home = () => {
   const [email, setEmail] = useState("");
   const [securityPin, setSecurityPin] = useState("");
   const [error, setError] = useState<ErrorState>({});
+  const currencyList = ['INR', 'USD','AUS', 'JPY', 'AED'];
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
@@ -157,14 +163,20 @@ const Home = () => {
    useEffect(() => {
     const savedTab = localStorage.getItem('activeTab') || 'Crypto';
     const savedCryptoDropdownState = localStorage.getItem('cryptoDropdownOpen') === 'true';
-    const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
+    // const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
+    if (fiatWalletId) {
+      setAddNewFiatWallet(true);
+    }else{
+      setAddNewFiatWallet(false);
+        setFiatDropdownVisible(true);
+    }
 
     setActiveTab(savedTab);
     setDropdownVisible(savedCryptoDropdownState); // Restore Crypto dropdown state
-    setFiatDropdownVisible(savedFiatDropdownState); // Restore Fiat dropdown state
+    // setFiatDropdownVisible(savedFiatDropdownState); // Restore Fiat dropdown state
 
     if (savedTab === 'Fiat') {
-      setFiatDropdownVisible(savedFiatDropdownState); // Show Fiat dropdown if active
+      // setFiatDropdownVisible(savedFiatDropdownState); // Show Fiat dropdown if active
       setDropdownVisible(false); // Hide Crypto dropdown if Fiat is active
       setIsFiatTabSelected(true);
     } else if (savedTab === 'Crypto') {
@@ -296,7 +308,7 @@ const Home = () => {
               // Now TypeScript understands that this is an AxiosError
               if (error.response?.data?.error) {
                   alert(error.response.data.error);  // Show specific error message to the user
-                  router.push('/Userauthorization/Dashboard');
+                  router.push('/Userauthorization/Dashboard/Home');
               } else {
                   alert("An unexpected error occurred.");
               }
@@ -318,7 +330,7 @@ const Home = () => {
       setActiveTab(tab);
       localStorage.setItem('activeTab', 'Fiat');
 
-      if (!fiatWalletId) {
+      if (fiatWalletId) {
         setAddNewFiatWallet(true);
         setFiatDropdownVisible(false);
         // const result = await Swal.fire({
@@ -598,8 +610,13 @@ const handleButtonClick = (buttonName: string) => {
     border: '2px solid white',
   });
 
-  const handleButtonClickblur = () => {
-    setIsBlurred(true); // Trigger the blur effect when any button is clicked
+  const handleButtonClickblur = (currency: string) => {
+    setCurrency(currency);
+    console.log("Currency clicked:", currency);
+    setIsBlurred(true);
+    localStorage.setItem('SelectedCurrency', `${currency}`);
+    console.log("SelectedCurrency:", currency);
+    
   };
 
   const closeModal = () => {
@@ -607,11 +624,37 @@ const handleButtonClick = (buttonName: string) => {
   };
 
   const handleAddFiatWallet = () => {
-    setAddNewFiatWalletPage(true); // Close the modal and remove the blur effect
+    setAddNewFiatWalletPage(true);
   };
 
   const handleSubbmit = () => {
-    // setAddNewFiatWalletPage(false); // Close the modal and remove the blur effect
+    setFiatDropdownVisible(true);
+  };
+
+  const handleAddBack = () => {
+    console.log("Currency Selected Addbank:",storedCurrency);
+    window.location.href = '/FiatManagement/AddBanks';
+    setLoading(true);
+  };
+  const handleSwap = () => {
+    console.log("Currency Selected swap :",storedCurrency);
+    window.location.href = '/FiatManagement/FiatSwap';
+    setLoading(true);
+  };
+  const handleWithDraw = () => {
+    console.log("Currency Selected Withdraw :",storedCurrency);
+    window.location.href = '/FiatManagement/Withdraw';
+    setLoading(true);
+  };
+  const handleTransfor = () => {
+    console.log("Currency Selected Trasfer :",storedCurrency);
+    window.location.href = '/TransactionType/AllTransactions';
+    setLoading(true);
+  };
+  const handleTopUp = () => {
+    console.log("Currency Selected Topup :",storedCurrency);
+    window.location.href = '/FiatManagement/Topup';
+    setLoading(true);
   };
 
 
@@ -619,17 +662,55 @@ const handleButtonClick = (buttonName: string) => {
     // Fetch data from the API
     axios
       .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)
       .then((response) => {
         console.log('responsed data',response.data);
-        setWalletData(response.data.fiat_wallets); // Set the array of wallets to state
-        setLoading(false); // Stop the loading state
+        setWalletData(response.data.fiat_wallets);
+        setLoading(false); 
       })
-      .catch((err) => {
-        // setError(err.message); // Set the error if request fails
-        setLoading(false); // Stop the loading state
+      .catch((err) => {  
+        setLoading(false); 
       });
   }, []);
+
+  // useEffect(() => {
+  //   // Fetch data from the API
+  //   axios
+  //     .get<{  currency_icons: { currency_type: string; icon: string }[] }>(`http://127.0.0.1:8000/Fiat_Currency/icon/AED/`)
+  //     .then((response) => {
+  //       console.log('responsed data of icons',response.data);
+  //       setCurrencyIcons(response.data.currency_icons); 
+  //       setLoading(false);    
+  //     })
+  //     .catch((err) => {
+  //       console.error(err.message);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    // Fetch all currency icons from the API one by one
+    const fetchIcons = async () => {
+      try {
+        const requests = currencyList.map((currency) => 
+          axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
+            `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency}/`
+          )
+        );
+
+        const responses = await Promise.all(requests);
+        const allIcons = responses.flatMap(response => response.data.currency_icons);
+        setCurrencyIcons(allIcons); // Combine all fetched icons into one state
+        setLoading(false); // Stop loading
+      } catch (error) {
+        console.error('Error fetching currency icons:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchIcons();
+  }, []);
+
 
 
   return (
@@ -810,20 +891,26 @@ const handleButtonClick = (buttonName: string) => {
           <div className={styles.fiat}>
                     <ul className={styles.list}>
                       <li className={styles.listHeader}>
-                        <span className={styles.span}>Your Fiat Wallets (6)</span>
+                        <span className={styles.span}>Your Fiat Wallets  (6)</span>
                         <button className={styles.addNew}>Add New</button>
                       </li>
-                      {['INR', 'USD', 'GBP', 'EUR'].map((currency, index) => {
+                      {currencyList.map((currency, index) => {
                         // Find wallet data matching the current currency
-                        const wallet = walletData.find((w: { currency_type: string; }) => w.currency_type === currency);
+                        const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
                         const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
+
+                        // Find the icon matching the current currency
+                        const iconData = currencyIcons.find((icon) => icon.currency_type === currency);
+                        const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
+                        // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
 
                         return (
                           <li className={styles.listItem} key={index}>
-                            <div className={styles.listbackground}>
-                            <button className={styles.button1} onClick={handleButtonClickblur}>{currency}</button>
-                            <button className={styles.button2} onClick={handleButtonClickblur}>{`${currencySymbols[currency] || ''}${balance}`}</button>
-                            </div>
+                            <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
+                            <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
+                            <button className={styles.button1} ><div>{currency}</div></button>
+                            <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
+                            </button>
                           </li>
                         );
                       })}
@@ -833,7 +920,7 @@ const handleButtonClick = (buttonName: string) => {
                     <div className={styles.modaloverlay}>
                       <div className={styles.modalcontent}>
                         <div className={styles.modalbuttons}>
-                          <button className={styles.modalbutton}><svg className={styles.svg} width="48"  height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <button className={styles.modalbutton} onClick={handleAddBack}><svg className={styles.svg} width="48"  height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)"
                             />
                             {/* Replace the existing <path> with the BsBank2 icon */}
@@ -860,7 +947,7 @@ const handleButtonClick = (buttonName: string) => {
                             </defs>
                           </svg>
                             AddBack</button>
-                          <button className={styles.modalbutton}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <button className={styles.modalbutton} onClick={handleSwap}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4890)" />
                             <g clip-path="url(#clip0_348_4890)">
                               <path d="M29.5 33.5L28 32L29.5 30.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -883,7 +970,7 @@ const handleButtonClick = (buttonName: string) => {
                             </defs>
                           </svg>
                             Swap</button>
-                          <button className={styles.modalbutton}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <button className={styles.modalbutton} onClick={handleWithDraw}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
                             <g clip-path="url(#clip0_348_4902)">
                               {/* Removed the old path and replaced it with the PiHandWithdraw icon */}
@@ -904,7 +991,7 @@ const handleButtonClick = (buttonName: string) => {
                             </defs>
                           </svg>
                             WithDraw</button>
-                          <button className={styles.modalbutton}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <button className={styles.modalbutton} onClick={handleTransfor}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
                             {/* Instead of using the <path>, we render the BiTransfer icon here */}
                             <foreignObject x="12" y="12" width="24" height="24">
@@ -920,7 +1007,7 @@ const handleButtonClick = (buttonName: string) => {
                             </defs>
                           </svg>
                             Transfor</button>
-                          <button className={styles.modalbutton}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <button className={styles.modalbutton} onClick={handleTopUp}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
                             <g clipPath="url(#clip0_348_4902)">
                               {/* Remove the path here */}

@@ -67,7 +67,7 @@ const Cashout: React.FC<CashoutProps> = () => {
                         Alchemy Pay is not affiliated with Wallet in any way.
                     </p>         
                     <button 
-                        onClick={() => router.push('/Userauthorization/Dashboard')}
+                        onClick={() => router.push('/Userauthorization/Dashboard/Home')}
                         className={styles.button}
                     >
                         Continue

@@ -34,7 +34,7 @@ const Logpasscode = () => {
             if (signpasscode.length === 6) {
                 try {
                     // Send the retypepasscode to the backend without hashing
-                    const response = await axios.post('http://127.0.0.1:8000/userauthorizationapi/logpassword1/', {
+                    const response = await axios.post('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/logpassword1/', {
                         logmain_password: signpasscode,
                         userId: userId,
                     });

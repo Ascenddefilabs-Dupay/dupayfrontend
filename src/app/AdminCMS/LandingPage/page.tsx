@@ -66,43 +66,53 @@ const Home = () => {
 
   const handleAddClick = async () => {
     if (showTextBox === '' || inputValue.trim() === '') {
-      toast.warning('Please provide a valid input.', { autoClose: false });
-      return;
+        toast.warning('Please provide a valid input.', { autoClose: false });
+        return;
     }
-  
+
     const formData = new FormData();  // Use FormData to support file uploads
     if (showTextBox === 'account') formData.append('account_type', inputValue);
     if (showTextBox === 'currency') formData.append('currency_type', inputValue);
     if (file) {
-      formData.append('icon', file);  // Attach file if it exists
+        formData.append('icon', file);  // Attach file if it exists
     }
-  
+
     setIsLoading(true);
-  
+
     try {
-      const response = await fetch("http://localhost:8000/api/admincms/", {
-        method: 'POST',
-        body: formData,  // Send FormData, no need to set Content-Type
-      });
-  
-      if (response.ok) {
-        const responseData = await response.json();
-        setFetchedValues(prev => [...prev, { id: responseData.data.id, [showTextBox + '_type']: inputValue }]);
-        setInputValue('');
-        setFile(null);  // Clear file input
-        setIsInputVisible(false); 
-        toast.success('Added successfully.', { autoClose: 1000 });
-      } else {
-        toast.error('Failed to add value.', { autoClose: false });
-      }
+        const response = await fetch("http://localhost:8000/api/admincms/", {
+            method: 'POST',
+            body: formData,  // Send FormData, no need to set Content-Type
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+
+            // Immediately update the state with the new data including the icon
+            setFetchedValues(prev => [
+                ...prev,
+                {
+                    id: responseData.data.id,
+                    [showTextBox + '_type']: inputValue,
+                    icon: responseData.data.icon // Update with the new icon URL
+                }
+            ]);
+
+            setInputValue(''); // Clear input field
+            setFile(null);     // Clear file input
+            setIsInputVisible(false);
+            toast.success('Added successfully.', { autoClose: 1000 });
+        } else {
+            toast.error('Failed to add value.', { autoClose: false });
+        }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('An error occurred while adding the value.', { autoClose: false });
+        console.error('Error:', error);
+        toast.error('An error occurred while adding the value.', { autoClose: false });
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
-  
+};
+
   const handleEdit = (id: number, currentValue: string) => {
     setEditMode(id); 
     setEditedValue(currentValue); 
@@ -283,14 +293,9 @@ const Home = () => {
           <table className={styles.table}>
             <thead>
               <tr>
+                <th>Currency Type</th>
+                <th>Icon</th>
                 <th>
-                  Currency Type
-                </th>
-                <th>
-                  Icon
-                </th>
-                <th>
-                  
                   <FaPlus className={styles.plusIcon} onClick={handlePlusClick} /> {/* Add Icon */}
                 </th>
               </tr>
@@ -298,7 +303,7 @@ const Home = () => {
             <tbody>
               {fetchedValues.map((item) => (
                 <tr key={item.id}>
-                  {/* Currency Type */}
+                  {/* Currency Type Column */}
                   <td>
                     {editMode === item.id ? (
                       <input
@@ -321,7 +326,7 @@ const Home = () => {
                         onChange={handleFileChange}
                       />
                     ) : item.icon ? (
-                      <img src={item.icon} alt="Currency Icon" className={styles.iconImage} />
+                      <img src={item.icon} alt="Currency Icon" className={styles.iconImage} />  // Displaying the icon if available
                     ) : (
                       'No Icon'
                     )}
