@@ -1,5 +1,5 @@
 import React from 'react';
-import Send from './send'
+import Send from './send';
 
 const page = () => {
   return (

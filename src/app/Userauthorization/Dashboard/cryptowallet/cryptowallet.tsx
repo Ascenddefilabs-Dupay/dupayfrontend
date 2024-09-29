@@ -82,7 +82,7 @@ const Cryptowallet: React.FC = () => {
 
     return (
         <div>
-            <div style={{ padding: '20px', backgroundColor: 'black', width: '400px', margin: '0 auto', height: '100vh', display: 'flex', color: 'white', borderRadius: '12px', flexDirection: 'column' }}>
+            <div style={{ padding: '20px', backgroundColor: 'black', width: '400px', margin: '0 auto', height: '100vh', display: 'flex', color: 'white', flexDirection: 'column' }}>
                 {loading ? (
                     <div style={styles.loaderContainer}>
                         <div style={styles.loader}></div>

@@ -1,241 +1,241 @@
 .container {
-  position: relative;
-  top: 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: black;
-  color: white;
-  max-height: auto;
-  max-width: 100%;
-  height: 100vh;
-  width: 400px;
-  padding: 20px;
-  margin: 0 auto;
-  font-family: Arial, Helvetica, sans-serif; 
-
-}
-/* Smaller screens like mobile devices */
-@media screen and (max-width: 480px) {
-  .container {
-    width: 100%; /* Full width for mobile screens */
-    padding: 15px;
-  }
-
-  .heading {
-    font-size: 20px;
-  }
-
-  .imageContainer img {
-    width: 120px; /* Smaller size for mobile */
-    height: 120px;
-  }
-
-  .connectNowButton {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-
-  .ol {
-    padding-left: 15px;
-  }
-
-  .link {
-    font-size: 15px;
-  }
-
-  .backButton {
-    margin-bottom: 5px;
-    font-size: 18px;
-  }
-}
-
-/* Medium screens like tablets */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
-
-  .heading {
-    font-size: 22px;
-  }
-
-  .imageContainer img {
-    width: 140px;
-    height: 140px;
-  }
-
-  .connectNowButton {
-    font-size: 15px;
-    padding: 10px 18px;
-  }
-
-  .backButton {
-    font-size: 20px;
-  }
-}
-
-/* Large screens like desktops */
-@media screen and (min-width: 769px) {
-  .container {
+    position: relative;
+    top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    color: white;
+    max-height: auto;
+    max-width: 100%;
+    height: 100vh;
     width: 400px;
+    padding: 20px;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif; 
+  
   }
-
+  /* Smaller screens like mobile devices */
+  @media screen and (max-width: 480px) {
+    .container {
+      width: 100%; /* Full width for mobile screens */
+      padding: 15px;
+    }
+  
+    .heading {
+      font-size: 20px;
+    }
+  
+    .imageContainer img {
+      width: 120px; /* Smaller size for mobile */
+      height: 120px;
+    }
+  
+    .connectNowButton {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  
+    .ol {
+      padding-left: 15px;
+    }
+  
+    .link {
+      font-size: 15px;
+    }
+  
+    .backButton {
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+  }
+  
+  /* Medium screens like tablets */
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    .container {
+      width: 90%;
+    }
+  
+    .heading {
+      font-size: 22px;
+    }
+  
+    .imageContainer img {
+      width: 140px;
+      height: 140px;
+    }
+  
+    .connectNowButton {
+      font-size: 15px;
+      padding: 10px 18px;
+    }
+  
+    .backButton {
+      font-size: 20px;
+    }
+  }
+  
+  /* Large screens like desktops */
+  @media screen and (min-width: 769px) {
+    .container {
+      width: 400px;
+    }
+  
+    .heading {
+      font-size: 24px;
+    }
+  
+    .imageContainer img {
+      width: 160px;
+      height: 160px;
+    }
+  
+    .connectNowButton {
+      font-size: 16px;
+      padding: 12px 24px;
+    }
+  
+    .backButton {
+      font-size: 22px;
+    }
+  }
+  
+  
+  .backButton {
+    align-self: flex-start;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    margin-bottom: -5px;
+  }
+  
+  
   .heading {
     font-size: 24px;
+    margin-bottom: 50px;
+    margin-top: -15px;
+    font-weight: bold;
+    position: relative;
+    bottom: 20px;
+    right: 10px; 
+    
   }
-
+  
+  .imageContainer {
+    margin-bottom: 10px;
+    margin-top: -30px;
+    
+  }
+  
   .imageContainer img {
-    width: 160px;
+    width: 160px; 
     height: 160px;
   }
-
-  .connectNowButton {
+  
+  .paragraph {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
-    padding: 12px 24px;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: gray;
   }
-
-  .backButton {
-    font-size: 22px;
-  }
-}
-
-
-.backButton {
-  align-self: flex-start;
-  color: white;
-  font-size: 22px;
-  cursor: pointer;
-  margin-bottom: -5px;
-}
-
-
-.heading {
-  font-size: 24px;
-  margin-bottom: 50px;
-  margin-top: -15px;
-  font-weight: bold;
-  position: relative;
-  bottom: 20px;
-  right: 10px; 
   
-}
-
-.imageContainer {
-  margin-bottom: 10px;
-  margin-top: -30px;
+  .connectNowButton {
+    background: linear-gradient(90deg, #007bff9f, #800080);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    height: 8%;
+    width: 85%;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 1px;
+  }
   
-}
-
-.imageContainer img {
-  width: 160px; 
-  height: 160px;
-}
-
-.paragraph {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: gray;
-}
-
-.connectNowButton {
-  background: linear-gradient(90deg, #007bff9f, #800080);
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  height: 8%;
-  width: 85%;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 1px;
-}
-
-.connectNowButton:hover {
-  background-color: rgb(71, 126, 246);
-}
-
-.ol{
-  list-style-type: decimal; 
-  padding-left: 20px; 
-  margin: 10px 0; 
-}
-
-.li{
-  margin-bottom: 0px; 
-}
-
-.link {
-  text-align: center;
-  color: rgb(1, 93, 231);
-  font-size: 17px;
-  margin-right: 10px;
-  margin-top: 10px;
-}
-.loaderContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5); 
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
-  z-index: 2;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-}
-
-.loader {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(45deg, #ff007b, #007bff); 
-  animation: spin 1s linear infinite;
-  transform: rotate(45deg); 
-  position: relative;
-  z-index: 3;
-  box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
-  border-radius: 12%; 
-}
-
-.loader::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: rgba(255, 0, 123, 0.3); 
-  border-radius: 15%;
-  animation: pulse 1.5s infinite ease-in-out;
-  z-index: -1;
-}
-
-@keyframes spin {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(405deg); }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
+  .connectNowButton:hover {
+    background-color: rgb(71, 126, 246);
   }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.6;
+  
+  .ol{
+    list-style-type: decimal; 
+    padding-left: 20px; 
+    margin: 10px 0; 
   }
-  100% {
-    transform: scale(1);
-    opacity: 1;
+  
+  .li{
+    margin-bottom: 0px; 
   }
-}
+  
+  .link {
+    text-align: center;
+    color: rgb(1, 93, 231);
+    font-size: 17px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  .loaderContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    z-index: 2;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .loader {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff007b, #007bff); 
+    animation: spin 1s linear infinite;
+    transform: rotate(45deg); 
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
+    border-radius: 12%; 
+  }
+  
+  .loader::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: rgba(255, 0, 123, 0.3); 
+    border-radius: 15%;
+    animation: pulse 1.5s infinite ease-in-out;
+    z-index: -1;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
