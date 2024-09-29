@@ -6,13 +6,12 @@ import {
     AppBar, Toolbar, Button, Container, Card, CardContent, Fab, IconButton, Typography, Box
 } from '@mui/material';
 import { AccountBalanceWallet, Settings, SwapHoriz, ContentCopy } from '@mui/icons-material';
-import { FaCheck, FaPlus, FaQrcode, FaArrowDown, FaUserCircle, FaChevronDown } from 'react-icons/fa';
+import { FaCheck, FaPlus, FaArrowDown, FaUserCircle, FaChevronDown } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faCopy, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import { redirect } from 'next/navigation';
-import Draggable from 'react-draggable';
-import { styled } from '@mui/system';
 import styles from './profileicon.module.css';
+import QrScanner from 'react-qr-scanner';
 
 interface UserProfileProps {
     profileImage: string | null;
@@ -29,6 +28,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ profileImage }) => {
 };
 
 const Profileicon: React.FC = () => {
+    const [isScanning, setIsScanning] = useState<boolean>(false);
     const [selectedButton, setSelectedButton] = useState<string>('');
     const [navValue, setNavValue] = useState<number>(0);
     const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
@@ -91,11 +91,11 @@ const Profileicon: React.FC = () => {
         if (button === 'Buy') {
             setSelectedButton(button);
             console.log(button);
-            router.push('/FiatManagement/Currency_Conversion');
+            router.push('/UserProfile');
         } else if (button === 'Receive') {
             setSelectedButton(button);
             console.log(button);
-            router.push('/Userauthorization/receive_btn');
+            router.push('/Userauthorization/Dashboard/addmanagewallets_btn');
         } else {
             console.log('Unknown button clicked:', button);
         }
@@ -120,6 +120,23 @@ const Profileicon: React.FC = () => {
         setDropdownVisible(false);
     };
 
+         // Handle what happens after scanning
+         const handleScan = (data: any) => {
+            if (data) {
+              console.log('Scanned data:', data);
+              setIsScanning(false); // Close the scanner after successful scan
+            }
+          };
+        
+          const handleError = (err: any) => {
+            console.error('Error scanning:', err);
+          };
+        
+          const handleQrscanner = () => {
+            setIsScanning(!isScanning);
+          };
+  
+
     return (
         <>
             <div className={styles.container}>
@@ -133,6 +150,7 @@ const Profileicon: React.FC = () => {
                     </div>
                     <div className={styles.iconGroup}>
                         <FontAwesomeIcon icon={faCopy} onClick={handleCopyEmail} />
+                        <FontAwesomeIcon icon={faQrcode} onClick={handleQrscanner} style={{ cursor: 'pointer' }} />
                         <FontAwesomeIcon icon={faGear} onClick={handleSettings} />
                     </div>
                 </div>
@@ -150,7 +168,7 @@ const Profileicon: React.FC = () => {
                                             {userId}
                                         </Typography>
                                     </div>
-                                    <div>₹0.00</div>
+                                    {/* <div>₹0.00</div> */}
                                 </div>
                                 <FaCheck className={styles.checkIcon} />
                             </div>
@@ -166,7 +184,7 @@ const Profileicon: React.FC = () => {
                 )}
                 <AppBar position="static" className={styles.appBar}>
                     <Toolbar className={styles.toolbar}>
-                        <Typography variant="h5">₹0.00</Typography>
+                        {/* <Typography variant="h5">₹0.00</Typography> */}
 
                         {!scannerOpen && (
                             <div className={styles.buttonGroup}>
@@ -174,7 +192,7 @@ const Profileicon: React.FC = () => {
                                     <div className={styles.circularButton} onClick={() => handleTopButtonClick('Buy')}>
                                         <FaPlus className={styles.icon} />
                                     </div>
-                                    <Typography variant="caption">Buy</Typography>
+                                    <Typography variant="caption">View profile</Typography>
                                 </div>
                                 <div className={styles.buttonContainer}>
                                     {/* <Fab size="small" color="secondary" onClick={() => handleTopButtonClick('Receive')} sx={{ background: 'linear-gradient(90deg, #007bff9f, #800080)', color: 'white' }}>
@@ -183,34 +201,35 @@ const Profileicon: React.FC = () => {
                                     <div className={styles.circularButton} onClick={() => handleTopButtonClick('Receive')}>
                                         <FaArrowDown className={styles.icon} />
                                     </div>
-
-                                    
-                                    <Typography variant="caption">Receive</Typography>
+                                    <Typography variant="caption">manage wallets</Typography>
                                 </div>
                             </div>
                         )}
                     </Toolbar>
                 </AppBar>
 
-                <p style={{ fontWeight: 'bold', marginLeft: '20px' }}>New to Dupay Wallet?</p>
-                <p style={{ fontSize: '12px', marginLeft: '20px', color: 'gray' }}>Here is how to get started.</p>
+                    {/* <p style={{ fontWeight: 'bold', marginLeft: '20px' }}>New to Dupay Wallet?</p>
+                    <p style={{ fontSize: '12px', marginLeft: '20px', color: 'gray' }}>Here is how to get started.</p> */}
 
-                <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', justifyContent: 'center', flex: 1, marginBottom: '200px' }}>
-                    <Card className={styles.card}>
-                        <CardContent>
-                            <div className={styles.imgdiv}>
-                                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911804/Buycrypto-btn.image_lwpfle.png" alt="Buycrypto-btn_image" className={styles.image} />
-                                <div className={styles.getstartbtn}>
-                                    <Typography variant="body1" style={{ fontWeight: 'bold' }}>Fund your wallet</Typography>
-                                    <p style={{ fontSize: '11px' }}>Get a free NFT by adding</p>
-                                    <p style={{ fontSize: '11px' }}>ETH or USDC</p>
-                                    <Button className={styles.button} onClick={() => router.push('/Userauthorization/Dashboard/NFT')}>Get started</Button>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                    
-                </Container>
+                {/* Full-screen QR Scanner */}
+                    {isScanning && (
+                        <div className={styles.overlay}>
+                        <div className={styles.scannerContainer}>
+                            <QrScanner
+                            delay={300}
+                            onError={handleError}
+                            onScan={handleScan}
+                            className={styles.scanner}
+                            />
+                            {/* Central scanning box */}
+                            <div className={styles.scanArea}></div>
+                        </div>
+                        {/* Close button */}
+                        <button className={styles.closeButton} onClick={() => setIsScanning(false)}>
+                            Close Scanner
+                        </button>
+                        </div>
+                    )}
             </div>
         </>
     );

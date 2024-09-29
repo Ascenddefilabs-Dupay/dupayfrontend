@@ -1,8 +1,0 @@
-.overlay {
-    width: 100%;
-    position: relative;
-    backdrop-filter: blur(37.55px);
-    background-color: rgba(0, 0, 0, 0.1);
-    height: 823px;
-}
-
