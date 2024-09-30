@@ -139,7 +139,7 @@ const ManageProfile: React.FC = () => {
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
-      window.location.href = '/Userauthorization/Dashboard/Home';
+      window.location.href = '/Userauthorization/Dashboard/BottomNavBar/profileicon_btn';
       setShowLoader(false);
     }, );
   };

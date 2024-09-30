@@ -167,9 +167,9 @@
 .span{
   /* margin: auto; */
   display:flex;
-  justify-content:center;
+  justify-content:left;
   text-align: left;
-  margin-right: 100px;
+  margin-right: 160px;
   font-size: 16px;
 }
 .addNew{
@@ -230,7 +230,7 @@
 
 .button2 {
   position: relative;
-  margin-left: 160px;
+  margin-left: 200px;
   justify-content: flex-end;
   width: 100px !important;
   text-align:right;
@@ -246,15 +246,20 @@
   .currencyicon{
     margin-left: 25px;
   }
+  .span{
+    margin-right: 80px !important;
+  }
 }
 
 @media (max-width: 430px ) {
   .button2{
-    margin-left:  130px !important;
-    margin-right: 20px;
+    margin-left:  150px !important;
   }
   .currencyicon{
     margin-left: 30px  !important;
+  }
+  .span{
+    margin-right: 80px !important;
   }
 }
 
@@ -265,6 +270,9 @@
   }
   .currencyicon{
     margin-left: 20px;
+  }
+  .span{
+    margin-right: 50px !important;
   }
 }
 
@@ -277,10 +285,10 @@
     border-radius: 4px;
   }
   .span{
-    margin-right: 80px;
+    margin-right: 80px !important;
   }
   .currencyicon{
-    margin-left: 20px;
+    margin-left: 20px !important;
   }
 
 }
