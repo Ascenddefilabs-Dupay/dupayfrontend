@@ -139,7 +139,7 @@ const Home = () => {
     const savedTab = localStorage.getItem('activeTab') || 'Crypto';
     const savedCryptoDropdownState = localStorage.getItem('cryptoDropdownOpen') === 'true';
     // const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
-    if (!fiatWalletId) {
+    if (fiatWalletId) {
       setAddNewFiatWallet(true);
     }else{
       setAddNewFiatWallet(false);
@@ -257,7 +257,7 @@ const Home = () => {
       setActiveTab(tab);
       localStorage.setItem('activeTab', 'Fiat');
 
-      if (!fiatWalletId) {
+      if (fiatWalletId) {
         setAddNewFiatWallet(true);
         setFiatDropdownVisible(false);
       } else {
@@ -355,6 +355,7 @@ const Home = () => {
   
     // Fetch the data from the backend
     axios.get<Wallet[]>(`http://127.0.0.1:8000/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
+    // axios.get<Wallet[]>(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
         .then(response => {
             console.log('Response Data:', response.data); // Log the response data
   
@@ -522,8 +523,8 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000003/`)
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)${fiatwalletData}
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)
       .then((response) => {
         console.log('responsed data',response.data);
         setWalletData(response.data.fiat_wallets);
@@ -695,53 +696,34 @@ const Home = () => {
             )}
         {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div>
-          <div>
-                    <div className={styles.fiat}>
-                      <ul className={styles.list}>
-                        <li className={styles.listHeader}>
-                          <span className={styles.span}>
-                            {/* Your Fiat Wallets ({walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length}) */}
-                            Your Fiat Wallets
-                          </span>
-                          {/* <button className={styles.addNew} onClick={handleAddFiatWallet}>Add New</button> */}
-                          <button className={styles.addNew} >Add New</button>
-                        </li>
-                        {walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length === 0 ? (
-                          <li className={styles.listItem}>
-                            <div>
-                              <label className={styles.noWallets}>You Do Not Have Wallets <a className={styles.addNewLink}>Add New</a></label>
-                            </div>
+          <div className={styles.fiat}>
+                    <ul className={styles.list}>
+                      <li className={styles.listHeader}>
+                        <span className={styles.span}>Your Fiat Wallets  (6)</span>
+                        <button className={styles.addNew}>Add New</button>
+                      </li>
+                      {currencyList.map((currency, index) => {
+                        // Find wallet data matching the current currency
+                        const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
+                        const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
+
+                        // Find the icon matching the current currency
+                        const iconData = currencyIcons.find((icon) => icon.currency_type === currency);
+                        const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
+                        // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
+
+                        return (
+                          <li className={styles.listItem} key={index}>
+                            <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
+                            <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
+                            <button className={styles.button1} ><div>{currency}</div></button>
+                            <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
+                            </button>
                           </li>
-                        ) : (
-                          currencyList.map((currency, index) => {
-                            const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
-                            const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
-                            const currencyType = wallet ? wallet.currency_type : 'Unknown';
-
-                            // If the currency type is unknown, skip rendering this row
-                            if (currencyType === 'Unknown') {
-                              return null;
-                            }
-
-                            const iconData = currencyIcons.find((icon) => icon.currency_type === currencyType);
-                            const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
-
-                            return (
-                              <li className={styles.listItem} key={index}>
-                                <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
-                                  <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
-                                  <button className={styles.button1}><div>{currencyType}</div></button>
-                                  <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
-                                </button>
-                              </li>
-                            );
-                          })
-                        )}
-                      </ul>
-                    </div>
+                        );
+                      })}
+                    </ul>
                   </div>
-
-
                   {isBlurred && (
                     <div className={styles.modaloverlay}>
                       <div className={styles.modalcontent}>

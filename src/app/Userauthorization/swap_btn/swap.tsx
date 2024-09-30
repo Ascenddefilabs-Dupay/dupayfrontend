@@ -32,6 +32,7 @@ export default function Swap(): JSX.Element {
         setLoading(true); // Show loading text
         setTimeout(() => {
             router.push('/Userauthorization/Dashboard/Home');
+            setLoading(true); // Show loading text
         }, 500); // Adjust delay if needed
     };
 
@@ -39,6 +40,7 @@ export default function Swap(): JSX.Element {
         setLoading(true); // Show loading text
         setTimeout(() => {
             router.push('/FiatManagement/Currency_Conversion'); // Adjust the route as needed
+            setLoading(true); // Show loading text
         }, 500); // Adjust delay if needed  
     };
 
@@ -46,6 +48,8 @@ export default function Swap(): JSX.Element {
         setLoading(true); // Show loading text
         setTimeout(() => {
             router.push('/Userauthorization/Dashboard/Home'); // Adjust the route as needed
+            setLoading(true); // Show loading text
+
         }, 500); // Adjust delay if needed
     };
 

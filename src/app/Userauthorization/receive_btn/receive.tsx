@@ -88,13 +88,13 @@ export default function Receive() {
             setShowLoader(true);
             setTimeout(() => {
             router.push(`/Userauthorization/receive_btn/ethereum_btn?address=${ethereumAddress}`);
-            setShowLoader(false); 
+            setShowLoader(true); 
         }, 1000); 
         } else if (type === 'bitcoin') {
             setShowLoader(true);
             setTimeout(() => {
             router.push(`/Userauthorization/receive_btn/bitcoin_btn?address=${bitcoinAddress}`);
-            setShowLoader(false); 
+            setShowLoader(true); 
         }, 1000); 
         }
     };
@@ -129,8 +129,13 @@ export default function Receive() {
         }
     };
     
+
     const handleBackClick = () => {
+        setShowLoader(true); 
+        setTimeout(() => {
         router.push('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn');
+        setShowLoader(true);
+    }, 2000);
     };
 
     const ProfileImage = styled('img')({

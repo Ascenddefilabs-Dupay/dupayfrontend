@@ -32,6 +32,7 @@ const Cashout: React.FC<CashoutProps> = () => {
         setLoading(true);
         setTimeout(() => {
             router.push('/Userauthorization/Dashboard/Home');
+            setLoading(true);
         }, 500);
     };
 

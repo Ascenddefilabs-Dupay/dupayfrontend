@@ -31,6 +31,8 @@ const CreateWallet: React.FC = () => {
         setLoading(true);
         setTimeout(() => {
             router.back();
+            setLoading(true);
+
         }, 500);
     };
 

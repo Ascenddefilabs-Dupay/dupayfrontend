@@ -29,19 +29,16 @@ const Addaddress = () => {
     }, []);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-            // setShowForm(true);
-        }, 2000); // 2 seconds delay
-    
-        return () => clearTimeout(timer);
-      }, []);
+      const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds delay
+      return () => clearTimeout(timer);
+    }, []);
+
     
     const handleBackClick = () => {
         setLoading(true); // Show loading text
         setTimeout(() => {
         router.push('/Userauthorization/Dashboard/addmanagewallets_btn');
-        setLoading(false); 
+        setLoading(true); 
       }, 1000); 
     }
 

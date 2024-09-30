@@ -19,17 +19,25 @@ const Wallet: React.FC = () => {
     const handleBackClick = () => {
         setLoading(true);
         setTimeout(() => {
-            // router.push('/Userauthorization/Dashboard/Home');
-            router.back();
+            router.push('/Userauthorization/Dashboard/Home');
+            setLoading(true);
         }, 500);
     };
 
     const handleCreateWalletClick = () => {
+        setLoading(true);
+        setTimeout(() => {
         router.push('/Userauthorization/wallet/CreateWallet');
+        setLoading(true);
+        }, 500);
     };
 
     const handleMyWalletClick = () => {
+        setLoading(true);
+        setTimeout(() => {
         router.push('/FiatManagement/MyWallet');
+        setLoading(true);
+        }, 500);
     };
 
     return (
