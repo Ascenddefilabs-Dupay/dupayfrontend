@@ -2,6 +2,8 @@
 import type { NextPage } from 'next';
 import styles from './WebPage1.module.css';
 import { useRouter } from 'next/navigation';
+import React, {useState,useEffect} from 'react';
+import MWEB from '../MWeb/MWeb';
 
 
 
@@ -9,6 +11,24 @@ import { useRouter } from 'next/navigation';
 const WebpageSingle:NextPage = () => {
 
 	const router=useRouter();
+	const [isMobile, setIsMobile] = useState(false);
+	useEffect(() => {
+		const handleResize = () => {
+		  setIsMobile(window.innerWidth < 768); // Adjust the width as necessary
+		};
+	
+		handleResize(); // Check on mount
+		window.addEventListener('resize', handleResize);
+	
+		return () => {
+		  window.removeEventListener('resize', handleResize);
+		};
+	  }, []);
+	
+	  // Render mobile component if in mobile view
+	  if (isMobile) {
+		return <MWEB />;
+	  }
 	const navigateToWebpage2 = () =>{
 	
 		router.push('/WebPages2');
@@ -23,7 +43,7 @@ const WebpageSingle:NextPage = () => {
       			<div className={styles.webpageSingleChild} />
       			{/* <div className={styles.webpageSingleItem} /> */}
       			<div className={styles.homeAboutContactParent}>
-        				<button className={styles.homeAboutContact}><button className={styles.buttons} > HOME</button>               <button className={styles.buttons1} > ABOUT</button>               <button className={styles.buttons2} > CONTACT</button>               <button className={styles.button1} onClick={navigateToWebpage2}> SIGN UP</button>               <button className={styles.button1} onClick={navigateToSignin}> SIGN IN </button> </button>
+        				<button className={styles.homeAboutContact}><button className={styles.buttons} > HOME</button>               <button className={styles.buttons1} > ABOUT</button>               <button className={styles.buttons2} > CONTACT</button>               <button className={styles.button1} onClick={navigateToSignin}> SIGN IN</button>               <button className={styles.button1} onClick={navigateToWebpage2}> SIGN UP </button> </button>
         				<img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" />
       			</div>
       			<div className={styles.dupayLogoParent}>
