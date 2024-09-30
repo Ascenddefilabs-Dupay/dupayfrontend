@@ -2,35 +2,14 @@
 import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faExchangeAlt, faWallet, faListAlt, faCog, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import Swal from 'sweetalert2';
 import styles from './Home.module.css';
 import { styled } from '@mui/material/styles';
 import { redirect } from 'next/navigation';
-import { FaCircleArrowDown } from "react-icons/fa6";
-import { IoMdAddCircle } from "react-icons/io";
-import { RiUserSettingsFill } from "react-icons/ri";
-import { color, fontSize } from '@mui/system';
-import { json } from 'stream/consumers';
-import { BsBank2 } from "react-icons/bs";
-import { PiHandWithdraw } from 'react-icons/pi'; 
-import { FaMoneyBillTransfer } from "react-icons/fa6";
-import { CiCirclePlus } from "react-icons/ci";
-import { BiTransfer } from "react-icons/bi";
-import { LuPlusCircle } from "react-icons/lu";
 import Select from 'react-select';
 import React from 'react';
-
-
-
-
-
-
-
-
 
 interface FiatWallet {
 balance: string; 
@@ -45,6 +24,13 @@ interface AdminCMSData {
   account_type: string;
   
 }
+interface Wallet {
+  wallet_id: string;
+  sui_address: string;
+  balance: string;
+  user_id: string;
+}
+
 const currencySymbols: { [key: string]: string } = {
   'INR': '₹',
   'USD': '$',
@@ -55,18 +41,14 @@ const currencySymbols: { [key: string]: string } = {
   'AED': 'AED',
 };
 
-// Dynamic imports
-const Headerbar = dynamic(() => import('../Headernavbar/headernavbar'), {
-  loading: () => <div>Loading Header...</div>,
-});
-const FaUserCircle = dynamic(() => import('react-icons/fa').then((mod) => mod.FaUserCircle));
-
-const IoCashOutline = dynamic(() => import('react-icons/io5').then((mod) => mod.IoCashOutline));
-const FaArrowUpLong = dynamic(() => import('react-icons/fa6').then((mod) => mod.FaArrowUpLong));
-const FaArrowDownLong = dynamic(() => import('react-icons/fa6').then((mod) => mod.FaArrowDownLong));
-const RiBankLine = dynamic(() => import('react-icons/ri').then((mod) => mod.RiBankLine));
-const IoMdSend = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdSend));
-const IoMdWallet = dynamic(() => import('react-icons/io').then((mod) => mod.IoMdWallet));
+const BiCopy = dynamic(() => import('react-icons/bi').then((mod) => mod.BiCopy));
+const BsBank2 = dynamic(() => import('react-icons/bs').then((mod) => mod.BsBank2));
+const PiHandWithdraw = dynamic(() => import('react-icons/pi').then((mod) => mod.PiHandWithdraw));
+const BiTransfer = dynamic(() => import('react-icons/bi').then((mod) => mod.BiTransfer));
+const LuPlusCircle = dynamic(() => import('react-icons/lu').then((mod) => mod.LuPlusCircle));
+const AssessmentIcon = dynamic(() =>
+  import('@mui/icons-material/Assessment').then((mod) => mod.default)
+);
 
 interface UserProfileData {
   user_id: string;
@@ -99,6 +81,9 @@ const Home = () => {
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const fiatDropdownRef = useRef<HTMLDivElement | null>(null);
+  const [userFirstName, setUserFirstName] = useState(''); // For storing user first name
+  const [isDupayOpen, setIsDupayOpen] = useState(false);
+
 
   const [isFiatTabSelected, setIsFiatTabSelected] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -119,6 +104,10 @@ const Home = () => {
   const [securityPin, setSecurityPin] = useState("");
   const [error, setError] = useState<ErrorState>({});
   const currencyList = ['INR', 'USD','AUS', 'JPY', 'AED'];
+
+  const [balance, setBalance] = useState<string | null>(null); // Allow string or null
+  const [suiAddress, setSuiAddress] = useState<string | null>(null); // Allow string or null
+
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -146,25 +135,11 @@ const Home = () => {
     }
   })
 
-  // useEffect(() => {
-  //   // On component mount, check localStorage for the active tab
-  //   const savedTab = localStorage.getItem('activeTab');
-  //   const savedDropdownState = localStorage.getItem('dropdownOpen') === 'true';
-
-  //   if (savedTab === 'Fiat') {
-  //     setActiveTab(savedTab); // Restore the active tab
-  //     setIsFiatTabSelected(true);
-  //   }
-  //   setFiatDropdownVisible(savedDropdownState); // Restore the dropdown state
-
-  // }, []);
-
-   // Restore state on component mount
    useEffect(() => {
     const savedTab = localStorage.getItem('activeTab') || 'Crypto';
     const savedCryptoDropdownState = localStorage.getItem('cryptoDropdownOpen') === 'true';
     // const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
-    if (fiatWalletId) {
+    if (!fiatWalletId) {
       setAddNewFiatWallet(true);
     }else{
       setAddNewFiatWallet(false);
@@ -173,10 +148,8 @@ const Home = () => {
 
     setActiveTab(savedTab);
     setDropdownVisible(savedCryptoDropdownState); // Restore Crypto dropdown state
-    // setFiatDropdownVisible(savedFiatDropdownState); // Restore Fiat dropdown state
 
     if (savedTab === 'Fiat') {
-      // setFiatDropdownVisible(savedFiatDropdownState); // Show Fiat dropdown if active
       setDropdownVisible(false); // Hide Crypto dropdown if Fiat is active
       setIsFiatTabSelected(true);
     } else if (savedTab === 'Crypto') {
@@ -187,61 +160,6 @@ const Home = () => {
       setFiatDropdownVisible(false);
     }
   }, []);
-
-  // const handleTabClick = async (tab: string) => {
-   
-  //   if (tab === 'Fiat') {
-  //     setIsFiatTabSelected(true);
-  //     setActiveTab(tab); // Update active tab state
-  //     localStorage.setItem('activeTab', 'Fiat');
-  //     setActiveTab(tab); // Update active tab state
-  //     localStorage.setItem('activeTab', tab); // Save active tab to localStorage
-
-  //     if (!fiatWalletId) {
-  //       // Show registration alert first with mobile screen dimensions and centered design
-  //       const result = await Swal.fire({
-  //         text: "You haven't created Fiat wallet. Would you like to create it?",
-  //         showCancelButton: true,
-  //         confirmButtonText: 'Yes, register',
-  //         cancelButtonText: 'No, thanks',
-  //         customClass: {
-  //           popup: styles.mobilePopup, 
-  //           confirmButton: styles.confirmButton,
-  //           cancelButton: styles.cancelButton,
-  //         },
-  //         backdrop: 'rgba(0, 0, 0, 0.2)',
-  //         showClass: {
-  //           popup: styles.showPopupAnimation
-  //         },
-  //         hideClass: {
-  //           popup: styles.hidePopupAnimation 
-  //         }
-  //       });
-  
-  //       if (result.isConfirmed) {
-  //         setLoading(true); 
-  //         setTimeout(() => {
-  //           router.push('/FiatManagement/FiatWalletAccount/');
-  //           setLoading(false);
-  //         }, 2000);
-  //       } else {
-  //         setFiatDropdownVisible(true);
-  //       }
-  //     } else {
-  //       setFiatDropdownVisible(true);
-  //       // setFiatDropdownVisible(false);
-  //       localStorage.setItem('dropdownOpen', 'false');
-  //     }
-  //   } else {
-  //     setIsFiatTabSelected(false);
-  //     localStorage.setItem('activeTab', tab);
-  //     setFiatDropdownVisible(false);
-  //     localStorage.setItem('dropdownOpen', 'false');
-  //   }
-  
-  //   setActiveTab(tab);
-  //   setIsFiatTabSelected(tab === 'Fiat');
-  // };
   
   useEffect(() => {
     axios
@@ -324,38 +242,24 @@ const Home = () => {
       setSecurityPin('');
       // setWalletFormVisible(false);
     };
+
+    const handleDupayClick = () => {
+      setIsDupayOpen(true); // Open the blur screen with buttons
+      };
+    
+      const handleClose = () => {
+      setIsDupayOpen(false); // Close the blur screen
+      };
+
   const handleTabClick = async (tab: string) => {
     if (tab === 'Fiat') {
       setIsFiatTabSelected(true);
       setActiveTab(tab);
       localStorage.setItem('activeTab', 'Fiat');
 
-      if (fiatWalletId) {
+      if (!fiatWalletId) {
         setAddNewFiatWallet(true);
         setFiatDropdownVisible(false);
-        // const result = await Swal.fire({
-        //   text: "You haven't created a Fiat wallet. Would you like to create it?",
-        //   showCancelButton: true,
-        //   confirmButtonText: 'Yes, register',
-        //   cancelButtonText: 'No, thanks',
-        //   customClass: {
-        //     popup: styles.mobilePopup,
-        //     confirmButton: styles.confirmButton,
-        //     cancelButton: styles.cancelButton,
-        //   },
-        //   backdrop: 'rgba(0, 0, 0, 0.2)',
-        // });
-
-        // if (result.isConfirmed) {
-        //   setLoading(true);
-        //   setTimeout(() => {
-        //     router.push('/FiatManagement/FiatWalletAccount/');
-        //     setLoading(false);
-        //   }, 2000);
-        // } else {
-        //   setFiatDropdownVisible(true);
-        //   localStorage.setItem('fiatDropdownOpen', 'true');
-        // }
       } else {
         setAddNewFiatWallet(false);
         setFiatDropdownVisible(true);
@@ -409,31 +313,6 @@ const Home = () => {
   }, [dropdownVisible, fiatDropdownVisible]);
   
 
-const handleButtonClick = (buttonName: string) => {
-
-    const navigateWithLoading = (route: string) => {
-      setLoading(true); 
-      setTimeout(() => {
-        router.push(route);
-        setLoading(false);
-      }, 2000);
-    };
-    
-    const routes: { [key: string]: string }  = {
-      'Add Bank': '/FiatManagement/AddBanks',
-      'Wallet': '/Userauthorization/wallet',
-      'Swap': '/FiatManagement/FiatSwap',
-      'Transfer': '/TransactionType/WalletTransactionInterface',
-    };
-  
-    if (buttonName === 'Deposit') {
-      router.push(routes[buttonName]);
-    } else if (buttonName in routes) {
-      navigateWithLoading(routes[buttonName]);
-    } else {
-      console.log('No route defined for this button');
-    }
-  };
 
   useEffect(() => {
     fetchUserProfile();
@@ -468,9 +347,61 @@ const handleButtonClick = (buttonName: string) => {
     }
   };
 
+  useEffect(() => {
+    if (!userId) {
+        console.log('User ID is null or undefined.');
+        return; // Early return if userId is not available
+    }
+  
+    // Fetch the data from the backend
+    axios.get<Wallet[]>(`http://127.0.0.1:8000/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
+        .then(response => {
+            console.log('Response Data:', response.data); // Log the response data
+  
+            // Check if the response contains data
+            if (response.data.length > 0) {
+                // Find the wallet that matches the userId
+                const userWallet = response.data.find((wallet: Wallet) => wallet.user_id === userId.trim());
+                
+                // If a matching wallet is found, set the balance and address
+                if (userWallet) {
+                    setBalance(userWallet.balance); // Set the balance
+                    setSuiAddress(userWallet.sui_address); // Set the SUI address
+  
+                    // Print balance and suiAddress to the console
+                    console.log('Balance:', userWallet.balance);
+                    console.log('SUI Address:', userWallet.sui_address);
+                } else {
+                    // Handle case where no wallet matches the user ID
+                    console.log('No wallet found for the user ID.');
+                    setBalance(null);
+                    setSuiAddress(null);
+                }
+            } else {
+                // Handle case where no records are found
+                setBalance(null);
+                setSuiAddress(null);
+                console.log('No records found for the user ID.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Optionally handle errors
+        });
+  }, [userId]); // Add userId to dependency array
+  
+
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+      // const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+      const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/profile/${userId}/`);
+
+      if (response.data.user_first_name) {
+        const userFirstName = response.data.user_first_name;
+        console.log('User First Name:', userFirstName);
+        setUserFirstName(userFirstName);  // Set state or handle it as needed
+      }
+
       if (response.data.user_profile_photo) {
         const baseURL = '/profile_photos';
         let imageUrl = '';
@@ -492,14 +423,8 @@ const handleButtonClick = (buttonName: string) => {
       console.error('Error fetching user profile:', error);
     }
   };
-  // const toggleDropdown = () => {
-  //   setDropdownVisible(!dropdownVisible);    
-  //   const newDropdownState = !fiatDropdownVisible;
-  //   setFiatDropdownVisible(newDropdownState);
-  //   localStorage.setItem('dropdownOpen', newDropdownState.toString()); // Persist dropdown state
-  
-  // };
- // Toggle dropdown function for Crypto and Fiat tabs
+
+
  const toggleDropdown = (tab: string) => {
   if (tab === 'Crypto') {
     const newState = !dropdownVisible;
@@ -512,52 +437,7 @@ const handleButtonClick = (buttonName: string) => {
   }
 };
 
-  const handleIconClick = (iconName: string) => {
-    if (iconName === 'Fiat') {
-      setFiatDropdownVisible(!fiatDropdownVisible);
-    } else {
-      switch (iconName) {
-        case 'Buy':
-          setLoading(true);
-          setTimeout(() => {
-          window.location.href = '/WalletManagement/Transak';
-          setLoading(false);
-        }, 2000);
-          break;
-        case 'Swap':
-          setLoading(true);
-          setTimeout(() => {
-          router.push('/Userauthorization/swap_btn');
-          setLoading(false);
-        }, 2000);
-          break;
-        case 'Cashout':
-          setLoading(true);
-          setTimeout(() => {
-          router.push('/Userauthorization/cashout_btn');
-          setLoading(false);
-        }, 4000);
-          break;
-        case 'Send':
-          setLoading(true);
-          setTimeout(() => {
-          router.push('/Userauthorization/send_btn');
-          setLoading(false);
-        }, 2000);
-          break;
-        case 'Receive':
-          setLoading(true);
-          setTimeout(() => {
-          router.push('/Userauthorization/receive_btn');
-          setLoading(false);
-        }, 2000);
-          break;
-        default:
-          break;
-      }
-    }
-  };
-
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -573,32 +453,14 @@ const handleButtonClick = (buttonName: string) => {
   }, [dropdownVisible, fiatDropdownVisible]);
 
   const handleAddCryptoClick = () => {
-    handleIconClick('Add crypto');
     router.push('/Userauthorization/Dashboard/addcrypto_btn'); // Ensure the correct path here
   };
     const handleNavigation = (route: string) => {
     setLoading(true); 
     setTimeout(() => {
       router.push(route); 
-      setLoading(false);
+      setLoading(true);
     }, 2000);
-  };
-  const handlebuyclick = () => {
-    setLoading(true); 
-    
-    setTimeout(() => {
-      if (userId !== fetchedUserId) {
-        router.push('/Userauthorization/Dashboard/cryptowallet');
-      } else {
-        router.push('/FiatManagement/DepositForm');
-      }
-      setLoading(false); 
-    }, 3000); 
-  };
-
-  const handleCopyUserId = () => {
-    if (userId !== null){
-    navigator.clipboard.writeText(userId);}
   };
 
   const ProfileImage = styled('img')({
@@ -659,34 +521,18 @@ const handleButtonClick = (buttonName: string) => {
 
 
   useEffect(() => {
-    // Fetch data from the API
     axios
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000003/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)${fiatwalletData}
       .then((response) => {
         console.log('responsed data',response.data);
         setWalletData(response.data.fiat_wallets);
-        setLoading(false); 
+        setLoading(true); 
       })
       .catch((err) => {  
         setLoading(false); 
       });
   }, []);
-
-  // useEffect(() => {
-  //   // Fetch data from the API
-  //   axios
-  //     .get<{  currency_icons: { currency_type: string; icon: string }[] }>(`http://127.0.0.1:8000/Fiat_Currency/icon/AED/`)
-  //     .then((response) => {
-  //       console.log('responsed data of icons',response.data);
-  //       setCurrencyIcons(response.data.currency_icons); 
-  //       setLoading(false);    
-  //     })
-  //     .catch((err) => {
-  //       console.error(err.message);
-  //       setLoading(false);
-  //     });
-  // }, []);
 
   useEffect(() => {
     // Fetch all currency icons from the API one by one
@@ -713,6 +559,19 @@ const handleButtonClick = (buttonName: string) => {
 
 
 
+  const CopySuiAddressinClipboard = () => {
+    if (suiAddress) {
+        navigator.clipboard.writeText(suiAddress)
+            .then(() => {
+                console.log('SUI Address copied to clipboard:', suiAddress);
+            })
+            .catch(err => {
+                console.error('Failed to copy:', err);
+            });
+    }
+};
+
+
   return (
     // <div className={styles.container}>
     <div className={`${styles.container} ${isBlurred ? styles.blur : ''}`}>
@@ -722,109 +581,25 @@ const handleButtonClick = (buttonName: string) => {
         </div>
       ) : (
         <>
-      <header>
-        {/* Header content here */}
-      </header>
       <div className={styles.header}>
         <div className={styles.leftSection} >
           <div className={styles.walletAddress} >
-            {profileImage ? (
-              <ProfileImage src={profileImage} alt="Profile Image" />
-            ) : (
-              <FaUserCircle className={styles.profileIcon} />
-            )}
-            <Typography variant="body1" style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '15px' }}>
-              {userId}
-            </Typography>
-            {/* <FontAwesomeIcon icon={faChevronDown} className={styles.dropdownIcon} /> */}
+            <div className={styles.chatBubbleParent}>
+        				<img className={styles.chatBubbleIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074910/messagelogo_geocnl.png" />
+                <button onClick={() => handleNavigation('/Notificationservice/Notifications')}
+                >
+                <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727075270/Notificationlogo_aglon1.png" />
+                </button>
+      			</div>
+            <div className={styles.goodMorningAnuroopContainer}>
+        				<span>{`Good morning, `}</span>
+        				<b> {userFirstName || 'User'}</b>
+      			</div>
           </div>
         </div>
-        <div className={styles.rightSection}>
-            <header className={styles.righttopicons}>
-                {/* <Headerbar userId={userId} onCopyUserId={handleCopyUserId} /> */}
-                <Headerbar onCopyUserId={handleCopyUserId} userId={''} />
-
-                {/* <Headerbar /> */}
-            </header>
-    </div>
+        <div className={styles.rightSection}>    </div>
       </div>
-      <div className={styles.balance}>
-          {(userId === fetchedUserId && fiatWalletId) ? (
-              <button onClick={handlebuyclick}>
-              {isFiatTabSelected ? (
-                <div>{fiatWalletBalance ? `₹${parseFloat(fiatWalletBalance).toFixed(3)}` : '₹0.00'}</div>
-              ) : (
-                <div>₹0.00</div>
-              )}
-            </button>
-          ) : (
-              <button onClick={handlebuyclick}>
-                  <div>₹0.00</div>
-              </button>
-          )}
-      </div>
-      <div className={styles.actions}>
-        {isFiatTabSelected ? (
-          <div className={styles.buttonContainer}>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Add Bank')}>
-              <RiBankLine className={styles.icon} />
-              <div className={styles.buttonLabel}>Add Bank</div>
-            </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Wallet')}>
-              <IoMdWallet className={styles.icon} />
-              <div className={styles.buttonLabel}>Wallet</div>
-            </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Swap')}>
-              <FontAwesomeIcon icon={faExchangeAlt} className={styles.icon} />
-              <div className={styles.buttonLabel}>Swap</div>
-            </button>
-            <button className={styles.walletButton} onClick={() => handleButtonClick('Transfer')}>
-              <IoMdSend className={styles.icon} />
-              <div className={styles.buttonLabel}>Transfer</div>
-            </button>
-          </div>
-        ) : (
-          <>
-            {[ 'Buy', 'Swap', 'Send', 'Receive', 'Cashout'].map(action => (
-              <button
-                key={action}
-                className={`${styles.actionButton} ${activeAction === action ? styles.activeAction : ''}`}
-                onClick={() => {
-                  // setActiveAction(action);
-                  handleIconClick(action);
-                }}
-              >
-                {getIcon(action)}
-                <span>{action}</span>
-              </button>
-            ))}
-          </>
-        )}
-      </div>
-
-            {/* <div className={styles.tabs}>
-              {['Crypto', 'Fiat', 'NFTs'].map(tab => (
-                <button
-                  key={tab}
-                  className={activeTab === tab ? styles.activeTab : styles.tab}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {(tab  === 'Fiat') && (
-                    // <div onClick={toggleDropdown}  >
-                    //   {fiatDropdownVisible ? 'Hide' : 'Show'}
-                    // </div>
-                    <div 
-                      onClick={toggleDropdown} 
-                      style={{ visibility: fiatDropdownVisible ? 'hidden' : 'hidden' }}
-                    >
-                      {fiatDropdownVisible ? 'Hide' : 'Show'}
-                    </div>
-
-                  )}
-                  {tab}
-                </button>
-              ))}
-            </div> */}
+              
                   <div className={styles.tabs}>
                     {['Crypto', 'Fiat', 'NFTs'].map((tab) => (
                       <button
@@ -856,17 +631,49 @@ const handleButtonClick = (buttonName: string) => {
 
 
       <div className={styles.content}>
-        {activeTab === 'Crypto' && (
+      {activeTab === 'Crypto' && (
           <div className={styles.cryptoContent}>
-            <div className={styles.cryptoIcons}>
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726049066/Crypto_image_wceong.png" alt="Crypto Icon 1" className={styles.cryptoIcon} />
+              <div className={styles.yourCryptoWallets4Parent}>
+                <div className={styles.yourCryptoWallets}>Your Wallets (1) </div>
+              </div>
+            <div className={styles.frameParent}>
+                <div className={styles.frameGroup}>
+                </div>
+                <div className={styles.frameContainer}>
+                  <div className={styles.int000Wrapper}>
+                  {/* <div className={styles.int000}>{balance !== null ? balance : 'Loading...'}</div> */}
+                  <div className={styles.int000}>
+                      {balance !== null 
+                          ? (balance.toString().split('.').length > 1 
+                              ? `${balance.toString().split('.')[0]}.${balance.toString().split('.')[1].slice(-4)}` 
+                              : balance) 
+                          : 'Loading...'}
+                  </div>
+
+                  </div>
+                <div className={styles.ethParent}>
+                  <div className={styles.eth}>Sui</div>
+                  <img className={styles.ethIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727269628/Sui_logo_growhu.png" />
+                </div>
             </div>
-            <div className={'button-container'}>
-              <h2 className={styles.addNameStart}>Add crypto to get started</h2>
-              <button className={styles.addCryptoButton} onClick={handleAddCryptoClick}>
-                Add crypto
-              </button>
-            </div>
+                <div className={styles.frameDiv}>
+                    <div className={styles.int000Parent}>
+                    <div className={styles.int0001}>
+                        {suiAddress !== null ? 
+                            `${suiAddress.slice(0, 6)}...${suiAddress.slice(-5)}` : 
+                            'Loading...'}
+                      
+                    </div>
+                    <b className={styles.int0002} onClick={CopySuiAddressinClipboard}>
+                    <BiCopy />
+                    </b>
+                    {/* <b className={styles.int0002}> <BiCopy /> </b> */}
+                </div>
+                <div className={styles.ethereumWrapper}>
+                  <div className={styles.eth}>Ethereum</div>
+                </div>
+                </div>
+              </div>
           </div>
         )}
         {addNewFiatWallet && (
@@ -888,34 +695,53 @@ const handleButtonClick = (buttonName: string) => {
             )}
         {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div>
-          <div className={styles.fiat}>
-                    <ul className={styles.list}>
-                      <li className={styles.listHeader}>
-                        <span className={styles.span}>Your Fiat Wallets  (6)</span>
-                        <button className={styles.addNew}>Add New</button>
-                      </li>
-                      {currencyList.map((currency, index) => {
-                        // Find wallet data matching the current currency
-                        const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
-                        const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
-
-                        // Find the icon matching the current currency
-                        const iconData = currencyIcons.find((icon) => icon.currency_type === currency);
-                        const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
-                        // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
-
-                        return (
-                          <li className={styles.listItem} key={index}>
-                            <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
-                            <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
-                            <button className={styles.button1} ><div>{currency}</div></button>
-                            <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
-                            </button>
+          <div>
+                    <div className={styles.fiat}>
+                      <ul className={styles.list}>
+                        <li className={styles.listHeader}>
+                          <span className={styles.span}>
+                            {/* Your Fiat Wallets ({walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length}) */}
+                            Your Fiat Wallets
+                          </span>
+                          {/* <button className={styles.addNew} onClick={handleAddFiatWallet}>Add New</button> */}
+                          <button className={styles.addNew} >Add New</button>
+                        </li>
+                        {walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length === 0 ? (
+                          <li className={styles.listItem}>
+                            <div>
+                              <label className={styles.noWallets}>You Do Not Have Wallets <a className={styles.addNewLink}>Add New</a></label>
+                            </div>
                           </li>
-                        );
-                      })}
-                    </ul>
+                        ) : (
+                          currencyList.map((currency, index) => {
+                            const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
+                            const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
+                            const currencyType = wallet ? wallet.currency_type : 'Unknown';
+
+                            // If the currency type is unknown, skip rendering this row
+                            if (currencyType === 'Unknown') {
+                              return null;
+                            }
+
+                            const iconData = currencyIcons.find((icon) => icon.currency_type === currencyType);
+                            const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
+
+                            return (
+                              <li className={styles.listItem} key={index}>
+                                <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
+                                  <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
+                                  <button className={styles.button1}><div>{currencyType}</div></button>
+                                  <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
+                                </button>
+                              </li>
+                            );
+                          })
+                        )}
+                      </ul>
+                    </div>
                   </div>
+
+
                   {isBlurred && (
                     <div className={styles.modaloverlay}>
                       <div className={styles.modalcontent}>
@@ -1044,7 +870,7 @@ const handleButtonClick = (buttonName: string) => {
               )}
         {activeTab === 'NFTs' && <div>NFTs Content</div>}
       </div>
-      {dropdownVisible && (
+      {/* {dropdownVisible && (
         <div ref={dropdownRef} className={styles.dropdown}>
           <div className={styles.dropdownContent}>
             <div className={styles.Wallets}>
@@ -1081,10 +907,80 @@ const handleButtonClick = (buttonName: string) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
        </>
       )}
-       <div>
+      <div className={styles.homeInner} onClick={handleDupayClick}>
+            <img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
+        </div>
+            <div className={styles.tabbarstabbars}>          
+        				<div className={styles.div}>
+          					<div className={styles.content11} onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/transaction_btn')}>
+            						{/* <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727076064/wallet_icon_ubkgg2.png" /> */}
+                        <AssessmentIcon />
+            						<b className={styles.text}>Transaction</b>
+          					</div>
+        				</div>
+        				<div className={styles.div1} onClick={handleDupayClick}>
+          					<div className={styles.content11} >
+            						<img className={styles.iconbase}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077435/payment_mbvqke.png" />
+            						<b className={styles.text}>Dupay</b>
+          					</div>
+        				</div>
+        				<div className={styles.div1}>
+          					<div className={styles.content11}  onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn')}>
+            						<img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077051/profileicon_logo_dxbyqc.png" />
+            						<b className={styles.text}>Profile</b>
+          					</div>
+        				</div>
+      			</div>
+        <div>
+        {isDupayOpen && (
+        <div className={styles.overlay}>
+          <div className={styles.blurBackground}></div>
+          <div className={styles.buttonsContainer}>
+            <div className={styles.button}    
+              onClick={() => handleNavigation('/Userauthorization/cashout_btn')}
+              >
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085076/cashout_icon_h0h6vj.png" alt="Cashout" 
+				style={{position: 'relative', right: '-5px'}}	  />
+              <span>Cashout</span>
+            </div>
+            <div className={styles.button}
+           onClick={() => handleNavigation('/Userauthorization/swap_btn')}
+              >
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085724/swap_icon_v5uzcz.png" alt="Swap" 
+			  style={{position: 'relative', right: '3px'}}
+			  />
+				<div style={{ fontFamily: 'Roboto, sans-serif' }}>Swap</div>
+			</div>
+            <div className={styles.button}
+            onClick={() => handleNavigation('/Userauthorization/receive_btn')} >
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085940/Receive_icon_kwgsaq.png" alt="Receive" 
+			  style={{width:'20px', height: '20px', position: 'relative', right: '-15px'}}		  />
+              <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif' }}>Receive</div>
+            </div>
+            <div className={styles.button}
+            onClick={() => handleNavigation('/Userauthorization/send_btn')}>
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085858/Send_icon_zag3am.png" alt="Send" 
+			  style={{width:'20px', height: '20px', position: 'relative', right: '4px'}}
+			  />
+              <div style={{ fontFamily: 'Roboto, sans-serif' }}>Send</div>
+            </div>
+            <div className={styles.button}
+           onClick={() => handleNavigation('/WalletManagement/Transak')}  >
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086014/Buy_icon_rwmfdq.png" alt="Buy" 
+			 	style={{position: 'relative', right: '7px'}}			  />
+
+              <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', right: '7px'  }}>Buy</div>
+            </div>
+          </div>
+          {/* Close button */}
+          <button className={styles.closeButton1} onClick={handleClose}>
+            <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086180/close_icon_acudos.png" alt="Close" />
+          </button>
+        </div>
+      )}
        {addNewFiatWalletPage && (
           <div className={styles.modalContentadd}>
             <div className={styles.addNewFiatWalletPage}>
@@ -1149,27 +1045,5 @@ const handleButtonClick = (buttonName: string) => {
   );
 };
 
-const getIcon = (action: string) => {
-  switch (action) {
-    case 'Buy':
-      return <FontAwesomeIcon icon={faPlus} />;
-    case 'Swap':
-      return <FontAwesomeIcon icon={faExchangeAlt} />;
-    case 'Cashout':
-      return <IoCashOutline style={{fontSize: '30px'}} />;
-    case 'Send':
-      return <FaArrowUpLong />;
-    case 'Receive':
-      return <FaArrowDownLong />;
-    case 'Assets':
-      return <FontAwesomeIcon icon={faWallet} />;
-    case 'Transactions':
-      return <FontAwesomeIcon icon={faListAlt} />;
-    case 'Settings':
-      return <FontAwesomeIcon icon={faCog} />;
-    default:
-      return null;
-  }
-};
 
 export default Home;

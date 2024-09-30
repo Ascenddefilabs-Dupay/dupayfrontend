@@ -130,7 +130,7 @@ export default function Receive() {
     };
     
     const handleBackClick = () => {
-        router.push('/Userauthorization/Dashboard/Home');
+        router.push('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn');
     };
 
     const ProfileImage = styled('img')({
