@@ -291,7 +291,7 @@ const UserTransaction: React.FC = () => {
         <div className={styles.back} >
             <div onClick={handleBackClick} style={{ cursor: 'pointer' }}>
               <img
-                    className='iconarrowLeftBack'
+                    className={styles.iconarrowLeftBack}
                     alt=""
                     src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067208/1826c340-1853-453d-9ad0-6cafb099b947.png"
                   />
