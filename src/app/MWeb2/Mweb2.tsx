@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import styles from './MWeb2.module.css';
+import styles from './Mweb2.module.css';
 import { useRouter } from 'next/navigation';
 
 
@@ -67,8 +67,8 @@ const MWEB2:NextPage = () => {
           					</div>
         				</div> */}
       			{/* </div> */}
-      			<div className={styles.mwebItem} />
-      			<div className={styles.mwebInner} />
+      			{/* <div className={styles.mwebItem} /> */}
+      			{/* <div className={styles.mwebInner} /> */}
       			<div className={styles.frameParent1}>
         				<img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326187/be2641a4-fbda-4137-ba57-a37ffcc58313.png" />
         				<div className={styles.frameParent2}>
@@ -113,12 +113,12 @@ const MWEB2:NextPage = () => {
           					</div>
         				</div>
       			</div>
-      			<div className={styles.mwebInner1}>
+      			{/* <div className={styles.mwebInner1}>
         				<div className={styles.image7Parent}>
           					<img className={styles.image7Icon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326396/c97b8587-276f-4fbf-9d46-c1b2a4c48617.png" />
           					<div className={styles.title11}>Dupay Wallet is available in your country</div>
             						</div>
-          					</div>
+          					</div> */}
         				</div>);
         				};
         				

@@ -9,6 +9,7 @@
     width: 399px;
     height: 476.1px;
     object-fit: contain;
+    z-index: 1;
 }
 .dupayLogoIcon {
     width: 32px;
@@ -54,6 +55,7 @@
     opacity: 0.9;
     text-align: center;
     font-family: 'SF Pro';
+    z-index: 2;
 }
 .mwebChild {
     position: absolute;
@@ -83,6 +85,7 @@
     width: 258px;
     position: relative;
     height: 529px;
+    z-index: 1;
 }
 .title1 {
     align-self: stretch;
@@ -220,6 +223,7 @@
     gap: 48px;
     text-align: center;
     font-size: 24px;
+    z-index: 2;
 }
 .mwebItem {
     position: absolute;
@@ -427,6 +431,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: 24px;
+
 }
 .mwebInner1 {
     position: absolute;
@@ -441,14 +446,68 @@
     opacity: 0.9;
 }
 .mweb {
-    width: 100%;
+    width: 411px;
     position: relative;
     background-color: #17171a;
-    height: 2873px;
+    height: 130vh;
     overflow: hidden;
     text-align: left;
     font-size: 19px;
     color: #fff;
     font-family: Poppins;
+    max-width: 100%;
+    margin: 0 auto;
+    max-height: auto;
+}
+@media (max-width: 1024px) {
+    .mweb {
+      width: 100%; 
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mweb {
+      width: 100%; 
+    }
+  }
+
+
+  
+.sidebar {
+    position: fixed;
+    top: 64px; /* Start the sidebar below the menu icon */
+    /* left: 0; */
+    width: 411px;
+    max-width: 100%;
+    margin: 0 auto;
+    height: calc(100% - 64px); /* Adjust height based on the menu icon height */
+    background-color: #17171a; /* Match the sidebar color to the container background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    max-height: auto;
+    
 }
 
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 20px 0;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.sidebar li:hover {
+    color: #f0a500; /* Change color on hover */
+}
+
+.iconmenuBurger {
+    cursor: pointer;
+}

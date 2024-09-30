@@ -54,17 +54,17 @@
     background-color: #5a47aa; /* Darker shade for hover effect */
 }
 .buttons{
-    background: linear-gradient(91.26deg, #70a2ff 100%, #f76e64 10%);
+    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 .buttons1{
-    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
+    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 .buttons2{
-    background: linear-gradient(91.26deg,  #f76e64 100%,#70a2ff 0%);
+    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -83,7 +83,7 @@
 .homeAboutContactParent {
     position: absolute;
     top: 0px;
-    left: 150px;
+    left: 250px;
     width: 1300px;
     height: 90px;
     overflow: hidden;
@@ -102,7 +102,7 @@
 .dupayLogoParent {
     position: absolute;
     top: 20px;
-    left: 170px;
+    left: 0;
     display: flex;
     flex-direction: row;
     align-items: center;

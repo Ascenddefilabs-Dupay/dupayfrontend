@@ -309,7 +309,7 @@
 }
 .frameParent1 {
     position: absolute;
-    top: 1463px;
+    top: 100px;
     left: 24px;
     width: 382px;
     display: flex;
@@ -402,7 +402,7 @@
 }
 .rectangleParent {
     position: absolute;
-    top: 2261px;
+    top: 1000px;
     left: 0px;
     width: 430px;
     height: 362px;

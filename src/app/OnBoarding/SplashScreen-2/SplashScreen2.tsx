@@ -24,7 +24,7 @@ const SplashScreen2: React.FC = () => {
         				
         				<img className={styles.imagecarouselIndicatorcompoIcon2} onClick={handleNavigation3} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727097900/7a0e1444-2ce5-45b2-b41e-c6bf2c442382.png" />
       			</div>
-                 
+				  <img className={styles.groupIcon}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804062/image_xnekfp.png" />
       			{/* <div className={styles.titleParent}>
         				<div className={styles.title}>
           					<span>{`Trusted by `}</span>
