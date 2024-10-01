@@ -10,7 +10,7 @@ import styles from './MyWallet.module.css';
 interface Currency {
     // currency_code: string;
     // currency_country: string;
-    // currency_icon: string;
+    currency_icon: string;
     balance?: string;
     currency_type:string;
 }
@@ -132,11 +132,11 @@ const MyWallet: React.FC = () => {
         value: currency.currency_type,
         label: (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                {/* <img
+                <img
                     src={currency.currency_icon}
-                    alt={currency.currency_code}
+                    // alt={currency.currency_code}
                     style={{ marginRight: 8, width: 20, height: 20 }}
-                /> */}
+                />
                 {currency.currency_type}
             </div>
         ),
@@ -157,11 +157,11 @@ const MyWallet: React.FC = () => {
                     value: foundCurrency.currency_type,
                     label: (
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            {/* <img
+                            <img
                                 src={foundCurrency.currency_icon}
-                                alt={foundCurrency.currency_code}
+                                // alt={foundCurrency.currency_code}
                                 style={{ marginRight: 8, width: 20, height: 20 }}
-                            /> */}
+                            />
                             {foundCurrency.currency_type}
                         </div>
                     ),
@@ -240,14 +240,14 @@ const MyWallet: React.FC = () => {
             </div>
             <div className={styles.balanceCard}>
                 <div className={styles.balanceDetails}>
-                    {/* <img 
+                    <img 
                         src={selectedCurrencyImage} 
                         alt={selectedCurrency?.value} 
                         className={styles.currencyImage} 
-                    /> */}
+                    />
                     <div className={styles.currencyText}>
                         <span className={styles.currencyCode}>{selectedCurrency?.value}</span>
-                        {/* <span className={styles.currencyCountry}>{selectedCountry}</span> */}
+                        <span className={styles.currencyCountry}>{selectedCountry}</span>
                     </div>
                     <div className={styles.balanceAmount}>
                     <p className={styles.balanceAmount}>

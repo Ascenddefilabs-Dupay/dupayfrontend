@@ -2,12 +2,28 @@ import { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
 import styles from './MWeb.module.css';
 import { useRouter } from 'next/navigation';
+import WebpageSingle from '../WebPages/WebPage1';
 
 const MWEB: NextPage = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const router = useRouter();
+  const [isWebsite, setIsWebsite] = useState(false);
   
- 
+  useEffect(() => {
+		const handleResize = () => {
+		  setIsWebsite(window.innerWidth >= 768); // Adjust the width as necessary
+		};
+	
+		handleResize(); // Check on mount
+		window.addEventListener('resize', handleResize);
+	
+		return () => {
+		  window.removeEventListener('resize', handleResize);
+		};
+	  }, []);
+	
+	  // Render mobile component if in mobile view
+	
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -32,6 +48,10 @@ const MWEB: NextPage = () => {
   };
 
   return (
+    <>
+      {isWebsite ? (
+        <WebpageSingle />
+      ) : (
     <div className={styles.mweb}>
       <img
         className={styles.shapeIcon}
@@ -98,6 +118,8 @@ const MWEB: NextPage = () => {
         </div>
       </div>
     </div>
+      )}
+      </>
   );
 };
 

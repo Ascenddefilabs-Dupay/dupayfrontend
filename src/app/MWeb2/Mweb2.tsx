@@ -2,12 +2,34 @@ import type { NextPage } from 'next';
 import styles from './Mweb2.module.css';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import Webpage2 from '../WebPages2/WebPage2';
 
 
 const MWEB2:NextPage = () => {
 
     const router=useRouter();
 	const [sidebarVisible, setSidebarVisible] = useState(false);
+	const [isWebsite, setIsWebsite] = useState(false);
+	const [selectedSection, setSelectedSection] = useState<string>('');
+
+  const handleClick = (section: string) => {
+    setSelectedSection(section);
+  };
+  
+	useEffect(() => {
+		const handleResize = () => {
+		  setIsWebsite(window.innerWidth >= 768); // Adjust the width as necessary
+		};
+	
+		handleResize(); // Check on mount
+		window.addEventListener('resize', handleResize);
+	
+		return () => {
+		  window.removeEventListener('resize', handleResize);
+		};
+	  }, []);
+	
+	  // Render mobile component if in mobile view
 	const toggleSidebar = () => {
 		setSidebarVisible(!sidebarVisible);
 	  };
@@ -34,6 +56,10 @@ const MWEB2:NextPage = () => {
 		router.push('/MWeb3');
     }
   	return (
+		<>
+      {isWebsite ? (
+        <Webpage2 />
+      ) : (
     		<div className={styles.mweb}>
       			{/* <img className={styles.shapeIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727325960/0beadfc1-104a-4d39-90dc-d34518823d07.png" /> */}
       			<div className={styles.frameParent}>
@@ -134,13 +160,26 @@ const MWEB2:NextPage = () => {
       			<div className={styles.rectangleParent}>
         				<div className={styles.frameItem} />
         				<img className={styles.loopergroupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326340/004ffae3-1c39-4b25-9416-4f0f0abfa666.png" />
-        				<div className={styles.frameWrapper4} onClick={navigateToMweb2}>
+        				<div
+							className={`${styles.frameWrapper4} ${
+							selectedSection === 'individual' ? styles.selected : ''
+							}`}
+							onClick={() => {
+							handleClick('individual');
+							navigateToMweb2(); // This triggers your navigation
+							}}
+						>
           					<div className={styles.titleParent1}>
             						<b className={styles.title5}>Individual</b>
             						<div className={styles.title8}>For individuals who want to trade, send and receive crypto, get price alerts and more</div>
           					</div>
         				</div>
-        				<div className={styles.frameWrapper5}>
+        				<div
+							className={`${styles.frameWrapper5} ${
+							selectedSection === 'vendor' ? styles.selected : ''
+							}`}
+							onClick={() => handleClick('vendor')}
+						>
           					<div className={styles.titleParent2}>
             						<b className={styles.title9}>Vendor</b>
             						<div className={styles.title10}>We offer business and high net-worth individuals secure solutions for accepting, managing and trading cryptocurrencies.</div>
@@ -153,8 +192,12 @@ const MWEB2:NextPage = () => {
           					<div className={styles.title11}>Dupay Wallet is available in your country</div>
             						</div>
           					</div> */}
-        				</div>);
+        				</div>
+						)}
+    </>
+						);
         				};
+						
         				
         				export default MWEB2;
         				
