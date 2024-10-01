@@ -1,59 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import Select, { SingleValue } from 'react-select';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './Topup.module.css';
 
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
 // const API_BASE_URL = 'http://localhost:8000/fiatmanagementapi'; // Updated base URL for API requests
-const API_BASE_URL = 'https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi'; // Base URL for all API requests
-interface CurrencyOption {
-  value: string;
-  label: string;
-}
+const API_BASE_URL='https://fiatmanagement-ind-255574993735.asia-south1.run.app';
 
 interface WalletDetails {
   fiat_wallet_id: string;
   fiat_wallet_address: string;
   fiat_wallet_balance: string;
   fiat_wallet_phone_number: string;
-}
-
-interface AccountType {
-  currency_type: string;
+  currency_icon: string; 
 }
 
 interface UserCurrency {
-  currency_type: string;
-  balance: number;
+  currency_type: string | null; // Allow null to handle possible null values
+  balance: string; // Ensure balance is a string to match the API response
 }
 
 const TopUpForm: React.FC = () => {
-  const [balances, setBalances] = useState<{ [key: string]: number }>({});
+  const [balance, setBalance] = useState<number>(0);
   const [amount, setAmount] = useState<string>('');
-  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyOption | null>(null);
   const [error, setError] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [accountTypes, setAccountTypes] = useState<CurrencyOption[]>([]);
   const [walletDetails, setWalletDetails] = useState<WalletDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-  const [pendingAmount, setPendingAmount] = useState<number | null>(null);
   const [showForm, setShowForm] = useState<boolean>(true);
   const router = useRouter();
-  const uniqueId = uuidv4();
-console.log(uniqueId);
+  const [hasFetchedWalletDetails, setHasFetchedWalletDetails] = useState(false);
+  const DEFAULT_CURRENCY_TYPE = 'INR';
+  const [currencyIcon, setCurrencyIcon] = useState<string | null>(null);
+  
+  
   const handleApiError = (error: any, context: string) => {
     console.error(`Error during ${context}:`, error);
     setError(`An error occurred while ${context.toLowerCase()}. Please try again.`);
     setLoading(false);
     setShowForm(true);
-  };
-
-  const handleCurrencyChange = (option: SingleValue<CurrencyOption>) => {
-    setSelectedCurrency(option as CurrencyOption);
   };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +71,53 @@ console.log(uniqueId);
     }
   };
 
+  const fetchUserCurrencyBalance = async () => {
+    if (walletDetails) {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`);
+        
+        const userCurrency = response.data.find((currency: UserCurrency) => currency.currency_type === DEFAULT_CURRENCY_TYPE);
+        
+        const newBalance = userCurrency ? parseFloat(userCurrency.balance) : 0;
+        setBalance(newBalance);
+        console.log(`Fetched balance: ${newBalance} ${DEFAULT_CURRENCY_TYPE}`); // Log the balance
+      } catch (error) {
+        handleApiError(error, 'fetching user currency balance');
+      }
+    }
+  };
+
+  const fetchCurrencyIcon = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/admincms/default_currency/?currency_type=${DEFAULT_CURRENCY_TYPE}`);
+      
+      const { icon } = response.data;  // Ensure this matches the response structure
+  
+      console.log('Raw icon URL:', icon); // Log the raw URL for debugging
+      setCurrencyIcon(icon);
+  
+      // Ensure the URL is properly formatted
+      const cleanedIconUrl = icon.trim(); // Remove any surrounding whitespace
+
+      // if (cleanedIconUrl && cleanedIconUrl.startsWith("https://res.cloudinary.com/")) {
+      //   setCurrencyIcon(cleanedIconUrl); // Set the cleaned URL
+      // } else {
+      //   console.error("Invalid URL format:", cleanedIconUrl);
+      // }
+  
+    } catch (error) {
+      handleApiError(error, 'fetching currency icon');
+    }
+  };
+  
+  
+  
+  
+
+  useEffect(() => {
+    fetchCurrencyIcon(); // Fetch currency icon when component mounts
+  }, []);
+
   useEffect(() => {
     const loadRazorpayScript = () => {
       if (!(window as any).Razorpay) {
@@ -100,42 +135,21 @@ console.log(uniqueId);
   }, []);
 
   useEffect(() => {
-    if (showForm) {
-      axios
-        .get(`${API_BASE_URL}/fiat_wallets/Wa0000000003/`) // Fetch wallet details
-        .then((response) => setWalletDetails(response.data))
-        .catch((error) => handleApiError(error, 'fetching wallet details'));
-
-      axios
-        .get(`${API_BASE_URL}/account-types/`) // Fetch all account types
-        .then((response) => {
-          const currencyOptions: CurrencyOption[] = response.data.map((account: AccountType) => ({
-            value: account.currency_type,
-            label: account.currency_type,
-          }));
-          setAccountTypes(currencyOptions);
-        })
-        .catch((error) => handleApiError(error, 'fetching account types'));
-    }
-  }, [showForm]);
-
+    const fetchWalletDetails = async () => {
+      if (hasFetchedWalletDetails) return; // Prevent re-fetching
+      try {
+        const response = await axios.get(`${API_BASE_URL}/fiat_wallets/Wa0000000003/`);
+        setWalletDetails(response.data);
+        setHasFetchedWalletDetails(true); // Set flag to true after fetching
+      } catch (error) {
+        handleApiError(error, 'fetching wallet details');
+      }
+    };
+    fetchWalletDetails();
+  }, [hasFetchedWalletDetails]); // Depend on the flag
+  
   useEffect(() => {
-    if (walletDetails) {
-      axios
-        .get(`${API_BASE_URL}/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
-        .then((response) => {
-          if (response.data && Array.isArray(response.data)) {
-            const userCurrencies = response.data.reduce((acc: { [key: string]: number }, currency: UserCurrency) => {
-              if (currency.currency_type && currency.balance !== undefined && currency.balance !== null) {
-                acc[currency.currency_type] = currency.balance;
-              }
-              return acc;
-            }, {});
-            setBalances(userCurrencies);
-          }
-        })
-        .catch((error) => handleApiError(error, 'fetching user currencies'));
-    }
+    fetchUserCurrencyBalance(); // Fetch balance whenever wallet details change
   }, [walletDetails]);
 
   const initiateRazorpayPayment = () => {
@@ -144,7 +158,7 @@ console.log(uniqueId);
         const options = {
           key: RAZORPAY_KEY,
           amount: parseFloat(amount) * 100,
-          currency: selectedCurrency?.value,
+          currency: DEFAULT_CURRENCY_TYPE,
           name: 'DUPAY',
           description: 'Top-Up Payment',
           handler: (response: any) => {
@@ -173,60 +187,51 @@ console.log(uniqueId);
   };
 
   const handleTopUp = async () => {
-  setSubmitted(true);
-  const parsedAmount = parseFloat(amount);
+    setSubmitted(true);
+    const parsedAmount = parseFloat(amount);
 
-  if (!selectedCurrency) {
-    setAlertMessage('Please select a currency.');
-    return;
-  }
-
-  if (isNaN(parsedAmount) || parsedAmount <= 0) {
-    setAlertMessage('Please enter a valid amount greater than zero.');
-    return;
-  }
-
-  if (!walletDetails) {
-    setAlertMessage('Wallet details not loaded.');
-    return;
-  }
-
-  setLoading(true);
-  setShowForm(false);
-
-  try {
-    const paymentSuccess = await initiateRazorpayPayment();
-    if (!paymentSuccess) {
-      setAlertMessage('Payment failed or was cancelled.');
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      setAlertMessage('Please enter a valid amount greater than zero.');
       return;
     }
 
-    const topUpData = {
-      wallet_id: walletDetails.fiat_wallet_id,
-      currency_code: selectedCurrency.value,
-      amount: parsedAmount,
-      currency_country: 'YourCountry', // Adjust this value as needed
-      transaction_hash: uuidv4(),
-    };
+    if (!walletDetails) {
+      setAlertMessage('Wallet details not loaded.');
+      return;
+    }
 
-    await axios.post(`${API_BASE_URL}/user_currencies/topup/`, topUpData);
+    setLoading(true);
+    setShowForm(false);
 
-    // Update the balance in state after successful top-up
-    setBalances(prevBalances => ({
-      ...prevBalances,
-      [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount,
-    }));
+    try {
+      const paymentSuccess = await initiateRazorpayPayment();
+      if (!paymentSuccess) {
+        setAlertMessage('Payment failed or was cancelled.');
+        return;
+      }
 
-    setAlertMessage('Top-up successful!');
-  } catch (error) {
-    handleApiError(error, 'processing top-up');
-  } finally {
-    setLoading(false);
-    setShowForm(true);
-  }
-};
+      const topUpData = {
+        wallet_id: walletDetails.fiat_wallet_id,
+        currency_code: DEFAULT_CURRENCY_TYPE, // Using only INR for now
+        amount: parsedAmount,
+        currency_country: 'YourCountry', // Adjust this value as needed
+        transaction_hash: uuidv4(),
+      };
 
-  
+      await axios.post(`${API_BASE_URL}/user_currencies/topup/`, topUpData);
+
+      // Update the balance in state after successful top-up
+      setBalance((prevBalance) => prevBalance + parsedAmount);
+
+      setAlertMessage('Top-up successful!');
+    } catch (error) {
+      handleApiError(error, 'processing top-up');
+    } finally {
+      setLoading(false);
+      setShowForm(true);
+    }
+  };
+
   const handleBack = () => {
     router.back();
   };
@@ -234,33 +239,46 @@ console.log(uniqueId);
   return (
     <div className={styles.topUpFormContainer}>
       <button className={styles.backButton} onClick={handleBack}>
-        <FaArrowLeft /> 
-        <span className="text">      TopUp</span>
-      </button>
+      <FaArrowLeft className={styles.arrowIcon} />
+      <span className={styles.buttonText}>TopUp</span>
+    </button>
+
       {loading && <div className={styles.loading}>Processing...</div>}
       {alertMessage && <div className={styles.alert}>{alertMessage}</div>}
       {showForm && (
         <form className={styles.topUpFormContent} onSubmit={(e) => e.preventDefault()}>
           <div className={styles.formGroup}>
-            <label htmlFor="currencySelect" className={styles.label}>Select Currency</label>
-            <Select
-              id="currencySelect"
-              options={accountTypes}
-              value={selectedCurrency}
-              onChange={handleCurrencyChange}
-              placeholder="Select Currency"
-              className={styles.select}
-              isClearable
-            />
+            <div className={styles.totalBalanceRow}>
+              {/* Left side: Total and default currency */}
+              <div className={styles.totalSection}>
+                {currencyIcon && (
+                    <img
+                      src={currencyIcon}
+                      alt={`${DEFAULT_CURRENCY_TYPE} icon`}
+                      className={styles.currencyIcon}
+                    />
+                  )}
+                <span className={styles.label}>Total</span>
+                <span className={styles.defaultCurrencyType}>{DEFAULT_CURRENCY_TYPE}</span>
+              </div>
+              
+              {/* Right side: Balance and default currency */}
+              <div className={styles.balanceSection}>
+                <span className={styles.balance}>{balance.toFixed(2)}</span>
+                <span className={styles.defaultCurrencyType}>{DEFAULT_CURRENCY_TYPE}</span>
+                
+
+              </div>
+            </div>
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="amountInput" className={styles.label}>Enter Amount</label>
+            <label htmlFor="amountInput" className={styles.label1}>How much {DEFAULT_CURRENCY_TYPE} do you want to top up?</label>
             <input
               id="amountInput"
               type="text"
               value={amount}
               onChange={handleAmountChange}
-              placeholder="Enter Amount"
+              placeholder={`Enter amount in ${DEFAULT_CURRENCY_TYPE}`}
               className={styles.amountInput}
             />
           </div>

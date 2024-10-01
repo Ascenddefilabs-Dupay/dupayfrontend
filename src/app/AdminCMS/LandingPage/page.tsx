@@ -117,43 +117,47 @@ const Home = () => {
 
   const handleSave = async (id: number) => {
     const formData = new FormData();
-    if (showTextBox === 'account') formData.append('account_type', editedValue);
-    if (showTextBox === 'currency') formData.append('currency_type', editedValue);
+    if (showTextBox === 'account') {
+        formData.append('account_type', editedValue);
+    }
+    if (showTextBox === 'currency') {
+        formData.append('currency_type', editedValue);
+    }
     if (file) {
-      formData.append('icon', file);  // Add the file to the form data
+        formData.append('icon', file);  // Add the file to the form data
     }
-  
+
     try {
-      const response = await fetch(`http://localhost:8000/api/admincms/${id}/`, {
-        method: 'PUT',
-        body: formData,  // Send formData to backend
-      });
-  
-      if (response.ok) {
-        toast.success('Updated successfully.', { autoClose: 1000 });
-        
-        // Only update the `icon` if the file exists
-        setFetchedValues(prev =>
-          prev.map(item => 
-            item.id === id ? { 
-              ...item, 
-              [showTextBox + '_type']: editedValue, 
-              icon: file ? URL.createObjectURL(file) : item.icon 
-            } : item
-          )
-        );
-        setEditMode(null);
-        setFile(null);  // Clear the file input after saving
-      } else {
-        toast.error('Failed to update.', { autoClose: false });
-      }
+        const response = await fetch(`http://localhost:8000/api/admincms/${id}/`, {
+            method: 'PUT',
+            body: formData,  // Send formData to backend
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            toast.success('Updated successfully.', { autoClose: 1000 });
+
+            // Update the state with the new data from the response
+            setFetchedValues(prev =>
+                prev.map(item => 
+                    item.id === id ? { 
+                        ...item, 
+                        [showTextBox + '_type']: editedValue, 
+                        icon: file ? responseData.data.icon : item.icon // Update icon if a new one is uploaded
+                    } : item
+                )
+            );
+            setEditMode(null);
+            setFile(null);  // Clear the file input after saving
+        } else {
+            toast.error('Failed to update.', { autoClose: false });
+        }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('An error occurred while updating.', { autoClose: false });
+        console.error('Error:', error);
+        toast.error('An error occurred while updating.', { autoClose: false });
     }
-  };
-  
-  
+};
+
   const handleDelete = async (id: number) => {
     if (await toast.promise(
       fetch(`http://localhost:8000/api/admincms/${id}/`, {
@@ -213,20 +217,28 @@ const Home = () => {
             onChange={(e) => setInputValue(e.target.value)}
             className={styles.input}
           />
+          {showTextBox === 'currency' && (
+            <label className={styles.uploadLabel}>
+              <input type="file" onChange={handleFileChange} className={styles.fileInput} />
+              
+            </label>
+          )}
           <button onClick={handleAddClick} className={styles.addButton} disabled={isLoading}>
             {isLoading ? 'Adding...' : 'Add'}
           </button>
         </div>
       )}
+
+    
       {fetchedValues.length > 0 && showTextBox === 'account' && (
         <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>
-                  Account Type
-                  <FaPlus className={styles.plusIcon} onClick={handlePlusClick} />
-                </th>
+              <th className={styles.accountTypeHeader}>
+                Account Type
+                <FaPlus className={styles.plusIcon} onClick={handlePlusClick} />
+              </th>
               </tr>
             </thead>
             <tbody>
@@ -273,32 +285,53 @@ const Home = () => {
               <tr>
                 <th>
                   Currency Type
-                  <FaPlus className={styles.plusIcon} onClick={handlePlusClick} />
+                </th>
+                <th>
+                  Icon
+                </th>
+                <th>
+                  
+                  <FaPlus className={styles.plusIcon} onClick={handlePlusClick} /> {/* Add Icon */}
                 </th>
               </tr>
             </thead>
             <tbody>
               {fetchedValues.map((item) => (
                 <tr key={item.id}>
-                  <td className={styles.tableRow}>
+                  {/* Currency Type */}
+                  <td>
                     {editMode === item.id ? (
-                      <>
-                        <input
-                          type="text"
-                          value={editedValue}
-                          onChange={(e) => setEditedValue(e.target.value)}
-                          className={styles.inputEdit}
-                        />
-                        <input type="file" className={styles.uploadButton} onChange={handleFileChange} />
-                      </>
+                      <input
+                        type="text"
+                        value={editedValue}
+                        onChange={(e) => setEditedValue(e.target.value)}
+                        className={styles.inputEdit}
+                      />
                     ) : (
                       item.currency_type
                     )}
+                  </td>
+
+                  {/* Icon Column */}
+                  <td>
+                    {editMode === item.id ? (
+                      <input
+                        type="file"
+                        className={styles.uploadButton}
+                        onChange={handleFileChange}
+                      />
+                    ) : item.icon ? (
+                      <img src={item.icon} alt="Currency Icon" className={styles.iconImage} />
+                    ) : (
+                      'No Icon'
+                    )}
+                  </td>
+
+                  {/* Action Icons */}
+                  <td>
                     <div className={styles.actionIcons}>
                       {editMode === item.id ? (
-                        <>
-                          <FaSave className={styles.icon} onClick={() => handleSave(item.id)} />
-                        </>
+                        <FaSave className={styles.icon} onClick={() => handleSave(item.id)} />
                       ) : (
                         <>
                           <FaEdit
@@ -316,6 +349,7 @@ const Home = () => {
           </table>
         </div>
       )}
+
 
       <ToastContainer position="top-center" />
     </div>

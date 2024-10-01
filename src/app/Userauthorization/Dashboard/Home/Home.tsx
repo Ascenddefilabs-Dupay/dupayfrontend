@@ -113,6 +113,8 @@ const Home = () => {
   const [walletName, setWalletName] = useState("");
   const [email, setEmail] = useState("");
   const [securityPin, setSecurityPin] = useState("");
+  const [showWalletForm, setShowWalletForm] = useState(false);
+
   const [error, setError] = useState<ErrorState>({});
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -265,6 +267,7 @@ const Home = () => {
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      setAddNewFiatWalletPage(false); 
       console.log("Form submitted!"); // Debugging
       
       if (!validateFields()) return;
@@ -610,9 +613,7 @@ const handleButtonClick = (buttonName: string) => {
     setAddNewFiatWalletPage(true); // Close the modal and remove the blur effect
   };
 
-  const handleSubbmit = () => {
-    // setAddNewFiatWalletPage(false); // Close the modal and remove the blur effect
-  };
+  
 
 
   useEffect(() => {
@@ -1002,20 +1003,44 @@ const handleButtonClick = (buttonName: string) => {
           <div className={styles.modalContentadd}>
             <div className={styles.addNewFiatWalletPage}>
               <h2>Create New Fiat Wallet</h2>
+              
               <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
-                  <Select
-                    id="accountType"
-                    className={styles.selectInput}
-                    options={accountTypeOptions} // Your account type options array
-                    value={selectedAccountType}
-                    onChange={(option) => setSelectedAccountType(option)} // Update the selected account type
-                    placeholder="Select an account type"
-                    isClearable
-                    
-                    required
-                  />
-                </div>
+              <div className={styles.formGroup}>
+              <Select
+                id="accountType"
+                className={styles.selectInput}
+                options={accountTypeOptions} // Your account type options array
+                value={selectedAccountType}
+                onChange={(option) => setSelectedAccountType(option)} // Update the selected account type
+                placeholder="Select an account type"
+                isClearable
+                required
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    backgroundColor:  'rgba(42, 45, 60, 1)', // Background color for the input control
+                    color: 'rgba(226, 240, 255, 1)', // Text color inside the input
+                  }),
+                  placeholder: (provided) => ({
+                    ...provided,
+                    color: 'rgba(226, 240, 255, 1)', // Placeholder text color
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)', // Background color for the dropdown options
+                    color: 'rgba(226, 240, 255, 1)', // Text color for options
+                    '&:hover': {
+                      backgroundColor: '#555', // Background color on hover
+                    },
+                  }),
+                  singleValue: (provided) => ({
+                    ...provided,
+                    color: 'rgba(226, 240, 255, 1)', // Selected value text color
+                  }),
+                }}
+              />
+            </div>
+
                 <div className={styles.formGroup}>
                   <input
                     id="walletName"

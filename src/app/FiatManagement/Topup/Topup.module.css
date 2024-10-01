@@ -1,17 +1,19 @@
+/* Ensure the container is centered */
 .topUpFormContainer {
-  width: 400px; 
-  max-width: 100%;
+  width: 100%;
+  max-width: 400px;
   padding: 20px;
-  /* border-radius: 8px; */
-  margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background: black;
+  margin: 0 auto; /* Center horizontally */
+  background: #000;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  height: 100vh;
-  max-height: auto;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure content is spaced, with the button at the bottom */
+  min-height: 100vh; /* Full height */
+  align-items: center; /* Center the content */
 }
 
+/* Back button styles */
 .backButton {
   align-self: flex-start;
   background: transparent;
@@ -28,45 +30,78 @@
   text-decoration: underline;
 }
 
+/* TopUp form content */
 .topUpFormContent {
   width: 100%;
+  text-align: center;
+  flex-grow: 1; /* Pushes the content upwards if space available */
 }
 
-.select {
-  width: 100%;
-  margin-bottom: 15px;
+.formGroup {
+  margin-bottom: 10px; /* Keep margin small between form groups */
+  display: flex;
+  flex-direction: column; /* Stack label on top of input */
+  justify-content: flex-start; /* Align items to the top */
+  width: 100%; /* Ensure form elements span full width */
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 8px; /* Ensure small space between label and input */
+  margin-right: 250px;
+  color: white;
+}
+
+.label2 {
+  font-weight: bold;
+  margin-bottom: 8px; /* Ensure small space between label and input */
+  margin-left: 250px;
+  margin-top: 20px;
+  color: white;
+}
+
+.label1 {
+  font-weight: bold;
+  margin-top: 10px; /* Reduce top margin */
+  margin-bottom: 5px; /* Reduce bottom margin */
+  color: white;
 }
 
 .amountInput {
-  width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
+  background: #1e1e1e;
+  border: 1px solid #444;
   border-radius: 4px;
+  color: white;
   font-size: 16px;
+  margin-bottom: 10px; /* Ensure small space between input and next element */
+  width: 100%;
 }
 
+/* Ensure the top-up button is at the bottom */
 .topUpButton {
   width: 100%;
   padding: 10px;
-  background:  #ccc;
+  background: #E2F0FF;
   color: black;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 500px;
-  
-}
-
-.topUpButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  font-weight: bold;
+  margin-top: 300px; /* Ensure some margin above the button */
+  align-self: flex-end; /* Stick the button at the bottom */
 }
 
 .topUpButton:hover {
   background-color: #0056b3;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #007bff;
 }
 
 .error {
@@ -79,26 +114,92 @@
   margin-top: 10px;
 }
 
-.loading {
-  text-align: center;
+/* Align "Total" and "2600" beside each other */
+.totalBalanceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px; /* Adjust spacing below */
+}
+
+.totalSection, .balanceSection {
+  display: flex;
+  align-items: center;
+}
+
+.totalSection .label {
+  margin-right: 5px;
+  margin-bottom: 1px;
+}
+
+.balanceSection .balance {
+  margin-right: 5px;
   font-size: 18px;
-  color: #007bff;
-}
-.formGroup {
-  margin-bottom: 20px;
-}
-
-.label {
-  display: block;
+  color: white;
   font-weight: bold;
-  margin-bottom: 5px;
-  color:white;
 }
 
-.select {
-  width: 100%;
+
+.defaultCurrencyType {
+  color: white;
+  font-weight: bold;
 }
 
-.amountInput {
-  width: 100%;
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .topUpFormContainer {
+    padding: 10px;
+  }
+
+  .formGroup {
+    margin-bottom: 5px;
+  }
+
+  .topUpButton {
+    margin-top: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topUpFormContainer {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .select, .amountInput {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .topUpButton {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.buttonText {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  flex: 1;
+}
+.currencyIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 320px; /* Set this to the desired width of the button */
 }
