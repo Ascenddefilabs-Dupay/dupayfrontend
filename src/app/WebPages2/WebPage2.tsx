@@ -12,6 +12,12 @@ const Webpage2:NextPage = () => {
 
 	const router=useRouter();
 	const [isMobile, setIsMobile] = useState(false);
+	const [selectedSection, setSelectedSection] = useState<string>('');
+
+  const handleClick = (section: string) => {
+    setSelectedSection(section);
+  };
+
 	useEffect(() => {
 		const handleResize = () => {
 		  setIsMobile(window.innerWidth < 768); // Adjust the width as necessary
@@ -79,13 +85,25 @@ const Webpage2:NextPage = () => {
         				</div>
       			</div>
       			<img className={styles.webpageSingleInner} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326340/004ffae3-1c39-4b25-9416-4f0f0abfa666.png" />
-      			<div className={styles.webpageSingleInner1} onClick={navigateToWebpage3}>
+      			<div
+        className={`${styles.webpageSingleInner1} ${
+          selectedSection === 'individual' ? styles.selected : ''
+        }`}
+        onClick={() =>{ handleClick('individual');
+			navigateToWebpage3();
+		}}
+      >
         				<div className={styles.titleParent1}>
           					<b className={styles.title4}>Individual</b>
           					<div className={styles.title8}>For individuals who want to trade, send and receive crypto, get price alerts and more</div>
         				</div>
       			</div>
-      			<div className={styles.webpageSingleInner2}>
+      			<div
+        className={`${styles.webpageSingleInner2} ${
+          selectedSection === 'vendor' ? styles.selected : ''
+        }`}
+        onClick={() => handleClick('vendor')}
+      >
         				<div className={styles.titleParent2}>
           					<b className={styles.title4}>Vendor</b>
           					<div className={styles.title8}>We offer business and high net-worth individuals secure solutions for accepting, managing and trading cryptocurrencies. </div>

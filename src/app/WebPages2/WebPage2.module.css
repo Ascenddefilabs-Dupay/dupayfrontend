@@ -54,7 +54,7 @@
 .homeAboutContactParent {
     position: absolute;
     top: 0px;
-    left: 250px;
+    left: 400px;
     width: 1300px;
     height: 90px;
     overflow: hidden;
@@ -509,4 +509,20 @@
         width: 700px;
     }
     
+}
+
+.webpageSingleInner1,
+.webpageSingleInner2 {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.webpageSingleInner1:hover,
+.webpageSingleInner2:hover {
+  border: 1px solid #ccc;
+}
+
+.selected {
+  border: 2px solid #007bff;
+  background-color: #2a2a2a;
 }

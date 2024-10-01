@@ -669,3 +669,20 @@
     }
 }
 
+
+
+.frameWrapper4,
+.frameWrapper5 {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.frameWrapper4:hover,
+.frameWrapper5:hover {
+  border: 1px solid #ccc;
+}
+
+.selected {
+  border: 2px solid #007bff;
+  background-color: #2a2a2a;
+}
