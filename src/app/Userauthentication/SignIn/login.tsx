@@ -67,7 +67,22 @@ export default function Login() {
 
     initializeGoogleSignIn();
   }, []);
+  const fetchFiatWalletId = async (userId: string) => {
+    try {
+      const response = await axios.get(
+        `https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat_wallet/${userId}/`
+      );
+      const { fiat_wallet_id } = response.data;
 
+      if (fiat_wallet_id === null) {
+        console.log("No wallet found, setting wallet ID to null.");
+      } else {
+        console.log("Wallet found: ", fiat_wallet_id);
+      }
+    } catch (error) {
+      console.error("Error fetching fiat wallet ID: ", error);
+    }
+  };
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
       const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/google-login/', {
@@ -75,17 +90,17 @@ export default function Login() {
       });
   
       if (res.status === 200) {
-        const { user_id, user_first_name, user_email, user_phone_number, session_id, user_status } = res.data;
+        const { user_id, user_first_name, user_email, user_phone_number, session_id, user_status, fiat_wallet_id } = res.data;
   
         // Ensure user_status is a boolean
         const isUserStatus = user_status === 'true' ? true : user_status === 'false' ? false : user_status;
   
-        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
+        LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, fiat_wallet_id);
         alert('Logged in successfully with Google');
         
         // Navigate based on user_status
         if (isUserStatus) {
-          router.push('/Userauthorization/Dashboard');
+          router.push('/Userauthorization/Dashboard/Home');
         } else {
           router.push('/KycVerification/PersonalDetails');
         }
@@ -129,8 +144,8 @@ export default function Login() {
         });
 
         if (response.status === 200) {
-          const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status } = response.data;
-          LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id);
+          const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status, fiat_wallet_id } = response.data;
+          LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, fiat_wallet_id);
           alert('Logged in successfully');
           
           // Navigate based on registration_status
@@ -147,36 +162,52 @@ export default function Login() {
       }
     }
   };
-
+  
   const sendOtp = async () => {
     try {
-      await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/', {
+      await axios.post("https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/", {
         user_email: email,
       });
       setOtpTimer(30);
-      alert('OTP resent to your email.');
+      alert("OTP resent to your email.");
     } catch (error) {
-      alert('Error resending OTP.');
+      alert("Error resending OTP.");
     }
   };
 
-  const LocalStorage = (user_id: string, user_first_name: string, user_email: string, user_phone_number: string, session_id: string) => {
-    const expirationDate = new Date();
-    expirationDate.setMinutes(expirationDate.getMinutes() + 2);
+  const LocalStorage = async (
+    user_id: string,
+    user_first_name: string,
+    user_email: string,
+    user_phone_number: string,
+    session_id: string,
+    registration_status: boolean
+  ) => {
+    try {
+      const walletResponse = await axios.get(
+        `https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat_wallet/${user_id}/`
+      );
+      const { fiat_wallet_id } = walletResponse.data;
 
-    const sessionData = {
-      session_id,
-      user_id,
-      user_first_name,
-      user_email,
-      user_phone_number,
-      expiration: expirationDate.toISOString(),
-    };
-    localStorage.setItem('session_data', JSON.stringify(sessionData));
+      const expirationDate = new Date();
+      expirationDate.setMinutes(expirationDate.getMinutes() + 20);
+
+      const sessionData = {
+        session_id,
+        user_id,
+        user_first_name,
+        user_email,
+        user_phone_number,
+        fiat_wallet_id: fiat_wallet_id || null,
+        expiration: expirationDate.toISOString(),
+      };
+      localStorage.setItem("session_data", JSON.stringify(sessionData));
+    } catch (error) {
+      console.error("Error fetching fiat_wallet_id:", error);
+      alert("Error fetching wallet information.");
+    }
   };
-  const navigateToSignUp = () => {
-    router.push('/Userauthentication/SignUp/EmailVerification'); 
-};
+
   
 
   return (

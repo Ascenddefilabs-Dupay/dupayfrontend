@@ -215,14 +215,17 @@ const Home = () => {
       console.log("Payload:", payload); // Debugging
     
       try {
-        setLoading(true);
+        // setLoading(true);
         const response = await axios.post("http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
+        
         console.log("Response:", response); // Debugging
+        
         setAlertMessage("Wallet created successfully!");
         resetForm();
         setTimeout(() => router.push("/Userauthorization/Dashboard"), 2000);
       } catch (error) {
           if (axios.isAxiosError(error)) {
+              setAddNewFiatWallet(false);
               // Now TypeScript understands that this is an AxiosError
               if (error.response?.data?.error) {
                   alert(error.response.data.error);  // Show specific error message to the user
@@ -989,18 +992,40 @@ const Home = () => {
               <h2>Create New Fiat Wallet</h2>
               <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
-                  <Select
-                    id="accountType"
-                    className={styles.selectInput}
-                    options={accountTypeOptions} // Your account type options array
-                    value={selectedAccountType}
-                    onChange={(option) => setSelectedAccountType(option)} // Update the selected account type
-                    placeholder="Select an account type"
-                    isClearable
-                    
-                    required
-                  />
-                </div>
+                <Select
+                id="accountType"
+                className={styles.selectInput}
+                options={accountTypeOptions} // Your account type options array
+                value={selectedAccountType}
+                onChange={(option) => setSelectedAccountType(option)} // Update the selected account type
+                placeholder="Select an account type"
+                isClearable
+                required
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    backgroundColor:  'rgba(42, 45, 60, 1)', // Background color for the input control
+                    color: 'rgba(226, 240, 255, 1)', // Text color inside the input
+                  }),
+                  placeholder: (provided) => ({
+                    ...provided,
+                    color: 'rgba(226, 240, 255, 1)', // Placeholder text color
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)', // Background color for the dropdown options
+                    color: 'rgba(226, 240, 255, 1)', // Text color for options
+                    '&:hover': {
+                      backgroundColor: '#555', // Background color on hover
+                    },
+                  }),
+                  singleValue: (provided) => ({
+                    ...provided,
+                    color: 'rgba(226, 240, 255, 1)', // Selected value text color
+                  }),
+                }}
+              />
+            </div>
                 <div className={styles.formGroup}>
                   <input
                     id="walletName"
