@@ -103,7 +103,7 @@ const Home = () => {
   const [email, setEmail] = useState("");
   const [securityPin, setSecurityPin] = useState("");
   const [error, setError] = useState<ErrorState>({});
-  const currencyList = ['INR', 'USD','AUS', 'JPY', 'AED'];
+  const [currencyList, setCurrencyList] = useState<string[]>([]);
 
   const [balance, setBalance] = useState<string | null>(null); // Allow string or null
   const [suiAddress, setSuiAddress] = useState<string | null>(null); // Allow string or null
@@ -257,7 +257,7 @@ const Home = () => {
       setActiveTab(tab);
       localStorage.setItem('activeTab', 'Fiat');
 
-      if (fiatWalletId) {
+      if (!fiatWalletId) {
         setAddNewFiatWallet(true);
         setFiatDropdownVisible(false);
       } else {
@@ -523,11 +523,15 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000006/`)
       // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)
       .then((response) => {
         console.log('responsed data',response.data);
-        setWalletData(response.data.fiat_wallets);
+        const wallets = response.data.fiat_wallets;
+        setWalletData(wallets);
+
+        const currencies = wallets.map((wallet) => wallet.currency_type); // Modify to match the exact key
+        setCurrencyList(currencies);
         setLoading(true); 
       })
       .catch((err) => {  
@@ -536,28 +540,26 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch all currency icons from the API one by one
-    const fetchIcons = async () => {
-      try {
-        const requests = currencyList.map((currency) => 
-          axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
-            `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency}/`
-          )
-        );
+    if (currencyList.length > 0) {
+      const fetchIcons = async () => {
+        try {
+          const requests = currencyList.map((currency_type) =>
+            axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
+              `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
+            )
+          );
 
-        const responses = await Promise.all(requests);
-        const allIcons = responses.flatMap(response => response.data.currency_icons);
-        setCurrencyIcons(allIcons); // Combine all fetched icons into one state
-        setLoading(false); // Stop loading
-      } catch (error) {
-        console.error('Error fetching currency icons:', error);
-        setLoading(false);
-      }
-    };
+          const responses = await Promise.all(requests);
+          const allIcons = responses.flatMap(response => response.data.currency_icons);
+          setCurrencyIcons(allIcons);
+        } catch (error) {
+          console.error('Error fetching currency icons:', error);
+        }
+      };
 
-    fetchIcons();
-  }, []);
-
+      fetchIcons();
+    }
+  }, [currencyList]);
 
 
   const CopySuiAddressinClipboard = () => {
@@ -696,33 +698,51 @@ const Home = () => {
             )}
         {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div>
-          <div className={styles.fiat}>
-                    <ul className={styles.list}>
-                      <li className={styles.listHeader}>
-                        <span className={styles.span}>Your Fiat Wallets  (6)</span>
-                        <button className={styles.addNew}>Add New</button>
-                      </li>
-                      {currencyList.map((currency, index) => {
-                        // Find wallet data matching the current currency
-                        const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
-                        const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
-
-                        // Find the icon matching the current currency
-                        const iconData = currencyIcons.find((icon) => icon.currency_type === currency);
-                        const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
-                        // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
-
-                        return (
-                          <li className={styles.listItem} key={index}>
-                            <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
-                            <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
-                            <button className={styles.button1} ><div>{currency}</div></button>
-                            <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
-                            </button>
+          <div>
+                    <div className={styles.fiat}>
+                      <ul className={styles.list}>
+                        <li className={styles.listHeader}>
+                          <span className={styles.span}>
+                            Your Fiat Wallets ({walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length})
+                            {/* Your Fiat Wallets */}
+                          </span>
+                          {/* <button className={styles.addNew} onClick={handleAddFiatWallet}>Add New</button> */}
+                          <button className={styles.addNew} >Add New</button>
+                        </li>
+                        {walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length === 0 ? (
+                          <li className={styles.listItem}>
+                            <div>
+                              <label className={styles.noWallets}>You Do Not Have Wallets <a className={styles.addNewLink}>Add New</a></label>
+                            </div>
                           </li>
-                        );
-                      })}
-                    </ul>
+                        ) : (
+                          currencyList.map((currency, index) => {
+                            const wallet = walletData.find((w: { currency_type: string }) => w.currency_type === currency);
+                            const balance = wallet ? Number(wallet.balance).toFixed(2) : '0.00';
+                            const currencyType = wallet ? wallet.currency_type : 'Unknown';
+
+                            // If the currency type is unknown, skip rendering this row
+                            if (currencyType === 'Unknown') {
+                              return null;
+                            }
+
+                            const iconData = currencyIcons.find((icon) => icon.currency_type === currencyType);
+                            const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : 'path-to-default-icon/null-icon.png';
+                            // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
+
+                            return (
+                              <li className={styles.listItem} key={index}>
+                                <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
+                                  <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
+                                  <button className={styles.button1}><div>{currencyType}</div></button>
+                                  <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
+                                </button>
+                              </li>
+                            );
+                          })
+                        )}
+                      </ul>
+                    </div>
                   </div>
                   {isBlurred && (
                     <div className={styles.modaloverlay}>
