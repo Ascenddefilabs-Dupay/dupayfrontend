@@ -43,8 +43,8 @@ const WebpageSingle:NextPage = () => {
       			<div className={styles.webpageSingleChild} />
       			{/* <div className={styles.webpageSingleItem} /> */}
       			<div className={styles.homeAboutContactParent}>
-        				<button className={styles.homeAboutContact}><button className={styles.buttons} > HOME</button>               <button className={styles.buttons1} > ABOUT</button>               <button className={styles.buttons2} > CONTACT</button>               <button className={styles.button1} onClick={navigateToSignin}> SIGN IN</button>               <button className={styles.button1} onClick={navigateToWebpage2}> SIGN UP </button> </button>
-        				<img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" />
+        				<div className={styles.homeAboutContact}><button className={styles.buttons} > HOME</button>     <button className={styles.buttons1} > ABOUT</button>     <button className={styles.buttons2} > CONTACT</button>     <button className={styles.button1} onClick={navigateToSignin}> SIGN IN</button>     <button className={styles.button1} onClick={navigateToWebpage2}> SIGN UP </button> </div>
+        				{/* <img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" /> */}
       			</div>
       			<div className={styles.dupayLogoParent}>
         				<img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />

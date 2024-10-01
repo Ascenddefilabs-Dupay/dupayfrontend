@@ -1,11 +1,43 @@
 import type { NextPage } from 'next';
 import styles from './Mweb3.module.css';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 
 const MWEB3:NextPage = () => {
 
-    const router=useRouter();
+    const [sidebarVisible, setSidebarVisible] = useState(false);
+  const router = useRouter();
+ 
+  const navigateToEmailVerification = () =>{
+	
+	router.push('/Userauthentication/SignUp/EmailVerification');
+}
+const navigatetoOnboarding = () =>{
+
+	router.push('/OnBoarding/SplashScreen-1');
+}
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  useEffect(() => {
+    if (sidebarVisible) {
+      document.body.classList.add(styles.noScroll); // Add no-scroll class
+    } else {
+      document.body.classList.remove(styles.noScroll); // Remove no-scroll class
+    }
+
+    // Cleanup function to remove the class on unmount
+    return () => {
+      document.body.classList.remove(styles.noScroll);
+    };
+  }, [sidebarVisible]);
+
+  const navigateToPage = (page: string) => {
+    router.push(page);
+    setSidebarVisible(false); // Close sidebar after navigating
+  };
 	const navigateToMweb2 = () =>{
 	
 		router.push('/MWeb2');
@@ -20,8 +52,19 @@ const MWEB3:NextPage = () => {
             						<b className={styles.dupay}>Dupay</b>
           					</div>
         				</div>
-        				<img className={styles.iconmenuBurger} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727327352/8ad99937-a9a6-4a4e-8eb8-f401f305b690.png" />
+        				<img className={styles.iconmenuBurger} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727327352/8ad99937-a9a6-4a4e-8eb8-f401f305b690.png" onClick={toggleSidebar}/>
       			</div>
+				  {sidebarVisible && (
+        <div className={styles.sidebar}>
+          <ul>
+            <li onClick={() => navigateToPage('/')}>Home</li>
+            <li onClick={() => navigateToPage('/about')}>About</li>
+            <li onClick={() => navigateToPage('/contact')}>Contact</li>
+            <li className={styles.button} onClick={() => navigateToPage('/Userauthentication/SignIn')}>Sign In</li>
+            {/* <li onClick={() => navigateToPage('/MWeb2')}>Sign Up</li> */}
+          </ul>
+        </div>
+      )}
       			<div className={styles.mwebChild} />
       			<div className={styles.frameGroup}>
         				<div className={styles.titleParent}>
@@ -45,13 +88,13 @@ const MWEB3:NextPage = () => {
               							</div>
           					</div>
           					<div className={styles.frameDiv}>
-            						<div className={styles.logoGroup}>
+            						<div className={styles.logoGroup} onClick={navigatetoOnboarding}>
 									<img className={styles.logoIcon1} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727330151/ee0450ef-d04e-4de3-9386-fad2da28734e.png" />
 									<img className={styles.textoIcon1} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727330181/d014bb6c-f486-4939-803c-084078addcbf.png" />
             						</div>
           					</div>
           					<div className={styles.frameDiv}>
-            						<div className={styles.logoGroup}>
+            						<div className={styles.logoGroup} onClick={navigateToEmailVerification}>
 									<img className={styles.chromeWebStoreIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727330555/5ca23ec4-a9a2-4d99-aa1b-bde3d45a0a1b.png" />
 									<img className={styles.textoIcon2} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727330507/579c0eb6-b5ea-4fac-8932-d23ba5bbb30c.png" />
             						</div>

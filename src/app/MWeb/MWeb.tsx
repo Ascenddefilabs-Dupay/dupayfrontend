@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 const MWEB: NextPage = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const router = useRouter();
+  
  
 
   const toggleSidebar = () => {
@@ -58,14 +59,14 @@ const MWEB: NextPage = () => {
 
       {sidebarVisible && (
         <div className={styles.sidebar}>
-          <ul>
-            <li onClick={() => navigateToPage('/')}>Home</li>
-            <li onClick={() => navigateToPage('/about')}>About</li>
-            <li onClick={() => navigateToPage('/contact')}>Contact</li>
-            <li onClick={() => navigateToPage('/signin')}>Sign In</li>
-            <li onClick={() => navigateToPage('/MWeb2')}>Sign Up</li>
-          </ul>
-        </div>
+        <ul>
+          <li onClick={() => navigateToPage('/')}>Home</li>
+          <li onClick={() => navigateToPage('/about')}>About</li>
+          <li onClick={() => navigateToPage('/contact')}>Contact</li>
+          <li className={styles.button} onClick={() => navigateToPage('/Userauthentication/SignIn')}>Sign In</li>
+          <li className={styles.button} onClick={() => navigateToPage('/MWeb2')}>Sign Up</li>
+        </ul>
+      </div>
       )}
 
       <div className={styles.mwebChild} />

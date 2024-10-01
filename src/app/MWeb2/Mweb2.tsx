@@ -1,14 +1,37 @@
 import type { NextPage } from 'next';
 import styles from './Mweb2.module.css';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 
 const MWEB2:NextPage = () => {
 
     const router=useRouter();
+	const [sidebarVisible, setSidebarVisible] = useState(false);
+	const toggleSidebar = () => {
+		setSidebarVisible(!sidebarVisible);
+	  };
+	
+	  useEffect(() => {
+		if (sidebarVisible) {
+		  document.body.classList.add(styles.noScroll); // Add no-scroll class
+		} else {
+		  document.body.classList.remove(styles.noScroll); // Remove no-scroll class
+		}
+	
+		// Cleanup function to remove the class on unmount
+		return () => {
+		  document.body.classList.remove(styles.noScroll);
+		};
+	  }, [sidebarVisible]);
+	
+	  const navigateToPage = (page: string) => {
+		router.push(page);
+		setSidebarVisible(false); // Close sidebar after navigating
+	  };
 	const navigateToMweb2 = () =>{
 	
-		router.push('/MWeb2');
+		router.push('/MWeb3');
     }
   	return (
     		<div className={styles.mweb}>
@@ -20,8 +43,19 @@ const MWEB2:NextPage = () => {
             						<b className={styles.dupay}>Dupay</b>
           					</div>
         				</div>
-        				<img className={styles.iconmenuBurger} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727327352/8ad99937-a9a6-4a4e-8eb8-f401f305b690.png" />
+        				<img className={styles.iconmenuBurger} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727327352/8ad99937-a9a6-4a4e-8eb8-f401f305b690.png" onClick={toggleSidebar}/>
       			</div>
+				  {sidebarVisible && (
+        <div className={styles.sidebar}>
+          <ul>
+            <li onClick={() => navigateToPage('/')}>Home</li>
+            <li onClick={() => navigateToPage('/about')}>About</li>
+            <li onClick={() => navigateToPage('/contact')}>Contact</li>
+            <li className={styles.button} onClick={() => navigateToPage('/Userauthentication/SignIn')}>Sign In</li>
+            {/* <li onClick={() => navigateToPage('/MWeb2')}>Sign Up</li> */}
+          </ul>
+        </div>
+      )}
       			{/* <div className={styles.mwebChild} />
       			<div className={styles.frameGroup}>
         				<div className={styles.titleParent}>
