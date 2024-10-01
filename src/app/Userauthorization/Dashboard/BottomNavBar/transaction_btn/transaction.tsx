@@ -51,9 +51,9 @@ const handleNavigation = (route: string) => {
         </div>
       ) : (
         <>
-          <header>
+          <center>
             <h1 className={styles.title}>Transactions</h1>
-          </header>
+         
           <IconButton
             className={styles.backarrow}
             onClick={handleBackClick}
@@ -61,6 +61,10 @@ const handleNavigation = (route: string) => {
           >
             <ArrowBackIcon />
           </IconButton>
+          </center>
+          {/* <body> */}
+            
+          
           <div className={styles.noTransactions}>
             <div>
               <img
@@ -85,6 +89,7 @@ const handleNavigation = (route: string) => {
               Transaction history for Fiat
             </button>
           </div>
+          {/* </body> */}
         </>
       )}
     </div>

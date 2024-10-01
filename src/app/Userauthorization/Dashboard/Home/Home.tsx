@@ -357,8 +357,8 @@ const Home = () => {
     }
   
     // Fetch the data from the backend
-    axios.get<Wallet[]>(`http://127.0.0.1:8000/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
-    // axios.get<Wallet[]>(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
+    // axios.get<Wallet[]>(`http://127.0.0.1:8000/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
+    axios.get<Wallet[]>(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
         .then(response => {
             console.log('Response Data:', response.data); // Log the response data
   
@@ -397,8 +397,8 @@ const Home = () => {
 
   const fetchUserProfile = async () => {
     try {
-      // const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
-      const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/profile/${userId}/`);
+      const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+      // const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/profile/${userId}/`);
 
       if (response.data.user_first_name) {
         const userFirstName = response.data.user_first_name;
@@ -653,7 +653,7 @@ const Home = () => {
                           ? (balance.toString().split('.').length > 1 
                               ? `${balance.toString().split('.')[0]}.${balance.toString().split('.')[1].slice(-4)}` 
                               : balance) 
-                          : 'Loading...'}
+                          : '0.00'}
                   </div>
 
                   </div>
@@ -667,7 +667,7 @@ const Home = () => {
                     <div className={styles.int0001}>
                         {suiAddress !== null ? 
                             `${suiAddress.slice(0, 6)}...${suiAddress.slice(-5)}` : 
-                            'Loading...'}
+                            'Address not found'}
                       
                     </div>
                     <b className={styles.int0002} onClick={CopySuiAddressinClipboard}>
