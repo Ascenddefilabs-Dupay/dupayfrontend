@@ -103,7 +103,7 @@ const Home = () => {
   const [email, setEmail] = useState("");
   const [securityPin, setSecurityPin] = useState("");
   const [error, setError] = useState<ErrorState>({});
-  const currencyList = ['INR', 'USD','AUS', 'JPY', 'AED'];
+  const [currencyList, setCurrencyList] = useState<string[]>([]);
 
   const [balance, setBalance] = useState<string | null>(null); // Allow string or null
   const [suiAddress, setSuiAddress] = useState<string | null>(null); // Allow string or null
@@ -139,7 +139,7 @@ const Home = () => {
     const savedTab = localStorage.getItem('activeTab') || 'Crypto';
     const savedCryptoDropdownState = localStorage.getItem('cryptoDropdownOpen') === 'true';
     // const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
-    if (!fiatWalletId) {
+    if (fiatWalletId) {
       setAddNewFiatWallet(true);
     }else{
       setAddNewFiatWallet(false);
@@ -355,6 +355,7 @@ const Home = () => {
   
     // Fetch the data from the backend
     axios.get<Wallet[]>(`http://127.0.0.1:8000/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
+    // axios.get<Wallet[]>(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
         .then(response => {
             console.log('Response Data:', response.data); // Log the response data
   
@@ -522,11 +523,15 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000003/`)
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)${fiatwalletData}
+      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000006/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)
       .then((response) => {
         console.log('responsed data',response.data);
-        setWalletData(response.data.fiat_wallets);
+        const wallets = response.data.fiat_wallets;
+        setWalletData(wallets);
+
+        const currencies = wallets.map((wallet) => wallet.currency_type); // Modify to match the exact key
+        setCurrencyList(currencies);
         setLoading(true); 
       })
       .catch((err) => {  
@@ -535,28 +540,26 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch all currency icons from the API one by one
-    const fetchIcons = async () => {
-      try {
-        const requests = currencyList.map((currency) => 
-          axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
-            `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency}/`
-          )
-        );
+    if (currencyList.length > 0) {
+      const fetchIcons = async () => {
+        try {
+          const requests = currencyList.map((currency_type) =>
+            axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
+              `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
+            )
+          );
 
-        const responses = await Promise.all(requests);
-        const allIcons = responses.flatMap(response => response.data.currency_icons);
-        setCurrencyIcons(allIcons); // Combine all fetched icons into one state
-        setLoading(false); // Stop loading
-      } catch (error) {
-        console.error('Error fetching currency icons:', error);
-        setLoading(false);
-      }
-    };
+          const responses = await Promise.all(requests);
+          const allIcons = responses.flatMap(response => response.data.currency_icons);
+          setCurrencyIcons(allIcons);
+        } catch (error) {
+          console.error('Error fetching currency icons:', error);
+        }
+      };
 
-    fetchIcons();
-  }, []);
-
+      fetchIcons();
+    }
+  }, [currencyList]);
 
 
   const CopySuiAddressinClipboard = () => {
@@ -700,8 +703,8 @@ const Home = () => {
                       <ul className={styles.list}>
                         <li className={styles.listHeader}>
                           <span className={styles.span}>
-                            {/* Your Fiat Wallets ({walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length}) */}
-                            Your Fiat Wallets
+                            Your Fiat Wallets ({walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length})
+                            {/* Your Fiat Wallets */}
                           </span>
                           {/* <button className={styles.addNew} onClick={handleAddFiatWallet}>Add New</button> */}
                           <button className={styles.addNew} >Add New</button>
@@ -724,7 +727,8 @@ const Home = () => {
                             }
 
                             const iconData = currencyIcons.find((icon) => icon.currency_type === currencyType);
-                            const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
+                            const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : 'path-to-default-icon/null-icon.png';
+                            // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
 
                             return (
                               <li className={styles.listItem} key={index}>
@@ -740,8 +744,6 @@ const Home = () => {
                       </ul>
                     </div>
                   </div>
-
-
                   {isBlurred && (
                     <div className={styles.modaloverlay}>
                       <div className={styles.modalcontent}>

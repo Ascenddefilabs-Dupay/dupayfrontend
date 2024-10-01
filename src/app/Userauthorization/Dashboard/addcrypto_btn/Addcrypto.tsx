@@ -22,7 +22,7 @@ const AddCrypto = () => {
     setLoading(true); // Show loading text
     setTimeout(() => {
       router.push('/Userauthorization/Dashboard/Home'); // Ensure the correct path here
-      setLoading(false); 
+      setLoading(true); 
     }, 1000); 
   };
 
@@ -30,7 +30,7 @@ const AddCrypto = () => {
     setLoading(true); // Show loading text
     setTimeout(() => {
       console.log('Add crypto with Dupay Onramp clicked');
-      setLoading(false); 
+      setLoading(true); 
     }, 1000); 
   };
 
