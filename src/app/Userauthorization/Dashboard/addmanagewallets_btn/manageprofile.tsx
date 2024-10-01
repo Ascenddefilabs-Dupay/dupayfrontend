@@ -37,13 +37,13 @@ const ManageProfile = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleNavigation = useCallback((path: string, timeout = 1000) => {
-    setLoading(true);
+  const handleNavigation = (route: string) => {
+    setLoading(true); 
     setTimeout(() => {
-      router.push(path);
-      setLoading(false);
-    }, timeout);
-}, [router]);
+      router.push(route); 
+      setLoading(true);
+    }, 2000);
+  };
 
   return (
     <div className={styles.container}>
@@ -61,7 +61,7 @@ const ManageProfile = () => {
           </div>
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>WALLET 1</h2>
-            <button className={styles.button} onClick={() => handleNavigation('/Manageprofile/ViewProfile')}>
+            <button className={styles.button} onClick={() => handleNavigation('/UserProfile/ViewProfile')}>
               <div className={styles.walletItem}>
                 <FaUserCircle className={styles.profileIcon} />
                 <div className={styles.walletInfo}>
@@ -73,17 +73,17 @@ const ManageProfile = () => {
             </button>
           </div>
           <div>
-            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/addaddress_btn', 1000)}>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/addaddress_btn')}>
               <AddIcon className={styles.buttonIcon} />
               Add address
               <ArrowForwardIosIcon className={styles.arrowIcon} />
             </button>
-            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/createnewwallet_btn', 1000)}>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/createnewwallet_btn')}>
               <FolderIcon className={styles.buttonIcon} />
               Create new wallet
               <ArrowForwardIosIcon className={styles.arrowIcon} />
             </button>
-            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/importwallet_btn', 1000)}>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/importwallet_btn')}>
               <BiImport className={styles.buttonIcon} />
               <div className={styles.buttonimportcls}>
                 <div className={styles.buttonimport}>Import a wallet</div>
@@ -91,7 +91,7 @@ const ManageProfile = () => {
               </div>
               <ArrowForwardIosIcon className={styles.arrowIcon} />
             </button>
-            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/connectledger_btn', 1000)}>
+            <button className={styles.button} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn/connectledger_btn')}>
               <PlugIcon className={styles.buttonIcon} />
               Connect Ledger wallet
               <ArrowForwardIosIcon className={styles.arrowIcon} />

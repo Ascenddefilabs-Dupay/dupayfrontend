@@ -77,6 +77,7 @@ const Cryptowallet: React.FC = () => {
         setLoading(true); // Show loading text
         setTimeout(() => {
             router.push('/Userauthorization/Dashboard/Home'); // Navigate after delay
+            setLoading(true);
         }, 500); // Adjust delay if needed
     };
 

@@ -13,6 +13,7 @@ const Send: React.FC = () => {
         setLoading(true); // Show loading text
         setTimeout(() => {
             router.push('/Userauthorization/Dashboard/Home'); // Navigate after delay
+            setLoading(true); // Show loading text
         }, 500); // Adjust delay if needed
     };
 
@@ -20,6 +21,7 @@ const Send: React.FC = () => {
         setLoading(true); // Show loading text
         setTimeout(() => {
             router.push('/FiatManagement/Currency_Conversion'); // Navigate after delay
+            setLoading(true); // Show loading text
         }, 500); // Adjust delay if needed
     };
 

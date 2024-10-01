@@ -40,7 +40,7 @@ const Newwallet = () => {
     setLoading(true); // Show loading text
     setTimeout(() => {
     router.push('/Userauthorization/Dashboard/addmanagewallets_btn');
-    setLoading(false); 
+    setLoading(true); 
       }, 1000); 
   }
   return (

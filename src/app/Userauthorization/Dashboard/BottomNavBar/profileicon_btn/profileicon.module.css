@@ -1,420 +1,416 @@
 .container {
-    position: relative;
-    height: 100vh;
-    max-height: auto;
-    width: 400px;
-    max-width: 100%;
-    bottom: 45px;
-    top: 0;
-    background-color: black;
-    color: white;
-    display: flex;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0 auto;
-    overflow: hidden; 
+  position: relative;
+  height: 100vh;
+  max-height: auto;
+  width: 400px;
+  max-width: 100%;
+  bottom: 45px;
+  top: 0;
+  background-color: black;
+  color: white;
+  display: flex;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  overflow: hidden; 
 }
 
 @media (max-width: 1024px), (max-width: 768px) {
-    .container {
+  .container {
+    width: 100%;
+
+  }
+}
+
+@media (min-width: 360px) and (max-width: 414px) {
+  .container {
       width: 100%;
-
+      padding: 5px;
     }
-  }
-
-  @media (min-width: 360px) and (max-width: 414px) {
-    .container {
-        width: 100%;
-        padding: 5px;
-      }
-  }
+}
 
 
 .emailBar {
-    background-color: black;
-    width: 100%;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  background-color: black;
+  width: 100%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .walletAddress {
-    display: flex;
-    align-items: center;
-    cursor: pointer; 
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer; 
+  gap: 5px;
 }
 
 .dropdownIcon {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .iconGroup {
-    display: flex;
-    gap: 15px;
-    margin-right: 10px;
-    cursor: pointer;
+  display: flex;
+  gap: 15px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .dropdown {
-    position: absolute;
-    top: 270px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 83%;
-    max-width: 390px;
-    background-color: #1a1d23;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    margin: 0 auto;
-    border-top: #1a1d23;
-    border-radius: 20px;
+  position: absolute;
+  top: 270px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 83%;
+  max-width: 390px;
+  background-color: #1a1d23;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  margin: 0 auto;
+  border-top: #1a1d23;
+  border-radius: 20px;
 }
 
 .dropdownContent {
-    padding: 20px;
+  padding: 20px;
 }
 
 .dropdownHeader {
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 16px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 16px;
 }
 
 .dropdownHeader hr {
-    margin: 0px 0;
-    color: gray;
+  margin: 0px 0;
+  color: gray;
 }
 
 .dropdownItem {
-    display: flex;
-    align-items: center;
-    margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
 }
 
 .profileIcon {
-    margin-right: 10px;
-    font-size: 5px;
-    border: 3px solid white;
+  margin-right: 10px;
+  font-size: 5px;
+  border: 3px solid white;
 }
 
 .profileIcon2{
-    font-size: 5px;
-    border: 3px solid white;
+  font-size: 5px;
+  border: 3px solid white;
 }
 
 
 .textContainer {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .userid {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .viewprofileButton,
 .manageWalletsButton {
-    font-weight: bold;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    width: 300px;
-    gap: 40px;
-    margin-top: 22px;
-    color: #fff;
+  font-weight: bold;
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  gap: 40px;
+  margin-top: 22px;
+  color: #fff;
 }
 
 .checkIcon {
-    margin-right: 10px;
-    font-size: 22px;
-    color: blue;
+  margin-right: 10px;
+  font-size: 22px;
+  color: blue;
 }
 
 .appBar {
-    position: relative;
-    bottom: 75%;
-    background-color: black;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+  position: fixed;
+  bottom: 70%;
+  background-color: black;
+  /* width: 100%; */
+  max-width: 380px;
+  margin: 0 auto;
 }
 
 .toolbar {
-    position: relative;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    margin-right: 10px;
-    margin-left: 15px;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-right: 10px;
+  margin-left: 15px;
 }
 
 .buttonGroup {
-    position: relative;
-    left: 75px;
-    display: flex;
-    gap: 35px;
-    
+  position: relative;
+  left: 75px;
+  display: flex;
+  gap: 35px;
+  
 }
 
 .buttonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  
 }
 
 .card {
-    /* background: linear-gradient(90deg, #007bff9f, #800080); */
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-    color: white;
-    width: 350px;
-    margin-left: -10px;
-    max-width: 400px;
-    text-align: start; 
-    border-radius: 15px;
-    margin-top: 20px;
+  /* background: linear-gradient(90deg, #007bff9f, #800080); */
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  color: white;
+  width: 350px;
+  margin-left: -10px;
+  max-width: 400px;
+  text-align: start; 
+  border-radius: 15px;
+  margin-top: 20px;
 }
 
 .button {
-    background-color: white;
-    font-weight: bold;
-    color: black;
-    margin-top: 4px;
-    border-radius: 22px;
-    width: 100%;
+  background-color: white;
+  font-weight: bold;
+  color: black;
+  margin-top: 4px;
+  border-radius: 22px;
+  width: 100%;
 }
 
 .image {
-    width: 110px;
-    height: 110px;
-    border-radius: 15px;
-    margin-left: 20px;
+  width: 110px;
+  height: 110px;
+  border-radius: 15px;
+  margin-left: 20px;
 }
 
 .imgdiv {
-    display: flex;
-    
+  display: flex;
+  
 }
 
 .getstartbtn {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 .bottomNavigation {
-    position: relative;
-    bottom: 50px;
-    margin: 0 auto;
-    background-color: black;
-    width: 100%;
-    height: 130px;
-    padding: 10px;
-    align-items: center;
-    justify-content: center;
-    border-top: 1px solid #413e41;
+  position: relative;
+  bottom: 50px;
+  margin: 0 auto;
+  background-color: black;
+  width: 100%;
+  height: 130px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #413e41;
 }
 
 .bottomNavigationAction {
-    color: white;    
-    margin: 0 auto;
-    align-items: center;    
+  color: white;    
+  margin: 0 auto;
+  align-items: center;    
 }
 
 .bottomNavigationActionSelected {
-    color: blue;
+  color: blue;
 }
 
 .qrOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
 }
 
 .closeQrButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
 }
 .circularButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 37px; /* Adjust size as needed */
-    height: 37px; /* Adjust size as needed */
-    border-radius: 50%;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-    color: white;
-    box-shadow: none; /* Remove any default shadow */
-    cursor: pointer;
-    transition: background 0.3s, box-shadow 0.3s;
-  }
-  
-  .circularButton:hover {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-    box-shadow: none; /* Remove any hover shadow */
-  }
-  
-  .icon {
-    font-size: 16px; /* Adjust icon size as needed */
-  }
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .scannerContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .scanner {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-  }
-  
-  .scanArea {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    border: 2px solid white;
-    border-radius: 10px;
-  }
-  
-  .closeButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #ff6666;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    z-index: 1001;
-  }
-  
-  .qrIcon {
-    cursor: pointer;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 37px; /* Adjust size as needed */
+  height: 37px; /* Adjust size as needed */
+  border-radius: 50%;
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  color: white;
+  box-shadow: none; /* Remove any default shadow */
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
 
-  
+.circularButton:hover {
+  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  box-shadow: none; /* Remove any hover shadow */
+}
+
+.icon {
+  font-size: 16px; /* Adjust icon size as needed */
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.scannerContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scanner {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.scanArea {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff6666;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.qrIcon {
+  cursor: pointer;
+}
+
+
 .loaderContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.5); 
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    z-index: 2;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    }
-    
-    
-    .loader {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(to right, #4C208C, #BF5FFF);
-    animation: spin 1s linear infinite;
-    transform: rotate(45deg); 
-    position: relative;
-    z-index: 3;
-    box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
-    border-radius: 12%; 
-    }
-    
-    
-    .loader::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: rgba(255, 0, 123, 0.3); 
-    border-radius: 15%;
-    animation: pulse 1.5s infinite ease-in-out;
-    z-index: -1;
-    }
-    
-    
-    @keyframes spin {
-    0% { transform: rotate(45deg); }
-    100% { transform: rotate(405deg); }
-    }
-    
-    
-    @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.2);
-      opacity: 0.6;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    }
-    
-    
-    @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-    }
-    
-    
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  z-index: 2;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  }
   
   
+  .loader {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(to right, #4C208C, #BF5FFF);
+  animation: spin 1s linear infinite;
+  transform: rotate(45deg); 
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
+  border-radius: 12%; 
+  }
+  
+  
+  .loader::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(255, 0, 123, 0.3); 
+  border-radius: 15%;
+  animation: pulse 1.5s infinite ease-in-out;
+  z-index: -1;
+  }
+  
+  
+  @keyframes spin {
+  0% { transform: rotate(45deg); }
+  100% { transform: rotate(405deg); }
+  }
+  
+  
+  @keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  }
+  
+  
+  @keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+  }

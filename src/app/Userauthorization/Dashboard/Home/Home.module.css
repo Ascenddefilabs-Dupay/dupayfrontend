@@ -6,8 +6,10 @@
   max-width: 430px;
   position: relative;
   background-color: #17171a;
-  height: 823px;
-  overflow: hidden;
+  /* height: 823px; */
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
   text-align: center;
   font-size: 12px;
   color: #fff;
@@ -70,8 +72,9 @@
   font-family: 'Poppins', sans-serif;
   }
 .homeInner {
-  position: relative;
-  top: 50.5%;
+  position: fixed;
+  /* top: 30%; */
+  bottom: 56px;
   left: calc(50% - 16.5px);
   display: flex; 
   flex-direction: row;
@@ -87,8 +90,9 @@
   cursor: pointer;
 }
 .tabbarstabbars {
-  position: relative;
-  top: 47%;
+  position: fixed;
+  /* top: 47%; */
+  bottom: 0;
   left: calc(50% - 205.5px);
   border-radius: 8px 8px 0px 0px;
   /* background-color: #17171a; */
@@ -167,9 +171,9 @@
 .span{
   /* margin: auto; */
   display:flex;
-  justify-content:left;
+  justify-content:center;
   text-align: left;
-  margin-right: 160px;
+  margin-right: 100px;
   font-size: 16px;
 }
 .addNew{
@@ -230,7 +234,7 @@
 
 .button2 {
   position: relative;
-  margin-left: 200px;
+  margin-left: 160px;
   justify-content: flex-end;
   width: 100px !important;
   text-align:right;
@@ -246,20 +250,15 @@
   .currencyicon{
     margin-left: 25px;
   }
-  .span{
-    margin-right: 80px !important;
-  }
 }
 
 @media (max-width: 430px ) {
   .button2{
-    margin-left:  150px !important;
+    margin-left:  130px !important;
+    margin-right: 20px;
   }
   .currencyicon{
     margin-left: 30px  !important;
-  }
-  .span{
-    margin-right: 80px !important;
   }
 }
 
@@ -271,12 +270,9 @@
   .currencyicon{
     margin-left: 20px;
   }
-  .span{
-    margin-right: 50px !important;
-  }
 }
 
-@media (max-width: 360px) and (max-height: 740px) {
+@media (max-width: 360px) {
   .button2{
     margin-left:  130px;
     margin-right: 20px;
@@ -285,10 +281,10 @@
     border-radius: 4px;
   }
   .span{
-    margin-right: 80px !important;
+    margin-right: 80px;
   }
   .currencyicon{
-    margin-left: 20px !important;
+    margin-left: 20px;
   }
 
 }
@@ -515,6 +511,18 @@
   .addNewFiatWalletPage button {
     padding: 10px 15px;
     font-size: 1rem; 
+  }
+  .tabbarstabbars{
+    position: relative;
+    top: 225px;
+  }
+  .homeInner{
+    position: relative;
+    top: 250px;
+  }
+  .goodMorningAnuroopContainer{
+    position: relative;
+    right: 200px;
   }
 }
 .balance {
@@ -1048,116 +1056,68 @@ z-index: -1;
 
 
 
-@media (max-width: 375px) {
+@media (max-width: 375px) and (max-height: 667px){
 .container {
   max-width: 100%;
   height: 100vh;
     padding: 25px; 
-    overflow-x: hidden; 
+    overflow-y: auto;
 }
-.cryptoContent {
-  height: 200px;
-}
-.addNameStart{
-  width: 120%;
-  left: -10px;
-}
-.walleticon{
+.tabbarstabbars{
   position: relative;
-  left: 140px;  
+  top: 40px;
 }
-.dropdownContent {
-  padding-top: 10px;
-  padding-left: 30px;
-  padding-right: 10px;
+.homeInner{
+  position: relative;
+  top: 250px;
 }
-.dropdownContent1 {
-  padding-top: 10px;
-  padding-left: 30px;
-  padding-right: 20px;
+.goodMorningAnuroopContainer{
+  position: relative;
+  right: 200px;
 }
 
-.buttonContainer {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-.actions {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-  gap: 2px;
-}
-.viewprofileButton {
-  width: 103%;
-  gap: 40px; 
-  margin-right: 150px;
-  margin-left: -13px;
-}
-.manageWalletsButton {
-  font-weight: bold;
-  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px; 
-  border: none; 
-  border-radius: 5px; 
-  width: 100%;
-  gap: 20px;
-  margin-right: 20px; 
-  margin-left: -8px;
-}
-.fiatDropdown {
-  position: relative;
-  bottom: 20px;
-  left: 10px;
-  width: 108%;
-  background-color: #1a1d23;
-  border-radius: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  margin-left: -20px;
-}
 }
 @media (max-width: 600px) {
-.container {
-  max-width: 100%; 
-  padding: 15px; 
-}
-.dropdown {
-  position: absolute;
-  top: 230px;
-  left: 12;
-  width: 88%;
-  background-color: #1a1d23;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  margin-left: 5px;
-  height: 240px;
-}
-.manageWalletsButton {
-  font-weight: bold;
-  background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px; 
-  border: none; 
-  border-radius: 5px; 
-  width: 90%;
-  gap: 20px;
-  margin-right: 20px; 
-  margin-left: -8px;
-}
-}
-
-
-/* Medium devices (600px to 1024px) */
-@media (min-width: 601px) and (max-width: 1024px) {
-.container {
-  max-width: 100%; /* Slightly narrower on tablet screens */
-  padding: 15px;
-}
-}
+  .container {
+    max-width: 100%; 
+    height: 100vh;
+    padding: 15px; 
+  }
+  .dropdown {
+    position: absolute;
+    top: 230px;
+    left: 12;
+    width: 88%;
+    background-color: #1a1d23;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    margin-left: 5px;
+    height: 240px;
+  }
+  .manageWalletsButton {
+    font-weight: bold;
+    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    width: 90%;
+    gap: 20px;
+    margin-right: 20px; 
+    margin-left: -8px;
+  }
+  }
+  
+  
+  /* Medium devices (600px to 1024px) */
+  @media (min-width: 601px) and (max-width: 1024px) {
+  .container {
+    height: 100vh;
+    max-width: 100%; /* Slightly narrower on tablet screens */
+    padding: 15px;
+  }
+  }
+  
