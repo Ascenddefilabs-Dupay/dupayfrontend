@@ -2,6 +2,8 @@
 import type { NextPage } from 'next';
 import styles from './WebPage2.module.css';
 import { useRouter } from 'next/navigation';
+import React, {useState,useEffect} from 'react';
+import MWEB2 from '../MWeb2/Mweb2';
 
 
 
@@ -9,6 +11,24 @@ import { useRouter } from 'next/navigation';
 const Webpage2:NextPage = () => {
 
 	const router=useRouter();
+	const [isMobile, setIsMobile] = useState(false);
+	useEffect(() => {
+		const handleResize = () => {
+		  setIsMobile(window.innerWidth < 768); // Adjust the width as necessary
+		};
+	
+		handleResize(); // Check on mount
+		window.addEventListener('resize', handleResize);
+	
+		return () => {
+		  window.removeEventListener('resize', handleResize);
+		};
+	  }, []);
+	
+	  // Render mobile component if in mobile view
+	  if (isMobile) {
+		return <MWEB2 />;
+	  }
 	const navigateToWebpage3 = () =>{
 	
 		router.push('/WebPages3');
@@ -23,8 +43,8 @@ const Webpage2:NextPage = () => {
       			<div className={styles.webpageSingleChild} />
       			{/* <div className={styles.webpageSingleItem} /> */}
       			<div className={styles.homeAboutContactParent}>
-				  <button className={styles.homeAboutContact}><button className={styles.buttons} > HOME</button>               <button className={styles.buttons1} > ABOUT</button>               <button className={styles.buttons2} > CONTACT</button>                 <button className={styles.button1} onClick={navigateToSignin}> SIGN IN</button> </button>
-        				<img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" />
+				  <div className={styles.homeAboutContact}><button className={styles.buttons} >HOME</button>     <button className={styles.buttons1} > ABOUT</button>     <button className={styles.buttons2} > CONTACT</button>    <button className={styles.button1} onClick={navigateToSignin}> SIGN IN</button> </div>
+        				{/* <img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" /> */}
       			</div>
       			<div className={styles.dupayLogoParent}>
         				<img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
@@ -68,7 +88,7 @@ const Webpage2:NextPage = () => {
       			<div className={styles.webpageSingleInner2}>
         				<div className={styles.titleParent2}>
           					<b className={styles.title4}>Vendor</b>
-          					<div className={styles.title8}>We offer business and high net-worth individuals secure solutions for accepting, managing and trading cryptocurrencies. </div>
+          					<div className={styles.title8}>We offer business and high net-worth individuals secure solutions for accepting, managing and trading cryptocurrencies. </div>
         				</div>
       			</div>
       			<div className={styles.webpageSingleInner3}>

@@ -88,7 +88,7 @@
 .homeAboutContactParent {
     position: absolute;
     top: 0px;
-    left: 130px;
+    left: 290px;
     width: 1300px;
     height: 90px;
     overflow: hidden;
@@ -463,4 +463,34 @@
     color: #fff;
     font-family: Poppins;
 }
-
+@media (max-width: 1024px) {
+    .webpageSingle {
+        width: 100%;
+    }
+    .frameParent {
+        left: 1%;
+        z-index: 2;
+        
+    }
+    .title1
+    {
+        left: 1%;
+        margin-right: 20%;
+    }
+    .homeAboutContactParent {
+        left: 0;
+        width: 1000px;
+    }
+    .homeAboutContact {
+        left: 300px;
+    }
+    .device14pmIcon{
+        left: -25%;
+        z-index: 1;
+    }
+    .shapeIcon{
+        left: 65%;
+    }
+   
+    
+}

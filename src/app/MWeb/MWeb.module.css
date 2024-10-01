@@ -446,7 +446,7 @@
     opacity: 0.9;
 }
 .mweb {
-    width: 411px;
+    width: 100vw;
     position: relative;
     background-color: #17171a;
     height: 130vh;
@@ -473,22 +473,19 @@
 
 
   
-.sidebar {
+  .sidebar {
     position: fixed;
-    top: 64px; /* Start the sidebar below the menu icon */
-    /* left: 0; */
+    top: 64px;
     width: 411px;
     max-width: 100%;
     margin: 0 auto;
-    height: calc(100% - 64px); /* Adjust height based on the menu icon height */
-    background-color: #17171a; /* Match the sidebar color to the container background */
+    height: calc(100% - 64px);
+    background-color: #17171a;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    max-height: auto;
-    
 }
 
 .sidebar ul {
@@ -498,16 +495,155 @@
 
 .sidebar li {
     margin: 20px 0;
-    color: white;
     font-size: 1.5rem;
     cursor: pointer;
     text-align: center;
+    /* background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
 }
 
 .sidebar li:hover {
-    color: #f0a500; /* Change color on hover */
+    color: #f0a500;
 }
 
-.iconmenuBurger {
-    cursor: pointer;
+/* Advanced button styling for Sign In and Sign Up */
+.button {
+    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
+    padding: 5px 100px;
+    border: none;
+    color: white;
+    border-radius: 100px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+    background-color: #ff89c2;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.button:active {
+    background-color: #bd46f4;
+    transform: scale(0.98); /* Button shrink effect on click */
+}
+.noScroll {
+    overflow: hidden;
+  }
+
+/* For small devices (portrait tablets and large phones, 600px and below) */
+@media (max-width: 600px) {
+    
+    /* Adjust styles for small screens */
+    .mweb {
+        width: 100%;
+        padding: 10px;
+        height: 150vh;
+        
+    }
+    .no-scroll {
+        overflow: hidden; /* Prevent scrolling */
+    }
+    .frameWrapper {
+        left: 15%;
+    }
+    .frameParent, .sidebar {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        
+    }
+
+    .sidebar li {
+        font-size: 1.2rem; /* Adjust font size for small screens */
+    }
+
+    .button {
+        padding: 10px 60px; /* Reduce padding on smaller screens */
+    }
+}
+@media (max-width: 480px) {
+    
+    /* Adjust styles for small screens */
+    .mweb {
+        width: 100%;
+        padding: 10px;
+        
+    }
+    
+    .no-scroll {
+        overflow: hidden; /* Prevent scrolling */
+    }
+    .frameWrapper {
+        left: 15%;
+    }
+    .frameParent, .sidebar {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        
+    }
+
+    .sidebar li {
+        font-size: 1.2rem; /* Adjust font size for small screens */
+    }
+
+    .button {
+        padding: 10px 60px; /* Reduce padding on smaller screens */
+    }
+}
+
+/* For extra small devices (phones, 320px and below) */
+@media (max-width: 400px) {
+    .mweb {
+        width: 100%;
+        padding: 5px;
+        height: 150vh;
+    }
+    .frameWrapper {
+        left: 15%;
+    }
+    .titleWrapper {
+        font-size: 16px;
+        gap: 16px;
+        margin-right: 30px;
+    }
+    .title{
+        left: -10%;
+        
+    }
+    .title1{
+        margin-right: 5%;
+    }
+    .sidebar {
+        width: 100%;
+    }
+
+    .button {
+        padding: 5px 40px;
+        font-size: 1rem;
+    }
+    .shapeIcon {
+        left:160px;
+    }
+    .device14pmIcon {
+        left: -15%;
+    }
+    .frameWrapper, .frameParent {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 350px) {
+    .title1{
+        left: -4%;
+        margin-right: 5%;
+
+    }
+    .mweb {
+        width: 100%;
+        padding: 5px;
+        height: 130vh;
+    }
 }
