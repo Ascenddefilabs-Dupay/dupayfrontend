@@ -184,7 +184,7 @@ const Profileicon: React.FC = () => {
                     </div>
                   )} */}
         
-                  <AppBar position="static" className={styles.appBar}>
+                  {/* <AppBar position="static" className={styles.appBar}>
                     <Toolbar className={styles.toolbar}>
                       {!scannerOpen && (
                         <div className={styles.buttonGroup}>
@@ -203,7 +203,32 @@ const Profileicon: React.FC = () => {
                         </div>
                       )}
                     </Toolbar>
+                  </AppBar> */}
+
+                  <AppBar position="static" className={styles.appBar}>
+                  <img
+                className={styles.img}
+                src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727075702/crypto_image_logo_bxom6g.png"
+                alt="transactions_image"
+              />
+                    <Toolbar className={styles.toolbar}>
+                      {!scannerOpen && (
+                        <div className={styles.buttonGroup}>
+                          <div className={styles.buttonContainer}>
+                            <div className={styles.customButton} onClick={() => handleNavigation('/UserProfile')}>
+                              View Profile
+                            </div>
+                          </div>
+                          <div className={styles.buttonContainer}>
+                            <div className={styles.customButton} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
+                              Add & Manage Profile
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </Toolbar>
                   </AppBar>
+
         
                   {/* Full-screen QR Scanner */}
                   {isScanning && (
