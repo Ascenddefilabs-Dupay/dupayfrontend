@@ -57,17 +57,26 @@ const AddBankForm: React.FC = () => {
   }, []);
 
   // Fetch bank list for a specific user
-  const fetchBankList = async (userId: string) => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/addbank/get_banks/${userId}/`
-      );
-      const data = await response.json();
+const fetchBankList = async (userId: string) => {
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/addbank/get_banks/${userId}/`
+    );
+    const data = await response.json();
+
+    if (data.length === 0) {
+      // If no banks are available, go directly to the form screen
+      setShowForm(true);
+      setSelectedBank(null);
+    } else {
+      // Otherwise, show the bank list in the initial screen
       setBankList(data);
-    } catch (error) {
-      console.error("Error fetching bank list:", error);
+      setShowForm(false);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching bank list:", error);
+  }
+};
 
   // Handle form submission
   const handleSubmit = useCallback(
@@ -174,8 +183,10 @@ const AddBankForm: React.FC = () => {
         method: 'DELETE',
       });
       if (response.ok) {
-        toast.success("Bank account unlinked successfully!", { position: "top-center", autoClose: 1500 });
-        fetchBankList(userId!); // Refresh the bank list after deletion
+        toast.success("Bank account unlinked successfully!", { position: "top-center", autoClose: 1000 });
+        fetchBankList(userId!); 
+        setSelectedBank(null);
+        setShowForm(false);// Refresh the bank list after deletion
       } else {
         const errorData = await response.json();
         toast.error("Failed to unlink bank account", { position: "top-center", autoClose: false });
@@ -189,7 +200,7 @@ const AddBankForm: React.FC = () => {
   return (
     <div className={styles.container}>
       {/* InitialScreen: Bank list and Add Bank button */}
-      {!showForm && !selectedBank && (
+      {!showForm && !selectedBank && bankList.length > 0 && (
         <div className={styles.initialScreen}>
           <FaArrowLeft className={styles.BackIcon} onClick={handleBackClick} />
           
@@ -216,7 +227,7 @@ const AddBankForm: React.FC = () => {
         </div>
       )}
       {/* FormScreen: Add Bank form */}
-      {showForm && !selectedBank && (
+      {(showForm || bankList.length === 0) && !selectedBank && (
         <div className={styles.formScreen}>
           <FaArrowLeft className={styles.BackIcon} onClick={handleReturnToList} />
           <br />
@@ -253,7 +264,7 @@ const AddBankForm: React.FC = () => {
                 Account Number<span className={styles.required}>*</span>
               </label>
               <input
-                type="number"
+                type="text"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 required
@@ -263,7 +274,7 @@ const AddBankForm: React.FC = () => {
 
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
-                IFSC Code <span className={styles.required}>*</span>
+                IFSC Code<span className={styles.required}>*</span>
               </label>
               <input
                 type="text"
@@ -289,7 +300,7 @@ const AddBankForm: React.FC = () => {
 
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
-                SWIFT/BIC Code<span className={styles.required}>*</span>
+                Swift/BIC Code<span className={styles.required}>*</span>
               </label>
               <input
                 type="text"
@@ -315,18 +326,13 @@ const AddBankForm: React.FC = () => {
 
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
-                KYC Document (File Upload)<span className={styles.required}>*</span>
+                Upload Bank Icon<span className={styles.required}>*</span>
               </label>
               <input
                 type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setBankIcon(e.target.files[0]);
-                  }
-                }}
+                onChange={(e) => setBankIcon(e.target.files ? e.target.files[0] : null)}
                 required
-                className={styles.input}
+                className={styles.fileInput}
               />
             </div>
 
