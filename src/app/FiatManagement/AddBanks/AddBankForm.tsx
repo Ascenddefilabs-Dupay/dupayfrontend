@@ -60,7 +60,7 @@ const AddBankForm: React.FC = () => {
 const fetchBankList = async (userId: string) => {
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/addbank/get_banks/${userId}/`
+      `https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/get_banks/${userId}/`
     );
     const data = await response.json();
 
@@ -116,7 +116,7 @@ const fetchBankList = async (userId: string) => {
       formData.append("kyc_document", bankIcon);
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/addbank/add/", {
+        const res = await fetch("https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/add/", {
           method: "POST",
           body: formData,
         });
@@ -179,7 +179,7 @@ const fetchBankList = async (userId: string) => {
   };
   const handleUnlinkBankAccount = async (bankId: string) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/addbank/delete_bank/${bankId}/`, {
+      const response = await fetch(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/delete_bank/${bankId}/`, {
         method: 'DELETE',
       });
       if (response.ok) {
