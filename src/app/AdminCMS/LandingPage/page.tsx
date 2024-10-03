@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { FaEdit, FaTrash, FaSave, FaArrowLeft, FaPlus } from 'react-icons/fa'; 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from './page.module.css'; 
+import styles from './page.module.css';
+
+
 
 interface RequestBody {
   account_type?: string;
@@ -38,7 +40,7 @@ const Home = () => {
     setIsInputVisible(false);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/admincms/${type}/`);
+      const response = await fetch(`https://admin-cms-255574993735.asia-south1.run.app/api/admincms/${type}/`);
       if (response.ok) {
         const data = await response.json();
         setFetchedValues(data); 
@@ -80,7 +82,7 @@ const Home = () => {
     setIsLoading(true);
 
     try {
-        const response = await fetch("http://localhost:8000/api/admincms/", {
+        const response = await fetch("https://admin-cms-255574993735.asia-south1.run.app/api/admincms/", {
             method: 'POST',
             body: formData,  // Send FormData, no need to set Content-Type
         });
@@ -138,7 +140,7 @@ const Home = () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:8000/api/admincms/${id}/`, {
+        const response = await fetch(`https://admin-cms-255574993735.asia-south1.run.app/api/admincms/${id}/`, {
             method: 'PUT',
             body: formData,  // Send formData to backend
         });
@@ -170,7 +172,7 @@ const Home = () => {
 
   const handleDelete = async (id: number) => {
     if (await toast.promise(
-      fetch(`http://localhost:8000/api/admincms/${id}/`, {
+      fetch(`https://admin-cms-255574993735.asia-south1.run.app/api/admincms/${id}/`, {
         method: 'DELETE',
       }).then(response => {
         if (response.ok) {
