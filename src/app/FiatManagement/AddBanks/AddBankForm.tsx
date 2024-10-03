@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useCallback, useEffect } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaTrash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./AddBankForm.module.css";
@@ -168,6 +168,23 @@ const AddBankForm: React.FC = () => {
     setSelectedBank(null);
     setShowForm(false);
   };
+  const handleUnlinkBankAccount = async (bankId: string) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/addbank/delete_bank/${bankId}/`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        toast.success("Bank account unlinked successfully!", { position: "top-center", autoClose: 1500 });
+        fetchBankList(userId!); // Refresh the bank list after deletion
+      } else {
+        const errorData = await response.json();
+        toast.error("Failed to unlink bank account", { position: "top-center", autoClose: false });
+      }
+    } catch (error) {
+      toast.error("An error occurred while unlinking the bank account", { position: "top-center", autoClose: false });
+    }
+  };
+  
 
   return (
     <div className={styles.container}>
@@ -320,41 +337,56 @@ const AddBankForm: React.FC = () => {
         </div>
       )}
 
-      {/* BankDetailsScreen: Bank details */}
+{/* BankDetailsScreen: Bank details */}
       {selectedBank && (
-  <div className={styles.bankDetailsScreen}>
-    <FaArrowLeft className={styles.Back} onClick={handleReturnToList} />
-    <div className={styles.card}>
-      <h2 className={styles.bankDetailsTitle}>Bank Details</h2>
-      <br></br>
-      <br></br>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Account Holder:</div>
-        <div className={styles.value}>{selectedBank.account_holder_name}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Account Number:</div>
-        <div className={styles.value}>{selectedBank.account_number}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Branch:</div>
-        <div className={styles.value}>{selectedBank.branch_name}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>IFSC Code:</div>
-        <div className={styles.value}>{selectedBank.ifsc_code}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>SWIFT/BIC Code:</div>
-        <div className={styles.value}>{selectedBank.bic_code}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Currency:</div>
-        <div className={styles.value}>{selectedBank.currency}</div>
-      </div>
-    </div>
-  </div>
-)}
+        <div className={styles.bankDetailsScreen}>
+          
+          <div className={styles.header}>
+            <FaArrowLeft className={styles.Back} onClick={handleReturnToList} />
+            <h2 className={styles.title}>Bank Details</h2>
+          </div>
+          <div className={styles.card}>
+            
+            {/* Account Number at the top-left */}
+            <div className={styles.topDetails}>
+              
+              <div className={styles.accountNumberValue}>{selectedBank.account_number}</div>
+
+              {/* Account Holder Name below Account Number */}
+              
+              <div className={styles.accountHolderValue}>{selectedBank.bank_name}</div>
+            </div>
+            
+            <br />
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>Branch:</div>
+              <div className={styles.value}>{selectedBank.branch_name}</div>
+            </div>
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>IFSC Code:</div>
+              <div className={styles.value}>{selectedBank.ifsc_code}</div>
+            </div>
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>SWIFT/BIC Code:</div>
+              <div className={styles.value}>{selectedBank.bic_code}</div>
+            </div>
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>Currency:</div>
+              <div className={styles.value}>{selectedBank.currency}</div>
+            </div>
+          </div>
+          <div className={styles.card1}>
+
+
+            {/* Unlink Bank Account Link */}
+            <a href="#" className={styles.unlinkLink}onClick={() => handleUnlinkBankAccount(selectedBank.id)}>
+              <FaTrash className={styles.trashIcon} />
+              Unlink Bank Account
+            </a>
+          </div>
+        </div>
+      )}
+
 
       {/* Toast Container for notifications */}
       <ToastContainer />
