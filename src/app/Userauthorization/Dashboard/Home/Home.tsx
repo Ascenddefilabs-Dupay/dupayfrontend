@@ -95,7 +95,7 @@ const Home = () => {
   const [addNewFiatWalletPage, setAddNewFiatWalletPage] = useState(false);
   const [walletData, setWalletData] = useState<FiatWallet[]>([]);
   const [currencyIcons, setCurrencyIcons] = useState<{ currency_type: string; icon: string }[]>([]);
-  const [fiatwalletData, setFiatWalletData] = useState<FiatWalletData[]>([]);
+  const [fiatwalletData, setFiatWalletData] = useState<string>("");
   const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
   const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
   const [alertMessage, setAlertMessage] = useState<string>("");
@@ -104,6 +104,7 @@ const Home = () => {
   const [securityPin, setSecurityPin] = useState("");
   const [error, setError] = useState<ErrorState>({});
   const [currencyList, setCurrencyList] = useState<string[]>([]);
+  const [count, setCount] = useState(0);
 
   const [balance, setBalance] = useState<string | null>(null); // Allow string or null
   const [suiAddress, setSuiAddress] = useState<string | null>(null); // Allow string or null
@@ -130,7 +131,9 @@ const Home = () => {
       if(sessionStorageDataString){
         const wallet_id = JSON.parse(sessionStorageDataString);
         setFiatWalletData(wallet_id.fiat_wallet_id);
-        console.log('session data',fiatwalletData)
+        if(count!==1){
+          wallet_data();
+        }
       }
     }
   })
@@ -527,25 +530,22 @@ const Home = () => {
     setLoading(true);
   };
 
-
-  useEffect(() => {
+const wallet_data = () => {
+  // useEffect(() => {
     axios
-    .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000002/`)
-    // .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)${fiatwalletData}
+    // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+    .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
       .then((response) => {
-        console.log('responsed data',response.data);
         const wallets = response.data.fiat_wallets;
         setWalletData(wallets);
-
         const currencies = wallets.map((wallet) => wallet.currency_type); // Modify to match the exact key
-        setCurrencyList(currencies);
-        // setLoading(true); 
+        setCurrencyList(currencies); 
+        setCount(count+1);
       })
       .catch((err) => {  
         setLoading(false); 
       });
-  }, []);
+  };
 
   useEffect(() => {
     if (currencyList.length > 0) {
@@ -553,8 +553,8 @@ const Home = () => {
         try {
           const requests = currencyList.map((currency_type) =>
             axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
-              // `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
-              `http://127.0.0.1:8000/Fiat_Currency/icon/${currency_type}/`
+              `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
+              // `http://127.0.0.1:8000/Fiat_Currency/icon/${currency_type}/`
             )
           );
 
