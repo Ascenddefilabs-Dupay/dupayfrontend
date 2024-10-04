@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useCallback, useEffect } from "react";
-import { FaArrowLeft, FaArrowRight, FaTrash } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaTrash,FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./AddBankForm.module.css";
+
 
 // Define the IFSC code validation function
 const validateIfscCode = (ifscCode: string): boolean => {
@@ -202,11 +203,21 @@ const fetchBankList = async (userId: string) => {
       {/* InitialScreen: Bank list and Add Bank button */}
       {!showForm && !selectedBank && bankList.length > 0 && (
         <div className={styles.initialScreen}>
-          <FaArrowLeft className={styles.BackIcon} onClick={handleBackClick} />
-          
+          <header className={styles.formHeader1}>
+            <FaAngleLeft className={styles.BackIcon1} onClick={handleBackClick} />  
+
+            <h2 className={styles.headerTitle}>Bank Accounts</h2>
+          </header>
+
+          {/* <span className={styles.BackIcon} onClick={handleBackClick}>
+            &lt;
+          </span> */}
+
+
           {/* Bank List Display */}
           {bankList.length > 0 && (
             <div className={styles.bankList}>
+              <h2 className={styles.bankCount}>Your Bank Accounts ({bankList.length})</h2>
               {bankList.map((bank) => (
                 <button
                   key={bank.id}
@@ -214,7 +225,7 @@ const fetchBankList = async (userId: string) => {
                   onClick={() => handleBankClick(bank)}
                 >
                   <span className={styles.bankName}>{bank.bank_name}</span>
-                  <FaArrowRight className={styles.rightArrow} />
+                  <FaAngleRight className={styles.rightArrow} />
                 </button>
               ))}
             </div>
@@ -229,9 +240,15 @@ const fetchBankList = async (userId: string) => {
       {/* FormScreen: Add Bank form */}
       {(showForm || bankList.length === 0) && !selectedBank && (
         <div className={styles.formScreen}>
-          <FaArrowLeft className={styles.BackIcon} onClick={handleReturnToList} />
-          <br />
-          <br />
+          
+          <header className={styles.formHeader}>
+            <FaAngleLeft className={styles.BackIcon1} onClick={handleReturnToList} /> 
+            {/* <span className={styles.BackIcon1} onClick={handleReturnToList}>
+              &lt;
+            </span> */}
+            <h2 className={styles.headerTitle}>Bank Details</h2>
+          </header>
+
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
@@ -326,7 +343,7 @@ const fetchBankList = async (userId: string) => {
 
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
-                Upload Bank Icon<span className={styles.required}>*</span>
+                KYC Doc<span className={styles.required}>*</span>
               </label>
               <input
                 type="file"
@@ -347,8 +364,11 @@ const fetchBankList = async (userId: string) => {
       {selectedBank && (
         <div className={styles.bankDetailsScreen}>
           
-          <div className={styles.header}>
-            <FaArrowLeft className={styles.Back} onClick={handleReturnToList} />
+          <div className={styles.formHeader}>
+            <FaAngleLeft className={styles.BackIcon1} onClick={handleReturnToList} /> 
+            {/* <span className={styles.BackIcon1} onClick={handleReturnToList}>
+              &lt;
+            </span> */}
             <h2 className={styles.title}>Bank Details</h2>
           </div>
           <div className={styles.card}>
