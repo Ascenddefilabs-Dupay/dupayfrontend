@@ -231,4 +231,201 @@
     color: #787d9c;
     font-family: Poppins;
 }
+@media (max-width: 360px) and (max-height: 740px) {
+    .oboarding5{
+        width: 100%;
+        height: 100vh;
+    }
+    .carouselIndicator {
+        position: absolute;
+        top: 43px;
+    }
+    .skip {
+        position: absolute;
+        top: 34px;
+        left: 306px;
+    }
+    .lockBgIcon {
+        position: absolute;
+        top: 36px;
+        left: 0px;
+        width: 300.1px;
+        height: 470.2px;
+    }
+    .groupIcon {
+        top: 230px;
+        width: 56px;
+        height: 70.5px;
+        position: relative;
+        left: 35px;
+    }
+    .titleParent {
+        position: absolute;
+        top: 360px;
+        left: 32px;
+        width: 355px;   
+        gap: 10px;
+    }
+    .titleWrapper {
+        font-size: 20px;
+        padding-right: 20px;
+    }
+    .btnmbBtnFab {
+        position: absolute;
+        top: 650px;
+        width: 355px;
+    }
+    
+}
+@media (max-width: 376px) and (max-height: 668px) {
+    .oboarding5{
+        width: 100%;
+        height: 100vh;
+    }
+    .carouselIndicator {
+        position: absolute;
+        top: 33px;
+    }
+    .skip {
+        position: absolute;
+        top: 25px;
+        left: 306px;
+    }
+    .lockBgIcon {
+        position: absolute;
+        top: 36px;
+        left: 0px;
+        width: 290.1px;
+        height: 360.2px;
+    }
+    .groupIcon {
+        top: 175px;
+        width: 56px;
+        height: 70.5px;
+        position: relative;
+        left: 35px;
+    }
+    .titleParent {
+        position: absolute;
+        top: 310px;
+        left: 32px;
+        width: 355px; 
+        font-size: 35px;  
+        gap: 0px;
+    }
+    .titleWrapper {
+        font-size: 20px;
+        padding-right: 20px;
+    }
+    .btnmbBtnFab {
+        position: absolute;
+        top: 580px;
+        width: 355px;
+    }
+    
+}
+/* iPhone 12 Pro (390px width, 844px height) */
+@media (min-width: 390px) and (max-height: 844px) {
+    .oboarding5 {
+        width: 100%;
+        height: 100vh;
+    }
+    .carouselIndicator {
+        top: 50px;
+    }
+    .skip {
+        top: 40px;
+        left: 330px;
+    }
+    .lockBgIcon {
+        width: 340px;
+        height: 500px;
+        left: 0;
+    }
+    .groupIcon {
+        top: 250px;
+        left: 40px;
+    }
+    .titleParent {
+        top: 400px;
+        font-size: 36px;
+        gap: 12px;
+    }
+    .btnmbBtnFab {
+        top: 700px;
+        width: 370px;
+    }
+}
+/* Pixel 5 (393px width, 851px height) */
+@media (min-width: 393px) and (max-height: 851px) {
+    .oboarding5 {
+        width: 100%;
+        height: 100vh;
+    }
+    .carouselIndicator {
+        top: 55px;
+    }
+    .skip {
+        top: 45px;
+        left: 335px;
+    }
+    .lockBgIcon {
+        width: 350px;
+        height: 510px;
+        left: 0;
+    }
+    .groupIcon {
+        top: 255px;
+        left: 45px;
+    }
+    .titleParent {
+        top: 420px;
+        font-size: 38px;
+        gap: 14px;
+    }
+    .btnmbBtnFab {
+        top: 720px;
+        width: 380px;
+    }
+}
 
+/* OnePlus 8 Pro (412px width, 869px height) */
+@media (min-width: 376px) and (max-width: 431px) and (max-height: 933px) {
+    .oboarding5 {
+        width: 100%;
+        height: 100vh;
+    }
+    .carouselIndicator {
+        top: 60px;
+    }
+    .skip {
+        top: 50px;
+        left: 340px;
+    }
+    .lockBgIcon {
+        width: 370px;
+        height: 520px;
+        left: 0;
+    }
+    .groupIcon {
+        top: 265px;
+        left: 50px;
+    }
+    .titleParent {
+        top: 430px;
+        font-size: 40px;
+        gap: 16px;
+    }
+    .btnmbBtnFab {
+        top: 740px;
+        width: 390px;
+    }
+}
+/* iPad (768px width, 1024px height) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .oboarding5 {
+        width: 100%;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+}

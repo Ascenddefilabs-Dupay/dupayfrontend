@@ -31,6 +31,7 @@
     position: absolute;
     top: 231px;
     left: 0px;
+    border-radius: 50px 50px 0px 0px;
     background-color: rgba(23, 23, 26, 0.9);
     width: 411px;
     height: 590px;
@@ -242,4 +243,250 @@
     font-size: 14px;
     color: #fff;
     font-family: Poppins;
+}
+
+@media (max-width: 376px) { /* iPhone 12 Pro */
+    .signUp {
+        width: 100%;
+        position: relative;
+        background-color: #242429;
+        height: 100vh;
+        font-family: Poppins;
+    }
+    .shapeIcon {
+        position: absolute;
+        top: -126px;
+        left: 180px;
+        width: 219px;
+        height: 335.1px;
+    }
+    .frameParent {
+        position: absolute;
+        top: 173px;
+        left: 32px;
+        width: 307px;
+        gap: 28px;
+    }
+    .signUpChild {
+        position: absolute;
+        top: 151px;
+        border-radius: 50px 50px 0px 0px;
+        width: 377px;
+    }
+    .dupayLogoParent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        text-align: center;
+        font-size: 26.43px;
+        font-family: 'SF Pro Text', 'SF Pro Display', 'Poppins', sans-serif;
+    }
+}
+
+/* iPhone 12 Pro (390px width, 844px height) */
+@media (max-width: 390px) and (min-height: 844px) {
+    .signUp {
+        width: 100%;
+        position: relative;
+        background-color: #242429;
+        height: 100vh;
+        font-family: 'SF Pro Text', 'SF Pro Display', 'Poppins', sans-serif;
+    }
+    .shapeIcon {
+        position: absolute;
+        top: -126px;
+        left: 160px;
+        width: 259px;
+        height: 420.1px;
+    }
+    .frameParent {
+        position: absolute;
+        top: 280px;
+        left: 32px;
+        width: 307px;
+        gap: 30px;
+    }
+    .signUpChild {
+        position: absolute;
+        top: 241px;
+        border-radius: 50px 50px 0px 0px;
+        width: 389px;
+        height: 700px;
+    }
+    .dupayLogoParent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        text-align: center;
+        font-size: 26.43px;
+        font-family: 'SF Pro Text', 'SF Pro Display', 'Poppins', sans-serif;
+
+    }
+}
+
+/* Samsung Galaxy S8+ (360px width, 740px height) */
+@media (max-width: 360px) and (min-height: 740px) {
+    .signUp {
+        width: 100%;
+        position: relative;
+        background-color: #242429;
+        height: 100vh;
+        font-family: 'SF Pro Text', 'SF Pro Display', 'Poppins', sans-serif;
+    }
+    .shapeIcon {
+        position: absolute;
+        top: -126px;
+        left: 190px; /* Adjusted for the smaller screen */
+        width: 200px; /* Smaller size */
+        height: 360px;
+    }
+    .frameParent {
+        position: absolute;
+        top: 200px; /* Adjusted for the smaller screen */
+        left: 20px; /* Adjusted left margin */
+        width: 320px;
+        gap: 40px; /* Adjusted gap */
+    }
+    .signUpChild {
+        position: absolute;
+        top: 170px;
+        width: 100%; /* Full width for the screen */
+    }
+    .dupayLogoParent {
+        gap: 8px;
+        text-align: center;
+        font-size: 24px; /* Slightly smaller */
+    }
+}
+
+@media (max-width: 414px) and (min-height: 896px) {
+    .signUp {
+        width: 100%;
+        position: relative;
+        background-color: #242429;
+        height: 100vh;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+    .shapeIcon {
+        top: -130px;
+        left: 170px;
+        width: 260px;
+        height: 450px;
+    }
+    .frameParent {
+        top: 300px;
+        left: 35px;
+        width: 340px;
+        gap: 40px;
+    }
+    .signUpChild {
+        top: 270px;
+        width: 100%;
+        height: 700px;
+    }
+    .dupayLogoParent {
+        gap: 10px;
+        text-align: center;
+        font-size: 26px;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+
+    }
+}
+@media (max-width: 430px) and (min-height: 932px) {
+    .signUp {
+        width: 100%;
+        position: relative;
+        background-color: #242429;
+        height: 100vh;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+    .shapeIcon {
+        top: -130px;
+        left: 180px;
+        width: 300px;
+        height: 450px;
+    }
+    .frameParent {
+        top: 300px;
+        left: 35px;
+        width: 340px;
+        gap: 50px;
+    }
+    .signUpChild {
+        top: 250px;
+        width: 100%;
+        height: 700px;
+    }
+    .dupayLogoParent {
+        gap: 10px;
+        text-align: center;
+        font-size: 26px;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+}
+@media (max-width: 360px) and (min-height: 720px) {
+    .signUp {
+        width: 100%;
+        position: relative;
+        background-color: #242429;
+        height: 100vh;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+    .shapeIcon {
+        top: -110px;
+        left: 170px;
+        width: 190px;
+        height: 350px;
+    }
+    .frameParent {
+        top: 180px;
+        left: 20px;
+        width: 300px;
+        gap: 35px;
+    }
+    .signUpChild {
+        top: 160px;
+        width: 100%;
+    }
+    .dupayLogoParent {
+        gap: 8px;
+        text-align: center;
+        font-size: 24px;
+    }
+}
+/* Tablets (768px width to 1024px width) */
+@media (min-width: 768px) {
+    .signUp {
+        width: 100%;
+        position: relative;
+        background-color: #242429;
+        overflow-y: auto;
+        height: 100vh;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+    .shapeIcon {
+        top: -120px; /* Adjusted for tablet screen */
+        left: 220px;
+        width: 250px;
+        height: 400px;
+    }
+    .frameParent {
+        top: 220px;
+        left: 50px;
+        width: 400px;
+        gap: 45px; /* Adjusted for tablet screen */
+    }
+    .signUpChild {
+        top: 200px;
+        width: 100%; /* Full width for the screen */
+    }
+    .dupayLogoParent {
+        gap: 10px;
+        text-align: center;
+        font-size: 28px; /* Adjusted for tablet */
+    }
 }
