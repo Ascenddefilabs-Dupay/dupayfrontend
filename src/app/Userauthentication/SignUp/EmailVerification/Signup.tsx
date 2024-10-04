@@ -352,10 +352,7 @@ const handleKeyboardClick = (num: string) => {
       handleBackspace(); // Trigger backspace behavior
     }
   };
-  const handleSpace = () => {
-    console.log("hello")
-    setEmail((prevEmail) => prevEmail + ' ');
-};
+ 
   
 
   return (
@@ -372,7 +369,7 @@ const handleKeyboardClick = (num: string) => {
       </header>
 
         <div className={styles.formWrapper}>
-        <div className={styles.card} style={style}>
+        <div className={styles.card} >
         <div className={styles.imageLogo}>
               <div className={styles.graphics}>
                 <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804054/dupay_rhft2i.png" alt="logo" />
@@ -436,7 +433,7 @@ const handleKeyboardClick = (num: string) => {
                 </div>
                 
                 
-                {!isNumeric &&
+                {/* {!isNumeric &&
                 mainKeyboard && (
                   <div className={styles.keyboardDefault}>
                   <div className={styles.toolbar}>
@@ -468,81 +465,61 @@ const handleKeyboardClick = (num: string) => {
                   </div>
                   <div className={styles.qwer} >
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>1</div>
-                  </div> */}
+            
                   <div className={styles.letter} onClick={() => handleKeyPress('q')}>
                   <div className={styles.a}>q</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary} >
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>2</div>
-                  </div> */}
+                 
                   <div className={styles.letter} onClick={() => handleKeyPress("w")}>
                   <div className={styles.a}>w</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>3</div>
-                  </div> */}
+                  
                   <div className={styles.letter} onClick={() => handleKeyPress("e")}>
                   <div className={styles.a}>e</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>4</div>
-                  </div> */}
+                  
                   <div className={styles.letter} onClick={() => handleKeyPress("r")}>
                   <div className={styles.a}>r</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>5</div>
-                  </div> */}
+                 
                   <div className={styles.letter} onClick={() => handleKeyPress("t")}>
                   <div className={styles.a}>t</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>6</div>
-                  </div> */}
+                 
                   <div className={styles.letter} onClick={() => handleKeyPress("y")}>
                   <div className={styles.a}>y</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>7</div>
-                  </div> */}
+                  
                   <div className={styles.letter} onClick={() => handleKeyPress("u")}>
                   <div className={styles.a}>u</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>8</div>
-                  </div> */}
+                 
                   <div className={styles.letter} onClick={() => handleKeyPress("i")}>
                   <div className={styles.a}>i</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>9</div>
-                  </div> */}
+                 
                   <div className={styles.letter} onClick={() => handleKeyPress("o")}>
                   <div className={styles.a}>o</div>
                   </div>
                   </div>
                   <div className={styles.keyPrimary}>
-                  {/* <div className={styles.number}>
-                  <div className={styles.div}>0</div>
-                  </div> */}
+                  
                   <div className={styles.letter} onClick={() => handleKeyPress("p")}>
                   <div className={styles.a}>p</div>
                   </div>
@@ -707,7 +684,7 @@ const handleKeyboardClick = (num: string) => {
                   </div>
                   </div>
                   <div className={styles.navigationBar}>
-                  {/* <div className={styles.homeIndicator} /> */}
+                  
                   </div>
                   </div>
                   </div>
@@ -718,13 +695,13 @@ const handleKeyboardClick = (num: string) => {
               mainKeyboard&&(
 
                 <div className={styles.customKeyboard}>
-                {/* First row */}
+               
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('1')}>1</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('2')}>2</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('3')}>3</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('@')}>@</button>
 
-                {/* Second row */}
+                
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('4')}>4</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('5')}>5</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('6')}>6</button>
@@ -732,7 +709,7 @@ const handleKeyboardClick = (num: string) => {
                 
                    
 
-                {/* Third row */}
+                
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('7')}>7</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('8')}>8</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('9')}>9</button>
@@ -740,7 +717,7 @@ const handleKeyboardClick = (num: string) => {
                   <i className="fa fa-backspace"></i> 
                 </button>
 
-                {/* Fourth row */}
+               
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress(',')}>,</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('0')}>0</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyPress('.')}>.</button>
@@ -754,8 +731,8 @@ const handleKeyboardClick = (num: string) => {
 
               </div>
               
- )}
-              {bottomVisible && (
+ )} */}
+              
                 <div className='BottomClass'>
                 <div className={styles.orContinueWith}>
                       <p>or continue with</p>
@@ -781,16 +758,16 @@ const handleKeyboardClick = (num: string) => {
                   </Link></p>
               </div>
               </div>
-              )}
-              {keyboardVisible && (
+              
+              {/* {keyboardVisible && (
               <div className={styles.customKeyboard}>
-                {/* First row */}
+                
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('1')}>1</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('2')}>2</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('3')}>3</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('-')}><img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726903509/minus_ohgd12.png" alt="space-img" /></button>
 
-                {/* Second row */}
+                
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('4')}>4</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('5')}>5</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('6')}>6</button>
@@ -798,7 +775,7 @@ const handleKeyboardClick = (num: string) => {
                 
                    
 
-                {/* Third row */}
+                
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('7')}>7</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('8')}>8</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('9')}>9</button>
@@ -806,7 +783,7 @@ const handleKeyboardClick = (num: string) => {
                   <i className="fa fa-backspace"></i> 
                 </button>
 
-                {/* Fourth row */}
+                
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick(',')}>,</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('0')}>0</button>
                 <button className={styles.keyboardButton} onClick={() => handleKeyboardClick('.')}>.</button>
@@ -817,7 +794,7 @@ const handleKeyboardClick = (num: string) => {
                   <i className="fa fa-chevron-down"></i>
                 </button>
               </div>
-            )}
+            )} */}
                 
               </form>
             )}

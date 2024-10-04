@@ -294,7 +294,7 @@ const Home = () => {
       }
     }
   };
-
+  
   useEffect(() => {
     const timer = setTimeout(() => {
         setLoading(false);
@@ -507,7 +507,8 @@ const Home = () => {
   };
   const handleSwap = () => {
     console.log("Currency Selected swap :",storedCurrency);
-    window.location.href = '/FiatManagement/FiatSwap';
+    console.log("wallet_id Selected swap :",fiatWalletId);
+    window.location.href = `/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}`;
     setLoading(true);
   };
   const handleWithDraw = () => {
