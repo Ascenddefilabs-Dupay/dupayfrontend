@@ -434,6 +434,7 @@
 
 .selectInput{
   margin-bottom: 10px;
+  background-color:rgba(42, 45, 60, 1) ;
 }
 
 .addNewFiatWalletPage select,
@@ -652,7 +653,7 @@
   line-height: 56px;
   font-weight: 300;
   background: linear-gradient(91.26deg, #70a2ff, #54f0d1);
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
 }
 .ethParent {
@@ -1116,4 +1117,20 @@ z-index: -1;
     padding: 15px;
   }
   }
+
+  .error {
+    display: block; /* Ensures the error appears below the input */
+    color: red; /* You can adjust the color as needed */
+    font-size: 12px; /* Adjusts the font size for error message */
+    margin-top: 4px; /* Adds some space between input and the error */
+  }
+  .formGroup {
+    margin-bottom: 20px; /* Adjust this to add space between form fields */
+  }
   
+  .input {
+    width: 100%;
+    padding: 8px; /* Add padding inside the input box */
+    margin-bottom: 4px; /* Adds space between input and the error message */
+    box-sizing: border-box; /* Ensures padding doesn’t affect width */
+  }

@@ -108,7 +108,7 @@ const Home = () => {
   const [balance, setBalance] = useState<string | null>(null); // Allow string or null
   const [suiAddress, setSuiAddress] = useState<string | null>(null); // Allow string or null
 
-
+  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
@@ -118,6 +118,9 @@ const Home = () => {
         setUserId( storedUserId);
         console.log(storedUserId);
         console.log(sessionData.user_email);
+        if (sessionData.user_email) {
+          setEmail(sessionData.user_email); // Pre-fill email from localStorage
+        }
       } else {
         // redirect('http://localhost:3000/Userauthentication/SignIn');
       }
@@ -494,6 +497,7 @@ const Home = () => {
 
   const handleAddFiatWallet = () => {
     setAddNewFiatWalletPage(true);
+    // setAddNewFiatWallet(false);
   };
 
   const handleSubbmit = () => {
@@ -990,85 +994,114 @@ const Home = () => {
         </div>
       )}
        {addNewFiatWalletPage && (
-          <div className={styles.modalContentadd}>
-            <div className={styles.addNewFiatWalletPage}>
-              <h2>Create New Fiat Wallet</h2>
-              <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
+        <div className={styles.modalContentadd}>
+          <div className={styles.addNewFiatWalletPage}>
+            <h2>Create New Fiat Wallet</h2>
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <div className={styles.formGroup}>
                 <Select
-                id="accountType"
-                className={styles.selectInput}
-                options={accountTypeOptions} // Your account type options array
-                value={selectedAccountType}
-                onChange={(option) => setSelectedAccountType(option)} // Update the selected account type
-                placeholder="Select an account type"
-                isClearable
-                required
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    backgroundColor:  'rgba(42, 45, 60, 1)', // Background color for the input control
-                    color: 'rgba(226, 240, 255, 1)', // Text color inside the input
-                  }),
-                  placeholder: (provided) => ({
-                    ...provided,
-                    color: 'rgba(226, 240, 255, 1)', // Placeholder text color
-                  }),
-                  option: (provided, state) => ({
-                    ...provided,
-                    backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)', // Background color for the dropdown options
-                    color: 'rgba(226, 240, 255, 1)', // Text color for options
-                    '&:hover': {
-                      backgroundColor: '#555', // Background color on hover
-                    },
-                  }),
-                  singleValue: (provided) => ({
-                    ...provided,
-                    color: 'rgba(226, 240, 255, 1)', // Selected value text color
-                  }),
-                }}
-              />
-            </div>
-                <div className={styles.formGroup}>
-                  <input
-                    id="walletName"
-                    type="text"
-                    value={walletName}
-                    onChange={(e) => setWalletName(e.target.value)}
-                    placeholder="Wallet name"
-                    className={styles.input}
-                    required
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <input
-                    id="email"
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    placeholder="Email address"
-                    className={styles.input}
-                    required
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <input
-                    id="securityPin"
-                    type="password"
-                    maxLength={4}
-                    value={securityPin}
-                    onChange={(e) => setSecurityPin(e.target.value)}
-                    placeholder="Security PIN"
-                    className={styles.input}
-                    required
-                  />
-                </div>
-                <button type="submit" className={styles.submitButton}>Submit
-                </button>
-              </form>
-            </div>
+                  id="accountType"
+                  className={styles.selectInput}
+                  options={accountTypeOptions}
+                  value={selectedAccountType}
+                  onChange={(option) => setSelectedAccountType(option)}
+                  placeholder="Select an account type"
+                  isClearable
+                  required
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      backgroundColor: 'rgba(42, 45, 60, 1)',
+                      color: 'rgba(226, 240, 255, 1)',
+                      border: 'none',
+                    }),
+                    placeholder: (provided) => ({
+                      ...provided,
+                      color: 'rgba(226, 240, 255, 1)',
+                      textAlign: 'left', // Align placeholder to the left
+                    }),
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)',
+                      color: 'rgba(226, 240, 255, 1)',
+                      textAlign: 'left',
+                      '&:hover': {
+                        backgroundColor: '#555',
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: 'rgba(226, 240, 255, 1)',
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      backgroundColor: 'rgba(42, 45, 60, 1)',
+                      border: 'none',
+                      boxShadow: 'none',
+                    }),
+                    menuList: (provided) => ({
+                      ...provided,
+                      backgroundColor: 'rgba(42, 45, 60, 1)',
+                      padding: 0,
+                      border: 'none',
+                    }),
+                  }}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <input
+                  id="walletName"
+                  type="text"
+                  value={walletName}
+                  onChange={(e) => setWalletName(e.target.value)}
+                  placeholder="Wallet name"
+                  className={styles.input}
+                  required
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <input
+                  id="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  placeholder="Email address"
+                  className={styles.input}
+                  required
+                />
+                {email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && (
+                  <span className={styles.error}>Please enter a valid email address</span>
+                )}
+              </div>
+              <div className={styles.formGroup}>
+                <input
+                  id="securityPin"
+                  type="password"
+                  maxLength={4}
+                  value={securityPin}
+                  onChange={(e) => setSecurityPin(e.target.value)}
+                  placeholder="Security PIN"
+                  className={styles.input}
+                  required
+                />
+                {securityPin && securityPin.length !== 4 && (
+                  <span className={styles.error}>PIN must be exactly 4 digits</span>
+                )}
+              </div>
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || securityPin.length !== 4}
+              >
+                Submit
+              </button>
+            </form>
           </div>
-        )}
+        </div>
+      )}
+
+
+        
 
       </div>
     </div>
