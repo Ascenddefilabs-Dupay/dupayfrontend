@@ -195,6 +195,7 @@ const Home = () => {
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      
       console.log("Form submitted!"); // Debugging
       
       if (!validateFields()) return;
@@ -222,7 +223,9 @@ const Home = () => {
         
         setAlertMessage("Wallet created successfully!");
         resetForm();
-        setTimeout(() => router.push("/Userauthorization/Dashboard"), 2000);
+        setAddNewFiatWalletPage(false);
+        setFiatDropdownVisible(true);
+        
       } catch (error) {
           if (axios.isAxiosError(error)) {
               setAddNewFiatWallet(false);

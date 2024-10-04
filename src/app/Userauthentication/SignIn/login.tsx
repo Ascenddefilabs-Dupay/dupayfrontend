@@ -33,7 +33,23 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginMode, setLoginMode] = useState<'password' | 'otp'>('password');
   const [otpTimer, setOtpTimer] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
+ 
+  useEffect(() => {
+    const checkLocalStorage = () => {
+      const sessionData = localStorage.getItem("session_data");
+      if (sessionData) {
+        const { expiration } = JSON.parse(sessionData);
+        if (new Date(expiration) > new Date()) {
+          router.push('/Userauthorization/Dashboard/Home'); // Redirect if session is valid
+          return;
+        }
+      }
+      setLoading(false); // Set loading to false to show login form
+    };
 
+    checkLocalStorage(); // Check local storage on component mount
+  }, [router]);
   useEffect(() => {
     const initializeGoogleSignIn = () => {
       if (window.google) {
@@ -112,7 +128,15 @@ export default function Login() {
       alert('Error during Google login.');
     }
   };
-  
+    useEffect(() => {
+      let timer: NodeJS.Timeout;
+      if (otpTimer > 0) {
+        timer = setInterval(() => {
+          setOtpTimer((prev) => prev - 1);
+        }, 1000);
+      }
+      return () => clearInterval(timer); // Clear the timer on unmount
+    }, [otpTimer]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -283,7 +307,7 @@ export default function Login() {
                       onClick={sendOtp}
                       disabled={otpTimer > 0}
                     >
-                      {otpTimer > 0 ? `Resend OTP (${otpTimer}s)` : 'Send OTP'}
+                      {otpTimer > 0 ? `Resend OTP IN(${otpTimer}s)` : 'Send OTP'}
                     </button>
                   </div>
                   <div className={styles.formGroup}>
@@ -361,12 +385,11 @@ export default function Login() {
               )}
             </form>
           </div>
-        ) : (
+        ) : 
           <div>
-            <p>Already logged in. Redirecting...</p>
-            {/* Handle redirection if needed */}
+             
           </div>
-        )}
+        }
       </main>
     </div>
   );
