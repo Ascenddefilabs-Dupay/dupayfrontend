@@ -1,4 +1,5 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@600&display=swap');
 body {
   /* font-family: 'Roboto', sans-serif; */
   /* background-color: #121212; */
@@ -7,14 +8,14 @@ body {
 }
 
 .container {
-  height: 100vh;
+  height:100vh;
   width: 400px;
   max-width: 100%;
+  max-height: auto;
   padding: 20px;
   margin: 0 auto;
-  background: black;
+  background-color: #17171a;
   color: white;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -22,6 +23,51 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: relative;
 }
+.input-container {
+  position: relative;
+  /* margin-top: 20px; */
+
+  position: relative;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: Poppins;
+  /* color: #fff; */
+  text-align: left;
+}
+
+.floating-label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-size: 16px;
+  color: #aaa;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  /* font-size: 16px; */
+  position: relative;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: Poppins;
+  color: #ffffff;
+  text-align: left;
+}
+
+input:focus + .floating-label,
+.floating-label.active {
+  top: 8px;
+  font-size: 12px;
+  color: #aaa; 
+}
+
+
 
 @media (max-width: 1024px) {
   .container {
@@ -32,6 +78,7 @@ body {
 @media (max-width: 768px) {
   .container {
     width: 100%;
+    height: 110vh;
     
   }
   /* .customAlert{
@@ -53,6 +100,15 @@ body {
   display: flex;
   flex-direction: column;
 }
+.howMuchUsd {
+  position: relative;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: Poppins;
+  color: #fff;
+  text-align: left;
+  margin-bottom: 10px;
+  }
 
 .balance-label {
   font-size: 14px;
@@ -78,24 +134,38 @@ body {
   display: flex;
   flex-direction: column;
   /* margin-bottom: 20px; */
+
+  
+  
 }
 
 input,
 select {
-  padding: 12px;
+  width: 100%;
+  position: relative;
   border-radius: 8px;
-  border: none;
-  background-color: #292929;
-  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 16px 16px;
+  text-align: left;
   font-size: 16px;
-  transition: box-shadow 0.3s ease;
+  color: #ffffff;
+  font-family: Poppins;
+text-align: left;
+
 }
 
 input:focus,
 select:focus {
-  box-shadow: white;
+  /* box-shadow: white; */
   outline: none;
 }
+
 
 .amount-row{
   display: flex;
@@ -123,12 +193,14 @@ select:focus {
   padding: 15px;
   border-radius: 8px;
   border: none;
-  background-color: #292929;
+  background-color: #17171a;
   color: white;
   font-size: 16px;
   transition: box-shadow 0.3s ease;
   width: 100%;
   margin-bottom: 20px;
+  border: 1px solid #2a2d3c;
+
 }
 
 .payment-method select:focus {
@@ -150,42 +222,24 @@ select:focus {
   cursor: pointer;
   transition: background 0.3s ease;
 }
-.swap-button{
+/* .swap-button{
   margin-top: 25px;
-  /* padding: 10px; */
-  /* border: none; */
-  /* border-radius: 8px; */
+
   color: white;
   font-size: 16px;
-  /* font-weight: 600; */
-  /* cursor: pointer; */
-  /* transition: background 0.3s ease; */
-}
+ 
+} */
 
 /* button:hover {
   background: linear-gradient(135deg, #ff007b, #a105f2);
 } */
-.swap-button {
-  background: none;
-  border-radius: 50%;
-  padding: 10px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
 
-.swap-button:hover {
-  background: #383838;
-}
 
-.swap-icon {
-  color: #ffffff;
-  font-size: 20px;
-}
 
 .topBar {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 80px;
   margin-bottom: 20px;
 }
 
@@ -193,17 +247,33 @@ select:focus {
   background: none;
   border: none;
   cursor: pointer;
+
 }
 
 .topBarIcon {
-  font-size: 24px;
-  color: white;
+  /* font-size: 24px;
+  color: white; */
+  width: 100%;
+  position: relative;
+  height: 16px;
 }
 
 .topBarTitle {
-  font-size: 26px;
+  /* font-size: 26px;
   font-weight: 500;
-  color: white;
+  color: white; */
+
+  height: 100%;
+  position: relative;
+  font-size: 26px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: Poppins;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* .customAlert {
   position: fixed;
@@ -335,3 +405,269 @@ select:focus {
     opacity: 1;
   }
 }
+.balanceCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #17171a;
+  /* border-radius: 8px; */
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.balanceDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.currencyImage {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.currencyText {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+
+
+
+}
+
+.currencyCode {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: Poppins;
+  color: #fff;
+  text-align: left;
+  display: inline-block;
+}
+
+.currencyCountry {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.balanceAmount {
+  position: relative;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  font-family: Poppins;
+  color: #fff;
+  text-align: right;
+}
+.int000 {
+  flex: 1;
+  position: relative;
+  line-height: 16px;
+}
+.int0001 {
+  position: relative;
+  line-height: 16px;
+  text-align: center;
+}
+.int000Parent {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+}
+.frameWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.int0002 {
+  position: relative;
+  line-height: 56px;
+  font-weight: 300;
+  background: linear-gradient(91.26deg, #70a2ff, #54f0d1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.int000Wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  font-size: 40px;
+}
+.frameParent {
+  width: 100%;
+  position: relative;
+  box-shadow: 0px 16px 32px -8px rgba(12, 12, 13, 0.4);
+  border-radius: 16px;
+  background-color: #222531;
+  border: 1px solid #888daa;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 12px;
+  gap: 7px;
+  text-align: left;
+  font-size: 12px;
+  color: #cfd1dd;
+  font-family: Poppins;
+}
+
+.text {
+  position: relative;
+  line-height: 24px;
+  font-weight: 600;
+}
+.btnbtn {
+  position: absolute;
+  width: 100%;
+  /* margin-top: 80px; */
+  right: 24px;
+  left: 0;
+  border-radius: 8px;
+  background-color: #e2f0ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  /* transform: translateY(300%); */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.btnmbBtnFab {
+  width: 100%;
+  position: relative;
+  background-color: #17171a;
+  height: 98px;
+  text-align: center;
+  font-size: 16px;
+  color: #000;
+  font-family: Poppins;
+}
+
+.payments24dpE8eaedFill0WghIcon {
+  width: 100%;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  height: 10px;
+}
+
+.label {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: 48px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.iconflagus {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: 16px;
+  width: 24px;
+  height: 24px;
+}
+.inputinput {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid #2a2d3c;
+  box-sizing: border-box;
+  height: 40px;
+  /* overflow: hidden; */
+  flex-shrink: 0;
+  text-align: left;
+  font-size: 14px;
+  color: #888daa;
+  font-family: Poppins;
+}
+
+.iconarrowLeftBack {
+  width: 24px;
+  position: relative;
+  height: 24px;
+}
+.iconiconWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.navbaritemleftBtn {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0px;
+}
+.hereIsTitle {
+  align-self: stretch;
+  position: relative;
+  line-height: 24px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.navbaritemrightBtn {
+  align-self: stretch;
+  flex: 1;
+}
+.navbarnavBar {
+  width: 100%;
+  position: relative;
+  background-color: #17171a;
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px 0px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+  font-family: Poppins;
+}
+
+.swapHoriz24dpE8eaedFill0WIcon {
+  width: 100%;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  height: 24px;
+  /* left: 5px; 
+  right: 5px; */
+}
+
+/* Normal button styles */
+
+
+/* Disabled button styles */
+
