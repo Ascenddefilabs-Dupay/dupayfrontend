@@ -12,6 +12,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 import styles from './signup.module.css'; // Adjust the path according to your project structure
 import { margin, style } from '@mui/system';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
@@ -68,6 +70,7 @@ export default function Home1() {
   };
  
   
+  
   const handleKeyPress = (key: string) => {
     setEmail((prevEmail) => prevEmail + key); // Append the key to the current email value
   };
@@ -119,7 +122,8 @@ export default function Home1() {
       });
       const emailCheckResult = await emailCheckResponse.json();
       if (emailCheckResponse.ok && emailCheckResult.exists) {
-        alert('Email is already in use. Please use a different email.');
+        // alert('Email is already in use. Please use a different email.');
+        toast.error("Email is already in use. Please use a different email.", { position: "top-center", autoClose:5000 });
         return;
       }
 
@@ -139,12 +143,15 @@ export default function Home1() {
         setTimer(30);
         setShowResendOtp(false);
         setOtpExpired(false);
-        alert('OTP sent successfully!');
+        // alert('OTP sent successfully!');
+        toast.success("OTP sent successfully!", { position: "top-center", autoClose:5000 });
       } else {
-        alert(result.error || 'Failed to send OTP. Please try again.');
+        // alert(result.error || 'Failed to send OTP. Please try again.');
+        toast.error("Failed to send OTP. Please try again.", { position: "top-center", autoClose:false });
       }
     } catch (error) {
-      alert('Failed to send OTP. Please try again.');
+      // alert('Failed to send OTP. Please try again.');
+      toast.error("Failed to send OTP. Please try again.", { position: "top-center", autoClose:false });
     }
   };
 
@@ -161,9 +168,11 @@ export default function Home1() {
     setErrors(newErrors);
 
     if (valid && !otpSent) {
-      alert('Please verify your email by clicking the "Send OTP" button.');
+      // alert('Please verify your email by clicking the "Send OTP" button.');
+      toast.error("Please verify your email by clicking the 'Send OTP' button", { position: "top-center", autoClose:false });
     } else if (valid && otpSent && !verificationSuccessful) {
-      alert('Please complete OTP verification.');
+      // alert('Please complete OTP verification.');
+      toast.error("Please complete OTP verification.", { position: "top-center", autoClose:false });
     }
   };
 
@@ -172,15 +181,18 @@ export default function Home1() {
     const combinedOtp = otp.join('');
     console.log('OTP Submitted:', otp.join(''));
     if (otpExpired) {
-      alert('Invalid or expired OTP. Please request a new OTP.');
+      // alert('Invalid or expired OTP. Please request a new OTP.');
+      toast.error("Invalid or expired OTP. Please request a new OTP.", { position: "top-center", autoClose:false });
     } else if (combinedOtp === otpFromBackend) {
       setVerificationSuccessful(true);
       setOtpSent(false);
       setOtp(Array(6).fill(""));
       setOtpFromBackend('');
-      alert('OTP verified successfully!');
+      // alert('OTP verified successfully!');
+      toast.success("OTP verified successfully!", { position: "top-center", autoClose:5000 });
     } else {
-      alert('Invalid OTP. Please try again.');
+      // alert('Invalid OTP. Please try again.');
+      toast.error("Invalid OTP. Please try again.", { position: "top-center", autoClose:false });
     }
   };
 
@@ -205,7 +217,9 @@ export default function Home1() {
       });
 
       if (response.data.success) {
-        alert('Registration successful!');
+
+        // alert('Registration successful!');
+        toast.success("Registration successful!", { position: "top-center", autoClose:5000 });
         router.push('/Userauthentication/SignIn');
       } else {
         const errorMessage = response.data.error || 'Registration failed. Please try again.';
@@ -238,20 +252,25 @@ export default function Home1() {
       });
 
       if (backendResponse.ok) {
-        alert('Google Sign-Up successful!');
+        // alert('Google Sign-Up successful!');
+        toast.success("Google Sign-Up successful!", { position: "top-center", autoClose:5000 });
         router.push('/Userauthentication/SignIn');
       } else {
         const errorData = await backendResponse.json();
-        alert(`Google Sign-Up failed: ${errorData.error}`);
+
+        // alert(`Google Sign-Up failed: ${errorData.error}`);
+        toast.error("Google Sign-Up failed: ${errorData.error}", { position: "top-center", autoClose:false });
       }
     } catch (error) {
-      alert('Google Sign-Up failed. Please try again.');
+      toast.error("Google Sign-Up failed. Please try again.", { position: "top-center", autoClose:false });
+      // alert('Google Sign-Up failed. Please try again.');
     }
   };
 
   const handleGoogleFailure = (error: any) => {
     console.error('Google Sign-In Failure:', error);
-    alert('Google Sign-In failed. Please try again.');
+    // alert('Google Sign-In failed. Please try again.');
+    toast.error("Google Sign-In failed. Please try again.", { position: "top-center", autoClose:false});
   };
   const handleOtpChange = (index: number, value: string) => {
     if (/^\d$/.test(value)) { // Only allow digits
@@ -909,6 +928,7 @@ const handleKeyboardClick = (num: string) => {
           </div>
         </div>
         </div>
+        <ToastContainer /> {/* Make sure to include this component */}
       </div>
     </GoogleOAuthProvider>
   );

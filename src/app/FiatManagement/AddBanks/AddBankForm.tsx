@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useCallback, useEffect } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaTrash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./AddBankForm.module.css";
@@ -57,17 +57,26 @@ const AddBankForm: React.FC = () => {
   }, []);
 
   // Fetch bank list for a specific user
-  const fetchBankList = async (userId: string) => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/addbank/get_banks/${userId}/`
-      );
-      const data = await response.json();
+const fetchBankList = async (userId: string) => {
+  try {
+    const response = await fetch(
+      `https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/get_banks/${userId}/`
+    );
+    const data = await response.json();
+
+    if (data.length === 0) {
+      // If no banks are available, go directly to the form screen
+      setShowForm(true);
+      setSelectedBank(null);
+    } else {
+      // Otherwise, show the bank list in the initial screen
       setBankList(data);
-    } catch (error) {
-      console.error("Error fetching bank list:", error);
+      setShowForm(false);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching bank list:", error);
+  }
+};
 
   // Handle form submission
   const handleSubmit = useCallback(
@@ -107,7 +116,7 @@ const AddBankForm: React.FC = () => {
       formData.append("kyc_document", bankIcon);
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/addbank/add/", {
+        const res = await fetch("https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/add/", {
           method: "POST",
           body: formData,
         });
@@ -168,11 +177,30 @@ const AddBankForm: React.FC = () => {
     setSelectedBank(null);
     setShowForm(false);
   };
+  const handleUnlinkBankAccount = async (bankId: string) => {
+    try {
+      const response = await fetch(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/delete_bank/${bankId}/`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        toast.success("Bank account unlinked successfully!", { position: "top-center", autoClose: 1000 });
+        fetchBankList(userId!); 
+        setSelectedBank(null);
+        setShowForm(false);// Refresh the bank list after deletion
+      } else {
+        const errorData = await response.json();
+        toast.error("Failed to unlink bank account", { position: "top-center", autoClose: false });
+      }
+    } catch (error) {
+      toast.error("An error occurred while unlinking the bank account", { position: "top-center", autoClose: false });
+    }
+  };
+  
 
   return (
     <div className={styles.container}>
       {/* InitialScreen: Bank list and Add Bank button */}
-      {!showForm && !selectedBank && (
+      {!showForm && !selectedBank && bankList.length > 0 && (
         <div className={styles.initialScreen}>
           <FaArrowLeft className={styles.BackIcon} onClick={handleBackClick} />
           
@@ -199,7 +227,7 @@ const AddBankForm: React.FC = () => {
         </div>
       )}
       {/* FormScreen: Add Bank form */}
-      {showForm && !selectedBank && (
+      {(showForm || bankList.length === 0) && !selectedBank && (
         <div className={styles.formScreen}>
           <FaArrowLeft className={styles.BackIcon} onClick={handleReturnToList} />
           <br />
@@ -236,7 +264,7 @@ const AddBankForm: React.FC = () => {
                 Account Number<span className={styles.required}>*</span>
               </label>
               <input
-                type="number"
+                type="text"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 required
@@ -246,7 +274,7 @@ const AddBankForm: React.FC = () => {
 
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
-                IFSC Code <span className={styles.required}>*</span>
+                IFSC Code<span className={styles.required}>*</span>
               </label>
               <input
                 type="text"
@@ -272,7 +300,7 @@ const AddBankForm: React.FC = () => {
 
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
-                SWIFT/BIC Code<span className={styles.required}>*</span>
+                Swift/BIC Code<span className={styles.required}>*</span>
               </label>
               <input
                 type="text"
@@ -298,18 +326,13 @@ const AddBankForm: React.FC = () => {
 
             <div className={styles.fieldContainer}>
               <label className={styles.label}>
-                KYC Document (File Upload)<span className={styles.required}>*</span>
+                Upload Bank Icon<span className={styles.required}>*</span>
               </label>
               <input
                 type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setBankIcon(e.target.files[0]);
-                  }
-                }}
+                onChange={(e) => setBankIcon(e.target.files ? e.target.files[0] : null)}
                 required
-                className={styles.input}
+                className={styles.fileInput}
               />
             </div>
 
@@ -320,41 +343,56 @@ const AddBankForm: React.FC = () => {
         </div>
       )}
 
-      {/* BankDetailsScreen: Bank details */}
+{/* BankDetailsScreen: Bank details */}
       {selectedBank && (
-  <div className={styles.bankDetailsScreen}>
-    <FaArrowLeft className={styles.Back} onClick={handleReturnToList} />
-    <div className={styles.card}>
-      <h2 className={styles.bankDetailsTitle}>Bank Details</h2>
-      <br></br>
-      <br></br>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Account Holder:</div>
-        <div className={styles.value}>{selectedBank.account_holder_name}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Account Number:</div>
-        <div className={styles.value}>{selectedBank.account_number}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Branch:</div>
-        <div className={styles.value}>{selectedBank.branch_name}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>IFSC Code:</div>
-        <div className={styles.value}>{selectedBank.ifsc_code}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>SWIFT/BIC Code:</div>
-        <div className={styles.value}>{selectedBank.bic_code}</div>
-      </div>
-      <div className={styles.detailsRow}>
-        <div className={styles.label}>Currency:</div>
-        <div className={styles.value}>{selectedBank.currency}</div>
-      </div>
-    </div>
-  </div>
-)}
+        <div className={styles.bankDetailsScreen}>
+          
+          <div className={styles.header}>
+            <FaArrowLeft className={styles.Back} onClick={handleReturnToList} />
+            <h2 className={styles.title}>Bank Details</h2>
+          </div>
+          <div className={styles.card}>
+            
+            {/* Account Number at the top-left */}
+            <div className={styles.topDetails}>
+              
+              <div className={styles.accountNumberValue}>{selectedBank.account_number}</div>
+
+              {/* Account Holder Name below Account Number */}
+              
+              <div className={styles.accountHolderValue}>{selectedBank.bank_name}</div>
+            </div>
+            
+            <br />
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>Branch:</div>
+              <div className={styles.value}>{selectedBank.branch_name}</div>
+            </div>
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>IFSC Code:</div>
+              <div className={styles.value}>{selectedBank.ifsc_code}</div>
+            </div>
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>SWIFT/BIC Code:</div>
+              <div className={styles.value}>{selectedBank.bic_code}</div>
+            </div>
+            <div className={styles.detailsRow}>
+              <div className={styles.label}>Currency:</div>
+              <div className={styles.value}>{selectedBank.currency}</div>
+            </div>
+          </div>
+          <div className={styles.card1}>
+
+
+            {/* Unlink Bank Account Link */}
+            <a href="#" className={styles.unlinkLink}onClick={() => handleUnlinkBankAccount(selectedBank.id)}>
+              <FaTrash className={styles.trashIcon} />
+              Unlink Bank Account
+            </a>
+          </div>
+        </div>
+      )}
+
 
       {/* Toast Container for notifications */}
       <ToastContainer />
