@@ -34,8 +34,16 @@ const TopUpForm: React.FC = () => {
   const router = useRouter();
   const [hasFetchedWalletDetails, setHasFetchedWalletDetails] = useState(false);
   const [currencyIcon, setCurrencyIcon] = useState<string | null>(null);
-  const DEFAULT_CURRENCY_TYPE = localStorage.getItem('SelectedCurrency');
-  
+  // const DEFAULT_CURRENCY_TYPE = localStorage.getItem('SelectedCurrency') || 'INR';
+  // console.log('Default Currency Type:', DEFAULT_CURRENCY_TYPE);
+  const [DEFAULT_CURRENCY_TYPE, setDefaultCurrencyType] = useState<string>('INR');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedCurrency = localStorage.getItem('SelectedCurrency');
+      setDefaultCurrencyType(storedCurrency || 'INR');
+    }
+  }, []);
   const handleApiError = (error: any, context: string) => {
     console.error(`Error during ${context}:`, error);
     setError(`An error occurred while ${context.toLowerCase()}. Please try again.`);
@@ -242,7 +250,7 @@ const TopUpForm: React.FC = () => {
     <div className={styles.topUpFormContainer}>
       <button className={styles.backButton} onClick={handleBack}>
       <FaAngleLeft className={styles.arrowIcon} />
-      <span className={styles.buttonText}>Top Up</span>
+      <span className={styles.buttonText}>Topup {DEFAULT_CURRENCY_TYPE} </span>
     </button>
 
       {loading && <div className={styles.loading}>Processing...</div>}

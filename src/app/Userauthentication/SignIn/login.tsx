@@ -8,6 +8,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import UseSession from './hooks/UseSession';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 // Define types for the Google response
 interface GoogleResponse {
@@ -106,26 +108,29 @@ export default function Login() {
       });
   
       if (res.status === 200) {
-        const { user_id, user_first_name, user_email, user_phone_number, session_id, user_status, fiat_wallet_id } = res.data;
+        const { user_id, user_first_name, user_email, user_phone_number, session_id,registration_status, user_status, fiat_wallet_id } = res.data;
   
         // Ensure user_status is a boolean
-        const isUserStatus = user_status === 'true' ? true : user_status === 'false' ? false : user_status;
+        const isRegistrationComplete = registration_status === 'true' ? true : registration_status === 'false' ? false : registration_status;
   
         LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, fiat_wallet_id);
-        alert('Logged in successfully with Google');
+        // alert('Logged in successfully with Google');
+        toast.success("Logged in successfully with Google", { position: "top-center", autoClose:5000 });
         
         // Navigate based on user_status
-        if (isUserStatus) {
+        if (isRegistrationComplete) {
           router.push('/Userauthorization/Dashboard/Home');
         } else {
           router.push('/KycVerification/PersonalDetails');
         }
       } else {
-        alert('Google login failed.');
+        // alert('Google login failed.');
+        toast.error("Google login failed.", { position: "top-center", autoClose:false});
       }
     } catch (error) {
       console.error('Error during Google login:', error);
-      alert('Error during Google login.');
+      // alert('Error during Google login.');
+      toast.error("Error during Google login.", { position: "top-center", autoClose:false });
     }
   };
     useEffect(() => {
@@ -150,15 +155,18 @@ export default function Login() {
 
         if (response.status === 200) {
           await sendOtp();
-          setOtpTimer(30);
-          alert('OTP sent to your email.');
+          setOtpTimer(60);
+          // alert('OTP sent to your email.');
+          toast.success("OTP sent to your email.", { position: "top-center", autoClose:false});
           setLoginMode('otp');
           setHeading('Two-Factor Authentication');
         } else {
-          alert('Invalid email or password.');
+          // alert('Invalid email or password.');
+          toast.error("Invalid email or password.", { position: "top-center", autoClose:false });
         }
       } catch (error) {
-        alert('Username or password is incorrect.');
+        // alert('Username or password is incorrect.');
+        toast.error("Username or password is incorrect.", { position: "top-center", autoClose:false });
       }
     } else if (loginMode === 'otp') {
       try {
@@ -170,7 +178,8 @@ export default function Login() {
         if (response.status === 200) {
           const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status, fiat_wallet_id } = response.data;
           LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, fiat_wallet_id);
-          alert('Logged in successfully');
+          // alert('Logged in successfully');
+          toast.success("Logged in successfully", { position: "top-center", autoClose:false });
           
           // Navigate based on registration_status
           if (registration_status) {
@@ -179,10 +188,13 @@ export default function Login() {
             router.push('/KycVerification/PersonalDetails');
           }
         } else {
-          alert('Invalid OTP.');
+          // alert('Invalid OTP.');
+          toast.error("Invalid OTP.", { position: "top-center", autoClose:false });
         }
       } catch (error) {
-        alert('Error verifying OTP.');
+
+        // alert('Error verifying OTP.');
+        toast.error("Error verifying OTP.", { position: "top-center", autoClose:false });
       }
     }
   };
@@ -192,10 +204,13 @@ export default function Login() {
       await axios.post("https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/", {
         user_email: email,
       });
-      setOtpTimer(30);
-      alert("OTP resent to your email.");
+      setOtpTimer(60);
+      // alert("OTP resent to your email.");
+      toast.success("OTP resent to your email.", { position: "top-center", autoClose:5000 });
     } catch (error) {
-      alert("Error resending OTP.");
+
+      // alert("Error resending OTP.");
+      toast.error("Error resending OTP.", { position: "top-center", autoClose:false });
     }
   };
 
@@ -228,7 +243,8 @@ export default function Login() {
       localStorage.setItem("session_data", JSON.stringify(sessionData));
     } catch (error) {
       console.error("Error fetching fiat_wallet_id:", error);
-      alert("Error fetching wallet information.");
+      // alert("Error fetching wallet information.");
+      toast.error("Error fetching wallet information.", { position: "top-center", autoClose:false});
     }
   };
 
@@ -391,6 +407,7 @@ export default function Login() {
           </div>
         }
       </main>
+      <ToastContainer />
     </div>
   );
 }
