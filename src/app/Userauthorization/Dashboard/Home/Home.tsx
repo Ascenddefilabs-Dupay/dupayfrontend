@@ -529,8 +529,9 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/Wa0000000006/`)
-      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)
+    .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000002/`)
+    // .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+      // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000//Fiat_Currency/fiat_wallet/Wa0000000003/`)${fiatwalletData}
       .then((response) => {
         console.log('responsed data',response.data);
         const wallets = response.data.fiat_wallets;
@@ -538,7 +539,7 @@ const Home = () => {
 
         const currencies = wallets.map((wallet) => wallet.currency_type); // Modify to match the exact key
         setCurrencyList(currencies);
-        setLoading(true); 
+        // setLoading(true); 
       })
       .catch((err) => {  
         setLoading(false); 
@@ -551,7 +552,8 @@ const Home = () => {
         try {
           const requests = currencyList.map((currency_type) =>
             axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
-              `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
+              // `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
+              `http://127.0.0.1:8000/Fiat_Currency/icon/${currency_type}/`
             )
           );
 
@@ -733,7 +735,7 @@ const Home = () => {
                             }
 
                             const iconData = currencyIcons.find((icon) => icon.currency_type === currencyType);
-                            const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : 'path-to-default-icon/null-icon.png';
+                            const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : 'https://res.cloudinary.com/dgfv6j82t/image/upload/v1727948965/61103_ttcaan.png';
                             // const iconUrl = iconData ? `https://res.cloudinary.com/dgfv6j82t/${iconData.icon}` : '';
 
                             return (
