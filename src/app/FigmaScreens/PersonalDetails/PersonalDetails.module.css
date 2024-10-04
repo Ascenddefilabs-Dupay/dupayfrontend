@@ -313,3 +313,127 @@
     font-family: 'SF Pro';
 }
 
+@media (max-width: 376px) {
+    .personalDetails {
+        width: 100%;
+        position: relative;
+        background-color: #17171a;
+        height: 1353px;
+        overflow: hidden;
+        text-align: center;
+        font-size: 26.43px;
+        color: #fff;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+    .dupayLogoParent {
+        position: relative;
+        top: 10px;
+        left: -10px;
+    }
+    .title2 {
+        align-self: stretch;
+        position: relative;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        line-height: 24px;
+        font-family: 'Roboto', sans-serif;
+        color: #fbfcff;
+        padding-right: 10px;
+        padding-left: 20px;
+    }
+    .inputinput {
+        align-self: stretch;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0);
+        border: 1px solid #2a2d3c;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+  
+    .frameParent {
+      top: 10px;
+      left: 18px;
+      width: 90%;
+    }
+  
+    .dupayLogoIcon {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .title1 {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  
+    .btnmbBtnFab {
+      top: 1240px;
+      width: 95%;
+    }
+  }
+  @media (max-width: 390px) {
+    .personalDetails {
+        width: 100%;
+        position: relative;
+        background-color: #17171a;
+        height: 1353px;
+        overflow: hidden;
+        text-align: center;
+        font-size: 26.43px;
+        color: #fff;
+        font-family: 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+    .dupayLogoParent {
+        position: relative;
+        top: 10px;
+        left: -10px;
+    }
+    .title2 {
+        align-self: stretch;
+        position: relative;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        line-height: 24px;
+        font-family: 'Roboto', sans-serif;
+        color: #fbfcff;
+        padding-right: 10px;
+        padding-left: 20px;
+    }
+    .inputinput {
+        align-self: stretch;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0);
+        border: 1px solid #2a2d3c;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+  
+    .frameParent {
+      top: 10px;
+      left: 18px;
+      width: 90%;
+    }
+  
+    .dupayLogoIcon {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .title1 {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  
+    .btnmbBtnFab {
+      top: 1240px;
+      width: 95%;
+    }
+}

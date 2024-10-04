@@ -22,7 +22,7 @@ const Login:NextPage = () => {
       			<div className={styles.loginChild} />
       			<div className={styles.frameParent}>
         				<div className={styles.dupayLogoParent}>
-          					<img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804054/dupay_rhft2i.png" />
+          					<img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
           					<b className={styles.dupay}>Dupay</b>
         				</div>
         				<div className={styles.frameGroup}>
