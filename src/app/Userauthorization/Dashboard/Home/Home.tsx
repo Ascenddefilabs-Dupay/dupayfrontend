@@ -1026,7 +1026,7 @@ const wallet_data = () => {
                     option: (provided, state) => ({
                       ...provided,
                       backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)',
-                      color: 'rgba(226, 240, 255, 1)',
+                      color: 'white',
                       textAlign: 'left',
                       '&:hover': {
                         backgroundColor: '#555',
