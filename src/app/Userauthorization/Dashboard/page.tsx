@@ -59,10 +59,13 @@ const Page = () => {
   return (
     <>
       {hasError ? (
-        <div>Error occurred while fetching user data.</div>
-      ) : null}
-    </>
-  );
+          <Home />
+        ) : (
+          <LogPasscode />
+        )}
+      </>
+    );
 };
 
 export default Page;
+

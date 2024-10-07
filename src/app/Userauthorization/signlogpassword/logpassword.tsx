@@ -34,11 +34,11 @@ const Logpasscode = () => {
             if (signpasscode.length === 6) {
                 try {
                     // Send the retypepasscode to the backend without hashing
-                    const response = await axios.post('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/logpassword/', {
+                    const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/userauthorizationapi/logpassword/', {
                         logmain_password: signpasscode,
                         userId: userId,
                     });
-                    // console.log(response.data)
+                    console.log(response.data)
 
                     if (response.data.status === 'password_failure') {
                         // Trigger vibration on password mismatch
