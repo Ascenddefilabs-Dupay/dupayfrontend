@@ -1,13 +1,14 @@
 .container {
+  font-family: "Poppins";
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  height: 100%;
+  height: 200%;
   width: 400px;
   max-width: 100%;
   color: white;
   padding: 20px;
-  overflow: hidden;
+ 
   box-sizing: border-box;
   margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -22,11 +23,19 @@
   .container {
     width: 100%;
   }
+  .bankCount{
+    text-align:center;
+    
+  }
 }
 
 @media (max-width: 768px) {
   .container {
     width: 100%;
+  }
+  .bankCount{
+    text-align:center;
+    
   }
 }
 
@@ -87,7 +96,7 @@
   padding: 10px; /* Padding for inputs */
   border: 1px solid #555; /* Border color */
   border-radius: 4px; /* Rounded corners */
-  background-color: #2a2a2a; /* Background for inputs */
+  background-color: #2A2D3C; /* Background for inputs */
   color: white; /* Text color */
 }
 
@@ -187,6 +196,10 @@
   .customAlert {
     width: 95%;
     padding: 10px;
+  }
+  .bankCount{
+    text-align:center;
+    
   }
 
 }
@@ -295,17 +308,17 @@
 }
 
 .initialScreen {
+  justify-items: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  overflow: hidden;
   align-items: center;
-  height: 100vh; /* Full viewport height */
+
   background-color: black;
-  overflow: hidden; /* Prevent scrolling */
-  position: absolute;
+  height: 100%;
+
   width: 100%; /* Full width of the viewport */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  padding: 20px; /* Padding inside the container to avoid content touching edges */
+ 
 }
 
 .addButton {
@@ -315,11 +328,12 @@
   color: black;
   border: none;
   border-radius: 5px;
+  
   font-size: 16px;
   cursor: pointer;
   width: 350px;
-  margin-top: 2rem; /* Keep button at bottom */
-  margin-bottom: 70px; /* Spacing from bottom */
+  margin-top: 7rem; 
+  
 }
 
 .addButton:hover {
@@ -328,23 +342,36 @@
 
 .bankList {
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers items horizontally */
-  gap: 10px; /* Space between each bank button */
-  margin-top: 80px;
-  margin-bottom:0;
+  flex-direction: column; /* Stacks items vertically */
+  align-items: center; /* Aligns items to the left */
+  gap: 20px; /* Space between each bank button */
+  margin-top: 35px; /* Adjust margin if needed */
+  width: 100%;
+  margin-bottom: 4rem;
+   /* Full width to allow left alignment */
 }
+
+.bankCount {
+  font-size: 15px;
+  align-self: flex-start;
+  padding-left: 3px;
+  color: white; /* Adjust color as per your theme */
+ 
+
+  width: 100%; /* Ensures it takes full width for alignment */
+}
+
 
 .bankButton {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: grey;
+  background-color: #2A2D3C;
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 350px;
-  height:50px;
+  height:60px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
@@ -371,6 +398,13 @@
   margin-left: 10px; /* Adds spacing between text and arrow */
   font-size: 1.5rem;
   color: white;
+}
+.formHeader {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  width: 100%; /* Full width for alignment */
+  margin-bottom: 20px; /* Space below the header */
 }
 
 .formScreen {
@@ -447,6 +481,7 @@
   color: white; /* Grey text for less emphasis */
   margin: 5px 0;
 }
+
 .BackIcon {
   position: absolute;
   align-self: self-start;/* Fixed position for visibility */
@@ -457,10 +492,26 @@
   cursor: pointer; /* Pointer cursor for interaction */
   /* Ensure it's above other elements */
 }
+.BackIcon1 {
+
+  font-size: 1.5rem;
   
+  position: absolute; /* Fix position for visibility */
+  left: 20px; /* Space from the left edge */
+  cursor: pointer; /* Pointer cursor for interaction */
+}
+
+.headerTitle {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.5rem;/* Remove default margins */
+}
 
 .Back {
+
   color: white;
+
+  font-size: 20px;
   cursor: pointer; /* Makes it clear that it's clickable */
 }
 
