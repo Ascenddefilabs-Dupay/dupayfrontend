@@ -74,17 +74,32 @@ const BitcoinPage: React.FC<BitcoinPageProps> = () => {
         handleCopyClick(); // Reuse handleCopyClick function
     };
 
+    // const handleShareClick = () => {
+    //     if (address && navigator.share) {
+    //         navigator.share({
+    //             title: 'Bitcoin Address',
+    //             text: `Here is my Bitcoin address: ${address}`,
+    //             url: window.location.href
+    //         }).catch((error) => console.error('Error sharing:', error));
+    //     } else {
+    //         alert('Sharing is not supported in this browser.');
+    //     }
+    // };
+
+    
     const handleShareClick = () => {
         if (address && navigator.share) {
+            const shareUrl = `${window.location.origin}${window.location.pathname}${window.location.search}`;
             navigator.share({
                 title: 'Bitcoin Address',
                 text: `Here is my Bitcoin address: ${address}`,
-                url: window.location.href
+                url: shareUrl,
             }).catch((error) => console.error('Error sharing:', error));
         } else {
             alert('Sharing is not supported in this browser.');
         }
     };
+    
 
     const handleToggle = (tab: 'Segwit' | 'Legacy') => {
         setActiveTab(tab);
