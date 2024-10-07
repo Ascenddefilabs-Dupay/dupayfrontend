@@ -201,7 +201,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               user_id: userID,
           });
           console.log('Validation response:', validationResponse.data); // Log response
-
+          if (currency !== null) {
           if (validationResponse.data.status !== 'success') {
               setAlertMessage(validationResponse.data.message);
               return;
@@ -222,9 +222,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                   });
                   console.log('Wallet transfer response:', response.data); // Log response
                   setAlertMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
-                  window.location.href = '/Userauthorization/Dashboard/Home';
+                  // window.location.href = '/Userauthorization/Dashboard/Home';
+                  router.push('/Userauthorization/Dashboard/Home');
               }
-          }
+          }}
 
       // Wallet Address payment method
       } else if (paymentMethod === 'walletAddress') {
@@ -242,6 +243,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           });
           console.log('Address validation response:', Addressresponse.data); // Log response
 
+          if (currency !== null) {
           if (Addressresponse.data.status === 'address_failure') {
             setAlertMessage('Entered fiat address does not exist.');
           } else if (Addressresponse.data.status === 'currency_failure') {
@@ -266,7 +268,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                           user_id: userID,
                       });
                       setAlertMessage('Transaction successful!');
-                      window.location.href = '/Userauthorization/Dashboard/Home';
+                      // window.location.href = '/Userauthorization/Dashboard/Home';
+                      router.push('/Userauthorization/Dashboard/Home');
                   } catch (error) {
                       console.error('Error storing transaction data:', error);
                       setAlertMessage('Error storing transaction data.');
@@ -274,7 +277,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               } else {
                 setAlertMessage('Payment failed!');
               }
-          }
+          }}
 
       // QR Code payment method
       } else if (paymentMethod === 'qrcode') {
@@ -298,6 +301,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           });
           console.log('QR Code validation response:', response.data); // Log response
 
+          if (currency !== null){
           if (response.data.status === 'failure') {
             setAlertMessage('Transaction Failure!');
               return;
@@ -328,7 +332,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                           user_id: userID,
                       });
                       setAlertMessage('Transaction successful!');
-                      window.location.href = '/Userauthorization/Dashboard/Home';
+                      // window.location.href = '/Userauthorization/Dashboard/Home';
+                      router.push('/Userauthorization/Dashboard/Home');
                   } catch (error) {
                       console.error('Error storing transaction data:', error);
                       setAlertMessage('Error storing transaction data.');
@@ -341,7 +346,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       } else {
         setAlertMessage('Select a valid payment method');
           return;
-      }
+      }}
 
   } catch (error: any) {
       console.error('Error during transaction processing:', error);

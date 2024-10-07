@@ -634,7 +634,8 @@ const QRScanner: React.FC = () => {
             setAlertMessage('Transaction successful!');
             setAmount('');
             setCurrency('');
-            window.location.href = '/Userauthorization/Dashboard/Home';
+            router.push('/Userauthorization/Dashboard/Home'); 
+            // window.location.href = '/Userauthorization/Dashboard/Home';
           } catch (error: any) {
             setAlertMessage('Error storing transaction data.');
             console.error('Error storing transaction data:', error.response ? error.response.data : error.message);
