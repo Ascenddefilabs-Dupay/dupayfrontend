@@ -371,7 +371,8 @@ const CurrencyForm: React.FC = () => {
                         user_id: userID,
                     });
                     setMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`); // Only passing one argument to setMessage
-                    window.location.href = '/Userauthorization/Dashboard/Home';
+                    // window.location.href = '/Userauthorization/Dashboard/Home';
+                    router.push('/Userauthorization/Dashboard/Home'); 
                 }
             }
         } catch (error: any) {
