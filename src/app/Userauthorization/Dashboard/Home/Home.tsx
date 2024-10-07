@@ -145,7 +145,7 @@ const Home = () => {
     const savedTab = localStorage.getItem('activeTab') || 'Crypto';
     const savedCryptoDropdownState = localStorage.getItem('cryptoDropdownOpen') === 'true';
     // const savedFiatDropdownState = localStorage.getItem('fiatDropdownOpen') === 'true';
-    if (fiatWalletId) {
+    if (fiatwalletData) {
       setAddNewFiatWallet(true);
     }else{
       setAddNewFiatWallet(false);
@@ -267,36 +267,36 @@ const Home = () => {
     if (tab === 'Fiat') {
       setIsFiatTabSelected(true);
       setActiveTab(tab);
-      localStorage.setItem('activeTab', 'Fiat');
+      // localStorage.setItem('activeTab', 'Fiat');
 
-      if (!fiatWalletId) {
+      if (!fiatwalletData) {
         setAddNewFiatWallet(true);
         setFiatDropdownVisible(false);
       } else {
         setAddNewFiatWallet(false);
         setFiatDropdownVisible(true);
         setAddNewFiatWalletPage(false);
-        localStorage.setItem('fiatDropdownOpen', 'true');
+        // localStorage.setItem('fiatDropdownOpen', 'true');
       }
     } else {
       setIsFiatTabSelected(false);
       setActiveTab(tab);
-      localStorage.setItem('activeTab', tab);
+      // localStorage.setItem('activeTab', tab);
 
       if (tab === 'Crypto') {
         setAddNewFiatWallet(false);
         setFiatDropdownVisible(false);
         setDropdownVisible(true);
         setAddNewFiatWalletPage(false);
-        localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
-        localStorage.setItem('cryptoDropdownOpen', 'true'); // Open Crypto dropdown
+        // localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
+        // localStorage.setItem('cryptoDropdownOpen', 'true'); // Open Crypto dropdown
       } else {
         setFiatDropdownVisible(false);
         setAddNewFiatWalletPage(false);
         setDropdownVisible(false);
         setAddNewFiatWallet(false);
-        localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
-        localStorage.setItem('cryptoDropdownOpen', 'false'); // Close Crypto dropdown
+        // localStorage.setItem('fiatDropdownOpen', 'false'); // Close Fiat dropdown
+        // localStorage.setItem('cryptoDropdownOpen', 'false'); // Close Crypto dropdown
       }
     }
   };
@@ -1003,6 +1003,7 @@ const wallet_data = () => {
         </div>
       )}
        {addNewFiatWalletPage && (
+        <div className={styles.backdrop}>
         <div className={styles.modalContentadd}>
           <div className={styles.addNewFiatWalletPage}>
             <h2>Create New Fiat Wallet</h2>
@@ -1069,6 +1070,56 @@ const wallet_data = () => {
                 />
               </div>
               <div className={styles.formGroup}>
+                <Select
+                  id="accountType"
+                  className={styles.selectInput}
+                  options={accountTypeOptions}
+                  value={selectedAccountType}
+                  onChange={(option) => setSelectedAccountType(option)}
+                  placeholder="Select Currency type"
+                  isClearable
+                  required
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      backgroundColor: 'rgba(42, 45, 60, 1)',
+                      color: 'rgba(226, 240, 255, 1)',
+                      border: 'none',
+                    }),
+                    placeholder: (provided) => ({
+                      ...provided,
+                      color: 'rgba(226, 240, 255, 1)',
+                      textAlign: 'left', // Align placeholder to the left
+                    }),
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)',
+                      color: 'white',
+                      textAlign: 'left',
+                      '&:hover': {
+                        backgroundColor: '#555',
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: 'rgba(226, 240, 255, 1)',
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      backgroundColor: 'rgba(42, 45, 60, 1)',
+                      border: 'none',
+                      boxShadow: 'none',
+                    }),
+                    menuList: (provided) => ({
+                      ...provided,
+                      backgroundColor: 'rgba(42, 45, 60, 1)',
+                      padding: 0,
+                      border: 'none',
+                    }),
+                  }}
+                />
+              </div>
+              <div className={styles.formGroup}>
                 <input
                   id="email"
                   type="email"
@@ -1106,6 +1157,7 @@ const wallet_data = () => {
               </button>
             </form>
           </div>
+        </div>
         </div>
       )}
 

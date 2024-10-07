@@ -47,6 +47,13 @@ const WalletTransaction: React.FC = () => {
             // router.push('/Userauthentication/SignIn');
         }
     }
+    if(typeof window !== 'undefined'){
+      const sessionStorageDataString = window.localStorage.getItem('session_data');
+      if(sessionStorageDataString){
+        const wallet_id = JSON.parse(sessionStorageDataString);
+        setWalletID(wallet_id.fiat_wallet_id);
+      }
+    }
 }, [router]);
 
 
@@ -54,6 +61,7 @@ useEffect(() => {
   const fetchWalletAmount = async () => {
     try {
       const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
+        // const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-wallet-amount/', {
         wallet_id: walletId,
         currency: currency,
       });

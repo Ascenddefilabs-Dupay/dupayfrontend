@@ -429,14 +429,14 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  width: auto;
+  width: 100%;
   min-width: 360px;
   max-width: 430px;
-  background-color: rgba(23, 23, 26, 1);
+  background-color: rgba(30, 30, 29, 1);
   z-index: 2; 
   overflow-y: auto;
   padding: 20px;
-  border-radius: 50px 50px 0px 0px;
+  /* border-radius: 50px 50px 0px 0px; */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   height: auto;
 }
@@ -446,14 +446,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: auto;
+  width: 100%;
   min-width: 360px;
   max-width: 430px;
+  z-index: 1000;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  z-index: 999; /* Ensure it is above all other elements */
 }
 
 .addNewFiatWalletPage h2 {
-  margin-bottom: 10px;
-  /* align-items: flex-start; */
+  font-size: 1.2rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
   display: flex ;
   text-align: left;
 }
@@ -503,6 +515,8 @@
 
   .addNewFiatWalletPage h2 {
     font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .addNewFiatWalletPage select,
@@ -533,7 +547,9 @@
   }
 
   .addNewFiatWalletPage h2 {
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .addNewFiatWalletPage select,
@@ -680,6 +696,7 @@
   font-weight: 300;
   background: linear-gradient(91.26deg, #70a2ff, #54f0d1);
   /* -webkit-background-clip: text; */
+  background-clip: text; /* No prefix needed */
   -webkit-text-fill-color: transparent;
 }
 .ethParent {
