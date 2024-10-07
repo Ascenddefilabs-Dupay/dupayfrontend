@@ -541,7 +541,8 @@ const AddressBasedTransactionForm: React.FC = () => {
                     setTransactionAmount('');
                     setTransactionCurrency('');
                     setFiatAddress('');
-                    window.location.href = '/Userauthorization/Dashboard/Home';
+                    router.push('/Userauthorization/Dashboard/Home'); 
+                    // window.location.href = '/Userauthorization/Dashboard/Home';
                 } catch (error: unknown) {
                     if (axios.isAxiosError(error)) {
                         setAlertMessage('Error storing transaction data.');

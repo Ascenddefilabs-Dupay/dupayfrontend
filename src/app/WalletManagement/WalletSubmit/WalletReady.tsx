@@ -34,17 +34,20 @@ const WalletReady: React.FC = () => {
 
   const handleClaim = () => {
     setLoading(true);
-    window.location.href = '/Userauthorization/Dashboard/Home';
+    //window.location.href = '/Userauthorization/Dashboard/Home';
+    router.push('/Userauthorization/Dashboard/Home'); 
   };
 
   const handleLater = () => {
     setLoading(true);
-    window.location.href = '/Userauthorization/Dashboard/Home';
+    //window.location.href = '/Userauthorization/Dashboard/Home';
+    router.push('/Userauthorization/Dashboard/Home');
   };
 
   const handleLeftArrowClick = () => {
     setLoading(true);
-    window.location.href = './WalletSecretCode/success/';
+    //window.location.href = './WalletSecretCode/success/';
+    router.push('./WalletSecretCode/success/');
   };
 
   return (

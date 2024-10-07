@@ -81,17 +81,31 @@ export default function EthereumPage() {
         }
     };
 
+    // const handleShareClick = () => {
+    //     if (navigator.share) {
+    //         navigator.share({
+    //             title: 'Ethereum Address',
+    //             text: `Here is my Ethereum address: ${address}`,
+    //             url: window.location.href
+    //         }).catch((error) => console.error('Error sharing:', error));
+    //     } else {
+    //         alert('Sharing is not supported in this browser.');
+    //     }
+    // };
+
     const handleShareClick = () => {
         if (navigator.share) {
+            const shareUrl = `${window.location.origin}${window.location.pathname}${window.location.search}`;
             navigator.share({
                 title: 'Ethereum Address',
                 text: `Here is my Ethereum address: ${address}`,
-                url: window.location.href
+                url: shareUrl,
             }).catch((error) => console.error('Error sharing:', error));
         } else {
             alert('Sharing is not supported in this browser.');
         }
     };
+    
 
     return (
         <div className={styles.container}>

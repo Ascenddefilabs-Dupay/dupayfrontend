@@ -25,7 +25,8 @@ const NetworkSelector: React.FC = () => {
     }, []);
 
     const handleLeftArrowClick = () => {
-        window.location.href = '/FiatManagement/Currency_Conversion';
+        // window.location.href = '/FiatManagement/Currency_Conversion';
+        router.push('/FiatManagement/Currency_Conversion');
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -59,7 +59,8 @@ const RecoveryPhraseForm: React.FC = () => {
                 const { wallet_id } = response.data;
                 sessionStorage.setItem('wallet_id', wallet_id);
                 console.log(wallet_id);
-                window.location.href = './UpdatePassword/';
+                //window.location.href = './UpdatePassword/';
+                router.push('./UpdatePassword/'); 
             } else {
                 setErrorMessage('Password words are incorrect');
             }
@@ -71,7 +72,8 @@ const RecoveryPhraseForm: React.FC = () => {
 
     const handleLeftArrowClick = () => {
         setLoading(true);
-        window.location.href = './AddAccount';
+        //window.location.href = './AddAccount';
+        router.push('./AddAccount'); 
     };
 
     return (

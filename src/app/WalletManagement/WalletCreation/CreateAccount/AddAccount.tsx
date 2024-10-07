@@ -96,11 +96,13 @@ const AddAccount = () => {
   // }, []);
 
   const handleClose = () => {
-    window.location.href = "./";
+    //window.location.href = "./";
+    router.push('./'); 
   };
 
   const handleCreate = () => {
-    window.location.href = "../CreatePassword";
+    //window.location.href = "../CreatePassword";
+    router.push('../CreatePassword'); 
   };
 
   async function beginZkLogin(provider: OpenIdProvider) {
@@ -160,7 +162,8 @@ const AddAccount = () => {
     //     break;
     //   }
     // }
-    window.location.replace(loginUrl);
+    //window.location.replace(loginUrl);
+    router.replace(loginUrl); 
     //window.location.href = './AddAccount/ZkDetails';
     
   }
@@ -415,6 +418,12 @@ const AddAccount = () => {
   }
 
   function loadAccounts(): AccountData[] {
+
+    if (typeof window === 'undefined') {
+      // If it's server-side, return an empty array
+      return [];
+    }
+
     const dataRaw = sessionStorage.getItem(accountDataKey);
     if (!dataRaw) {
       return [];

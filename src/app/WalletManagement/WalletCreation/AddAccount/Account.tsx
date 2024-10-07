@@ -31,12 +31,14 @@ const AddAccount: React.FC = () => {
 
   const handleClose = () => {
     setLoading(true);
-    window.location.href = './';
+    //window.location.href = './';
+    router.push('./'); 
   };
 
   const handleImport = () => {
     setLoading(true);
-    window.location.href = './ImportPassphrase';
+    //window.location.href = './ImportPassphrase';
+    router.push('./ImportPassphrase'); 
   };
 
   return (

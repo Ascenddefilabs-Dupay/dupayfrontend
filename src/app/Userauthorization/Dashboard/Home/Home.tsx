@@ -509,28 +509,34 @@ const Home = () => {
 
   const handleAddBack = () => {
     console.log("Currency Selected Addbank:",storedCurrency);
-    window.location.href = '/FiatManagement/AddBanks';
+    router.push('/FiatManagement/AddBanks');
     setLoading(true);
   };
   const handleSwap = () => {
     console.log("Currency Selected swap :",storedCurrency);
     console.log("wallet_id Selected swap :",fiatWalletId);
-    window.location.href = `/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}`;
+
+    router.push('/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}');
+    // window.location.href = `/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}`;
+
     setLoading(true);
   };
   const handleWithDraw = () => {
     console.log("Currency Selected Withdraw :",storedCurrency);
-    window.location.href = '/FiatManagement/Withdraw';
+    router.push('/FiatManagement/Withdraw');
+
     setLoading(true);
   };
   const handleTransfor = () => {
     console.log("Currency Selected Trasfer :",storedCurrency);
-    window.location.href = '/TransactionType/AllTransactions';
+    router.push('/TransactionType/AllTransactions');
+
     setLoading(true);
   };
   const handleTopUp = () => {
     console.log("Currency Selected Topup :",storedCurrency);
-    window.location.href = '/FiatManagement/Topup';
+    router.push('/FiatManagement/Topup');
+
     setLoading(true);
   };
 
@@ -1026,7 +1032,7 @@ const wallet_data = () => {
                     option: (provided, state) => ({
                       ...provided,
                       backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)',
-                      color: 'rgba(226, 240, 255, 1)',
+                      color: 'white',
                       textAlign: 'left',
                       '&:hover': {
                         backgroundColor: '#555',
