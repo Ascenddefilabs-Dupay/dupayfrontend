@@ -64,10 +64,12 @@ function ZkDetails() {
   const [modalContent, setModalContent] = useState<string>(" ");
   const [balances, setBalances] = useState<Map<string, number>>(new Map());
   const [userId, setUserId] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
+    setIsClient(true);
     completZkLogin();
     fetchBalances(accounts.current);
     const interval = setInterval(() => fetchBalances(accounts.current), 5_000);
