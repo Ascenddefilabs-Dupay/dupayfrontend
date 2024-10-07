@@ -6,6 +6,7 @@ import axios from 'axios';
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X';
 import Select, { SingleValue } from 'react-select';
 import { fontWeight, width } from '@mui/system';
+const API_BASE_URL='https://fiatmanagement-ind-255574993735.asia-south1.run.app';
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
 interface Currency {
   // currency_code: string;
@@ -93,7 +94,7 @@ useEffect(() => {
 
 const fetchCurrencyIcon = async (currencyName:string) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/fiat_fiatSwap/get-currency-icon/', {
+      const response = await axios.post(`http://127.0.0.1:8000/fiat_fiatSwap/get-currency-icon/`, {
         currency: currencyName,
       });
       
@@ -138,28 +139,12 @@ const fetchCurrencyIcon = async (currencyName:string) => {
 
       
       
-      // useEffect(() => {
-      //   if (currencyList.length > 0) {
-      //       const fetchIcons = async () => {
-      //           try {
-      //             const response = await axios.get('http://127.0.0.1:8000/fiat_fiatSwap/icons/');
-      //             const allIcons = response.data.currency_icons; // Get all icons at once
-      //             setCurrencyIcons(allIcons); // Set icons in state
-      //           } catch (error) {
-      //             console.error('Error fetching currency icons:', error);
-      //           }
-      //         };
-              
-      
-      //     fetchIcons();
-      //   }
-      // }, [currencyList]);
 
       useEffect(() => {
         if (currencyList.length > 0) {
           const fetchIcons = async () => {
             try {
-              const response = await axios.get('http://127.0.0.1:8000/fiat_fiatSwap/icons/');
+              const response = await axios.get(`http://127.0.0.1:8000/fiat_fiatSwap/icons/`);
               const allIcons = response.data.currency_icons; // This should be an array
     
               if (Array.isArray(allIcons)) {
@@ -270,7 +255,7 @@ const [selectedCurrency, setSelectedCurrency] = useState<SingleValue<{ value: st
 useEffect(() => {
   const fetchCurrencies = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/fiatmanagementapi/account-types/');
+      const response = await fetch(`http://127.0.0.1:8000/fiatmanagementapi/account-types/`);
       if (response.ok) {
         const data = await response.json();
         setCurrencies(data);
@@ -412,7 +397,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const userCurrenciesResponse = await axios.get('http://127.0.0.1:8000/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000002');
+            const userCurrenciesResponse = await axios.get(`http://127.0.0.1:8000/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000002`);
             const userCurrencies: Currency[] = userCurrenciesResponse.data;
             const updatedBalances: Record<string, number> = {};
             userCurrencies.forEach(currency => {
@@ -468,48 +453,6 @@ useEffect(() => {
   };
  
 
-//   const currencyOptions: CurrencyOption[] = currencyList.map((currency_type) => {
-//     const iconData = currencyIcons.find((icon) => icon.currency_type === currency_type);
-//     const iconUrl = iconData ? iconData.icon : ''; // Default to empty string if no icon
-  
-//     return {
-//       value: currency_type,
-//       label: (
-//         <div style={{ display: 'flex', alignItems: 'center' }}>
-//           <img
-//             src={iconUrl}
-//             alt={currency_type}
-//             style={{ marginRight: 8, width: 20, height: 20 }} // Adjust size as needed
-//           />
-//           <span>{currency_type}</span>
-//         </div>
-//       ),
-//     };
-//   });
-// useEffect(() => {
-//   const fetchCurrencies = async () => {
-//     try {
-//       const response = await fetch('http://127.0.0.1:8000/fiatmanagementapi/user_currencies/Wa0000000002');
-//       if (response.ok) {
-//         const data = await response.json();
-//         setCurrencies(data);
-//         if (fetchedCurrency) {
-//           const matchingCurrency = data.find(
-//             (currency: Currency) => currency.currency_type === fetchedCurrency
-//           );
-//           if (matchingCurrency) {
-//             setSourceCurrency(matchingCurrency.currency_type);
-//           }
-//         }
-//       } else {
-//         console.error('Failed to fetch currencies');
-//       }
-//     } catch (error) {
-//       console.error('Error fetching currencies:', error);
-//     }
-//   };
-//   fetchCurrencies();
-// }, []);
 
   const handleCurrencyConversion = async () => {
     if (!amount || !conversionRate) {
@@ -528,7 +471,7 @@ useEffect(() => {
       conversion_rate: parseFloat(conversionRate),
     };
     try {
-      const response = await fetch('http://127.0.0.1:8000/fiatmanagementapi/convert_currency/', {
+      const response = await fetch(`http://127.0.0.1:8000/fiatmanagementapi/convert_currency/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postData),

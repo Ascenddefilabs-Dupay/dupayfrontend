@@ -87,7 +87,7 @@ const navigatetoOnboarding = () =>{
             <li onClick={() => navigateToPage('/')}>Home</li>
             <li onClick={() => navigateToPage('/about')}>About</li>
             <li onClick={() => navigateToPage('/contact')}>Contact</li>
-            <li className={styles.button} onClick={() => navigateToPage('/Userauthentication/SignIn')}>Sign In</li>
+            {/* <li className={styles.button} onClick={() => navigateToPage('/Userauthentication/SignIn')}>Sign In</li> */}
             {/* <li onClick={() => navigateToPage('/MWeb2')}>Sign Up</li> */}
           </ul>
         </div>

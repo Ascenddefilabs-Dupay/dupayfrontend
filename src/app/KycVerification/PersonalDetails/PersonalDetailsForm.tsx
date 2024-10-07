@@ -430,6 +430,8 @@ const PersonalDetailsForm: React.FC = () => {
   const router = useRouter();
   const [style, setStyle] = useState({ fontSize: '16px' });
 
+  
+
   const onFocus = () => {
     setStyle((prevStyle) => ({
       ...prevStyle,
@@ -722,7 +724,7 @@ const PersonalDetailsForm: React.FC = () => {
             name="dob"
             onFocus={onFocus}
             value={formData.dob}
-            placeholder="Date of Birth"
+            // placeholder="Date of Birth"
             onChange={handleChange}
             className={styles.input}
             required

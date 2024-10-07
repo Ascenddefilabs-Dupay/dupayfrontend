@@ -14,7 +14,7 @@
     top: 0px;
     left: 0px;
     background-color: #222531;
-    width: 1440px;
+    width: 100%;
     height: 90px;
     overflow: hidden;
     opacity: 0.9;
@@ -54,7 +54,7 @@
 .homeAboutContactParent {
     position: absolute;
     top: 0px;
-    left: 400px;
+    left: 500px;
     width: 1300px;
     height: 90px;
     overflow: hidden;

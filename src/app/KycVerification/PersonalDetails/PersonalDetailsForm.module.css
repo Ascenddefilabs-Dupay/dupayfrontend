@@ -417,7 +417,7 @@ color: transparent;
 }
 
 .inputinput2 :global(input[type="date"]::-webkit-datetime-edit) {
-  color: transparent;
+  color: #ffffff;
 }
 
 .inputinput2 :global(input[type="date"]::-webkit-datetime-edit-month-field),
