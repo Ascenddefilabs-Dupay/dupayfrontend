@@ -28,8 +28,10 @@ const CurrencySelector: React.FC = () => {
   );
 
   const handleLeftArrowClick = (): void => {
+
     // window.location.href = '/FiatManagement/Currency_Conversion';
     router.push('/FiatManagement/Currency_Conversion');
+
   };
 
   return (

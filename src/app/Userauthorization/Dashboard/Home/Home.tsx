@@ -515,26 +515,28 @@ const Home = () => {
   const handleSwap = () => {
     console.log("Currency Selected swap :",storedCurrency);
     console.log("wallet_id Selected swap :",fiatWalletId);
+
     router.push('/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}');
     // window.location.href = `/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}`;
+
     setLoading(true);
   };
   const handleWithDraw = () => {
     console.log("Currency Selected Withdraw :",storedCurrency);
     router.push('/FiatManagement/Withdraw');
-    // window.location.href = '/FiatManagement/Withdraw';
+
     setLoading(true);
   };
   const handleTransfor = () => {
     console.log("Currency Selected Trasfer :",storedCurrency);
     router.push('/TransactionType/AllTransactions');
-    // window.location.href = '/TransactionType/AllTransactions';
+
     setLoading(true);
   };
   const handleTopUp = () => {
     console.log("Currency Selected Topup :",storedCurrency);
     router.push('/FiatManagement/Topup');
-    
+
     setLoading(true);
   };
 

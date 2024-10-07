@@ -78,7 +78,8 @@ const PasswordForm: React.FC = () => {
 
     const handleLeftArrowClick = () => {
         setLoading(true);
-        window.location.href = './WalletCreation/CreateAccount';
+        //window.location.href = './WalletCreation/CreateAccount';
+        router.push('./WalletCreation/CreateAccount'); 
     };
 
     const handleVerifyPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +102,8 @@ const PasswordForm: React.FC = () => {
             // Navigate to the next page
             setMessage('Password saved :)');
             setMessageType('success');
-            window.location.href = './WalletSecretCode';
+            //window.location.href = './WalletSecretCode';
+            router.push('./WalletSecretCode'); 
         }
     };
 

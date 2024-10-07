@@ -70,7 +70,8 @@ const PasswordForm: React.FC = () => {
 
     const handleLeftArrowClick = () => {
         setLoading(true);
-        window.location.href = './ImportPassphrase';
+        //window.location.href = './ImportPassphrase';
+        router.push('./ImportPassphrase'); 
     };
 
     const handleVerifyPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +89,8 @@ const PasswordForm: React.FC = () => {
                 setMessage('Password updated successfully :)');
                 setMessageType('success');
                 sessionStorage.removeItem('wallet_id');
-                window.location.href = '/Userauthorization/Dashboard/Home';
+                //window.location.href = '/Userauthorization/Dashboard/Home';
+                router.push('/Userauthorization/Dashboard/Home'); 
             } catch (error) {
                 setMessage('Error updating password!');
                 setMessageType('error');

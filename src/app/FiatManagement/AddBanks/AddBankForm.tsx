@@ -4,7 +4,11 @@ import { FaArrowLeft, FaArrowRight, FaTrash,FaAngleLeft, FaAngleRight } from "re
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./AddBankForm.module.css";
+
 import router, { useRouter } from 'next/router';
+
+import { useRouter } from 'next/navigation';
+
 
 
 // Define the IFSC code validation function
@@ -40,7 +44,7 @@ const AddBankForm: React.FC = () => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [showForm, setShowForm] = useState<boolean>(false);
-
+  const router = useRouter();
   // Fetch user ID from localStorage
   useEffect(() => {
     const storedSessionData = localStorage.getItem("session_data");
@@ -159,8 +163,10 @@ const fetchBankList = async (userId: string) => {
 
   // Handle back button click to go back to the dashboard
   const handleBackClick = useCallback(() => {
+
     // window.location.href = "/Userauthorization/Dashboard/Home";
     router.push('/Userauthorization/Dashboard/Home');
+
   }, []);
 
   // Show the add bank form

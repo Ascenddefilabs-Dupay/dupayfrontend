@@ -85,7 +85,8 @@ const SuccessPage: React.FC = () => {
 
     const handleLeftArrowClick = () => {
         setLoading(true);
-        window.location.href = '../WalletSecretCode';
+        //window.location.href = '../WalletSecretCode';
+        router.push('../WalletSecretCode'); 
     };
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -151,7 +152,8 @@ const SuccessPage: React.FC = () => {
                     localStorage.removeItem('last_wallet_id');
 
 
-                    window.location.href = '../WalletSubmit';
+                    //window.location.href = '../WalletSubmit';
+                    router.push('../WalletSubmit'); 
                 } catch (error) {
                     console.error('Error saving phrase:', error);
                     alert('error');

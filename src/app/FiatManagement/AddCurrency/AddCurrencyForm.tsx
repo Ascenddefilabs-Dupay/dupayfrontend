@@ -123,8 +123,10 @@ const AddCurrencyForm: React.FC = () => {
   const handleLeftArrowClick = useCallback(() => {
     setShowLoader(true);
     setTimeout(() => {
+
       // window.location.href = '/Userauthorization/Dashboard/Home';
       router.push('/Userauthorization/Dashboard/Home');
+
       setShowLoader(false);
     }, 1000);
   }, []);
