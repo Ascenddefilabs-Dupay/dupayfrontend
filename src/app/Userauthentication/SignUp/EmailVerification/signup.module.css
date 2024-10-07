@@ -17,7 +17,7 @@
   
 }
 
-.formWrapper {
+/* .formWrapper {
   padding: 0;
   width: 411px;
   max-width: 100%;
@@ -28,13 +28,42 @@
   align-items: center;
   margin-top: 0.5rem;
   padding-top: 50px;
-  /* padding-bottom: 50px; */
   background-color:  #242429;
   background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
   background-repeat: no-repeat;
   background-position: 100% 0; 
   background-size: 80% 40%; 
+ 
+} */
+
+
+.formWrapper {
+  padding: 0;
+  width: 411px;
+  max-width: 100%;
+  max-height: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding-top: 50px;
+  background-color: #242429;
+  background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  background-size: 60% 50%;
+  animation: moveBackground 0.5s ease-in-out forwards; /* Add animation */
 }
+@keyframes moveBackground {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 120% -40%; 
+  }
+}
+
 
 .card {
   background-color: #17171AE5;
@@ -43,8 +72,9 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 0 2rem 2rem 2rem ;
   /* padding-top: 6.5rem; */
-  margin-top: 35%;
+  margin-top: 60%;
   /* padding-bottom: 3rem; */
+  border-radius: 50px 50px;
   width: 411px;
   max-width: 100%;
   overflow: hidden; 
@@ -52,8 +82,7 @@
   display: flex;
    flex-direction: column;
   justify-content: center;
-  max-height: auto;
-  
+  max-height: auto; 
 }
 
 .imageLogo{
@@ -63,7 +92,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top:-20%;
 }
 .title {
   font-family: SF Pro;
@@ -471,91 +500,6 @@ align-items: flex-start;
   cursor: pointer;
 }
 
-
-.customKeyboard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 15px;
-  justify-items: center;
-  width: 100%;
-  /* margin-left: -25px;
-  margin-right: -20px; */
-}
-
-.keyboardButton {
-  border-radius: 52.32px;
-  background-color: #23262a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.3px 0px 0px;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 29.57px;
-  color: #fff;
-  font-family: Roboto;
-  width: 92.1px;
-  height: 42.1px;
-  height: 100%;
-  flex: 1;
-  width: 100%;
-}
-.keyboardButton img{
-height: 27.3px;
-width: 27.3px;
-}
-.keyboardButton1 {
-  border-radius: 52.32px;
-  background-color: #4f6375;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.3px 0px 0px;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 25px;
-  color: #fff;
-  font-family: Roboto;
-  width: 34.1px;
-  height: 42.1px;
-  height: 100%;
-  flex: 1;
-  width: 100%;
-}
-.keyboardButton2 {
-  border-radius: 52.32px;
-  background-color: #588ab9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.3px 0px 0px;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 25px;
-  color: #fff;
-  font-family: Roboto;
-  width: 34.1px;
-  height: 42.1px;
-  height: 100%;
-  flex: 1;
-  width: 100%;
-}
-
-
-.keyboardButton:hover {
-  background-color: #e0e0e0;
-}
-.keyboardButton1:hover {
-  background-color: #e0e0e0;
-}
-.keyboardButton2:hover {
-  background-color: #e0e0e0;
-}
-
 .otpGroup {
   display: flex;
   justify-content: space-between;
@@ -571,515 +515,18 @@ width: 27.3px;
   border-radius: 5px;
 }
 
-/* Mobile responsive */
-@media (max-width: 600px) {
-  .customKeyboard {
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 8px;
-  }
-
-  .keyboardButton {
-    font-size: 16px;
-    padding: 8px;
-  }
-  .keyboardButton1 {
-    font-size: 16px;
-    padding: 8px;
-  }
-  .keyboardButton2 {
-    font-size: 16px;
-    padding: 8px;
-  }
-  .otpInput {
-    width: 40px;
-    height: 40px;
-  }
-}
-.keyboardDefault {
-  width: 100%;
-  position: relative;
-  background-color: #1b1d1f;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding:  0 10.3px 6.8px 0px;
-  box-sizing: border-box;
-  gap: 12.5px;
-  text-align: center;
-  font-size: 25.06px;
-  color: #fff;
-  font-family: Roboto;
-  }
-.keyboardButtons {
-  position: relative;
-  font-size: 25.06px;
-  font-family: Roboto;
-  color: #fff;
-  border-radius: 8px;
-  background-color: #23262a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.3px 0px 0px;
-  box-sizing: border-box;
-  text-align: center;
-  width: 40px;
-  height: 35.1px;
-  height: 100%;
-  flex: 1;
-  width: 100%;
-}
-.keyboardButtons1 {
-  position: relative;
-  font-size: 25.06px;
-  font-family: Roboto;
-  color: #fff;
-  border-radius: 8px;
-  background-color: #23262a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.3px 0px 0px;
-  box-sizing: border-box;
-  text-align: center;
-  width: 40px;
-  height: 35.1px;
-  height: 100%;
-  flex: 1;
-  width: 100%;
-  background-color: #4f6375;
-  }
-  .chevronButton{
-    font-size: 10px;
-    margin-top: 20px;
-  }
-.keyboardButtons2 {
-  position: relative;
-  font-size: 25.06px;
-  font-family: Roboto;
-  color: #fff;
-  border-radius: 8px;
-  background-color: #23262a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.3px 0px 0px;
-  box-sizing: border-box;
-  text-align: center;
-  width: 40px;
-  height: 35.1px;
-  height: 100%;
-  flex: 1;
-  width: 100%;
-  background-color: #588ab9;
-}
-.customKeyboards {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 10px;
-  margin-top: 15px;
-  justify-items: center;
-}
-.keyboardButtons:hover {
-  background-color: #e0e0e0;
-}
-.keyboardButtons1:hover {
-  background-color: #e0e0e0;
-}
-.keyboardButtons2:hover {
-  background-color: #e0e0e0;
-}
-
-
-.vectorIcon {
-  	width: 7px;
-  	position: relative;
-  	height: 11.4px;
-}
-.iconArrowLeft {
-  	width: 27.3px;
-  	height: 27.3px;
-  	overflow: hidden;
-  	flex-shrink: 0;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 0px 1.1px 0px 0px;
-  	box-sizing: border-box;
-}
-.back {
-  	border-radius: 22.78px;
-  	background-color: #588ab9;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: center;
-}
-.unionIcon {
-  	width: 15.6px;
-  	position: relative;
-  	height: 15.6px;
-}
-.iconSticker {
-  	width: 27.3px;
-  	height: 27.3px;
-  	overflow: hidden;
-  	flex-shrink: 0;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-}
-.groupIcon {
-  	width: 23.9px;
-  	position: relative;
-  	height: 10.3px;
-}
-.unionIcon1 {
-  	width: 14.9px;
-  	position: relative;
-  	height: 18.2px;
-}
-.vectorIcon1 {
-  	width: 17.7px;
-  	position: relative;
-  	height: 18.2px;
-}
-.divider {
-  	width: 1.1px;
-  	position: relative;
-  	background-color: #cfcdd1;
-  	height: 21.6px;
-}
-.vectorIcon2 {
-  	width: 18.2px;
-  	position: relative;
-  	height: 4.6px;
-}
-.vectorIcon3 {
-  	width: 13.4px;
-  	position: relative;
-  	height: 18.2px;
-}
-.toolbar {
-  	align-self: stretch;
-  	background-color: #1b1d1f;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: space-between;
-  	padding: 0px 4.6px;
-}
-.div {
-  	position: relative;
-  	font-weight: 500;
-}
-.number {
-  	align-self: stretch;
-  	flex: 1;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: flex-end;
-  	justify-content: flex-start;
-  	padding: 1.1px 2.3px 0px 0px;
-    /* margin-top: 10px; */
-}
-.a {
-  	position: relative;
-}
-.letter {
-  
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	font-size: 25.06px;
-  	color: #fff;
-}
-.keyPrimary {
-  	width: 34.2px;
-  	border-radius: 6.83px;
-  	background-color: #23262a;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 0px 0px 0px;
-  	box-sizing: border-box;
-}
-.qwer {
-  	align-self: stretch;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: center;
-  	gap: 5.7px;
-  	font-size: 11.39px;
-  	color: #49494a;
-}
-.a10 {
-  	width: 17.1px;
-  	position: relative;
-  	display: flex;
-  	align-items: center;
-  	justify-content: center;
-}
-.letter10 {
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 0px 0px 2.3px;
-}
-.key {
-  	width: 30.2px;
-  	height: 42.1px;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: center;
-}
-.keyPrimary10 {
-  	border-radius: 6.83px;
-  	background-color: #23262a;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-}
-.asdf {
-  	align-self: stretch;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: center;
-  	gap: 5.7px;
-}
-.arrowIcon {
-  	width: 21.6px;
-  	position: relative;
-  	height: 19.4px;
-}
-.iconShiftOff {
-  	width: 27.3px;
-  	height: 27.3px;
-  	overflow: hidden;
-  	flex-shrink: 0;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 0px 0px 2.3px;
-  	box-sizing: border-box;
-}
-.keyFunction {
-  	width: 52.4px;
-  	border-radius: 6.83px;
-  	background-color: #4f6375;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-}
-.deleteIcon {
-  	width: 25.8px;
-  	position: relative;
-  	height: 20.5px;
-}
-.keySpecialFunction {
-  	border-radius: 34.17px;
-  	background-color: #4f6375;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 9.1px;
-  	box-sizing: border-box;
-  	font-size: 17.08px;
-}
-.keyFunction2 {
-  	width: 34.2px;
-  	border-radius: 6.83px;
-  	background-color: #4f6375;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-}
-.smileyIcon {
-  	width: 20.5px;
-  	position: relative;
-  	height: 20.5px;
-}
-.keyPrimary26 {
-  	width: 34.2px;
-  	border-radius: 6.83px;
-  	background-color: #23262a;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-}
-.key17 {
-  	width: 34.2px;
-  	height: 42.1px;
-}
-.keyPrimary27 {
-  	flex: 1;
-  	border-radius: 6.83px;
-  	background-color: #23262a;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-}
-.arrowIcon1 {
-  	width: 27.3px;
-  	position: relative;
-  	height: 27.3px;
-  	object-fit: cover;
-}
-.keySpecialFunction1 {
-  	width: 53.5px;
-  	border-radius: 34.17px;
-  	background-color: #588ab9;
-  	height: 47.8px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 9.1px 0px;
-  	box-sizing: border-box;
-}
-.functions {
-  	align-self: stretch;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 0px 6.8px;
-  	gap: 5.7px;
-}
-.vectorIcon4 {
-  	width: 10.3px;
-  	position: relative;
-  	height: 6.3px;
-  	object-fit: contain;
-  }
-.iconArrowDown {
-  	width: 27.3px;
-  	height: 27.3px;
-  	overflow: hidden;
-  	flex-shrink: 0;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: flex-end;
-    margin-bottom: 5%;
-    
-}
-.dismissKeyboard {
-  	width: 396.3px;
-  	height: 10.3px;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: flex-end;
-  	justify-content: flex-start;
-  	padding: 0px 0px 0px 45.6px;
-  	box-sizing: border-box;
-}
-.homeIndicator {
-  	width: 82px;
-  	position: relative;
-  	border-radius: 113.89px;
-  	background-color: #49494a;
-  	height: 2.3px;
-}
-.navigationBar {
-  	width: 396.3px;
-  	height: 18.2px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 8px 0px;
-  	box-sizing: border-box;
-}
-.navigation {
-  	display: flex;
-  	flex-direction: column;
-  	align-items: flex-start;
-  	justify-content: flex-start;
-  	padding: 22.8px 0px 0px;
-}
-.keyboardDefault {
-  	/* width: 100%; */
-  	position: relative;
-  	background-color: #1b1d1f;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: flex-end;
-  	/* padding: 10.3px 6.8px 0px; */
-  	box-sizing: border-box;
-  	gap: 12.5px;
-  	text-align: center;
-  	font-size: 25.06px;
-  	color: #fff;
-  	font-family: Roboto;
-    min-width: 411px;
-    /* padding-left: 20px; */
-    margin-left: -30px;
-    max-width: 100%;
-    
-}
-/* @media (max-width: 480px) {
-  .card{
-top: 35%;
-  }
-} */
 
 @media (max-width: 768px) and (min-height: 1024px) {
   /* Styles for taller screens, like iPads or large iPhones */
   .card{
     margin-bottom: -20%;
   }
-  .keyboardDefault {
-      padding: 1vh 1vw;
-      font-size: 3vw;
-  }
-  .keyPrimary, .keySpecialFunction {
-      width: 9vw;
-      height: 7vh;
-      font-size: 2vw;
-  }
+ 
 }
 
 /* Android device specific handling */
 @media (max-width: 1080px) {
-  .keyboardDefault {
-      padding: 1.5vh 2vw;
-      font-size: 2.5vw;
-      width: 400px;
-      
-  }
-  .keyPrimary, .keySpecialFunction {
-      width: 7vw;
-      height: 5vh;
-      font-size: 1.6vw;
-  }
+ 
   .formWrapper{
     width: 100%;
   }
@@ -1088,17 +535,7 @@ top: 35%;
   }
 }
 /* Larger tablets */
-@media (min-width: 1024px) {
-  .keyboardDefault {
-      padding: 1vh 3vw;
-      font-size: 2vw;
-  }
-  .keyPrimary, .keySpecialFunction {
-      width: 6vw;
-      height: 5vh;
-      font-size: 1.5vw;
-  }
-}
+
 @media (max-width: 720px) {
   .formWrapper{
     width: 100%;
@@ -1113,17 +550,7 @@ top: 35%;
 
 /* Smaller phones with narrow screens */
 @media (max-width: 480px) {
-  .keyboardDefault {
-      padding: 1vh 1vw;
-      font-size: 4vw;
-      margin-bottom: -20%;
-      margin-left: -5px;
-  }
-  .keyPrimary, .keySpecialFunction {
-      width: 12vw;
-      height: 8vh;
-      font-size: 3.5vw;
-  }
+  
   .formWrapper {
     padding: 1rem; 
   }
@@ -1131,61 +558,33 @@ top: 35%;
     width: 120%;
     max-width: 100%;
     height: 100%;
-    margin-top: 30%;
+    margin-top: 80%;
     max-width: none; 
     margin-bottom: -20%;
   }
-  .customKeyboard{
-    margin-bottom: -30%;
-  }
+  
 }
 
 
 
-@media (max-width: 400px) {
+@media (max-width: 389px) {
 
   .formWrapper {
     padding: 1rem; 
   }
   .card{
-    width: 120%;
-    max-width: 100%;
-    height: 100%;
-    margin-top: 10%;
-    max-width: none; 
+    margin-top: 50%;
   }
-  .customKeyboard{
-    margin-bottom: 17%;
-  }
-  .keyboardDefault {
-    padding: 1vh 1vw;
-    font-size: 4vw;
-    margin-bottom: 40px;
-    margin-left: 0px;
-}
-.keyPrimary, .keySpecialFunction {
-    width: 10vw;
-    height: 6vh;
-    font-size: 3.5vw;
-}
+ 
 }
 
-@media (max-width: 361px) {
+
+@media (max-width: 350px) {
+  .formWrapper {
+    padding: 1rem; 
+  }
   .card{
-    width: 120%;
-    max-width: 100%;
-    height: 100%;
-    max-width: none; 
+    margin-top: 80%;
   }
-  .customKeyboard{
-    margin-bottom: -10%;
-  }
-}
-@media (max-width: 345px) {
-  .customKeyboard{
-    margin-bottom: -40%;
-  }
-  .keyboardDefault{
-    margin-bottom: -30%;
-  }
+
 }

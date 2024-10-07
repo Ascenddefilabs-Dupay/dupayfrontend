@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X';
 import Select, { SingleValue } from 'react-select';
+import { fontWeight, width } from '@mui/system';
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
 interface Currency {
   // currency_code: string;
@@ -196,7 +197,7 @@ const fetchCurrencyIcon = async (currencyName:string) => {
               <img
                 src={cloudinaryBaseUrl+iconUrl}
                 alt={currency_type}
-                style={{ marginRight: 8, width: 20, height: 20 }} // Adjust size as needed
+                style={{ marginRight: 8, width: 24, height: 24 }} // Adjust size as needed
               />
               <span>{currency_type}</span>
             </div>
@@ -222,29 +223,45 @@ useEffect(() => {
       }));
     }
   }, [isButtonEnabled]);
-const customSelectStyles = {
-  control: (base: any) => ({
-      ...base,
-      backgroundColor: '#17171a',
-      borderColor: '#2a2d3c',
-      color: 'white',
-  }),
-  menu: (base: any) => ({
-      ...base,
-      backgroundColor: '#17171a',
-  }),
-  singleValue: (base: any) => ({
-      ...base,
-      color: '#888daa',
-      fontFamily: "Poppins"
-  }),
-  option: (base: any, state: any) => ({
-      ...base,
-      backgroundColor: state.isFocused ? '#2a2d3c' : '#17171a',
-      color: 'white',
+  const customSelectStyles = {
+    control: (base: any) => ({
+        ...base,
+        flex: '1',
+        backgroundColor: '#17171a',
+        borderColor: '#2a2d3c',
+        color: 'white',
+        borderRadius: '8px', // Rounded corners
+        display: 'flex', 
+        alignItems: 'center',
+        height: '40px', // Adjust height to match the image
+        boxShadow: 'none', // Optional: to remove any extra shadows
+        boxSizing: 'border-box',
+        flexShrink: '0',
+        fontFamily: 'Poppins',
+        width:'11.7vw',
+        border: '1px solid #2a2d3c',
+        left:'10px',
+    }),
 
-  }),
-};
+ menu: (base: any) => ({
+        ...base,
+        backgroundColor: '#17171a',
+    }),
+    singleValue: (base: any) => ({
+        ...base,
+        color: '#888daa',
+        fontFamily: "Poppins",
+        display: 'flex',
+        alignItems: 'center', // Align flag and text
+        fontWeight:'600'
+    }),
+    option: (base: any, state: any) => ({
+        ...base,
+        backgroundColor: state.isFocused ? '#2a2d3c' : '#17171a',
+        color: 'white',
+    }),
+  };
+  
 const [selectedCurrency, setSelectedCurrency] = useState<SingleValue<{ value: string; label: JSX.Element }> | null>({
     value: 'INR',
     label: <div>INR</div>,
@@ -300,7 +317,7 @@ useEffect(() => {
             setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
 
             handleCurrencyConversion();
-            router.push("/SwapSuccess");
+            router.push("/FiatManagement/SwapSuccess");
             resolve(true);
           },
           prefill: {
@@ -535,7 +552,7 @@ useEffect(() => {
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
-      window.location.href = '/Userauthorization/Dashboard/Home';
+      router.push( '/Userauthorization/Dashboard/Home');
       setShowLoader(false);
     }, 3000);
   };
@@ -605,7 +622,7 @@ console.log("Selected currency for swap:", fetchedCurrency);
                 <img className="swapHoriz24dpE8eaedFill0WIcon" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727781135/48d4a1fe-22e1-4e2c-9f39-36b0042f7556.png" />
               </button>
 
-              <div className="inputinput">
+              <div className="inputinputs">
               <Select
                 options={currencyOptions}
                 value={currencyOptions.find((option) => option.value === destinationCurrency)}
