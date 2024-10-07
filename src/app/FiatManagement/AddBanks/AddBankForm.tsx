@@ -4,7 +4,11 @@ import { FaArrowLeft, FaArrowRight, FaTrash,FaAngleLeft, FaAngleRight } from "re
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./AddBankForm.module.css";
+
+import router, { useRouter } from 'next/router';
+
 import { useRouter } from 'next/navigation';
+
 
 
 // Define the IFSC code validation function
@@ -159,7 +163,10 @@ const fetchBankList = async (userId: string) => {
 
   // Handle back button click to go back to the dashboard
   const handleBackClick = useCallback(() => {
-    router.push("/Userauthorization/Dashboard/Home");
+
+    // window.location.href = "/Userauthorization/Dashboard/Home";
+    router.push('/Userauthorization/Dashboard/Home');
+
   }, []);
 
   // Show the add bank form
