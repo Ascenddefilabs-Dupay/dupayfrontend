@@ -408,7 +408,7 @@ function ZkDetails() {
     if (accounts.current.length > 0) {
       saveAccount(accounts.current[0])
         .then(() => {
-          router.push("/Userauthorization/Dashboard"); // Redirect after saving
+          router.push("/Userauthorization/Dashboard/Home"); // Redirect after saving
         })
         .catch((error) => {
           console.error("Error during saveAccount:", error);
