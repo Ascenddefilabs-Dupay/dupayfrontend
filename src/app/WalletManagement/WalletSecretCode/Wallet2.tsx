@@ -100,7 +100,8 @@ const Wallet2: React.FC = () => {
 
     const handleLeftArrowClick = (e: MouseEvent<HTMLDivElement>) => {
         setLoading(true);
-        window.location.href = './CreatePassword';
+        //window.location.href = './CreatePassword';
+        router.push('./CreatePassword'); 
     };
 
     return (

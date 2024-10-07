@@ -75,7 +75,8 @@ const TransakWidget: React.FC = () => {
 
     buyCryptoBtn.addEventListener('click', () => {
       setLoading(true);
-      window.location.href = '/Userauthorization/Dashboard/Home';
+      //window.location.href = '/Userauthorization/Dashboard/Home';
+      router.push('/Userauthorization/Dashboard/Home'); 
     });
     buyCryptoBtn.style.display = 'block';
     transakContainer.style.display = 'block';
