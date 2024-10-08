@@ -37,6 +37,8 @@ const Retype = () => {
                         retype_password: retypepasscode,
                         userId: userId,
                     });
+                    console.log(response.data)
+                    console.log(response.data.status)
 
                     if (response.data.status === 'password_failure') {
                         Swal.fire({
@@ -46,8 +48,9 @@ const Retype = () => {
                             showConfirmButton: false,
                             timer: 1500
                           });
-                    } else {
-                        router.push('/Userauthentication/SignIn');
+                    } else if (response.data.status === 'password_match') {
+                        console.log('password match')
+                        router.push('/Userauthentication/SignUp/EmailVerification');
                     }
                 } catch (error) {
                     console.error('Error submitting transaction:', error);

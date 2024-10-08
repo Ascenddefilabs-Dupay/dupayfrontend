@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import { redirect } from 'next/navigation';
 import Select from 'react-select';
 import React from 'react';
+import LottieAnimation from '../../../assets/animation'
 
 interface FiatWallet {
 balance: string; 
@@ -930,7 +931,8 @@ const wallet_data = () => {
        </>
       )}
       <div className={styles.homeInner} onClick={handleDupayClick}>
-            <img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
+            {/* <img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" /> */}
+            <LottieAnimation width="33.4px" height="33.4px" />
         </div>
             <div className={styles.tabbarstabbars}>          
         				<div className={styles.div}>
