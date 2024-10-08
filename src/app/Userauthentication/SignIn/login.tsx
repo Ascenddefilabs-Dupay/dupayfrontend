@@ -143,77 +143,72 @@ export default function Login() {
       return () => clearInterval(timer); // Clear the timer on unmount
     }, [otpTimer]);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (loginMode === 'password') {
-      try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
-          user_email: email,
-          user_password: password,
-        });
-
-        if (response.status === 200) {
-          await sendOtp();
-          setOtpTimer(60);
-          // alert('OTP sent to your email.');
-          toast.success("OTP sent to your email.", { position: "top-center", autoClose:false});
-          setLoginMode('otp');
-          setHeading('Two-Factor Authentication');
-        } else {
-          // alert('Invalid email or password.');
-          toast.error("Invalid email or password.", { position: "top-center", autoClose:false });
-        }
-      } catch (error) {
-        // alert('Username or password is incorrect.');
-        toast.error("Username or password is incorrect.", { position: "top-center", autoClose:false });
-      }
-    } else if (loginMode === 'otp') {
-      try {
-        const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/verify-otp/', {
-          user_email: email,
-          user_otp: otp,
-        });
-
-        if (response.status === 200) {
-          const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status, fiat_wallet_id } = response.data;
-          LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, fiat_wallet_id);
-          // alert('Logged in successfully');
-          toast.success("Logged in successfully", { position: "top-center", autoClose:false });
-          
-          // Navigate based on registration_status
-          if (registration_status) {
-            router.push('/Userauthorization/Dashboard/Home');
-          } else {
-            router.push('/KycVerification/PersonalDetails');
-          }
-        } else {
-          // alert('Invalid OTP.');
-          toast.error("Invalid OTP.", { position: "top-center", autoClose:false });
-        }
-      } catch (error) {
-
-        // alert('Error verifying OTP.');
-        toast.error("Error verifying OTP.", { position: "top-center", autoClose:false });
-      }
-    }
-  };
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
   
-  const sendOtp = async () => {
-    try {
-      await axios.post("https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/", {
-        user_email: email,
-      });
-      setOtpTimer(60);
-      // alert("OTP resent to your email.");
-      toast.success("OTP resent to your email.", { position: "top-center", autoClose:5000 });
-    } catch (error) {
-
-      // alert("Error resending OTP.");
-      toast.error("Error resending OTP.", { position: "top-center", autoClose:false });
-    }
-  };
-
+      if (loginMode === 'password') {
+        // Check if OTP has already been sent
+        if (otpTimer > 0) {
+          // Prevent sending OTP again while timer is active
+          return;
+        }
+  
+        try {
+          const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
+            user_email: email,
+            user_password: password,
+          });
+  
+          if (response.status === 200) {
+            // await sendOtp(); // Send OTP only once
+            setOtpTimer(60); // Start the OTP timer
+            toast.success("OTP sent to your email.", { position: "top-center", autoClose: 5000 });
+            setLoginMode('otp');
+            setHeading('Two-Factor Authentication');
+          } else {
+            toast.error("Invalid email or password.", { position: "top-center", autoClose: false });
+          }
+        } catch (error) {
+          toast.error("Username or password is incorrect.", { position: "top-center", autoClose: false });
+        }
+      } else if (loginMode === 'otp') {
+        try {
+          const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/verify-otp/', {
+            user_email: email,
+            user_otp: otp,
+          });
+  
+          if (response.status === 200) {
+            const { user_id, user_first_name, user_email, user_phone_number, session_id, registration_status, fiat_wallet_id } = response.data;
+            LocalStorage(user_id, user_first_name, user_email, user_phone_number, session_id, fiat_wallet_id);
+            toast.success("Logged in successfully", { position: "top-center", autoClose: false });
+  
+            if (registration_status) {
+              router.push('/Userauthorization/Dashboard/Home');
+            } else {
+              router.push('/KycVerification/PersonalDetails');
+            }
+          } else {
+            toast.error("Invalid OTP.", { position: "top-center", autoClose: false });
+          }
+        } catch (error) {
+          toast.error("Error verifying OTP.", { position: "top-center", autoClose: false });
+        }
+      }
+    };
+  
+    const sendOtp = async () => {
+      try {
+        await axios.post("https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/", {
+          user_email: email,
+        });
+        setOtpTimer(60); // Start the OTP resend timer
+        toast.success("OTP sent to your email.", { position: "top-center", autoClose: 5000 });
+      } catch (error) {
+        toast.error("Error sending OTP.", { position: "top-center", autoClose: false });
+      }
+    };
+  
   const LocalStorage = async (
     user_id: string,
     user_first_name: string,
