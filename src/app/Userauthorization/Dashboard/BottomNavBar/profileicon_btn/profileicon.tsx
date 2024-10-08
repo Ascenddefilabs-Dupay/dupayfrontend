@@ -110,10 +110,10 @@ const Profileicon: React.FC = () => {
 
     const handleNavigation = (route: string) => {
         setLoading(true); 
-        setTimeout(() => {
-          router.push(route); 
-          setLoading(true);
-        }, 2000);
+        router.push(route); 
+        // setTimeout(() => {
+        //   // setLoading(true);
+        // }, 2000);
       };
 
          // Handle what happens after scanning
@@ -171,12 +171,66 @@ const Profileicon: React.FC = () => {
                   </div>
 
                   <AppBar position="static" className={styles.appBar}>
-                  <img
+                  {/* <img
                 className={styles.img}
                 src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727075702/crypto_image_logo_bxom6g.png"
                 alt="transactions_image"
-              />
-                    <Toolbar className={styles.toolbar}>
+              /> */}
+
+                  {/* <div className={styles.frameParent} onClick={() => handleNavigation('/UserProfile')}>
+                  <div className={styles.frameGroup}>
+                  <div className={styles.iconavatarParent}>
+                  <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
+                  <div className={styles.dupc001}>View Profile</div>
+                  </div>
+                  <div className={styles.iconsettingWrapper}>
+                  <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
+                  </div>
+                  </div>
+                  </div>
+
+                  <div className={styles.frameParent} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')} >
+                  <div className={styles.frameGroup}>
+                  <div className={styles.iconavatarParent}>
+                  <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
+                  <div className={styles.dupc001}>Add & Manage Profile</div>
+                  </div>
+                  <div className={styles.iconsettingWrapper}>
+                  <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
+                  </div>
+                  </div>
+                  </div> */}
+
+
+
+
+
+<div className={styles.frameParent} onClick={() => handleNavigation('/UserProfile')}>
+  <div className={styles.frameGroup}>
+    <div className={styles.iconavatarParent}>
+      <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
+      <div className={styles.dupc001}>View Profile</div>
+    </div>
+    <div className={styles.iconsettingWrapper}>
+      <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
+    </div>
+  </div>
+</div>
+
+<div className={styles.frameParent} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
+  <div className={styles.frameGroup}>
+    <div className={styles.iconavatarParent}>
+      <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
+      <div className={styles.dupc001}>Add & Manage Profile</div>
+    </div>
+    <div className={styles.iconsettingWrapper}>
+      <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
+    </div>
+  </div>
+</div>
+
+                  
+                    {/* <Toolbar className={styles.toolbar}>
                       {!scannerOpen && (
                         <div className={styles.buttonGroup}>
                           <div className={styles.buttonContainer}>
@@ -191,7 +245,8 @@ const Profileicon: React.FC = () => {
                           </div>
                         </div>
                       )}
-                    </Toolbar>
+                    </Toolbar> */}
+                    
                   </AppBar>
 
         
