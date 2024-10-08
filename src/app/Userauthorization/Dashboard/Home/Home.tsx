@@ -222,7 +222,7 @@ const Home = () => {
       console.log("Payload:", payload); // Debugging
     
       try {
-        // setLoading(true);
+        setLoading(true);
         const response = await axios.post("http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
         
         console.log("Response:", response); // Debugging
@@ -468,13 +468,14 @@ const Home = () => {
   const handleAddCryptoClick = () => {
     router.push('/Userauthorization/Dashboard/addcrypto_btn'); // Ensure the correct path here
   };
-    const handleNavigation = (route: string) => {
+  const handleNavigation = (route: string) => {
     setLoading(true); 
     setTimeout(() => {
       router.push(route); 
       setLoading(true);
     }, 2000);
   };
+
 
   const ProfileImage = styled('img')({
     width: '35px',
