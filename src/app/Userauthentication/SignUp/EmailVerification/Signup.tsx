@@ -101,7 +101,7 @@ export default function Home1() {
       if (response.ok) {
         setOtpFromBackend(generatedOtp);
         setOtpSent(true);
-        setTimer(30);
+        setTimer(60);
         setShowResendOtp(false);
         setOtpExpired(false);
         // alert('OTP sent successfully!');
