@@ -514,7 +514,7 @@ const Home = () => {
     console.log("Currency Selected swap :",storedCurrency);
     console.log("wallet_id Selected swap :",fiatWalletId);
 
-    router.push('/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}');
+    router.push(`/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatwalletData}`);
     // window.location.href = `/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}`;
 
     setLoading(true);

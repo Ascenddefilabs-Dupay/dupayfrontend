@@ -5,12 +5,10 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X';
 import Select, { SingleValue } from 'react-select';
-import { fontWeight, width } from '@mui/system';
+import { fontWeight, padding, width } from '@mui/system';
 const API_BASE_URL='https://fiatmanagement-ind-255574993735.asia-south1.run.app';
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
 interface Currency {
-  // currency_code: string;
-  // currency_country: string;
   currency_icon: string;
   balance?: string;
   currency_type:string;
@@ -70,14 +68,16 @@ const currencySymbols: Record<string, string> = {
 const isButtonEnabled = amount.trim() !== '' && paymentMode!=='' ;
 // const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
 useEffect(() => {
-    
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const currency = params.get('currency') || '';
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    const currency = params.get('currency') || '';
+    if (currency) {
       setFetchedCurrency(currency);
-     }
-     fetchCurrencyIcon(fetchedCurrency);
-  }, []);
+    } else {
+      console.error("Currency parameter not found in URL.");
+    }
+  }
+}, []);
   useEffect(() => {
     if (fetchedCurrency) {
       fetchCurrencyIcon(fetchedCurrency);
@@ -88,14 +88,16 @@ useEffect(() => {
       const params = new URLSearchParams(window.location.search);
       const walletIdValue = params.get('wallet_id') || "";
       setWalletId(walletIdValue);
+
     }
+    
   }, []);
 
-
+console.log("wallet id is: ",walletId);
 const fetchCurrencyIcon = async (currencyName:string) => {
     try {
       const response = await axios.post(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_fiatSwap/get-currency-icon/`, {
-        currency: currencyName,
+        currency: currencyName.trim(),
       });
       
 
@@ -118,8 +120,9 @@ const fetchCurrencyIcon = async (currencyName:string) => {
 
 
       useEffect(() => {
+        if(walletId){
         axios
-          .get<{ fiat_wallets: FiatWallet[] }>(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_fiatSwap/fiat_wallet/Wa0000000006/`)
+          .get<{ fiat_wallets: FiatWallet[] }>(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_fiatSwap/fiat_wallet/${walletId}/`)
           .then((response) => {
             console.log('response data', response.data);
             const wallets = response.data.fiat_wallets;
@@ -134,7 +137,8 @@ const fetchCurrencyIcon = async (currencyName:string) => {
             setLoading(false);
             console.error('Error fetching wallet data:', err);
           });
-      }, []);
+        }
+      }, [walletId]);
 
 
       
@@ -215,15 +219,14 @@ useEffect(() => {
         backgroundColor: '#17171a',
         borderColor: '#2a2d3c',
         color: 'white',
-        borderRadius: '8px', // Rounded corners
+        borderRadius: '8px', 
         display: 'flex', 
         alignItems: 'center',
-        height: '40px', // Adjust height to match the image
-        boxShadow: 'none', // Optional: to remove any extra shadows
+        height: '40px', 
+        boxShadow: 'none', 
         boxSizing: 'border-box',
         flexShrink: '0',
         fontFamily: 'Poppins',
-        width:'11.7vw',
         border: '1px solid #2a2d3c',
         left:'10px',
     }),
@@ -397,7 +400,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const userCurrenciesResponse = await axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=Wa0000000002`);
+            const userCurrenciesResponse = await axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=${walletId}`);
             const userCurrencies: Currency[] = userCurrenciesResponse.data;
             const updatedBalances: Record<string, number> = {};
             userCurrencies.forEach(currency => {
@@ -416,8 +419,10 @@ useEffect(() => {
         }
     };
 
-    fetchData();
-}, []);
+    if (walletId) {
+      fetchData();
+    }
+  }, [walletId]);
 
   const handleSwapButton = async (event: React.FormEvent) => {
     event.preventDefault(); // Prevent the page from refreshing
@@ -432,7 +437,7 @@ useEffect(() => {
     }
     else{
         // setShowForm(true);
-        router.push("/FiatManagement/SwapSuccess");
+        // router.push("/FiatManagement/SwapSuccess");
     }
   };
   const handleCurrencySwap = () => {
@@ -462,7 +467,6 @@ useEffect(() => {
   
     setShowLoader(true);
   
-    const walletId = 'Wa0000000002'; 
     const postData = {
       wallet_id: walletId,
       source_currency: sourceCurrency,
@@ -495,7 +499,7 @@ useEffect(() => {
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
-      router.push( '/Userauthorization/Dashboard/Home');
+      router.back();
       setShowLoader(false);
     }, 3000);
   };
@@ -521,7 +525,13 @@ console.log("Selected currency for swap:", fetchedCurrency);
           <div className="navbarnavBar">
             <div className="navbaritemleftBtn">
             <div className="iconiconWrapper">
-            <img className="iconarrowLeftBack" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727839873/4482f3ec-c2b1-430f-98b4-e3a9bd0fa371.png" />
+            <img
+              className="iconarrowLeftBack"
+              alt="Back"
+              src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727839873/4482f3ec-c2b1-430f-98b4-e3a9bd0fa371.png"
+              onClick={handleLeftArrowClick} // Attach click handler
+              style={{ cursor: 'pointer' }} // Optional: Makes it look clickable
+          />
             </div>
             </div>
             <div className="hereIsTitle">Swap Fiat {fetchedCurrency}</div>
@@ -597,13 +607,9 @@ console.log("Selected currency for swap:", fetchedCurrency);
                 
                 
               </div>
-              {/* <div className="balance-labels">
-                {sourceCurrency}
-              </div> */}
             </div>
 
             <div className="payment-method">
-              {/* <label className="balance-label">Payment Method</label> */}
               <div className="howMuchUsd">Select a payment method</div>
               <select
               

@@ -100,12 +100,12 @@ const Webpage2:NextPage = () => {
       			</div>
       			<div
         className={`${styles.webpageSingleInner2} ${
-          selectedSection === 'vendor' ? styles.selected : ''
+          selectedSection === 'Business' ? styles.selected : ''
         }`}
-        onClick={() => handleClick('vendor')}
+        onClick={() => handleClick('Business')}
       >
         				<div className={styles.titleParent2}>
-          					<b className={styles.title4}>Vendor</b>
+          					<b className={styles.title4}>Business</b>
           					<div className={styles.title8}>We offer business and high net-worth individuals secure solutions for accepting, managing and trading cryptocurrencies. </div>
         				</div>
       			</div>
