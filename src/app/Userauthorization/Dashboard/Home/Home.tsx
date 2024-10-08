@@ -467,10 +467,7 @@ const Home = () => {
   };
   const handleNavigation = (route: string) => {
     setLoading(true); 
-    setTimeout(() => {
-      router.push(route); 
-      setLoading(true);
-    }, 2000);
+    router.push(route); 
   };
 
 
