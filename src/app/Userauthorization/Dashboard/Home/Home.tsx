@@ -201,14 +201,12 @@ const Home = () => {
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      
-      console.log("Form submitted!"); // Debugging
-      
+  
       if (!validateFields()) return;
-      
+  
       const payload = {
         fiat_wallet_id: "generated_id_here",
-        fiat_wallet_type: selectedAccountType?.value, 
+        fiat_wallet_type: selectedAccountType?.value,
         fiat_wallet_address: "",
         fiat_wallet_balance: 0,
         fiat_wallet_created_time: new Date().toISOString(),
@@ -218,41 +216,40 @@ const Home = () => {
         qr_code: "",
         user_id: userId,
       };
-      
-      console.log("Payload:", payload); // Debugging
-    
+  
       try {
-        setLoading(true);
-        const response = await axios.post("http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
-        
-        console.log("Response:", response); // Debugging
+        const response = await axios.post("https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
         
         setAlertMessage("Wallet created successfully!");
-        resetForm();
         setAddNewFiatWalletPage(false);
+        setAddNewFiatWallet(false);
         setFiatDropdownVisible(true);
+        resetForm();
         
-      } catch (error) {
-          if (axios.isAxiosError(error)) {
-              setAddNewFiatWallet(false);
-              // Now TypeScript understands that this is an AxiosError
-              if (error.response?.data?.error) {
-                  alert(error.response.data.error);  // Show specific error message to the user
-                  router.push('/Userauthorization/Dashboard/Home');
-              } else {
-                  alert("An unexpected error occurred.");
-              }
-          } else {
-              alert("An unexpected error occurred.");
+        // setFiatDropdownVisible(true);
+  
+        // Update session storage with the new wallet information
+        if (typeof window !== 'undefined') {
+          const sessionDataString = window.localStorage.getItem('session_data');
+          if (sessionDataString) {
+            const sessionData = JSON.parse(sessionDataString);
+            sessionData.fiat_wallet_id = response.data.fiat_wallet_id;
+            window.localStorage.setItem('session_data', JSON.stringify(sessionData));
           }
+        }
+      } catch (error) {
+        console.error("Error creating wallet:", error);
+        setAlertMessage("Error creating wallet. Please try again.");
       }
     };
+  
     const resetForm = () => {
       setSelectedAccountType(null);
-      setWalletName('');
-      setEmail('');
-      setSecurityPin('');
-      // setWalletFormVisible(false);
+      setWalletName("");
+      setEmail("");
+      setSecurityPin("");
+      setError({});
+      setAlertMessage("");
     };
 
     const handleDupayClick = () => {
@@ -1068,56 +1065,6 @@ const wallet_data = () => {
                   placeholder="Wallet name"
                   className={styles.input}
                   required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <Select
-                  id="accountType"
-                  className={styles.selectInput}
-                  options={accountTypeOptions}
-                  value={selectedAccountType}
-                  onChange={(option) => setSelectedAccountType(option)}
-                  placeholder="Select Currency type"
-                  isClearable
-                  required
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      backgroundColor: 'rgba(42, 45, 60, 1)',
-                      color: 'rgba(226, 240, 255, 1)',
-                      border: 'none',
-                    }),
-                    placeholder: (provided) => ({
-                      ...provided,
-                      color: 'rgba(226, 240, 255, 1)',
-                      textAlign: 'left', // Align placeholder to the left
-                    }),
-                    option: (provided, state) => ({
-                      ...provided,
-                      backgroundColor: state.isSelected ? '#333' : 'rgba(42, 45, 60, 1)',
-                      color: 'white',
-                      textAlign: 'left',
-                      '&:hover': {
-                        backgroundColor: '#555',
-                      },
-                    }),
-                    singleValue: (provided) => ({
-                      ...provided,
-                      color: 'rgba(226, 240, 255, 1)',
-                    }),
-                    menu: (provided) => ({
-                      ...provided,
-                      backgroundColor: 'rgba(42, 45, 60, 1)',
-                      border: 'none',
-                      boxShadow: 'none',
-                    }),
-                    menuList: (provided) => ({
-                      ...provided,
-                      backgroundColor: 'rgba(42, 45, 60, 1)',
-                      padding: 0,
-                      border: 'none',
-                    }),
-                  }}
                 />
               </div>
               <div className={styles.formGroup}>

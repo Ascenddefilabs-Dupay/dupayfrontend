@@ -7,7 +7,7 @@ import styles from './Topup.module.css';
 
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
 // const API_BASE_URL = 'http://localhost:8000/fiatmanagementapi'; // Updated base URL for API requests
-const API_BASE_URL='https://fiatmanagement-ind-255574993735.asia-south1.run.app';
+const API_BASE_URL='https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi';
 
 interface WalletDetails {
   fiat_wallet_id: string;
