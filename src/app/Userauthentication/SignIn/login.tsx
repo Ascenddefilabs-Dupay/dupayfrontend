@@ -43,7 +43,7 @@ export default function Login() {
       if (sessionData) {
         const { expiration } = JSON.parse(sessionData);
         if (new Date(expiration) > new Date()) {
-          router.push('/Userauthorization/Dashboard/Home'); // Redirect if session is valid
+          router.push('/Userauthorization/Dashboard'); // Redirect if session is valid
           return;
         }
       }
@@ -119,7 +119,7 @@ export default function Login() {
         
         // Navigate based on user_status
         if (isRegistrationComplete) {
-          router.push('/Userauthorization/Dashboard/Home');
+          router.push('/Userauthorization/Dashboard');
         } else {
           router.push('/KycVerification/PersonalDetails');
         }
@@ -184,7 +184,7 @@ export default function Login() {
             toast.success("Logged in successfully", { position: "top-center", autoClose: false });
   
             if (registration_status) {
-              router.push('/Userauthorization/Dashboard/Home');
+              router.push('/Userauthorization/Dashboard');
             } else {
               router.push('/KycVerification/PersonalDetails');
             }
@@ -387,7 +387,7 @@ export default function Login() {
               </div> */}
               {loginMode === 'password' && (
                 <div className={styles.orContinueWith}>
-                  <p>Don't have an account? <Link href="/Userauthentication/SignUp/EmailVerification">
+                  <p>Dont have an account? <Link href="/Userauthentication/SignUp/EmailVerification">
                 <span className={styles.account}>Sign up</span>
               </Link></p>
                 </div>
