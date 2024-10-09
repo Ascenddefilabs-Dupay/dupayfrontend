@@ -176,12 +176,12 @@ const MWEB2:NextPage = () => {
         				</div>
         				<div
 							className={`${styles.frameWrapper5} ${
-							selectedSection === 'vendor' ? styles.selected : ''
+							selectedSection === 'Business' ? styles.selected : ''
 							}`}
-							onClick={() => handleClick('vendor')}
+							onClick={() => handleClick('Business')}
 						>
           					<div className={styles.titleParent2}>
-            						<b className={styles.title9}>Vendor</b>
+            						<b className={styles.title9}>Business</b>
             						<div className={styles.title10}>We offer business and high net-worth individuals secure solutions for accepting, managing and trading cryptocurrencies.</div>
           					</div>
         				</div>

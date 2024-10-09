@@ -182,12 +182,7 @@ select:focus {
   align-items: flex-start; 
   /* gap: 10px; */
 }
-.currency-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
+
 
 .payment-method select {
   padding: 15px;
@@ -591,7 +586,7 @@ select:focus {
 }
 .inputinput {
   flex: 1;
-  width: 10vw;
+  width: 10%;
   position: relative;
   border-radius: 8px;
   border: 1px solid #2a2d3c;
@@ -604,7 +599,10 @@ select:focus {
   color: #888daa;
   font-family: Poppins;
 }
-
+.inputinputs {
+  flex: 1;
+  width:100vw;
+}
 .iconarrowLeftBack {
   width: 24px;
   position: relative;
@@ -657,9 +655,9 @@ select:focus {
 }
 
 .swapHoriz24dpE8eaedFill0WIcon {
-  width: 100%;
+  /* width: 100%; */
   position: relative;
-  max-width: 100%;
+  /* max-width: 100%; */
   overflow: hidden;
   height: 24px;
   left: 5px; 

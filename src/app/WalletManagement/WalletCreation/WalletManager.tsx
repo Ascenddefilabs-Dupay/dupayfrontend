@@ -32,12 +32,12 @@ const WalletManager: React.FC = () => {
 
   const handleCreateNewWallet = () => {
     setLoading(true);
-    window.location.href = './WalletCreation/CreateAccount';
+    router.push('./WalletCreation/CreateAccount');
   };
 
   const handleExistingWallet = () => {
     setLoading(true);
-    window.location.href = './WalletCreation/AddAccount';
+    router.push('./WalletCreation/AddAccount');
   };
 
   return (
