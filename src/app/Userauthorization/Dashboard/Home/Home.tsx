@@ -11,6 +11,8 @@ import { redirect } from 'next/navigation';
 import Select from 'react-select';
 import React from 'react';
 import LottieAnimation from '../../../assets/animation'
+import { IoMdRefresh } from "react-icons/io";
+import { Refresh } from '@mui/icons-material';
 
 interface FiatWallet {
 balance: string; 
@@ -491,12 +493,11 @@ const Home = () => {
   };
 
   const closeModal = () => {
-    setIsBlurred(false); // Close the modal and remove the blur effect
+    setIsBlurred(false);
   };
 
   const handleAddFiatWallet = () => {
     setAddNewFiatWalletPage(true);
-    // setAddNewFiatWallet(false);
   };
 
   const handleSubbmit = () => {
@@ -504,40 +505,32 @@ const Home = () => {
   };
 
   const handleAddBack = () => {
-    console.log("Currency Selected Addbank:",storedCurrency);
     router.push('/FiatManagement/AddBanks');
     setLoading(true);
   };
   const handleSwap = () => {
-    console.log("Currency Selected swap :",storedCurrency);
-    console.log("wallet_id Selected swap :",fiatWalletId);
 
     router.push(`/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatwalletData}`);
-    // window.location.href = `/FiatManagement/FiatSwap?currency=${storedCurrency}&wallet_id=${fiatWalletId}`;
-
+   
     setLoading(true);
   };
   const handleWithDraw = () => {
-    console.log("Currency Selected Withdraw :",storedCurrency);
     router.push('/FiatManagement/Withdraw');
 
     setLoading(true);
   };
   const handleTransfor = () => {
-    console.log("Currency Selected Trasfer :",storedCurrency);
     router.push('/TransactionType/AllTransactions');
 
     setLoading(true);
   };
   const handleTopUp = () => {
-    console.log("Currency Selected Topup :",storedCurrency);
     router.push('/FiatManagement/Topup');
 
     setLoading(true);
   };
 
 const wallet_data = () => {
-  // useEffect(() => {
     axios
     // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
     .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
@@ -589,6 +582,9 @@ const wallet_data = () => {
     }
 };
 
+const handleRefresh =()=>{
+  router.push(''); 
+}
 
   return (
     // <div className={styles.container}>
@@ -719,10 +715,8 @@ const wallet_data = () => {
                         <li className={styles.listHeader}>
                           <span className={styles.span}>
                             Your Fiat Wallets ({walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length})
-                            {/* Your Fiat Wallets */}
                           </span>
-                          {/* <button className={styles.addNew} onClick={handleAddFiatWallet}>Add New</button> */}
-                          <button className={styles.addNew} >Add New</button>
+                          <button className={styles.addNew} onClick={handleRefresh}><IoMdRefresh /></button>
                         </li>
                         {walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length === 0 ? (
                           <li className={styles.listItem}>
@@ -749,8 +743,10 @@ const wallet_data = () => {
                               <li className={styles.listItem} key={index}>
                                 <button className={styles.listbackground} onClick={() => handleButtonClickblur(currency)}>
                                   <img className={styles.currencyicon} src={iconUrl} alt={`${currency} icon`} />
-                                  <button className={styles.button1}><div>{currencyType}</div></button>
-                                  <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
+                                  <div className={styles.currencylist}>
+                                    <button className={styles.button1}><div>{currencyType}</div></button>
+                                    <label className={styles.button2}>{`${currencySymbols[currency] || ''}${balance}`}</label>
+                                  </div>
                                 </button>
                               </li>
                             );

@@ -7,6 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid'; 
 import { QrReader } from 'react-qr-reader';
+import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
 
 const WalletTransaction: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>('');
@@ -60,8 +61,8 @@ const WalletTransaction: React.FC = () => {
 useEffect(() => {
   const fetchWalletAmount = async () => {
     try {
-      const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
-        // const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-wallet-amount/', {
+      // const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
+        const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-wallet-amount/', {
         wallet_id: walletId,
         currency: currency,
       });
@@ -82,7 +83,8 @@ useEffect(() => {
 
   const fetchCurrencyIcon = async () => {
     try {
-      const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+      // const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+        const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-currency-icon/', {
         currency: currency,
       });
 
@@ -363,11 +365,9 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 };
 
   const handleBackClick = () => {
-    setShowLoader(true);
-    setTimeout(() => {
-      setShowLoader(false);
-      router.push('/Userauthorization/Dashboard/Home');
-    }, 2000); 
+      
+      router.push('/Userauthorization/Dashboard/Home'); 
+      setShowLoader(true);
   };
 
   const handleCloseAlert = () => {
@@ -437,9 +437,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     <div className="wallet-transaction">
       <div className='setting_back_icon'>
         {showLoader && (
-          <div className="loaderContainer">
-            <div className="loader"></div>
-          </div>
+           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+           {/* Show the Lottie loading animation */}
+           <LottieAnimationLoading width="300px" height="300px" />
+         </div>
         )}
         {alertMessage && (
           <div className="customAlert">
@@ -449,7 +450,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         )}
   
         <div className="back" >
-          <div onClick={handleBackClick} style={{ cursor: 'pointer' }}>
+          <div onClick={handleBackClick} style={{ cursor: 'pointer' }} className='backarrow'>
             <img
                   className='iconarrowLeftBack'
                   alt=""
@@ -462,43 +463,37 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         </div>
       </div>
   
-      <div className="wallet-form-container">
+      {/* <div className="wallet-form-container"> */}
         <div className="form-container">
           <form onSubmit={handleSubmit}>
 
-          <div className={"iconflagusParent"}>
-              {flagIconUrl && (
-                <img className={"flagicon"} alt="" src={flagIconUrl} />
-              )}
+            <div className={"content2"}>
               <div className={"content1"}>
-                <div className={"listmbListItemBasic"}>
-                  <div className={"listmbListItemitemLeft"}>
-                    <div className={"title"}>Total {currency}</div>
-                  </div>
-                  <div className={"listmbListItemitemRight"}>
-                    <div className={"title1"}>
-                      {walletAmount !== null ? `${walletAmount} ${currency}` : `0 ${currency}`}
-                    </div>
-                  </div>
-                </div>
+                {flagIconUrl && (<img className={"flagicon"} alt="" src={flagIconUrl} />)}
+                <div className={"title"}>Total {currency}</div>
+              </div>
+              <div className={"title1"}>
+                {walletAmount !== null ? `${walletAmount} ${currency}` : `0 ${currency}`}
               </div>
             </div>
+            
+            
 
   
-            <div className="form-group payment-method-group">
-              <label htmlFor="paymentMethod">Payment Through</label>
-              <select
-                id="paymentMethod"
-                value={paymentMethod}
-                onChange={handlePaymentMethodChange}
-                required
-              >
-                <option value="" disabled>Select Payment Method</option>
-                <option value="mobile">Through Mobile Number</option>
-                <option value="walletAddress">Through Wallet Address</option>
-                <option value="qrcode">Through QR Code</option>
-              </select>
-            </div>
+          <div className="form-grouppayment-method-group">
+            <label htmlFor="paymentMethod">Payment Through</label>
+            <select
+              id="paymentMethod"
+              value={paymentMethod}
+              onChange={handlePaymentMethodChange}
+              required
+            >
+              <option value="" disabled>Select Payment Method</option>
+              <option value="mobile">Through Mobile Number</option>
+              <option value="walletAddress">Through Wallet Address</option>
+              <option value="qrcode">Through QR Code</option>
+            </select>
+          </div>
   
             {/* QR Code Scanner */}
             {scanning && (
@@ -526,6 +521,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             )}
   
             {!scanning && paymentMethod === 'walletAddress' && (
+              
               <div className="form-group">
                 <label htmlFor="walletAddress">Wallet Address</label>
                 <input
@@ -563,7 +559,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           )}
           {message && <div className="message">{message}</div>}
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
   
