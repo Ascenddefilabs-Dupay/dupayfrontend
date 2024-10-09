@@ -41,7 +41,7 @@ const WithdrawForm: NextPage = () => {
             const sessionData = JSON.parse(sessionDataString);
             const storedUserId = sessionData.user_id;
             setUserID(storedUserId);
-            const storewalletId = sessionData.wallet_id;
+            const storewalletId = sessionData.fiat_wallet_id;
             setWalletID(storewalletId);
 
             console.log(storedUserId);
@@ -58,7 +58,7 @@ const WithdrawForm: NextPage = () => {
   useEffect(() => {
     const fetchWalletAmount = async () => {
       try {
-        const response = await axios.post('http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-wallet-amount/', {
+        const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-wallet-amount/', {
           wallet_id: walletId,
           currency: currency,
         });
@@ -81,7 +81,7 @@ const WithdrawForm: NextPage = () => {
 
     const fetchBankNames = async () => {
       try {
-        const response = await axios.post('http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-bank-names/', {
+        const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-bank-names/', {
           user_id: userID,
         });
         setBankNames(response.data.bank_names);
@@ -93,7 +93,7 @@ const WithdrawForm: NextPage = () => {
 
     const fetchCurrencyIcon = async () => {
       try {
-        const response = await axios.post('http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-currency-icon/', {
+        const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-currency-icon/', {
           currency: currency,
         });
   
@@ -147,7 +147,7 @@ const WithdrawForm: NextPage = () => {
     const remainingAmount = (walletAmount ?? 0) - enteredAmount;
 
     try {
-      const response = await axios.post('http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/update-wallet-amount/', {
+      const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/update-wallet-amount/', {
         wallet_id: walletId,
         currency: currency,
         new_amount: enteredAmount,
