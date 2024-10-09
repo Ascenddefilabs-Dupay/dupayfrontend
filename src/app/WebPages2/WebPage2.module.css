@@ -14,12 +14,12 @@
     top: 0px;
     left: 0px;
     background-color: #222531;
-    width: 100%;
+    width: 1440px;
     height: 90px;
     overflow: hidden;
     opacity: 0.9;
-}
-.webpageSingleItem {
+    }
+    .webpageSingleItem {
     position: absolute;
     top: 723px;
     left: 0px;
@@ -28,68 +28,47 @@
     height: 1px;
     overflow: hidden;
     opacity: 0.9;
-}
-.homeAboutContact {
+    }
+/* .homeAboutContact {
     position: absolute;
     top: 33px;
     left: 650px;
+    line-height: 24px;
+    white-space: pre-wrap;
+} */
+.homeAboutContact {
+    position: absolute;
+    top: 33px;
+    left: 850px;
     line-height: 24px;
     /* background: linear-gradient(91.26deg, #70a2ff, #f76e64);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; */
     white-space: pre-wrap;
-}
-.groupIcon {
-    position: absolute;
-    height: 1193.44%;
-    width: 149.82%;
-    top: -67.78%;
-    right: 46.09%;
-    bottom: -1025.67%;
-    left: -95.91%;
-    max-width: 100%;
-    overflow: hidden;
-    max-height: 100%;
-}
-.homeAboutContactParent {
-    position: absolute;
-    top: 0px;
-    left: 500px;
-    width: 1300px;
-    height: 90px;
-    overflow: hidden;
-    text-align: center;
-    font-size: 16px;
-}
-.button1 {
-    padding: 6px 14px;
-    background: linear-gradient(110deg,  #f76e64 30%,#70a2ff 100%);
-    color: white !important;
-    border: none;
-    border-radius: 100px; /* Rounded edges */
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    transition: background-color 0.3s ease;
-}
-.button1:hover {
-    background-color: #5a47aa; /* Darker shade for hover effect */
-}
-.buttons{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.buttons1{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.buttons2{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+    }
+    .groupIcon {
+        position: absolute;
+        height: 1193.44%;
+        width: 149.82%;
+        top: -67.78%;
+        right: 46.09%;
+        bottom: -1025.67%;
+        left: -95.91%;
+        max-width: 100%;
+        overflow: hidden;
+        max-height: 100%;
+    }
+    .homeAboutContactParent {
+        position: absolute;
+        top: 0px;
+        left: 170px;
+        width: 100%;
+        height: 90px;
+        overflow: hidden;
+        text-align: center;
+        font-size: 16px;
+    }
+
 .dupayLogoIcon {
     width: 51px;
     position: relative;
@@ -98,11 +77,13 @@
 .dupay {
     position: relative;
     line-height: 11.74px;
+
+
 }
 .dupayLogoParent {
     position: absolute;
     top: 20px;
-    left: 0;
+    left: 170px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -110,10 +91,18 @@
     gap: 12px;
     text-align: center;
     font-size: 26.43px;
-    font-family: 'SF Pro';
+    font-family: ''SF Pro Display', sans-serif';
 }
+
+.buttons{
+    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
 .buySell {
-    background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
+    background: linear-gradient(180deg, #FF89C2 18.35%, #F65BA4 45.99%, #BD46F4 73.63%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -450,12 +439,12 @@
     width: 100%;
     position: relative;
     background-color: #17171a;
-    height: 1193px;
+    height: 1100px;
     overflow: hidden;
     text-align: left;
     font-size: 40px;
     color: #fff;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
 }
 
 @media (max-width: 1024px) {

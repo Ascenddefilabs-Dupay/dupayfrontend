@@ -43,7 +43,7 @@ const WebpageSingle:NextPage = () => {
       			<div className={styles.webpageSingleChild} />
       			{/* <div className={styles.webpageSingleItem} /> */}
       			<div className={styles.homeAboutContactParent}>
-        				<div className={styles.homeAboutContact}><button className={styles.buttons} > HOME</button>     <button className={styles.buttons1} > ABOUT</button>     <button className={styles.buttons2} > CONTACT</button>     <button className={styles.button1} onClick={navigateToWebpage2}> SIGN UP </button> </div>
+        				<div className={styles.homeAboutContact}><button className={styles.buttons} >HOME     ABOUT     CONTACT</button>     <button className={styles.button1} onClick={navigateToWebpage2}> SIGN UP </button> </div>
         				{/* <img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" /> */}
       			</div>
       			<div className={styles.dupayLogoParent}>
@@ -58,7 +58,7 @@ const WebpageSingle:NextPage = () => {
               							<span>{`&`}</span>{` `}
               							<span className={styles.buySell}>Manage</span>{` `}
               							<span className={styles.with}>{`with `}</span>
-              							<span className={styles.buySell}>Confidence</span>
+              							<span className={styles.buyConfidence}>Confidence</span>
             						</div>
             						<div className={styles.titleWrapper}>
               							<div className={styles.title1}>Experience industry-leading security and ease of use for all your transactions. Download our app today, available on iOS, Android, and the Chrome Web Store, as well as on the Brave browser, and manage your assets with confidence!</div>

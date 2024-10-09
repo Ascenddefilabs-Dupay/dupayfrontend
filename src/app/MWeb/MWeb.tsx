@@ -100,7 +100,7 @@ const MWEB: NextPage = () => {
             <span className={styles.buySell}>Manage</span>
             {` `}
             <span className={styles.with}>{`with `}</span>
-            <span className={styles.buySell}>Confidence</span>
+            <span className={styles.buyConfidence}>Confidence</span>
           </div>
           <img
             className={styles.device14pmIcon}
