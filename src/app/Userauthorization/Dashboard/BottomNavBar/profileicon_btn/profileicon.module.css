@@ -6,7 +6,6 @@
   max-width: 430px;
   bottom: 45px;
   top: 0;
-  /* background-color: black; */
   background-color: #17171a;
   color: white;
   display: flex;
@@ -44,6 +43,8 @@
 
 
 .emailBar {
+  /* background-color: black; */
+  background-color: #17171a;
   /* background-color: black; */
   background-color: #17171a;
   width: 100%;
@@ -167,6 +168,8 @@
   bottom: 100px; 
   width: 90%;
   max-width: 300px;
+  background-color: #17171a;
+  /* margin: 0 auto; */
   background-color: #17171a;
   /* margin: 0 auto; */
 }
