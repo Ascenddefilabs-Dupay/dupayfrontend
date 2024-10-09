@@ -7,6 +7,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FaFilter } from 'react-icons/fa'; // Import filter icon
 import { useRouter } from 'next/navigation';
 import router from 'next/router';
+import { IoIosArrowBack } from "react-icons/io";
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
 
 interface Notification {
     content: string;
@@ -72,10 +74,11 @@ export default function Notifications() {
 
     const handleBackClick = () => {
         setLoading(true);
-        setTimeout(() => {
-            router.push('/Userauthorization/Dashboard/Home');
-            setLoading(false);
-        }, 1000);
+        router.push('/Userauthorization/Dashboard/Home');
+        // setTimeout(() => {
+            
+        //     setLoading(false);
+        // }, 1000);
     };
 
     const toggleDropdown = () => {
@@ -91,14 +94,15 @@ export default function Notifications() {
         <div className='page'>
         <div className="container">
             {loading ? (
-                <div className="loaderContainer">
-                    <div className="loader"></div>
-                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                {/* Show the Lottie loading animation */}
+                <LottieAnimationLoading width="300px" height="300px" />
+              </div>
             ) : (
                 <>
                     <div className="header">
                         <button className="backButton" onClick={handleBackClick}>
-                            <ArrowBackIcon />
+                        <IoIosArrowBack />
                         </button>
                         <h1 className="heading">Notifications</h1>
                         <div className="filterContainer">
@@ -116,7 +120,7 @@ export default function Notifications() {
                         {filteredNotifications.length === 0 ? (
                             <div className="noNotifications">
                                 <img 
-                                    src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727171771/NO_NOTIFICATION_1_-removebg-preview_1_lheqfu.jpg" 
+                                    src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728452000/NO_NOTIFICATION_1_-removebg-preview_1_-Photoroom_e3xj54.png" 
                                     alt="No Notifications Icon" 
                                     className="noNotificationsIcon"
                                 />
