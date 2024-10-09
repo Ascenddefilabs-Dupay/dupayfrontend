@@ -2,24 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 1);
   }
   
   body, html {
     height: 100%;
     overflow: hidden;
   }
-  
-  
-  /* .wallet-transaction {
-      width: 400px;
-      margin: 0px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: black;
-      height: 100vh;
-    }
-     */
+
     .wallet-transaction_heading{
       text-align: center;
       margin-bottom: 20px;
@@ -29,9 +21,9 @@
     }
     
     .form-group {
-      margin-bottom: 15px;
+      /* margin-bottom: 15px; */
       flex-grow: 1;
-      /* padding-top: 13vh; */
+      margin: 15px 0px 15px 0px;
       
     }
     .payment-method-group {
@@ -73,27 +65,32 @@
     label {
       display: block;
       margin-bottom: 8px;
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
+      color: rgba(255, 255, 255, 1);
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+
     }
     
     select {
       width: 100%;
       padding: 8px;
+      color: rgba(255, 255, 255, 1);
+      font-family: 'Poppins', sans-serif;
       font-size: 16px;
       margin-top: 10px;
     }
     
     .button_class {
-      width: 100%;
+      width:100%;
       padding: 10px;
       font-size: 16px;
-      color: #fff;
+      color: rgba(0, 0, 0, 1);
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      background: rgba(226, 240, 255, 1);
       margin-top: 15px;
     }
     
@@ -106,6 +103,7 @@
       margin-right: 20px; 
       color: #fff; 
       font-size: 26px; 
+      width: 100%;
     }
     
     .back_container{
@@ -145,7 +143,7 @@
   }
   
     
-    .loaderContainer {
+    /* .loaderContainer {
       position: absolute;
       top: 0;
       left: 0;
@@ -173,8 +171,8 @@
       z-index: 3;
       box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
       border-radius: 12%; 
-    }
-    
+    } */
+/*     
     .loader::before {
       content: "";
       position: absolute;
@@ -186,7 +184,7 @@
       border-radius: 15%;
       animation: pulse 1.5s infinite ease-in-out;
       z-index: -1;
-    }
+    } */
     
     @keyframes spin {
       0% { transform: rotate(45deg); }
@@ -207,31 +205,26 @@
         opacity: 1;
       }
     }
-    
 
-
-    .form-heading {
-      text-align: center;
-      font-size: 20px;
-      color: #000;
-      margin-bottom: 10px;
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
-      padding-left: 22%;
-      padding-top: 3%;
+    .form-container{
+      width: 100%;
+      height: auto;
     }
-
-
+    .form-grouppayment-method-group{
+      height: auto;
+      width: 100%;
+    }
 
     input,
     select {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       border-radius: 4px;
-      border: 1px solid #ccc;
+      border: 1px solid rgba(255, 255, 255, 1);
       background-color: rgba(128, 128, 128, 0.253);
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
+      color: rgba(255, 255, 255, 1);
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
     }
 
 
@@ -244,7 +237,10 @@
 
     select option {
       background-color: #333; 
-      color: white;
+      color: rgba(255, 255, 255, 1);
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      width: 90%;
     }
 
     .customAlert {
@@ -280,7 +276,23 @@
     }
     
     .back {
+      width: 100%;
       display: flex;
+      justify-content: space-between;
+    }
+
+    .form-heading {
+      font-size: 16px;
+      align-items:end;
+      display: flex;
+      color: rgba(255, 255, 255, 1);
+      font-family: 'Poppins', sans-serif;
+      width: 100%;
+      justify-content: center;
+    }
+    .backarrow{
+      display: flex;
+      align-items: center;
     }
     
 
@@ -292,68 +304,34 @@
   }
 
 
-  .flagicon {
-    width: 30px;
-    position: relative;
-    height: 24px;
+.flagicon {
+    width: 24px;
+    height: 16px;
+    margin: 3.5px 5px 0px 0px;
 }
 
-.content1 {
-  flex: 1;
+.content2 {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between !important;
+  margin: 24px 0px 24px 0px;
+  padding: 0px;
+  width: 100%;
 }
-
-.iconflagusParent {
-  position: absolute;
-  top: 90px;
-  left: 24px;
-  width: 320px;
-  display: flex;
-  flex-direction: row;    
-  align-items: center;
-  justify-content: flex-start;
-  gap: 15px;
+.content1{
+  display:inline-flex;
 }
-
-.listmbListItemitemRight {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  text-align: right;
-}
-.listmbListItemBasic {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-}
-
-.listmbListItemitemLeft {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-}
-
 
 .title {
-  flex: 1;
-  position: relative;
+  font-family: 'Poppins', sans-serif;
   line-height: 24px;
   font-weight: 600;
-  color: white;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
 }
 
 .title1 {
-  position: relative;
-  line-height: 24px;
   font-weight: 600;
-  color: white;
+  font-family: 'Poppins', sans-serif;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
 }
