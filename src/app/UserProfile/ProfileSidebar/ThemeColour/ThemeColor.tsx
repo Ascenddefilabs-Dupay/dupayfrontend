@@ -41,11 +41,6 @@ const ThemeColor: React.FC = () => {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.container}>
-        {showLoader && (
-          <div className={styles.loaderContainer}>
-            <div className={styles.loader}></div>
-          </div>
-        )}
         <div className={styles.header}>
           <Link href="/UserProfile/ProfileSidebar">
             <FaArrowLeft className={styles.backArrow} />

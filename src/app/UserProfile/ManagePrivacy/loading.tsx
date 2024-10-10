@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
 
 const Loading: React.FC = () => {
   const [showLoading, setShowLoading] = useState(true);
@@ -7,7 +8,7 @@ const Loading: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoading(false); // Hide the loading animation after the specified delay
-    },); // Set the delay time in milliseconds (e.g., 5000ms = 5 seconds)
+    }, 5000); // Set the delay time in milliseconds (e.g., 5000ms = 5 seconds)
 
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, []);
@@ -17,30 +18,10 @@ const Loading: React.FC = () => {
   }
 
   return (
-    <div style={styles.loaderContainer}>
-      <div style={styles.loader}></div>
-      {/* <p style={styles.loadingText}>LOADING</p> */}
-      <style>{`
-        @keyframes spin {
-          0% { transform: rotate(45deg); }
-          100% { transform: rotate(405deg); }
-        }
-        @keyframes pulse {
-          0% {
-            transform: scale(1);
-            opacity: 1;
-          }
-          50% {
-            transform: scale(1.2);
-            opacity: 0.6;
-          }
-          100% {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-      `}</style>
-    </div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
   );
 };
 
