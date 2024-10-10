@@ -52,7 +52,7 @@ const Notification = () => {
             //         'Content-Type': 'application/json',
             //     },
             // });
-            await axios.post('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/notification/', {
+            await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/notification/', {
                 product_announcement: true,
                 insights_tips: true,
                 special_offers: true,

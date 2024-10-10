@@ -33,7 +33,7 @@ const Retype = () => {
             if (retypepasscode.length === 6) {
                 try {
                     // Send the retypepasscode to the backend without hashing
-                    const response = await axios.post('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/repassword/', {
+                    const response = await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/repassword/', {
                         retype_password: retypepasscode,
                         userId: userId,
                     });
