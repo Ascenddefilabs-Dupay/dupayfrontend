@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import LottieAnimationLoading from '../../assets/LoadingAnimation';
+import LottieAnimationLoading from '../../../assets/LoadingAnimation';
 
 const Loading: React.FC = () => {
   const [showLoading, setShowLoading] = useState(true);

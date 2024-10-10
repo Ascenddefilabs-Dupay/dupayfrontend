@@ -121,11 +121,6 @@ const UserProfile: React.FC = () => {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.sidebarContainer}>
-        {showLoader && (
-          <div className={styles.loaderContainer}>
-            <div className={styles.loader}></div>
-          </div>
-        )}
         <div className={styles.header}>
           <IconButton color="inherit" className={styles.backButton}>
             <BackArrow style={{ position: 'relative', right: '10px' }} onClick={profilehandleBackClick} />

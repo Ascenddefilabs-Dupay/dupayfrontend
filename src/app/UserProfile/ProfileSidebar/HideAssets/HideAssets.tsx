@@ -47,11 +47,6 @@ const HideAssets: React.FC = () => {
 
   return (
     <div className={styles.pageWrapper}>
-      {showLoader && (
-        <div className={styles.loaderContainer}>
-          <div className={styles.loader}></div>
-        </div>
-      )}
       <Box
         sx={{
           backgroundColor: '#000',

@@ -58,11 +58,6 @@ const ShowRecoveryPhrase: React.FC = () => {
   return (
     <div className={styles.pageWrapper}>
       <Box className={styles.container}>
-        {showLoader && (
-          <div className={styles.loaderContainer}>
-            <div className={styles.loader}></div>
-          </div>
-        )}
         <Container component="main" className={styles.mainContent}>
         <header style={stylesObject.header}>
             <Link href="/UserProfile/ProfileSidebar">
