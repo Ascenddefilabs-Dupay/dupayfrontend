@@ -14,6 +14,7 @@ import styles from './signup.module.css'; // Adjust the path according to your p
 import { margin, style } from '@mui/system';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import LottieAnimationLoading from '../../../assets/LoadingAnimation'; 
 
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';

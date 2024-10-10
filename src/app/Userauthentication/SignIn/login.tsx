@@ -36,6 +36,7 @@ export default function Login() {
   const [loginMode, setLoginMode] = useState<'password' | 'otp'>('password');
   const [otpTimer, setOtpTimer] = useState<number>(0);
   const [loading, setLoading] = useState(false);
+  
  
   useEffect(() => {
     const checkLocalStorage = () => {
@@ -132,6 +133,7 @@ export default function Login() {
       // alert('Error during Google login.');
       toast.error("Error during Google login.", { position: "top-center", autoClose:false });
     }
+    
   };
     useEffect(() => {
       let timer: NodeJS.Timeout;

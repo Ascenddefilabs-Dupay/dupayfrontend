@@ -8,6 +8,7 @@ import styles from './index.module.css';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { json } from 'node:stream/consumers';
+import { FaArrowLeft ,FaAngleDown} from "react-icons/fa";
 
 const WithdrawForm: NextPage = () => {
   const [amount, setAmount] = useState<string>('');
@@ -182,22 +183,7 @@ const WithdrawForm: NextPage = () => {
   return (
     <div className={styles.fiatHomeFull}>
       <div className={styles.frameParent}>
-        <div className={styles.dropdownContainer}>
-          <label htmlFor="bank" className={styles.dropdownLabel}>Select Bank:</label>
-          <select
-            id="bank"
-            className={styles.dropdown}
-            onChange={handleBankChange} // Handle bank selection change
-          >
-            <option value="">Select Bank</option>
-            {bankNames.map((bank, index) => (
-              <option key={index} value={bank}>
-                {bank}
-              </option>
-            ))}
-            <option value="+">+ Add New Bank</option> {/* Add the '+' option */}
-          </select>
-        </div>
+        
 
         <div className={styles.howMuchUsd}>How much {currency} you want to withdraw?</div>
 
@@ -223,6 +209,29 @@ const WithdrawForm: NextPage = () => {
           </div>
           {!isValid && <div className={styles.errorText}>Please enter a valid number</div>}
         </div>
+        <div className={styles.dropdownContainer}>
+  <label htmlFor="bank" className={styles.dropdownLabel}>
+    Choose bank account:
+  </label>
+
+          <div className={styles.selectWrapper}>
+            <select
+              id="bank"
+              className={styles.dropdown}
+              onChange={handleBankChange} // Handle bank selection change
+            >
+              <option value="">Select Bank</option>
+              {bankNames.map((bank, index) => (
+                <option key={index} value={bank}>
+                  {bank}
+                </option>
+              ))}
+              <option value="+">+ Add New Bank</option>
+            </select>
+            <FaAngleDown className={styles.dropdownIcon} /> {/* Add icon here */}
+          </div>
+        </div>
+
 
         <div className={styles.btnbtn} onClick={handleWithdraw}>
           <div className={styles.text}>Withdraw</div>
