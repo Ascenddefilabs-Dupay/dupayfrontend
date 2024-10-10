@@ -14,31 +14,78 @@
     top: 0px;
     left: 0px;
     background-color: #222531;
-    width: 100%;
+    width: 1440px;
     height: 90px;
     overflow: hidden;
     opacity: 0.9;
-}
-.webpageSingleItem {
+    }
+    .webpageSingleItem {
     position: absolute;
     top: 723px;
     left: 0px;
     background-color: #222531;
-    width: 100%;
+    width: 1440px;
     height: 1px;
     overflow: hidden;
     opacity: 0.9;
-}
-.homeAboutContact {
-    position: absolute;
-    top: 33px;
-    left: 650px;
-    line-height: 24px;
-    /* background: linear-gradient(91.26deg, #70a2ff, #f76e64);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
-    white-space: pre-wrap;
-}
+    }
+    .homeAboutContact {
+        position: absolute;
+        top: 33px;
+        left: 850px;
+        line-height: 24px;
+        /* background: linear-gradient(91.26deg, #70a2ff, #f76e64);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; */
+        white-space: pre-wrap;
+        }
+        .groupIcon {
+            position: absolute;
+            height: 1193.44%;
+            width: 149.82%;
+            top: -67.78%;
+            right: 46.09%;
+            bottom: -1025.67%;
+            left: -95.91%;
+            max-width: 100%;
+            overflow: hidden;
+            max-height: 100%;
+        }
+        .homeAboutContactParent {
+            position: absolute;
+            top: 0px;
+            left: 170px;
+            width: 100%;
+            height: 90px;
+            overflow: hidden;
+            text-align: center;
+            font-size: 16px;
+        }
+    
+    .dupayLogoIcon {
+        width: 51px;
+        position: relative;
+        height: 51px;
+    }
+    .dupay {
+        position: relative;
+        line-height: 11.74px;
+    
+    
+    }
+    .dupayLogoParent {
+        position: absolute;
+        top: 20px;
+        left: 170px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        text-align: center;
+        font-size: 26.43px;
+        font-family: ''SF Pro Display', sans-serif';
+    }
 .button1 {
     padding: 6px 14px;
     background: linear-gradient(110deg,  #f76e64 30%,#70a2ff 100%);
@@ -50,68 +97,14 @@
     outline: none;
     transition: background-color 0.3s ease;
 }
-.button1:hover {
-    background: linear-gradient(110deg,  #f76e64 30%,#70a2ff 100%);
-}
+
 .buttons{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
+    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.buttons1{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.buttons2{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.groupIcon {
-    position: absolute;
-    height: 1193.44%;
-    width: 149.82%;
-    top: -67.78%;
-    right: 46.09%;
-    bottom: -1025.67%;
-    left: -95.91%;
-    max-width: 100%;
-    overflow: hidden;
-    max-height: 100%;
-}
-.homeAboutContactParent {
-    position: absolute;
-    top: 0px;
-    left: 500px;
-    width: 1300px;
-    height: 90px;
-    overflow: hidden;
-    text-align: center;
-    font-size: 16px;
-}
-.dupayLogoIcon {
-    width: 51px;
-    position: relative;
-    height: 51px;
-}
-.dupay {
-    position: relative;
-    line-height: 11.74px;
-}
-.dupayLogoParent {
-    position: absolute;
-    top: 20px;
-    left: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-    text-align: center;
-    font-size: 26.43px;
-    font-family: 'SF Pro';
-}
+
+
 .buySell {
     background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
     -webkit-background-clip: text;
@@ -141,6 +134,15 @@
     justify-content: flex-start;
     font-size: 19px;
 }
+.titleWrappers {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 19px;
+    cursor: pointer;
+}
 .titleParent {
     align-self: stretch;
     display: flex;
@@ -148,6 +150,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: 24px;
+    top: 0;
 }
 .logoIcon {
     width: 33.7px;
@@ -270,8 +273,8 @@
 }
 .frameParent {
     position: absolute;
-    top: 216px;
-    left: 243px;
+    top: 130px;
+    left: 195px;
     width: 1050px;
     display: flex;
     flex-direction: row;
@@ -454,12 +457,12 @@
     width: 100%;
     position: relative;
     background-color: #17171a;
-    height: 856px;
+    height: 100vh;
     overflow: hidden;
     text-align: left;
     font-size: 40px;
     color: #fff;
-    font-family: Poppins;
+    font-family:  'Poppins', sans-serif;
 }
 
 @media (max-width: 1024px) {

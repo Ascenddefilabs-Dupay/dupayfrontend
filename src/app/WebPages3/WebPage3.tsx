@@ -51,9 +51,9 @@ const Webpage3:NextPage = () => {
     <div className={styles.webpageSingle}>
       			<img className={styles.shapeIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727325960/0beadfc1-104a-4d39-90dc-d34518823d07.png" />
       			<div className={styles.webpageSingleChild} />
-      			<div className={styles.webpageSingleItem} />
+      			{/* <div className={styles.webpageSingleItem} /> */}
       			<div className={styles.homeAboutContactParent}>
-				  <div className={styles.homeAboutContact}><button className={styles.buttons} > HOME</button>     <button className={styles.buttons1} > ABOUT</button>     <button className={styles.buttons2} > CONTACT</button></div>
+				  <div className={styles.homeAboutContact}><button className={styles.buttons} >HOME     ABOUT     CONTACT</button></div>
         				<img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" />
       			</div>
       			<div className={styles.dupayLogoParent}>
@@ -69,7 +69,7 @@ const Webpage3:NextPage = () => {
             						<div className={styles.titleWrapper}>
               							<div className={styles.title1}>Dupay Wallet, our self-custody crypto wallet to trade crypto and <br />collect NFTs , is available in your country</div>
             						</div>
-                                    <div className={styles.titleWrapper}>Already have an account? Sign in</div>
+                                    <div className={styles.titleWrappers} onClick={navigateToSignin}>Already have an account? Sign in</div>
           					</div>
           					<div className={styles.frameContainer}>
 							  <div

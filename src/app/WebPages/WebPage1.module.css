@@ -8,18 +8,18 @@
     width: 399px;
     height: 475.1px;
     object-fit: contain;
-}
-.webpageSingleChild {
+    }
+    .webpageSingleChild {
     position: absolute;
     top: 0px;
     left: 0px;
     background-color: #222531;
-    width: 100%;
+    width: 1440px;
     height: 90px;
     overflow: hidden;
     opacity: 0.9;
-}
-.webpageSingleItem {
+    }
+    .webpageSingleItem {
     position: absolute;
     top: 723px;
     left: 0px;
@@ -28,15 +28,12 @@
     height: 1px;
     overflow: hidden;
     opacity: 0.9;
-}
-.homeAboutContact {
+    }
+/* .homeAboutContact {
     position: absolute;
     top: 33px;
     left: 650px;
     line-height: 24px;
-    /* background: linear-gradient(91.26deg, #70a2ff, #f76e64);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
     white-space: pre-wrap;
 }
 .groupIcon {
@@ -50,10 +47,10 @@
     max-width: 100%;
     overflow: hidden;
     max-height: 100%;
-}
+} */
 .button1 {
     padding: 6px 14px;
-    background: linear-gradient(135deg,  #f76e64 30%,#70a2ff 100%);
+    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
     color: white ;
     border: none;
     border-radius: 100px;
@@ -63,20 +60,11 @@
     transition: background-color 0.3s ease;
 }
 .buttons{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
+    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.buttons1{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.buttons2{
-    background: linear-gradient(135deg, #70a2ff 30%, #f76e64 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+
 
 .button1:hover {
     background-color: #5a47aa; /* Darker shade for hover effect */
@@ -85,16 +73,38 @@
 .button1:active {
     transform: scale(0.98); /* Slightly shrink when clicked */
 }
-.homeAboutContactParent {
+.homeAboutContact {
+    position: absolute;
+    top: 33px;
+    left: 750px;
+    line-height: 24px;
+    /* background: linear-gradient(91.26deg, #70a2ff, #f76e64);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    white-space: pre-wrap;
+    }
+    .groupIcon {
+    position: absolute;
+    height: 1193.44%;
+    width: 149.82%;
+    top: -67.78%;
+    right: 46.09%;
+    bottom: -1025.67%;
+    left: -95.91%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    }
+    .homeAboutContactParent {
     position: absolute;
     top: 0px;
-    left: 400px;
-    width: 1300px;
+    left: 170px;
+    width: 1100px;
     height: 90px;
     overflow: hidden;
     text-align: center;
     font-size: 16px;
-}
+    }
 
 .dupayLogoIcon {
     width: 51px;
@@ -108,7 +118,7 @@
 .dupayLogoParent {
     position: absolute;
     top: 20px;
-    left: 0;
+    left: 170px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -116,10 +126,15 @@
     gap: 12px;
     text-align: center;
     font-size: 26.43px;
-    font-family: 'SF Pro';
+    font-family: ''SF Pro Display', sans-serif';
 }
 .buySell {
-    background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
+    background: linear-gradient(180deg, #ff89c2 100%, #f65ba4 50%, #bd46f4 );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.buyConfidence{
+    background: linear-gradient(180deg,   #f65ba4 ,#ff89c2 0%, #bd46f4 10%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -461,36 +476,45 @@
     text-align: left;
     font-size: 40px;
     color: #fff;
-    font-family: Poppins;
+    font-family:  'Poppins', sans-serif;
 }
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .webpageSingle {
         width: 100%;
     }
-    .frameParent {
-        left: 1%;
-        z-index: 2;
-        
-    }
-    .title1
-    {
-        left: 1%;
-        margin-right: 20%;
-    }
     .homeAboutContactParent {
-        left: 0;
-        width: 1000px;
+      flex-direction: column;
+      padding: 20px;
+      text-align: center;
     }
-    .homeAboutContact {
-        left: 300px;
+  
+    .device14pmIcon {
+      margin-top: 7rem;
+      margin-left: 0;
+      margin-bottom: 2rem;
     }
-    .device14pmIcon{
-        left: -25%;
-        z-index: 1;
+  
+    .frameParent {
+      margin-top: 2rem;
+      margin-right: 0;
     }
-    .shapeIcon{
-        left: 65%;
+  
+    .title {
+      font-size: 24px;
+      text-align: center;
     }
-   
+  
+    .title1 {
+      font-size: 14px;
+      text-align: center;
+    }
+  
+    .signupButton {
+      font-size: 14px;
+      padding: 10px 30px;
+      margin-bottom: 3rem;
+    }
+  
     
-}
+  }
+

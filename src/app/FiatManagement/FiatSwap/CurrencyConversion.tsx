@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import './CurrencyConversion.css';
 // import { FaChevronLeft, FaExchangeAlt } from 'react-icons/fa';
@@ -24,6 +25,11 @@ interface FiatWallet {
   wallet_id: string;
   }
 
+  interface OptionType {
+    value: string;
+    label: string;
+  }
+
 const CurrencyConversion: React.FC = () => {
   const [amount, setAmount] = useState<string>('');
   const [convertedAmount, setConvertedAmount] = useState<string | null>('');
@@ -47,6 +53,12 @@ const CurrencyConversion: React.FC = () => {
   const [style, setStyle] = useState({ backgroundColor: '#e2f0ff', color:'#4c516b' });
   const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
   const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
+  const paymentOptions = [
+    { value: '', label: 'Payment Method' },
+    { value: 'WalletBalance', label: 'Wallet Balance' },
+    { value: 'Cards', label: 'Cards' },
+    { value: 'UPI', label: 'UPI' }
+  ];
   const [balances, setBalances] = useState<Record<string, number>>({
     INR: 0.00,
     USD: 0.00,
@@ -67,6 +79,15 @@ const currencySymbols: Record<string, string> = {
 };
 const isButtonEnabled = amount.trim() !== '' && paymentMode!=='' ;
 // const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
+
+
+const handlePaymentModeChange = (selectedOption: OptionType | null) => {
+  const selectedPaymentMode = selectedOption?.value || ''; // Safely extract the value
+  setPaymentMode(selectedPaymentMode);
+
+  console.log('Payment mode selected:', selectedPaymentMode);
+};
+
 useEffect(() => {
   if (typeof window !== 'undefined') {
     const params = new URLSearchParams(window.location.search);
@@ -78,6 +99,7 @@ useEffect(() => {
     }
   }
 }, []);
+console.log("currency is: ",fetchedCurrency);
   useEffect(() => {
     if (fetchedCurrency) {
       fetchCurrencyIcon(fetchedCurrency);
@@ -184,11 +206,11 @@ const fetchCurrencyIcon = async (currencyName:string) => {
           label: (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <img
-                src={cloudinaryBaseUrl+iconUrl}
+                src={cloudinaryBaseUrl + iconUrl}
                 alt={currency_type}
                 style={{ marginRight: 8, width: 24, height: 24 }} // Adjust size as needed
               />
-              <span>{currency_type}</span>
+             <span>{currency_type.replace('|', '')}</span> 
             </div>
           ),
         };
@@ -229,6 +251,9 @@ useEffect(() => {
         fontFamily: 'Poppins',
         border: '1px solid #2a2d3c',
         left:'10px',
+        marginRight:"8px",
+        position: 'relative',
+        
     }),
 
  menu: (base: any) => ({
@@ -240,7 +265,49 @@ useEffect(() => {
         color: '#888daa',
         fontFamily: "Poppins",
         display: 'flex',
-        alignItems: 'center', // Align flag and text
+        alignItems: 'center', 
+        fontWeight:'600'
+    }),
+    option: (base: any, state: any) => ({
+        ...base,
+        backgroundColor: state.isFocused ? '#2a2d3c' : '#17171a',
+        color: 'white',
+    }),
+  };
+  const customSelectStylesPayement = {
+    control: (base: any) => ({
+        ...base,
+        flex: '1',
+        backgroundColor: '#17171a',
+        borderColor: '#2a2d3c',
+        color: 'white',
+        borderRadius: '8px', 
+        display: 'flex', 
+        alignItems: 'center',
+        height: '54px', 
+        boxShadow: 'none', 
+        boxSizing: 'border-box',
+        flexShrink: '0',
+        fontFamily: 'Poppins',
+        border: '1px solid #2a2d3c',
+        // left:'10px',
+        marginRight:"8px",
+        width:'100%',
+        marginBottom:'20px',
+
+        
+    }),
+
+ menu: (base: any) => ({
+        ...base,
+        backgroundColor: '#17171a',
+    }),
+    singleValue: (base: any) => ({
+        ...base,
+        color: '#888daa',
+        fontFamily: "Poppins",
+        display: 'flex',
+        alignItems: 'center', 
         fontWeight:'600'
     }),
     option: (base: any, state: any) => ({
@@ -433,7 +500,7 @@ useEffect(() => {
       setShowForm(true);
       setAlertMessage("Payment Declined!");
       setPaymentMode("Select Payment Method");
-      router.push("/FiatManagement/SwapFailed");
+      router.push(`/FiatManagement/SwapFailed?currency=${fetchedCurrency}&wallet_id=${walletId}`);
     }
     else{
         // setShowForm(true);
@@ -450,12 +517,12 @@ useEffect(() => {
     setAlertMessage('');
   }, []);
 
-  const handlePaymentModeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedPaymentMode = e.target.value;
-    setPaymentMode(selectedPaymentMode);
-    
-    console.log('Payment mode selected:', selectedPaymentMode);
-  };
+  // const handlePaymentModeChange = (selectedOption: { value: string }) => {
+  //   const selectedPaymentMode = selectedOption?.value || '';
+  //   setPaymentMode(selectedPaymentMode);
+  
+  //   console.log('Payment mode selected:', selectedPaymentMode);
+  // };
  
 
 
@@ -611,19 +678,12 @@ console.log("Selected currency for swap:", fetchedCurrency);
 
             <div className="payment-method">
               <div className="howMuchUsd">Select a payment method</div>
-              <select
-              
-                value={paymentMode}
+              <Select
+                options={paymentOptions}
+                value={paymentOptions.find((option) => option.value === paymentMode) || null}
                 onChange={handlePaymentModeChange}
-                
-              >
-                
-                <option value="">Payment Method</option>
-                <option value="WalletBalance">WalletBalance</option>
-                <option value="Cards">Cards</option>
-                <option value="UPI">UPI</option>
-                
-              </select>
+                styles={customSelectStylesPayement}
+              />
             </div>
             {amount && (
             <div className="frameParent">

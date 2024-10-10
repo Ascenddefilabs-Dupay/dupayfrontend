@@ -15,7 +15,10 @@ const MWEB3:NextPage = () => {
   const handleClick = (section: string) => {
     setSelectedSection(section);
   };
-  
+  const navigateToSignin = () =>{
+	
+	router.push('/Userauthentication/SignIn');
+}
   useEffect(() => {
 		const handleResize = () => {
 		  setIsWebsite(window.innerWidth >= 768); // Adjust the width as necessary
@@ -92,21 +95,17 @@ const navigatetoOnboarding = () =>{
           </ul>
         </div>
       )}
-      			<div className={styles.mwebChild} />
+      			{/* <div className={styles.mwebChild} /> */}
       			<div className={styles.frameGroup}>
-        				<div className={styles.titleParent}>
-          					<div className={styles.title}>
-            						<span className={styles.buySell}>Buy, Sell</span>{`, `}
-            						<span>{`&`}</span>{` `}
-            						<span className={styles.buySell}>Manage</span>{` `}
-            						<span className={styles.with}>{`with `}</span>
-            						<span className={styles.buySell}>Confidence</span>
+				  <div className={styles.titleParent}>
+            						<div className={styles.titleWrappers}>
+              							<span>Dupay wallet is available on your country.</span>
+            						</div>
+            						<div className={styles.titleWrapper}>
+              							<div className={styles.title1}>Dupay Wallet, our self-custody crypto wallet to trade crypto and collect NFTs , is available in your country</div>
+            						</div>
+                                    <div className={styles.titleWrapper} onClick={navigateToSignin}>Already have an account? Sign in</div>
           					</div>
-          					{/* <img className={styles.device14pmIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727281217/5e9eeacd-2561-43f1-8826-4fcb2d62a0c5.png" /> */}
-          					<div className={styles.titleWrapper}>
-            						<div className={styles.title1}>Experience industry-leading security and ease of use for all your transactions. Download our app today, available on iOS, Android, and the Chrome Web Store, as well as on the Brave browser, and manage your assets with confidence!</div>
-          					</div>
-        				</div>
         				<div className={styles.frameContainer}>
           					<div
 								className={`${styles.frameDiv} ${

@@ -53,7 +53,7 @@
     overflow: hidden;
     opacity: 0.9;
     text-align: center;
-    font-family: 'SF Pro';
+    font-family: ''SF Pro Display', sans-serif';
 }
 .mwebChild {
     position: absolute;
@@ -91,6 +91,16 @@
     font-weight: 300;
 }
 .titleWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 19px;
+    font-weight: 300;
+}
+.titleWrappers {
     align-self: stretch;
     display: flex;
     flex-direction: column;
@@ -449,7 +459,7 @@
     text-align: left;
     font-size: 19px;
     color: #fff;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
 }
 
 .mweb {
@@ -461,7 +471,7 @@
     text-align: left;
     font-size: 19px;
     color: #fff;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
     max-width: 100%;
     margin: 0 auto;
     max-height: auto;
@@ -498,6 +508,7 @@
 .sidebar ul {
     list-style: none;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .sidebar li {
@@ -505,9 +516,10 @@
     font-size: 1.5rem;
     cursor: pointer;
     text-align: center;
-    /* background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
+    background: linear-gradient(91.26deg, #70a2ff, #f76e64);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
+    -webkit-text-fill-color: transparent;
+    font-family: 'Poppins', sans-serif;
 }
 
 .sidebar li:hover {
@@ -561,6 +573,18 @@
         padding: 10px;
         
     }
+    .titleWrapper {
+        font-size: 16px;
+        /* gap: 16px; */
+        margin-right: 30px;
+    }
+    .title{
+        left: -5%;
+        
+    }
+    .title1{
+        margin-right: 5%;
+    }
 
     .sidebar li {
         font-size: 1.2rem; /* Adjust font size for small screens */
@@ -590,6 +614,18 @@
         padding: 10px;
         
     }
+    .titleWrapper {
+        font-size: 16px;
+        /* gap: 16px; */
+        margin-right: 30px;
+    }
+    .title{
+        left: -5%;
+        
+    }
+    .title1{
+        margin-right: 5%;
+    }
 
     .sidebar li {
         font-size: 1.2rem; /* Adjust font size for small screens */
@@ -617,11 +653,11 @@
     }
     .titleWrapper {
         font-size: 16px;
-        gap: 16px;
+        /* gap: 16px; */
         margin-right: 30px;
     }
     .title{
-        left: -10%;
+        left: -5%;
         
     }
     .title1{
@@ -653,11 +689,11 @@
 
 
 @media (max-width: 350px) {
-    .title1{
+    /* .title1{
         left: -4%;
         margin-right: 5%;
 
-    }
+    } */
     .mweb {
         width: 100%;
         padding: 5px;
@@ -668,6 +704,19 @@
         margin-left: 0;
         margin-right: 25%;
     }
+}
+.titleWrapper {
+    font-size: 16px;
+    gap: 16px;
+    margin-right: 30px;
+}
+.title{
+    left: 0;
+    margin-right: 20%;
+    
+}
+.title1{
+    margin-right: 10%;
 }
 
 .frameDiv {
