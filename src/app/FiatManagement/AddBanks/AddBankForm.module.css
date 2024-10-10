@@ -328,11 +328,11 @@
   color: black;
   border: none;
   border-radius: 5px;
-  
+  font-weight: bold;
   font-size: 16px;
   cursor: pointer;
-  width: 350px;
-  margin-top: 7rem; 
+  width: 100%;
+  margin-top: 15rem; 
   
 }
 
@@ -351,15 +351,6 @@
    /* Full width to allow left alignment */
 }
 
-.bankCount {
-  font-size: 15px;
-  align-self: flex-start;
-  padding-left: 3px;
-  color: white; /* Adjust color as per your theme */
- 
-
-  width: 100%; /* Ensures it takes full width for alignment */
-}
 
 
 .bankButton {
@@ -370,15 +361,28 @@
   background-color: #2A2D3C;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 350px;
-  height:60px;
+  width: 95%;
+  height: 60px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
+.bankCount {
+  font-size: 15px;
+  color: white; /* Adjust color as per your theme */
+  font-weight: bold;
+  margin-left: -165px; /* Ensure no extra margin */
+  width: 100%;
+}
+
+
+/* Add a flex container to align both elements */
+
+
+
 .bankButton:hover {
-  background-color: purple;
+  background-color: rgb(84, 78, 84);
 }
 
 .bankName {

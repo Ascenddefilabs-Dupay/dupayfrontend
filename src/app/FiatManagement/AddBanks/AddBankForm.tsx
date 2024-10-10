@@ -213,7 +213,7 @@ const fetchBankList = async (userId: string) => {
           <header className={styles.formHeader1}>
             <FaAngleLeft className={styles.BackIcon1} onClick={handleBackClick} />  
 
-            <h2 className={styles.headerTitle}>Bank Accounts</h2>
+            <h1 className={styles.headerTitle}>Bank Accounts</h1>
           </header>
 
           {/* <span className={styles.BackIcon} onClick={handleBackClick}>
@@ -224,7 +224,7 @@ const fetchBankList = async (userId: string) => {
           {/* Bank List Display */}
           {bankList.length > 0 && (
             <div className={styles.bankList}>
-              <h2 className={styles.bankCount}>Your Bank Accounts ({bankList.length})</h2>
+              <h1 className={styles.bankCount}>Your Bank Accounts ({bankList.length})</h1>
               {bankList.map((bank) => (
                 <button
                   key={bank.id}
@@ -253,7 +253,7 @@ const fetchBankList = async (userId: string) => {
             {/* <span className={styles.BackIcon1} onClick={handleReturnToList}>
               &lt;
             </span> */}
-            <h2 className={styles.headerTitle}>Bank Details</h2>
+            <h1 className={styles.headerTitle}>Bank Details</h1>
           </header>
 
           <form onSubmit={handleSubmit} className={styles.form}>
@@ -376,7 +376,7 @@ const fetchBankList = async (userId: string) => {
             {/* <span className={styles.BackIcon1} onClick={handleReturnToList}>
               &lt;
             </span> */}
-            <h2 className={styles.title}>Bank Details</h2>
+            <h1 className={styles.title}>Bank Details</h1>
           </div>
           <div className={styles.card}>
             
