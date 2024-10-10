@@ -29,7 +29,7 @@ const Page = () => {
   useEffect(() => {
     const checkUserId = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userauthorizationapi/logpassword1/', {
+        const response = await axios.get('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/logpassword1/', {
           params: { userId: userId },
         });
         console.log(response.data)
