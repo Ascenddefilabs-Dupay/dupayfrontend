@@ -488,10 +488,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               onChange={handlePaymentMethodChange}
               required
             >
-              <option value="" disabled>Select Payment Method</option>
-              <option value="mobile">Through Mobile Number</option>
-              <option value="walletAddress">Through Wallet Address</option>
-              <option value="qrcode">Through QR Code</option>
+              <option value="" disabled className="select-option">Select Payment Method</option>
+              <option value="mobile" className="select-option">Through Mobile Number</option>
+              <option value="walletAddress" className="select-option">Through Wallet Address</option>
+              <option value="qrcode" className="select-option">Through QR Code</option>
             </select>
           </div>
   
@@ -509,6 +509,19 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             {/* Show additional fields based on payment method */}
             {!scanning && paymentMethod === 'mobile' && (
               <div className="form-group">
+                <div className="form-group">
+                  <label htmlFor="amount">Amount</label>
+                  <input
+                    type="number"
+                    id="amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className='button_class_div'>
+                  <button className='button_class' type="submit">Submit</button>
+                </div>
                 <label htmlFor="mobileNumber">Mobile Number</label>
                 <input
                   type="text"
@@ -523,6 +536,19 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             {!scanning && paymentMethod === 'walletAddress' && (
               
               <div className="form-group">
+                <div className="form-group">
+                  <label htmlFor="amount">Amount</label>
+                  <input
+                    type="number"
+                    id="amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className='button_class_div'>
+                  <button className='button_class' type="submit">Submit</button>
+                </div>
                 <label htmlFor="walletAddress">Wallet Address</label>
                 <input
                   type="text"
@@ -535,9 +561,9 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             )}
   
             {/* Show amount input and submit button based on payment method */}
-            {((paymentMethod && paymentMethod !== 'qrcode') || scannedData) && (
+            {/* {((paymentMethod && paymentMethod !== 'qrcode') || scannedData) && ( */}
               <>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label htmlFor="amount">Amount</label>
                   <input
                     type="number"
@@ -547,9 +573,11 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                     required
                   />
                 </div>
-                <button className='button_class' type="submit">Submit</button>
+                <div className='button_class_div'>
+                  <button className='button_class' type="submit">Submit</button>
+                </div> */}
               </>
-            )}
+            {/* )} */}
           </form>
           {alertMessage && (
             <div className="alert">
