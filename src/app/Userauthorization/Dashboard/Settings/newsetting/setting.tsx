@@ -1,230 +1,250 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Switch } from '@mui/material';
-import './Setting.css';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import SearchIcon from '@mui/icons-material/Search';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import LanguageIcon from '@mui/icons-material/Language';
-import LockIcon from '@mui/icons-material/Lock';
-// import KeyboardIcon from '@mui/icons-material/Keyboard';
-import ShieldMoonIcon from '@mui/icons-material/ShieldMoon';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-
+import styles from './Setting.module.css';
 const Newsetting = () => {
-  const router = useRouter();
-  const [simpleMode, setSimpleMode] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-          const sessionDataString = window.localStorage.getItem('session_data');
-          if (sessionDataString) {
-            const sessionData = JSON.parse(sessionDataString);
-            const storedUserId = sessionData.user_id;
-            setUserId( storedUserId);
-            console.log(storedUserId);
-            console.log(sessionData.user_email);
-          } else {
-            // redirect('http://localhost:3000/Userauthentication/SignIn');
+    const router = useRouter();
+    const [simpleMode, setSimpleMode] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [searchValue, setSearchValue] = useState('');
+      useEffect(() => {
+          if (typeof window !== 'undefined') {
+            const sessionDataString = window.localStorage.getItem('session_data');
+            if (sessionDataString) {
+              const sessionData = JSON.parse(sessionDataString);
+              const storedUserId = sessionData.user_id;
+              setUserId( storedUserId);
+              console.log(storedUserId);
+              console.log(sessionData.user_email);
+            } else {
+              // redirect('http://localhost:3000/Userauthentication/SignIn');
+            }
           }
-        }
-      }, []);
-  
+        }, []);
+    
 
-  const handleNavigation = () => {
-    router.push('/Userauthorization/Dashboard/Settings/network_set');
-  };
+    const handleNavigation = () => {
+      router.push('/Userauthorization/Dashboard/Settings/network_set');
+    };
 
-  const settinghandleBackClick = () => {
-    let redirectUrl = '/Userauthorization/Dashboard/BottomNavBar/profileicon_btn';
-    router.push(redirectUrl);
-  };
+    const settinghandleBackClick = () => {
+      let redirectUrl = '/Userauthorization/Dashboard/BottomNavBar/profileicon_btn';
+      router.push(redirectUrl);
+    };
 
-  const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSimpleMode(event.target.checked);
-    if (event.target.checked) {
-      router.push('/Userauthorization/Dashboard/Settings/switchform');
+    const handleSwitch = () => {
+      console.log("Switch clicked"); 
+      const newSimpleMode = !simpleMode;
+      setSimpleMode(newSimpleMode);
+    
+      if (newSimpleMode) {
+        console.log("Navigating to switchform"); 
+        router.push('/Userauthorization/Dashboard/Settings/switchform');
+      }
+    };
+
+    const handleSignOut = () => {
+      router.push('/Userauthentication/SignUp/EmailVerification');
+    };
+    const handleDisplay = () => {
+      router.push('/Userauthorization/Dashboard/Settings/displayform');
+    };
+    const handleSecurity = () => {
+      router.push('/Userauthorization/Dashboard/Settings/securityfrom');
+    };
+    const profileHandleClick = () => {
+      router.push('http://localhost:3004/Manageprofile/profilesidebar');
+    };
+    const handleNotification = () => {
+      router.push('/Userauthorization/Dashboard/Settings/notificationfrom');
     }
-  };
-  const handleSignOut = () => {
-    let redirectUrl = '/Userauthentication/SignIn';
-    router.push(redirectUrl);
-  };
-  // const handleDeveloper = () => {
-  //   let redirectUrl = 'http://localhost:3000//Dashboard/developerform';
-  //   router.push(redirectUrl);
-
-  // };
-  const handleDisplay = () => {
-    let redirectUrl = '/Userauthorization/Dashboard/Settings/displayform';
-    router.push(redirectUrl);
-  };
-  const handleSecurity = () => {
-    let redirectUrl = '/Userauthorization/Dashboard/Settings/securityfrom';
-    router.push(redirectUrl);
-  };
-  const profileHandleClick = () => {
-    let redirectUrl = 'http://localhost:3004/Manageprofile/profilesidebar';
-    router.push(redirectUrl);
-  };
-  const handleNotification = () => {
-    let redirectUrl = '/Userauthorization/Dashboard/Settings/notificationfrom';
-    router.push(redirectUrl);
-  }
-  return (
-    <div className="card0">
-      
-      <div className="settings">
-        <ArrowBackIcon className="setting_back_icon" onClick={settinghandleBackClick} />
-        <span className='settings_back_label'>Setting</span>
-      </div>
-      
-      <div className="card"> 
-        <div className="search-container">
-          <SearchIcon className="search-icon" />
-          <input id="search" type="text" placeholder="Search" />
+    const handleClearSearch = () => {
+      setSearchValue(''); 
+    };
+    return (
+      <div className={styles.settingprofile}>
+        <div className={styles.settings}>
+          <span className={styles.settings_back_label}>Setting</span>
         </div>
-      </div>
 
-      <div className="card1">
-        <button className="wallet-button">
-          <AccountBalanceWalletIcon className="wallet-icon" />
-          <span className="button-text">Wallet</span>
-        </button>
+        <div className={styles.searchparentnode} >
+          <div className={styles.searchinput}>
+              <img className={styles.searchicon} alt="" src="/cancelicon.png" />
+              <div><input className={styles.searchlabel} type="text" placeholder="Enter crypto name, news etc.." onClick= {handleClearSearch}/></div>
+              <img className={styles.cancelsearchicon} alt="" src="/searchicon.png" />
+          </div>
 
-      </div>
-
-      <div className="subcard">
-        <div className="card2">
-          <button className="username" onClick={profileHandleClick}>
-            <img className="card-image" />
-            <div className="labels0">
-              <span className="user">username.co.id </span>
-              <span className="recovery">Recovery phase, Profile, connections and more</span>
+          <div className={styles.accountfolder} onClick={profileHandleClick}>
+            <div className={styles.accountbody}>
+                <div className={styles.iconleft}>
+                    <div className={styles.accountwa}>
+                        <img className={styles.accounticon} alt="" src="/profileicon.png" />
+                    </div>
+                </div>
+                <div className={styles.accounttext}>
+                    <div className={styles.accountleft}>
+                        <div className={styles.accounttitle}>Account</div>
+                    </div>
+                </div>
+                <img className={styles.accounticonrightarrow} alt="" src="/iconright.png" />
             </div>
-            <ChevronRightIcon className="righticon" />
-          </button>
+          </div>
+
+          <div className={styles.walletfolder}>
+            <div className={styles.walletbody}>
+                <div className={styles.walleticonleft}>
+                    <div className={styles.walletwa}>
+                        <img className={styles.walleticon} alt="" src="/walleticon.png" />
+                    </div>
+                </div>
+                <div className={styles.wallettext}>
+                    <div className={styles.walletleft}>
+                        <div className={styles.wallettitle}>Wallets</div>
+                    </div>
+                </div>
+                <img className={styles.walleticonrightarrow} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.mobilefolder} onClick={handleSwitch}>
+            <div className={styles.mobilebody}>
+                <div className={styles.mobileiconleft}>
+                    <div className={styles.mobilewa}>
+                        <img className={styles.mobileicon} alt="" src="/mobileicon.png" />
+                    </div>
+                </div>
+                <div className={styles.mobiletext}>
+                    <div className={styles.mobileleft}>
+                        <div className={styles.mobiletitle}>Simple Mode</div>
+                    </div>
+                </div>
+                <img className={styles.mobileiconrightarrow} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.worldfolder}>
+            <div className={styles.worldbody}>
+                <div className={styles.worldiconleft}>
+                    <div className={styles.worldwa}>
+                        <img className={styles.worldicon} alt="" src="/worldicon.png" />
+                    </div>
+                </div>
+                <div className={styles.worldtext}>
+                    <div className={styles.worldleft}>
+                        <div className={styles.worldtitle}>Networks</div>
+                    </div>
+                </div>
+                <img className={styles.worldiconrightarrow} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.lockfolder} onClick={handleSecurity}>
+            <div className={styles.lockbody}>
+                <div className={styles.lockiconleft}>
+                    <div className={styles.lockwa}>
+                        <img className={styles.lockicon} alt="" src="/lockicon.png" />
+                    </div>
+                </div>
+                <div className={styles.locktext}>
+                    <div className={styles.lockleft}>
+                        <div className={styles.locktitle}>Security</div>
+                    </div>
+                </div>
+                <img className={styles.lockiconrightarrow} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.moonfolder} onClick={handleDisplay}>
+            <div className={styles.moonbody}>
+                <div className={styles.lmooniconleft}>
+                    <div className={styles.moonwa}>
+                        <img className={styles.moonicon} alt="" src="/moonicon.png" />
+                    </div>
+                </div>
+                <div className={styles.moontext}>
+                    <div className={styles.moonleft}>
+                        <div className={styles.moontitle}>Display mode</div>
+                    </div>
+                </div>
+                <img className={styles.mooniconrightarrow} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.bellfolder} onClick={handleNotification}>
+            <div className={styles.bellbody}>
+                <div className={styles.belliconleft}>
+                    <div className={styles.bellwa}>
+                        <img className={styles.bellicon} alt="" src="/bellicon.png" />
+                    </div>
+                </div>
+                <div className={styles.belltext}>
+                    <div className={styles.bellleft}>
+                        <div className={styles.belltitle}>Notifications</div>
+                    </div>
+                </div>
+                <img className={styles.belliconrightarrow} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.voicefolder}>
+            <div className={styles.voicebody}>
+                <div className={styles.voiceiconleft}>
+                    <div className={styles.voicewa}>
+                        <img className={styles.voiceicon} alt="" src="/voiceicon.png" />
+                    </div>
+                </div>
+                <div className={styles.voicetext}>
+                    <div className={styles.voiceleft}>
+                        <div className={styles.voicetitle}>Get Help</div>
+                    </div>
+                </div>
+                <img className={styles.iconrightarrow} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.termfolder}>
+            <div className={styles.termbody}>
+              <div className={styles.termcontent}>
+                  <div className={styles.termleft}>
+                      <div className={styles.termtitle}>Terms and services</div>
+                  </div>
+              </div>
+              <img className={styles.termicon} alt="" src="/iconright.png" />
+            </div>
+          </div>
+          
+
+          <div className={styles.privacyfolder}>
+            <div className={styles.privacybody}>
+              <div className={styles.privacycontent}>
+                <div className={styles.privacyeft}>
+                  <div className={styles.privacytitle}>Privacy policy</div>
+                </div>
+              </div>
+                <img className={styles.privacyicon} alt="" src="/iconright.png" />
+            </div>
+          </div>
+
+          <div className={styles.signoutfolder} onClick={handleSignOut}>
+            <div className={styles.signoutbody}>
+              <div className={styles.signouticonLeft}>
+                <div className={styles.signoutWr}>
+                    <img className={styles.signouticon} alt="" src="/signout.png" />
+                </div>
+              </div>
+              <div className={styles.signouttext}>
+                <div className={styles.signouteft}>
+                    <div className={styles.signouttitle}>Sign out</div>
+                </div>
+              </div>
+              <img className={styles.signouticonarrowRightSent} alt="" src="/iconright.png" />
+            </div>
+          </div>
         </div>
+      </div>  
 
-        <div className="card3">
-          <button className="manage_wallet">
-            <AddCircleIcon className="add_circle" />
-            <span className="button-text">Manage all wallets</span>
-            <ChevronRightIcon className="righticon0" />
-          </button>
-
-        </div>
-        
-      </div>
-      
-      <div className="card6">
-        <button className="developers">
-          <PhoneIphoneIcon className="phone_icon" />
-          <div className="labels2">
-            <span className="develop">Simple Mode</span>
-            <span className="develop1">Perfect for beginner</span>
-          </div>
-            <label className="simple_switch">
-              <Switch
-                checked={simpleMode} onChange={handleSwitch}/>
-            </label>
-        </button>
-      </div>
-
-      <div className="card4">
-        <button className="networks" onClick={handleNavigation}>
-          <LanguageIcon className="globe_icon" />
-          <div className="labels">
-            <span className="network">Networks </span>
-            <span className="network1">Edit or add Networks</span>
-          </div>
-          <ChevronRightIcon className="righticon1" />
-        </button>
-      </div>
-
-      <div className="card5">
-        <button className="securities" onClick={handleSecurity}>
-          <LockIcon className="lock_icon" />
-          <div className="handle_securty">
-            <span className="handle_security">Security </span>
-            <span className="handle_security1">Lock timer, Password</span>
-          </div>
-          <ChevronRightIcon className="righticon2" />
-        </button>
-      </div>
-      
-      <div className="card7">
-        <button className="displays" onClick={handleDisplay}>
-          <ShieldMoonIcon className="shield_moon_icon" />
-          <div className="labels3">
-            <span className="display">Display </span>
-            <span className="display1">Dark mode, currency, balances</span>
-          </div>
-          <ChevronRightIcon className="righticon4" />
-        </button>
-      </div>
-
-      <div className="card8">
-        <button className="notifications"  onClick={handleNotification}>
-          <NotificationsIcon className="notifications_icon" />
-          <div className="labels4">
-            <span className="notification">Notifications </span>
-            <span className="notification1">Preferences, notification types</span>
-          </div>
-          <ChevronRightIcon className="righticon5" />
-        </button>
-      </div>
-
-      <div className="card9">
-        <button className="helps">
-          <HelpCenterIcon className="help-icon" />
-          <div className="labels5">
-            <span className="help">Help </span>
-            <span className="help1">Help Centers & supports</span>
-          </div>
-          <OpenInNewIcon className="open_in_new_icon" />
-        </button>
-      </div>
-
-      <hr className="gray-hr"/>
-
-      <div className="card10">
-        <button className="terms">
-          <span className='term'>Terms and services </span>
-          <OpenInNewIcon className="open_in_new_icon1" />
-        </button>
-      </div>
-
-      <div className="card11">
-        <button className="privacy">
-          <span className='policy'>Privacy Policy </span>
-          <OpenInNewIcon className="open_in_new_icon2" />
-        </button>
-      </div>
-
-      <div className="card12">
-        <button className="version">
-          <span className='versions'>Version </span>
-        </button>
-        <span className='versions1'>3.11.17 </span>
-      </div>
-      
-      <div className='card14'>
-        <button className='signout' onClick={handleSignOut}>
-          <span className='sign'>Sign out </span>
-        </button>
-      </div>
-
-
-    </div>
-  );
+    );
 };
 
 export default Newsetting;
+
