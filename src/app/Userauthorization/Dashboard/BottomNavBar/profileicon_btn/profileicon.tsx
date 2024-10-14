@@ -147,7 +147,7 @@ const Profileicon: React.FC = () => {
                     <div className={styles.walletAddress} onClick={toggleDropdown}>
 
                     <div  onClick={() => handleNavigation('/UserProfile')}>
-                      <FaUserCircle style={{ fontSize: '30px', marginRight: '4px', position: 'relative', right: '18px' }} />
+                      <FaUserCircle style={{ fontSize: '30px', marginRight: '4px', position: 'relative', right: '0px' }} />
                   </div>
                       <div className={styles.goodMorningAnuroopContainer}>
                       <span>{`Good morning, `} <b>{userFirstName || 'User'}</b></span>
@@ -161,41 +161,6 @@ const Profileicon: React.FC = () => {
                     </div>
                   </div>
 
-                  <AppBar position="static" className={styles.appBar}>
-                  {/* <img
-                className={styles.img}
-                src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727075702/crypto_image_logo_bxom6g.png"
-                alt="transactions_image"
-              /> */}
-
-                  {/* <div className={styles.frameParent} onClick={() => handleNavigation('/UserProfile')}>
-                  <div className={styles.frameGroup}>
-                  <div className={styles.iconavatarParent}>
-                  <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
-                  <div className={styles.dupc001}>View Profile</div>
-                  </div>
-                  <div className={styles.iconsettingWrapper}>
-                  <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
-                  </div>
-                  </div>
-                  </div>
-
-                  <div className={styles.frameParent} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')} >
-                  <div className={styles.frameGroup}>
-                  <div className={styles.iconavatarParent}>
-                  <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
-                  <div className={styles.dupc001}>Add & Manage Profile</div>
-                  </div>
-                  <div className={styles.iconsettingWrapper}>
-                  <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
-                  </div>
-                  </div>
-                  </div> */}
-
-
-
-
-
 <div className={styles.frameParent} onClick={() => handleNavigation('/UserProfile')}>
   <div className={styles.frameGroup}>
     <div className={styles.iconavatarParent}>
@@ -208,7 +173,7 @@ const Profileicon: React.FC = () => {
   </div>
 </div>
 
-<div className={styles.frameParent} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
+<div className={styles.frameParent1} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
   <div className={styles.frameGroup}>
     <div className={styles.iconavatarParent}>
       <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
@@ -220,25 +185,6 @@ const Profileicon: React.FC = () => {
   </div>
 </div>
 
-                  
-                    {/* <Toolbar className={styles.toolbar}>
-                      {!scannerOpen && (
-                        <div className={styles.buttonGroup}>
-                          <div className={styles.buttonContainer}>
-                            <div className={styles.customButton} onClick={() => handleNavigation('/UserProfile')}>
-                              View Profile
-                            </div>
-                          </div>
-                          <div className={styles.buttonContainer}>
-                            <div className={styles.customButton} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
-                              Add & Manage Profile
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </Toolbar> */}
-                    
-                  </AppBar>
 
         
                   {/* Full-screen QR Scanner */}
@@ -275,7 +221,7 @@ const Profileicon: React.FC = () => {
                 className={styles.content11} 
                 onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/transaction_btn')}
               >
-                <AssessmentIcon />
+                <AssessmentIcon style={{position:'relative', left: '10px'}}/>
                 <b className={styles.text}>Transaction</b>
               </div>
             </div>
@@ -289,9 +235,9 @@ const Profileicon: React.FC = () => {
                 <b className={styles.text}>Dupay</b>
               </div>
             </div>
-            <div className={styles.div1}>
+            <div className={styles.div2}>
               <div 
-                className={styles.content11}  
+                className={styles.content12}  
               >
                 <img 
                   className={styles.iconbase} 

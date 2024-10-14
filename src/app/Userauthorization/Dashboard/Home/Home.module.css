@@ -68,7 +68,7 @@
 .chatBubbleParent {
   position: relative;
   bottom: 719px;
-  left: 119px;
+  left: 140px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -89,7 +89,7 @@
 }
 .goodMorningAnuroopContainer {
   position: relative;
-  right: 235px;
+  right: 245px;
   bottom: 719px;
   font-size: 16px;
   line-height: 24px;
@@ -139,6 +139,19 @@
   width: 125px;
   position: relative;
   height: 82px;
+}
+.content12 {
+  position: relative;
+  width: calc(100% - 8px);
+  /* color: #abafc4; */
+  color: white;
+  top: 6px;
+  right: 4px;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 .content11 {
   position: relative;
@@ -586,7 +599,7 @@
   justify-content: flex-start;
   gap: 60px;
   position: relative;
-  left: 6px;
+  left: -4px;
   top: -100px;
   margin-left: 30px;
   font-family: 'Poppins', sans-serif;
@@ -594,6 +607,7 @@
 
 .tab {
   font-family: 'Poppins', sans-serif;
+  position: relative;
   line-height: 24px;
   font-weight: 600;
   background: none;
@@ -615,8 +629,8 @@
   justify-content: center;
   border-bottom: 2px solid #fff;
   padding: 5px;
-  gap: 40px;
-  width: 110px;
+  gap: 45px;
+  width: 115px;
 }
 
 .content {

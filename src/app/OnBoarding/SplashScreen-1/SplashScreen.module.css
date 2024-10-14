@@ -106,6 +106,8 @@ margin: 0; line-height: normal;
     z-index: 2;
 }
 .techbgIcon {
+    display: block;
+    max-width: 100%;
     position: absolute;
     top: 108px;
     left: 0px;
@@ -240,6 +242,57 @@ margin: 0; line-height: normal;
         top: 590px;
         background-color: #17171a;
         width: 370px;
+    }
+}
+
+@media (max-width: 300px) {
+    .background {
+        width: 100%;
+        height: auto; /* Allow height to adjust based on content */
+    }
+    .oboarding4 {
+        height: auto; /* Adjust height to fit content */
+        padding: 20px; /* Add padding for better spacing */
+    }
+    .carouselIndicator {
+        position: relative; /* Changed to relative for better alignment */
+        top: 10px; /* Adjusted for better alignment */
+        left: 10px; /* Adjusted for better alignment */
+    }
+    .skip {
+        position: relative; /* Changed to relative for better alignment */
+        top: 10px; /* Adjusted for better alignment */
+        right: 10px; /* Adjusted for better alignment */
+    }
+    .techbgIcon {
+        position: relative; /* Changed to relative for better alignment */
+        height: auto; /* Allow height to adjust based on content */
+        max-height: 150px; /* Set a maximum height */
+        width: 100%; /* Full width for better responsiveness */
+    }
+    .titleParent {
+        position: relative; /* Changed to relative for better alignment */
+        margin-top: 20px; /* Space between elements */
+        text-align: center; /* Center align titles */
+    }
+    .title {
+        width: 100%; /* Full width for better responsiveness */
+        text-align: center; /* Center align text */
+        line-height: 1.2; /* Adjust line height for readability */
+        font-size: 16px; /* Ensure text is readable on small screens */
+    }   
+    .title1 {
+        position: relative;
+        padding-right: 5px; /* Reduced padding for small screens */
+        font-size: 14px; /* Ensure text is readable on small screens */
+    }
+    .btnmbBtnFab {
+        top: auto; /* Remove absolute positioning */
+        background-color: #17171a;
+        width: 100%; /* Full width for better responsiveness */
+        padding: 10px; /* Add padding for better touch targets */
+        margin-top: 20px; /* Space between elements */
+        text-align: center; /* Center align button text */
     }
 }
 

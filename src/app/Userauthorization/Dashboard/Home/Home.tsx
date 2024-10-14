@@ -38,7 +38,7 @@ interface Wallet {
 const currencySymbols: { [key: string]: string } = {
   'INR': '₹',
   'USD': '$',
-  'EUR': '€',
+  'EURO': '€',
   'GBP': '£',
   'AUS': 'A$',
   'JPY': '¥',
@@ -920,7 +920,7 @@ const handleRefresh =()=>{
           					</div>
         				</div>
         				<div className={styles.div1} >
-          					<div className={styles.content11} >
+          					<div className={styles.content12} >
             						<img className={styles.iconbase}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077435/payment_mbvqke.png" />
             						<b className={styles.text}>Dupay</b>
           					</div>

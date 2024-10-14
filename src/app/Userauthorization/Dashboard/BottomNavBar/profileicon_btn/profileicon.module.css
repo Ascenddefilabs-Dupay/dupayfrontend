@@ -60,7 +60,7 @@
   color: #fff;
   text-align: center;
   font-family: 'Poppins', sans-serif;
-  right: 19px;
+  right: 2px;
   }
 .walletAddress {
   display: flex;
@@ -380,7 +380,7 @@
   position: relative;
   height: 33.4px;
   /* right: 15px; */
-  right: 13px;
+  right: 5px;
   object-fit: cover;
   cursor: pointer;
 }
@@ -391,7 +391,7 @@
   left: calc(50% - 205.5px);
   border-radius: 8px 8px 0px 0px;
   /* background-color: #17171a; */
-  width: 411px;
+  width: 431px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -399,7 +399,7 @@
   color: #abafc4;
 }
 .div {
-  width: 125px;
+  width: 140px;
   position: relative;
   height: 82px;
   color: #fff;
@@ -409,13 +409,32 @@
   position: relative;
   height: 82px;
 }
+.div2 {
+  width: 125px;
+  position: relative;
+  height: 82px;
+  color: white;
+}
+.content12 {
+  position: relative;
+  width: calc(100% - 8px);
+  /* color: #abafc4; */
+  color: white;
+  top: 6px;
+  right: 4px;
+  left: -20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
 .content11 {
   position: relative;
   width: calc(100% - 8px);
   color: #abafc4;
   top: 6px;
   right: 4px;
-  left: 4px;
+  left: -20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -427,6 +446,7 @@
   display: inline-block;
   width: 67px;
   position: relative;
+  left: 15px;
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
   line-height: 18px;
@@ -436,7 +456,6 @@
   width: 24px;
   position: relative;
   height: 24px;
-  right: 15px;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -511,87 +530,6 @@
   height: 30px;
 }
 
-
-/* .loaderContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5); 
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
-  z-index: 2;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-  }
-  
-  
-  .loader {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(to right, #4C208C, #BF5FFF);
-  animation: spin 1s linear infinite;
-  transform: rotate(45deg); 
-  position: relative;
-  z-index: 3;
-  box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
-  border-radius: 12%; 
-  }
-  
-  
-  .loader::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: rgba(255, 0, 123, 0.3); 
-  border-radius: 15%;
-  animation: pulse 1.5s infinite ease-in-out;
-  z-index: -1;
-  }
-  
-  
-  @keyframes spin {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(405deg); }
-  }
-  
-  
-  @keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  }
-  
-  
-  @keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-  } */
-
   .iconavatar {
   	width: 24px;
   	position: relative;
@@ -656,11 +594,11 @@
   	color: #76e268;
 }
 .frameParent {
-  	width: 100%;
+  	width: 85%;
   	position: relative;
     height: 70px;
-    bottom: 220px;
-    left: 40px;
+    bottom: 150px;
+    left: 34px;
   	/* box-shadow: 0px 16px 32px -8px rgba(12, 12, 13, 0.4); */
   	border-radius: 16px;
   	background-color: #222531;
@@ -670,7 +608,7 @@
   	justify-content: flex-start;
   	padding: 12px;
   	box-sizing: border-box;
-  	gap: 7px;
+  	gap: 2px;
   	text-align: center;
   	font-size: 14px;
   	color: #fff;
@@ -678,5 +616,30 @@
     font-family: 'Poppins', sans-serif;
     gap: 12px;
     margin-bottom: 20px; /* Adjust the value as needed for the desired gap */
+
+}
+.frameParent1 {
+  width: 85%;
+  position: relative;
+  height: 70px;
+  bottom: 330px;
+  left: 34px;
+  /* box-shadow: 0px 16px 32px -8px rgba(12, 12, 13, 0.4); */
+  border-radius: 16px;
+  background-color: #222531;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 12px;
+  box-sizing: border-box;
+  gap: 2px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  /* font-family: Poppins; */
+  font-family: 'Poppins', sans-serif;
+  gap: 12px;
+  margin-bottom: 20px; /* Adjust the value as needed for the desired gap */
 
 }
