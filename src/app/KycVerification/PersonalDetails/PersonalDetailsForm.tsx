@@ -518,11 +518,19 @@ const PersonalDetailsForm: React.FC = () => {
     setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
   }, []);
 
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
+  //   validateField(name as keyof FormData, value);
+  // };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(`Field: ${name}, Value: ${value}`);
     setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     validateField(name as keyof FormData, value);
   };
+  
 
   // const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   //   const { value } = e.target;
@@ -716,7 +724,6 @@ const PersonalDetailsForm: React.FC = () => {
         </div>
 
         <div className={styles.formGroup}>
-         
           <div className={styles.inputinput2}>
           <label htmlFor="dateOfBirth" style={style} className={styles.label215}>Date of Birth</label>
           <input
@@ -748,17 +755,23 @@ const PersonalDetailsForm: React.FC = () => {
           </div>
           {errors.addressLine1 && <p className={styles.error}>{errors.addressLine1}</p>}
         </div>
-        <div className={styles.formGroup}>
-         
-          <div className={styles.inputinput2}>
-            <input type="text"
-            name="addressLine2"
-            value={formData.addressLine2}
-            onChange={handleChange}
-            className={styles.input} />
-            <label htmlFor="addressLine2" className={styles.label2} >Address line 2 (Optional)</label>
+
+          <div className={styles.formGroup}>
+            <div className={styles.inputinput2}>
+              <input 
+                type="text"
+                name="addressLine2"
+                value={formData.addressLine2}
+                onChange={handleChange}
+                className={styles.input} 
+                required 
+              />
+              <label htmlFor="addressLine2" className={styles.label2}>
+                Address line 2 (Optional)
+              </label>
+            </div>
           </div>
-        </div>
+
         <div className={styles.formGroup}>
          
           <div className={styles.inputinput2}>

@@ -25,7 +25,7 @@
   top: 40px;
   left: 346px;
   line-height: 22px;
-  font-family: 'SF Pro';
+  font-family: 'SF Pro',sans-serif;
 }
 .imagecarouselIndicatorcompoIcon {
   position: absolute;
@@ -59,21 +59,22 @@
 }
 .individuals {
   background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
-  -webkit-background-clip: text;
+  background-clip: text; 
+  -webkit-text-fill-color: transparent;
+}
+.individuals1 {
+  background: rgba(189, 70, 244, 1);
+  background-clip: text; 
   -webkit-text-fill-color: transparent;
 }
 .groupIcon {
   top: 220px;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
+  width: 50px;
   position: relative;
-  max-width: 100%;
-  overflow: hidden;
-  height: 72.5px;
+  height: 65.5px;
   object-fit: stretch;
   z-index: 2;
-  margin-left: 20px;
+  margin-left: -10px;
 }
 
 
@@ -117,13 +118,21 @@
   position: absolute;
   top: 50px;
   left: 0;
-  width: 330px;
-  height: 450.2px;
-  overflow: hidden;
-  /* object-fit: cover; */
-  filter: brightness(30%);
+  width: 300px;
+  height: 400.2px;
+  filter: brightness(19%);
+  /* background-color: rgba(255, 255, 255, 1); */
   z-index: 1;
 }
+/* .lockBgIcon {
+  width: 100%;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  height: 508.2px;
+  object-fit: cover;
+  } */
+  
 .text {
   position: relative;
   line-height: 24px;
@@ -140,85 +149,304 @@
   width: 100%;
   padding: 12px 16px;
   border-radius: 8px;
-  font-family: Poppins;
+  font-family: 'Poppins',sans-serif;
   font-weight: 600;
   margin-bottom: 20px;
 }
 
 
 .oboarding5 {
+  width: 100%;
+  max-width: 430px;
+  position: relative;
+  margin: 0 auto;
+  background-color: #17171a;
+  height: 823px;
+  overflow: hidden;
   text-align: left;
+  font-size: 16px;
+  padding: 10px;
+  padding-left: 20px;
   color: #787d9c;
   font-family: Poppins;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-  max-height: auto;
-  width: 411px;
-  max-width: 100%;
-  padding: 20px;
-  margin: 0 auto;
-  background-color: #17171A;
-  position: relative;
+  }
+  
+
+@media (max-width: 360px) and (max-height: 740px) {
+  .oboarding5{
+      width: 100%;
+      height: 100vh;
+  }
+  .carouselIndicator {
+      position: absolute;
+      top: 43px;
+  }
+  .skip {
+      position: absolute;
+      top: 34px;
+      margin-right: 20px;
+      /* left: 206px; */
+      right: 60px;
+      line-height: 22px;
+      font-family: 'SF Pro',sans-serif;
+      /* background-color: aqua; */
+  }
+  .lockBgIcon {
+      position: absolute;
+      top: 36px;
+      left: 0px;
+      width: 300.1px;
+      height: 470.2px;
+  }
+  .groupIcon {
+      top: 230px;
+      width: 48px;
+      height: 60.5px;
+      position: relative;
+      left: 35px;
+  }
+  .textContent {
+    text-align: left;
+    position: relative;
+    top: 40px !important;
+  }
+  .titleWrapper {
+      font-size: 20px;
+      padding-right: 20px;
+  }
+  .getStartedButton {
+    position: relative;
+    top: 70px !important;
+    right: 8px !important;
+  }
   
 }
+@media (max-width: 376px) and (max-height: 668px) {
+  .oboarding5{
+      width: 100%;
+      height: 100vh;
+  }
+  .carouselIndicator {
+      position: absolute;
+      top: 33px;
+  }
+  .skip {
+      position: absolute;
+      top: 25px;
+      left: 316px;
+  }
+  .lockBgIcon {
+      position: absolute;
+      top: 36px;
+      left: 0px;
+      width: 270.1px !important;
+      height: 370.2px !important;
+  }
+  .groupIcon {
+      top: 180px;
+      width: 40px !important;
+      height: 50.5px !important;
+      position: relative;
+      left: 30px;
+  }
+  .textContent {
+    text-align: left;
+    position: relative;
+    bottom: 60px !important;
+  }
+  .getStartedButton {
+    position: relative;
+    bottom: 20px !important;
+    right: 8px !important;
+  }
 
-@media (max-width: 1024px) {
+  
+}
+/* iPhone 12 Pro (390px width, 844px height) */
+/* @media (min-width: 390px) and (max-height: 844px) {
   .oboarding5 {
+      width: 100%;
+      height: 100vh;
+  }
+  .carouselIndicator {
+      top: 50px;
+  }
+  .skip {
+      top: 40px;
+      left: 330px;
+  }
+  .lockBgIcon {
+    position: absolute;
+    top: 36px;
+    left: 0px;
+    width: 270.1px !important;
+    height: 370.2px !important;
+  }
+  .groupIcon {
+      top: 180px;
+      width: 40px !important;
+      height: 50.5px !important;
+      position: relative;
+      left: 30px;
+  }
+  .textContent {
+    text-align: left;
+    position: relative;
+    top: 10px !important;
+  }
+  .getStartedButton {
+    position: relative;
+    bottom: 20px !important;
+    right: 8px !important;
+  }
+} */
+/* Pixel 5 (393px width, 851px height) */
+@media (max-width: 393px) and (max-height: 851px) {
+  .oboarding5 {
+      width: 100%;
+      height: 100vh;
+  }
+  .carouselIndicator {
+      top: 55px;
+  }
+  .skip {
+    position: relative;
+      top: 41px !important;
+      left: 285px !important;
+  }
+  .lockBgIcon {
+      position: absolute;
+      top: 36px;
+      left: 0px;
+      width: 270.1px !important;
+      height: 370.2px !important;
+  }
+  .groupIcon {
+      top: 180px;
+      width: 40px !important;
+      height: 50.5px !important;
+      position: relative;
+      left: 30px;
+  }
+  .textContent {
+    text-align: left;
+    position: relative;
+    top: 10px !important;
+  }
+  .getStartedButton {
+    position: relative;
+    bottom: 20px !important;
+    right: 8px !important;
+  }
+}
+
+/* OnePlus 8 Pro (412px width, 869px height) */
+@media (min-width: 376px) and (max-width: 431px) and (max-height: 933px) {
+  .oboarding5 {
+      width: 100%;
+      height: 100vh;
+  }
+  .carouselIndicator {
+      top: 60px;
+  }
+  .skip {
+      top: 50px;
+      left: 340px;
+  }
+  .lockBgIcon {
+    position: absolute;
+    top: 36px;
+    left: 0px;
+    width: 320.1px !important;
+    height: 550.2px !important;
+  }
+  .groupIcon {
+      top: 270px;
+      width: 57px !important;
+      height: 74.5px !important;
+      position: relative;
+      left: 30px;
+  }
+  .textContent {
+    text-align: left;
+    position: relative;
+    top: 60px !important;
+  }
+  .getStartedButton {
+    position: relative;
+    top: 150px !important;
+    right: 8px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .oboarding5 {
+      width: 100vw;
+      height: 100vh;
+  }
+  .carouselIndicator {
+      position: absolute;
+      top: 70px;
+  }
+  .skip {
+      position: absolute;
+      top: 50px;
+      right: 20px;
+  }
+  .lockBgIcon {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 350px;
+      height: 600px;
+  }
+  .groupIcon {
+      position: relative;
+      top: 300px;
+      left: 40px;
+      width: 60px;
+      height: 80px;
+      /* background-color: blue; */
+  }
+  .textContent {
+      text-align: center;
+      position: relative;
+      top: 100px;
+      font-size: 20px;
+  }
+  .title{
+    line-height: 56px;
+  font-weight: 300;
+    font-size: 20px;
+  }
+  .getStartedButton {
+      position: relative;
+      top: 240px;
+      width: 96%;
+      right: -2px;
+  }
+}
+@media (max-width: 1024px) {
+  .container {
     width: 100%; 
   }
 }
 
 @media (max-width: 768px) {
-  .oboarding5 {
+  .container {
     width: 100%; 
   }
 }
-@media (max-width: 360px) {
-  .oboarding5 {
-    width: 100%;
-    padding: 10px; /* Adjust padding for smaller screens */
-  }
-
-
-  .title {
-    font-size: 32px; /* Reduce title size for smaller screens */
-    margin-top: 60%; /* Adjust the top margin */
-  }
-
-  .subText {
-    font-size: 18px; /* Reduce the size of the subtitle */
-    line-height: 22px;
-  }
-
-  .getStartedButton {
-    font-size: 0.9rem; /* Adjust button font size */
-    padding: 10px 14px; /* Adjust button padding */
-  }
-
-  .skip {
-    top: 20px;
-    left: auto;
-    right: 10px; /* Align skip button closer to the right edge */
-  }
-
-  .groupIcon {
-    top: 220px; /* Adjust image position */
-    margin-left: 30px; /* Adjust margin for smaller width */
-  }
-}
-
 
 .textContent {
   text-align: left;
-  /* padding-top: 20px; */
+  position: relative;
+  bottom: 20px;
 }
 
 .title {
   font-weight: bold;
   margin: 20px 0;
-  font-family: Poppins;
+  font-family: 'Poppins',sans-serif;
   font-size: 40px;
   font-weight: 300;
   /* line-height: 56px; */
@@ -239,7 +467,7 @@
 .subText {
   font-size: 16px;
   color: #ffffff;
-  font-family: Poppins;
+  font-family: 'Poppins',sans-serif;
   font-size: 22px;
   font-weight: 300;
   /* line-height: 44px; */

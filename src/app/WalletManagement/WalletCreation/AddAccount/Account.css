@@ -1,4 +1,4 @@
-.wallet-manager {
+/* .wallet-manager {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,7 +72,6 @@
   
   .close-button {
     margin-left: 50%;
-    /* margin-top: 70%; */
     top: 10px;
     right: 10px;
     background: none;
@@ -87,7 +86,7 @@
     transform: scale(1.1);
   }
   
-  /* Responsive Styles */
+  
   @media (max-width: 768px) {
     .add-account-container {
       width: auto;
@@ -206,4 +205,121 @@
     font-size: 20px;
     color: white;
     letter-spacing: 2px;
+} */
+
+*{
+  font-family: 'Poppins', sans-serif;
+}
+.wallet-manager {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+    background-color: white;
+    color: #fff;  
+}
+
+.card {
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 30px;
+  background-color: #242429;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 1;
+}
+.backgrounddesing{
+  width: 100%;
+  display: grid;
+  justify-content: end;
+  align-items: end;
+}
+.backgrounddesing1{
+  position: relative;
+  right: -20px;
+  top: -20px;
+}
+.update{
+  background: linear-gradient(91.26deg, #45F0D1 0%, #76E268 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+}
+.subtext{
+  color: #FFFFFF;
+  font-size: 14px;
+}
+.subcard{
+   background: var(--Gray-24, #17171A);
+   width:110%;
+   position: relative;
+   left: -20px;
+   height: auto;
+   border-radius: 50px 50px 0px 0px;
+   display: grid;
+   gap: 25px;
+   bottom: 0px;
+}
+.subcard1, .subcard2, .subcard3, .subcard4{
+  display: flex;
+  justify-content: center;
+}
+
+.subcard1{
+  margin-top: 25px;
+}
+.subcard4{
+  margin-bottom: 30px;
+}
+.subcard3{
+  height: 40px;
+}
+
+
+.create-wallet-button1 {
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #FFFFFF;
+  width:90%;
+  transition: all .4s ease;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
+}
+.existing-wallet{
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #FFFFFF;
+  width:90%;
+  border: none;
+  border-radius: 8px;
+  transition: all .4s ease;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
+}
+
+@media (max-width:438px) {
+  .subcard{
+    background: var(--Gray-24, #17171A);
+    width:100%;
+    position: fixed;
+    left: 0px;
+    height: auto;
+    border-radius: 50px 50px 0px 0px;
+    display: grid;
+    gap: 25px;
+    bottom: 0px;
+ }
 }

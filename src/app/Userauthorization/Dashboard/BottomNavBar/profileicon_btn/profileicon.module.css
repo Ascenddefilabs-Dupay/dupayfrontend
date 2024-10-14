@@ -512,7 +512,7 @@
 }
 
 
-.loaderContainer {
+/* .loaderContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -590,7 +590,7 @@
   100% {
     transform: scale(1);
   }
-  }
+  } */
 
   .iconavatar {
   	width: 24px;

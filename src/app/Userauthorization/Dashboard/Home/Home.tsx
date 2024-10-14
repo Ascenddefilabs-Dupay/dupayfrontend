@@ -11,6 +11,7 @@ import { redirect } from 'next/navigation';
 import Select from 'react-select';
 import React from 'react';
 import LottieAnimation from '../../../assets/animation'
+import LottieAnimationLoading from '../../../assets/LoadingAnimation';
 import { IoMdRefresh } from "react-icons/io";
 import { Refresh } from '@mui/icons-material';
 
@@ -590,11 +591,14 @@ const handleRefresh =()=>{
     // <div className={styles.container}>
     <div className={`${styles.container} ${isBlurred ? styles.blur : ''}`}>
        {loading ? (
-        <div className={styles.loaderContainer}>
-        <div className={styles.loader}></div>
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading  />
+      </div>
       ) : (
         <>
+<img className={styles.back_img} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074021/Frame_mp4g4t.png" />
+
       <div className={styles.header}>
         <div className={styles.leftSection} >
           <div className={styles.walletAddress} >
@@ -646,7 +650,7 @@ const handleRefresh =()=>{
 
       <div className={styles.content}>
       {activeTab === 'Crypto' && (
-          <div className={styles.cryptoContent}>
+          <div className={styles.cryptoContent} onClick={handleDupayClick}>
               <div className={styles.yourCryptoWallets4Parent}>
                 <div className={styles.yourCryptoWallets}>Your Wallets (1) </div>
               </div>
@@ -759,36 +763,25 @@ const handleRefresh =()=>{
                     <div className={styles.modaloverlay}>
                       <div className={styles.modalcontent}>
                         <div className={styles.modalbuttons}>
-                          <button className={styles.modalbutton} onClick={handleAddBack}><svg className={styles.svg} width="48"  height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)"
-                            />
-                            {/* Replace the existing <path> with the BsBank2 icon */}
-                            <g clipPath="url(#clip0_348_4902)">
-                              <foreignObject x="12" y="12" width="24" height="24">
-                                <BsBank2 size="24" color="#E8EAED" />
-                              </foreignObject>
+                          <button className={styles.modalbutton} onClick={handleAddBack}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10877)" />
+                            <g clip-path="url(#clip0_1139_10877)">
+                              <path d="M26 25C25.1667 25 24.4583 24.7083 23.875 24.125C23.2917 23.5417 23 22.8333 23 22C23 21.1667 23.2917 20.4583 23.875 19.875C24.4583 19.2917 25.1667 19 26 19C26.8333 19 27.5417 19.2917 28.125 19.875C28.7083 20.4583 29 21.1667 29 22C29 22.8333 28.7083 23.5417 28.125 24.125C27.5417 24.7083 26.8333 25 26 25ZM19 28C18.45 28 17.9792 27.8042 17.5875 27.4125C17.1958 27.0208 17 26.55 17 26V18C17 17.45 17.1958 16.9792 17.5875 16.5875C17.9792 16.1958 18.45 16 19 16H33C33.55 16 34.0208 16.1958 34.4125 16.5875C34.8042 16.9792 35 17.45 35 18V26C35 26.55 34.8042 27.0208 34.4125 27.4125C34.0208 27.8042 33.55 28 33 28H19ZM21 26H31C31 25.45 31.1958 24.9792 31.5875 24.5875C31.9792 24.1958 32.45 24 33 24V20C32.45 20 31.9792 19.8042 31.5875 19.4125C31.1958 19.0208 31 18.55 31 18H21C21 18.55 20.8042 19.0208 20.4125 19.4125C20.0208 19.8042 19.55 20 19 20V24C19.55 24 20.0208 24.1958 20.4125 24.5875C20.8042 24.9792 21 25.45 21 26ZM32 32H15C14.45 32 13.9792 31.8042 13.5875 31.4125C13.1958 31.0208 13 30.55 13 30V19H15V30H32V32Z" fill="#E8EAED" />
                             </g>
                             <defs>
-                              <linearGradient
-                                id="paint0_linear_348_4902"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="48"
-                                gradientUnits="userSpaceOnUse"
-                              >
-                                <stop stopColor="#E34D67" />
-                                <stop offset="1" stopColor="#7746F4" />
+                              <linearGradient id="paint0_linear_1139_10877" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#E34D67" />
+                                <stop offset="1" stop-color="#7746F4" />
                               </linearGradient>
-                              <clipPath id="clip0_348_4902">
+                              <clipPath id="clip0_1139_10877">
                                 <rect width="24" height="24" fill="white" transform="translate(12 12)" />
                               </clipPath>
                             </defs>
                           </svg>
                             AddBack</button>
                           <button className={styles.modalbutton} onClick={handleSwap}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4890)" />
-                            <g clip-path="url(#clip0_348_4890)">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10865)" />
+                            <g clip-path="url(#clip0_1139_10865)">
                               <path d="M29.5 33.5L28 32L29.5 30.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                               <path d="M28 32H30C30.7956 32 31.5587 31.6839 32.1213 31.1213C32.6839 30.5587 33 29.7956 33 29" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                               <path d="M18.5 14.5L20 16L18.5 17.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -799,71 +792,63 @@ const handleRefresh =()=>{
                               <path d="M26.4404 19.94C26.5778 19.7926 26.7434 19.6744 26.9274 19.5924C27.1114 19.5105 27.31 19.4664 27.5114 19.4628C27.7128 19.4593 27.9128 19.4963 28.0996 19.5718C28.2864 19.6472 28.4561 19.7595 28.5985 19.9019C28.7409 20.0444 28.8532 20.214 28.9287 20.4008C29.0041 20.5876 29.0412 20.7876 29.0376 20.989C29.0341 21.1905 28.99 21.3891 28.908 21.5731C28.826 21.7571 28.7078 21.9227 28.5604 22.06" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </g>
                             <defs>
-                              <linearGradient id="paint0_linear_348_4890" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                              <linearGradient id="paint0_linear_1139_10865" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
                                 <stop stop-color="#E34D67" />
                                 <stop offset="1" stop-color="#7746F4" />
                               </linearGradient>
-                              <clipPath id="clip0_348_4890">
+                              <clipPath id="clip0_1139_10865">
                                 <rect width="24" height="24" fill="white" transform="translate(12 12)" />
                               </clipPath>
                             </defs>
                           </svg>
+
                             Swap</button>
                           <button className={styles.modalbutton} onClick={handleWithDraw}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
-                            <g clip-path="url(#clip0_348_4902)">
-                              {/* Removed the old path and replaced it with the PiHandWithdraw icon */}
-                              <foreignObject x="12" y="12" width="24" height="24">
-                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                                  <PiHandWithdraw size={24} color="#E8EAED" />
-                                </div>
-                              </foreignObject>
-                            </g>
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10869)" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30 32H18C16.895 32 16 31.105 16 30V18C16 16.895 16.895 16 18 16H30C31.105 16 32 16.895 32 18V30C32 31.105 31.105 32 30 32Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M28 24H20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <defs>
-                              <linearGradient id="paint0_linear_348_4902" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#E34D67" />
-                                <stop offset="1" stopColor="#7746F4" />
+                              <linearGradient id="paint0_linear_1139_10869" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#E34D67" />
+                                <stop offset="1" stop-color="#7746F4" />
                               </linearGradient>
-                              <clipPath id="clip0_348_4902">
-                                <rect width="24" height="24" fill="white" transform="translate(12 12)" />
-                              </clipPath>
                             </defs>
                           </svg>
+
                             WithDraw</button>
                           <button className={styles.modalbutton} onClick={handleTransfor}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
-                            {/* Instead of using the <path>, we render the BiTransfer icon here */}
-                            <foreignObject x="12" y="12" width="24" height="24">
-                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                                <BiTransfer color="#E8EAED" size="24px" />
-                              </div>
-                            </foreignObject>
-                            <defs>
-                              <linearGradient id="paint0_linear_348_4902" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#E34D67" />
-                                <stop offset="1" stopColor="#7746F4" />
-                              </linearGradient>
-                            </defs>
-                          </svg>
-                            Transfor</button>
-                          <button className={styles.modalbutton} onClick={handleTopUp}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_348_4902)" />
-                            <g clipPath="url(#clip0_348_4902)">
-                              {/* Remove the path here */}
-                              <foreignObject x="12" y="12" width="24" height="24">
-                                <LuPlusCircle style={{ width: '100%', height: '100%', color: '#E8EAED' }} />
-                              </foreignObject>
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10873)" />
+                            <g clip-path="url(#clip0_1139_10873)">
+                              <path d="M30.0189 24.019L31.7489 22.289C32.1553 21.8947 32.4792 21.4236 32.7018 20.903C32.9244 20.3824 33.0412 19.8228 33.0455 19.2566C33.0498 18.6904 32.9414 18.1291 32.7267 17.6052C32.512 17.0813 32.1953 16.6053 31.795 16.2049C31.3946 15.8046 30.9186 15.4879 30.3947 15.2732C29.8708 15.0585 29.3095 14.9501 28.7433 14.9544C28.1771 14.9587 27.6175 15.0755 27.0969 15.2981C26.5763 15.5207 26.1051 15.8446 25.7109 16.251L22.0109 19.951C21.6143 20.3474 21.2996 20.818 21.0849 21.336C20.8703 21.854 20.7598 22.4093 20.7598 22.97C20.7598 23.5307 20.8703 24.086 21.0849 24.604C21.2996 25.122 21.6143 25.5926 22.0109 25.989L21.9999 26C22.3449 26.338 22.7449 26.614 23.1829 26.817" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M24.8062 21.193C25.2442 21.396 25.6442 21.673 25.9892 22.011C26.3858 22.4074 26.7005 22.878 26.9152 23.396C27.1298 23.914 27.2403 24.4693 27.2403 25.03C27.2403 25.5907 27.1298 26.146 26.9152 26.664C26.7005 27.182 26.3858 27.6526 25.9892 28.049L22.2892 31.749C21.4844 32.5298 20.4048 32.9627 19.2836 32.9542C18.1623 32.9457 17.0894 32.4965 16.2966 31.7036C15.5037 30.9108 15.0545 29.8379 15.046 28.7166C15.0375 27.5954 15.4704 26.5158 16.2512 25.711L17.9812 23.981" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M16 16L18 14L20 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M18 20L18 14" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </g>
                             <defs>
-                              <linearGradient id="paint0_linear_348_4902" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#E34D67" />
-                                <stop offset="1" stopColor="#7746F4" />
+                              <linearGradient id="paint0_linear_1139_10873" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#E34D67" />
+                                <stop offset="1" stop-color="#7746F4" />
                               </linearGradient>
-                              <clipPath id="clip0_348_4902">
+                              <clipPath id="clip0_1139_10873">
                                 <rect width="24" height="24" fill="white" transform="translate(12 12)" />
                               </clipPath>
                             </defs>
                           </svg>
+
+                            Transfor</button>
+                          <button className={styles.modalbutton} onClick={handleTopUp}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10861)" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30 32H18C16.895 32 16 31.105 16 30V18C16 16.895 16.895 16 18 16H30C31.105 16 32 16.895 32 18V30C32 31.105 31.105 32 30 32Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M24 20V28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M28 24H20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <defs>
+                              <linearGradient id="paint0_linear_1139_10861" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#E34D67" />
+                                <stop offset="1" stop-color="#7746F4" />
+                              </linearGradient>
+                            </defs>
+                          </svg>
+
                             TopUp</button>
                         </div>
                         <button className={styles.closebutton} onClick={closeModal}><svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -923,19 +908,18 @@ const handleRefresh =()=>{
       )} */}
        </>
       )}
-      <div className={styles.homeInner} onClick={handleDupayClick}>
-            {/* <img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" /> */}
+      <div className={styles.homeInner} >
             <LottieAnimation width="33.4px" height="33.4px" />
         </div>
-            <div className={styles.tabbarstabbars}>          
+            <div className={styles.tabbarstabbars}>    
+            {/* <img className={styles.frameIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074021/Frame_mp4g4t.png" /> */}
         				<div className={styles.div}>
           					<div className={styles.content11} onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/transaction_btn')}>
-            						{/* <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727076064/wallet_icon_ubkgg2.png" /> */}
                         <AssessmentIcon />
             						<b className={styles.text}>Transaction</b>
           					</div>
         				</div>
-        				<div className={styles.div1} onClick={handleDupayClick}>
+        				<div className={styles.div1} >
           					<div className={styles.content11} >
             						<img className={styles.iconbase}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077435/payment_mbvqke.png" />
             						<b className={styles.text}>Dupay</b>

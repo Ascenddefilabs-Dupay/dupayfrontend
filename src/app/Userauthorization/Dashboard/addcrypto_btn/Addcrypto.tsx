@@ -4,6 +4,8 @@ import { Box, Button, Typography, Link, IconButton, useMediaQuery } from '@mui/m
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/navigation';
 import styles from './AddCrypto.module.css'; // Import the CSS file
+import LottieAnimationLoading from '../../../assets/LoadingAnimation';
+
 
 const AddCrypto = () => {
   const router = useRouter();
@@ -41,9 +43,10 @@ const AddCrypto = () => {
   return (
     <Box className={styles.container}>
       {loading ? (
-        <div className={styles.loaderContainer}>
-          <div className={styles.loader}></div>
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
       ) : (
         <>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>

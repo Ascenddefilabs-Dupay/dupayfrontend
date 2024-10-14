@@ -39,8 +39,8 @@
   
   .input {
     color: white;
-    
     width: 100%;
+    gap: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -402,7 +402,7 @@
 .inputMobile::placeholder {
 color: transparent; 
 }
-.inputinput2 {
+/* .inputinput2 {
   font-family: 'Poppins';   
   align-self: stretch;
   border-radius: 8px;
@@ -413,8 +413,29 @@ color: transparent;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 12px 16px;
-  /* CSS to hide the default placeholder text */
+} */
+
+.inputinput2 {
+  position: relative;
+  font-family: 'Poppins';   
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #2a2d3c;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between; 
+  padding: 12px 10px;
 }
+
+.inputinput2 input::-webkit-calendar-picker-indicator {
+  position: relative;
+  left: 20px; /* Move icon left or right */
+  top: 2px; /* Move icon up or down */
+}
+
+
 
 .inputinput2 :global(input[type="date"]::-webkit-datetime-edit) {
   color: #ffffff;
@@ -554,7 +575,6 @@ color: transparent;
 
 .inputinput2 {
   font-family: 'Poppins';
-  /* font-size: 12px; */
   align-self: stretch;
   border-radius: 8px;
   border: 1px solid #2a2d3c;
@@ -572,11 +592,11 @@ color: transparent;
   font-family: 'Poppins';
   display: block;
   width: 100%;
-  /* font-weight: 600; */
-  font-size: 16px; /* Adjust based on your design */
-  padding-top: 16px; /* Adjust based on your design */
+ 
+  font-size: 16px; 
+  padding-top: 16px; 
   border: none;
-  border-radius: 0; /* For iOS */
+  border-radius: 0; 
   color: white;
   color-scheme: dark;
   background-color: rgba(0, 0, 0, 0);
@@ -592,57 +612,43 @@ color: transparent;
 .inputinput21:focus {
   outline: none;
 }
-/* .inputinput21 input:focus + label,
-.inputinput21 input:valid + label {
-  font-family: 'Poppins';
-  top: 0;
-  font-weight: 700;
-  font-size: 14px;
-  color: #888daa;
-}   */
+
 
 .inputinput2 input:focus + label,
 .inputinput2 input:valid + label {
   font-family: 'Poppins';
   top: 0;
   font-weight: 700;
-  font-size: 14px; /* Smaller label size when focused or filled */
-  /* color: #888daa; */
-  /* color: white; */
+  font-size: 14px; 
 }  
 .inputinput2 input:focus + label2,
 .inputinput2 input:valid + label2 {
   font-family: 'Poppins';
   top: 0;
   font-weight: 700;
-  font-size: 14px; /* Smaller label size when focused or filled */
-  /* color: #888daa; */
-  /* color: white; */
+  font-size: 14px; 
 }  
 
 .inputinput2 label {
   position: absolute;
   font-family: 'Poppins';
   top: 16px; 
-  /* left: 16px; */
   line-height: 24px;
   font-weight: 600;
   font-size: 16px;
   color: #888daa;
-  /* color: white; */
   transition: 0.25s ease;
   cursor: text;
 }
 .inputinput2 .label2{
   position: absolute;
   font-family: 'Poppins';
-  top: 16px; /* Start position */
+  top: 16px; 
   left: 12px;
   line-height: 24px;
   font-weight: 600;
   font-size: 16px;
   color: #888daa;
-  /* color: white; */
   transition: 0.25s ease;
   cursor: text;
 }

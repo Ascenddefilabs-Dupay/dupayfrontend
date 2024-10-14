@@ -57,11 +57,10 @@
   padding: 0;
   width: 411px;
   max-width: 100%;
-  /* height: 120vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
   padding-bottom: 50px;
   padding-top: 50px;
   background-color: #242429;
@@ -83,21 +82,18 @@
 .card {
   background-color: #17171AE5;
   color: white;
-  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  /* padding-top: 6.5rem; */
   margin-top: 70%;
   padding-bottom: 6rem;
-  width: 411px;
+  width: 430px;
   max-width: 100%;
   overflow: hidden; 
   min-height: 400px; 
   display: flex;
-   flex-direction: column;
+  flex-direction: column;
   justify-content: center;
-  border-radius: 50px 50px;
-  
+  border-radius: 50px 50px 0 0;
 }
 
 
@@ -113,7 +109,7 @@
   margin-bottom: 1rem;
   position: relative;
   border-radius: 8px;
-  opacity: 1; /* Ensure the formGroup is visible */
+  opacity: 1; 
 }
 
 .formGroup label {
@@ -122,14 +118,9 @@
   font-size: 1rem;
   color: #888DAA;
   font-family: Poppins;
-  
-
 }
 .passwordWrapper {
   position: relative;
-  
-
-
 }
 .eyeIcon {
   position: absolute;
@@ -259,13 +250,13 @@ align-items: flex-start;
 .button {
   padding: 0.65rem;
   width: 100%;
-  color: #000000;
+  color: #fff;
   font-size: 0.8rem;
   cursor: pointer;
   /* margin-bottom: 0.5rem; */
   border-radius: 8px 8px 8px 8px;
   opacity: 1;
-  background: #E2F0FF;
+  background: linear-gradient(268.7deg, #ff4bf9, #a221ff);
   font-family: Poppins;
   font-size: 16px;
   font-weight: 600;
@@ -293,19 +284,23 @@ align-items: flex-start;
     padding: 0;
     width: 100%;
     height: 100vh;
-    display: flex; /* Full viewport height on mobile */
+    /* display: flex; 
     justify-content: center;
-    align-items: center;
+    align-items: center; */
   }
 
   .card {
-    width: 100%; /* Make card fill the entire width */
-    height: 100vh; /* Make card fill the entire height */
-    max-width: none; /* Remove max-width to allow flexibility */
-    padding: 3rem; /* Reduce padding on smaller screens */
-    margin: 0; /* Remove any margin */
-    border-radius: 0; /* Remove border-radius for full screen look */
-    box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+    position: relative;
+    top: 120px;
+    /* width: 430px;  */
+    width: 100vw;
+    height: 100vh; 
+    /* padding: 3rem;  */
+    margin: 0; 
+    border-radius: 0; 
+    box-shadow: none;
+    border-radius: 50px 50px;
+
   }
 
   .title {
@@ -317,8 +312,8 @@ align-items: flex-start;
   }
 
   .button {
-    padding: 0.6rem; /* Reduce button padding */
-    font-size: 0.75rem; /* Adjust button font size */
+    padding: 0.6rem; 
+    font-size: 0.75rem; 
   }
 
   .signupLink {
@@ -327,31 +322,31 @@ align-items: flex-start;
 }
 
 @media (max-width: 480px) {
-  .main {
+  /* .main {
     padding: 0;
     width: 100%;
     height: 100vh;
-    display: flex; /* Full viewport height on mobile */
+    display: flex; 
     justify-content: center;
     align-items: center;
-  }
+  } */
 
-  .card {
-    width: 100%; /* Fill entire width */
-    height: 100vh; /* Fill entire height */
-    padding: 2.5rem; /* Further reduce padding for smaller screens */
-    margin: 0; /* No margin on smaller screens */
-    border-radius: 0; /* Remove border-radius */
-  }
+  /* .card {
+    width: 100%; 
+    height: 100vh; 
+    padding: 2.5rem; 
+    margin: 0; 
+    border-radius: 0;
+  } */
 
-  .title {
-    font-size: 1rem; /* Further reduce title size */
+  /* .title {
+    font-size: 1rem; 
   }
 
   .button {
-    padding: 0.6rem; /* Smaller padding for buttons */
-    font-size: 0.7rem; /* Smaller button text */
-  }
+    padding: 0.6rem; 
+    font-size: 0.7rem; 
+  } */
 }
 .orContinueWith {
   text-align: center;

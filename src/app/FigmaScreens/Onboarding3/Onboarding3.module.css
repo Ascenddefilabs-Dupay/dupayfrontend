@@ -20,11 +20,12 @@
     overflow: hidden;
 }
 .shapeIcon {
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     top: -38px;
     left: 146px;
-    width: 399px;
-    height: 475.1px;
+    width: 299px;
+    height: 375.1px;
 }
 .imagecarouselIndicatorcompoIcon {
     position: absolute;
@@ -181,10 +182,13 @@
 }
 .oboarding6 {
     width: 100%;
+    max-width: 430px;
     position: relative;
     background-color: #17171a;
-    height: 823px;
-    overflow: hidden;
+    /* height: 823px; */
+    height: 100vh;
+    margin: 0 auto;
+    /* overflow: hidden; */
     text-align: left;
     font-size: 40px;
     color: #fff;

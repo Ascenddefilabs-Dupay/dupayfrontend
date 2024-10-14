@@ -10,6 +10,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import PlugIcon from '@mui/icons-material/Power';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from './manageprofile.module.css'; // Ensure path is correct and CSS is global if needed
+import LottieAnimationLoading from '../../../assets/LoadingAnimation';
 import { redirect } from 'next/navigation';
 
 
@@ -48,9 +49,10 @@ const ManageProfile = () => {
   return (
     <div className={styles.container}>
       {loading ? (
-        <div className={styles.loaderContainer}>
-          <div className={styles.loader}></div>
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
       ) : (
         <>
           <div className={styles.titleContainer}>

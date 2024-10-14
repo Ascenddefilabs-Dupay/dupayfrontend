@@ -4,6 +4,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import styles from './send.module.css';
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
+
 
 const Send: React.FC = () => {
     const router = useRouter();
@@ -47,9 +49,10 @@ const Send: React.FC = () => {
         <div className={styles.container}>
             <ArrowBackIcon onClick={handleBackClick} className={styles.backIcon} />
             {loading ? (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                {/* Show the Lottie loading animation */}
+                <LottieAnimationLoading width="300px" height="300px" />
+              </div>
             ) : (
                 <>
                     <h1 className={styles.title}>Send</h1>

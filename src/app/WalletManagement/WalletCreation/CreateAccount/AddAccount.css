@@ -1,4 +1,149 @@
-@import '~@fortawesome/fontawesome-free/css/all.css';
+*{
+  font-family: 'Poppins', sans-serif;
+}
+.wallet-manager {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+    background-color: white;
+    color: #fff;  
+}
+
+.card {
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 30px;
+  background-color: #242429;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 1;
+}
+.backgrounddesing{
+  width: 100%;
+  display: grid;
+  justify-content: end;
+  align-items: end;
+}
+.backgrounddesing1{
+  position: relative;
+  right: -20px;
+  top: -20px;
+}
+.update{
+  background: linear-gradient(91.26deg, #45F0D1 0%, #76E268 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+}
+.subtext{
+  color: #FFFFFF;
+  font-size: 14px;
+}
+.subcard{
+   background: var(--Gray-24, #17171A);
+   width:110%;
+   position: relative;
+   left: -20px;
+   height: auto;
+   border-radius: 50px 50px 0px 0px;
+   display: grid;
+   gap: 25px;
+   bottom: 0px;
+}
+.subcard1, .subcard2, .subcard3, .subcard4{
+  display: flex;
+  justify-content: center;
+}
+
+.subcard1{
+  margin-top: 25px;
+}
+.subcard4{
+  margin-bottom: 20px;
+}
+.subcard3{
+  height: 45px;
+}
+.subtext{
+  margin: 5px 0px 0px 5px;
+}
+.subtextcontainer{
+  display:inline-flex;
+}
+.subtext2{
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+
+/* .create-wallet-button {
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #FFFFFF;
+  width:90%;
+  transition: all .4s ease;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
+} */
+.existing-wallet-button2{
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #FFFFFF;
+  width:90%;
+  transition: all .4s ease;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+.create-wallet-button{
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #FFFFFF;
+  width:90%;
+  transition: all .4s ease;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
+}
+
+
+@media (max-width:438px) {
+  .subcard{
+    background: var(--Gray-24, #17171A);
+    width:100%;
+    position: fixed;
+    left: 0px;
+    height: auto;
+    border-radius: 50px 50px 0px 0px;
+    display: grid;
+    gap: 25px;
+    bottom: 0px;
+ }
+}
+
+
+
+/* @import '~@fortawesome/fontawesome-free/css/all.css';
 
 
 .wallet-manager {
@@ -16,21 +161,21 @@
 }
 
 .padded-heading {
-  padding-left: 32px; /* Adjust the value as needed */
+  padding-left: 32px;
 }
 
 .header-container {
   display: flex;
-  align-items: center; /* Align items vertically centered */
+  align-items: center;
 }
 
 .back-button {
   background: transparent;
   border: none;
-  font-size: 24px; /* Adjust size as needed */
+  font-size: 24px; 
   cursor: pointer;
-  color: white; /* Change color as needed */
-  margin-right: 10px; /* Space between button and title */
+  color: white;
+  margin-right: 10px;
 }
 
 .add-account-container {
@@ -58,23 +203,23 @@
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  background: grey; /* Background color of the button */
-  border: 2px solid black; /* Border for the box effect */
-  border-radius: 0.5rem; /* Rounded corners */
+  background: grey;
+  border: 2px solid black;
+  border-radius: 0.5rem;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
-  transition: all 0.4s ease; /* Smooth transition for the hover effect */
-  color: white; /* Text color */
-  text-align: center; /* Center the text */
+  transition: all 0.4s ease;
+  color: white;
+  text-align: center; 
 }
 
 .transaction-button:hover {
-  background: darkgrey; /* Background color on hover */
-  color: white; /* Text color on hover */
-  border: 2px solid white; /* Change border color on hover */
-  transform: scale(1.05); /* Slightly increase the size on hover */
-  box-shadow: 0px 0px 10px black; /* Add a subtle shadow on hover */
+  background: darkgrey;
+  color: white;
+  border: 2px solid white; 
+  transform: scale(1.05); 
+  box-shadow: 0px 0px 10px black; 
 }
 
 .add-account-body {
@@ -101,13 +246,9 @@
 .add-account-button:hover {
   background-color: green;
   transform: scale(1.1);
-  /* font-weight: bold; */
 }
 
-/* .add-account-button.ledger {
-  background-color: white;
-  font-weight: bold;
-} */
+
 
 .divider {
   margin: 10px 0;
@@ -122,7 +263,6 @@
 
 .close-button {
   margin-left: 50%;
-  /* margin-top: 70%; */
   top: 10px;
   right: 10px;
   background: none;
@@ -137,7 +277,7 @@
   transform: scale(1.1);
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
   .add-account-container {
     width: 100%;
@@ -184,12 +324,6 @@
   width: 100%;
   padding: 10px;
   font-size: 18px;
-  /* line-height: 1.25rem; */
-  /* font-weight: 700; */
-  /* text-align: center; */
-  /* text-transform: uppercase; */
-  /* vertical-align: middle; */
-  /* align-items: center; */
   border-radius: 0.5rem;
   border: none;
   gap: 1rem;
@@ -198,7 +332,6 @@
   cursor: pointer;
   transition: all .6s ease;
   margin-top: 10px;
-  /* margin-bottom: 10px; */
   font-family: Arial, Helvetica, sans-serif;
   }
 
@@ -292,4 +425,4 @@
   font-size: 20px;
   color: white;
   letter-spacing: 2px;
-}
+} */
