@@ -44,7 +44,7 @@ const WebpageSingle:NextPage = () => {
       			{/* <div className={styles.webpageSingleItem} /> */}
       			<div className={styles.homeAboutContactParent}>
         				<div className={styles.homeAboutContact}><button className={styles.buttons} >HOME     ABOUT     CONTACT</button>     <button className={styles.button1} onClick={navigateToWebpage2}> SIGN UP </button> </div>
-        				{/* <img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" /> */}
+        				
       			</div>
       			<div className={styles.dupayLogoParent}>
         				<img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
@@ -65,35 +65,7 @@ const WebpageSingle:NextPage = () => {
             						</div>
           					</div>
 							 
-          					{/* <div className={styles.frameContainer}>
-            						<div className={styles.frameWrapper}>
-              							<div className={styles.logoParent}>
-                								<img className={styles.logoIcon} alt="" src="Logo.svg" />
-                								<img className={styles.textoIcon} alt="" src="Texto.svg" />
-              							</div>
-            						</div>
-            						<div className={styles.frameWrapper}>
-              							<div className={styles.logoGroup}>
-                								<img className={styles.logoIcon1} alt="" src="Logo.svg" />
-                								<img className={styles.textoIcon1} alt="" src="Texto.svg" />
-              							</div>
-            						</div>
-            						<div className={styles.frameWrapper}>
-              							<div className={styles.logoGroup}>
-                								<img className={styles.chromeWebStoreIcon} alt="" src="Chrome Web Store icon.png" />
-                								<img className={styles.textoIcon2} alt="" src="Texto.svg" />
-              							</div>
-            						</div>
-            						<div className={styles.frameWrapper}>
-              							<div className={styles.logoGroup}>
-                								<img className={styles.image6Icon} alt="" src="image 6.png" />
-                								<div className={styles.availableOnParent}>
-                  									<div className={styles.availableOn}>Available on</div>
-                  									<div className={styles.braveBrowser}>Brave Browser</div>
-                								</div>
-              							</div>
-            						</div>
-          					</div> */}
+          					
         				</div>
         				<img className={styles.device14pmIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727281217/5e9eeacd-2561-43f1-8826-4fcb2d62a0c5.png" />
       			</div>
