@@ -6,6 +6,12 @@
     font-size: 16px;
     color: rgba(255, 255, 255, 1);
   }
+  .bottom-design{
+    position: relative;
+    top: -35%;
+    right: -40%;
+    z-index: 1 !important;
+  }
   
   body, html {
     height: 100%;
@@ -76,14 +82,15 @@
       width:100%;
       padding: 10px;
       font-size: 16px;
-      color: rgba(0, 0, 0, 1);
+      color: #FFFFFF;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      background: rgba(226, 240, 255, 1);
+      background:linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
       margin-top: 15px;
+      z-index: 3;
     }
     
     button:disabled {
@@ -131,6 +138,13 @@
     .wallet-transaction {
   
       width: 100%; 
+    }
+  }
+  @media (min-width: 344px) and (min-height:667px){
+    .bottom-design{
+      position: relative;
+      top: -25%;
+      right: -35%;
     }
   }
   
