@@ -403,7 +403,8 @@
 }
 
 .newwalletbutton{
-  background-color: rgba(226, 240, 255, 1);
+  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
+
   width: 100%;
   height: Hug (48px)px;
   padding: 12px 16px 12px 16px;

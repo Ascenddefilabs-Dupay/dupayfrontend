@@ -250,7 +250,8 @@
   width: 100%;
   position: relative;
   border-radius: 8px;
-  background-color: #e2f0ff;
+  background: linear-gradient(97.59deg, #E34D67 29.66%, #7746F4 70.15%);
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,7 +264,7 @@
   font-family: Poppins;
   /* top: 45vh; */
   /* top: 240px; */
-  top: 25vh;
+  bottom: 10px;
   
 }
 
@@ -438,3 +439,18 @@
     color: white; /* Change this to match your design */
     pointer-events: none; /* Disable pointer events for the icon */
   }
+ 
+  
+  /* YourStylesheet.css */
+.svgContainer {
+  position: relative;
+  left: 47%;
+  display: flex;
+  justify-content: flex-end; /* Aligns the SVG to the right */
+  top: 55px;
+ 
+}
+
+  
+  
+  
