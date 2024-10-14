@@ -128,7 +128,7 @@ import { useState, useEffect } from 'react';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import Geolocation from '@react-native-community/geolocation'; // Import for React Native
 import Oboarding from './SplashScreen';
-import LottieAnimationLoading from '@/app/assets/LoadingAnimation'; // Import Lottie animation
+import LottieAnimationLoading from '../../assets/StartingAnimation' // Import Lottie animation
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true); // State for loading animation
@@ -139,7 +139,7 @@ const HomePage = () => {
     const loadingTimer = setTimeout(() => {
       setLoading(false);
       askNotificationPermission();
-    }, 4000); // 4 seconds delay for animation
+    }, 2800); // 4 seconds delay for animation
 
     return () => clearTimeout(loadingTimer); // Clear the timer when component unmounts
   }, []);
