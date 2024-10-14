@@ -7,7 +7,7 @@ interface LottieAnimationProps {
   height?: string;
 }
 
-const LottieAnimationLoading: React.FC<LottieAnimationProps> = ({ width = '100%', height = '100%' }) => {
+const LottieAnimationLoading: React.FC<LottieAnimationProps> = ({ width = '250x', height = '250px' }) => {
   const defaultOptions = {
     loop: true,
     autoplay: true, // Animation will play automatically

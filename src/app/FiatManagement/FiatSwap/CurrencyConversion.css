@@ -685,10 +685,10 @@ select:focus {
 
 .shapeIcon {
   position: absolute;
-  top: 550.05px;
+  top: 540.05px;
   left: 250px;
   width: 150px;
-  height: 200.1px;
+  height: 225.1px;
   z-index: 1;
   opacity: 0.8;
   bottom: 10px; /* Adjust this to position it near the bottom */
@@ -786,9 +786,9 @@ select:focus {
       /* .btnmbBtnFab {
         transform: translateY(20%);
       } */
-       .container{
+       /* .container{
         height: 100vh;
-       }
+       } */
   }
 
   @media (max-width:377px) and (min-width:370px){
@@ -932,3 +932,5 @@ select:focus {
       
        
   }
+
+  

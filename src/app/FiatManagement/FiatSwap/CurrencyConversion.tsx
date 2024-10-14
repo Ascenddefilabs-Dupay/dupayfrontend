@@ -625,7 +625,7 @@ console.log("Selected currency for swap:", fetchedCurrency);
           )}
           {showLoader && (
             <div className="loaderContainer" >
-              <LottieAnimationLoading width="300px" height="300px"/>
+              <LottieAnimationLoading />
             </div>
           )}
           <img className="shapeIcon" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" />
@@ -729,19 +729,20 @@ console.log("Selected currency for swap:", fetchedCurrency);
             {amount && (
             <div className="frameParent">
               <div className="frameWrapper">
-              <div className="int000Parent">
-              <div className="int000">Converted amount in {destinationCurrency}</div>
-              <div className="int0001">Powered by DUPAY</div>
-              </div>
+                <div className="int000Parent">
+                  <div className="int000">Converted amount in {destinationCurrency}</div>
+                  <div className="int0001">Powered by DUPAY</div>
+                </div>
               </div>
               <div className="frameContainer">
-              <div className="int000Wrapper">
-              <div className="int0002"> {destinationCurrency} {convertedAmount}</div>
+                <div className="int000Wrapper">
+                  <div className="int0002"> {destinationCurrency} {convertedAmount}</div>
+                </div>
               </div>
-              </div>
-              </div>
+            </div>
             )}
           {/* <img className="swap_shape_icon" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" alt="" /> */}
+          
             <button
               className={`btnmbBtnFab swap-button ${!isButtonEnabled ? 'disabled' : ''}`}
               style={styles}

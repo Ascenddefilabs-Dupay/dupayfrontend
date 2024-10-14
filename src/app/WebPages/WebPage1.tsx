@@ -54,7 +54,7 @@ const WebpageSingle:NextPage = () => {
         				<div className={styles.frameGroup}>
           					<div className={styles.titleParent}>
             						<div className={styles.title}>
-              							<span className={styles.buySell}>Buy, Sell</span>{`, `}
+              							<span className={styles.buySell}>Buy, Sell</span>{`  `}
               							<span>{`&`}</span>{` `}
               							<span className={styles.buySell}>Manage</span>{` `}
               							<span className={styles.with}>{`with `}</span>
