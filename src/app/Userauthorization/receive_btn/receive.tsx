@@ -13,6 +13,7 @@ import axios from 'axios'; // Ensure axios is imported
 import { redirect } from 'next/navigation';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
 
 
 
@@ -170,9 +171,10 @@ export default function Receive() {
             />
 
               {showLoader && (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                {/* Show the Lottie loading animation */}
+                <LottieAnimationLoading width="300px" height="300px" />
+              </div>
             )}
             <div>
                 <ArrowBackIcon 

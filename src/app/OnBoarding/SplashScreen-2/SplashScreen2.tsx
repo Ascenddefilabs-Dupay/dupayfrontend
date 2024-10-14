@@ -37,11 +37,12 @@ const SplashScreen2: React.FC = () => {
         				</div>
       			</div> */}
 				  <div className={styles.textContent}>
-						<h1 className={styles.title}>
-						<span className={styles.highlight}> Trusted by</span>
-							<br /> <span className={styles.highlighted}>Individuals &amp; Businesses</span>
-							
-						</h1>
+				  <div className={styles.title}>
+					<span>{`Trusted by `}</span>
+					<span className={styles.individuals}>Individuals</span>{` `}
+					<span>{`&`}</span>
+					<span className={styles.individuals1}> Businesses</span>
+				  </div>
 						<p className={styles.subText}>The most reliable platform for <br/>
 						ease of use.</p>
 					</div>

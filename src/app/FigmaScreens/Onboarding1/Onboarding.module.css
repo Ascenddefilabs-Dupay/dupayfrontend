@@ -97,23 +97,31 @@
     height: 8px;
 }
 .carouselIndicator {
-    position: absolute;
-    top: 93px;
+    /* position: absolute; */
+    position: relative;
+    top: 40px;
     left: 32px;
     width: 36px;
     height: 8px;
 }
 .skip {
-    position: absolute;
-    top: 86px;
-    left: 346px;
+    /* position: absolute; */
+    position: relative;
+    top: 18px;
+    left: 360px;
     line-height: 22px;
-    font-family: 'SF Pro';
+    font-family: 'SF Pro', sans-serif;
     color: #787d9c;
 }
 .future {
     background: linear-gradient(180deg, #ff89c2, #f65ba4 50%, #bd46f4);
-    -webkit-background-clip: text;
+    /* -webkit-background-clip: text; */
+    background-clip: text; /* No prefix needed */
+    -webkit-text-fill-color: transparent;
+}
+.future1 {
+    background: rgba(189, 70, 244, 1);
+    background-clip: text; /* No prefix needed */
     -webkit-text-fill-color: transparent;
 }
 .of {
@@ -122,7 +130,7 @@
 .title {
     width: 304px;
     position: relative;
-    line-height: 56px;
+    line-height: 48px;
     font-weight: 300;
     display: inline-block;
 }
@@ -130,13 +138,14 @@
     align-self: stretch;
     position: relative;
     font-size: 22px;
-    line-height: 44px;
+    line-height: 39px;
     font-weight: 300;
     color: #fff;
 }
 .titleParent {
-    position: absolute;
-    top: 453px;
+    /* position: absolute; */
+    position: relative;
+    top: 283px;
     left: 32px;
     width: 347px;
     display: flex;
@@ -144,17 +153,17 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: 24px;
-    font-size: 40px;
+    font-size: 34px;
     color: #d9d9d9;
     z-index: 2;
 }
 .techbgIcon {
-    position: absolute;
-    top: 108px;
-    left: -160px;
-    width: 580px;
-    height: 378px;
-    overflow: hidden;
+    /* position: relative; */
+    position: fixed;
+    top: 48px;
+    /* left: 0px; */
+    width: 380px;
+    height: 270px;
     z-index: 1;
 }
 .text {
@@ -163,9 +172,10 @@
     font-weight: 600;
 }
 .btnbtn {
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     width: calc(100% - 48px);
-    top: 8px;
+    top: -18px;
     right: 24px;
     left: 24px;
     border-radius: 8px;
@@ -178,9 +188,10 @@
     box-sizing: border-box;
 }
 .btnmbBtnFab {
-    position: absolute;
-    top: 725px;
-    left: 0px;
+    /* position: absolute; */
+    position: fixed;
+    top: 545px;
+    /* left: 0px; */
     background-color: #17171a;
     width: 411px;
     height: 98px;
@@ -189,6 +200,7 @@
 }
 .oboarding4 {
     width: 100%;
+    max-width: 430px;
     position: relative;
     background-color: #17171a;
     /* height: 823px; */
@@ -197,8 +209,9 @@
     /* overflow-y: hidden; */
     text-align: left;
     font-size: 16px;
+    margin: 0 auto;
     color: #fff;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
 }
  @media (min-width: 374px) and (min-height: 666px){
     .background {
@@ -340,7 +353,7 @@
         left: 20px;
     }
     .skip {
-        top: 20px;
+        top: 17px;
         left: 300px;
     }
     .techbgIcon {
@@ -356,8 +369,16 @@
         line-height: 48px;
     }
     .btnmbBtnFab {
-        top: 630px;
+        position: relative;
+        top: -530px;
         width: 350px;
         left: 10px;
+    }
+    .btnmbBtnFab {
+        position: fixed;
+        top: 665px;
+        left: -10px;
+        width: 381px;
+        height: 98px;
     }
 }

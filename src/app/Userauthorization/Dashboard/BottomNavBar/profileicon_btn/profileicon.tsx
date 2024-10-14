@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faCopy, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import { redirect } from 'next/navigation';
 import styles from './profileicon.module.css';
-import QrScanner from 'react-qr-scanner';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import QrScanner from 'react-qr-scanner';
+import LottieAnimationLoading from '../../../../assets/LoadingAnimation';
 
 interface UserProfileData {
   user_id: string;
@@ -29,7 +29,6 @@ const Profileicon: React.FC = () => {
     const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
     const [loading, setLoading] = useState(false);
     const [userFirstName, setUserFirstName] = useState(''); // For storing user first name
-    const [isDupayOpen, setIsDupayOpen] = useState(false);
     const router = useRouter();
     const [profileImage, setProfileImage] = useState('');
     // const userId = 'DupC0001';
@@ -132,27 +131,19 @@ const Profileicon: React.FC = () => {
             setIsScanning(!isScanning);
           };
   
-          const handleDupayClick = () => {
-            setIsDupayOpen(true); // Open the blur screen with buttons
-          };
-        
-          const handleClose = () => {
-            setIsDupayOpen(false); // Close the blur screen
-          };
           
 
           return (
             <div className={styles.container}>
               {loading ? (
-                <div className={styles.loaderContainer}>
-                  <div className={styles.loader}></div>
-                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                {/* Show the Lottie loading animation */}
+                <LottieAnimationLoading width="300px" height="300px" />
+              </div>
               ) : (
                 <>
                   <div className={styles.emailBar}>
-                  <div onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')}>
-                      <ArrowBackIcon />
-                  </div>
+                  
                     <div className={styles.walletAddress} onClick={toggleDropdown}>
 
                     <div  onClick={() => handleNavigation('/UserProfile')}>
@@ -270,7 +261,7 @@ const Profileicon: React.FC = () => {
                     </div>
                   )}
 
-<div className={styles.homeInner} onClick={handleDupayClick}>
+<div className={styles.homeInner} onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')}  >
             <img 
               className={styles.frameChild} 
               alt="Dupay Animation" 
@@ -288,7 +279,7 @@ const Profileicon: React.FC = () => {
                 <b className={styles.text}>Transaction</b>
               </div>
             </div>
-            <div className={styles.div1} onClick={handleDupayClick}>
+            <div className={styles.div1}  onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')}  >
               <div className={styles.content11}>
                 <img 
                   className={styles.iconbase} 
@@ -301,7 +292,6 @@ const Profileicon: React.FC = () => {
             <div className={styles.div1}>
               <div 
                 className={styles.content11}  
-                onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn')}
               >
                 <img 
                   className={styles.iconbase} 
@@ -313,52 +303,6 @@ const Profileicon: React.FC = () => {
             </div>
           </div>
 
-          {isDupayOpen && (
-              <div className={styles.overlay}>
-                <div className={styles.blurBackground}></div>
-                <div className={styles.buttonsContainer}>
-                  <div className={styles.button}    
-                    onClick={() => handleNavigation('/Userauthorization/cashout_btn')}
-                    >
-                    <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085076/cashout_icon_h0h6vj.png" alt="Cashout" 
-              style={{position: 'relative', right: '-5px'}}	  />
-                    <span>Cashout</span>
-                  </div>
-                  <div className={styles.button}
-                onClick={() => handleNavigation('/Userauthorization/swap_btn')}
-                    >
-                    <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085724/swap_icon_v5uzcz.png" alt="Swap" 
-              style={{position: 'relative', right: '3px'}}
-              />
-              <div style={{ fontFamily: 'Roboto, sans-serif' }}>Swap</div>
-            </div>
-                  <div className={styles.button}
-                  onClick={() => handleNavigation('/Userauthorization/receive_btn')} >
-                    <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085940/Receive_icon_kwgsaq.png" alt="Receive" 
-              style={{width:'20px', height: '20px', position: 'relative', right: '-15px'}}		  />
-                    <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif' }}>Receive</div>
-                  </div>
-                  <div className={styles.button}
-                  onClick={() => handleNavigation('/Userauthorization/send_btn')}>
-                    <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085858/Send_icon_zag3am.png" alt="Send" 
-              style={{width:'20px', height: '20px', position: 'relative', right: '4px'}}
-              />
-                    <div style={{ fontFamily: 'Roboto, sans-serif' }}>Send</div>
-                  </div>
-                  <div className={styles.button}
-                onClick={() => handleNavigation('/WalletManagement/Transak')}  >
-                    <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086014/Buy_icon_rwmfdq.png" alt="Buy" 
-              style={{position: 'relative', right: '7px'}}			  />
-
-                    <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', right: '7px'  }}>Buy</div>
-                  </div>
-                </div>
-                {/* Close button */}
-                <button className={styles.closeButton1} onClick={handleClose}>
-                  <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086180/close_icon_acudos.png" alt="Close" />
-                </button>
-              </div>
-            )}
 
                 </>
               )}

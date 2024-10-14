@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './createwallet.module.css'; // Import the CSS module
+import LottieAnimationLoading from '../../../assets/LoadingAnimation';
+
 
 const CreateWallet: React.FC = () => {
     const [userId, setUserId] = useState<string | null>(null);
@@ -39,9 +41,10 @@ const CreateWallet: React.FC = () => {
     return (
         <div className={styles.container}>
             {loading ? (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                {/* Show the Lottie loading animation */}
+                <LottieAnimationLoading width="300px" height="300px" />
+              </div>
             ) : (
                 <>
                     <div>

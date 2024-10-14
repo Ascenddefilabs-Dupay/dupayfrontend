@@ -11,6 +11,7 @@ import { redirect } from 'next/navigation';
 import Select from 'react-select';
 import React from 'react';
 import LottieAnimation from '../../../assets/animation'
+import LottieAnimationLoading from '../../../assets/LoadingAnimation';
 import { IoMdRefresh } from "react-icons/io";
 import { Refresh } from '@mui/icons-material';
 
@@ -590,11 +591,14 @@ const handleRefresh =()=>{
     // <div className={styles.container}>
     <div className={`${styles.container} ${isBlurred ? styles.blur : ''}`}>
        {loading ? (
-        <div className={styles.loaderContainer}>
-        <div className={styles.loader}></div>
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
       ) : (
         <>
+<img className={styles.back_img} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074021/Frame_mp4g4t.png" />
+
       <div className={styles.header}>
         <div className={styles.leftSection} >
           <div className={styles.walletAddress} >
@@ -646,7 +650,7 @@ const handleRefresh =()=>{
 
       <div className={styles.content}>
       {activeTab === 'Crypto' && (
-          <div className={styles.cryptoContent}>
+          <div className={styles.cryptoContent} onClick={handleDupayClick}>
               <div className={styles.yourCryptoWallets4Parent}>
                 <div className={styles.yourCryptoWallets}>Your Wallets (1) </div>
               </div>
@@ -923,19 +927,18 @@ const handleRefresh =()=>{
       )} */}
        </>
       )}
-      <div className={styles.homeInner} onClick={handleDupayClick}>
-            {/* <img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" /> */}
+      <div className={styles.homeInner} >
             <LottieAnimation width="33.4px" height="33.4px" />
         </div>
-            <div className={styles.tabbarstabbars}>          
+            <div className={styles.tabbarstabbars}>    
+            {/* <img className={styles.frameIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074021/Frame_mp4g4t.png" /> */}
         				<div className={styles.div}>
           					<div className={styles.content11} onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/transaction_btn')}>
-            						{/* <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727076064/wallet_icon_ubkgg2.png" /> */}
                         <AssessmentIcon />
             						<b className={styles.text}>Transaction</b>
           					</div>
         				</div>
-        				<div className={styles.div1} onClick={handleDupayClick}>
+        				<div className={styles.div1} >
           					<div className={styles.content11} >
             						<img className={styles.iconbase}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077435/payment_mbvqke.png" />
             						<b className={styles.text}>Dupay</b>

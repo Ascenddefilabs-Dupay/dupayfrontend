@@ -74,8 +74,7 @@
     cursor: pointer;
 }
 
-/* Loader container */
-.loaderContainer {
+/* .loaderContainer {
     position: absolute;
     top: 0;
     left: 0;
@@ -84,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.7); /* Adjusted for better visibility */
+    background: rgba(0, 0, 0, 0.7); 
     backdrop-filter: blur(10px) saturate(180%);
     -webkit-backdrop-filter: blur(10px) saturate(180%);
     z-index: 2;
@@ -95,7 +94,6 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Loader animation */
 .loader {
     width: 60px;
     height: 60px;
@@ -108,11 +106,10 @@
     box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
 }
 
-/* Keyframes for the spin animation */
 @keyframes spin {
     0% { transform: rotate(45deg); }
     100% { transform: rotate(405deg); }
-}
+} */
 
 /* Responsive adjustments */
 @media (max-width: 1440px) {

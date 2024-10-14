@@ -5,6 +5,8 @@ import { FaCheck } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import styles from './swap.module.css';
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
+
 
 export default function Swap(): JSX.Element {
     const router = useRouter();
@@ -56,9 +58,10 @@ export default function Swap(): JSX.Element {
     return (
         <div className={styles.container}>
             {loading ? (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                {/* Show the Lottie loading animation */}
+                <LottieAnimationLoading width="300px" height="300px" />
+              </div>
             ) : (
                 <>
                     <div style={{ flex: '1' }}> 
