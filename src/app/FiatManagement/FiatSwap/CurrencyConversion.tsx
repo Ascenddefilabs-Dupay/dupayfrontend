@@ -7,6 +7,8 @@ import axios from 'axios';
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X';
 import Select, { SingleValue } from 'react-select';
 import { fontWeight, padding, width } from '@mui/system';
+import LottieAnimation from '@/app/assets/animation';
+import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
 const API_BASE_URL='https://fiatmanagement-ind-255574993735.asia-south1.run.app';
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
 interface Currency {
@@ -50,7 +52,8 @@ const CurrencyConversion: React.FC = () => {
   const [walletId, setWalletId] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
   const router = useRouter();
-  const [style, setStyle] = useState({ backgroundColor: '#e2f0ff', color:'#4c516b' });
+  const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
+  const [styles, setStyles] = useState({ top:'30%' });
   const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
   const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
   const paymentOptions = [
@@ -217,14 +220,12 @@ const fetchCurrencyIcon = async (currencyName:string) => {
       });
 
 
-  
-
 useEffect(() => {
     if (isButtonEnabled) {
       setStyle((prevStyle) => ({
         ...prevStyle,
-        backgroundColor: '#e2f0ff',
-        color: '#000',
+        background: 'linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%)',
+        color: '#ffffff',
       }));
     } else {
       setStyle((prevStyle) => ({
@@ -234,6 +235,20 @@ useEffect(() => {
       }));
     }
   }, [isButtonEnabled]);
+
+  useEffect(() => {
+    if (amount) {
+      setStyles((prevStyles) => ({
+        ...prevStyles,
+        top:'10%',
+      }));
+    } else {
+      setStyles((prevStyles) => ({
+        ...prevStyles,
+        top:'35%',
+      }));
+    }
+  }, [amount]);
   const customSelectStyles = {
     control: (base: any) => ({
         ...base,
@@ -251,10 +266,23 @@ useEffect(() => {
         fontFamily: 'Poppins',
         border: '1px solid #2a2d3c',
         left:'10px',
-        marginRight:"8px",
+        marginRight:"10px",
         position: 'relative',
+        paddingRight: '0',
         
     }),
+    indicatorSeparator: (base: any) => ({
+      display: 'none', // Hides the separator
+    }),
+  
+    // Style the dropdown arrow or hide it if needed
+    dropdownIndicator: (base: any) => ({
+      ...base,
+      color: 'white', // Adjust the arrow color if you want it visible
+      padding: '0', // Adjust padding to remove extra space
+      marginRight:'10px',
+    }),
+  
 
  menu: (base: any) => ({
         ...base,
@@ -294,8 +322,20 @@ useEffect(() => {
         marginRight:"8px",
         width:'100%',
         marginBottom:'20px',
+        paddingRight: '0',
 
         
+    }),
+    indicatorSeparator: (base: any) => ({
+      display: 'none', // Hides the separator
+    }),
+  
+    // Style the dropdown arrow or hide it if needed
+    dropdownIndicator: (base: any) => ({
+      ...base,
+      color: 'white', // Adjust the arrow color if you want it visible
+      padding: '0', // Adjust padding to remove extra space
+      marginRight:'10px',
     }),
 
  menu: (base: any) => ({
@@ -566,7 +606,7 @@ useEffect(() => {
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
-      router.back();
+      router.push('/Userauthorization/Dashboard/Home');
       setShowLoader(false);
     }, 3000);
   };
@@ -584,18 +624,18 @@ console.log("Selected currency for swap:", fetchedCurrency);
             </div>
           )}
           {showLoader && (
-            <div className="loaderContainer">
-              <div className="loader"></div>
+            <div className="loaderContainer" >
+              <LottieAnimationLoading width="300px" height="300px"/>
             </div>
           )}
-          
+          <img className="shapeIcon" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" />
           <div className="navbarnavBar">
             <div className="navbaritemleftBtn">
             <div className="iconiconWrapper">
             <img
               className="iconarrowLeftBack"
               alt="Back"
-              src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727839873/4482f3ec-c2b1-430f-98b4-e3a9bd0fa371.png"
+              src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728536746/f8f904f1-485a-42cc-93c6-a9abd4346f30.png"
               onClick={handleLeftArrowClick} // Attach click handler
               style={{ cursor: 'pointer' }} // Optional: Makes it look clickable
           />
@@ -664,11 +704,12 @@ console.log("Selected currency for swap:", fetchedCurrency);
                     Enter amount in {fetchedCurrency}
                   </label>
                   <input
-                    type="text"
+                    type="tel"
                     id="amount"
                     value={amount}
                     onChange={handleAmountChange}
                     required
+                    inputMode="numeric" // This will trigger the numeric keypad
                   />
                 </div>
                 
@@ -700,9 +741,10 @@ console.log("Selected currency for swap:", fetchedCurrency);
               </div>
               </div>
             )}
-
+          {/* <img className="swap_shape_icon" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" alt="" /> */}
             <button
               className={`btnmbBtnFab swap-button ${!isButtonEnabled ? 'disabled' : ''}`}
+              style={styles}
               disabled={!isButtonEnabled} >
               <div className="btnbtn" style={style} onClick={handleSwapButton}>
                 <div className="text">Swap</div>

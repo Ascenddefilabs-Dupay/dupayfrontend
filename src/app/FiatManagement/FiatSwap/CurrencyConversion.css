@@ -64,7 +64,7 @@ input:focus + .floating-label,
 .floating-label.active {
   top: 8px;
   font-size: 12px;
-  color: #aaa; 
+  color: #888daa; 
 }
 
 
@@ -336,7 +336,7 @@ select:focus {
   font-weight: bold;
 }
 
-.loaderContainer {
+ .loaderContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -348,13 +348,13 @@ select:focus {
   background: rgba(0, 0, 0, 0.5); 
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
-  z-index: 2;
+  z-index: 3;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-
+/*
 .loader {
   width: 60px;
   height: 60px;
@@ -378,7 +378,7 @@ select:focus {
   background: rgba(255, 0, 123, 0.3); 
   border-radius: 15%;
   animation: pulse 1.5s infinite ease-in-out;
-  z-index: -1;
+  z-index: -5;
 }
 
 
@@ -401,7 +401,7 @@ select:focus {
     transform: scale(1);
     opacity: 1;
   }
-}
+} */
 .balanceCard {
   display: flex;
   align-items: center;
@@ -511,6 +511,7 @@ select:focus {
   justify-content: flex-end;
   text-align: center;
   font-size: 40px;
+  
 }
 .frameParent {
   width: 100%;
@@ -530,6 +531,7 @@ select:focus {
   font-size: 12px;
   color: #cfd1dd;
   font-family: Poppins;
+  
 }
 
 .text {
@@ -551,9 +553,9 @@ select:focus {
   justify-content: center;
   padding: 12px 20px;
   box-sizing: border-box;
-  /* transform: translateY(300%); */
   margin-top: 20px;
   margin-bottom: 20px;
+  z-index: 2;
 }
 .btnmbBtnFab {
   width: 100%;
@@ -564,6 +566,7 @@ select:focus {
   font-size: 16px;
   color: #000;
   font-family: Poppins;
+  /* transform: translateY(70%); */
 }
 
 .payments24dpE8eaedFill0WghIcon {
@@ -581,6 +584,7 @@ select:focus {
   line-height: 24px;
   font-weight: 600;
   font-size: 16px;
+  color:#888daa;
 }
 .iconflagus {
   position: absolute;
@@ -671,5 +675,260 @@ select:focus {
 /* Normal button styles */
 
 
-/* Disabled button styles */
 
+/* Disabled button styles */
+@media (max-width:400px){
+  .btnmbBtnFab {
+    transform: translateY(-30%);
+  }
+}
+
+.shapeIcon {
+  position: absolute;
+  top: 550.05px;
+  left: 250px;
+  width: 150px;
+  height: 200.1px;
+  z-index: 1;
+  opacity: 0.8;
+  bottom: 10px; /* Adjust this to position it near the bottom */
+  right: 0px;
+  }
+
+  @media (max-width:420px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 262px;
+      width: 150px;
+      height: 200.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; /* Adjust this to position it near the bottom */
+      right: 0px;
+      }
+      .container{
+        height: 100vh;
+       }
+  }
+  @media (max-width:412px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 260px;
+      width: 150px;
+      height: 200.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; /* Adjust this to position it near the bottom */
+      right: 0px;
+      }
+      .container{
+        height: 100vh;
+       }
+  }
+  @media (max-width:431px) and (min-width:425px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 280px;
+      width: 150px;
+      height: 200.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; /* Adjust this to position it near the bottom */
+      right: 0px;
+      }
+      .container{
+        height: 100vh;
+       }
+  }
+
+  @media (max-width:391px) and (min-width:385px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 240px;
+      width: 150px;
+      height: 170.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; /* Adjust this to position it near the bottom */
+      right: 0px;
+      }
+      .btnmbBtnFab {
+        transform: translateY(20%);
+      }
+  }
+
+  @media (max-width:361px) and (min-width:355px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 210px;
+      width: 150px;
+      height: 125.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; /* Adjust this to position it near the bottom */
+      right: 0px;
+      }
+      /* .btnmbBtnFab {
+        transform: translateY(20%);
+      } */
+       .container{
+        height: 100vh;
+       }
+  }
+
+  @media (max-width:377px) and (min-width:370px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 225px;
+      width: 150px;
+      height: 125.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; /* Adjust this to position it near the bottom */
+      right: 0px;
+      }
+      
+       .container{
+        height: 110vh;
+       }
+  }
+
+  @media (max-width:350px) and (min-width:340px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 193px;
+      width: 150px;
+      height: 125.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; 
+      right: 0px;
+      }
+      
+       .container{
+        height: 100vh;
+       }
+  }
+  @media (max-width:769px)and (min-width:761px){
+    
+
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 570px;
+      width: 200px;
+      height: 150.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; 
+      right: 0px;
+      }
+      
+       
+  }
+  @media (max-width:821px)and (min-width:815px){
+    
+  
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 620px;
+      width: 200px;
+      height: 150.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; 
+      right: 0px;
+      }
+      
+       
+  }
+  @media (max-width:855px)and (min-width:850px){
+    
+  
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 650px;
+      width: 200px;
+      height: 150.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; 
+      right: 0px;
+      }
+      
+       
+  }
+  @media (max-width:541px)and (min-width:530px){
+    
+  
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 340px;
+      width: 200px;
+      height: 150.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; 
+      right: 0px;
+      }
+      
+       
+  }
+  @media (max-width:1024px)and (min-width:1020px){
+    
+  
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 822px;
+      width: 200px;
+      height: 150.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; 
+      right: 0px;
+      }
+      
+       
+  }
+  @media (max-width:913px)and (min-width:910px){
+    
+  
+    .shapeIcon {
+      position: absolute;
+      top: 550.05px;
+      left: 710px;
+      width: 200px;
+      height: 150.1px;
+      z-index: 1;
+      opacity: 0.8;
+      bottom: 10px; 
+      right: 0px;
+      }
+      
+       
+  }
