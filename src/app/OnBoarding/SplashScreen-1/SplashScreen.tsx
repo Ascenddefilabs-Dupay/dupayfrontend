@@ -16,9 +16,6 @@ const Oboarding:NextPage = () => {
     };
   	return (
     		<div className={styles.oboarding4}>
-      			{/* <div className={styles.homeScreenBackground}>
-        				<div className={styles.background} />
-      			</div> */}
 				
       			<div className={styles.carouselIndicator}>
         				
@@ -32,7 +29,7 @@ const Oboarding:NextPage = () => {
           					<span>The</span>
           					<span className={styles.future}>{` Future `}</span>
           					<span className={styles.of}>{`of `}</span>
-          					<span className={styles.future}>Money</span>
+          					<span className={styles.future1}>Money</span>
           					<span> is Here.</span>
         				</div>
         				<div className={styles.title1}>Step into the next generation of finance with Dupay.</div>

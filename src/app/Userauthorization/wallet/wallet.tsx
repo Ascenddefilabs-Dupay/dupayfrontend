@@ -7,6 +7,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IoMdWallet } from "react-icons/io";
 import { IoWallet } from "react-icons/io5";
 import styles from './wallet.module.css';
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
+
 
 const Wallet: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -44,9 +46,10 @@ const Wallet: React.FC = () => {
         <div>
             <div className={styles.container}>
                 {loading ? (
-                    <div className={styles.loaderContainer}>
-                        <div className={styles.loader}></div>
-                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                    {/* Show the Lottie loading animation */}
+                    <LottieAnimationLoading width="300px" height="300px" />
+                  </div>
                 ) : (
                     <>
                         <div>

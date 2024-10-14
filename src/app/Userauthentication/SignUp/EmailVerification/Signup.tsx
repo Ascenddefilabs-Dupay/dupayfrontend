@@ -381,10 +381,7 @@ export default function Home1() {
                     <span className={styles.account}>Login</span>
                   </Link></p>
               </div>
-              </div>
-              
-             
-                
+              </div>  
               </form>
             )}
             
@@ -403,7 +400,8 @@ export default function Home1() {
                         ref={el => {
                           inputRefs.current[index] = el;
                         }}
-                        type="text"
+                        // type="text"
+                        type="tel"
                         maxLength={1}
                         value={otp[index] || ''}
                         className={styles.otpInput}

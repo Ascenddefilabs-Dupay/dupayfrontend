@@ -327,7 +327,8 @@ export default function Login() {
                     <label htmlFor="otp">
                       Enter OTP
                       <input
-                        type="text"
+                        // type="text"
+                        type="tel" // Change this to 'tel' to open the numeric keypad
                         id="otp"
                         value={otp}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setOtp(e.target.value)}

@@ -1,4 +1,4 @@
-.loaderContainer {
+/* .loaderContainer {
     position: absolute;
     top: 0;
     left: 0;
@@ -28,7 +28,7 @@
     position: relative;
     z-index: 3;
     box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7);
-  }
+  } */
   
   .container {
     padding: 20px;
@@ -79,10 +79,10 @@
     margin-left: 10px;
   }
   
-  @keyframes spin {
+  /* @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
+  } */
   
   /* Small screens (up to 600px) */
   @media (max-width: 600px) {

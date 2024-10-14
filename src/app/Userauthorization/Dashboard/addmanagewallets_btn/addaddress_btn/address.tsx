@@ -5,6 +5,7 @@ import { useState, useEffect} from 'react';
 import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './address.module.css';
+import LottieAnimationLoading from '../../../../assets/LoadingAnimation';
 import { redirect } from 'next/navigation';
 
 
@@ -45,9 +46,10 @@ const Addaddress = () => {
 return(        
     <div className={styles.container}>
         {loading ? (
-        <div className={styles.loaderContainer}>
-        <div className={styles.loader}></div>
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
       ) : (
         <>
         <div className={styles.backButton}>

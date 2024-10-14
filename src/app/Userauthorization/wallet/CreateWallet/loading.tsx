@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import LottieAnimationLoading from '../../../assets/LoadingAnimation';
+
 
 const Loading: React.FC = () => {
   const [showLoading, setShowLoading] = useState(true);
@@ -18,8 +20,7 @@ const Loading: React.FC = () => {
 
   return (
     <div style={styles.loaderContainer}>
-      <div style={styles.loader}></div>
-      {/* <p style={styles.loadingText}>LOADING</p> */}
+      {/* <div style={styles.loader}></div>
       <style>{`
         @keyframes spin {
           0% { transform: rotate(45deg); }
@@ -39,7 +40,11 @@ const Loading: React.FC = () => {
             opacity: 1;
           }
         }
-      `}</style>
+      `}</style> */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
     </div>
   );
 };
