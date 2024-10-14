@@ -69,16 +69,16 @@ const Newsetting = () => {
 
         <div className={styles.searchparentnode} >
           <div className={styles.searchinput}>
-              <img className={styles.searchicon} alt="" src="/cancelicon.png" />
+              <img className={styles.searchicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/cancelicon_ib28js.png" />
               <div><input className={styles.searchlabel} type="text" placeholder="Enter crypto name, news etc.." onClick= {handleClearSearch}/></div>
-              <img className={styles.cancelsearchicon} alt="" src="/searchicon.png" />
+              <img className={styles.cancelsearchicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/searchicon_pcrmhm.png" />
           </div>
 
           <div className={styles.accountfolder} onClick={profileHandleClick}>
             <div className={styles.accountbody}>
                 <div className={styles.iconleft}>
                     <div className={styles.accountwa}>
-                        <img className={styles.accounticon} alt="" src="/profileicon.png" />
+                        <img className={styles.accounticon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/profileicon_lgk3al.png" />
                     </div>
                 </div>
                 <div className={styles.accounttext}>
@@ -86,7 +86,7 @@ const Newsetting = () => {
                         <div className={styles.accounttitle}>Account</div>
                     </div>
                 </div>
-                <img className={styles.accounticonrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.accounticonrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -94,7 +94,7 @@ const Newsetting = () => {
             <div className={styles.walletbody}>
                 <div className={styles.walleticonleft}>
                     <div className={styles.walletwa}>
-                        <img className={styles.walleticon} alt="" src="/walleticon.png" />
+                        <img className={styles.walleticon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887446/walleticon_k19n0w.png" />
                     </div>
                 </div>
                 <div className={styles.wallettext}>
@@ -102,7 +102,7 @@ const Newsetting = () => {
                         <div className={styles.wallettitle}>Wallets</div>
                     </div>
                 </div>
-                <img className={styles.walleticonrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.walleticonrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -110,7 +110,7 @@ const Newsetting = () => {
             <div className={styles.mobilebody}>
                 <div className={styles.mobileiconleft}>
                     <div className={styles.mobilewa}>
-                        <img className={styles.mobileicon} alt="" src="/mobileicon.png" />
+                        <img className={styles.mobileicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887446/mobileicon_g5ojfj.png" />
                     </div>
                 </div>
                 <div className={styles.mobiletext}>
@@ -118,7 +118,7 @@ const Newsetting = () => {
                         <div className={styles.mobiletitle}>Simple Mode</div>
                     </div>
                 </div>
-                <img className={styles.mobileiconrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.mobileiconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -126,7 +126,7 @@ const Newsetting = () => {
             <div className={styles.worldbody}>
                 <div className={styles.worldiconleft}>
                     <div className={styles.worldwa}>
-                        <img className={styles.worldicon} alt="" src="/worldicon.png" />
+                        <img className={styles.worldicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887446/worldicon_vequ4e.png" />
                     </div>
                 </div>
                 <div className={styles.worldtext}>
@@ -134,7 +134,7 @@ const Newsetting = () => {
                         <div className={styles.worldtitle}>Networks</div>
                     </div>
                 </div>
-                <img className={styles.worldiconrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.worldiconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -142,7 +142,7 @@ const Newsetting = () => {
             <div className={styles.lockbody}>
                 <div className={styles.lockiconleft}>
                     <div className={styles.lockwa}>
-                        <img className={styles.lockicon} alt="" src="/lockicon.png" />
+                        <img className={styles.lockicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/lockicon_ga39jp.png" />
                     </div>
                 </div>
                 <div className={styles.locktext}>
@@ -150,7 +150,7 @@ const Newsetting = () => {
                         <div className={styles.locktitle}>Security</div>
                     </div>
                 </div>
-                <img className={styles.lockiconrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.lockiconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -158,7 +158,7 @@ const Newsetting = () => {
             <div className={styles.moonbody}>
                 <div className={styles.lmooniconleft}>
                     <div className={styles.moonwa}>
-                        <img className={styles.moonicon} alt="" src="/moonicon.png" />
+                        <img className={styles.moonicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887446/moonicon_hml4j6.png" />
                     </div>
                 </div>
                 <div className={styles.moontext}>
@@ -166,7 +166,7 @@ const Newsetting = () => {
                         <div className={styles.moontitle}>Display mode</div>
                     </div>
                 </div>
-                <img className={styles.mooniconrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.mooniconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -174,7 +174,7 @@ const Newsetting = () => {
             <div className={styles.bellbody}>
                 <div className={styles.belliconleft}>
                     <div className={styles.bellwa}>
-                        <img className={styles.bellicon} alt="" src="/bellicon.png" />
+                        <img className={styles.bellicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/bellicon_k0xdcv.png" />
                     </div>
                 </div>
                 <div className={styles.belltext}>
@@ -182,7 +182,7 @@ const Newsetting = () => {
                         <div className={styles.belltitle}>Notifications</div>
                     </div>
                 </div>
-                <img className={styles.belliconrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.belliconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -190,7 +190,7 @@ const Newsetting = () => {
             <div className={styles.voicebody}>
                 <div className={styles.voiceiconleft}>
                     <div className={styles.voicewa}>
-                        <img className={styles.voiceicon} alt="" src="/voiceicon.png" />
+                        <img className={styles.voiceicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887446/voiceicon_et6i0r.png" />
                     </div>
                 </div>
                 <div className={styles.voicetext}>
@@ -198,7 +198,7 @@ const Newsetting = () => {
                         <div className={styles.voicetitle}>Get Help</div>
                     </div>
                 </div>
-                <img className={styles.iconrightarrow} alt="" src="/iconright.png" />
+                <img className={styles.iconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -209,7 +209,7 @@ const Newsetting = () => {
                       <div className={styles.termtitle}>Terms and services</div>
                   </div>
               </div>
-              <img className={styles.termicon} alt="" src="/iconright.png" />
+              <img className={styles.termicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
           
@@ -221,7 +221,7 @@ const Newsetting = () => {
                   <div className={styles.privacytitle}>Privacy policy</div>
                 </div>
               </div>
-                <img className={styles.privacyicon} alt="" src="/iconright.png" />
+                <img className={styles.privacyicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
 
@@ -229,7 +229,7 @@ const Newsetting = () => {
             <div className={styles.signoutbody}>
               <div className={styles.signouticonLeft}>
                 <div className={styles.signoutWr}>
-                    <img className={styles.signouticon} alt="" src="/signout.png" />
+                    <img className={styles.signouticon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887446/signout_od3z4e.png" />
                 </div>
               </div>
               <div className={styles.signouttext}>
@@ -237,12 +237,11 @@ const Newsetting = () => {
                     <div className={styles.signouttitle}>Sign out</div>
                 </div>
               </div>
-              <img className={styles.signouticonarrowRightSent} alt="" src="/iconright.png" />
+              <img className={styles.signouticonarrowRightSent} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
             </div>
           </div>
         </div>
-      </div>  
-
+      </div>
     );
 };
 
