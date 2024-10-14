@@ -593,7 +593,7 @@ const handleRefresh =()=>{
        {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
         {/* Show the Lottie loading animation */}
-        <LottieAnimationLoading width="300px" height="300px" />
+        <LottieAnimationLoading  />
       </div>
       ) : (
         <>

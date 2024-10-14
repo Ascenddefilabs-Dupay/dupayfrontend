@@ -94,7 +94,7 @@ const MWEB: NextPage = () => {
         <div className={styles.titleParent}>
           <div className={styles.title}>
             <span className={styles.buySell}>Buy, Sell</span>
-            {`, `}
+            {`  `}
             <span>{`&`}</span>
             {` `}
             <span className={styles.buySell}>Manage</span>
