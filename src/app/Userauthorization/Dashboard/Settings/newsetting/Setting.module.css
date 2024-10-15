@@ -4,7 +4,6 @@
 
 /* font-family: 'SF Pro',sans-serif;
 font-family: 'Poppins',sans-serif; */
-
 .settingprofile {
   width: 100%;
   max-width: 400px;
@@ -23,6 +22,7 @@ font-family: 'Poppins',sans-serif; */
 
 .settings {
   position: absolute;
+  justify-content: space-between;
   top: 10px;
   left: 0px;
   background-color: #17171a;
@@ -32,28 +32,31 @@ font-family: 'Poppins',sans-serif; */
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   padding: 0px 16px;
   box-sizing: border-box;
   font-size: 18px;
-  
 }
 
 .settings_back_label {
-  align-self: stretch;
-  position: relative;
+  flex: 1; 
+  text-align: center; 
   line-height: 28px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-right: 35px;
+  margin-bottom: 5px;
+}
+
+.notify_icon{
+  margin-right: 10px;
+  cursor: pointer;
+  color: #fff;
 }
 
 
 .searchparentnode{
   position: absolute;
   top: 60px;
-  left: 24px;
+  left: 19px;
   max-width: 363px;
   width: 100%;
   display: flex;
@@ -83,6 +86,7 @@ font-family: 'Poppins',sans-serif; */
   position: absolute;
   top: calc(50% - 23px);
   left: 48px;
+  width: 250px;
   line-height: 24px;
   font-weight: 600;
   background-color: rgba(0, 0, 0, 0);
@@ -1002,3 +1006,69 @@ font-family: 'Poppins',sans-serif; */
     height: 48px;
   }
 } */
+
+
+.searchempty {
+  width: var(--screen-width, 430px);
+  height: 812px;
+  background: var(--Gray-24, #17171A);
+}
+
+.noResultsFound {
+  position: absolute;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: Poppins;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 300;
+  top: 355px;
+  left: 110px;
+  font-size: 19px;
+  line-height: 56px;
+  background: var(--Purple_pink, linear-gradient(180deg, #E34D67 0%, #7746F4 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.searchemptychild {
+  position: absolute;
+  top: 276px;
+  left: 140px;
+  width: 80px;
+  height: 80px;
+}
+
+.searchemptydot1{
+  position: absolute;
+  top: 305px;
+  left: 165px;
+  width: 3px;
+  height: 3px;
+  flex-shrink: 0;
+  fill: #C54C8F;
+}
+
+.searchemptydot2{
+  position: absolute;
+  top: 305px;
+  left: 185px;
+  width: 3px;
+  height: 3px;
+  flex-shrink: 0;
+  fill: #C54C8F;
+}
+
+.searchemptysmile{
+  position: absolute;
+  top: 320px;
+  left: 165px;
+  border-radius: 1px;
+  width: 23px;
+  height: 6px;
+  flex-shrink: 0;
+  stroke-width: 2px;
+  stroke: #C54C8F;
+}
