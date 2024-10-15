@@ -39,17 +39,23 @@
 }
 .update{
   background: linear-gradient(91.26deg, #45F0D1 0%, #76E268 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 40px;
 }
 .subtext{
   color: #FFFFFF;
   font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+}
+.updatetext{
+  position: relative;
+  top: -50px;
 }
 .subcard{
    background: var(--Gray-24, #17171A);
    width:110%;
+   max-width: 430px;
    position: relative;
    left: -20px;
    height: auto;
@@ -84,21 +90,6 @@
   margin-top: 5px;
   font-size: 16px;
 }
-
-
-/* .create-wallet-button {
-  display: block;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #FFFFFF;
-  width:90%;
-  transition: all .4s ease;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
-} */
 .existing-wallet-button2{
   display: block;
   padding: 10px 20px;
@@ -136,9 +127,20 @@
     height: auto;
     border-radius: 50px 50px 0px 0px;
     display: grid;
-    gap: 25px;
+    gap: 30px;
     bottom: 0px;
  }
+ .subcard4{
+  margin-bottom: 40px;
+  }
+  .subcard1{
+    margin-top: 40px;
+  }
+  .updatetext{
+    position: fixed;
+    top: 35%;
+    left: 30%;
+  }
 }
 
 
