@@ -523,6 +523,13 @@ const AddAccount = () => {
             </div><br/>
             <div className='subcard'>
               <div className='subcard1'>
+             <div  className='backbutton'>
+             <button onClick={handleClose}>
+              <svg width="24" height="44" viewBox="0 0 24 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 18L10 22L14 26" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+             </div>
               <svg width="137" height="50" viewBox="0 0 137 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="25" cy="25" r="25" fill="url(#paint0_linear_2012_7963)" />
                 <path d="M19.1019 37.6812H16.9419C16.3896 37.6812 15.9419 37.2334 15.9419 36.6812V18.9782C15.9419 18.4259 16.388 17.9782 16.9403 17.9782H25.7178C27.1738 17.9782 32.7897 19.2358 32.7897 25.1048C32.7897 30.9738 29.0458 32.441 25.7178 32.441H22.7649C22.2127 32.441 21.7658 31.9933 21.7658 31.441V29.4585C21.7658 28.9062 22.2135 28.4585 22.7658 28.4585H25.7178C28.6298 28.4585 29.0458 26.1528 29.0458 25.1048C29.0458 24.0568 28.4218 21.9607 25.7178 21.9607H20.1019V36.6812C20.1019 37.2335 19.6541 37.6812 19.1019 37.6812Z" fill="white" />

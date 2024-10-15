@@ -116,6 +116,12 @@
   border-radius: 8px;
   background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
 }
+.backbutton{
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+  left: 20px;
+}
 
 
 @media (max-width:438px) {
