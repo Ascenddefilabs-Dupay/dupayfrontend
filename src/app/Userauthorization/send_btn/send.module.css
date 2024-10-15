@@ -92,7 +92,7 @@
     color: white;
     font-weight: bold;
     border: none;
-    width: calc(100% - 150px);
+    width: calc(100% - 100px);
     border-radius: 5px;
     cursor: pointer;
 }

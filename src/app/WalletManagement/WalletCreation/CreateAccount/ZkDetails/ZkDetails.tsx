@@ -65,6 +65,7 @@ function ZkDetails() {
   const [modalContent, setModalContent] = useState<string>(" ");
   const [balances, setBalances] = useState<Map<string, number>>(new Map());
   const [userId, setUserId] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [walletId, setWalletId] = useState("");
   const [resultAddress, setResultAddress] = useState<string | null>(null);
@@ -88,8 +89,9 @@ function ZkDetails() {
       if (sessionDataString) {
         const sessionData = JSON.parse(sessionDataString);
         const storedUserId: string = sessionData.user_id;
-        setUserId(storedUserId);
-        console.log(storedUserId);
+        setId(sessionData.user_id);
+        console.log("User ID:",sessionData.user_id);
+        console.log(id);
         console.log(sessionData.user_email);
   
         // Ensure accounts exist and fetch the wallet ID
@@ -107,7 +109,15 @@ function ZkDetails() {
   
   useEffect(() => {
     
-    const timer = setTimeout(() => {
+    const timer = setTimeout(async () => {
+
+      // Save account data before redirection
+      if (accounts.current && accounts.current.length > 0) {
+        const account = accounts.current[0]; // Assuming we are saving the first account
+        await saveAccount(account); // Call the save function before redirection
+      }
+
+
       router.push("/Userauthorization/Dashboard/Home");
     }, 7000); 
   
@@ -396,8 +406,21 @@ function ZkDetails() {
 
   async function saveAccount(account: AccountData): Promise<void> {
     const newWalletId = await generateWalletId();
-    const user_id = userId
-    console.log(user_id);
+    // const user_id = userId;
+    // console.log(user_id);
+
+    const sessionDataString = window.localStorage.getItem('session_data');
+    let user_id = null;
+    if (sessionDataString) {
+      const sessionData = JSON.parse(sessionDataString);
+      user_id = sessionData.user_id;
+    }
+
+    if (!user_id) {
+      console.error("User ID not found in localStorage");
+      return;  // Optionally handle the case where user_id is not available
+    }
+
     // const newAccounts = [account];
     const newAccounts = [
       {
