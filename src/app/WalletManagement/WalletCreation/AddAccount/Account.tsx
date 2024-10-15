@@ -102,7 +102,7 @@ const AddAccount: React.FC = () => {
                 </defs>
               </svg>
             </div>
-            <div>
+            <div className='updatetext'>
               <label className='update'>Updated!</label><br/>
               <label className='subtext'>Proceed to create a wallet</label>
             </div><br/>
