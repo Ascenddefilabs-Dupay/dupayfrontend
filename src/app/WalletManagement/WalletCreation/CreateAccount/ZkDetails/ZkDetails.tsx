@@ -109,7 +109,7 @@ function ZkDetails() {
     
     const timer = setTimeout(() => {
       router.push("/Userauthorization/Dashboard/Home");
-    }, 1000); 
+    }, 7000); 
   
     return () => clearTimeout(timer);
   }, [router]);
@@ -458,8 +458,8 @@ function ZkDetails() {
         <div className={styles.join_text}>
           Wallet Address: <span className={styles.wallet_id}>{shortenAddress(walletId)}</span>
         </div>
-        <img className={styles.signwallet} alt="" src="/base.png" />
-        <img className={styles.checkwallet} alt="" src="/check.png" />
+        <img className={styles.signwallet} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727935592/86d91837-f818-483b-9da1-7e3030270e2a.png" />
+        <img className={styles.checkwallet} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727935639/ebfcf71e-db0c-47ef-900f-be09099dc2af.png" />
       </div>
     </div>
 
