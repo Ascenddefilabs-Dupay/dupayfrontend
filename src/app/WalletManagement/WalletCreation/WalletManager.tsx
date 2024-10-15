@@ -44,7 +44,7 @@ const WalletManager: React.FC = () => {
   return (
     <div className="wallet-manager">
       {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'430px' , backgroundColor: 'black'}}>
         {/* Show the Lottie loading animation */}
         <LottieAnimationLoading width="300px" height="300px" />
       </div>

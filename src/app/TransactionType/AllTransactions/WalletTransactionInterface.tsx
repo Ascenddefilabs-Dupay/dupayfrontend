@@ -61,8 +61,8 @@ const WalletTransaction: React.FC = () => {
 useEffect(() => {
   const fetchWalletAmount = async () => {
     try {
-      // const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
-        const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-wallet-amount/', {
+      const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
+        // const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-wallet-amount/', {
         wallet_id: walletId,
         currency: currency,
       });
@@ -83,8 +83,8 @@ useEffect(() => {
 
   const fetchCurrencyIcon = async () => {
     try {
-      // const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
-        const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-currency-icon/', {
+      const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+        // const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-currency-icon/', {
         currency: currency,
       });
 
@@ -204,7 +204,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               return;
           }
 
-          const validationResponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
+          const validationResponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               user_phone_number: mobileNumber,
@@ -219,7 +219,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               const paymentSuccess = await initiateRazorpayPayment(amount,currency);
               console.log('Payment success:', paymentSuccess); // Log payment result
               if (paymentSuccess) {
-                  const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
+                  const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
                       transaction_type: 'Debit',
                       transaction_amount: amount,
                       transaction_currency: fixedCurrency,
@@ -244,7 +244,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
               return;
           }
 
-          const Addressresponse = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
+          const Addressresponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               fiat_address: walletAddress,
@@ -266,7 +266,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
               if (paymentSuccess) {
                   try {
-                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
+                      await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
                           transaction_amount: amount,
                           transaction_currency: fixedCurrency,
                           transaction_type: 'Transfer',
@@ -303,7 +303,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           setMobileNumber(extractedMobileNumber);
           console.log('Extracted mobile number from QR code:', extractedMobileNumber); // Log extracted number
 
-          const response = await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validation-qrcode/', {
+          const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validation-qrcode/', {
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
               user_phone_number: mobileNumber,
@@ -330,7 +330,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
               if (paymentSuccess) {
                   try {
-                      await axios.post('http://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qrcode/', {
+                      await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qrcode/', {
                           transaction_type: 'Debit',
                           transaction_amount: amount,
                           transaction_currency: fixedCurrency,
@@ -434,191 +434,176 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
   return (
     <div className="wallet-transaction">
-      <div className='setting_back_icon'>
-        {showLoader && (
-           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
-           {/* Show the Lottie loading animation */}
-           <LottieAnimationLoading width="300px" height="300px" />
-         </div>
-        )}
-        {alertMessage && (
-          <div className="customAlert">
-            <p>{alertMessage}</p>
-            <button onClick={() => setAlertMessage('')} className="closeButton">OK</button>
-          </div>
-        )}
-  
-        <div className="back" >
-          <div onClick={handleBackClick} style={{ cursor: 'pointer' }} className='backarrow'>
-            <img
-                  className='iconarrowLeftBack'
-                  alt=""
-                  src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067208/1826c340-1853-453d-9ad0-6cafb099b947.png"
-                />
-              {/* <button onClick={handleBackClick}><ArrowBackIcon /></button> */}
-              </div>
-            <h2 className='form-heading'>Transfer Fiat {currency}</h2>
-       
+  <div className='setting_back_icon'>
+    {showLoader && (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh', width: '400px', backgroundColor: 'black' }}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
+    )}
+    {alertMessage && (
+      <div className="customAlert">
+        <p>{alertMessage}</p>
+        <button onClick={() => setAlertMessage('')} className="closeButton">OK</button>
+      </div>
+    )}
+
+    <div className="back">
+      <div onClick={handleBackClick} style={{ cursor: 'pointer' }} className='backarrow'>
+        <img
+          className='iconarrowLeftBack'
+          alt=""
+          src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727067208/1826c340-1853-453d-9ad0-6cafb099b947.png"
+        />
+      </div>
+      <h2 className='form-heading'>Transfer Fiat {currency}</h2>
+    </div>
+  </div>
+
+  <div className="form-container">
+    <form onSubmit={handleSubmit}>
+
+      <div className={"content2"}>
+        <div className={"content1"}>
+          {flagIconUrl && (<img className={"flagicon"} alt="" src={flagIconUrl} />)}
+          <div className={"title"}>Total {currency}</div>
+        </div>
+        <div className={"title1"}>
+          {walletAmount !== null ? `${walletAmount} ${currency}` : `0 ${currency}`}
         </div>
       </div>
-  
-      {/* <div className="wallet-form-container"> */}
-        <div className="form-container">
-          <form onSubmit={handleSubmit}>
 
-            <div className={"content2"}>
-              <div className={"content1"}>
-                {flagIconUrl && (<img className={"flagicon"} alt="" src={flagIconUrl} />)}
-                <div className={"title"}>Total {currency}</div>
-              </div>
-              <div className={"title1"}>
-                {walletAmount !== null ? `${walletAmount} ${currency}` : `0 ${currency}`}
-              </div>
-            </div>
-            
-            
+      <div className="form-grouppayment-method-group">
+        <label htmlFor="paymentMethod">Payment Through</label>
+        <select
+          id="paymentMethod"
+          value={paymentMethod}
+          onChange={handlePaymentMethodChange}
+          required
+        >
+          <option value="" disabled className="select-option">Select Payment Method</option>
+          <option value="mobile" className="select-option">Through Mobile Number</option>
+          <option value="walletAddress" className="select-option">Through Wallet Address</option>
+          <option value="qrcode" className="select-option">Through QR Code</option>
+        </select>
+      </div>
 
-  
-          <div className="form-grouppayment-method-group">
-            <label htmlFor="paymentMethod">Payment Through</label>
-            <select
-              id="paymentMethod"
-              value={paymentMethod}
-              onChange={handlePaymentMethodChange}
+      {/* QR Code Scanner */}
+      {scanning && (
+        <div className="scanner">
+          <QrReader
+            onResult={handleScanResult}
+            constraints={{ facingMode: 'environment' }}
+            videoStyle={{ width: '100%' }}
+          />
+        </div>
+      )}
+
+      {/* Show additional fields based on payment method */}
+      {!scanning && paymentMethod === 'mobile' && (
+        <div className="form-group">
+          <div className="form-group">
+            <label htmlFor="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
               required
-            >
-              <option value="" disabled className="select-option">Select Payment Method</option>
-              <option value="mobile" className="select-option">Through Mobile Number</option>
-              <option value="walletAddress" className="select-option">Through Wallet Address</option>
-              <option value="qrcode" className="select-option">Through QR Code</option>
-            </select>
+            />
           </div>
-  
-            {/* QR Code Scanner */}
-            {scanning && (
-              <div className="scanner">
-                <QrReader
-                  onResult={handleScanResult}
-                  constraints={{ facingMode: 'environment' }}
-                  videoStyle={{ width: '100%' }}
-                />
-              </div>
-            )}
-  
-            {/* Show additional fields based on payment method */}
-            {!scanning && paymentMethod === 'mobile' && (
-              <div className="form-group">
-                <div className="form-group">
-                  <label htmlFor="amount">Amount</label>
-                  <input
-                    type="number"
-                    id="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className='button_class_div'>
-                  <button className='button_class' type="submit">Submit</button>
-                </div>
-                <label htmlFor="mobileNumber">Mobile Number</label>
-                <input
-                  type="text"
-                  id="mobileNumber"
-                  value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                  required
-                />
-              </div>
-            )}
-  
-            {!scanning && paymentMethod === 'walletAddress' && (
-              
-              <div className="form-group">
-                <div className="form-group">
-                  <label htmlFor="amount">Amount</label>
-                  <input
-                    type="number"
-                    id="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className='button_class_div'>
-                  <button className='button_class' type="submit">Submit</button>
-                </div>
-                <label htmlFor="walletAddress">Wallet Address</label>
-                <input
-                  type="text"
-                  id="walletAddress"
-                  value={walletAddress}
-                  onChange={(e) => setWalletAddress(e.target.value)}
-                  required
-                />
-              </div>
-            )}
-  
-            {/* Show amount input and submit button based on payment method */}
-            {/* {((paymentMethod && paymentMethod !== 'qrcode') || scannedData) && ( */}
-              <>
-                {/* <div className="form-group">
-                  <label htmlFor="amount">Amount</label>
-                  <input
-                    type="number"
-                    id="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className='button_class_div'>
-                  <button className='button_class' type="submit">Submit</button>
-                </div> */}
-              </>
-            {/* )} */}
-          </form>
-          {alertMessage && (
-            <div className="alert">
-              <span>{alertMessage}</span>
-              <button onClick={handleCloseAlert}>Close</button>
-            </div>
-          )}
-          {message && <div className="message">{message}</div>}
+          <div className='button_class_div'>
+            <button 
+              className='button_class' 
+              type="submit" 
+              disabled={!amount} 
+            >
+              Submit
+            </button>
+          </div>
+          <label htmlFor="mobileNumber">Mobile Number</label>
+          <input
+            type="text"
+            id="mobileNumber"
+            value={mobileNumber}
+            onChange={(e) => setMobileNumber(e.target.value)}
+            required
+          />
         </div>
-      {/* </div> */}
-      
-      <div className='bottom-design'>
-          <svg width="234" height="330" viewBox="0 0 234 330" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M155.2 126.059C155.612 147.056 160.789 163.422 165.605 173.448C168.138 178.722 174.292 180.855 179.599 178.392C202.392 167.814 216.607 145.741 222.941 128.901C225.604 121.819 220.569 114.751 213.057 113.846C193.797 111.525 179.192 112.085 167.693 112.904C160.705 113.403 155.063 119.055 155.2 126.059Z" fill="url(#paint0_linear_2006_7570)" />
-            <path d="M269.704 7.67764C205.104 10.1973 154.766 64.8036 157.296 129.666C159.826 194.529 214.264 245.049 278.864 242.529C343.465 240.01 393.802 185.403 391.272 120.54C388.742 55.6777 334.305 5.15799 269.704 7.67764Z" stroke="url(#paint1_linear_2006_7570)" stroke-width="6" />
-            <circle cx="179.717" cy="179.717" r="176.717" transform="matrix(-0.0389741 -0.99924 -0.99924 0.0389741 373.168 461.044)" stroke="url(#paint2_linear_2006_7570)" stroke-width="6" />
-            <circle cx="85" cy="85" r="82" transform="matrix(1 0 0 -1 59 188.831)" stroke="url(#paint3_linear_2006_7570)" stroke-width="6" />
-            <defs>
-              <linearGradient id="paint0_linear_2006_7570" x1="155.001" y1="169.053" x2="155.001" y2="130.553" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FF89C2" />
-                <stop offset="0.5" stop-color="#F65BA4" />
-                <stop offset="1" stop-color="#BD46F4" />
-              </linearGradient>
-              <linearGradient id="paint1_linear_2006_7570" x1="355.401" y1="74.8776" x2="149.438" y2="155.856" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#E34D67" />
-                <stop offset="0.5" stop-color="#FF67E0" />
-                <stop offset="1" stop-color="#7746F4" />
-              </linearGradient>
-              <linearGradient id="paint2_linear_2006_7570" x1="249.844" y1="55.4737" x2="140.44" y2="367.975" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#E34D67" />
-                <stop offset="0.5" stop-color="#FF67E0" />
-                <stop offset="1" stop-color="#7746F4" />
-              </linearGradient>
-              <linearGradient id="paint3_linear_2006_7570" x1="118.168" y1="26.2372" x2="66.4236" y2="174.04" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#E34D67" />
-                <stop offset="0.5" stop-color="#FF67E0" />
-                <stop offset="1" stop-color="#7746F4" />
-              </linearGradient>
-            </defs>
-          </svg>
+      )}
+
+      {!scanning && paymentMethod === 'walletAddress' && (
+        <div className="form-group">
+          <div className="form-group">
+            <label htmlFor="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              required
+            />
+          </div>
+          <div className='button_class_div'>
+            <button 
+              className='button_class' 
+              type="submit" 
+              disabled={!amount}  // Disable if amount is empty
+            >
+              Submit
+            </button>
+          </div>
+          <label htmlFor="walletAddress">Wallet Address</label>
+          <input
+            type="text"
+            id="walletAddress"
+            value={walletAddress}
+            onChange={(e) => setWalletAddress(e.target.value)}
+            required
+          />
         </div>
-    </div>
+      )}
+    </form>
+    {alertMessage && (
+      <div className="alert">
+        <span>{alertMessage}</span>
+        <button onClick={handleCloseAlert}>Close</button>
+      </div>
+    )}
+    {message && <div className="message">{message}</div>}
+  </div>
+
+  <div className='bottom-design'>
+    <svg  width="190" height="230" viewBox="0 0 234 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M155.2 126.059C155.612 147.056 160.789 163.422 165.605 173.448C168.138 178.722 174.292 180.855 179.599 178.392C202.392 167.814 216.607 145.741 222.941 128.901C225.604 121.819 220.569 114.751 213.057 113.846C193.797 111.525 179.192 112.085 167.693 112.904C160.705 113.403 155.063 119.055 155.2 126.059Z" fill="url(#paint0_linear_2006_7570)" />
+      <path d="M269.704 7.67764C205.104 10.1973 154.766 64.8036 157.296 129.666C159.826 194.529 214.264 245.049 278.864 242.529C343.465 240.01 393.802 185.403 391.272 120.54C388.742 55.6777 334.305 5.15799 269.704 7.67764Z" stroke="url(#paint1_linear_2006_7570)" stroke-width="6" />
+      <circle cx="179.717" cy="179.717" r="176.717" transform="matrix(-0.0389741 -0.99924 -0.99924 0.0389741 373.168 461.044)" stroke="url(#paint2_linear_2006_7570)" stroke-width="6" />
+      <circle cx="85" cy="85" r="82" transform="matrix(1 0 0 -1 59 188.831)" stroke="url(#paint3_linear_2006_7570)" stroke-width="6" />
+      <defs>
+        <linearGradient id="paint0_linear_2006_7570" x1="155.001" y1="169.053" x2="155.001" y2="130.553" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#FF89C2" />
+          <stop offset="0.5" stop-color="#F65BA4" />
+          <stop offset="1" stop-color="#BD46F4" />
+        </linearGradient>
+        <linearGradient id="paint1_linear_2006_7570" x1="355.401" y1="74.8776" x2="149.438" y2="155.856" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#E34D67" />
+          <stop offset="0.5" stop-color="#FF67E0" />
+          <stop offset="1" stop-color="#7746F4" />
+        </linearGradient>
+        <linearGradient id="paint2_linear_2006_7570" x1="249.844" y1="55.4737" x2="140.44" y2="367.975" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#E34D67" />
+          <stop offset="0.5" stop-color="#FF67E0" />
+          <stop offset="1" stop-color="#7746F4" />
+        </linearGradient>
+        <linearGradient id="paint3_linear_2006_7570" x1="118.168" y1="26.2372" x2="66.4236" y2="174.04" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#E34D67" />
+          <stop offset="0.5" stop-color="#FF67E0" />
+          <stop offset="1" stop-color="#7746F4" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+</div>
   );
   
 };

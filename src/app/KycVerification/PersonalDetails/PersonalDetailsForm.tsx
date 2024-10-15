@@ -522,7 +522,7 @@ const PersonalDetailsForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(`Field: ${name}, Value: ${value}`);
+    // console.log(`Field: ${name}, Value: ${value}`);
     setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     validateField(name as keyof FormData, value);
   };
@@ -559,8 +559,8 @@ const PersonalDetailsForm: React.FC = () => {
       const phoneNumber = `${cleanedCountryCode}${formData.mobileNumber}`.replace(/\s+/g, '');
 
       // Print country code and combined phone number
-      console.log('Cleaned Country Code:', cleanedCountryCode);
-      console.log('Combined Phone Number:', phoneNumber);
+      // console.log('Cleaned Country Code:', cleanedCountryCode);
+      // console.log('Combined Phone Number:', phoneNumber);
 
       
       try {
@@ -581,9 +581,7 @@ const PersonalDetailsForm: React.FC = () => {
             'Content-Type': 'application/json',
           },
         });
-        setMessage('Personal details submitted successfully!');
-        // setShowAlert(true);
-        setRedirect(true);
+        
          // Call the method to handle loading and navigate after a successful submission
         setFormData({
           firstName: '',
@@ -599,6 +597,8 @@ const PersonalDetailsForm: React.FC = () => {
           countryCode: '+1' // Reset country code
           
         });
+        setMessage('Personal details submitted successfully!');
+        setRedirect(true);
         setLoading(true);
           router.push('/WalletManagement/WalletCreation');
         
@@ -624,15 +624,14 @@ const PersonalDetailsForm: React.FC = () => {
   return (
     <div className={styles.formContainer}>
       {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh',width: '430px' , backgroundColor: 'black', margin: '0 auto'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh',width: '430px' , backgroundColor: 'black', margin: '0 auto'}}>
         {/* Show the Lottie loading animation */}
         <LottieAnimationLoading width="300px" height="300px" />
       </div>
       ) : (
         <>
       <header>
-        <link href="https://fonts.googleapis.com/css?family=Poppins;
-" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Poppins;" rel="stylesheet" />
       </header>
       {/* {showAlert && <CustomAlert message={message} onClose={closeAlert} />} */}
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -751,9 +750,11 @@ const PersonalDetailsForm: React.FC = () => {
           Mobile number
         </label>
         <input
-          type="text"
+          type="tel"
           name="mobileNumber"
           id="mobileNumber"
+          inputMode="tel"
+          pattern="[0-9]+"
           value={formData.mobileNumber}
           onChange={handleChange}
           className={`${styles.inputMobile} ${styles.autofill}`} // Add the autofill class here
@@ -769,7 +770,7 @@ const PersonalDetailsForm: React.FC = () => {
 
         <div className={styles.formGroup}>
           <div className={styles.inputinput2}>
-          <label htmlFor="dateOfBirth" style={style} className={styles.label215}>Date of Birth</label>
+          <label htmlFor="dob" style={style} className={styles.label215}>Date of Birth</label>
           <input
             type="date"
             name="dob"
@@ -801,19 +802,20 @@ const PersonalDetailsForm: React.FC = () => {
         </div>
 
         <div className={styles.formGroup}>
-  <div className={styles.inputinput3}> {/* Updated class name for Address line 2 */}
-    <input 
-      type="text"
-      name="addressLine2"
-      value={formData.addressLine2}
-      onChange={handleChange}
-      className={styles.input2} 
-    />
-    <label htmlFor="addressLine2" className={styles.label3}> {/* Updated class name */}
-      Address line 2 (Optional)
-    </label>
-  </div>
-</div>
+          <div className={styles.inputinput2}> {/* Updated class name for Address line 2 */}
+            <input 
+              type="text"
+              name="addressLine2"
+              value={formData.addressLine2}
+              onChange={handleChange}
+              className={styles.input}
+              required 
+            />
+            <label htmlFor="addressLine2" className={styles.label2}> {/* Updated class name */}
+              Address line 2
+            </label>
+          </div>
+        </div>
 
         <div className={styles.formGroup}>
          
