@@ -369,6 +369,8 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './PersonalDetailsForm.module.css';
 import DropdownWithSearch from './DropdownWithSearch';
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
+
 import { fontSize, width } from '@mui/system';
 
 interface FormData {
@@ -518,12 +520,6 @@ const PersonalDetailsForm: React.FC = () => {
     setErrors(prevErrors => ({ ...prevErrors, [name]: error }));
   }, []);
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
-  //   validateField(name as keyof FormData, value);
-  // };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     console.log(`Field: ${name}, Value: ${value}`);
@@ -586,8 +582,9 @@ const PersonalDetailsForm: React.FC = () => {
           },
         });
         setMessage('Personal details submitted successfully!');
-        setShowAlert(true);
+        // setShowAlert(true);
         setRedirect(true);
+         // Call the method to handle loading and navigate after a successful submission
         setFormData({
           firstName: '',
           lastName: '',
@@ -600,7 +597,13 @@ const PersonalDetailsForm: React.FC = () => {
           postalCode: '',
           country: '',
           countryCode: '+1' // Reset country code
+          
         });
+        setLoading(true);
+          router.push('/WalletManagement/WalletCreation');
+        
+        
+              
       } catch (error) {
         console.error('Error submitting personal details:', error);
         setMessage('Error submitting personal details. Please try again.');
@@ -620,17 +623,24 @@ const PersonalDetailsForm: React.FC = () => {
 
   return (
     <div className={styles.formContainer}>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh',width: '430px' , backgroundColor: 'black', margin: '0 auto'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
+      ) : (
+        <>
       <header>
         <link href="https://fonts.googleapis.com/css?family=Poppins;
 " rel="stylesheet" />
       </header>
-      {showAlert && <CustomAlert message={message} onClose={closeAlert} />}
+      {/* {showAlert && <CustomAlert message={message} onClose={closeAlert} />} */}
       <form onSubmit={handleSubmit} className={styles.form}>
-        {loading && (
-          <div className={styles.loaderContainer}>
-            <div className={styles.loader}></div>
-          </div>
-        )}
+      {/* {loading && (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
+    )} */}
       <div className={styles.frameParent}>
         <div className={styles.frameWrapper}>
           <div className={styles.frameGroup}>
@@ -690,7 +700,7 @@ const PersonalDetailsForm: React.FC = () => {
         
 
        
-        <div className={styles.formGroup}>
+        {/* <div className={styles.formGroup}>
           
          <div className={styles.inputContainer}>
           <div className={styles.textFieldWrapper}>
@@ -721,7 +731,41 @@ const PersonalDetailsForm: React.FC = () => {
           </div>
         </div>
           {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
-        </div>
+        </div> */}
+
+<div className={styles.formGroup}>
+  <div className={styles.inputContainer}>
+    <div className={styles.textFieldWrapper}>
+      <div className={styles.countryCodeContainer}>
+        <DropdownWithSearch
+          options={countryCodes}
+          selectedOption={formData.countryCode}
+          onSelect={handleCountryCodeChange}
+        />
+      </div>
+      <div className={styles.inputWrapper}>
+        <label
+          htmlFor="mobileNumber"
+          className={`${styles.label21} ${formData.mobileNumber ? styles.labelActive : ''}`}
+        >
+          Mobile number
+        </label>
+        <input
+          type="text"
+          name="mobileNumber"
+          id="mobileNumber"
+          value={formData.mobileNumber}
+          onChange={handleChange}
+          className={`${styles.inputMobile} ${styles.autofill}`} // Add the autofill class here
+          required
+          autoComplete="tel" // Set autocomplete attribute to trigger autofill
+        />
+      </div>
+    </div>
+  </div>
+  {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
+</div>
+
 
         <div className={styles.formGroup}>
           <div className={styles.inputinput2}>
@@ -756,21 +800,20 @@ const PersonalDetailsForm: React.FC = () => {
           {errors.addressLine1 && <p className={styles.error}>{errors.addressLine1}</p>}
         </div>
 
-          <div className={styles.formGroup}>
-            <div className={styles.inputinput2}>
-              <input 
-                type="text"
-                name="addressLine2"
-                value={formData.addressLine2}
-                onChange={handleChange}
-                className={styles.input} 
-                required 
-              />
-              <label htmlFor="addressLine2" className={styles.label2}>
-                Address line 2 (Optional)
-              </label>
-            </div>
-          </div>
+        <div className={styles.formGroup}>
+  <div className={styles.inputinput3}> {/* Updated class name for Address line 2 */}
+    <input 
+      type="text"
+      name="addressLine2"
+      value={formData.addressLine2}
+      onChange={handleChange}
+      className={styles.input2} 
+    />
+    <label htmlFor="addressLine2" className={styles.label3}> {/* Updated class name */}
+      Address line 2 (Optional)
+    </label>
+  </div>
+</div>
 
         <div className={styles.formGroup}>
          
@@ -825,19 +868,14 @@ const PersonalDetailsForm: React.FC = () => {
             </div>
           {errors.country && <p className={styles.error}>{errors.country}</p>}
         </div>
-        
-        {/* <div className={styles.btnmbBtnFab}>
-            <div className={styles.btnbtn}>
-              <button type="submit" className={styles.getStartedButton} disabled={loading}>
-                  
-              </button>
-              
-            </div>
-        </div> */}
+      
         <button className={styles.getStartedButton} >{loading ? 'update...' : 'Update and create wallet'}</button>
-        
+       
+
         
       </form>
+      </>
+      )}
     </div>
   );
 };

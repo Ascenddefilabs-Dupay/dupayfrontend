@@ -82,7 +82,7 @@ const Transactions = () => {
           <div className={styles.tabbarstabbars}>
             <div className={styles.div}>
               <div 
-                className={styles.content11} 
+                className={styles.content12} 
               >
                 <AssessmentIcon />
                 <b className={styles.text}>Transaction</b>
