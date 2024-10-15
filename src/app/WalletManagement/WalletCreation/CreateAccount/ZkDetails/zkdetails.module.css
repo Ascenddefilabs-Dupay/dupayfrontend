@@ -1,0 +1,186 @@
+/* /* @import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.zkwallet_manager{
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    background: var(--Gray-24, #17171A);
+    height: 920px;
+    background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
+    background-repeat: no-repeat;
+    background-position: 100% 0; 
+    background-size: 80% 40%; 
+    overflow: hidden;
+    margin: auto; 
+}
+
+.zksuccess_screen{
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: 'Poppins',sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 300;
+    width: 100%;
+    max-width: 175px;
+    height: 56px;
+    background: var(--Gradient-06, linear-gradient(91deg, #45F0D1 0%, #76E268 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: auto; 
+} */
+
+/* @import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.zkwallet_manager {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    background: black;
+    height: 920px;
+    background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
+    background-repeat: no-repeat;
+    background-position: 100% 0; 
+    background-size: 80% 40%; 
+    overflow: hidden;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+}
+
+.wallettitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(23, 23, 26, 0.8); 
+    -webkit-text-fill-color: transparent;
+    height: 100%; 
+    max-width: 411px;
+    width: 100%;
+}
+
+
+.zksuccess_screen {
+    font-variant-numeric: lining-nums proportional-nums;
+
+    /* Big-type/1 */
+    /* font-family: Poppins;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 300;
+    background: var(--Gradient-06, linear-gradient(91deg, #45F0D1 0%, #76E268 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+
+
+.zkwalletready {
+    color: var(--White, #FFF);
+    text-align: center;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px; 
+  } */ 
+   
+
+
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+  
+  .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: var(--Gray-24, #17171A);
+      width: var(--screen-width, 430px);
+      height: var(--screen-height, 932px);
+      background-image: url('https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png');
+      background-size: cover;
+      background-position: center;
+      color: white; 
+      height: 932px;
+      background-repeat: no-repeat;
+      background-position: 100% 0; 
+      background-size: 80% 40%; 
+      margin: 0 auto;
+  }
+  
+  .success_text {
+      font-variant-numeric: lining-nums proportional-nums;
+      font-family: 'Poppins',sans-serif;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 33px; /* 140% */
+      font-size: 2rem;
+      font-weight: bold; 
+      margin-bottom: 10px; 
+      background: var(--Gradient-06, linear-gradient(91deg, #45F0D1 0%, #76E268 100%));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      height:40px;
+  }
+  
+  .join_text {
+      color: var(--White, #FFF);
+      text-align: center;
+      font-variant-numeric: lining-nums proportional-nums;
+      font-family: 'Poppins',sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      width: 295px;
+      height: 30px;
+  }
+  
+  
+  .walletcontainer {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      background-color:  rgba(23, 23, 26, 0.8);
+  }
+  
+  .wallet_ready{
+      color: var(--White, #FFF);
+      text-align: center;
+      font-variant-numeric: lining-nums proportional-nums;
+      /* Title-1 */
+      font-family: 'Poppins',sans-serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      height:28px;
+  }
+  .signwallet {
+      width: 96px;
+      height: 96px;
+      flex-shrink: 0;
+  }
+  
+  .checkwallet {
+      position: absolute;
+      top: 80%;
+      left: 46%; 
+      transform: translate(-50%, -50%); 
+      width: 38px; 
+      height: 38px; 
+  }

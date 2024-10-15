@@ -27,6 +27,7 @@ import { Transaction } from "@mysten/sui/transactions";
 import { genAddressSeed, getZkLoginSignature } from "@mysten/zklogin";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import axios from "axios";
+import  styles from "./zkdetails.module.css";
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
 const NETWORK: ValidNetworkName = "devnet";
@@ -65,6 +66,9 @@ function ZkDetails() {
   const [balances, setBalances] = useState<Map<string, number>>(new Map());
   const [userId, setUserId] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [walletId, setWalletId] = useState("");
+  const [resultAddress, setResultAddress] = useState<string | null>(null);
+
 
   const router = useRouter();
 
@@ -87,11 +91,37 @@ function ZkDetails() {
         setUserId(storedUserId);
         console.log(storedUserId);
         console.log(sessionData.user_email);
-      } 
+  
+        // Ensure accounts exist and fetch the wallet ID
+        if (accounts.current && accounts.current.length > 0) {
+          const account = accounts.current[0]; // Fetch the first account
+          fetchWalletId(account).then((walletId) => {
+            console.log("Wallet ID:", walletId);
+            setWalletId(walletId); // Assuming you have a state to store it
+          });
+        }
+      }
     }
-}, []);
+    // Adding an empty dependency array will ensure this runs only once on component mount
+  }, []); 
+  
+  useEffect(() => {
+    
+    const timer = setTimeout(() => {
+      router.push("/Userauthorization/Dashboard/Home");
+    }, 1000); 
+  
+    return () => clearTimeout(timer);
+  }, [router]);
 
   // Enoki API integration for getting the salt
+  const fetchWalletId = async (account: AccountData) => {
+    const id = account.userAddr; // Directly access the property
+    console.log(id); // This will log the actual resolved wallet ID (the user address)
+    return id;
+  };
+  
+
 
   async function completZkLogin() {
     // grab the JWT from the URL fragment (the '#...')
@@ -115,6 +145,7 @@ function ZkDetails() {
         console.log("Address:", result.address);
         const Salt = result.salt;
         const Address = result.address;
+        setResultAddress(result.address);
       }
     }); //;
 
@@ -144,6 +175,7 @@ function ZkDetails() {
         return;
       }
     }
+    console.log(shortenAddress(walletId))
     // === Get the zero-knowledge proof ===\
     const ephemeralKeyPair = keypairFromSecretKey(
       setupData.ephemeralPrivateKey
@@ -336,12 +368,7 @@ function ZkDetails() {
     sessionStorage.setItem(setupDataKey, JSON.stringify(data));
     console.log("saveSetupData setDataKey", JSON.stringify(data));
   }
-  //   function saveAccount(account: AccountData): void {
-  //     const newAccounts = [account, ...accounts.current];
-  //     sessionStorage.setItem(accountDataKey, JSON.stringify(newAccounts));
-  //     accounts.current = newAccounts;
-  //     console.log("saveAccount accounts.current", newAccounts);
-  //   }
+  
 
   const generateWalletId = async (): Promise<string> => {
     const prefix = "DUP";
@@ -384,6 +411,7 @@ function ZkDetails() {
     console.log("saveAccount accounts.current", newAccounts);
     console.log("saveAccount Address", account.userAddr);
     console.log("balance", (balances.get(account.userAddr)?.toFixed(2))?.toString());
+    console.log(account.userAddr)
     // console.log("WalletID",account.);
     try {
       const response = await axios.post(
@@ -405,22 +433,7 @@ function ZkDetails() {
       console.error("Failed to save account data to backend:", error);
     }
   }
-  function handleContinueClick() {
-    // Assuming you want to save the first account in the list when Continue is clicked
-    if (accounts.current.length > 0) {
-      saveAccount(accounts.current[0])
-        .then(() => {
-          router.push("/Userauthorization/Dashboard/Home"); // Redirect after saving
-        })
-        .catch((error) => {
-          console.error("Error during saveAccount:", error);
-        });
-    }
-  }
-
-  function handlePreviousClick() {
-    router.push("/WalletManagement/WalletCreation/CreateAccount");
-  }
+  
 
   function loadAccounts(): AccountData[] {
     // Check if we're in a browser environment
@@ -432,155 +445,24 @@ function ZkDetails() {
       return JSON.parse(dataRaw) as AccountData[];
     }
   
-    // Return an empty array when running server-side
     return [];
   }
 
   const openIdProviders: OpenIdProvider[] = ["Google"];
 
   return (
-    <div className="wallet-manager">
-      <div className="add-account-container">
-        <div className="add-account-header">
-          <div>
-            <div className="header-container">
-              <button onClick={handlePreviousClick}
-                className="back-button"
-                >
-                <IoMdArrowRoundBack />
-              </button>
-              <h1 className="padded-heading">ZkDetials Account </h1>
-            </div>
-            <br />
-            <br />
-            <br /><br /><br />
-
-            {accounts.current.length > 0 && (
-              <div id="accounts" className="section white-text">
-                {/* <h2>Accounts:</h2> */}
-                {accounts.current.map((acct) => {
-                  const balance = balances.get(acct.userAddr);
-                  const explorerLink = makePolymediaUrl(
-                    NETWORK,
-                    "address",
-                    acct.userAddr
-                  );
-                  return (
-                    <div className="account white-text" key={acct.userAddr}>
-                      {/* <div>
-                        <label className={`provider ${acct.provider}`}>
-                          {acct.provider}
-                        </label>
-                      </div> */}
-                      <div>
-                        Address:{" "}
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={explorerLink}
-                        >
-                          {shortenAddress(acct.userAddr)}
-                        </a>
-                      </div>
-                      {/* <div>User ID: {acct.sub}</div> */}
-                      <div>
-                        Balance:{" "}
-                        {typeof balance === "undefined"
-                          ? "(loading)"
-                          : `${balance} SUI`}
-                      </div>
-                      <button
-                        className={` ${
-                          !balance ? "disabled" : ""
-                        }`}
-                        disabled={!balance}
-                        onClick={() => {
-                          sendTransaction(acct);
-                        }}
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textAlign: 'center',
-                          width: '100%',
-                          padding: '10px',
-                          fontSize: '18px',
-                          borderRadius: '0.5rem',
-                          border: 'none',
-                          background: 'linear-gradient(90deg, #007bff9f, #800080)',
-                          color: 'white',
-                          cursor: 'pointer',
-                          transition: 'all .6s ease',
-                          marginTop: '10px',
-                          marginBottom: '10px',
-                          fontFamily: 'Arial, Helvetica, sans-serif',
-                        }}
-                      >
-                        Send transaction
-                      </button>
-                      {balance === 0 && (
-                        <button
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textAlign: 'center',
-                          width: '100%',
-                          padding: '10px',
-                          fontSize: '18px',
-                          borderRadius: '0.5rem',
-                          border: 'none',
-                          background: 'linear-gradient(90deg, #007bff9f, #800080)',
-                          color: 'white',
-                          cursor: 'pointer',
-                          transition: 'all .6s ease',
-                          marginTop: '10px',
-                          marginBottom: '10px',
-                          fontFamily: 'Arial, Helvetica, sans-serif',
-                        }}
-                          onClick={() => {
-                            requestSuiFromFaucet(NETWORK, acct.userAddr);
-                            setModalContent(
-                              "💰 Requesting SUI from faucet. This will take a few seconds..."
-                            );
-                            setTimeout(() => {
-                              setModalContent("");
-                            }, 3000);
-                          }}
-                        >
-                          Use faucet
-                        </button>
-                      )}
-                      <hr />
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-          <button style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-              width: '100%',
-              padding: '10px',
-              fontSize: '18px',
-              borderRadius: '0.5rem',
-              border: 'none',
-              background: 'linear-gradient(90deg, #007bff9f, #800080)',
-              color: 'white',
-              cursor: 'pointer',
-              transition: 'all .6s ease',
-              marginTop: '10px',
-              marginBottom: '10px',
-              fontFamily: 'Arial, Helvetica, sans-serif',
-            }} onClick={handleContinueClick}>
-            Continue
-          </button>
+    <div className={styles.container}>
+      <div className={styles.walletcontainer}>
+        <div className={styles.success_text}>Success!</div>
+        <div className={styles.wallet_ready}>Your wallet is ready</div>
+        <div className={styles.join_text}>
+          Wallet Address: <span className={styles.wallet_id}>{shortenAddress(walletId)}</span>
         </div>
+        <img className={styles.signwallet} alt="" src="/base.png" />
+        <img className={styles.checkwallet} alt="" src="/check.png" />
       </div>
     </div>
+
   );
 }
 
