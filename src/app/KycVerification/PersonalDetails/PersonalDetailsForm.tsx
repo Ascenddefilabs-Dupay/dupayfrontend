@@ -57,7 +57,7 @@
 //   const router = useRouter();
 //   // const { isLoggedIn, userData } = UseSession();
 //   const [userId, setUserId] = useState<string | null>(null);
-  
+
 
 //   useEffect(() => {
 //     if (typeof window !== 'undefined') {
@@ -371,8 +371,6 @@ import styles from './PersonalDetailsForm.module.css';
 import DropdownWithSearch from './DropdownWithSearch';
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
 
-import { fontSize, width } from '@mui/system';
-
 interface FormData {
   firstName: string;
   lastName: string;
@@ -432,12 +430,12 @@ const PersonalDetailsForm: React.FC = () => {
   const router = useRouter();
   const [style, setStyle] = useState({ fontSize: '16px' });
 
-  
+
 
   const onFocus = () => {
     setStyle((prevStyle) => ({
       ...prevStyle,
-      fontSize: '12px', 
+      fontSize: '12px',
     }));
   }
   useEffect(() => {
@@ -464,7 +462,7 @@ const PersonalDetailsForm: React.FC = () => {
         const storedUserId: string = sessionData.user_id;
         setUserId(storedUserId);
         console.log(storedUserId);
-        
+
       }
     }
   }, [router]);
@@ -526,7 +524,7 @@ const PersonalDetailsForm: React.FC = () => {
     setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     validateField(name as keyof FormData, value);
   };
-  
+
 
   // const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   //   const { value } = e.target;
@@ -553,7 +551,7 @@ const PersonalDetailsForm: React.FC = () => {
     if (validateForm()) {
       setLoading(true);
       localStorage.setItem('user_details', JSON.stringify(formData));
-      
+
       // Combine country code and mobile number
       const cleanedCountryCode = formData.countryCode.replace(/\D+/g, ''); // Removes any non-digit characters
       const phoneNumber = `${cleanedCountryCode}${formData.mobileNumber}`.replace(/\s+/g, '');
@@ -562,7 +560,7 @@ const PersonalDetailsForm: React.FC = () => {
       // console.log('Cleaned Country Code:', cleanedCountryCode);
       // console.log('Combined Phone Number:', phoneNumber);
 
-      
+
       try {
         const response = await axios.post('https://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/personal-details/', {
           user_id: userId,
@@ -581,8 +579,8 @@ const PersonalDetailsForm: React.FC = () => {
             'Content-Type': 'application/json',
           },
         });
-        
-         // Call the method to handle loading and navigate after a successful submission
+
+        // Call the method to handle loading and navigate after a successful submission
         setFormData({
           firstName: '',
           lastName: '',
@@ -595,15 +593,15 @@ const PersonalDetailsForm: React.FC = () => {
           postalCode: '',
           country: '',
           countryCode: '+1' // Reset country code
-          
+
         });
         setMessage('Personal details submitted successfully!');
-        setRedirect(true);
         setLoading(true);
-          router.push('/WalletManagement/WalletCreation');
-        
-        
-              
+        // setRedirect(true); 
+        router.push('/WalletManagement/WalletCreation');
+
+
+
       } catch (error) {
         console.error('Error submitting personal details:', error);
         setMessage('Error submitting personal details. Please try again.');
@@ -614,57 +612,58 @@ const PersonalDetailsForm: React.FC = () => {
     }
   };
 
-  const closeAlert = () => {
-    setShowAlert(false);
-    if (redirect) {
-      router.push('/WalletManagement/WalletCreation');
-    }
-  };
+  // const closeAlert = () => {
+  //   setShowAlert(false);
+  //   if (redirect) {
+  //     setLoading(true);
+  //     router.push('/WalletManagement/WalletCreation');
+  //   }
+  // };
 
   return (
     <div className={styles.formContainer}>
       {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh',width: '430px' , backgroundColor: 'black', margin: '0 auto'}}>
-        {/* Show the Lottie loading animation */}
-        <LottieAnimationLoading width="300px" height="300px" />
-      </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh', width: '430px', backgroundColor: 'black', margin: '0 auto' }}>
+          {/* Show the Lottie loading animation */}
+          <LottieAnimationLoading width="300px" height="300px" />
+        </div>
       ) : (
         <>
-      <header>
-        <link href="https://fonts.googleapis.com/css?family=Poppins;" rel="stylesheet" />
-      </header>
-      {/* {showAlert && <CustomAlert message={message} onClose={closeAlert} />} */}
-      <form onSubmit={handleSubmit} className={styles.form}>
-      {/* {loading && (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
-        <LottieAnimationLoading width="300px" height="300px" />
-      </div>
-    )} */}
-      <div className={styles.frameParent}>
-        <div className={styles.frameWrapper}>
-          <div className={styles.frameGroup}>
-            <div className={styles.frameContainer}>
-              <div className={styles.dupayLogoParent}>
-                {/* <img className={styles.dupayLogoIcon} alt="" src="/DupayAnimation.png" /> */}
-                <img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
-                <b className={styles.dupay}>Dupay</b>
-              </div>
+          <header>
+            <link href="https://fonts.googleapis.com/css?family=Poppins;" rel="stylesheet" />
+          </header>
+          {/* {showAlert && <CustomAlert message={message} onClose={closeAlert} />} */}
+          <form onSubmit={handleSubmit} className={styles.form}>
+            {/* {loading && (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+              <LottieAnimationLoading width="300px" height="300px" />
             </div>
-            <div className={styles.frameDiv}>
+              )} */}
+            <div className={styles.frameParent}>
               <div className={styles.frameWrapper}>
-                <div className={styles.title}>Welcome</div>
-              </div>
-              <div className={styles.title2}>
-                Update your personal details before creating a wallet
+                <div className={styles.frameGroup}>
+                  <div className={styles.frameContainer}>
+                    <div className={styles.dupayLogoParent}>
+                      {/* <img className={styles.dupayLogoIcon} alt="" src="/DupayAnimation.png" /> */}
+                      <img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
+                      <b className={styles.dupay}>Dupay</b>
+                    </div>
+                  </div>
+                  <div className={styles.frameDiv}>
+                    <div className={styles.frameWrapper}>
+                      <div className={styles.title}>Welcome</div>
+                    </div>
+                    <div className={styles.title2}>
+                      Update your personal details before creating a wallet
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-        {/* <h2 className={styles.heading}>Personal Details</h2> */}
-       
-        <div className={styles.formGroup}>
-          
+            {/* <h2 className={styles.heading}>Personal Details</h2> */}
+
+            <div className={styles.formGroup}>
+
               <div className={styles.inputinput}>
                 <input
                   type="text"
@@ -674,209 +673,210 @@ const PersonalDetailsForm: React.FC = () => {
                   className={styles.input}
                   required
                 />
-                
+
                 <label htmlFor="firstName" className={styles.label}>First name</label>
                 {/* {errors.firstName && <p className={styles.error}>{errors.firstName}</p>} */}
               </div>
-          {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          
-          <div className={styles.inputinput}>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-            <label htmlFor="lastName" className={styles.label}>Last name</label>
-            {/* {errors.lastName && <p className={styles.error}>{errors.lastName}</p>} */}
-          </div>
-          {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
-        </div>
-        
-
-       
-        {/* <div className={styles.formGroup}>
-          
-         <div className={styles.inputContainer}>
-          <div className={styles.textFieldWrapper}>
-            <div className={styles.countryCodeContainer}>
-              <DropdownWithSearch
-                options={countryCodes}
-                selectedOption={formData.countryCode}
-                onSelect={handleCountryCodeChange}
-              />
+              {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
             </div>
-            <div className={styles.inputWrapper}>
-              <label
-                htmlFor="mobileNumber"
-                className={`${styles.label21} ${formData.mobileNumber ? styles.labelActive : ''}`}
-              >
-                Mobile number
-              </label>
-              <input
-                type="text"
-                name="mobileNumber"
-                id="mobileNumber"
-                value={formData.mobileNumber}
-                onChange={handleChange}
-                className={styles.inputMobile}
-                required
-              />
+            <div className={styles.formGroup}>
+
+              <div className={styles.inputinput}>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+                />
+                <label htmlFor="lastName" className={styles.label}>Last name</label>
+                {/* {errors.lastName && <p className={styles.error}>{errors.lastName}</p>} */}
+              </div>
+              {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
             </div>
-          </div>
-        </div>
-          {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
-        </div> */}
-
-<div className={styles.formGroup}>
-  <div className={styles.inputContainer}>
-    <div className={styles.textFieldWrapper}>
-      <div className={styles.countryCodeContainer}>
-        <DropdownWithSearch
-          options={countryCodes}
-          selectedOption={formData.countryCode}
-          onSelect={handleCountryCodeChange}
-        />
-      </div>
-      <div className={styles.inputWrapper}>
-        <label
-          htmlFor="mobileNumber"
-          className={`${styles.label21} ${formData.mobileNumber ? styles.labelActive : ''}`}
-        >
-          Mobile number
-        </label>
-        <input
-          type="tel"
-          name="mobileNumber"
-          id="mobileNumber"
-          inputMode="tel"
-          pattern="[0-9]+"
-          value={formData.mobileNumber}
-          onChange={handleChange}
-          className={`${styles.inputMobile} ${styles.autofill}`} // Add the autofill class here
-          required
-          autoComplete="tel" // Set autocomplete attribute to trigger autofill
-        />
-      </div>
-    </div>
-  </div>
-  {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
-</div>
 
 
-        <div className={styles.formGroup}>
-          <div className={styles.inputinput2}>
-          <label htmlFor="dob" style={style} className={styles.label215}>Date of Birth</label>
-          <input
-            type="date"
-            name="dob"
-            onFocus={onFocus}
-            value={formData.dob}
-            // placeholder="Date of Birth"
-            onChange={handleChange}
-            className={styles.input}
-            required
-            id="dateOfBirth"
-          />
+
+            {/* <div className={styles.formGroup}>
           
-        </div>
-          
-          {errors.dob && <p className={styles.error}>{errors.dob}</p>}
-        </div>
-        <div className={styles.formGroup}>
-        
-          <div className={styles.inputinput2}>
-            <input type="text"
-            name="addressLine1"
-            value={formData.addressLine1}
-            onChange={handleChange}
-            className={styles.input}
-            required />
-            <label htmlFor="addressLine1" className={styles.label2}>Address line 1</label>
-          </div>
-          {errors.addressLine1 && <p className={styles.error}>{errors.addressLine1}</p>}
-        </div>
+            <div className={styles.inputContainer}>
+              <div className={styles.textFieldWrapper}>
+                <div className={styles.countryCodeContainer}>
+                  <DropdownWithSearch
+                    options={countryCodes}
+                    selectedOption={formData.countryCode}
+                    onSelect={handleCountryCodeChange}
+                  />
+                </div>
+                <div className={styles.inputWrapper}>
+                  <label
+                    htmlFor="mobileNumber"
+                    className={`${styles.label21} ${formData.mobileNumber ? styles.labelActive : ''}`}
+                  >
+                    Mobile number
+                  </label>
+                  <input
+                    type="text"
+                    name="mobileNumber"
+                    id="mobileNumber"
+                    value={formData.mobileNumber}
+                    onChange={handleChange}
+                    className={styles.inputMobile}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+              {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
+            </div> */}
 
-        <div className={styles.formGroup}>
-          <div className={styles.inputinput2}> {/* Updated class name for Address line 2 */}
-            <input 
-              type="text"
-              name="addressLine2"
-              value={formData.addressLine2}
-              onChange={handleChange}
-              className={styles.input}
-              required 
-            />
-            <label htmlFor="addressLine2" className={styles.label2}> {/* Updated class name */}
-              Address line 2
-            </label>
-          </div>
-        </div>
+            <div className={styles.formGroup}>
+              <div className={styles.inputContainer}>
+                <div className={styles.textFieldWrapper}>
+                  <div className={styles.countryCodeContainer}>
+                    <DropdownWithSearch
+                      options={countryCodes}
+                      selectedOption={formData.countryCode}
+                      onSelect={handleCountryCodeChange}
+                    />
+                  </div>
+                  <div className={styles.inputWrapper}>
+                    {/* <label
+                      htmlFor="mobileNumber"
+                      className={`${styles.label21} ${formData.mobileNumber ? styles.labelActive : ''}`}
+                    >
+                      Mobile number
+                    </label> */}
+                    <input
+                      type="tel"
+                      name="mobileNumber"
+                      id="mobileNumber"
+                      inputMode="tel"
+                      pattern="[0-9]+"
+                      value={formData.mobileNumber}
+                      onChange={handleChange}
+                      className={`${styles.inputMobile} ${styles.autofill}`}
+                      placeholder="Mobile number"
+                      // autoComplete="tel"
+                    />
+                  </div>
+                   
+                </div>
+              </div>
+              {errors.mobileNumber && <p className={styles.error}>{errors.mobileNumber}</p>}
+            </div>
 
-        <div className={styles.formGroup}>
-         
-          <div className={styles.inputinput2}>
-            <input type="text"
+
+            <div className={styles.formGroup}>
+              <div className={styles.inputinput2}>
+                <label htmlFor="dob" style={style} className={styles.label215}>Date of Birth</label>
+                <input
+                  type="date"
+                  name="dob"
+                  onFocus={onFocus}
+                  value={formData.dob}
+                  // placeholder="Date of Birth"
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+                  id="dateOfBirth"
+                />
+
+              </div>
+
+              {errors.dob && <p className={styles.error}>{errors.dob}</p>}
+            </div>
+            <div className={styles.formGroup}>
+
+              <div className={styles.inputinput2}>
+                <input type="text"
+                  name="addressLine1"
+                  value={formData.addressLine1}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required />
+                <label htmlFor="addressLine1" className={styles.label2}>Address line 1</label>
+              </div>
+              {errors.addressLine1 && <p className={styles.error}>{errors.addressLine1}</p>}
+            </div>
+
+            <div className={styles.formGroup}>
+              <div className={styles.inputinput2}> {/* Updated class name for Address line 2 */}
+                <input
+                  type="text"
+                  name="addressLine2"
+                  value={formData.addressLine2}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+                />
+                <label htmlFor="addressLine2" className={styles.label2}> {/* Updated class name */}
+                  Address line 2
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.formGroup}>
+
+              <div className={styles.inputinput2}>
+                <input type="text"
                   name="state"
                   value={formData.state}
                   onChange={handleChange}
                   className={styles.input}
                   required />
-            <label htmlFor="state" className={styles.label2}>State/Region</label>
-          </div>
-          {errors.state && <p className={styles.error}>{errors.state}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          
-          <div className={styles.inputinput2}>
-            <input type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            className={styles.input}
-            required/>
-            <label htmlFor="city" className={styles.label2}>City</label>
-          </div>
-          {errors.city && <p className={styles.error}>{errors.city}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          
-            <div className={styles.inputinput2}>
-              <input type="text"
-            name="postalCode"
-            value={formData.postalCode}
-            onChange={handleChange}
-            className={styles.input}
-            required />
-              <label htmlFor="postalCode" className={styles.label2}>Postal/Zip Code</label>
+                <label htmlFor="state" className={styles.label2}>State/Region</label>
+              </div>
+              {errors.state && <p className={styles.error}>{errors.state}</p>}
             </div>
-            
-          {errors.postalCode && <p className={styles.error}>{errors.postalCode}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          
-            <div className={styles.inputinput2}>
-              <input type="text"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            className={styles.input}
-            required />
-              <label htmlFor="country" className={styles.label2}>Country</label>
-            </div>
-          {errors.country && <p className={styles.error}>{errors.country}</p>}
-        </div>
-      
-        <button className={styles.getStartedButton} >{loading ? 'update...' : 'Update and create wallet'}</button>
-       
+            <div className={styles.formGroup}>
 
-        
-      </form>
-      </>
+              <div className={styles.inputinput2}>
+                <input type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required />
+                <label htmlFor="city" className={styles.label2}>City</label>
+              </div>
+              {errors.city && <p className={styles.error}>{errors.city}</p>}
+            </div>
+            <div className={styles.formGroup}>
+
+              <div className={styles.inputinput2}>
+                <input type="text"
+                  name="postalCode"
+                  value={formData.postalCode}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required />
+                <label htmlFor="postalCode" className={styles.label2}>Postal/Zip Code</label>
+              </div>
+
+              {errors.postalCode && <p className={styles.error}>{errors.postalCode}</p>}
+            </div>
+            <div className={styles.formGroup}>
+
+              <div className={styles.inputinput2}>
+                <input type="text"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required />
+                <label htmlFor="country" className={styles.label2}>Country</label>
+              </div>
+              {errors.country && <p className={styles.error}>{errors.country}</p>}
+            </div>
+
+            <button className={styles.getStartedButton} >{loading ? 'update...' : 'Update and create wallet'}</button>
+
+
+
+          </form>
+        </>
       )}
     </div>
   );
