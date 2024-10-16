@@ -85,6 +85,7 @@
     justify-content: center;
     font-size: 12px;
     color: #888daa;
+    
 }
 .frameParent {
     position: absolute;
@@ -121,7 +122,7 @@
     position: relative;
     line-height: 24px;
     font-weight: 600;
-    margin-right: -1rem;
+    margin-right: 1rem;
 
     
     
@@ -246,12 +247,13 @@
   font-weight: 600;
 }
 
-.btnbtn {
-  width: 100%;
-  position: relative;
-  border-radius: 8px;
-  background: linear-gradient(97.59deg, #E34D67 29.66%, #7746F4 70.15%);
 
+
+.btnbtn {
+  width: 90%; /* Adjust this value as necessary */
+  position: absolute;
+  border-radius: 8px;
+  background-color: #212020; /* Light grey background for disabled state */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -260,13 +262,21 @@
   box-sizing: border-box;
   text-align: center;
   font-size: 16px;
-  color: #000;
+  color: #444;
   font-family: Poppins;
-  /* top: 45vh; */
-  /* top: 240px; */
-  bottom: 10px;
-  
+  bottom: -65px; /* Adjust if necessary for positioning */
+  box-shadow: 0px 8px 20px 10px rgba(113, 108, 103, 0.2);
+  left: 5%;
+  cursor: not-allowed; /* Not clickable when disabled */
+  margin-bottom: -52%;
 }
+
+/* Enabled button styles */
+.btnEnabled {
+  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%); /* Gradient for enabled state */
+  cursor: pointer; /* Indicate it's clickable */
+}
+
 
 
 
@@ -274,7 +284,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
   
   .textFieldWrapper {
@@ -285,9 +295,10 @@
     border-radius: 5px;
     padding: 8px;
     width: 100%;
-    height: 60px;
+    height: 40px;
     margin-bottom: 12px;
     position: relative;
+    
   }
   
   .inputWrapper {
@@ -306,6 +317,7 @@
     font-family: 'Poppins';
     pointer-events: none;
     transition: all 0.2s ease;
+    margin-top: 4px;
   }
   
   .labelActive {
@@ -324,6 +336,7 @@
     padding: 0;
     margin-left: 10px;
     height: 100%;
+    margin-top: 9px;
   }
   
   .inputMobile::placeholder {
@@ -436,21 +449,46 @@
     right: 15px; /* Adjust this value to position the icon closer or further from the right */
     top: 50%; /* Center it vertically */
     transform: translateY(-50%); /* Adjust for vertical centering */
-    color: white; /* Change this to match your design */
+    color: #888daa; /* Change this to match your design */
     pointer-events: none; /* Disable pointer events for the icon */
   }
  
   
   /* YourStylesheet.css */
 .svgContainer {
-  position: relative;
-  left: 47%;
+  position: absolute;
+  right: 0;
   display: flex;
-  justify-content: flex-end; /* Aligns the SVG to the right */
-  top: 55px;
- 
+  justify-content: center; /* Aligns the SVG to the right */
+  margin-top: 100px;
+  width: auto;
+  
+}
+.lightSvg {
+  opacity: 0.3; /* Makes the SVG semi-transparent */
+  position: absolute;
+  top: 100%; /* Positions the SVG below the button */
+  left: 50%;
+  transform: translateX(-50%); /* Centers the SVG horizontally */
+}
+  
+.fiatHomeFull {
+  height: 100vh; /* Ensures it takes up the full height of the viewport */
+  overflow-y: auto; /* Enables vertical scrolling */
 }
 
-  
-  
-  
+.frameParent {
+  padding: 20px; /* Adjust padding as necessary */
+}
+
+.scrollableContent {
+  /* Remove height to allow full scrolling */
+  padding: 20px; /* Optional padding */
+}
+
+/* Optional: You can hide the scrollbar on webkit browsers if desired */
+.scrollableContent::-webkit-scrollbar {
+  display: none; /* Hides scrollbar */
+}
+
+
