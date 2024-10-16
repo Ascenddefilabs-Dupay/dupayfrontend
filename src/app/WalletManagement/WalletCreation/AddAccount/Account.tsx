@@ -73,7 +73,7 @@ const AddAccount: React.FC = () => {
       ) : (
         <div className='card'>
             <div className='backgrounddesing'>
-              <svg className='backgrounddesing1' width="234" height="310" viewBox="0 0 234 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className='backgrounddesing1' opacity='60%' width="200" height="250" viewBox="0 0 234 310" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M155.199 182.994C155.611 161.996 160.788 145.63 165.604 135.604C168.137 130.331 174.291 128.198 179.598 130.661C202.391 141.239 216.606 163.312 222.94 180.151C225.603 187.234 220.569 194.302 213.056 195.207C193.796 197.528 179.191 196.968 167.692 196.148C160.704 195.65 155.062 189.998 155.199 182.994Z" fill="url(#paint0_linear_2012_7952)" />
                 <path d="M269.704 301.375C205.104 298.855 154.766 244.249 157.296 179.386C159.826 114.523 214.264 64.0038 278.864 66.5234C343.465 69.0431 393.802 123.649 391.272 188.512C388.742 253.375 334.305 303.895 269.704 301.375Z" stroke="url(#paint1_linear_2012_7952)" stroke-width="6" />
                 <circle cx="186.585" cy="20.5844" r="176.717" transform="rotate(92.2336 186.585 20.5844)" stroke="url(#paint2_linear_2012_7952)" stroke-width="6" />

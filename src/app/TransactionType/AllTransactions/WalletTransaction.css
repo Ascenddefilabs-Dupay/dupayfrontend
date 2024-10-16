@@ -6,11 +6,29 @@
     font-size: 16px;
     color: rgba(255, 255, 255, 1);
   }
+  /* .bottom-blur {
+    background-color: rgba(23, 23, 26, 0.9); 
+    position: fixed;
+    max-width: 400px;
+    width: 100%;
+    height: 70px;
+    left: 40.2%;
+    z-index: 2;
+    bottom: 6.7%;
+} */
+
   .bottom-design{
-    position: relative !important;
+    /* position: relative !important;
     top: -22% !important;
     right: -53% !important;
-    z-index: 1 !important;
+    z-index: 1 !important; */
+    width: 100%;
+    max-width: 430px;
+    position: fixed;
+    left: 36%;
+    bottom: 0;
+    display: flex;
+    justify-content: right;
   }
   
   body, html {
@@ -88,7 +106,7 @@
       cursor: pointer;
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
+      background: linear-gradient(97.59deg, #E34D67 29.66%, #7746F4 70.15%);
       /* background-color:linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%); */
       margin-top: 15px;
       z-index: 3;
@@ -119,7 +137,7 @@
     }
   
     .wallet-transaction {
-      width: 400px;
+      width: 430px;
       height: 100vh;
       margin: 0 auto;
       padding: 20px;
@@ -147,15 +165,34 @@
       width: 100%; 
     }
   }
-
-  @media (max-width: 344px){
+  @media (max-width: 440px){
     .bottom-design{
-      position: relative !important;
-      top: -25% !important;
-      right: -40% !important;
-      z-index: 1 !important;
+      left: 0;
     }
   }
+  @media (max-width: 480px){
+    .bottom-design{
+      left: 10%;
+      width:100%;
+    }
+  }
+
+  /* @media (max-width: 344px){
+    .bottom-design{ */
+      /* position: relative !important;
+      top: -25% !important;
+      right: -40% !important;
+      z-index: 1 !important; */
+      /* width: 100%;
+      max-width: 430px;
+      position: fixed !important;
+      left: 0% !important;
+      bottom: 0 !important;
+      display: flex !important;
+      justify-content: right !important;
+      background-color: #FF4BF9; */
+    /* }
+  } */
   
     
     /* .loaderContainer {
@@ -225,10 +262,32 @@
       width: 100%;
       position: relative;
       /* min-height: 100vh; */
-      height: 80vh;
+      height: 100vh;
+    }
+    .button_class_div1{
+      background-color: rgba(23, 23, 26, 0.9);
+      padding: 0px 17px 0px 15px;
+      /* padding-bottom: 50px; */
+      /* width: 110%; */
+      position: absolute;
+      bottom: 8%;
+      width: 110%;
+      z-index: 2;
+      left: -5%;
+      height: 95px;
+    }
+    .button_class_div{
+      /* position: absolute; */
+      width: 100%;
+      /* bottom: 55%; */
+      /* top: 80%; */
+      bottom: 12%;     
+      /* min-width: 320;
+      max-width: 445px; */
+      /* z-index: 3; */
     }
 
-    .button_class_div{
+    /* .button_class_div{
       position: absolute;
       top: 98%;
       left: 0;
@@ -236,7 +295,7 @@
       display: flex;
       justify-content: center;
       padding-bottom: 20px;
-    }
+    } */
     .form-grouppayment-method-group{
       height: auto;
       width: 100%;
