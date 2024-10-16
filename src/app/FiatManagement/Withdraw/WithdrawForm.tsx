@@ -22,13 +22,22 @@ const WithdrawForm: NextPage = () => {
   const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
   const [walletId, setWalletID] = useState<string | null>(null);
   const [currency, setCurrency] = useState<string | null>(null);
+  const [isWithdrawEnabled, setIsWithdrawEnabled] = useState<boolean>(false);
 
   const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
   // const currency = 'INR';
   // const walletId = 'Wa0000000006';
   // const userID = 'DupC0014';
 
-
+  useEffect(() => {
+    // Check if both amount is valid and a bank is selected
+    if (amount && selectedBank && isValid) {
+      setIsWithdrawEnabled(true); // Enable the button
+    } else {
+      setIsWithdrawEnabled(false); // Disable the button
+    }
+  }, [amount, selectedBank, isValid]); // Depend on amount, selectedBank, and isValid
+  
   useEffect(() => {
     if (typeof window !== 'undefined') {
         const sessionDataString = window.localStorage.getItem('session_data');
@@ -179,11 +188,13 @@ const WithdrawForm: NextPage = () => {
       router.push('/FiatManagement/AddBanks'); // Redirect if the user selects '+'
     }
   };
+  
+
 
   return (
     <div className={styles.fiatHomeFull}>
       <div className={styles.frameParent}>
-      
+      {/* <div className="scrollContainer"></div> */}
 
         <div className={styles.howMuchUsd}>How much {currency} you want to withdraw?</div>
 
@@ -231,8 +242,10 @@ const WithdrawForm: NextPage = () => {
             <FaAngleDown className={styles.dropdownIcon} /> {/* Add icon here */}
           </div>
         </div>
+        <div className={styles.scrollableContent}>
         <div className={styles.svgContainer}>
-        <svg width="200" height="220" viewBox="0 0 204 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        
+        <svg className="lightSvg"  width="180" height="200" viewBox="0 0 204 300" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M155.2 126.059C155.612 147.056 160.789 163.422 165.605 173.448C168.138 178.722 174.292 180.855 179.599 178.392C202.392 167.814 216.607 145.741 222.941 128.901C225.604 121.819 220.569 114.751 213.057 113.846C193.797 111.525 179.192 112.085 167.693 112.904C160.705 113.403 155.063 119.055 155.2 126.059Z" fill="url(#paint0_linear_2006_7547)"/>
           <path d="M269.704 7.67764C205.104 10.1973 154.766 64.8036 157.296 129.666C159.826 194.529 214.264 245.049 278.864 242.529C343.465 240.01 393.802 185.403 391.272 120.54C388.742 55.6777 334.305 5.15799 269.704 7.67764Z" stroke="url(#paint1_linear_2006_7547)" stroke-width="6"/>
           <circle cx="179.717" cy="179.717" r="176.717" transform="matrix(-0.0389741 -0.99924 -0.99924 0.0389741 373.168 461.044)" stroke="url(#paint2_linear_2006_7547)" stroke-width="6"/>
@@ -261,14 +274,21 @@ const WithdrawForm: NextPage = () => {
           </defs>
           </svg>
         </div>
+
         
-        <div className={styles.btnbtn} onClick={handleWithdraw}>
-          <div className={styles.text}>Withdraw</div>
-          
-        </div>
+        <div
+        
+        className={`${styles.btnbtn} ${isWithdrawEnabled ? styles.btnEnabled : styles.btnDisabled}`}
+        onClick={isWithdrawEnabled ? handleWithdraw : undefined} // Only allow click if enabled
+      >
+        <div className={styles.text}>Withdraw</div>
       </div>
       
+
+                
+      </div>
       
+      </div>
 
       {alertMessage && (
         <div className={styles.customAlert}>

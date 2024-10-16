@@ -1,19 +1,22 @@
-/* Ensure the container is centered */
 .topUpFormContainer {
   width: 100%;
-  max-width: 400px;
-  padding: 20px 40px; /* Increased side padding */
-  margin: 0 auto; /* Center horizontally */
+  max-width: 400px; /* Set a reasonable max-width for the form */
+  padding: 0px;
+  margin: 0 auto;
   background: #000;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensure content is spaced, with the button at the bottom */
-  min-height: 100vh; /* Full height */
-  align-items: center; /* Center the content */
+  align-items: center;
+  justify-content: space-between; /* Ensure items are distributed correctly */
+  height: 100vh; /* Set full viewport height to cover the entire screen */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+  position: relative; /* Added for positioning context */
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
-/* Back button styles */
+/* Adjust back button styles */
 .backButton {
   align-self: flex-start;
   background: transparent;
@@ -24,8 +27,11 @@
   display: flex;
   align-items: center;
   margin-bottom: 60px;
-  margin-left: -2px;
+  margin-left: 10px;
   margin-top: 6px;
+  max-height: 100%;
+  min-width: 100%;
+  margin-top: 20px;
 }
 
 .backButton:hover {
@@ -36,33 +42,23 @@
 .topUpFormContent {
   width: 100%;
   text-align: center;
-  flex-grow: 1; /* Pushes the content upwards if space available */
- 
+  flex-grow: 1; /* Pushes the content upwards if space is available */
 }
 
 .formGroup {
-  margin-bottom: 10px; /* Keep margin small between form groups */
+  margin-bottom: 15px; /* Keep margin small between form groups */
   display: flex;
   flex-direction: column; /* Stack label on top of input */
   justify-content: flex-start; /* Align items to the top */
   width: 100%; /* Ensure form elements span full width */
-  margin-left: 10px;
-  margin-right: 20px;
 }
 
 .label {
-  
   margin-bottom: 8px; /* Ensure small space between label and input */
-  margin-right: 250px;
   color: white;
-}
-
-.label2 {
-  
-  margin-bottom: 8px; /* Ensure small space between label and input */
-  margin-left: 250px;
-  margin-top: 20px;
-  color: white;
+  size: 16px;
+  line-height: 24px;
+  font-size: Poppins;
 }
 
 .label1 {
@@ -71,6 +67,8 @@
   color: white;
   width: 95%; /* Set width to match amountInput */
   text-align: left; /* Optional: Align text to the left */
+  size: 16px;
+  margin-left: 15px;
 }
 
 .amountInput {
@@ -80,27 +78,52 @@
   border-radius: 4px;
   color: white;
   font-size: 16px;
-  margin-bottom: 10px; /* Ensure small space between input and next element */
-  width: 95%; /* Keep width at 95% */
+  margin-bottom: 390px; /* Ensure small space between input and next element */
+  width: 90%; /* Keep width at 95% */
+  margin-left: 16px;
+  height: 50px;
 }
 
 /* Ensure the top-up button is at the bottom */
+.topUpButtonCard {
+  width: 100%;
+  padding: 20px; /* Add some space around the button */
+  background-color: #2e2e2e; /* Gray background for the card */
+  border-radius: 8px; /* Rounded corners for the card */
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  box-shadow: 0px 8px 20px 10px rgba(113, 108, 103, 0.2); /* Shadow for the card */
+  margin-bottom: 20px; /* Space below the card */
+}
+
 .topUpButton {
-  width: 95%;
+  height: 50px;
+  width: 90%;
   padding: 10px;
-  background: #E2F0FF;
-  color: black;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: bold;
-  margin-top: 300px; 
-  align-self: flex-end; /* Stick the button at the bottom */
-  margin-left: 10px;
-  margin-right: 10px;
-  
+  margin-bottom: 10px;
+  z-index: 1;
+  position: relative;
+  box-shadow: 0px 8px 20px 10px rgba(113, 108, 103, 0.2);
+}
+/* Gray, invisible state for the button */
+.topUpButton.inactive {
+  background-color: #212020; /* Gray background for disabled state */
+  /* Hide the button when no amount is entered */
+  color: #444;
+}
+
+/* Visible and active state for the button */
+.topUpButton.active {
+  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
+  color: white;
+  visibility: visible;
+  cursor: pointer;
 }
 
 .topUpButton:hover {
@@ -123,7 +146,7 @@
   margin-top: 10px;
 }
 
-/* Align "Total" and "2600" beside each other */
+/* Align "Total" and "4900" beside each other */
 .totalBalanceRow {
   display: flex;
   justify-content: space-between;
@@ -140,7 +163,6 @@
 .totalSection .label {
   margin-right: 5px;
   margin-bottom: 20px;
-  
 }
 
 .balanceSection .balance {
@@ -148,20 +170,56 @@
   font-size: 18px;
   color: white;
   margin-bottom: 20px;
- 
 }
-
 
 .defaultCurrencyType {
   color: white;
   margin-bottom: 20px;
-  
 }
 
-/* Media query for smaller screens */
+/* SVG design container */
+.svgContainer {
+  position: absolute;
+  right: 0;
+  bottom: 10%; /* Ensure it doesn't overflow */
+  display: flex;
+  justify-content: center;
+  width: auto;
+  z-index: 0;
+}
 @media (max-width: 768px) {
   .topUpFormContainer {
+    max-width: 100%; /* Adjust width for smaller devices */
     padding: 10px;
+    height: 100vh;
+    /* overflow-y: auto; */
+  }
+
+  .formGroup {
+    margin-bottom: 10px;
+  }
+
+  .amountInput {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .topUpButton {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .backButton {
+    font-size: 16px;
+  }
+}
+
+/* Media query for mobile phones */
+@media (max-width: 480px) {
+  .topUpFormContainer {
+    padding: 10px;
+    max-width: 100%;
+    height: 100vh; /* Ensure it takes up full screen height */
     
   }
 
@@ -169,29 +227,22 @@
     margin-bottom: 5px;
   }
 
-  .topUpButton {
-    margin-top: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  .topUpFormContainer {
-    max-width: 100%;
-    padding: 10px;
-    
-  }
-
-  .select, .amountInput {
-    font-size: 14px;
-    padding: 8px;
-
+  .amountInput {
+    font-size: 12px;
+    padding: 6px;
   }
 
   .topUpButton {
-    font-size: 14px;
+    font-size: 12px;
     padding: 8px;
   }
+
+  .svgContainer {
+    margin-bottom: 15px; /* Ensure proper spacing on smaller screens */
+  }
 }
+
+/* Button container */
 .buttonContainer {
   display: flex;
   justify-content: center; /* Center horizontally */
@@ -204,20 +255,15 @@
   color: white;
   text-align: center;
   flex: 1;
-  margin-left: 30px;
-}
-.currencyIcon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  vertical-align: middle;
-  margin-bottom: 20px;
+  margin-left: -30px;
+  
 }
 
-.backButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 320px; /* Set this to the desired width of the button */
+.currencyIcon {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+  vertical-align: middle;
+  margin-left: 15px;
+  margin-top: -20px;
 }
