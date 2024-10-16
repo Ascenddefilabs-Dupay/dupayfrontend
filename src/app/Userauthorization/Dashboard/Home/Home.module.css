@@ -1212,3 +1212,49 @@ z-index: -1;
     margin-bottom: 4px; /* Adds space between input and the error message */
     box-sizing: border-box; /* Ensures padding doesn’t affect width */
   }
+  .success-container {
+    text-align: center;
+    color: white;
+}
+
+.success-container h2 {
+    font-size: 2.5rem;
+    color: #76E268;
+    margin-bottom: 20px;
+}
+
+.custom-wallet-icon {
+  /* Example styles */
+  width: 100px;
+  height: 100px;
+  fill: red; /* To change the fill color */
+  stroke: blue; /* To change the stroke color */
+  align-items: center;
+  margin-top: 200px;
+}
+
+
+.success-message {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.success-icon {
+    margin: 20px auto;
+}
+
+.button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
