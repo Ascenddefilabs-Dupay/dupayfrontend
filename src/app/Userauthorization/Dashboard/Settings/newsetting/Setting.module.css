@@ -876,138 +876,6 @@ font-family: 'Poppins',sans-serif; */
   height: 24px;
 }
 
-/* 
-@media (min-width: 768px) and (max-width: 1024px) {
-  .settingprofile {
-    max-width: 400px;
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .settings {
-    font-size: 16px;
-  }
-
-  .searchinput {
-    height: 56px;
-    font-size: 16px;
-  }
-
-  .accounticon, .walleticon, .mobileicon, .worldicon, .lockicon, .moonicon, .bellicon, .voiceicon, .signouticon {
-    width: 50px;
-    height: 50px;
-  }
-}
-
-@media (max-width: 767px) {
-  .settingprofile {
-    width: 100%;
-    max-width: 400px;
-    padding: 16px;
-    font-size: 10px;
-  }
-
-  .settings {
-    font-size: 14px;
-  }
-
-  .searchparentnode {
-    top: 50px;
-    left: 15px;
-    width: 100%;
-    max-width: 333px;
-  }
-
-  .searchinput {
-    height: 48px;
-    font-size: 12px;
-  }
-
-  .accounticon, .walleticon, .mobileicon, .worldicon, .lockicon, .moonicon, .bellicon, .voiceicon, .signouticon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .accountfolder, .walletfolder, .mobilefolder, .worldfolder, .lockfolder, .moonfolder, .bellfolder, .voicefolder, .signoutfolder {
-    padding: 8px;
-
-  }
-
-  .accounttitle, .wallettitle, .mobiletitle, .worldtitle, .locktitle, .moontitle, .belltitle, .voicetitle, .signouttitle {
-    font-size: 12px;
-    line-height: 20px;
-  }
-
-  .walleticonrightarrow, .mobileiconrightarrow, .worldiconrightarrow, .lockiconrightarrow, .mooniconrightarrow, .belliconrightarrow, .voiceiconrightarrow, .signouticonrightarrow {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-@media (min-width: 1025px) {
-  .settingprofile {
-    max-width: 400px;
-    font-size: 14px;
-    width: 100%;
-  }
-
-  .searchinput {
-    height: 70px;
-  }
-
-  .accounticon, .walleticon, .mobileicon, .worldicon, .lockicon, .moonicon, .bellicon, .voiceicon, .signouticon {
-    width: 60px;
-    height: 60px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  .settingprofile {
-    max-width: 600px; 
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .settings {
-    font-size: 16px;
-  }
-
-  .searchinput {
-    height: 52px; 
-    font-size: 15px;
-  }
-
-  .accounticon, .walleticon, .mobileicon, .worldicon, .lockicon, .moonicon, .bellicon, .voiceicon, .signouticon {
-    width: 48px;
-    height: 48px; 
-  }
-} */
-
-
-/* Tablet view (including BlackBerry PlayBook) */
-/* @media (min-width: 768px) and (max-width: 1024px) {
-  .settingprofile {
-    max-width: 400px;
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .settings {
-    font-size: 16px;
-  }
-
-  .searchinput {
-    height: 52px;
-    font-size: 15px;
-  }
-
-  .accounticon, .walleticon, .mobileicon, .worldicon, .lockicon, .moonicon, .bellicon, .voiceicon, .signouticon {
-    width: 48px;
-    height: 48px;
-  }
-} */
-
-
 .searchempty {
   width: var(--screen-width, 430px);
   height: 812px;
@@ -1071,4 +939,342 @@ font-family: 'Poppins',sans-serif; */
   flex-shrink: 0;
   stroke-width: 2px;
   stroke: #C54C8F;
+}
+
+
+/* @media only screen and (max-width: 720px) and (max-height: 1280px) {
+  .settingprofile {
+    max-width: 411px;
+    width: 100%;
+    font-size: 10px; 
+    height: auto; 
+    padding: 16px;
+  }
+  
+  .settings {
+    font-size: 16px;
+    padding: 8px 12px;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .searchparentnode {
+    max-width: 363px;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .searchinput {
+    height: 50px;
+    font-size: 12px;
+  }
+
+
+  .accountfolder, .walletfolder, .mobilefolder, .worldfolder, .lockfolder, .moonfolder, .bellfolder, .voicefolder, .signoutfolder {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .accounttitle, .wallettitle, .mobiletitle, .worldtitle, .locktitle, .moontitle, .belltitle, .voicetitle, .signouttitle {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .accounticon, .walleticon, .mobileicon, .worldicon, .lockicon, .moonicon, .bellicon, .voiceicon, .signouticon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .accounticonrightarrow, .walleticonrightarrow, .mobileiconrightarrow, .worldiconrightarrow, .lockiconrightarrow, .mooniconrightarrow, .belliconrightarrow, .voiceiconrightarrow, .signouticonrightarrow {
+    width: 20px;
+    height: 20px;
+  }
+} */
+
+
+@media only screen 
+  and (min-device-width: 720px) 
+  and (max-device-width: 1280px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+  
+  /* Styles for Blackberry Z30 or similar devices */
+  .settingprofile {
+    max-width: 411px;
+    width: 100%;
+    font-size: 10px;
+    height: auto;
+    padding: 16px;
+  }
+}
+
+/* for black berry Z30 */
+@media only screen and (max-width: 720px) and (max-height: 1280px) {
+  .settingprofile {
+    max-width: 400px;
+    width: 100%;
+    font-size: 10px; 
+    height: 900px; 
+    padding: 15px;
+  }
+  
+  .settings {
+    font-size: 16px;
+    padding: 8px 12px;
+    max-width: 400px;
+    width: 100%;
+  }
+
+ 
+  .searchparentnode {
+    max-width: 320px;
+    width: 100%;
+  }
+
+  .searchlabel{
+    position: absolute;
+    top: calc(50% - 23px);
+    left: 48px;
+    width: 250px;
+    line-height: 24px;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0);
+    color: #888daa;
+    padding: 10px; 
+    border: none; 
+    outline: none;
+  }
+
+  .searchinput {
+    height: 50px;
+    font-size: 12px;
+  }
+
+
+  .accountfolder, .walletfolder, .mobilefolder, .worldfolder, .lockfolder, .moonfolder, .bellfolder, .voicefolder, .signoutfolder {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+
+  .accounttitle, .wallettitle, .mobiletitle, .worldtitle, .locktitle, .moontitle, .belltitle, .voicetitle, .signouttitle {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .accounticon, .walleticon, .mobileicon, .worldicon, .lockicon, .moonicon, .bellicon, .voiceicon, .signouticon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .accounticonrightarrow, .walleticonrightarrow, .mobileiconrightarrow, .worldiconrightarrow, .lockiconrightarrow, .mooniconrightarrow, .belliconrightarrow, .voiceiconrightarrow, .signouticonrightarrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  .searchempty {
+    width: var(--screen-width, 430px);
+    height: 812px;
+    background: var(--Gray-24, #17171A);
+  }
+
+  .searchemptychild {
+    position: absolute;
+    top: 256px;
+    left: 120px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .searchemptydot1{
+    position: absolute;
+    top: 285px;
+    left: 145px;
+    width: 3px;
+    height: 3px;
+    flex-shrink: 0;
+    fill: #C54C8F;
+  }
+  
+  .searchemptydot2{
+    position: absolute;
+    top: 285px;
+    left: 165px;
+    width: 3px;
+    height: 3px;
+    flex-shrink: 0;
+    fill: #C54C8F;
+  }
+  
+  .searchemptysmile{
+    position: absolute;
+    top: 300px;
+    left: 145px;
+    border-radius: 1px;
+    width: 23px;
+    height: 6px;
+    flex-shrink: 0;
+    stroke-width: 2px;
+    stroke: #C54C8F;
+  }
+
+  .noResultsFound {
+    position: absolute;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: Poppins;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 300;
+    top: 335px;
+    left: 80px;
+    font-size: 19px;
+    line-height: 56px;
+    background: var(--Purple_pink, linear-gradient(180deg, #E34D67 0%, #7746F4 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+}
+
+
+/* PlayBook Landscape Mode */
+@media only screen and (min-width: 1024px) and (max-width: 1280px) 
+  and (orientation: landscape) {
+  
+  .settingprofile {
+    max-width: 600px;
+    width: 100%;
+    font-size: 14px;
+    padding: 20px;
+    height: 1100px;
+  }
+
+  .settings {
+    font-size: 18px;
+    padding: 10px 15px;
+    max-width: 580px;
+    width: 100px;
+  }
+
+  .searchparentnode {
+    max-width: 550px;
+    width: 100%;
+    padding: 15px;
+  }
+
+  .searchinput {
+    height: 55px;
+    font-size: 16px;
+  }
+
+  .accounticon, .walleticon, .mobileicon, .worldicon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* PlayBook Portrait Mode */
+@media only screen and (min-width: 600px) and (max-width: 1024px) 
+  and (orientation: portrait) {
+
+  .settingprofile {
+    max-width: 600px;
+    width: 100%;
+    font-size: 12px;
+    padding: 16px;
+    height: 1050px;
+  }
+
+  .settings {
+    font-size: 16px;
+    padding: 8px 12px;
+    max-width: 600px;
+  }
+
+  .searchparentnode {
+    max-width: 563px;
+    width: 100%;
+  }
+
+  .searchinput {
+    height: 50px;
+    font-size: 14px;
+  }
+
+  .accountfolder, .walletfolder, .mobilefolder, .worldfolder {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .accounttitle, .wallettitle, .mobiletitle, .worldtitle {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .accounticon, .walleticon, .mobileicon, .worldicon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .accounticonrightarrow, .walleticonrightarrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  .searchemptychild {
+    position: absolute;
+    top: 276px;
+    left: 240px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .searchemptydot1{
+    position: absolute;
+    top: 305px;
+    left: 265px;
+    width: 3px;
+    height: 3px;
+    flex-shrink: 0;
+    fill: #C54C8F;
+  }
+  
+  .searchemptydot2{
+    position: absolute;
+    top: 305px;
+    left: 285px;
+    width: 3px;
+    height: 3px;
+    flex-shrink: 0;
+    fill: #C54C8F;
+  }
+  
+  .searchemptysmile{
+    position: absolute;
+    top: 320px;
+    left: 265px;
+    border-radius: 1px;
+    width: 23px;
+    height: 6px;
+    flex-shrink: 0;
+    stroke-width: 2px;
+    stroke: #C54C8F;
+  }
+
+  .noResultsFound {
+    position: absolute;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: Poppins;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 300;
+    top: 355px;
+    left: 210px;
+    font-size: 19px;
+    line-height: 56px;
+    background: var(--Purple_pink, linear-gradient(180deg, #E34D67 0%, #7746F4 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }

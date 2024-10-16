@@ -1,108 +1,11 @@
-// 'use client';
-// import React, { useState } from 'react';
-// import { useRouter } from 'next/navigation';
-// import '../securityfrom/securityset.css';
-// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-// import FormLabel from '@mui/material/FormLabel';
-// import { Switch } from '@mui/material';
-
-// const SecurityScreen = () => {
-//     const [requiredmode, sethandleMode] = useState(false);
-//     const [transmode, sethandletransactionMode] = useState(false);
-//     const [isFormVisible, setIsFormVisible] = useState(true);
-//     const router = useRouter();
-
-//     const securityhandleBackClick = () => {
-//         let redirectUrl = 'http://localhost:3000//Userauthorization/Dashboard/Settings';
-//         router.push(redirectUrl);
-//     };
-
-//     const securityLockButtonClick = () => {
-//         let redirectUrl = 'http://localhost:3000//Userauthorization/Dashboard/Settings/passwordform';
-//         router.push(redirectUrl);
-//     };
-
-//     const handleRequiredapp = (event) => {
-//         sethandleMode(event.target.checked);
-//     };
-
-//     const handleaTransaction = (event) => {
-//         sethandletransactionMode(event.target.checked);
-//     };
-//     return (
-//         <div className="security_container">
-//             <div className="security_card">
-//                 <div className="security1">
-//                     <ArrowBackIcon className="secrity_icon" onClick={securityhandleBackClick} />
-//                     <span className='security_label'>Security</span>
-//                 </div>
-//                 <label className='backup_label'>Backups</label>
-//                 <div className="security2">
-//                     <button className='wall_button'>
-//                         <div className='wall'>
-//                             <span className='wallet_label'>Wallet1</span>
-//                             <span className="not-backed-up">Not backed up</span>
-//                             <ChevronRightIcon className="wall_icon"/>
-//                         </div>
-//                     </button>
-//                 </div>
-//                 <hr style={{ marginTop: '10px', border: '0.1px solid gray'}}/>
-//                 <label className='securitylock_label'>Security lock</label>
-//                 <div className="security3">
-//                     <button className='security_lock_button' onClick={securityLockButtonClick}>
-//                         <div className='sec_lock'>
-//                             <span className='method_label'>Lock method</span>
-//                             <span className="pass_label">Password</span>
-//                             <ChevronRightIcon className="pass_icon"/>
-//                         </div>
-//                     </button>
-//                 </div>
-//                 <hr style={{ marginTop: '10px', border: '0.1px solid gray'}}/>
-//                 <label className='unlock_label'>Require unlock when...</label>
-//                 <div className="require_lock">
-//                     <button className='open_app'>
-//                         <div className="unlock-info">
-//                             <span className="opening">Opening the app </span>
-//                         </div>
-//                             <label className="required_switch">
-//                                 {<Switch checked={requiredmode} onChange={handleRequiredapp} />}
-//                             </label>
-//                     </button>
-//                 </div>
-//                 <div className="transaction_lock">
-//                     <button className='making_app'>
-//                         <div className="trans-info">
-//                             <span className="make_trans">Making a transaction</span>
-//                         </div>
-//                             <label className="trans_switch">
-//                                 {<Switch checked={transmode} onChange={handleaTransaction} />}
-//                             </label>
-//                     </button>
-//                 </div>
-//                 <label className='selected_label'>At least one option must be selected.</label>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default SecurityScreen;
-
-
-
-
-
-
-
 
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import '../securityfrom/securityset.css';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import FormLabel from '@mui/material/FormLabel';
-import { Switch } from '@mui/material';
+import styles from '../securityfrom/securityset.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy, faKey } from '@fortawesome/free-solid-svg-icons';
+
 
 const Security = () => {
     const [requiredmode, sethandleMode] = useState(false);
@@ -142,55 +45,76 @@ const Security = () => {
         sethandletransactionMode(event.target.checked);
     };
     return (
-        <div className="security_card">
-            <div className="security1">
-                <ArrowBackIcon className="secrity_icon" onClick={securityhandleBackClick} />
-                <span className='security_label'>Security</span>
+        <div className={styles.security_card}>
+            <div className={styles.securitylabel}>
+                <div className={styles.securityleftarrow}>
+                    <img className={styles.securityicon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729071971/arrow-left-2_kuvb2s.png" onClick={securityhandleBackClick}/>
+                </div>
+                <div className={styles.securityitle}>Security</div>
+                <div className={styles.securityrightbtn} />
             </div>
-            <label className='backup_label'>Backups</label>
-            <div className="security2">
-                <button className='wall_button'>
-                    <div className='wall'>
-                        <span className='wallet_label'>Wallet1</span>
-                        <span className="not-backed-up">Not backed up</span>
-                        <ChevronRightIcon className="wall_icon"/>
+            <div className={styles.securityParent}>
+                <div className={styles.seurityframeWrapper}>
+                    <div className={styles.securityframeGroup}>
+                        <div className={styles.securityframeContainer}>
+                            <div className={styles.securityiconavatarParent}>
+                                <img className={styles.securityiconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729072860/image_3_gyxppb.png" />
+                                <div className={styles.securityselectYourPreferred}>Wallet Address</div>
+                            </div>
+                            <div className={styles.securityiconsettingWrapper}>
+                                <FontAwesomeIcon icon={faCopy} className={styles.copyicon} />
+                            </div>
+                        </div>
+                        <div className={styles.securitytagxsmallonleftdefault}>
+                            <img className={styles.securityiconcheck} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729073320/check_u1uem5.png" />
+                            <div className={styles.securitytext}>Crypto wallet</div>
+                        </div>
                     </div>
-                </button>
-            </div>
-            <hr style={{ marginTop: '10px', border: '0.1px solid gray'}}/>
-            <label className='securitylock_label'>Security lock</label>
-            <div className="security3">
-                <button className='security_lock_button' onClick={securityLockButtonClick}>
-                    <div className='securitybutton_lock'>
-                        <span className='lock_method_label'>Lock method</span>
-                        <span className="password_label1">Password</span>
-                        <ChevronRightIcon className="pass_icon"/>
+                </div>
+                <div className={styles.seurityframeWrapperfiat}>
+                    <div className={styles.securityframeGroupfiat}>
+                        <div className={styles.securityframeContainerfiat}>
+                            <div className={styles.securityiconavatarParentfiat}>
+                                <img className={styles.securityiconavatarfiat} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729072860/image_3_gyxppb.png" />
+                                <div className={styles.securityselectYourPreferredfiat}>Fiat Address</div>
+                            </div>
+                            <div className={styles.securityiconsettingWrapperfiat}>
+                                <FontAwesomeIcon icon={faCopy} className={styles.copyiconfiat} />
+                            </div>
+                        </div>
+                        <div className={styles.securitytagxsmallonleftdefaultfiat}>
+                            <img className={styles.securityiconcheckfiat} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729073320/check_u1uem5.png" />
+                            <div className={styles.securitytextfiat}>Fiat wallet</div>
+                        </div>
                     </div>
-                </button>
-            </div>
-            <hr style={{ marginTop: '10px', border: '0.1px solid gray'}}/>
-            <label className='unlock_label'>Require unlock when...</label>
-            <div className="require_lock">
-                <button className='open_app'>
-                    <div className="unlock-info">
-                        <span className="opening">Opening the app </span>
+                </div>
+                
+      		</div>
+
+            <div className={styles.securityParentlock}>
+                <div className={styles.selectYourPreferred}>Select your preferred lock method</div>
+                <div className={styles.securitypass} onClick={securityLockButtonClick}>
+                    <div className={styles.securityleft}>
+                        <FontAwesomeIcon icon={faKey} className={styles.passwordcopyiconfiat}/>
+                        <div className={styles.securitytitlepass}>Password</div>
+                        <img className={styles.passcodeiconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
                     </div>
-                        <label className="required_switch">
-                            {<Switch checked={requiredmode} onChange={handleRequiredapp} />}
-                        </label>
-                </button>
+                    
+                </div>
             </div>
-            <div className="transaction_lock">
-                <button className='making_app'>
-                    <div className="trans-info">
-                        <span className="make_trans">Making a transaction</span>
+
+            <div className={styles.lockselection}>
+                <div className={styles.securityunlockrequ}>Select when to require an unlock</div>
+                <div className={styles.transactionlock}>
+                    <div className={styles.makingtranslock}>
+                            <div className={styles.transactiontitle}>Making a transaction</div>
                     </div>
-                        <label className="trans_switch">
-                            {<Switch checked={transmode} onChange={handleaTransaction} />}
-                        </label>
-                </button>
+                    <div className={styles.makingapplock}>
+                            <div className={styles.applocktitle}>Open the app</div>
+                    </div>
+                </div>
             </div>
-            <label className='selected_label'>At least one option must be selected.</label>
+
         </div>
         
     );
