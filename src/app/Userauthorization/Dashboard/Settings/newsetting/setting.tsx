@@ -3,10 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './Setting.module.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQrcode } from '@fortawesome/free-solid-svg-icons';
+import QrScanner from 'react-qr-scanner';
+
 
 const Newsetting = () => {
     const router = useRouter();
     const [simpleMode, setSimpleMode] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isScanning, setIsScanning] = useState<boolean>(false);
     const [userId, setUserId] = useState<string | null>(null);
     const [searchValue, setSearchValue] = useState('');
     const [debouncedValue, setDebouncedValue] = useState(searchValue);
@@ -70,7 +76,7 @@ const Newsetting = () => {
       router.push('/Userauthorization/Dashboard/Settings/securityfrom');
     };
     const profileHandleClick = () => {
-      router.push('http://localhost:3004/Manageprofile/profilesidebar');
+      router.push('/UserProfile');
     };
     const handleNotification = () => {
       router.push('/Userauthorization/Dashboard/Settings/notificationfrom');
@@ -79,7 +85,7 @@ const Newsetting = () => {
       setSearchValue(event.target.value.toLowerCase());
     };
     const SettingBackClick = () => {
-      router.push('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn');
+      router.push('/Userauthorization/Dashboard/Home');
   };
     
     const handleClearSearch = () => {
@@ -133,7 +139,27 @@ const Newsetting = () => {
         setFilteredSections(uniqueFilteredSections);
       }
     }, [debouncedValue]);
-    
+
+    const handleQrscanner = () => {
+      setIsScanning(!isScanning);
+    };
+
+    // Handle what happens after scanning
+    const handleScan = (data: any) => {
+      if (data) {
+        console.log('Scanned data:', data);
+        setIsScanning(false); // Close the scanner after successful scan
+      }
+    };
+  
+    const handleError = (err: any) => {
+      console.error('Error scanning:', err);
+    };
+
+    const handleNavigation = (route: string) => {
+      router.push(route); 
+      setLoading(true); 
+    };
     
 
     return (
@@ -142,6 +168,33 @@ const Newsetting = () => {
           <ArrowBackIcon className={styles.notify_icon} onClick={SettingBackClick} />
           <h1 className={styles.settings_back_label}>Setting</h1>
         </div>
+
+        <div className={styles.iconGroup}>
+                      {/* <FontAwesomeIcon icon={faCopy}  /> */}
+                      <FontAwesomeIcon icon={faQrcode} onClick={handleQrscanner} style={{ cursor: 'pointer', fontSize: '18px' }} />
+                  </div>
+
+                  {/* Full-screen QR Scanner */}
+                  {isScanning && (
+                    <div className={styles.overlay}>
+                      <div className={styles.scannerContainer}>
+                        <QrScanner
+                          delay={300}
+                          onError={handleError}
+                          onScan={handleScan}
+                          className={styles.scanner}
+                        />
+                        {/* Central scanning box */}
+                        <div className={styles.scanArea}></div>
+                      </div>
+                      {/* Close button */}
+                      <button className={styles.closeButton} onClick={() => setIsScanning(false)}>
+                        Close Scanner
+                      </button>
+                    </div>
+                  )}
+
+                  
 
         <div className={styles.searchparentnode} >
           <div className={styles.searchinput}>
@@ -171,7 +224,7 @@ const Newsetting = () => {
           )}
 
           {filteredSections.includes('wallet') && (
-            <div className={styles.walletfolder}>
+            <div className={styles.walletfolder} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
               <div className={styles.walletbody}>
                   <div className={styles.walleticonleft}>
                       <div className={styles.walletwa}>

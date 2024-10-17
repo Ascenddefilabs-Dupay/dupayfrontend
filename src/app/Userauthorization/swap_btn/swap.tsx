@@ -31,41 +31,28 @@ export default function Swap(): JSX.Element {
     }, [router]);
 
     const handleBackClick = (): void => {
-        setLoading(true); // Show loading text
-        setTimeout(() => {
-            router.push('/Userauthorization/Dashboard/Home');
-            setLoading(true); // Show loading text
-        }, 500); // Adjust delay if needed
+        router.push('/Userauthorization/Dashboard/Home');
+        setLoading(true); 
     };
 
-    const handleAddCryptoClick = (): void => {
-        setLoading(true); // Show loading text
-        setTimeout(() => {
-            router.push('/FiatManagement/Currency_Conversion'); // Adjust the route as needed
-            setLoading(true); // Show loading text
-        }, 500); // Adjust delay if needed  
-    };
+ 
 
-    const handleLearnMoreClick = (): void => {
-        setLoading(true); // Show loading text
-        setTimeout(() => {
-            router.push('/Userauthorization/Dashboard/Home'); // Adjust the route as needed
-            setLoading(true); // Show loading text
-
-        }, 500); // Adjust delay if needed
+    const handleNavigation = async (route: string) => {
+        router.push(route); // Navigate to the new route
+        setLoading(true); 
     };
 
     return (
         <div className={styles.container}>
             {loading ? (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , width: '430px' , backgroundColor: 'black', margin: '0 auto'}}>
                 {/* Show the Lottie loading animation */}
                 <LottieAnimationLoading width="300px" height="300px" />
               </div>
             ) : (
                 <>
                     <div style={{ flex: '1' }}> 
-                        <ArrowBackIcon onClick={handleBackClick} style={{ margin: '10px 15px' }} />
+                        <ArrowBackIcon onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')} style={{ margin: '10px 15px' }} />
                         <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911804/swap_image_tcwqal.png" alt="Swap image" style={{ height: '140px', marginLeft: '130px' }} />
                         <header style={{ alignItems: 'center', marginLeft: '110px', fontSize: '20px' }}>
                             Get the best price
@@ -115,7 +102,7 @@ export default function Swap(): JSX.Element {
                     }}>
                         <div>
                             <button
-                                onClick={handleAddCryptoClick}
+                                 onClick={() => handleNavigation('/FiatManagement/Currency_Conversion')}
                                 className={styles.button}
                             >
                                 Add crypto to your wallet
@@ -123,8 +110,8 @@ export default function Swap(): JSX.Element {
                         </div>
                         <div>
                             <button
-                                onClick={handleLearnMoreClick}
-                                className={`${styles.button} ${styles.learnMore}`}
+                                 onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')}
+                                 className={`${styles.button} ${styles.learnMore}`}
                             >
                                 Learn More
                             </button>

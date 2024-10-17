@@ -8,12 +8,14 @@ import Swal from 'sweetalert2';
 import styles from './Home.module.css';
 import { styled } from '@mui/material/styles';
 import { redirect } from 'next/navigation';
+import { FaUserCircle } from "react-icons/fa";
 import Select from 'react-select';
 import React from 'react';
 import LottieAnimation from '../../../assets/animation'
 import LottieAnimationLoading from '../../../assets/LoadingAnimation';
 import { IoMdRefresh } from "react-icons/io";
 import { Refresh } from '@mui/icons-material';
+import { fontSize } from '@mui/system';
 
 interface FiatWallet {
 balance: string; 
@@ -90,7 +92,7 @@ const Home = () => {
 
 
   const [isFiatTabSelected, setIsFiatTabSelected] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   const [userId, setUserId] = useState<string | null>(null);
   const [isBlurred, setIsBlurred] = useState(false);
@@ -116,6 +118,7 @@ const Home = () => {
 
   
   useEffect(() => {
+    setLoading(false)
     if (typeof window !== 'undefined') {
       const sessionDataString = window.localStorage.getItem('session_data');
       if (sessionDataString) {
@@ -475,8 +478,8 @@ const Home = () => {
     router.push('/Userauthorization/Dashboard/addcrypto_btn'); // Ensure the correct path here
   };
   const handleNavigation = (route: string) => {
-    setLoading(true); 
     router.push(route); 
+    setLoading(true); 
   };
 
 
@@ -527,12 +530,10 @@ const Home = () => {
   };
   const handleTransfor = () => {
     router.push('/TransactionType/AllTransactions');
-
     setLoading(true);
   };
   const handleTopUp = () => {
     router.push('/FiatManagement/Topup');
-
     setLoading(true);
   };
 
@@ -588,15 +589,58 @@ const wallet_data = () => {
     }
 };
 
-const handleRefresh =()=>{
-  router.push(''); 
-}
+// const handleRefresh =()=>{
+//   router.push(''); 
+//   // window.location.reload(false);
+
+// }
+
+const [greeting, setGreeting] = useState('');
+
+useEffect(() => {
+  const updateGreeting = () => {
+    const hours = new Date().getHours();
+    let greetingText;
+
+    if (hours >= 5 && hours < 12) {
+      greetingText = 'Good morning, ';
+    } else if (hours >= 12 && hours < 17) {
+      greetingText = 'Good afternoon, ';
+    } else if (hours >= 17 && hours < 21) {
+      greetingText = 'Good evening, ';
+    } else {
+      greetingText = 'Good night, ';
+    }
+
+    setGreeting(greetingText);
+  };
+
+  // Update greeting initially
+  updateGreeting();
+  
+  // Set an interval to update the greeting every minute
+  const intervalId = setInterval(updateGreeting, 60000);
+
+  // Cleanup interval on component unmount
+  return () => clearInterval(intervalId);
+}, []);
+
+const [isLoading, setIsLoading] = useState(false);
+
+const handleRefresh = () => {
+  setIsLoading(true); // Trigger the flash animation
+  setTimeout(() => {
+    // After the animation completes, reset loading state
+    setIsLoading(false);
+  }, 1000); // Match the duration of the animation
+};
+
 
   return (
     // <div className={styles.container}>
     <div className={`${styles.container} ${isBlurred ? styles.blur : ''}`}>
        {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black', margin: '0 auto'}}>
         {/* Show the Lottie loading animation */}
         <LottieAnimationLoading  />
       </div>
@@ -614,10 +658,10 @@ const handleRefresh =()=>{
                 <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727075270/Notificationlogo_aglon1.png" />
                 </button>
       			</div>
-            <div className={styles.goodMorningAnuroopContainer}>
-        				<span>{`Good morning, `}</span>
-        				<b> {userFirstName || 'User'}</b>
-      			</div>
+             <div className={styles.goodMorningAnuroopContainer}>
+              <span>{greeting}</span>
+              <b>{userFirstName || 'User'}</b>
+            </div>
           </div>
         </div>
         <div className={styles.rightSection}>    </div>
@@ -654,17 +698,17 @@ const handleRefresh =()=>{
 
 
       <div className={styles.content}>
-      {activeTab === 'Crypto' && (
-          <div className={styles.cryptoContent} onClick={handleDupayClick}>
+      {/* {activeTab === 'Crypto' && (
+          <div className={styles.cryptoContent} >
               <div className={styles.yourCryptoWallets4Parent}>
                 <div className={styles.yourCryptoWallets}>Your Wallets (1) </div>
               </div>
-            <div className={styles.frameParent}>
+              <button className={styles.addNew1} onClick={handleRefresh}><IoMdRefresh /></button>
+            <div className={styles.frameParent} onClick={handleDupayClick}>
                 <div className={styles.frameGroup}>
                 </div>
                 <div className={styles.frameContainer}>
                   <div className={styles.int000Wrapper}>
-                  {/* <div className={styles.int000}>{balance !== null ? balance : 'Loading...'}</div> */}
                   <div className={styles.int000}>
                       {balance !== null 
                           ? (balance.toString().split('.').length > 1 
@@ -690,7 +734,6 @@ const handleRefresh =()=>{
                     <b className={styles.int0002} onClick={CopySuiAddressinClipboard}>
                     <BiCopy />
                     </b>
-                    {/* <b className={styles.int0002}> <BiCopy /> </b> */}
                 </div>
                 <div className={styles.ethereumWrapper}>
                   <div className={styles.eth}>Ethereum</div>
@@ -698,7 +741,53 @@ const handleRefresh =()=>{
                 </div>
               </div>
           </div>
-        )}
+        )} */}
+
+{activeTab === 'Crypto' && (
+      <div className={styles.cryptoContent}>
+        
+        <div className={styles.yourCryptoWallets4Parent}>
+          <div className={styles.yourCryptoWallets}>Your Wallets (1)</div>
+        </div>
+        <button className={styles.addNew1} onClick={handleRefresh}>
+          <IoMdRefresh />
+        </button>
+        <div className={styles.frameParent} onClick={handleDupayClick}>
+          <div className={styles.frameGroup}></div>
+          <div className={styles.frameContainer}>
+          <div className={`${styles.int000Wrapper} ${isLoading ? styles.flash : ''}`}>
+          <div className={styles.int000}>
+                {balance !== null 
+                    ? (balance.toString().split('.').length > 1 
+                        ? `${balance.toString().split('.')[0]}.${balance.toString().split('.')[1].slice(0, 4)}` 
+                        : balance) 
+                    : '0.00'}
+              </div>
+            </div>
+            <div className={`${styles.ethParent} ${isLoading ? styles.flash : ''}`}>
+            <div className={styles.eth}>Sui</div>
+              <img className={styles.ethIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727269628/Sui_logo_growhu.png" />
+            </div>
+          </div>
+          <div className={`${styles.frameDiv} ${isLoading ? styles.flash : ''}`}>
+          <div className={styles.int000Parent}>
+              <div className={styles.int0001}>
+                {suiAddress !== null ? 
+                    `${suiAddress.slice(0, 6)}...${suiAddress.slice(-5)}` : 
+                    'Address not found'}
+              </div>
+              <b className={styles.int0002} onClick={CopySuiAddressinClipboard}>
+                <BiCopy />
+              </b>
+            </div>
+            <div className={styles.ethereumWrapper}>
+              <div className={styles.eth}>Ethereum</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
         {addNewFiatWallet && (
               <div>
                 <div className={styles.newwalleticon}><svg width="132" height="111" viewBox="0 0 132 111" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -719,8 +808,8 @@ const handleRefresh =()=>{
         {activeTab === 'Fiat' && fiatDropdownVisible && (
           <div>
           <div>
-                    <div className={styles.fiat}>
-                      <ul className={styles.list}>
+                      <div className={`${styles.frameDiv} ${isLoading ? styles.flash : ''}`}>
+                        <ul className={styles.list}>
                         <li className={styles.listHeader}>
                           <span className={styles.span}>
                             Your Fiat Wallets ({walletData.filter((w: { currency_type: string }) => w.currency_type !== 'Unknown').length})
@@ -856,16 +945,20 @@ const handleRefresh =()=>{
 
                             TopUp</button>
                         </div>
-                        <button className={styles.closebutton} onClick={closeModal}><svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <button className={styles.closebutton} onClick={closeModal}>
+                                    <button className={styles.closeButton2} onClick={closeModal}>
+                          <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086180/close_icon_acudos.png" alt="Close" />
+                        </button>
+                          {/* <svg width="49" height="70" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="24.6758" cy="24" r="24" fill="url(#paint0_linear_348_4905)" />
                           <path d="M17.0833 34.5416L15.0684 32.5267L23.1281 24.467L15.0684 16.4073L17.0833 14.3923L25.143 22.452L33.2027 14.3923L35.2176 16.4073L27.1579 24.467L35.2176 32.5267L33.2027 34.5416L25.143 26.4819L17.0833 34.5416Z" fill="white" />
                           <defs>
-                            <linearGradient id="paint0_linear_348_4905" x1="0.675781" y1="0" x2="0.675781" y2="48" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="paint0_linear_348_4905" x1="0.675781" y1="0" x2="0.675781" y2="40" gradientUnits="userSpaceOnUse">
                               <stop stop-color="#E34D67" />
                               <stop offset="1" stop-color="#7746F4" />
                             </linearGradient>
                           </defs>
-                        </svg>
+                        </svg> */}
                         </button>
                       </div>
                     </div>)}
@@ -931,59 +1024,79 @@ const handleRefresh =()=>{
           					</div>
         				</div>
         				<div className={styles.div1}>
-          					<div className={styles.content11}  onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn')}>
-            						<img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077051/profileicon_logo_dxbyqc.png" />
+          					<div className={styles.content11}  onClick={() => handleNavigation('/Userauthorization/Dashboard/Settings')}>
+            						{/* <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077051/profileicon_logo_dxbyqc.png" /> */}
+                        {/* <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728993690/profile_iwqu3x.png" /> */}
+                        <FaUserCircle style={{width: '22px', height: '22px'}}/>
             						<b className={styles.text}>Profile</b>
           					</div>
         				</div>
       			</div>
         <div>
-        {isDupayOpen && (
-        <div className={styles.overlay}>
-          <div className={styles.blurBackground}></div>
-          <div className={styles.buttonsContainer}>
-            <div className={styles.button}    
-              onClick={() => handleNavigation('/Userauthorization/cashout_btn')}
+          {isDupayOpen && (
+          <div className={styles.overlay}>
+            <div className={styles.blurBackground}></div>
+            <div className={styles.buttonsContainer}>
+              <div
+                className={styles.button}
+                onClick={() => {
+                  handleNavigation('/Userauthorization/cashout_btn');
+                  handleClose(); // Close the blur screen
+                }}
               >
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085076/cashout_icon_h0h6vj.png" alt="Cashout" 
-				style={{position: 'relative', right: '-5px'}}	  />
-              <span>Cashout</span>
-            </div>
-            <div className={styles.button}
-           onClick={() => handleNavigation('/Userauthorization/swap_btn')}
-              >
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085724/swap_icon_v5uzcz.png" alt="Swap" 
-			  style={{position: 'relative', right: '3px'}}
-			  />
-				<div style={{ fontFamily: 'Roboto, sans-serif' }}>Swap</div>
-			</div>
-            <div className={styles.button}
-            onClick={() => handleNavigation('/Userauthorization/receive_btn')} >
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085940/Receive_icon_kwgsaq.png" alt="Receive" 
-			  style={{width:'20px', height: '20px', position: 'relative', right: '-15px'}}		  />
-              <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif' }}>Receive</div>
-            </div>
-            <div className={styles.button}
-            onClick={() => handleNavigation('/Userauthorization/send_btn')}>
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085858/Send_icon_zag3am.png" alt="Send" 
-			  style={{width:'20px', height: '20px', position: 'relative', right: '4px'}}
-			  />
-              <div style={{ fontFamily: 'Roboto, sans-serif' }}>Send</div>
-            </div>
-            <div className={styles.button}
-           onClick={() => handleNavigation('/WalletManagement/Transak')}  >
-              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086014/Buy_icon_rwmfdq.png" alt="Buy" 
-			 	style={{position: 'relative', right: '7px'}}			  />
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085076/cashout_icon_h0h6vj.png" alt="Cashout" style={{ position: 'relative', right: '-19px' }} />
+                {/* <span>Cashout</span> */}
+                <div style={{ marginLeft: '26px', fontFamily: 'Roboto, sans-serif',position: 'relative', left: '3px' }}>Cashout</div>
 
-              <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', right: '7px'  }}>Buy</div>
+              </div>
+              <div
+                className={styles.button}
+                onClick={() => {
+                  handleNavigation('/Userauthorization/swap_btn');
+                  handleClose(); // Close the blur screen
+                }}
+              >
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085724/swap_icon_v5uzcz.png" alt="Swap" style={{ position: 'relative', right: '3px',width: '29px', height: '29px'}} />
+                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '5px' }}>Swap</div>
+              </div>
+              <div
+                className={styles.button}
+                onClick={() => {
+                  handleNavigation('/Userauthorization/receive_btn');
+                  handleClose(); // Close the blur screen
+                }}
+              >
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085940/Receive_icon_kwgsaq.png" alt="Receive" style={{ width: '20px', height: '20px', position: 'relative', right: '-15px' }} />
+                <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif', position: 'relative',left: '10px' }}>Receive</div>
+              </div>
+              <div
+                className={styles.button}
+                onClick={() => {
+                  handleNavigation('/Userauthorization/send_btn');
+                  handleClose(); // Close the blur screen
+                }}
+              >
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085858/Send_icon_zag3am.png" alt="Send" style={{ width: '20px', height: '20px', position: 'relative', right: '5px' }} />
+                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '10px' }}>Send</div>
+              </div>
+              <div
+                className={styles.button}
+                onClick={() => {
+                  handleNavigation('/WalletManagement/Transak');
+                  handleClose(); // Close the blur screen
+                }}
+              >
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086014/Buy_icon_rwmfdq.png" alt="Buy" style={{ position: 'relative', right: '9px' }} />
+                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '-1px' }}>Buy</div>
+              </div>
             </div>
+            {/* Close button */}
+            <button className={styles.closeButton1} onClick={handleClose}>
+              <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086180/close_icon_acudos.png" alt="Close" />
+            </button>
           </div>
-          {/* Close button */}
-          <button className={styles.closeButton1} onClick={handleClose}>
-            <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086180/close_icon_acudos.png" alt="Close" />
-          </button>
-        </div>
-      )}
+        )}
+
        {addNewFiatWalletPage && (
         <div className={styles.backdrop}>
         <div className={styles.modalContentadd}>

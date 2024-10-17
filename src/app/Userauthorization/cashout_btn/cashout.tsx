@@ -31,11 +31,12 @@ const Cashout: React.FC<CashoutProps> = () => {
     }, [router]);
 
     const handleBackClick = () => {
+        router.push('/Userauthorization/Dashboard/Home');
         setLoading(true);
-        setTimeout(() => {
-            router.push('/Userauthorization/Dashboard/Home');
-            setLoading(true);
-        }, 500);
+
+    };
+    const handleNavigation = async (route: string) => {
+        
     };
 
     return (

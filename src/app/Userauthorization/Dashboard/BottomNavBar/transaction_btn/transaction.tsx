@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IconButton } from '@mui/material';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import { FaUserCircle } from "react-icons/fa";
 import LottieAnimationLoading from '../../../../assets/LoadingAnimation';
 
 
@@ -17,9 +18,6 @@ const Transactions = () => {
   const handleNavigation = (route: string) => {
     setLoading(true); 
     router.push(route); 
-
-    // setTimeout(() => {
-    // }, 2000);
   };
 
   useEffect(() => {
@@ -102,13 +100,15 @@ const Transactions = () => {
             <div className={styles.div1}>
               <div 
                 className={styles.content11}  
-                onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn')}
+                onClick={() => handleNavigation('/Userauthorization/Dashboard/Settings')}
               >
-                <img 
+                {/* <img 
                   className={styles.iconbase} 
                   alt="Profile" 
                   src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077051/profileicon_logo_dxbyqc.png" 
-                />
+                /> */}
+              <FaUserCircle style={{width: '24px', height: '24px'}}/>
+
                 <b className={styles.text}>Profile</b>
               </div>
             </div>

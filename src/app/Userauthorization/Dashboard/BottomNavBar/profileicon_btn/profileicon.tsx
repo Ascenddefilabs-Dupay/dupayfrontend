@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import {
-    AppBar, Toolbar, Typography,
-} from '@mui/material';
 import { FaUserCircle } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faCopy, faQrcode } from '@fortawesome/free-solid-svg-icons';
@@ -108,12 +105,11 @@ const Profileicon: React.FC = () => {
     };
 
     const handleNavigation = (route: string) => {
-        setLoading(true); 
         router.push(route); 
-        // setTimeout(() => {
-        //   // setLoading(true);
-        // }, 2000);
+        setLoading(true); 
       };
+
+    
 
          // Handle what happens after scanning
          const handleScan = (data: any) => {
@@ -155,35 +151,35 @@ const Profileicon: React.FC = () => {
                       </div>
                     </div>
                     <div className={styles.iconGroup}>
-                      <FontAwesomeIcon icon={faCopy}  />
-                      <FontAwesomeIcon icon={faQrcode} onClick={handleQrscanner} style={{ cursor: 'pointer' }} />
+                      {/* <FontAwesomeIcon icon={faCopy}  /> */}
+                      <FontAwesomeIcon icon={faQrcode} onClick={handleQrscanner} style={{ cursor: 'pointer'}}  />
                       <FontAwesomeIcon icon={faGear} onClick={() => handleNavigation('/Userauthorization/Dashboard/Settings')} />
                     </div>
                   </div>
 
-<div className={styles.frameParent} onClick={() => handleNavigation('/UserProfile')}>
-  <div className={styles.frameGroup}>
-    <div className={styles.iconavatarParent}>
-      <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
-      <div className={styles.dupc001}>View Profile</div>
-    </div>
-    <div className={styles.iconsettingWrapper}>
-      <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
-    </div>
-  </div>
-</div>
+              <div className={styles.frameParent} onClick={() => handleNavigation('/UserProfile')}>
+                <div className={styles.frameGroup}>
+                  <div className={styles.iconavatarParent}>
+                    <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
+                    <div className={styles.dupc001}>View Profile</div>
+                  </div>
+                  <div className={styles.iconsettingWrapper}>
+                    <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
+                  </div>
+                </div>
+              </div>
 
-<div className={styles.frameParent1} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
-  <div className={styles.frameGroup}>
-    <div className={styles.iconavatarParent}>
-      <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
-      <div className={styles.dupc001}>Add & Manage Profile</div>
-    </div>
-    <div className={styles.iconsettingWrapper}>
-      <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
-    </div>
-  </div>
-</div>
+              <div className={styles.frameParent1} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
+                <div className={styles.frameGroup}>
+                  <div className={styles.iconavatarParent}>
+                    <img className={styles.iconavatar} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381541/avatar_icon_ydlrvf.png" />
+                    <div className={styles.dupc001}>Add & Manage Profile</div>
+                  </div>
+                  <div className={styles.iconsettingWrapper}>
+                    <img className={styles.iconsetting} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728381740/Settings_icon_vcznos.svg" />
+                  </div>
+                </div>
+              </div>
 
 
         
@@ -221,7 +217,7 @@ const Profileicon: React.FC = () => {
                 className={styles.content11} 
                 onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/transaction_btn')}
               >
-                <AssessmentIcon style={{position:'relative', left: '10px'}}/>
+                <AssessmentIcon style={{position:'relative', left: '13px'}}/>
                 <b className={styles.text}>Transaction</b>
               </div>
             </div>
@@ -239,11 +235,8 @@ const Profileicon: React.FC = () => {
               <div 
                 className={styles.content12}  
               >
-                <img 
-                  className={styles.iconbase} 
-                  alt="Profile" 
-                  src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077051/profileicon_logo_dxbyqc.png" 
-                />
+               <FaUserCircle style={{width: '24px', height: '24px'}}/>
+
                 <b className={styles.text}>Profile</b>
               </div>
             </div>
