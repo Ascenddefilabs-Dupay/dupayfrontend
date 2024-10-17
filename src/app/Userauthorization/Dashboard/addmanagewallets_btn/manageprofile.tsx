@@ -39,11 +39,8 @@ const ManageProfile = () => {
   }, []);
 
   const handleNavigation = (route: string) => {
+    router.push(route); 
     setLoading(true); 
-    setTimeout(() => {
-      router.push(route); 
-      setLoading(true);
-    }, 2000);
   };
 
   return (

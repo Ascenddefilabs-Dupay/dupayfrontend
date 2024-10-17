@@ -29,6 +29,7 @@
 }
 .imagecarouselIndicatorcompoIcon {
   position: absolute;
+  cursor: pointer;
   top: calc(50% - 4px);
   left: calc(50% + 10px);
   width: 8px;
@@ -36,6 +37,7 @@
 }
 .imagecarouselIndicatorcompoIcon1 {
   position: absolute;
+  cursor: pointer;
   top: calc(50% - 4px);
   left: calc(50% - 18px);
   width: 8px;
@@ -44,6 +46,7 @@
 
 .imagecarouselIndicatorcompoIcon2 {
   position: absolute;
+  cursor: pointer;
   top: calc(50% - 4px);
   left: calc(50% - 4px);
   width: 8px;
@@ -473,4 +476,33 @@
   /* line-height: 44px; */
   text-align: left;
   z-index: 2;
+}
+.slideEnter {
+  animation: slideIn 0.4s ease forwards;
+}
+
+.slideExit {
+  animation: slideOut 0.4s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+      transform: translateX(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
 }

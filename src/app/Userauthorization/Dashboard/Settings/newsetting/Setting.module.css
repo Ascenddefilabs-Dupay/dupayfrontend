@@ -6,7 +6,7 @@
 font-family: 'Poppins',sans-serif; */
 .settingprofile {
   width: 100%;
-  max-width: 400px;
+  max-width: 430px;
   position: relative;
   background-color: #17171a;
   height: 1100px;
@@ -16,7 +16,15 @@ font-family: 'Poppins',sans-serif; */
   color: #fff;
   font-family: 'Poppins',sans-serif;
   margin: auto; 
-  
+}
+.iconGroup {
+  position: relative;
+  top: 22px;
+  left: 165px;
+  height: 25px;
+  /* width: 25px; */
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 
@@ -52,11 +60,69 @@ font-family: 'Poppins',sans-serif; */
   color: #fff;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.scannerContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scanner {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.scanArea {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff6666;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.qrIcon {
+  cursor: pointer;
+}
+
+.iconGroup {
+  position: relative;
+  margin-right: 10px;
+  cursor: pointer;
+}
 
 .searchparentnode{
   position: absolute;
   top: 60px;
-  left: 19px;
+  left: 30px;
   max-width: 363px;
   width: 100%;
   display: flex;

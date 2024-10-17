@@ -10,8 +10,8 @@
   min-width: none;
   height: 100vh;
   overflow-y: scroll; /* Enables vertical scrolling */
-  background-color: #000;
-  /* background-color: #17171a; */
+  /* background-color: #000; */
+  background-color: #17171a;
   -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
   color: white;
   text-align: center;

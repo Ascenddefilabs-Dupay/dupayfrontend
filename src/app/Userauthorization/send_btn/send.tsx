@@ -96,21 +96,16 @@ const Send: React.FC = () => {
     }
   }, []);
 
-  const handleBackClick = () => {
-    setLoading(true); // Show loading text
-    setTimeout(() => {
-      router.push("/Userauthorization/Dashboard/Home"); // Navigate after delay
-      setLoading(true); // Show loading text
-    }, 500); // Adjust delay if needed
-  };
+    const handleBackClick = () => {
+        router.push('/Userauthorization/Dashboard/Home'); // Navigate after delay
+        setLoading(true);
+    };
 
-  const handleAddCryptoClick = () => {
-    setLoading(true); // Show loading text
-    setTimeout(() => {
-      router.push("/FiatManagement/Currency_Conversion"); // Navigate after delay
-      setLoading(true); // Show loading text
-    }, 500); // Adjust delay if needed
-  };
+    const handleAddCryptoClick = () => {
+        router.push('/FiatManagement/Currency_Conversion'); // Navigate after delay
+        setLoading(true); 
+
+    };
 
   //const [userId, setUserId] = useState<string | null>(null);
 

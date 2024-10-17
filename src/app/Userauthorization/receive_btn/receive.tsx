@@ -86,17 +86,12 @@ export default function Receive() {
         e.stopPropagation();
     
         if (type === 'ethereum') {
-            setShowLoader(true);
-            setTimeout(() => {
+           
             router.push(`/Userauthorization/receive_btn/ethereum_btn?address=${ethereumAddress}`);
             setShowLoader(true); 
-        }, 1000); 
         } else if (type === 'bitcoin') {
-            setShowLoader(true);
-            setTimeout(() => {
             router.push(`/Userauthorization/receive_btn/bitcoin_btn?address=${bitcoinAddress}`);
             setShowLoader(true); 
-        }, 1000); 
         }
     };
     
@@ -132,11 +127,8 @@ export default function Receive() {
     
 
     const handleBackClick = () => {
+        router.push('/Userauthorization/Dashboard/Home'); 
         setShowLoader(true); 
-        setTimeout(() => {
-        router.push('/Userauthorization/Dashboard/BottomNavBar/profileicon_btn');
-        setShowLoader(true);
-    }, 2000);
     };
 
     const ProfileImage = styled('img')({
@@ -161,6 +153,14 @@ export default function Receive() {
 
     return (
         <div className={styles.container}>
+            {showLoader ? (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+                {/* Show the Lottie loading animation */}
+                <LottieAnimationLoading width="300px" height="300px" />
+              </div>
+              ) : (
+                <>
+            
              <ToastContainer
                 position="top-center"
                 autoClose={2000}
@@ -170,12 +170,7 @@ export default function Receive() {
                 transition={Slide}  // Use the Slide transition
             />
 
-              {showLoader && (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
-                {/* Show the Lottie loading animation */}
-                <LottieAnimationLoading width="300px" height="300px" />
-              </div>
-            )}
+              
             <div>
                 <ArrowBackIcon 
                     onClick={handleBackClick} 
@@ -418,6 +413,8 @@ export default function Receive() {
                     </div>
                 </div>
             )}
+             </>
+              )}
         </div>
     );
 }
