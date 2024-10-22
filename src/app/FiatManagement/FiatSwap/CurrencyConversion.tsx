@@ -54,6 +54,7 @@ const CurrencyConversion: React.FC = () => {
   const router = useRouter();
   const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
   const [styles, setStyles] = useState({ top:'30%' });
+  const [blur,setBlur] = useState({ top:'7%' })
   const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
   const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
   const paymentOptions = [
@@ -218,20 +219,25 @@ const fetchCurrencyIcon = async (currencyName:string) => {
           ),
         };
       });
+      
 
 
 useEffect(() => {
     if (isButtonEnabled) {
       setStyle((prevStyle) => ({
         ...prevStyle,
-        background: 'linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%)',
-        color: '#ffffff',
+        background: '#e2f0ff',
+        color: '#000000',
       }));
     } else {
       setStyle((prevStyle) => ({
         ...prevStyle,
-        backgroundColor: '#222531',
+        background: '#222531',
         color: '#4c516b',
+      }));
+      setBlur((prevStyle) => ({
+        ...prevStyle,
+        top:'20%'
       }));
     }
   }, [isButtonEnabled]);
@@ -240,13 +246,22 @@ useEffect(() => {
     if (amount) {
       setStyles((prevStyles) => ({
         ...prevStyles,
-        top:'10%',
+        top:'3%',
+      }));
+      setBlur((prevStyle) => ({
+        ...prevStyle,
+        top:'7%'
       }));
     } else {
       setStyles((prevStyles) => ({
         ...prevStyles,
-        top:'35%',
+        top:'25%',
       }));
+      setBlur((prevStyle) => ({
+        ...prevStyle,
+        top:'27%'
+      }));
+      
     }
   }, [amount]);
   const customSelectStyles = {
@@ -402,17 +417,23 @@ useEffect(() => {
         const options: any = {
           key: RAZORPAY_KEY,
           amount: parseFloat(amount) * 100,
-          currency: sourceCurrency,
+          currency: fetchedCurrency,
           name: 'DUPAY',
           description: 'Payment for currency conversion',
-          
-          handler: (response: any) => {
-            
+  
+          handler: async (response: any) => {
             setShowForm(true);
             setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-
-            handleCurrencyConversion();
-            router.push("/FiatManagement/SwapSuccess");
+  
+            const conversionSuccess = await handleCurrencyConversion();
+            
+            // Navigate based on conversion success
+            if (conversionSuccess) {
+              router.push(`/FiatManagement/SwapSuccess?currency=${fetchedCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
+            } else {
+              router.push(`/FiatManagement/SwapFailed?currency=${fetchedCurrency}&wallet_id=${walletId}`);  
+            }
+  
             resolve(true);
           },
           prefill: {
@@ -427,14 +448,14 @@ useEffect(() => {
             ondismiss: () => resolve(false),
           },
         };
-
+  
         if (paymentMode === 'UPI') {
           options.method = 'upi';
           options.upi = {
             vpa: 'user@upi',
           };
         }
-
+  
         const rzp1 = new (window as any).Razorpay(options);
         rzp1.open();
       } else {
@@ -444,15 +465,58 @@ useEffect(() => {
       }
     });
   };
-
+  
+  const handleCurrencyConversion = async (): Promise<boolean> => {
+    if (!amount || !conversionRate) {
+      setAlertMessage('Invalid conversion data.');
+      return false; // Return false if validation fails
+    }
+  
+    setShowLoader(true);
+  
+    const postData = {
+      wallet_id: walletId,
+      source_currency: sourceCurrency,
+      destination_currency: destinationCurrency,
+      amount: parseFloat(amount),
+      conversion_rate: parseFloat(conversionRate),
+    };
+  
+    try {
+      const response = await fetch(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/convert_currency/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(postData),
+      });
+  
+      const result = await response.json();
+      if (result.status === 'success') {
+        setAlertMessage('Currency conversion successful!');
+        return true;  // Return true if conversion is successful
+      } else {
+        setAlertMessage(`Error: ${result.message}`);
+        return false; // Return false if an error occurred
+      }
+    } catch (error) {
+      console.error('Error converting currency:', error);
+      setAlertMessage('An error occurred. Please try again later.');
+      return false; // Return false if there is an exception
+    } finally {
+      setShowLoader(false);
+    }
+  };
+  
+  
   const fetchConversionRate = useCallback(async () => {
     if (!amount || !sourceCurrency || !destinationCurrency) {
       return;
     }
+    
 
     try {
-      const apiKey = '081e8b26f72bef8de565e1ceff00a9e3';
+      const apiKey = process.env.NEXT_PUBLIC_SWAP_API_KEY;
       const url = `http://apilayer.net/api/live?access_key=${apiKey}&currencies=${destinationCurrency}&source=${sourceCurrency}&format=1`;
+      console.log("API Key:", apiKey);
       const response = await fetch(url);
       const data = await response.json();
       if (data.success) {
@@ -461,6 +525,7 @@ useEffect(() => {
         setConversionRate(rate.toString());
         setConvertedAmount(`${converted}`);
       } else {
+        
         setAlertMessage(`Error: ${data.error.info}`);
       }
     } catch (error) {
@@ -566,41 +631,6 @@ useEffect(() => {
  
 
 
-  const handleCurrencyConversion = async () => {
-    if (!amount || !conversionRate) {
-      setAlertMessage('Invalid conversion data.');
-      return;
-    }
-  
-    setShowLoader(true);
-  
-    const postData = {
-      wallet_id: walletId,
-      source_currency: sourceCurrency,
-      destination_currency: destinationCurrency,
-      amount: parseFloat(amount),
-      conversion_rate: parseFloat(conversionRate),
-    };
-    try {
-      const response = await fetch(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/convert_currency/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData),
-      });
-  
-      const result = await response.json();
-      if (result.status === 'success') {
-        setAlertMessage('Currency conversion successful!');
-      } else {
-        setAlertMessage(`Error: ${result.message}`);
-      }
-    } catch (error) {
-      console.error('Error converting currency:', error);
-      setAlertMessage('An error occurred. Please try again later.');
-    } finally {
-      setShowLoader(false);
-    }
-  };
   
 
   const handleLeftArrowClick = () => {
@@ -628,7 +658,7 @@ console.log("Selected currency for swap:", fetchedCurrency);
               <LottieAnimationLoading />
             </div>
           )}
-          <img className="shapeIcon" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" />
+          <img className="shapeIcon" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729139397/4c03bd90-fdce-4081-9358-1e6849723549.png" />
           <div className="navbarnavBar">
             <div className="navbaritemleftBtn">
             <div className="iconiconWrapper">
@@ -742,7 +772,6 @@ console.log("Selected currency for swap:", fetchedCurrency);
             </div>
             )}
           {/* <img className="swap_shape_icon" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" alt="" /> */}
-          
             <button
               className={`btnmbBtnFab swap-button ${!isButtonEnabled ? 'disabled' : ''}`}
               style={styles}
@@ -751,6 +780,7 @@ console.log("Selected currency for swap:", fetchedCurrency);
                 <div className="text">Swap</div>
               </div>
             </button>
+            {/* <div className='blurred' style={blur}></div> */}
           </form>
         </div>
       )}

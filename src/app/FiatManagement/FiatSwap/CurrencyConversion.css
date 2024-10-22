@@ -22,6 +22,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: relative;
+  overflow-y: hidden;
 }
 .input-container {
   position: relative;
@@ -546,7 +547,6 @@ select:focus {
   right: 24px;
   left: 0;
   border-radius: 8px;
-  background-color: #e2f0ff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -555,12 +555,12 @@ select:focus {
   box-sizing: border-box;
   margin-top: 20px;
   margin-bottom: 20px;
-  z-index: 2;
+  z-index: 3;
 }
+
 .btnmbBtnFab {
   width: 100%;
   position: relative;
-  background-color: #17171a;
   height: 98px;
   text-align: center;
   font-size: 16px;
@@ -677,18 +677,26 @@ select:focus {
 
 
 /* Disabled button styles */
-@media (max-width:400px){
+/* @media (max-width:400px){
   .btnmbBtnFab {
     transform: translateY(-30%);
   }
+} */
+.blurred{
+  top: 6%;
+  height: 70px;
+  width: 100%;
+  filter: blur(5px);
+  background-color: #17171a;
+  position: relative;
+  z-index: 2;
 }
-
 .shapeIcon {
   position: absolute;
   top: 540.05px;
   left: 250px;
   width: 150px;
-  height: 225.1px;
+  height: 170.1px;
   z-index: 1;
   opacity: 0.8;
   bottom: 10px; /* Adjust this to position it near the bottom */
@@ -712,6 +720,10 @@ select:focus {
       .container{
         height: 100vh;
        }
+       .btnmbBtnFab {
+        transform: translateY(40%);
+        z-index: 3;
+      }
   }
   @media (max-width:412px){
     
@@ -730,6 +742,10 @@ select:focus {
       .container{
         height: 100vh;
        }
+       .btnmbBtnFab {
+        transform: translateY(40%);
+        z-index: 3;
+      }
   }
   @media (max-width:431px) and (min-width:425px){
     
@@ -748,6 +764,10 @@ select:focus {
       .container{
         height: 100vh;
        }
+       .btnmbBtnFab {
+        transform: translateY(60%);
+        z-index: 3;
+      }
   }
 
   @media (max-width:391px) and (min-width:385px){
@@ -783,12 +803,10 @@ select:focus {
       bottom: 10px; /* Adjust this to position it near the bottom */
       right: 0px;
       }
-      /* .btnmbBtnFab {
-        transform: translateY(20%);
-      } */
-       /* .container{
-        height: 100vh;
-       } */
+      .btnmbBtnFab {
+        transform: translateY(10%);
+        z-index: 3;
+      }
   }
 
   @media (max-width:377px) and (min-width:370px){
@@ -809,6 +827,11 @@ select:focus {
        .container{
         height: 110vh;
        }
+        .btnmbBtnFab {
+        transform: translateY(10%);
+        z-index: 3;
+      } 
+      
   }
 
   @media (max-width:350px) and (min-width:340px){
@@ -829,6 +852,10 @@ select:focus {
        .container{
         height: 100vh;
        }
+       .btnmbBtnFab {
+        transform: translateY(10%);
+        z-index: 3;
+      }
   }
   @media (max-width:769px)and (min-width:761px){
     
