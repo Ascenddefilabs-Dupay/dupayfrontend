@@ -153,6 +153,7 @@ function ZkDetails() {
       if (result) {
         console.log("Salt:", result.salt);
         console.log("Address:", result.address);
+        setWalletId(result.address);
         const Salt = result.salt;
         const Address = result.address;
         setResultAddress(result.address);
