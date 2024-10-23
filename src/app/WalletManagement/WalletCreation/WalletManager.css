@@ -61,7 +61,7 @@
    width:110%;
    max-width: 430px;
    position: absolute;
-   left: 36%;
+   left: 37.4%;
    height: auto;
    border-radius: 50px 50px 0px 0px;
    display: grid;
@@ -94,11 +94,11 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  color: #FFFFFF;
+  color: #000000;
   width:90%;
   transition: all .4s ease;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(97.59deg, #E34D67 29.66%, #7746F4 70.15%);
+  background: #E2F0FF;
 }
 .existing-wallet-button1{
   display: block;
