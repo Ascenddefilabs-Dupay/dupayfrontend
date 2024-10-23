@@ -46,9 +46,15 @@
   font-family: 'Poppins', sans-serif;
 }
 .subtext{
-  color: #FFFFFF;
+  color: #000000;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+.subtext1{
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
   font-family: 'Poppins', sans-serif;
 }
 .updatetext{
@@ -61,7 +67,7 @@
    width:110%;
    max-width: 430px;
    position: absolute;
-   left: 36%;
+   left: 37.4%;
    height: auto;
    border-radius: 50px 50px 0px 0px;
    display: grid;
@@ -118,7 +124,7 @@
   display: flex;
   justify-content: center;
   border-radius: 8px;
-  background: linear-gradient(97.59deg, #E34D67 29.66%, #7746F4 70.15%);
+  background: #E2F0FF;
 }
 .backbutton{
   display: flex;

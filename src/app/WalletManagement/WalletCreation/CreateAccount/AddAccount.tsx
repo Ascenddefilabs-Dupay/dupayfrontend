@@ -519,7 +519,7 @@ const AddAccount = () => {
             </div>
             <div className='updatetext'>
               <label className='update'>Updated!</label><br/>
-              <label className='subtext'>Proceed to create a wallet</label>
+              <label className='subtext1'>Proceed to create a wallet</label>
             </div><br/>
             <div className='subcard'>
               <div className='subcard1'>
