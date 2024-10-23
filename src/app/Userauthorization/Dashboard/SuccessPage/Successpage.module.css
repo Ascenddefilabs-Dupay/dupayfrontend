@@ -1,0 +1,86 @@
+
+  .outerContainer{
+    background-color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .successContainer {
+    background-color: #1A1A1A; /* Dark gray background for inner content */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px; /* Limits the width of the inner container */
+    color: #FFFFFF;
+    display: flex;             /* Added flex to center content within this container */
+    flex-direction: column;    /* Stack items vertically */
+    align-items: center; 
+    height: 100vh;
+    max-height: 600px;
+    
+  }
+  
+  .successMessage {
+    font-size: 2rem;
+    color: #76E268;
+    margin-top: 80px;
+    
+  }
+  
+  .walletIcon {
+    margin: 20px 0;
+  }
+  
+  .transactionComplete {
+    background-color: #2B2B2B; /* Slightly lighter than the background */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 200px;
+  }
+  
+  .transactionComplete p {
+    font-size: 1rem;
+    color: #76E268;
+    margin: 0;
+  }
+  
+  .transactionComplete span {
+    font-size: 0.9rem;
+    color: #A9A9A9;
+  }
+  
+  /* .checkIconContainer {
+    background-color: #76E268;
+    border-radius: 50%;
+    padding: 10px;
+  } */
+  
+  .checkIcon {
+    color: #000000;
+  }
+  .textContainer {
+    display: flex;
+    flex-direction: column; /* Stack p and span vertically */
+    align-items: center;    /* Aligns the text to the center */
+    margin-top: 20px;       /* Adds some space above the text container */
+  }
+  
+  .textContainer p {
+    
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFFFFF; /* White text color */
+  }
+  
+  .textContainer span {
+    font-size: 10px;
+    color: #BBBBBB; /* Slightly lighter text color for the span */
+  }
+  
