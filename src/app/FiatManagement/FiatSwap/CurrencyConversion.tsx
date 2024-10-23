@@ -514,7 +514,12 @@ useEffect(() => {
     
 
     try {
+<<<<<<< Updated upstream
       const apiKey = process.env.NEXT_PUBLIC_SWAP_API_KEY;
+=======
+      const apiKey = process.env.REACT_APP_API_KEY;
+      console.log(process.env.REACT_APP_API_KEY);
+>>>>>>> Stashed changes
       const url = `http://apilayer.net/api/live?access_key=${apiKey}&currencies=${destinationCurrency}&source=${sourceCurrency}&format=1`;
       console.log("API Key:", apiKey);
       const response = await fetch(url);
