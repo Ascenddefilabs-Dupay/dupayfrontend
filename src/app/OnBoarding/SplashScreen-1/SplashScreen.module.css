@@ -79,13 +79,25 @@ margin: 0; line-height: normal;
 .of {
     color: #fff;
 }
-.title {
+/* .title {
     width: 304px;
     position: relative;
     line-height: 56px;
     font-weight: 300;
     display: inline-block;
+} */
+.title {
+    width: 80%; 
+    max-width: 500px; /* Set a maximum width for larger screens */
+    position: relative;
+    
+    /* Line height in relative units for scalability */
+    line-height: 3rem; /* Adjust line height using rem for responsiveness */
+    font-weight: 300;
+    display: block; /* Block element to allow it to occupy full width */
+    
 }
+
 .title1 {
     align-self: stretch;
     position: relative;
@@ -108,7 +120,7 @@ margin: 0; line-height: normal;
     color: #d9d9d9;
     z-index: 2;
 }
-.techbgIcon {
+/* .techbgIcon {
     display: block;
     max-width: 100%;
     position: absolute;
@@ -118,7 +130,20 @@ margin: 0; line-height: normal;
     height: 378px;
     overflow: hidden;
     z-index: 1;
+} */
+.techbgIcon {
+    display: block;
+    width: 90vw; /* 90% of the viewport width */
+    max-width: 100%; 
+    height: 10vh; 
+    
+    /* position: absolute; */
+    top: 10vh; 
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
 }
+
 .text {
     position: relative;
     line-height: 24px;
@@ -151,17 +176,25 @@ margin: 0; line-height: normal;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 100%;
-    position: relative;
-    bottom: 20px;
+    width: 87%;
+    position: absolute;
+    /* bottom: 20px; */
+    bottom: 3%;
     padding: 12px 16px;
     border-radius: 8px;
     font-family: Poppins;
     font-weight: 600;
-    margin-top: auto; /* Pushes the button to the bottom */
-    align-self: center; /* Centers the button horizontally */
-}
-/* @media (min-width: 374px) {
+    margin-top: auto; 
+    align-self: center; 
+    overflow: hidden;
+    overflow-x: hidden;
+} 
+
+
+
+
+
+ @media (min-width: 374px) {
     .background {
         width: 100%;
     }
@@ -202,104 +235,59 @@ margin: 0; line-height: normal;
         background-color: #17171a;
         width: 370px;
     }
-} */
+} 
 
-/* Default styles for screens wider than 374px */
-@media (min-width: 374px) {
+ @media (max-width: 300px) {
     .background {
         width: 100%;
+        height: auto; 
     }
     .oboarding4 {
-        height: 100vh;
+        height: auto; 
+        padding: 20px; 
     }
     .carouselIndicator {
-        position: absolute;
-        top: 33px;
-        left: 30px;
+        position: relative; 
+        top: 10px; 
+        left: 10px; 
     }
     .skip {
-        position: absolute;
-        top: 20px;
-        left: 326px;
+        position: relative; 
+        top: 10px;
+        right: 10px; 
     }
     .techbgIcon {
-        position: absolute;
-        top: 60px;
-        left: 0px;
-        height: 300px;
+        position: relative; 
+        height: auto; 
+        max-height: 150px; 
+        width: 100%; 
     }
     .titleParent {
-        position: absolute;
-        top: 360px;
+        position: relative; 
+        margin-top: 20px; 
+        text-align: center; 
     }
     .title {
-        width: 304px;
-        position: relative;
-        line-height: 50px;
+        width: 100%; 
+        text-align: center; 
+        line-height: 1.2; 
+        font-size: 16px; 
     }   
     .title1 {
         position: relative;
-        padding-right: 10px;
+        padding-right: 5px; 
+        font-size: 14px; 
     }
     .btnmbBtnFab {
-        top: 590px;
+        top: auto; 
         background-color: #17171a;
-        width: 370px;
+        width: 100%; 
+        padding: 10px; 
+        margin-top: 20px; 
+        text-align: center; 
     }
 }
 
-@media (max-width: 300px) {
-    .background {
-        width: 100%;
-        height: auto; /* Allow height to adjust based on content */
-    }
-    .oboarding4 {
-        height: auto; /* Adjust height to fit content */
-        padding: 20px; /* Add padding for better spacing */
-    }
-    .carouselIndicator {
-        position: relative; /* Changed to relative for better alignment */
-        top: 10px; /* Adjusted for better alignment */
-        left: 10px; /* Adjusted for better alignment */
-    }
-    .skip {
-        position: relative; /* Changed to relative for better alignment */
-        top: 10px; /* Adjusted for better alignment */
-        right: 10px; /* Adjusted for better alignment */
-    }
-    .techbgIcon {
-        position: relative; /* Changed to relative for better alignment */
-        height: auto; /* Allow height to adjust based on content */
-        max-height: 150px; /* Set a maximum height */
-        width: 100%; /* Full width for better responsiveness */
-    }
-    .titleParent {
-        position: relative; /* Changed to relative for better alignment */
-        margin-top: 20px; /* Space between elements */
-        text-align: center; /* Center align titles */
-    }
-    .title {
-        width: 100%; /* Full width for better responsiveness */
-        text-align: center; /* Center align text */
-        line-height: 1.2; /* Adjust line height for readability */
-        font-size: 16px; /* Ensure text is readable on small screens */
-    }   
-    .title1 {
-        position: relative;
-        padding-right: 5px; /* Reduced padding for small screens */
-        font-size: 14px; /* Ensure text is readable on small screens */
-    }
-    .btnmbBtnFab {
-        top: auto; /* Remove absolute positioning */
-        background-color: #17171a;
-        width: 100%; /* Full width for better responsiveness */
-        padding: 10px; /* Add padding for better touch targets */
-        margin-top: 20px; /* Space between elements */
-        text-align: center; /* Center align button text */
-    }
-}
-
-/* Styles for screens narrower than 374px */
 @media (max-width: 373px) {
     .background {
         width: 100%;
@@ -321,14 +309,14 @@ margin: 0; line-height: normal;
         position: absolute;
         top: 50px;
         left: 0px;
-        height: 250px; /* Smaller height for narrower screens */
+        height: 250px; 
     }
     .titleParent {
         position: absolute;
-        top: 300px; /* Adjusted for narrower screens */
+        top: 300px; 
     }
     .title {
-        width: 280px; /* Slightly narrower for smaller screens */
+        width: 280px; 
         line-height: 45px;
     }
     .title1 {
@@ -336,12 +324,11 @@ margin: 0; line-height: normal;
     }
     .btnmbBtnFab {
         top: 550px;
-        width: 320px; /* Adjusted button width */
+        width: 320px; 
     }
 }
 
 
-/* For screen width between 376px and 431px */
 @media (min-width: 376px) and (max-width: 431px) and (max-height: 933px) {
     .oboarding4 {
         width: 100%;
@@ -382,9 +369,8 @@ margin: 0; line-height: normal;
         width: 390px;
         height: 107px;
     }
-}   
+}    
 
-/* Samsung Galaxy S8+ (up to 360px width, taller height) */
 @media (max-width: 360px) and (max-height: 740px) {
     .background {
         width: 100%;
@@ -419,7 +405,6 @@ margin: 0; line-height: normal;
         left: 10px;
     }
 }
-/* SplashScreen.module.css */
 
 .slideEnter {
     animation: slideIn 0.4s ease forwards;

@@ -510,9 +510,9 @@ color: transparent;
 }
 
 .getStartedButton {
-  background: linear-gradient(97.59deg, #E34D67 29.66%, #7746F4 70.15%);
+  background-color: #e2f0ff;
   border: none;
-  color: #fff;
+  color: #000;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;

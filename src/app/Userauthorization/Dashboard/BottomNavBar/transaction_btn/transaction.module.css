@@ -116,13 +116,13 @@
 }
 
 .addButton {
-  background: linear-gradient(268.7deg, #ff4bf9, #a221ff);
-  color: #fff;
+  background-color: #e2f0ff;
+  color: #000;
 }
 
 .tipsButton {
-  background: linear-gradient(268.7deg, #ff4bf9, #a221ff);
-  color: #fff;
+  background-color: #e2f0ff;
+  color: #000;
 }
 
 .navbar {

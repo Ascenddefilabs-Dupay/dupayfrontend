@@ -870,30 +870,20 @@ const handleRefresh = () => {
                             </defs>
                           </svg>
                             AddBack</button>
-                          <button className={styles.modalbutton} onClick={handleSwap}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10865)" />
-                            <g clip-path="url(#clip0_1139_10865)">
-                              <path d="M29.5 33.5L28 32L29.5 30.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M28 32H30C30.7956 32 31.5587 31.6839 32.1213 31.1213C32.6839 30.5587 33 29.7956 33 29" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M18.5 14.5L20 16L18.5 17.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M20 16H18C17.2044 16 16.4413 16.3161 15.8787 16.8787C15.3161 17.4413 15 18.2044 15 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M26 25V29.554C26 29.9375 25.8477 30.3053 25.5765 30.5765C25.3053 30.8477 24.9375 31 24.554 31H16.446C16.0625 31 15.6947 30.8477 15.4235 30.5765C15.1523 30.3053 15 29.9375 15 29.554V24.446C15 24.0625 15.1523 23.6947 15.4235 23.4235C15.6947 23.1523 16.0625 23 16.446 23H24C24.5304 23 25.0391 23.2107 25.4142 23.5858C25.7893 23.9609 26 24.4696 26 25Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M20.5 28.5C21.3284 28.5 22 27.8284 22 27C22 26.1716 21.3284 25.5 20.5 25.5C19.6716 25.5 19 26.1716 19 27C19 27.8284 19.6716 28.5 20.5 28.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M22 20V18.446C22 18.0625 22.1523 17.6947 22.4235 17.4235C22.6947 17.1523 23.0625 17 23.446 17H31C31.5304 17 32.0391 17.2107 32.4142 17.5858C32.7893 17.9609 33 18.4696 33 19V23.554C33 23.9375 32.8477 24.3053 32.5765 24.5765C32.3053 24.8477 31.9375 25 31.554 25H29" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M26.4404 19.94C26.5778 19.7926 26.7434 19.6744 26.9274 19.5924C27.1114 19.5105 27.31 19.4664 27.5114 19.4628C27.7128 19.4593 27.9128 19.4963 28.0996 19.5718C28.2864 19.6472 28.4561 19.7595 28.5985 19.9019C28.7409 20.0444 28.8532 20.214 28.9287 20.4008C29.0041 20.5876 29.0412 20.7876 29.0376 20.989C29.0341 21.1905 28.99 21.3891 28.908 21.5731C28.826 21.7571 28.7078 21.9227 28.5604 22.06" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </g>
+                            <button className={styles.modalbutton} onClick={handleTopUp}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10861)" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30 32H18C16.895 32 16 31.105 16 30V18C16 16.895 16.895 16 18 16H30C31.105 16 32 16.895 32 18V30C32 31.105 31.105 32 30 32Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M24 20V28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M28 24H20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <defs>
-                              <linearGradient id="paint0_linear_1139_10865" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                              <linearGradient id="paint0_linear_1139_10861" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
                                 <stop stop-color="#E34D67" />
                                 <stop offset="1" stop-color="#7746F4" />
                               </linearGradient>
-                              <clipPath id="clip0_1139_10865">
-                                <rect width="24" height="24" fill="white" transform="translate(12 12)" />
-                              </clipPath>
                             </defs>
                           </svg>
 
-                            Swap</button>
+                            TopUp</button>
                           <button className={styles.modalbutton} onClick={handleWithDraw}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10869)" />
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M30 32H18C16.895 32 16 31.105 16 30V18C16 16.895 16.895 16 18 16H30C31.105 16 32 16.895 32 18V30C32 31.105 31.105 32 30 32Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -926,21 +916,31 @@ const handleRefresh = () => {
                             </defs>
                           </svg>
 
-                            Transfor</button>
-                          <button className={styles.modalbutton} onClick={handleTopUp}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10861)" />
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30 32H18C16.895 32 16 31.105 16 30V18C16 16.895 16.895 16 18 16H30C31.105 16 32 16.895 32 18V30C32 31.105 31.105 32 30 32Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M24 20V28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M28 24H20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            Transfor</button>            
+                            <button className={styles.modalbutton} onClick={handleSwap}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10865)" />
+                            <g clip-path="url(#clip0_1139_10865)">
+                              <path d="M29.5 33.5L28 32L29.5 30.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M28 32H30C30.7956 32 31.5587 31.6839 32.1213 31.1213C32.6839 30.5587 33 29.7956 33 29" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M18.5 14.5L20 16L18.5 17.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 16H18C17.2044 16 16.4413 16.3161 15.8787 16.8787C15.3161 17.4413 15 18.2044 15 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M26 25V29.554C26 29.9375 25.8477 30.3053 25.5765 30.5765C25.3053 30.8477 24.9375 31 24.554 31H16.446C16.0625 31 15.6947 30.8477 15.4235 30.5765C15.1523 30.3053 15 29.9375 15 29.554V24.446C15 24.0625 15.1523 23.6947 15.4235 23.4235C15.6947 23.1523 16.0625 23 16.446 23H24C24.5304 23 25.0391 23.2107 25.4142 23.5858C25.7893 23.9609 26 24.4696 26 25Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20.5 28.5C21.3284 28.5 22 27.8284 22 27C22 26.1716 21.3284 25.5 20.5 25.5C19.6716 25.5 19 26.1716 19 27C19 27.8284 19.6716 28.5 20.5 28.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M22 20V18.446C22 18.0625 22.1523 17.6947 22.4235 17.4235C22.6947 17.1523 23.0625 17 23.446 17H31C31.5304 17 32.0391 17.2107 32.4142 17.5858C32.7893 17.9609 33 18.4696 33 19V23.554C33 23.9375 32.8477 24.3053 32.5765 24.5765C32.3053 24.8477 31.9375 25 31.554 25H29" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M26.4404 19.94C26.5778 19.7926 26.7434 19.6744 26.9274 19.5924C27.1114 19.5105 27.31 19.4664 27.5114 19.4628C27.7128 19.4593 27.9128 19.4963 28.0996 19.5718C28.2864 19.6472 28.4561 19.7595 28.5985 19.9019C28.7409 20.0444 28.8532 20.214 28.9287 20.4008C29.0041 20.5876 29.0412 20.7876 29.0376 20.989C29.0341 21.1905 28.99 21.3891 28.908 21.5731C28.826 21.7571 28.7078 21.9227 28.5604 22.06" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
                             <defs>
-                              <linearGradient id="paint0_linear_1139_10861" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                              <linearGradient id="paint0_linear_1139_10865" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
                                 <stop stop-color="#E34D67" />
                                 <stop offset="1" stop-color="#7746F4" />
                               </linearGradient>
+                              <clipPath id="clip0_1139_10865">
+                                <rect width="24" height="24" fill="white" transform="translate(12 12)" />
+                              </clipPath>
                             </defs>
                           </svg>
 
-                            TopUp</button>
+                            Swap</button>
                         </div>
                         <button className={styles.closebutton} onClick={closeModal}>
                                     <button className={styles.closeButton2} onClick={closeModal}>
@@ -1054,7 +1054,7 @@ const handleRefresh = () => {
                 }}
               >
                 <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085724/swap_icon_v5uzcz.png" alt="Swap" style={{ position: 'relative', right: '3px',width: '29px', height: '29px'}} />
-                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '5px' }}>Swap</div>
+                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '7px' }}>Swap</div>
               </div>
               <div
                 className={styles.button}
@@ -1063,18 +1063,8 @@ const handleRefresh = () => {
                   handleClose(); // Close the blur screen
                 }}
               >
-                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085940/Receive_icon_kwgsaq.png" alt="Receive" style={{ width: '20px', height: '20px', position: 'relative', right: '-15px' }} />
-                <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif', position: 'relative',left: '10px' }}>Receive</div>
-              </div>
-              <div
-                className={styles.button}
-                onClick={() => {
-                  handleNavigation('/Userauthorization/send_btn');
-                  handleClose(); // Close the blur screen
-                }}
-              >
-                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085858/Send_icon_zag3am.png" alt="Send" style={{ width: '20px', height: '20px', position: 'relative', right: '5px' }} />
-                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '10px' }}>Send</div>
+                 <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085858/Send_icon_zag3am.png" alt="Send" style={{ width: '20px', height: '20px', position: 'relative', right: '5px' }} />
+                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '13px' }}>Send</div>
               </div>
               <div
                 className={styles.button}
@@ -1083,8 +1073,19 @@ const handleRefresh = () => {
                   handleClose(); // Close the blur screen
                 }}
               >
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085940/Receive_icon_kwgsaq.png" alt="Receive" style={{ width: '20px', height: '20px', position: 'relative', right: '0px' }} />
+                <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif', position: 'relative',left: '-1px' }}>Sell</div>
+              </div>
+              <div
+                className={styles.button}
+                onClick={() => {
+                  handleNavigation('/Userauthorization/send_btn');
+                  handleClose(); // Close the blur screen
+                }}
+              >
+               
                 <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727086014/Buy_icon_rwmfdq.png" alt="Buy" style={{ position: 'relative', right: '9px' }} />
-                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '-1px' }}>Buy</div>
+                <div style={{ fontFamily: 'Roboto, sans-serif', position: 'relative', left: '3px' }}>Buy</div>
               </div>
             </div>
             {/* Close button */}

@@ -406,7 +406,6 @@ export default function Login() {
               </Link></p>
                 </div>
                 
-          
               )}
             </form>
           </div>
