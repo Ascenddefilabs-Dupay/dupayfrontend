@@ -38,7 +38,7 @@ const Password = () => {
                     console.log(userId);
 
                     // Send the hashed passcode to the server
-                    await axios.post('https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/password/', {
+                    await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/password/', {
                         password_creation: newPasscode,
                         userId: userId,
                     });

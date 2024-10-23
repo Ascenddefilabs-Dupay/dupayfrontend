@@ -6,7 +6,7 @@
 font-family: 'Poppins',sans-serif; */
 .settingprofile {
   width: 100%;
-  max-width: 430px;
+  max-width: 400px;
   position: relative;
   background-color: #17171a;
   height: 1100px;
@@ -16,15 +16,7 @@ font-family: 'Poppins',sans-serif; */
   color: #fff;
   font-family: 'Poppins',sans-serif;
   margin: auto; 
-}
-.iconGroup {
-  position: relative;
-  top: 22px;
-  left: 165px;
-  height: 25px;
-  /* width: 25px; */
-  margin-right: 10px;
-  cursor: pointer;
+  
 }
 
 
@@ -60,69 +52,11 @@ font-family: 'Poppins',sans-serif; */
   color: #fff;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8); 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.scannerContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.scanner {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-
-.scanArea {
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  border: 2px solid white;
-  border-radius: 10px;
-}
-
-.closeButton {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #ff6666;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-.qrIcon {
-  cursor: pointer;
-}
-
-.iconGroup {
-  position: relative;
-  margin-right: 10px;
-  cursor: pointer;
-}
 
 .searchparentnode{
   position: absolute;
   top: 60px;
-  left: 30px;
+  left: 19px;
   max-width: 363px;
   width: 100%;
   display: flex;
@@ -1208,7 +1142,7 @@ font-family: 'Poppins',sans-serif; */
   and (orientation: landscape) {
   
   .settingprofile {
-    max-width: 600px;
+    max-width: 400px;
     width: 100%;
     font-size: 14px;
     padding: 20px;
@@ -1216,16 +1150,15 @@ font-family: 'Poppins',sans-serif; */
   }
 
   .settings {
-    font-size: 18px;
-    padding: 10px 15px;
-    max-width: 580px;
-    width: 100px;
+    font-size: 16px;
+    padding: 8px 12px;
+    max-width: 400px;
+    width: 100%;
   }
 
   .searchparentnode {
-    max-width: 550px;
+    max-width: 360px;
     width: 100%;
-    padding: 15px;
   }
 
   .searchinput {
@@ -1244,7 +1177,7 @@ font-family: 'Poppins',sans-serif; */
   and (orientation: portrait) {
 
   .settingprofile {
-    max-width: 600px;
+    max-width: 400px;
     width: 100%;
     font-size: 12px;
     padding: 16px;
@@ -1344,3 +1277,139 @@ font-family: 'Poppins',sans-serif; */
     -webkit-text-fill-color: transparent;
   }
 }
+/* 
+@media only screen 
+  and (max-width: 320px) 
+  and (min-height: 6580px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+  .settingprofile {
+    max-width: 411px; 
+    height: 1000px;
+  }
+
+
+  .settings, .accountfolder, .walletfolder, 
+  .mobilefolder, .worldfolder, .lockfolder, .moonfolder, 
+  .bellfolder, .voicefolder, .signoutfolder {
+    padding: 12px;
+  }
+
+  .searchlabel{
+    position: absolute;
+    top: calc(50% - 23px);
+    left: 48px;
+    width: 195px;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0);
+    color: #888daa;
+    padding: 10px; 
+    border: none; 
+    outline: none;
+  }
+
+  .searchparentnode {
+    max-width: 290px;
+    width: 100%;
+  }
+
+  .settings_back_label {
+    font-size: 14px; 
+    margin-right: 20px;
+  }
+
+  .searchinput, .accountbody, .walletbody, .mobilebody, 
+  .worldbody, .lockbody, .moonbody, .bellbody, 
+  .voicebody, .signoutbody {
+    font-size: 14px; 
+    gap: 6px; 
+  }
+
+  .accounticon, .walleticon, .mobileicon, 
+  .worldicon, .lockicon, .moonicon, 
+  .bellicon, .voiceicon, .signouticon {
+    width: 32px; 
+    height: 32px;
+  }
+
+  .accounticonrightarrow, .walleticonrightarrow, 
+  .mobileiconrightarrow, .worldiconrightarrow, 
+  .lockiconrightarrow, .mooniconrightarrow, 
+  .belliconrightarrow, .voiceiconrightarrow, 
+  .signouticonrightarrow {
+    width: 20px; 
+    height: 20px;
+  }
+
+  .accounttitle, .wallettitle, .mobiletitle, 
+  .worldtitle, .locktitle, .moontitle, 
+  .belltitle, .voicetitle, .signouttitle {
+    font-size: 14px; 
+  }
+
+  .searchempty {
+    width: var(--screen-width, 430px);
+    height: 812px;
+    background: var(--Gray-24, #17171A);
+  }
+
+  .searchemptychild {
+    position: absolute;
+    top: 256px;
+    left: 105px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .searchemptydot1{
+    position: absolute;
+    top: 285px;
+    left: 130px;
+    width: 3px;
+    height: 3px;
+    flex-shrink: 0;
+    fill: #C54C8F;
+  }
+  
+  .searchemptydot2{
+    position: absolute;
+    top: 285px;
+    left: 150px;
+    width: 3px;
+    height: 3px;
+    flex-shrink: 0;
+    fill: #C54C8F;
+  }
+  
+  .searchemptysmile{
+    position: absolute;
+    top: 300px;
+    left: 130px;
+    border-radius: 1px;
+    width: 23px;
+    height: 6px;
+    flex-shrink: 0;
+    stroke-width: 2px;
+    stroke: #C54C8F;
+  }
+
+  .noResultsFound {
+    position: absolute;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: Poppins;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 300;
+    top: 335px;
+    left: 70px;
+    font-size: 19px;
+    line-height: 56px;
+    background: var(--Purple_pink, linear-gradient(180deg, #E34D67 0%, #7746F4 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+} */
+
