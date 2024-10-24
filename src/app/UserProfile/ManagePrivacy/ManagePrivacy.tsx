@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import styles from './PrivacySettings.module.css';
 import { redirect } from 'next/navigation';
 
+
 // Define types for the response from the API
 interface UserProfileResponse {
   profile_privacy: string;
@@ -117,6 +118,7 @@ const ManagePrivacy: React.FC = () => {
   const [close, setClose] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

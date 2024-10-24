@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { redirect } from 'next/navigation';
 import styles from './ManageProfile.module.css';
 import React, { useState, useEffect } from 'react';
+import LottieAnimationLoading from '../assets/LoadingAnimation';
 
 const StyledContainer = styled(Container)({
   display: 'flex',
@@ -39,8 +40,8 @@ const Header = styled('header')({
   alignItems: 'center',
   width: '100%',
   marginBottom: '-0.5rem',
-  height: '10px',
-  size: '10px',
+  height: '40px',
+  size: '20px',
 });
 
 const BackArrow = styled(FaArrowLeft)({
@@ -63,10 +64,19 @@ const NavList = styled('ul')({
   listStyleType: 'none',
   padding: 0,
   margin: 0,
+  
 });
 
 const NavItem = styled('li')({
-  margin: '2.5rem 0',
+  margin: '1.5rem 0',
+  backgroundColor: '#222531', // Set the background color
+  borderRadius: '8px', // Add border radius
+  top:'10px',
+  // gap: '3px',
+  height:'72px',
+  display: 'flex',
+  alignItems: 'center',
+  padding:'10px',
 });
 
 
@@ -150,12 +160,13 @@ const ManageProfile: React.FC = () => {
     <div style={container}>
       <StyledContainer maxWidth="md">
       {showLoader && (
-        <div className={styles.loaderContainer}>
-          <div className={styles.loader}></div>
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading width="300px" height="300px" />
+      </div>
       )}
-        <Header>
-        <Link href="/Userauthorization/Dashboard/BottomNavBar/profileicon_btn">
+        <Header >
+        <Link href="/Userauthorization/Dashboard/BottomNavBar/profileicon_btn" onClick={handleLeftArrowClick}>
           <BackArrow onClick={handleLeftArrowClick} />
         </Link>
           <MenuTitle>Manage Profile</MenuTitle>
