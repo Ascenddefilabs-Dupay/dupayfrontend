@@ -43,6 +43,9 @@ const AddBankForm: React.FC = () => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState('');
+  
   const router = useRouter();
   // Fetch user ID from localStorage
   useEffect(() => {
@@ -60,7 +63,15 @@ const AddBankForm: React.FC = () => {
       }
     }
   }, []);
+  
 
+
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    setBankIcon(file); // Set the bankIcon state with the selected file
+  }
+};
   // Fetch bank list for a specific user
 const fetchBankList = async (userId: string) => {
   try {
@@ -100,12 +111,13 @@ const fetchBankList = async (userId: string) => {
       ) {
         toast.error("Please fill all fields", { position: "top-center", autoClose:false });
         return;
+        
       }
 
-      if (!validateIfscCode(ifscCode)) {
-        toast.error("Invalid IFSC Code", { position: "top-center", autoClose:false });
-        return;
-      }
+      // if (!validateIfscCode(ifscCode)) {
+      //   toast.error("Invalid IFSC Code", { position: "top-center", autoClose:false });
+      //   return;
+      // }
 
       setIsSubmitting(true);
 
@@ -137,6 +149,7 @@ const fetchBankList = async (userId: string) => {
           setCurrency("");
           setBankIcon(null);
           fetchBankList(userId!); // Refresh the bank list
+          router.push("/FiatManagement/AddBankSuccess");
         } else {
           const errorData = await res.json();
           toast.error("Failed to add bank.", { position: "top-center", autoClose:false });
@@ -207,14 +220,29 @@ const fetchBankList = async (userId: string) => {
 
   return (
     <div className={styles.container}>
+      {/* <img className={styles.shapeIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727325960/0beadfc1-104a-4d39-90dc-d34518823d07.png" /> */}
+      <img className={styles.shapeIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1726804098/circle_d5udrl.png" />
+      			<div className={styles.homeScreenBackground}>
+        				<div className={styles.background} />
+      			</div>
       {/* InitialScreen: Bank list and Add Bank button */}
       {!showForm && !selectedBank && bankList.length > 0 && (
         <div className={styles.initialScreen}>
-          <header className={styles.formHeader1}>
+          {/* <header className={styles.formHeader1}>
             <FaAngleLeft className={styles.BackIcon1} onClick={handleBackClick} />  
 
             <h1 className={styles.headerTitle}>Bank Accounts</h1>
-          </header>
+          </header> */}
+          <div className={styles.navbarnavBar}>
+            <div className={styles.navbaritemleftBtn}>
+              <div className={styles.iconiconWrappers}>
+                <img className={styles.iconarrowLeftBack} onClick={handleReturnToList} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729070642/arrow-left-back_e8gobf.png" />
+              {/* <FaAngleLeft className={styles.iconarrowLeftBack} onClick={handleReturnToList} />  */}
+              </div>
+            </div>
+            <div className={styles.hereIsTitle}>Bank Accounts</div>
+            <div className={styles.navbaritemrightBtn} />
+          </div>
 
           {/* <span className={styles.BackIcon} onClick={handleBackClick}>
             &lt;
@@ -233,6 +261,7 @@ const fetchBankList = async (userId: string) => {
                 >
                   <span className={styles.bankName}>{bank.bank_name}</span>
                   <FaAngleRight className={styles.rightArrow} />
+                  
                 </button>
               ))}
             </div>
@@ -248,19 +277,25 @@ const fetchBankList = async (userId: string) => {
       {(showForm || bankList.length === 0) && !selectedBank && (
         <div className={styles.formScreen}>
           
-          <header className={styles.formHeader}>
+          {/* <header className={styles.formHeader}>
             <FaAngleLeft className={styles.BackIcon1} onClick={handleReturnToList} /> 
-            {/* <span className={styles.BackIcon1} onClick={handleReturnToList}>
-              &lt;
-            </span> */}
             <h1 className={styles.headerTitle}>Bank Details</h1>
-          </header>
+          </header> */}
+          <div className={styles.navbarnavBar}>
+            <div className={styles.navbaritemleftBtn}>
+              <div className={styles.iconiconWrapper}>
+                <img className={styles.iconarrowLeftBack} onClick={handleReturnToList} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729070642/arrow-left-back_e8gobf.png" />
+              {/* <FaAngleLeft className={styles.iconarrowLeftBack} onClick={handleReturnToList} />  */}
+              </div>
+            </div>
+            <div className={styles.hereIsTitle}>Bank Details</div>
+            <div className={styles.navbaritemrightBtn} />
+          </div>
 
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                Bank Name<span className={styles.required}>*</span>
-              </label>
+            <div className={styles.floatingLabelContainer}>
+              
               <input
                 type="text"
                 value={bankName}
@@ -268,12 +303,15 @@ const fetchBankList = async (userId: string) => {
                 required
                 className={styles.input}
               />
+              <label className={`${styles.label} ${bankName ? styles.activeLabel : ''}`}>
+                Bank Name<span className={styles.required}>*</span>
+              </label>
+              </div>
             </div>
 
             <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                Account Holder Name<span className={styles.required}>*</span>
-              </label>
+            <div className={styles.floatingLabelContainer}>
+              
               <input
                 type="text"
                 value={accountHolderName}
@@ -281,12 +319,15 @@ const fetchBankList = async (userId: string) => {
                 required
                 className={styles.input}
               />
+              <label className={`${styles.label} ${accountHolderName ? styles.activeLabel : ''}`}>
+                Account Holder Name<span className={styles.required}>*</span>
+              </label>
+              </div>
             </div>
 
             <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                Account Number<span className={styles.required}>*</span>
-              </label>
+            <div className={styles.floatingLabelContainer}>
+             
               <input
                 type="text"
                 value={accountNumber}
@@ -294,12 +335,15 @@ const fetchBankList = async (userId: string) => {
                 required
                 className={styles.input}
               />
+               <label className={`${styles.label} ${accountNumber ? styles.activeLabel : ''}`}>
+                Account Number<span className={styles.required}>*</span>
+              </label>
+              </div>
             </div>
 
             <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                IFSC Code<span className={styles.required}>*</span>
-              </label>
+            <div className={styles.floatingLabelContainer}>
+              
               <input
                 type="text"
                 value={ifscCode}
@@ -307,12 +351,15 @@ const fetchBankList = async (userId: string) => {
                 required
                 className={styles.input}
               />
+              <label className={`${styles.label} ${ifscCode ? styles.activeLabel : ''}`}>
+                IFSC Code<span className={styles.required}>*</span>
+              </label>
+              </div>
             </div>
 
             <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                Branch Name<span className={styles.required}>*</span>
-              </label>
+            <div className={styles.floatingLabelContainer}>
+              
               <input
                 type="text"
                 value={branchName}
@@ -320,12 +367,15 @@ const fetchBankList = async (userId: string) => {
                 required
                 className={styles.input}
               />
+              <label className={`${styles.label} ${branchName ? styles.activeLabel : ''}`}>
+                Branch Name<span className={styles.required}>*</span>
+              </label>
+              </div>
             </div>
 
             <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                Swift/BIC Code<span className={styles.required}>*</span>
-              </label>
+            <div className={styles.floatingLabelContainer}>
+              
               <input
                 type="text"
                 value={swiftBicCode}
@@ -333,12 +383,15 @@ const fetchBankList = async (userId: string) => {
                 required
                 className={styles.input}
               />
+              <label className={`${styles.label} ${swiftBicCode ? styles.activeLabel : ''}`}>
+                Swift/BIC Code<span className={styles.required}>*</span>
+              </label>
+              </div>
             </div>
 
             <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                Currency<span className={styles.required}>*</span>
-              </label>
+            <div className={styles.floatingLabelContainer}>
+              
               <input
                 type="text"
                 value={currency}
@@ -346,19 +399,38 @@ const fetchBankList = async (userId: string) => {
                 required
                 className={styles.input}
               />
+              <label className={`${styles.label} ${currency ? styles.activeLabel : ''}`}>
+                Currency<span className={styles.required}>*</span>
+              </label>
+              </div>
+            </div>
+            <div className={styles.fieldContainer}>
+              <div className={styles.fileWrapper}>
+                <label className={`${styles.labels} ${bankIcon ? styles.activeLabel : ''}`}>
+                  Attach KYC Doc<span className={styles.required}>*</span>
+                </label>
+
+                <div className={styles.fileInputWrapper}>
+                  <div className={styles.fileIcon}>
+                    <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729617035/fc1f7abb-17a0-4eda-a529-b5b06797587a.png" alt="file-icon" />
+                  </div>
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    className={styles.fileInput}
+                    id="file"
+                  />
+                </div>
+
+                {bankIcon && (
+                  <div className={styles.fileName}>
+                    {bankIcon.name} {/* Display the file name */}
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className={styles.fieldContainer}>
-              <label className={styles.label}>
-                KYC Doc<span className={styles.required}>*</span>
-              </label>
-              <input
-                type="file"
-                onChange={(e) => setBankIcon(e.target.files ? e.target.files[0] : null)}
-                required
-                className={styles.fileInput}
-              />
-            </div>
+            
 
             <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : "Submit"}
@@ -371,12 +443,19 @@ const fetchBankList = async (userId: string) => {
       {selectedBank && (
         <div className={styles.bankDetailsScreen}>
           
-          <div className={styles.formHeader}>
+          {/* <div className={styles.formHeader}>
             <FaAngleLeft className={styles.BackIcon1} onClick={handleReturnToList} /> 
-            {/* <span className={styles.BackIcon1} onClick={handleReturnToList}>
-              &lt;
-            </span> */}
             <h1 className={styles.title}>Bank Details</h1>
+          </div> */}
+          <div className={styles.navbarnavBar}>
+            <div className={styles.navbaritemleftBtn}>
+              <div className={styles.iconiconWrapper}>
+                <img className={styles.iconarrowLeftBack} onClick={handleReturnToList} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729070642/arrow-left-back_e8gobf.png" />
+              {/* <FaAngleLeft className={styles.iconarrowLeftBack} onClick={handleReturnToList} />  */}
+              </div>
+            </div>
+            <div className={styles.hereIsTitle}>Bank account</div>
+            <div className={styles.navbaritemrightBtn} />
           </div>
           <div className={styles.card}>
             
@@ -392,19 +471,19 @@ const fetchBankList = async (userId: string) => {
             
             <br />
             <div className={styles.detailsRow}>
-              <div className={styles.label}>Branch:</div>
+              <div className={styles.label1}>Branch:</div>
               <div className={styles.value}>{selectedBank.branch_name}</div>
             </div>
             <div className={styles.detailsRow}>
-              <div className={styles.label}>IFSC Code:</div>
+              <div className={styles.label1}>IFSC Code:</div>
               <div className={styles.value}>{selectedBank.ifsc_code}</div>
             </div>
             <div className={styles.detailsRow}>
-              <div className={styles.label}>SWIFT/BIC Code:</div>
+              <div className={styles.label1}>SWIFT/BIC Code:</div>
               <div className={styles.value}>{selectedBank.bic_code}</div>
             </div>
             <div className={styles.detailsRow}>
-              <div className={styles.label}>Currency:</div>
+              <div className={styles.label1}>Currency:</div>
               <div className={styles.value}>{selectedBank.currency}</div>
             </div>
           </div>
@@ -420,10 +499,10 @@ const fetchBankList = async (userId: string) => {
         </div>
       )}
 
-
-      {/* Toast Container for notifications */}
       <ToastContainer />
     </div>
+
+    
   );
 };
 
