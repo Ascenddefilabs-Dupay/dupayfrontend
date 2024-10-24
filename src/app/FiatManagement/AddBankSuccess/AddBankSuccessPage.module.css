@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Avenir+Next:wght@500&display=swap');
+  
+
+ 
+
+ .success1 {
+    position: absolute;
+    top: 219px;
+    left: 128px;
+    line-height: 56px;
+    font-weight: 300;
+    background: linear-gradient(91.26deg, #45f0d1, #76e268);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: left;
+}
+.yourWalletIs {
+    position: absolute;
+    top: 295px;
+    left: 67px;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 600;
+    display: inline-block;
+    width: 295px;
+}
+.joinAndClaim {
+    position: absolute;
+    top: 343px;
+    left: 67px;
+    font-size: 14px;
+    line-height: 24px;
+    display: inline-block;
+    width: 295px;
+}
+.iconbase {
+    position: absolute;
+    top: 391px;
+    left: calc(50% - 48px);
+    width: 96px;
+    height: 96px;
+    overflow: hidden;
+}
+.checkIcon {
+    position: absolute;
+    top: 433px;
+    left: 175px;
+    width: 24px;
+    height: 24px;
+}
+.success {
+    width: 400px;
+    position: relative;
+    background-color: #17171a;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    font-size: 40px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    max-width: 100%;
+    max-height: auto;
+    margin: 0 auto;
+}
+@media (max-width: 720px){
+    .success{
+        width: 100%;
+    }
+}
+@media (max-width: 1040px){
+    .success{
+        width: 100%;
+    }
+}
+@media (max-width: 391px){
+    .checkIcon {
+        left: 170px;
+    }
+}
+@media (max-width: 361px){
+    .checkIcon {
+        left: 150px;
+    }
+}

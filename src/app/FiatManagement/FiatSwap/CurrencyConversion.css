@@ -32,7 +32,7 @@ body {
   font-size: 18px;
   line-height: 24px;
   font-weight: 600;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   /* color: #fff; */
   text-align: left;
 }
@@ -56,7 +56,7 @@ input {
   font-size: 18px;
   line-height: 24px;
   font-weight: 600;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   color: #ffffff;
   text-align: left;
 }
@@ -105,7 +105,7 @@ input:focus + .floating-label,
   position: relative;
   font-size: 16px;
   line-height: 24px;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   text-align: left;
   margin-bottom: 10px;
@@ -156,8 +156,8 @@ select {
   text-align: left;
   font-size: 16px;
   color: #ffffff;
-  font-family: Poppins;
-text-align: left;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
 
 }
 
@@ -266,7 +266,7 @@ select:focus {
   font-size: 26px;
   line-height: 24px;
   font-weight: 600;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   text-align: center;
   display: flex;
@@ -444,7 +444,7 @@ select:focus {
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   text-align: left;
   display: inline-block;
@@ -460,7 +460,7 @@ select:focus {
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   text-align: right;
 }
@@ -531,7 +531,7 @@ select:focus {
   text-align: left;
   font-size: 12px;
   color: #cfd1dd;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   
 }
 
@@ -565,7 +565,7 @@ select:focus {
   text-align: center;
   font-size: 16px;
   color: #000;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   /* transform: translateY(70%); */
 }
 
@@ -606,7 +606,7 @@ select:focus {
   text-align: left;
   font-size: 14px;
   color: #888daa;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
 }
 .inputinputs {
   flex: 1;
@@ -660,7 +660,7 @@ select:focus {
   text-align: center;
   font-size: 16px;
   color: #fff;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
 }
 
 .swapHoriz24dpE8eaedFill0WIcon {
