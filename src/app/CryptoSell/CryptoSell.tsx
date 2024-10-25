@@ -35,6 +35,8 @@ interface FiatWallet {
   const currencyIcons = {
     'INR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332402/admin/wj3iwdmefdlbro6zefui.png",
     'USD':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332507/admin/l0b132l8rbx1m3h0hkyv.png",
+    'EUR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1729848255/europe_xalxst.png",
+    "AED":"https://res.cloudinary.com/dgfv6j82t/image/upload/v1729848313/7c168df3-75b4-43c5-a705-0daa3b56a71d.png",
     'SUI':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729751154/a2ca4b2c-1d38-48c4-b77c-5026eacbefa6.png',
     'BTC':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765305/d6893a3a-07b3-4075-b0fe-f476a95510c9.png',
     'ETH':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765367/4e24a2c0-6992-43b1-9b08-f63e8701a4e2.png',
@@ -46,7 +48,7 @@ interface FiatWallet {
   // const currencyList = [
   //   'SUI','Bitcoin','Ethereum','Binance Coin','Solana','Cardano'
   // ];
-  const currencyList = ['INR','USD','SUI', 'BTC', 'ETH', 'BNB', 'solana', 'cardano'];
+  const currencyList = ['INR','USD','EUR','AED','SUI', 'BTC', 'ETH', 'BNB', 'solana', 'cardano'];
   interface PriceResponse {
       [key: string]: {
         usd: number;
@@ -194,6 +196,9 @@ useEffect(() => {
  menu: (base: any) => ({
         ...base,
         backgroundColor: '#17171a',
+        '::-webkit-scrollbar': {
+      display: 'none',
+    },
     }),
     singleValue: (base: any) => ({
         ...base,
@@ -210,25 +215,37 @@ useEffect(() => {
     }),
   };
   
-  const fetchConversionRate = useCallback(async () => {
+  const currencyIdMap: Record<string, string> = {
+    'INR': 'inr', 
+    'USD': 'usd',
+    'EUR':'eur', 
+    'AED':'aed',
+    'SUI': 'sui', 
+    'BTC': 'bitcoin', 
+    'ETH': 'ethereum', 
+    'BNB': 'binancecoin',
+    'solana': 'solana', 
+    'cardano': 'cardano'
+};
+
+const fetchConversionRate = useCallback(async () => {
     if (!amount || !sourceCurrency || !destinationCurrency) return;
 
     try {
+        // Map the currencies to the CoinGecko ID
+        const sourceId = currencyIdMap[sourceCurrency];
+        const destinationId = currencyIdMap[destinationCurrency];
+        
         const response = await axios.get(
-            `https://api.coingecko.com/api/v3/simple/price?ids=${sourceCurrency}&vs_currencies=${destinationCurrency}`
+            `https://api.coingecko.com/api/v3/simple/price?ids=${sourceId}&vs_currencies=${destinationId}`
         );
-        console.log("response data", response.data)
-        console.log("source: ", sourceCurrency);
-        console.log("destination" ,destinationCurrency);
-       
-        const rate = response.data[token][currency];
-        console.log("rate",rate);
+
+        // Access the conversion rate based on mapped IDs
+        const rate = response.data[sourceId][destinationId];
         const calculatedAmount = (rate * (parseFloat(amount) || 0)).toFixed(3);
-        console.log("calculatedAmount" , calculatedAmount); 
         setSwapRate(calculatedAmount);
-  
     } catch (error) {
-        console.error('Error fetching the conversion rate or token prices:', error);
+        console.error('Error fetching the conversion rate:', error);
         setAlertMessage('An error occurred. Please try again later.');
     }
 }, [amount, sourceCurrency, destinationCurrency]);
@@ -262,8 +279,9 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const handleSellButton = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true); // Set loading state to true
-    await router.push(`/CryptoSellSuccess`);
+    router.push(`/CryptoSellSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
     setIsLoading(false); // Reset loading state after navigation
+
   };
 
  
@@ -275,7 +293,7 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
-      router.push('/Userauthorization/Dashboard/Home');
+      router.back();
       setShowLoader(false);
     }, 3000);
   };

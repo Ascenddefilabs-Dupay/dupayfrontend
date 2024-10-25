@@ -284,6 +284,9 @@ console.log("currency is: ",fetchedCurrency);
  menu: (base: any) => ({
         ...base,
         backgroundColor: '#17171a',
+        '::-webkit-scrollbar': {
+      display: 'none',
+    },
     }),
     singleValue: (base: any) => ({
         ...base,
@@ -300,6 +303,18 @@ console.log("currency is: ",fetchedCurrency);
     }),
   };
   
+  const currencyIdMap: Record<string, string> = {
+    'INR': 'inr', 
+    'USD': 'usd', 
+    'EUR':'eur',
+    'AED':'aed',
+    'SUI': 'sui', 
+    'BTC': 'bitcoin', 
+    'ETH': 'ethereum', 
+    'BNB': 'binancecoin',
+    'solana': 'solana', 
+    'cardano': 'cardano'
+};
   const fetchConversionRate = useCallback(async () => {
     if (!amount || !sourceCurrency || !destinationCurrency) {
       return;
@@ -308,17 +323,19 @@ console.log("currency is: ",fetchedCurrency);
     try {
       // Fetch token prices from CoinGecko API\
       console.log("Hi");
+      const sourceId = currencyIdMap[sourceCurrency];
+        const destinationId = currencyIdMap[destinationCurrency];
       const fromResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${sourceCurrency}&vs_currencies=usd`
+        `https://api.coingecko.com/api/v3/simple/price?ids=${sourceId}&vs_currencies=usd`
       );
       console.log("1");
       const toResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${destinationCurrency}&vs_currencies=usd`
+        `https://api.coingecko.com/api/v3/simple/price?ids=${destinationId}&vs_currencies=usd`
       );
       console.log("2");
-      const fromRate = fromResponse.data[fromToken].usd;
+      const fromRate = fromResponse.data[sourceId].usd;
       console.log("3", fromRate);
-      const toRate = toResponse.data[toToken].usd;
+      const toRate = toResponse.data[destinationId].usd;
       console.log("4",toRate);
       const swapValue = (fromRate / toRate) * (parseFloat(amount) || 0);
       console.log("amount ad",(parseFloat(amount) || 0))
@@ -375,7 +392,7 @@ console.log("currency is: ",fetchedCurrency);
   const handleSwapButton = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true); // Set loading state to true
-    await router.push(`/CryptoSwapSuccess`);
+    router.push(`/CryptoSwapSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
     setIsLoading(false); // Reset loading state after navigation
   
   };
@@ -393,7 +410,7 @@ console.log("currency is: ",fetchedCurrency);
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
-      router.push('/Userauthorization/Dashboard/Home');
+      router.back();
       setShowLoader(false);
     }, 3000);
   };
