@@ -290,7 +290,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
-import { margin, positions, styled } from '@mui/system';
+import { height, margin, maxHeight, positions, styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -321,22 +321,6 @@ interface UserProfile {
   user_pin_code?: string;
 }
 
-const StyledContainer = styled(Container)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  backgroundColor: '#434B52',
-  borderRadius: '0px',
-  color: '#FFFFFF',
-  width: '430px',
-  height: 'auto',
-  minHeight: '130vh', // Adjust height for additional content
-  overflowY: 'auto', 
-  // scrollbarWidth: 'none', 
-  // padding: '20px',
-  position: 'relative',
-});
-
 
 const ProfileWrapper = styled(Box)({
   display: 'flex',
@@ -344,22 +328,11 @@ const ProfileWrapper = styled(Box)({
   position: 'relative',
   width: '100%',
   paddingBottom: '1rem',
+  // backgroundColor: "blue",
   // borderBottom: '1px solid #333',
   justifyContent: 'center',  // Horizontal centering
   top:'-70px',
   zIndex: 1000,  
-});
-const InfoContainer = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  // marginTop: '20px',
-  // padding: '20px',
-  backgroundColor: '#000000',
-  borderRadius: '8px',
-  height: 'auto',
-  // height:'100vh',
-  width: '430px',
 });
 
 const ProfileImageWrapper = styled(Box)({
@@ -524,13 +497,17 @@ const UserProfile: React.FC = () => {
       display: 'flex',
       flexDirection: 'column' as const,
       alignItems: 'center',
-      justifyContent: 'center',
+      // justifyContent: 'center',
       width:'430px',
-      height:'100%',
+      height:'180vh',
+      // height:'auto',
+      // minHeight: '100%',
       // padding: '20px',
       backgroundColor: '#121212',
       borderRadius: '8px',
       margin:'0 auto',
+      paddingBottom: '0',
+      overflow: 'hidden',
     },
     header: {
       display: 'flex',
@@ -590,7 +567,7 @@ const UserProfile: React.FC = () => {
                   position: 'absolute',
                   bottom: -10,
                   right: -10,
-                  backgroundColor: '#B200ED',
+                  backgroundColor: '#222531',
                   borderRadius: '50%',
                 }}
               >
@@ -608,17 +585,40 @@ const UserProfile: React.FC = () => {
         {/* <InfoContainer> */}
         <div style={{ backgroundColor: 'black',  width:'100%',position:'relative',
           borderTopRightRadius: '30px', borderTopLeftRadius:'30px',
-          padding: '35px', marginTop: '16px' ,top:'-150px',height: '120vh'  }}>
-            <div style={{ backgroundColor: 'black',  width:'328px',position:'relative',padding: '10px',
-           marginTop: '16px' ,height: 'auto'  }}>
-          <Box display="flex" justifyContent="center" width="100%" style={{ height:'30px' ,marginTop: '10px',marginBottom: '30px'}} >
-            <Typography variant="h5" gutterBottom style={{ color: 'white',height:'30px',width:'338px'}}>
+          padding: '35px', marginTop: '16px' ,top:'-150px',height: 'auto'  }}>
+            <Box 
+            display="flex" 
+            justifyContent="center" 
+            alignItems="center" 
+            width="100%" 
+            sx={{ height: '30px', marginTop: '40px', marginBottom: '10px' }}
+          >
+            <Typography variant="h5" gutterBottom sx={{ color: 'white' }}>
               Edit Profile
             </Typography>
           </Box>
+            <div style={{ backgroundColor: 'black',  width:'328px',position:'relative',padding: '10px',
+           marginTop: '16px' ,height: 'auto'  }}>
+          {/* <Box display="flex" justifyContent="center" width="100%" style={{ height:'30px' ,marginTop: '10px',marginBottom: '30px'}} >
+            <Typography variant="h5" gutterBottom style={{ color: 'white',height:'30px',width:'338px'}}>
+              Edit Profile
+            </Typography>
+          </Box> */}
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{paddingLeft:'0px',color: 'white',left:'-10%',marginTop: '8px', width:'100%',fontSize: '15px' ,display:'block',justifyContent:'flex-start'}}>First Name</FormHelperText>
+          {/* <FormHelperText style={{
+              paddingLeft: '0px',
+              color: 'white',
+              marginTop: '8px',
+              width: '100%',
+              fontSize: '15px',
+              textAlign: 'left',
+              marginLeft: '3px'  // Move the text further left
+          }}>
+              First Name
+          </FormHelperText> */}
+
+            <FormHelperText style={{paddingLeft:'0px',color: 'white',left:'-10%',marginTop: '8px', width:'100%',fontSize: '15px' ,marginLeft: '3px'}}>First Name</FormHelperText>
             <TextField
               value={users.user_first_name}
               variant="outlined"
@@ -637,7 +637,7 @@ const UserProfile: React.FC = () => {
         </div>
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Last Name</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Last Name</FormHelperText>
             <TextField
               value={users.user_last_name}
               variant="outlined"
@@ -656,7 +656,7 @@ const UserProfile: React.FC = () => {
 
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Email</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Email</FormHelperText>
             <TextField
               value={users.user_email}
               variant="outlined"
@@ -673,9 +673,9 @@ const UserProfile: React.FC = () => {
           </FormControl>
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
+        {/* <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Dob</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Dob</FormHelperText>
             <TextField
               value={users.user_dob}
               variant="outlined"
@@ -687,14 +687,46 @@ const UserProfile: React.FC = () => {
                   height:'40.15px',
                   width:'338px',
                 },
+                inputProps: { style: { color: 'white' } },
               }}
+              disabled
+            />
+          </FormControl>
+        </div> */}
+        <div style={{ marginBottom: '16px' }}>
+          <FormControl fullWidth variant="outlined">
+            <FormHelperText sx={{ color: 'white', marginTop: '8px', fontSize: '15px', marginLeft: '3px' }}>
+              Date of Birth
+            </FormHelperText>
+            <TextField
+              value={users.user_dob}
+              variant="outlined"
+              InputProps={{
+                style: {
+                  backgroundColor: '#222531',
+                  color: 'white', // Regular text color
+                  borderRadius: '8px',
+                  height: '40.15px',
+                  width: '338px',
+                },
+              }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
+                },
+              }}
+              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Ph Number</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Phone Number</FormHelperText>
             <TextField
               value={users.user_phone_number}
               variant="outlined"
@@ -710,101 +742,102 @@ const UserProfile: React.FC = () => {
             />
           </FormControl>
         </div>
-{/* 
+
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Country</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Country</FormHelperText>
             <TextField
               value={users.user_country}
               variant="outlined"
               InputProps={{
                 style: {
-                  backgroundColor: 'white',
-                  color: 'black',
+                  backgroundColor: '#222531',
+                  color: 'white',
                   borderRadius: '8px',
                   height:'40.15px',
+                  width:'338px',
                 },
               }}
-              disabled
             />
           </FormControl>
-        </div> */}
+        </div>
 
-        {/* <div style={{ marginBottom: '16px' }}>
+        <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>City</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>City</FormHelperText>
             <TextField
               value={users.user_city}
               variant="outlined"
               InputProps={{
                 style: {
-                  backgroundColor: 'white',
-                  color: 'black',
+                  backgroundColor: '#222531',
+                  color: 'white',
                   borderRadius: '8px',
                   height:'40.15px',
+                  width:'338px',
                 },
               }}
-              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>State</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>State</FormHelperText>
             <TextField
               value={users.user_state}
               variant="outlined"
               InputProps={{
                 style: {
-                  backgroundColor: 'white',
-                  color: 'black',
+                  backgroundColor: '#222531',
+                  color: 'white',
                   borderRadius: '8px',
                   height:'40.15px',
+                  width:'338px',
                 },
               }}
-              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Address</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Address</FormHelperText>
             <TextField
               value={users.user_address_line_1}
               variant="outlined"
               InputProps={{
                 style: {
-                  backgroundColor: 'white',
-                  color: 'black',
+                  backgroundColor: '#222531',
+                  color: 'white',
                   borderRadius: '8px',
                   height:'40.15px',
+                  width:'338px',
                 },
               }}
-              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Pin Code</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Pin Code</FormHelperText>
             <TextField
               value={users.user_pin_code}
               variant="outlined"
               InputProps={{
                 style: {
-                  backgroundColor: 'white',
-                  color: 'black',
+                  backgroundColor: '#222531',
+                  color: 'white',
                   borderRadius: '8px',
                   height:'40.15px',
+                  width:'338px',
                 },
               }}
-              disabled
+              // disabled
             />
           </FormControl>
-        </div> */}
+        </div>
 
       </div>
       <div style={{ marginBottom: '16px',marginTop:'20px' }}>
