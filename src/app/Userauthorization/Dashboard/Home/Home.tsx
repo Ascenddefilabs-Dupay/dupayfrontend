@@ -1021,7 +1021,8 @@ const handleRefresh = () => {
           					</div>
         				</div>
         				<div className={styles.div1}>
-          					<div className={styles.content11}  onClick={() => handleNavigation('/Userauthorization/Dashboard/Settings')}>
+                <div className={styles.content11}  onClick={() => handleNavigation('/UserProfile/ViewProfile')}>
+          					{/* <div className={styles.content11}  onClick={() => handleNavigation('/Userauthorization/Dashboard/Settings')}> */}
             						{/* <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077051/profileicon_logo_dxbyqc.png" /> */}
                         {/* <img className={styles.iconbase} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728993690/profile_iwqu3x.png" /> */}
                         <FaUserCircle style={{width: '22px', height: '22px'}}/>
