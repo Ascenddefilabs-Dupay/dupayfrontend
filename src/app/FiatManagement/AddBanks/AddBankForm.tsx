@@ -174,12 +174,9 @@ const fetchBankList = async (userId: string) => {
   );
 
   // Handle back button click to go back to the dashboard
-  const handleBackClick = useCallback(() => {
-
-    // window.location.href = "/Userauthorization/Dashboard/Home";
-    router.push('/Userauthorization/Dashboard/Home');
-
-  }, []);
+  const handleBack = () => {
+    router.push('/Userauthorization/Dashboard/Home'); // Navigate to the Dashboard Home
+  };
 
   // Show the add bank form
   const handleAddBankClick = () => {
@@ -236,7 +233,7 @@ const fetchBankList = async (userId: string) => {
           <div className={styles.navbarnavBar}>
             <div className={styles.navbaritemleftBtn}>
               <div className={styles.iconiconWrappers}>
-                <img className={styles.iconarrowLeftBack} onClick={handleReturnToList} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729070642/arrow-left-back_e8gobf.png" />
+                <img className={styles.iconarrowLeftBack} onClick={handleBack} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729070642/arrow-left-back_e8gobf.png" />
               {/* <FaAngleLeft className={styles.iconarrowLeftBack} onClick={handleReturnToList} />  */}
               </div>
             </div>
