@@ -302,6 +302,9 @@ useEffect(() => {
  menu: (base: any) => ({
         ...base,
         backgroundColor: '#17171a',
+        '::-webkit-scrollbar': {
+      display: 'none',
+    },
     }),
     singleValue: (base: any) => ({
         ...base,
@@ -356,6 +359,9 @@ useEffect(() => {
  menu: (base: any) => ({
         ...base,
         backgroundColor: '#17171a',
+        '::-webkit-scrollbar': {
+      display: 'none',
+    },
     }),
     singleValue: (base: any) => ({
         ...base,
