@@ -120,8 +120,8 @@
 
 /* Visible and active state for the button */
 .topUpButton.active {
-  background: linear-gradient(268.7deg, #FF4BF9 9.34%, #A221FF 100.67%);
-  color: white;
+  background: #e2f0ff;
+  color: rgb(12, 12, 12);
   visibility: visible;
   cursor: pointer;
 }

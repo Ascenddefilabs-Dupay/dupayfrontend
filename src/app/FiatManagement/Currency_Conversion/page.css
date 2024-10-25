@@ -148,8 +148,8 @@ body {
 }
 
 .continueButton {
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-    color: white;
+    background: #e2f0ff;
+    color: rgb(32, 32, 32);
     border: none;
     border-radius: 25px;
     width: 100%;

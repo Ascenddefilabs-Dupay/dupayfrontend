@@ -1073,7 +1073,7 @@ const handleRefresh = () => {
                   handleClose(); // Close the blur screen
                 }}
               >
-                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727085940/Receive_icon_kwgsaq.png" alt="Receive" style={{ width: '20px', height: '20px', position: 'relative', right: '0px' }} />
+                <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729837576/loan_1_g0wn70.png" alt="Receive" style={{ width: '30px', height: '30px', position: 'relative', right: '0px' }} />
                 <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif', position: 'relative',left: '-1px' }}>Sell</div>
               </div>
               <div

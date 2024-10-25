@@ -10,7 +10,7 @@ const SuccessPage: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = '/Userauthorization/Dashboard/Home'; // Change to window.location.href for redirection
-    }, 5000); 
+    }, 2000); 
 
     return () => clearTimeout(timer);
   }, []);
