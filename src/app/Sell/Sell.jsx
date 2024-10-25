@@ -11,7 +11,9 @@ const SellPage = () => {
     const response = await axios.get(
       `https://api.coingecko.com/api/v3/simple/price?ids=${token}&vs_currencies=${currency}`
     );
+    console.log(response.data);
     const rate = response.data[token][currency];
+    console.log("rate",rate);
     setConversionRate(rate * amount);
   };
 

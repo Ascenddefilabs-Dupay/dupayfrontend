@@ -138,32 +138,15 @@ const SwapPage: React.FC = () => {
   const [paymentMode, setPaymentMode] = useState<string>('');
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const [conversionRate, setConversionRate] = useState<string | null>(null);
   const [showForm, setShowForm] = useState<boolean>(true);
-  const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
   const [fetchedCurrency, setFetchedCurrency] = useState<string>(''); 
-  const [loading, setLoading] = useState(false);
-  const [walletData, setWalletData] = useState<FiatWallet[]>([]);
-  // const [currencyIcons, setCurrencyIcons] = useState<Record<string, string>>({});
-  // const [currencyList, setCurrencyList] = useState<string[]>([]);
   const [walletId, setWalletId] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
   const router = useRouter();
-  // const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
+  const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
   const [styles, setStyles] = useState({ top:'30%' });
-  const [blur,setBlur] = useState({ top:'7%' })
-  const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
   const [fromToken, setFromToken] = useState<string>("sui");
   const [toToken, setToToken] = useState<string>("bitcoin");
-  // const [amount, setAmount] = useState<number>(0);
-  const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
-  const paymentOptions = [
-    { value: '', label: 'Payment Method' },
-    { value: 'WalletBalance', label: 'Wallet Balance' },
-    { value: 'Cards', label: 'Cards' },
-    { value: 'UPI', label: 'UPI' }
-  ];
+  const [isLoading, setIsLoading] = useState(false);
   const [balances, setBalances] = useState<Record<string, number>>({
     INR: 0.00,
     USD: 0.00,
@@ -206,11 +189,6 @@ useEffect(() => {
 }, []);
 console.log("currency is: ",fetchedCurrency);
   useEffect(() => {
-    if (fetchedCurrency) {
-      fetchCurrencyIcon(fetchedCurrency);
-    }
-  }, [fetchedCurrency]);
-  useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const walletIdValue = params.get('wallet_id') || "";
@@ -220,77 +198,6 @@ console.log("currency is: ",fetchedCurrency);
     
   }, []);
 
-console.log("wallet id is: ",walletId);
-const fetchCurrencyIcon = async (currencyName:string) => {
-    try {
-      const response = await axios.post(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_fiatSwap/get-currency-icon/`, {
-        currency: currencyName.trim(),
-      });
-      
-
-      if (response.data && response.data.icon_url) {
-        const fullIconUrl = cloudinaryBaseUrl + response.data.icon_url; // Combine base URL with the relative path
-        console.log("Fetched full icon URL:", fullIconUrl);
-        setFlagIconUrl(fullIconUrl);
-      } else {
-        console.error("Icon URL not found in response:", response.data);
-        setAlertMessage('Currency icon not found.');
-      }
-    } catch (error) {
-      console.error("Error fetching currency icon:", error);
-      // setAlertMessage('Failed to load currency icon.');
-    }
-  };
-  
-  console.log("url",flagIconUrl);
-      // Fetch bank names on load
-
-
-      useEffect(() => {
-        if(walletId){
-        axios
-          .get<{ fiat_wallets: FiatWallet[] }>(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_fiatSwap/fiat_wallet/${walletId}/`)
-          .then((response) => {
-            console.log('response data', response.data);
-            const wallets = response.data.fiat_wallets;
-            setWalletData(wallets);
-      
-            // Extracting currency types
-            const currencies = wallets.map((wallet) => wallet.currency_type);
-            // setCurrencyList(currencies);
-            setLoading(true);
-          })
-          .catch((err) => {
-            setLoading(false);
-            console.error('Error fetching wallet data:', err);
-          });
-        }
-      }, [walletId]);
-
-
-      
-      
-
-      
-      
-      // Generate dropdown options with currency icons
-      // const currencyOptions = currencyList.map((currency_type) => {
-      //   const iconUrl = currencyIcons[currency_type] || ''; 
-    
-      //   return {
-      //     value: currency_type,
-      //     label: (
-      //       <div style={{ display: 'flex', alignItems: 'center' }}>
-      //         <img
-      //           src={cloudinaryBaseUrl + iconUrl}
-      //           alt={currency_type}
-      //           style={{ marginRight: 8, width: 24, height: 24 }} 
-      //         />
-      //        <span>{currency_type.replace('|', '')}</span> 
-      //       </div>
-      //     ),
-      //   };
-      // });
       const currencyOptions = currencyList.map((currency_type) => {
         const iconUrl = currencyIcons[currency_type as keyof typeof currencyIcons] || ''; 
       
@@ -312,25 +219,7 @@ const fetchCurrencyIcon = async (currencyName:string) => {
      
       
 
-// useEffect(() => {
-//     if (isButtonEnabled) {
-//       setStyle((prevStyle) => ({
-//         ...prevStyle,
-//         background: '#e2f0ff',
-//         color: '#000000',
-//       }));
-//     } else {
-//       setStyle((prevStyle) => ({
-//         ...prevStyle,
-//         background: '#222531',
-//         color: '#4c516b',
-//       }));
-//       setBlur((prevStyle) => ({
-//         ...prevStyle,
-//         top:'20%'
-//       }));
-//     }
-//   }, [isButtonEnabled]);
+
 
   useEffect(() => {
     if (amount) {
@@ -338,22 +227,25 @@ const fetchCurrencyIcon = async (currencyName:string) => {
         ...prevStyles,
         top:'22%',
       }));
-      setBlur((prevStyle) => ({
+      setStyle((prevStyle) => ({
         ...prevStyle,
-        top:'7%'
+        background: '#e2f0ff',
+        color: '#000000',
       }));
     } else {
       setStyles((prevStyles) => ({
         ...prevStyles,
         top:'55%',
       }));
-      setBlur((prevStyle) => ({
+      setStyle((prevStyle) => ({
         ...prevStyle,
-        top:'27%'
+        background: '#222531',
+        color: '#4c516b',
       }));
       
+      
     }
-  }, [amount]);
+  }, [amount])
   const customSelectStyles = {
     control: (base: any) => ({
         ...base,
@@ -407,175 +299,6 @@ const fetchCurrencyIcon = async (currencyName:string) => {
         color: 'white',
     }),
   };
-  const customSelectStylesPayement = {
-    control: (base: any) => ({
-        ...base,
-        flex: '1',
-        backgroundColor: '#17171a',
-        borderColor: '#2a2d3c',
-        color: 'white',
-        borderRadius: '8px', 
-        display: 'flex', 
-        alignItems: 'center',
-        height: '54px', 
-        boxShadow: 'none', 
-        boxSizing: 'border-box',
-        flexShrink: '0',
-        fontFamily: 'Poppins',
-        border: '1px solid #2a2d3c',
-        // left:'10px',
-        marginRight:"8px",
-        width:'100%',
-        marginBottom:'20px',
-        paddingRight: '0',
-
-        
-    }),
-    indicatorSeparator: (base: any) => ({
-      display: 'none', // Hides the separator
-    }),
-  
-    // Style the dropdown arrow or hide it if needed
-    dropdownIndicator: (base: any) => ({
-      ...base,
-      color: 'white', // Adjust the arrow color if you want it visible
-      padding: '0', // Adjust padding to remove extra space
-      marginRight:'10px',
-    }),
-
- menu: (base: any) => ({
-        ...base,
-        backgroundColor: '#17171a',
-    }),
-    singleValue: (base: any) => ({
-        ...base,
-        color: '#888daa',
-        fontFamily: "Poppins",
-        display: 'flex',
-        alignItems: 'center', 
-        fontWeight:'600'
-    }),
-    option: (base: any, state: any) => ({
-        ...base,
-        backgroundColor: state.isFocused ? '#2a2d3c' : '#17171a',
-        color: 'white',
-    }),
-  };
-  
-
-
-
-
-  useEffect(() => {
-    const loadRazorpayScript = () => {
-      if (!(window as any).Razorpay) {
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.async = true;
-        document.body.appendChild(script);
-
-        return () => {
-          document.body.removeChild(script);
-        };
-      }
-    };
-    loadRazorpayScript();
-  }, []);
-
-  const initiateRazorpayPayment = () => {
-    return new Promise<boolean>((resolve) => {
-      if ((window as any).Razorpay) {
-        const options: any = {
-          key: RAZORPAY_KEY,
-          amount: parseFloat(amount) * 100,
-          currency: fetchedCurrency,
-          name: 'DUPAY',
-          description: 'Payment for currency conversion',
-  
-          handler: async (response: any) => {
-            setShowForm(true);
-            setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-  
-            const conversionSuccess = await handleCurrencyConversion();
-            
-            // Navigate based on conversion success
-            if (conversionSuccess) {
-              router.push(`/FiatManagement/SwapSuccess?currency=${fetchedCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
-            } else {
-              router.push(`/FiatManagement/SwapFailed?currency=${fetchedCurrency}&wallet_id=${walletId}`);  
-            }
-  
-            resolve(true);
-          },
-          prefill: {
-            name: 'User Name',
-            email: 'user@example.com',
-            contact: '9999999999',
-          },
-          theme: {
-            color: '#F37254',
-          },
-          modal: {
-            ondismiss: () => resolve(false),
-          },
-        };
-  
-        if (paymentMode === 'UPI') {
-          options.method = 'upi';
-          options.upi = {
-            vpa: 'user@upi',
-          };
-        }
-  
-        const rzp1 = new (window as any).Razorpay(options);
-        rzp1.open();
-      } else {
-        setShowForm(true);
-        setAlertMessage('Razorpay script not loaded.');
-        resolve(false);
-      }
-    });
-  };
-  
-  const handleCurrencyConversion = async (): Promise<boolean> => {
-    if (!amount || !conversionRate) {
-      setAlertMessage('Invalid conversion data.');
-      return false; // Return false if validation fails
-    }
-  
-    setShowLoader(true);
-  
-    const postData = {
-      wallet_id: walletId,
-      source_currency: sourceCurrency,
-      destination_currency: destinationCurrency,
-      amount: parseFloat(amount),
-      conversion_rate: parseFloat(conversionRate),
-    };
-  
-    try {
-      const response = await fetch(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/convert_currency/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData),
-      });
-  
-      const result = await response.json();
-      if (result.status === 'success') {
-        setAlertMessage('Currency conversion successful!');
-        return true;  // Return true if conversion is successful
-      } else {
-        setAlertMessage(`Error: ${result.message}`);
-        return false; // Return false if an error occurred
-      }
-    } catch (error) {
-      console.error('Error converting currency:', error);
-      setAlertMessage('An error occurred. Please try again later.');
-      return false; // Return false if there is an exception
-    } finally {
-      setShowLoader(false);
-    }
-  };
   
   const fetchConversionRate = useCallback(async () => {
     if (!amount || !sourceCurrency || !destinationCurrency) {
@@ -586,20 +309,20 @@ const fetchCurrencyIcon = async (currencyName:string) => {
       // Fetch token prices from CoinGecko API\
       console.log("Hi");
       const fromResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${fromToken}&vs_currencies=usd`
+        `https://api.coingecko.com/api/v3/simple/price?ids=${sourceCurrency}&vs_currencies=usd`
       );
       console.log("1");
       const toResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${toToken}&vs_currencies=usd`
+        `https://api.coingecko.com/api/v3/simple/price?ids=${destinationCurrency}&vs_currencies=usd`
       );
       console.log("2");
       const fromRate = fromResponse.data[fromToken].usd;
-      console.log("3");
+      console.log("3", fromRate);
       const toRate = toResponse.data[toToken].usd;
-      console.log("4");
+      console.log("4",toRate);
       const swapValue = (fromRate / toRate) * (parseFloat(amount) || 0);
       console.log("amount ad",(parseFloat(amount) || 0))
-      console.log("5");
+      console.log("5",swapValue);
   
       setSwapRate(parseFloat(swapValue.toFixed(3)));
       console.log("swap is :",swapRate);
@@ -650,20 +373,11 @@ const fetchCurrencyIcon = async (currencyName:string) => {
     setAmount(inputValue);
   };
   const handleSwapButton = async (event: React.FormEvent) => {
-    event.preventDefault(); // Prevent the page from refreshing
-    setShowForm(false);
-    const paymentSuccess = await initiateRazorpayPayment();
-    console.log("1");
-    if (!paymentSuccess) {
-      setShowForm(true);
-      setAlertMessage("Payment Declined!");
-      setPaymentMode("Select Payment Method");
-      router.push(`/FiatManagement/SwapFailed?currency=${fetchedCurrency}&wallet_id=${walletId}`);
-    }
-    else{
-        // setShowForm(true);
-        // router.push("/FiatManagement/SwapSuccess");
-    }
+    event.preventDefault();
+    setIsLoading(true); // Set loading state to true
+    await router.push(`/CryptoSwapSuccess`);
+    setIsLoading(false); // Reset loading state after navigation
+  
   };
 
   const handleCurrencySwap = () => {
@@ -776,7 +490,7 @@ console.log("Selected currency for swap:", fetchedCurrency);
               </div>
             <div className="amount-row">
               <div className="amount-group">
-              <div className="howMuchUsd">How much {fetchedCurrency} you want to swap?</div>
+              <div className="howMuchUsd">How much sui you want to swap?</div>
                 {/* <label className="balance-label">How much {fetchedCurrency} you want to swap?</label> */}
                 <div className="input-container">
                   <label 
@@ -824,14 +538,15 @@ console.log("Selected currency for swap:", fetchedCurrency);
             </div>
             )}
           {/* <img className="swap_shape_icon" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" alt="" /> */}
-            <button
-              className={'btnmbBtnFab swap-button '}
-              style={styles}
-               >
-              <div className="btnbtn"  onClick={handleSwapButton}>
-                <div className="text">Swap</div>
-              </div>
-            </button>
+          <button
+                className={`btnmbBtnFab swap-button ${isLoading ? 'disabled' : ''}`}
+                style={styles}
+                disabled={isLoading}
+              >
+                <div className="btnbtn" style={style} onClick={handleSwapButton}>
+                  <div className="text">{isLoading ? 'Processing...' : 'Swap'}</div>
+                </div>
+              </button>
             {/* <div className='blurred' style={blur}></div> */}
           </form>
         </div>
