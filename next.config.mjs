@@ -1,7 +1,17 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    productionBrowserSourceMaps: false, // Disable source maps in production
-  };
 
-  export default nextConfig;
-  
+
+  /** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+  optimizeFonts: false,
+  webpack: (config) => {
+    config.cache = false; // Disable caching
+    return config;
+  },
+  productionBrowserSourceMaps: false,
+};
+
+export default nextConfig;

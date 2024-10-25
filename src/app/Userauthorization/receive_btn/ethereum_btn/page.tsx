@@ -1,13 +1,10 @@
-import React from 'react'
-import Ethereumqr from './ethereumqr'
+import React, { Suspense } from 'react';
+import EthereumPage from './ethereumqr'; // adjust the path as necessary
 
-const page = () => {
-  return (
-    <div>
-      {/* <h1>ethereum page</h1> */}
-      <Ethereumqr />
-    </div>
-  )
+export default function Page() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <EthereumPage />
+        </Suspense>
+    );
 }
-
-export default page

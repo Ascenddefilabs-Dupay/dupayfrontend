@@ -68,7 +68,7 @@
   import { useRouter } from 'next/navigation';
   import { useState, useEffect } from 'react';
   import useSwipe from '../../useSwipe'; // Adjust the path as needed
-  import LottieAnimationLoading from '../../assets/Loadingrefresh';
+  import LottieAnimationLoading from '../../assets/LoadingAnimation';
   import styles from './SplashScreen3.module.css';
 
   export default function SplashScreen3() {
