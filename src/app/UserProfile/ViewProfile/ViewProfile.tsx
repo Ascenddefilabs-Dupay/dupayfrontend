@@ -380,11 +380,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
 import { margin, positions, styled } from '@mui/system';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
-import styles from './EditProfile.module.css';
+import { MdEdit } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoChevronBack } from "react-icons/io5";
 import { redirect } from 'next/navigation';
@@ -392,6 +391,7 @@ import LottieAnimationLoading from '../../assets/LoadingAnimation';
 import { TextField } from '@mui/material'
 // import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel ,FormHelperText} from '@mui/material';
+import { IoSettings } from "react-icons/io5";
 
 // Define TypeScript interfaces
 interface UserProfile {
@@ -613,9 +613,9 @@ const UserProfile: React.FC = () => {
       display: 'flex',
       flexDirection: 'column' as const,
       alignItems: 'center',
-      justifyContent: 'center',
+      // justifyContent: 'center',
       width:'430px',
-      height:'100%',
+      height:'175vh',
       // padding: '20px',
       backgroundColor: '#121212',
       borderRadius: '8px',
@@ -625,7 +625,7 @@ const UserProfile: React.FC = () => {
       display: 'flex',
       alignItems: 'center',
       width: '100%',
-      top:'-60px',
+      top:'-90px',
       position:'relative',
       left:'30px',
       paddingLeft:'10px',
@@ -659,17 +659,45 @@ const UserProfile: React.FC = () => {
       </div>
       )}
       <img  style={styles.animation} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729747660/Frame_qityi8.svg" />
+      
       {/* <div> */}
         <header style={styles.header}>
-          <Link href="/UserProfile">
+          <Link href="/Userauthorization/Dashboard/Home">
           <IoChevronBack style={{color:'white',fontSize:'20px'}}/>
           </Link>
         </header>
+        <Box display="flex" justifyContent="flex-end" width="100%">
+        <Link href="/Userauthorization/Dashboard/Settings">
+          <IoSettings 
+            style={{ 
+              color: 'white', 
+              fontSize: '20px', 
+              marginRight: '20px', 
+              position: 'relative', 
+              top: '-130px' 
+            }} 
+          />
+        </Link>
+      </Box>
+      <Box display="flex" justifyContent="flex-end" width="100%">
+        <Link href="/UserProfile/EditProfile">
+          <MdEdit
+            style={{ 
+              color: 'white', 
+              fontSize: '20px', 
+              marginRight: '50px', 
+              position: 'relative', 
+              top: '-150px' 
+            }} 
+          />
+        </Link>
+      </Box>
+
         {/* <div style={styles.image}> */}
         <ProfileWrapper>
           <ProfileImageWrapper>
             <ProfileImage src={profileImage} alt="Profile Image" />
-            <label htmlFor="upload-image">
+            {/* <label htmlFor="upload-image">
               <UploadInput accept="image/*" id="upload-image" type="file" onChange={handleImageChange} />
               <IconButton
                 color="default"
@@ -685,7 +713,7 @@ const UserProfile: React.FC = () => {
               >
                 <MdModeEditOutline style={{color:'white'}}/>
               </IconButton>
-            </label>
+            </label> */}
           </ProfileImageWrapper>
           {/* <Box>
             <Typography variant="h6" style={{ color: '#B0B0B0' }}>
@@ -697,19 +725,31 @@ const UserProfile: React.FC = () => {
         {/* <InfoContainer> */}
         <div style={{ backgroundColor: 'black',  width:'100%',position:'relative',
           borderTopRightRadius: '30px', borderTopLeftRadius:'30px',
-          padding: '35px', marginTop: '16px' ,top:'-150px',height: '120vh'  }}>
-            <div style={{ backgroundColor: 'black',  width:'328px',position:'relative',padding: '10px',
-           marginTop: '16px' ,height: 'auto'  }}>
-          <Box display="flex" justifyContent="center" width="100%" style={{ height:'30px' ,marginTop: '10px',marginBottom: '30px'}} >
+          padding: '35px', marginTop: '16px' ,top:'-150px',height: 'auto'  }}>
+            
+                      {/* <Box display="flex" justifyContent="center" width="100%" style={{ height:'30px' ,marginTop: '10px',marginBottom: '30px'}} >
             <Typography variant="h5" gutterBottom style={{ color: 'white',height:'30px',width:'338px'}}>
               Edit Profile
             </Typography>
+          </Box> */}
+          <Box 
+            display="flex" 
+            justifyContent="center" 
+            alignItems="center" 
+            width="100%" 
+            sx={{ height: '30px', marginTop: '40px', marginBottom: '10px' }}
+          >
+            <Typography variant="h5" gutterBottom sx={{ color: 'white' }}>
+              View Profile
+            </Typography>
           </Box>
+            <div style={{ backgroundColor: 'black',  width:'328px',position:'relative',padding: '10px',
+           marginTop: '16px' ,height: 'auto'  }}>
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{paddingLeft:'0px',color: 'white',left:'-10%',marginTop: '8px', width:'100%',fontSize: '15px' ,display:'block',justifyContent:'flex-start'}}>First Name</FormHelperText>
+            <FormHelperText style={{color: 'white',marginTop: '8px', width:'100%',fontSize: '15px' ,marginLeft: '3px' }}>Full Name</FormHelperText>
             <TextField
-              value={users.user_first_name}
+              value={getFullName()}
               variant="outlined"
               InputProps={{
                 style: {
@@ -721,31 +761,23 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
-            />
-          </FormControl>
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Last Name</FormHelperText>
-            <TextField
-              value={users.user_last_name}
-              variant="outlined"
-              InputProps={{
-                style: {
-                  backgroundColor: '#222531',
-                  color: 'white',
-                  borderRadius: '8px',
-                  height:'40.15px',
-                  width:'338px',
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
                 },
               }}
+              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Email</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px'  }}>Email</FormHelperText>
             <TextField
               value={users.user_email}
               variant="outlined"
@@ -758,13 +790,23 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
+                },
+              }}
+              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Dob</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px'  }}>Date of Birth</FormHelperText>
             <TextField
               value={users.user_dob}
               variant="outlined"
@@ -777,13 +819,23 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
+                },
+              }}
+              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Ph Number</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px'  }}>Phone Number</FormHelperText>
             <TextField
               value={users.user_phone_number}
               variant="outlined"
@@ -796,13 +848,23 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
+                },
+              }}
+              disabled
             />
           </FormControl>
         </div>
 
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Country</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px'  }}>Country</FormHelperText>
             <TextField
               value={users.user_country}
               variant="outlined"
@@ -815,6 +877,15 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
+                },
+              }}
               disabled
             />
           </FormControl>
@@ -822,7 +893,7 @@ const UserProfile: React.FC = () => {
 
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>City</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px'  }}>City</FormHelperText>
             <TextField
               value={users.user_city}
               variant="outlined"
@@ -835,6 +906,15 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
+                },
+              }}
               disabled
             />
           </FormControl>
@@ -842,7 +922,7 @@ const UserProfile: React.FC = () => {
 
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>State</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px'  }}>State</FormHelperText>
             <TextField
               value={users.user_state}
               variant="outlined"
@@ -855,6 +935,15 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
+                },
+              }}
               disabled
             />
           </FormControl>
@@ -862,7 +951,7 @@ const UserProfile: React.FC = () => {
 
         <div style={{ marginBottom: '16px' }}>
           <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Address</FormHelperText>
+            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px'  }}>Address</FormHelperText>
             <TextField
               value={users.user_address_line_1}
               variant="outlined"
@@ -875,37 +964,57 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
-              disabled
-            />
-          </FormControl>
-        </div>
-
-        <div style={{ marginBottom: '16px' }}>
-          <FormControl fullWidth variant="outlined">
-            <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px' }}>Pin Code</FormHelperText>
-            <TextField
-              value={users.user_pin_code}
-              variant="outlined"
-              InputProps={{
-                style: {
-                  backgroundColor: '#222531',
-                  color: 'white',
-                  borderRadius: '8px',
-                  height:'40.15px',
-                  width:'338px',
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  color: 'white', // Disabled text color
+                  WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'gray', // Optional: Customize border color when disabled
                 },
               }}
               disabled
             />
           </FormControl>
         </div>
+        <div style={{ marginBottom: '16px' }}>
+        <FormControl fullWidth variant="outlined">
+          <FormHelperText sx={{ color: 'white', marginTop: '8px', fontSize: '15px', marginLeft: '3px' }}>
+            Pin Code
+          </FormHelperText>
+          <TextField
+            value={users.user_pin_code}
+            variant="outlined"
+            InputProps={{
+              style: {
+                backgroundColor: '#222531',
+                color: 'white', // Regular text color
+                borderRadius: '8px',
+                height: '40.15px',
+                width: '338px',
+              },
+            }}
+            sx={{
+              '& .MuiInputBase-input.Mui-disabled': {
+                color: 'white', // Disabled text color
+                WebkitTextFillColor: 'white', // Ensures color in Webkit browsers
+              },
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'gray', // Optional: Customize border color when disabled
+              },
+            }}
+            disabled
+          />
+        </FormControl>
+      </div>
+
 
       </div>
-      <div style={{ marginBottom: '16px',marginTop:'20px' }}>
+      {/* <div style={{ marginBottom: '16px',marginTop:'20px' }}>
           <FormControl fullWidth variant="outlined">
               <button style={{ color: 'black',backgroundColor:'#E2F0FF', width:'360px',height:'48px',borderRadius:'8px' }}>Edit</button>
           </FormControl>
-        </div>
+        </div> */}
 
         {successMessage && (
           <div style={{ color: 'blue', marginTop: '16px' }}>
