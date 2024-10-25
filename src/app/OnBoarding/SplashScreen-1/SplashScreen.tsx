@@ -79,7 +79,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './SplashScreen.module.css';
 import useSwipe from '../../useSwipe'; // Adjust the path as needed
-import LottieAnimationLoading from '../../assets/Loadingrefresh';
+import LottieAnimationLoading from '../../assets/StartingAnimation';
 
 const Oboarding: React.FC = () => {
     const router = useRouter();
@@ -95,7 +95,7 @@ const Oboarding: React.FC = () => {
                 setShowLoader(false); // Stop showing the loader
                 setInitialLoad(false); // Set to false after first load
             }
-        }, 2000); // Adjust duration as needed
+        }, 2600); // Adjust duration as needed
 
         // Cleanup timer on unmount
         return () => clearTimeout(timer);
