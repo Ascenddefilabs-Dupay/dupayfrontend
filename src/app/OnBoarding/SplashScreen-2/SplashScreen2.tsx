@@ -92,7 +92,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useSwipe from '../../useSwipe'; 
-import LottieAnimationLoading from '../../assets/Loadingrefresh';
+import LottieAnimationLoading from '../../assets/LoadingAnimation'
 import styles from './SplashScreen2.module.css';
 
 const SplashScreen2: React.FC = () => {
@@ -123,7 +123,7 @@ const SplashScreen2: React.FC = () => {
 
     const handleSwipeRight = () => {
         setIsExiting(true);
-        router.push('/OnBoarding/SplashScreen-1'); // Updated route
+        router.push('/OnBoarding/SplashScreen-3'); // Updated route
     };
 
     const handleSkipClick = () => {

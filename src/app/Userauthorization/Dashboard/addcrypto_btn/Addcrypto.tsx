@@ -9,15 +9,16 @@ import LottieAnimationLoading from '../../../assets/LoadingAnimation';
 
 const AddCrypto = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // 2 seconds delay
+    // const timer = setTimeout(() => {
+    //   setLoading(false);
+    // }, 2000); // 2 seconds delay
 
-    return () => clearTimeout(timer);
+    // return () => clearTimeout(timer);
+    setLoading(false)
   }, []);
 
   const handleBackClick = () => {
