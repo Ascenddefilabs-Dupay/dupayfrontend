@@ -57,26 +57,21 @@ interface FiatWallet {
     
 const CryptoSell: React.FC = () => {
   const [amount, setAmount] = useState<string>('');
-  // const [swapRate, setSwapRate] = useState<number | null>(null);
   const [swapRate, setSwapRate] = useState<string>('0.000');
-  const [convertedAmount, setConvertedAmount] = useState<string | null>(null);
   const [sourceCurrency, setSourceCurrency] = useState<string>('SUI');
   const [destinationCurrency, setDestinationCurrency] = useState<string>('INR');
   const [paymentMode, setPaymentMode] = useState<string>('');
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const [conversionRate, setConversionRate] = useState<string | null>(null);
   const [showForm, setShowForm] = useState<boolean>(true);
-  const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
   const [fetchedCurrency, setFetchedCurrency] = useState<string>(''); 
   const [walletId, setWalletId] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
   const router = useRouter();
   const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
   const [styles, setStyles] = useState({ top:'30%' });
   const [fromToken, setFromToken] = useState<string>("sui");
   const [toToken, setToToken] = useState<string>("bitcoin");
+  const [isLoading, setIsLoading] = useState(false);
   const [balances, setBalances] = useState<Record<string, number>>({
     INR: 0.00,
     USD: 0.00,
@@ -87,15 +82,7 @@ const CryptoSell: React.FC = () => {
 });
 const [token, setToken] = useState("sui");
 const [currency, setCurrency] = useState("usd");
-const currencySymbols: Record<string, string> = {
-    INR: '₹',
-    USD: '$',
-    EUR: '€',
-    GBP: '£',
-    AUD: 'A$',
-    CAD: 'C$',
-    AUS:'A$',
-};
+
 const isButtonEnabled = amount.trim() !== '' && paymentMode!=='' ;
 // const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
 
@@ -223,121 +210,6 @@ useEffect(() => {
     }),
   };
   
-
-
-
-
-  useEffect(() => {
-    const loadRazorpayScript = () => {
-      if (!(window as any).Razorpay) {
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.async = true;
-        document.body.appendChild(script);
-
-        return () => {
-          document.body.removeChild(script);
-        };
-      }
-    };
-    loadRazorpayScript();
-  }, []);
-
-  const initiateRazorpayPayment = () => {
-    return new Promise<boolean>((resolve) => {
-      if ((window as any).Razorpay) {
-        const options: any = {
-          key: RAZORPAY_KEY,
-          amount: parseFloat(amount) * 100,
-          currency: fetchedCurrency,
-          name: 'DUPAY',
-          description: 'Payment for currency conversion',
-  
-          handler: async (response: any) => {
-            setShowForm(true);
-            setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-  
-            const conversionSuccess = await handleCurrencyConversion();
-            
-            // Navigate based on conversion success
-            if (conversionSuccess) {
-              router.push(`/FiatManagement/SwapSuccess?currency=${fetchedCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
-            } else {
-              router.push(`/FiatManagement/SwapFailed?currency=${fetchedCurrency}&wallet_id=${walletId}`);  
-            }
-  
-            resolve(true);
-          },
-          prefill: {
-            name: 'User Name',
-            email: 'user@example.com',
-            contact: '9999999999',
-          },
-          theme: {
-            color: '#F37254',
-          },
-          modal: {
-            ondismiss: () => resolve(false),
-          },
-        };
-  
-        if (paymentMode === 'UPI') {
-          options.method = 'upi';
-          options.upi = {
-            vpa: 'user@upi',
-          };
-        }
-  
-        const rzp1 = new (window as any).Razorpay(options);
-        rzp1.open();
-      } else {
-        setShowForm(true);
-        setAlertMessage('Razorpay script not loaded.');
-        resolve(false);
-      }
-    });
-  };
-  
-  const handleCurrencyConversion = async (): Promise<boolean> => {
-    if (!amount || !conversionRate) {
-      setAlertMessage('Invalid conversion data.');
-      return false; // Return false if validation fails
-    }
-  
-    setShowLoader(true);
-  
-    const postData = {
-      wallet_id: walletId,
-      source_currency: sourceCurrency,
-      destination_currency: destinationCurrency,
-      amount: parseFloat(amount),
-      conversion_rate: parseFloat(conversionRate),
-    };
-  
-    try {
-      const response = await fetch(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/convert_currency/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData),
-      });
-  
-      const result = await response.json();
-      if (result.status === 'success') {
-        setAlertMessage('Currency conversion successful!');
-        return true;  // Return true if conversion is successful
-      } else {
-        setAlertMessage(`Error: ${result.message}`);
-        return false; // Return false if an error occurred
-      }
-    } catch (error) {
-      console.error('Error converting currency:', error);
-      setAlertMessage('An error occurred. Please try again later.');
-      return false; // Return false if there is an exception
-    } finally {
-      setShowLoader(false);
-    }
-  };
-  
   const fetchConversionRate = useCallback(async () => {
     if (!amount || !sourceCurrency || !destinationCurrency) return;
 
@@ -388,20 +260,10 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   }, [amount, sourceCurrency, destinationCurrency, fetchConversionRate]);
   
   const handleSellButton = async (event: React.FormEvent) => {
-    event.preventDefault(); // Prevent the page from refreshing
-    setShowForm(false);
-    const paymentSuccess = await initiateRazorpayPayment();
-    console.log("1");
-    if (!paymentSuccess) {
-      setShowForm(true);
-      setAlertMessage("Payment Declined!");
-      setPaymentMode("Select Payment Method");
-      router.push(`/FiatManagement/SwapFailed?currency=${fetchedCurrency}&wallet_id=${walletId}`);
-    }
-    else{
-        // setShowForm(true);
-        // router.push("/FiatManagement/SwapSuccess");
-    }
+    event.preventDefault();
+    setIsLoading(true); // Set loading state to true
+    await router.push(`/CryptoSellSuccess`);
+    setIsLoading(false); // Reset loading state after navigation
   };
 
  
@@ -554,13 +416,14 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             )}
 
             <button
-              className={`btnmbBtnFab swap-button ${!isButtonEnabled ? 'disabled' : ''}`}
-              style={styles}
-              disabled={!isButtonEnabled} >
-              <div className="btnbtn" style={style} onClick={handleSellButton}>
-                <div className="text">Sell</div>
-              </div>
-            </button>
+                className={`btnmbBtnFab swap-button ${isLoading ? 'disabled' : ''}`}
+                style={styles}
+                disabled={isLoading}
+              >
+                <div className="btnbtn" style={style} onClick={handleSellButton}>
+                  <div className="text">{isLoading ? 'Processing...' : 'Sell'}</div>
+                </div>
+              </button>
             {/* <div className='blurred' style={blur}></div> */}
           </form>
         </div>
