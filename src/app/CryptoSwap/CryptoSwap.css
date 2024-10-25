@@ -94,6 +94,7 @@ input:focus + .floating-label,
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex: 1;
 }
 
 .amount-group {
@@ -557,6 +558,8 @@ select:focus {
   margin-top: 20px;
   margin-bottom: 20px;
   z-index: 3;
+  background-color: #E2F0FF;
+  color: #000;
 }
 
 .btnmbBtnFab {
@@ -565,8 +568,9 @@ select:focus {
   height: 98px;
   text-align: center;
   font-size: 16px;
-  color: #000;
+ 
   font-family: 'Poppins', sans-serif;
+  
   /* transform: translateY(70%); */
 }
 
@@ -595,7 +599,7 @@ select:focus {
   height: 24px;
 }
 .inputinput {
-  flex: 0.92;
+  flex: 1;
   /* width: 2vw; */
   position: relative;
   border-radius: 8px;
@@ -670,7 +674,7 @@ select:focus {
   /* max-width: 100%; */
   overflow: hidden;
   height: 24px;
-  left: 5px; 
+  /* right: 5px;  */
 }
 
 /* Normal button styles */
@@ -694,7 +698,7 @@ select:focus {
 }
 .shapeIcon {
   position: absolute;
-  top: 540.05px;
+  top: 500.05px;
   left: 250px;
   width: 150px;
   height: 170.1px;
@@ -709,7 +713,7 @@ select:focus {
 
     .shapeIcon {
       position: absolute;
-      top: 550.05px;
+      top: 530.05px;
       left: 262px;
       width: 150px;
       height: 200.1px;
@@ -731,7 +735,7 @@ select:focus {
 
     .shapeIcon {
       position: absolute;
-      top: 550.05px;
+      top: 520.05px;
       left: 260px;
       width: 150px;
       height: 200.1px;
@@ -753,7 +757,7 @@ select:focus {
 
     .shapeIcon {
       position: absolute;
-      top: 550.05px;
+      top: 520.05px;
       left: 280px;
       width: 150px;
       height: 200.1px;
@@ -776,7 +780,7 @@ select:focus {
 
     .shapeIcon {
       position: absolute;
-      top: 550.05px;
+      top: 530.05px;
       left: 240px;
       width: 150px;
       height: 170.1px;

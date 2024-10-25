@@ -1049,7 +1049,7 @@ const handleRefresh = () => {
               <div
                 className={styles.button}
                 onClick={() => {
-                  handleNavigation('/Userauthorization/swap_btn');
+                  handleNavigation('/CryptoSwap');
                   handleClose(); // Close the blur screen
                 }}
               >
