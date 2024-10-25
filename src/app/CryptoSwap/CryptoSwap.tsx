@@ -150,7 +150,7 @@ const SwapPage: React.FC = () => {
   const [walletId, setWalletId] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
   const router = useRouter();
-  // const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
+  const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
   const [styles, setStyles] = useState({ top:'30%' });
   const [blur,setBlur] = useState({ top:'7%' })
   const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
@@ -312,25 +312,7 @@ const fetchCurrencyIcon = async (currencyName:string) => {
      
       
 
-// useEffect(() => {
-//     if (isButtonEnabled) {
-//       setStyle((prevStyle) => ({
-//         ...prevStyle,
-//         background: '#e2f0ff',
-//         color: '#000000',
-//       }));
-//     } else {
-//       setStyle((prevStyle) => ({
-//         ...prevStyle,
-//         background: '#222531',
-//         color: '#4c516b',
-//       }));
-//       setBlur((prevStyle) => ({
-//         ...prevStyle,
-//         top:'20%'
-//       }));
-//     }
-//   }, [isButtonEnabled]);
+
 
   useEffect(() => {
     if (amount) {
@@ -338,22 +320,25 @@ const fetchCurrencyIcon = async (currencyName:string) => {
         ...prevStyles,
         top:'22%',
       }));
-      setBlur((prevStyle) => ({
+      setStyle((prevStyle) => ({
         ...prevStyle,
-        top:'7%'
+        background: '#e2f0ff',
+        color: '#000000',
       }));
     } else {
       setStyles((prevStyles) => ({
         ...prevStyles,
         top:'55%',
       }));
-      setBlur((prevStyle) => ({
+      setStyle((prevStyle) => ({
         ...prevStyle,
-        top:'27%'
+        background: '#222531',
+        color: '#4c516b',
       }));
       
+      
     }
-  }, [amount]);
+  }, [amount])
   const customSelectStyles = {
     control: (base: any) => ({
         ...base,
@@ -407,60 +392,7 @@ const fetchCurrencyIcon = async (currencyName:string) => {
         color: 'white',
     }),
   };
-  const customSelectStylesPayement = {
-    control: (base: any) => ({
-        ...base,
-        flex: '1',
-        backgroundColor: '#17171a',
-        borderColor: '#2a2d3c',
-        color: 'white',
-        borderRadius: '8px', 
-        display: 'flex', 
-        alignItems: 'center',
-        height: '54px', 
-        boxShadow: 'none', 
-        boxSizing: 'border-box',
-        flexShrink: '0',
-        fontFamily: 'Poppins',
-        border: '1px solid #2a2d3c',
-        // left:'10px',
-        marginRight:"8px",
-        width:'100%',
-        marginBottom:'20px',
-        paddingRight: '0',
 
-        
-    }),
-    indicatorSeparator: (base: any) => ({
-      display: 'none', // Hides the separator
-    }),
-  
-    // Style the dropdown arrow or hide it if needed
-    dropdownIndicator: (base: any) => ({
-      ...base,
-      color: 'white', // Adjust the arrow color if you want it visible
-      padding: '0', // Adjust padding to remove extra space
-      marginRight:'10px',
-    }),
-
- menu: (base: any) => ({
-        ...base,
-        backgroundColor: '#17171a',
-    }),
-    singleValue: (base: any) => ({
-        ...base,
-        color: '#888daa',
-        fontFamily: "Poppins",
-        display: 'flex',
-        alignItems: 'center', 
-        fontWeight:'600'
-    }),
-    option: (base: any, state: any) => ({
-        ...base,
-        backgroundColor: state.isFocused ? '#2a2d3c' : '#17171a',
-        color: 'white',
-    }),
-  };
   
 
 
@@ -586,20 +518,20 @@ const fetchCurrencyIcon = async (currencyName:string) => {
       // Fetch token prices from CoinGecko API\
       console.log("Hi");
       const fromResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${fromToken}&vs_currencies=usd`
+        `https://api.coingecko.com/api/v3/simple/price?ids=${sourceCurrency}&vs_currencies=usd`
       );
       console.log("1");
       const toResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${toToken}&vs_currencies=usd`
+        `https://api.coingecko.com/api/v3/simple/price?ids=${destinationCurrency}&vs_currencies=usd`
       );
       console.log("2");
-      const fromRate = fromResponse.data[fromToken].usd;
-      console.log("3");
-      const toRate = toResponse.data[toToken].usd;
-      console.log("4");
+      const fromRate = fromResponse.data[sourceCurrency].usd;
+      console.log("3", fromRate);
+      const toRate = toResponse.data[destinationCurrency].usd;
+      console.log("4",toRate);
       const swapValue = (fromRate / toRate) * (parseFloat(amount) || 0);
       console.log("amount ad",(parseFloat(amount) || 0))
-      console.log("5");
+      console.log("5",swapValue);
   
       setSwapRate(parseFloat(swapValue.toFixed(3)));
       console.log("swap is :",swapRate);
@@ -776,7 +708,7 @@ console.log("Selected currency for swap:", fetchedCurrency);
               </div>
             <div className="amount-row">
               <div className="amount-group">
-              <div className="howMuchUsd">How much {fetchedCurrency} you want to swap?</div>
+              <div className="howMuchUsd">How much sui you want to swap?</div>
                 {/* <label className="balance-label">How much {fetchedCurrency} you want to swap?</label> */}
                 <div className="input-container">
                   <label 
@@ -824,11 +756,11 @@ console.log("Selected currency for swap:", fetchedCurrency);
             </div>
             )}
           {/* <img className="swap_shape_icon" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" alt="" /> */}
-            <button
-              className={'btnmbBtnFab swap-button '}
+          <button
+              className={`btnmbBtnFab swap-button ${!isButtonEnabled ? 'disabled' : ''}`}
               style={styles}
-               >
-              <div className="btnbtn"  onClick={handleSwapButton}>
+              disabled={!isButtonEnabled} >
+              <div className="btnbtn" style={style} onClick={handleSwapButton}>
                 <div className="text">Swap</div>
               </div>
             </button>
