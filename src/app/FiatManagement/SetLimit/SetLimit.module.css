@@ -81,8 +81,8 @@
 .proceedButton {
     width: 100%;
     padding: 10px;
-    background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
-    color: white;
+    background:#e2f0ff;
+    color: rgb(12, 12, 12);
     border-radius: 4px;
     margin-top: 20px;
     cursor: pointer;
