@@ -12,7 +12,7 @@ const CryptoSell: NextPage = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            // router.push('/Userauthorization/Dashboard/Home');
+            router.push('/Userauthorization/Dashboard/Home');
         }, 2000);
 
         // Clean up the timer when the component is unmounted

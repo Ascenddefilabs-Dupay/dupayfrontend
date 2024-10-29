@@ -144,7 +144,7 @@ useEffect(() => {
             const userid = userId;
 
             // Directly send the values as part of the URL path
-            const response = await axios.get(`http://127.0.0.1:8000/fiat_fiatSwap/crypto_wallet/balance/${walletId}/${userid}/`);
+            const response = await axios.get(`http://127.0.0.1:8000/CryptoSell/crypto_wallet/balance/${walletId}/${userid}/`);
             
             // Set the fetched balance into suiBalance
             if (response.data.balance) {
@@ -306,7 +306,7 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const handleSellButton = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true); // Set loading state to true
-    router.push(`/CryptoSellSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
+    router.push(`/CryptoTransactions/CryptoSellSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
     setIsLoading(false); // Reset loading state after navigation
 
   };

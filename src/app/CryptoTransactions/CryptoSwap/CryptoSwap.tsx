@@ -55,7 +55,6 @@ const SwapPage: React.FC = () => {
   const [convertedAmount, setConvertedAmount] = useState<string | null>(null);
   const [sourceCurrency, setSourceCurrency] = useState<string>('SUI');
   const [destinationCurrency, setDestinationCurrency] = useState<string>('BTC');
-  const [paymentMode, setPaymentMode] = useState<string>('');
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [showForm, setShowForm] = useState<boolean>(true);
@@ -64,8 +63,6 @@ const SwapPage: React.FC = () => {
   const router = useRouter();
   const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
   const [styles, setStyles] = useState({ top:'30%' });
-  const [fromToken, setFromToken] = useState<string>("sui");
-  const [toToken, setToToken] = useState<string>("bitcoin");
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState<string | null>('DupC0005');
 
@@ -80,24 +77,8 @@ const SwapPage: React.FC = () => {
     CAD: 0.00,
 });
 
-const currencySymbols: Record<string, string> = {
-    INR: '₹',
-    USD: '$',
-    EUR: '€',
-    GBP: '£',
-    AUD: 'A$',
-    CAD: 'C$',
-    AUS:'A$',
-};
-const isButtonEnabled = amount.trim() !== '' && paymentMode!=='' ;
 
 
-const handlePaymentModeChange = (selectedOption: OptionType | null) => {
-  const selectedPaymentMode = selectedOption?.value || ''; // Safely extract the value
-  setPaymentMode(selectedPaymentMode);
-
-  console.log('Payment mode selected:', selectedPaymentMode);
-};
 
 useEffect(() => {
   if (typeof window !== 'undefined') {
@@ -154,8 +135,8 @@ console.log("currency is: ",fetchedCurrency);
                 const userid = userId;
 
                 // Directly send the values as part of the URL path
-                const response = await axios.get(`http://127.0.0.1:8000/fiat_fiatSwap/crypto_wallet/balance/${walletId}/${userid}/`);
-                
+                const response = await axios.get(`http://127.0.0.1:8000/CryptoSwap/crypto_wallet/balance/${walletId}/${userid}/`);
+                console.log("response:", response.data);
                 // Set the fetched balance into suiBalance
                 if (response.data.balance) {
                     setSuiBalance(response.data.balance);
@@ -270,28 +251,19 @@ console.log("currency is: ",fetchedCurrency);
     }
   
     try {
-      // Fetch token prices from CoinGecko API\
-      console.log("Hi");
       const sourceId = currencyIdMap[sourceCurrency];
-        const destinationId = currencyIdMap[destinationCurrency];
+      const destinationId = currencyIdMap[destinationCurrency];
       const fromResponse = await axios.get(
         `https://api.coingecko.com/api/v3/simple/price?ids=${sourceId}&vs_currencies=usd`
       );
-      console.log("1");
       const toResponse = await axios.get(
         `https://api.coingecko.com/api/v3/simple/price?ids=${destinationId}&vs_currencies=usd`
       );
-      console.log("2");
       const fromRate = fromResponse.data[sourceId].usd;
-      console.log("3", fromRate);
       const toRate = toResponse.data[destinationId].usd;
-      console.log("4",toRate);
       const swapValue = (fromRate / toRate) * (parseFloat(amount) || 0);
-      console.log("amount ad",(parseFloat(amount) || 0))
-      console.log("5",swapValue);
   
       setSwapRate(parseFloat(swapValue.toFixed(3)));
-      console.log("swap is :",swapRate);
   
     } catch (error) {
       console.error('Error fetching the conversion rate or token prices:', error);
@@ -304,14 +276,14 @@ console.log("currency is: ",fetchedCurrency);
   }, [amount, sourceCurrency, destinationCurrency, fetchConversionRate]);
   
   // Recalculate the converted amount when swapRate, amount, or currencies change
-  useEffect(() => {
-    if (amount && swapRate) {
-      const converted = (parseFloat(amount) * swapRate).toFixed(2);
-      setConvertedAmount(`${converted}`);
-    } else {
-      setConvertedAmount('');
-    }
-  }, [swapRate, amount]);
+  // useEffect(() => {
+  //   if (amount && swapRate) {
+  //     const converted = (parseFloat(amount) * swapRate).toFixed(2);
+  //     setConvertedAmount(`${converted}`);
+  //   } else {
+  //     setConvertedAmount('');
+  //   }
+  // }, [swapRate, amount]);
   
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
@@ -341,7 +313,7 @@ console.log("currency is: ",fetchedCurrency);
   const handleSwapButton = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true); // Set loading state to true
-    router.push(`/CryptoSwapSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
+    router.push(`/CryptoTransactions/CryptoSwapSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
     setIsLoading(false); // Reset loading state after navigation
   
   };
