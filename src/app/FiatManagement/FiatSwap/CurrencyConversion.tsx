@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import './CurrencyConversion.css';
-// import { FaChevronLeft, FaExchangeAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X';
@@ -82,9 +81,6 @@ const currencySymbols: Record<string, string> = {
     AUS:'A$',
 };
 const isButtonEnabled = amount.trim() !== '' && paymentMode!=='' ;
-// const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
-
-
 const handlePaymentModeChange = (selectedOption: OptionType | null) => {
   const selectedPaymentMode = selectedOption?.value || ''; // Safely extract the value
   setPaymentMode(selectedPaymentMode);
@@ -613,10 +609,6 @@ useEffect(() => {
       setPaymentMode("Select Payment Method");
       router.push(`/FiatManagement/SwapFailed?currency=${fetchedCurrency}&wallet_id=${walletId}`);
     }
-    else{
-        // setShowForm(true);
-        // router.push("/FiatManagement/SwapSuccess");
-    }
   };
   const handleCurrencySwap = () => {
     const temp = sourceCurrency;
@@ -627,17 +619,6 @@ useEffect(() => {
   const handleCloseAlert = useCallback(() => {
     setAlertMessage('');
   }, []);
-
-  // const handlePaymentModeChange = (selectedOption: { value: string }) => {
-  //   const selectedPaymentMode = selectedOption?.value || '';
-  //   setPaymentMode(selectedPaymentMode);
-  
-  //   console.log('Payment mode selected:', selectedPaymentMode);
-  // };
- 
-
-
-  
 
   const handleLeftArrowClick = () => {
     setShowLoader(true);
@@ -690,7 +671,6 @@ console.log("Selected currency for swap:", fetchedCurrency);
                     />
                     <div className="currencyText">
                         <span className="currencyCode">Total {fetchedCurrency}</span>
-                        {/* <span className="currencyCountry">{selectedCountry}</span> */}
                     </div>
                     <div className="balanceAmount">
                     <p className="balanceAmount">
@@ -731,7 +711,6 @@ console.log("Selected currency for swap:", fetchedCurrency);
             <div className="amount-row">
               <div className="amount-group">
               <div className="howMuchUsd">How much {fetchedCurrency} you want to swap?</div>
-                {/* <label className="balance-label">How much {fetchedCurrency} you want to swap?</label> */}
                 <div className="input-container">
                   <label 
                     className={`floating-label ${amount ? 'active' : ''}`} 
@@ -777,7 +756,6 @@ console.log("Selected currency for swap:", fetchedCurrency);
               </div>
             </div>
             )}
-          {/* <img className="swap_shape_icon" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" alt="" /> */}
             <button
               className={`btnmbBtnFab swap-button ${!isButtonEnabled ? 'disabled' : ''}`}
               style={styles}
@@ -786,7 +764,6 @@ console.log("Selected currency for swap:", fetchedCurrency);
                 <div className="text">Swap</div>
               </div>
             </button>
-            {/* <div className='blurred' style={blur}></div> */}
           </form>
         </div>
       )}

@@ -1,84 +1,7 @@
-// import React, { useState } from "react";
-// import axios from "axios";
-
-// interface PriceResponse {
-//   [key: string]: {
-//     usd: number;
-//   };
-// }
-
-// const SwapPage: React.FC = () => {
-//   const [fromToken, setFromToken] = useState<string>("sui");
-//   const [toToken, setToToken] = useState<string>("bitcoin");
-//   const [amount, setAmount] = useState<number>(0);
-//   const [swapRate, setSwapRate] = useState<number | null>(null);
-
-//   const handleSwap = async () => {
-//     try {
-//       const fromResponse = await axios.get<PriceResponse>(
-//         `https://api.coingecko.com/api/v3/simple/price?ids=${fromToken}&vs_currencies=usd`
-//       );
-//       const toResponse = await axios.get<PriceResponse>(
-//         `https://api.coingecko.com/api/v3/simple/price?ids=${toToken}&vs_currencies=usd`
-//       );
-//       const fromRate = fromResponse.data[fromToken].usd;
-//       const toRate = toResponse.data[toToken].usd;
-//       const swapValue = (fromRate / toRate) * amount;
-//       setSwapRate(swapValue);
-//     } catch (error) {
-//       console.error("Error fetching token prices:", error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Swap Crypto</h2>
-//       <div>
-//         <select
-//           value={fromToken}
-//           onChange={(e) => setFromToken(e.target.value)}
-//         >
-//           <option value="sui">SUI</option>
-//           <option value="bitcoin">Bitcoin</option>
-//           <option value="ethereum">Ethereum</option>
-//           <option value="bnb">Binance Coin</option>
-//           <option value="solana">Solana</option>
-//           <option value="cardano">Cardano</option>
-//         </select>
-
-//         <input
-//           type="number"
-//           value={amount}
-//           onChange={(e) => setAmount(Number(e.target.value))}
-//           placeholder="Amount"
-//         />
-
-//         <select value={toToken} onChange={(e) => setToToken(e.target.value)}>
-//           <option value="sui">SUI</option>
-//           <option value="bitcoin">Bitcoin</option>
-//           <option value="ethereum">Ethereum</option>
-//           <option value="bnb">Binance Coin</option>
-//           <option value="solana">Solana</option>
-//           <option value="cardano">Cardano</option>
-//         </select>
-
-//         <button onClick={handleSwap}>Swap</button>
-//       </div>
-//       {swapRate !== null && (
-//         <p>
-//           You can swap {amount} {fromToken} for {swapRate.toFixed(4)} {toToken}.
-//         </p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default SwapPage;
 
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
-import './CryptoSwap.css';
-// import { FaChevronLeft, FaExchangeAlt } from 'react-icons/fa';
+import './CryptoSell.css';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X';
@@ -109,6 +32,10 @@ interface FiatWallet {
     label: string;
   }
   const currencyIcons = {
+    'INR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332402/admin/wj3iwdmefdlbro6zefui.png",
+    'USD':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332507/admin/l0b132l8rbx1m3h0hkyv.png",
+    'EUR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1729848255/europe_xalxst.png",
+    "AED":"https://res.cloudinary.com/dgfv6j82t/image/upload/v1729848313/7c168df3-75b4-43c5-a705-0daa3b56a71d.png",
     'SUI':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729751154/a2ca4b2c-1d38-48c4-b77c-5026eacbefa6.png',
     'BTC':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765305/d6893a3a-07b3-4075-b0fe-f476a95510c9.png',
     'ETH':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765367/4e24a2c0-6992-43b1-9b08-f63e8701a4e2.png',
@@ -117,10 +44,7 @@ interface FiatWallet {
     'cardano':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765532/d324f5a6-eb14-4749-b6f1-38c609dca7b2.png',
   };
   
-  // const currencyList = [
-  //   'SUI','Bitcoin','Ethereum','Binance Coin','Solana','Cardano'
-  // ];
-  const currencyList = ['SUI', 'BTC', 'ETH', 'BNB', 'solana', 'cardano'];
+  const currencyList = ['INR','USD','EUR','AED','SUI', 'BTC', 'ETH', 'BNB', 'solana', 'cardano'];
   interface PriceResponse {
       [key: string]: {
         usd: number;
@@ -129,12 +53,11 @@ interface FiatWallet {
     
 
     
-const SwapPage: React.FC = () => {
+const CryptoSell: React.FC = () => {
   const [amount, setAmount] = useState<string>('');
-  const [swapRate, setSwapRate] = useState<number | null>(null);
-  const [convertedAmount, setConvertedAmount] = useState<string | null>(null);
+  const [swapRate, setSwapRate] = useState<string>('0.000');
   const [sourceCurrency, setSourceCurrency] = useState<string>('SUI');
-  const [destinationCurrency, setDestinationCurrency] = useState<string>('BTC');
+  const [destinationCurrency, setDestinationCurrency] = useState<string>('INR');
   const [paymentMode, setPaymentMode] = useState<string>('');
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -147,6 +70,9 @@ const SwapPage: React.FC = () => {
   const [fromToken, setFromToken] = useState<string>("sui");
   const [toToken, setToToken] = useState<string>("bitcoin");
   const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState<string | null>('DupC0005');
+
+  const [suiBalance, setSuiBalance] = useState('0');
   const [balances, setBalances] = useState<Record<string, number>>({
     INR: 0.00,
     USD: 0.00,
@@ -155,26 +81,10 @@ const SwapPage: React.FC = () => {
     AUD: 0.00,
     CAD: 0.00,
 });
+const [token, setToken] = useState("sui");
+const [currency, setCurrency] = useState("usd");
 
-const currencySymbols: Record<string, string> = {
-    INR: '₹',
-    USD: '$',
-    EUR: '€',
-    GBP: '£',
-    AUD: 'A$',
-    CAD: 'C$',
-    AUS:'A$',
-};
 const isButtonEnabled = amount.trim() !== '' && paymentMode!=='' ;
-// const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
-
-
-const handlePaymentModeChange = (selectedOption: OptionType | null) => {
-  const selectedPaymentMode = selectedOption?.value || ''; // Safely extract the value
-  setPaymentMode(selectedPaymentMode);
-
-  console.log('Payment mode selected:', selectedPaymentMode);
-};
 
 useEffect(() => {
   if (typeof window !== 'undefined') {
@@ -187,16 +97,23 @@ useEffect(() => {
     }
   }
 }, []);
-console.log("currency is: ",fetchedCurrency);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
+      const userId=params.get('user_id') || '';
+      if(userId)
+      {
+        setUserId(userId);
+      }
       const walletIdValue = params.get('wallet_id') || "";
       setWalletId(walletIdValue);
 
     }
     
   }, []);
+
+
 
       const currencyOptions = currencyList.map((currency_type) => {
         const iconUrl = currencyIcons[currency_type as keyof typeof currencyIcons] || ''; 
@@ -219,33 +136,55 @@ console.log("currency is: ",fetchedCurrency);
      
       
 
-
-
+      
   useEffect(() => {
-    if (amount) {
-      setStyles((prevStyles) => ({
-        ...prevStyles,
-        top:'22%',
-      }));
-      setStyle((prevStyle) => ({
-        ...prevStyle,
-        background: '#e2f0ff',
-        color: '#000000',
-      }));
-    } else {
-      setStyles((prevStyles) => ({
-        ...prevStyles,
-        top:'55%',
-      }));
-      setStyle((prevStyle) => ({
-        ...prevStyle,
-        background: '#222531',
-        color: '#4c516b',
-      }));
-      
-      
-    }
-  }, [amount])
+    const fetchBalance = async () => {
+        try {
+            const walletId = 'DUP0002';
+            const userid = userId;
+
+            // Directly send the values as part of the URL path
+            const response = await axios.get(`http://127.0.0.1:8000/fiat_fiatSwap/crypto_wallet/balance/${walletId}/${userid}/`);
+            
+            // Set the fetched balance into suiBalance
+            if (response.data.balance) {
+                setSuiBalance(response.data.balance);
+            } else {
+                console.error('Balance not found in response', response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching balance:', error);
+        }
+    };
+
+    fetchBalance();
+}, []);
+
+useEffect(() => {
+  if (amount) {
+    setStyles((prevStyles) => ({
+      ...prevStyles,
+      top:'22%',
+    }));
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      background: '#e2f0ff',
+      color: '#000000',
+    }));
+  } else {
+    setStyles((prevStyles) => ({
+      ...prevStyles,
+      top:'55%',
+    }));
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      background: '#222531',
+      color: '#4c516b',
+    }));
+    
+    
+  }
+}, [amount]);
   const customSelectStyles = {
     control: (base: any) => ({
         ...base,
@@ -256,7 +195,7 @@ console.log("currency is: ",fetchedCurrency);
         borderRadius: '8px', 
         display: 'flex', 
         alignItems: 'center',
-        height: '40px', 
+        height: '50px', 
         boxShadow: 'none', 
         boxSizing: 'border-box',
         flexShrink: '0',
@@ -305,8 +244,8 @@ console.log("currency is: ",fetchedCurrency);
   
   const currencyIdMap: Record<string, string> = {
     'INR': 'inr', 
-    'USD': 'usd', 
-    'EUR':'eur',
+    'USD': 'usd',
+    'EUR':'eur', 
     'AED':'aed',
     'SUI': 'sui', 
     'BTC': 'bitcoin', 
@@ -315,93 +254,64 @@ console.log("currency is: ",fetchedCurrency);
     'solana': 'solana', 
     'cardano': 'cardano'
 };
-  const fetchConversionRate = useCallback(async () => {
-    if (!amount || !sourceCurrency || !destinationCurrency) {
-      return;
-    }
-  
+
+const fetchConversionRate = useCallback(async () => {
+    if (!amount || !sourceCurrency || !destinationCurrency) return;
+
     try {
-      // Fetch token prices from CoinGecko API\
-      console.log("Hi");
-      const sourceId = currencyIdMap[sourceCurrency];
+        // Map the currencies to the CoinGecko ID
+        const sourceId = currencyIdMap[sourceCurrency];
         const destinationId = currencyIdMap[destinationCurrency];
-      const fromResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${sourceId}&vs_currencies=usd`
-      );
-      console.log("1");
-      const toResponse = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${destinationId}&vs_currencies=usd`
-      );
-      console.log("2");
-      const fromRate = fromResponse.data[sourceId].usd;
-      console.log("3", fromRate);
-      const toRate = toResponse.data[destinationId].usd;
-      console.log("4",toRate);
-      const swapValue = (fromRate / toRate) * (parseFloat(amount) || 0);
-      console.log("amount ad",(parseFloat(amount) || 0))
-      console.log("5",swapValue);
-  
-      setSwapRate(parseFloat(swapValue.toFixed(3)));
-      console.log("swap is :",swapRate);
-  
+        
+        const response = await axios.get(
+            `https://api.coingecko.com/api/v3/simple/price?ids=${sourceId}&vs_currencies=${destinationId}`
+        );
+
+        // Access the conversion rate based on mapped IDs
+        const rate = response.data[sourceId][destinationId];
+        const calculatedAmount = (rate * (parseFloat(amount) || 0)).toFixed(3);
+        setSwapRate(calculatedAmount);
     } catch (error) {
-      console.error('Error fetching the conversion rate or token prices:', error);
-      setAlertMessage('An error occurred. Please try again later.');
+        console.error('Error fetching the conversion rate:', error);
+        setAlertMessage('An error occurred. Please try again later.');
     }
-  }, [amount, sourceCurrency, destinationCurrency]);
+}, [amount, sourceCurrency, destinationCurrency]);
+
+const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  let inputValue = e.target.value;
+  const validInput = /^[0-9]*\.?[0-9]*$/;
+
+  if (!validInput.test(inputValue)) return;
+
+  if (inputValue.length > 1 && inputValue.startsWith('0') && inputValue[1] !== '.') {
+      inputValue = inputValue.slice(1);
+  }
+
+  if (inputValue.includes('.')) {
+      const parts = inputValue.split('.');
+      if (parts[1].length > 2) {
+          parts[1] = parts[1].slice(0, 2);
+      }
+      inputValue = parts.join('.');
+  }
+
+  setAmount(inputValue);
+  fetchConversionRate();
+};
   
   useEffect(() => {
     fetchConversionRate();
   }, [amount, sourceCurrency, destinationCurrency, fetchConversionRate]);
   
-  // Recalculate the converted amount when swapRate, amount, or currencies change
-  useEffect(() => {
-    if (amount && swapRate) {
-      const converted = (parseFloat(amount) * swapRate).toFixed(2);
-      setConvertedAmount(`${converted}`);
-    } else {
-      setConvertedAmount('');
-    }
-  }, [swapRate, amount]);
-  
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let inputValue = e.target.value;
-    const validInput = /^[0-9]*\.?[0-9]*$/;
-  
-    // Validate input to accept only valid number format
-    if (!validInput.test(inputValue)) {
-      return;
-    }
-  
-    // Remove leading zeroes
-    if (inputValue.length > 1 && inputValue.startsWith('0') && inputValue[1] !== '.') {
-      inputValue = inputValue.slice(1);
-    }
-  
-    // Limit to two decimal places
-    if (inputValue.includes('.')) {
-      const parts = inputValue.split('.');
-      if (parts[1].length > 2) {
-        parts[1] = parts[1].slice(0, 2);
-      }
-      inputValue = parts.join('.');
-    }
-  
-    setAmount(inputValue);
-  };
-  const handleSwapButton = async (event: React.FormEvent) => {
+  const handleSellButton = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true); // Set loading state to true
-    router.push(`/CryptoSwapSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
+    router.push(`/CryptoSellSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
     setIsLoading(false); // Reset loading state after navigation
-  
+
   };
 
-  const handleCurrencySwap = () => {
-    const temp = sourceCurrency;
-    setSourceCurrency(destinationCurrency);
-    setDestinationCurrency(temp);
-  };
+ 
 
   const handleCloseAlert = useCallback(() => {
     setAlertMessage('');
@@ -414,8 +324,12 @@ console.log("currency is: ",fetchedCurrency);
       setShowLoader(false);
     }, 3000);
   };
-console.log("Selected currency for swap:", fetchedCurrency);
 
+  const handleCurrencySwap = () => {
+    const temp = sourceCurrency;
+    setSourceCurrency(destinationCurrency);
+    setDestinationCurrency(temp);
+  };
 
   return (
     <div>
@@ -445,7 +359,7 @@ console.log("Selected currency for swap:", fetchedCurrency);
           />
             </div>
             </div>
-            <div className="hereIsTitle">Swap SUI</div>
+            <div className="hereIsTitle">Sell</div>
             <div className="navbaritemrightBtn" />
             </div>
           <form>
@@ -458,16 +372,16 @@ console.log("Selected currency for swap:", fetchedCurrency);
                     />
                     <div className="currencyText">
                         <span className="currencyCode">Total SUI</span>
-                        {/* <span className="currencyCountry">{selectedCountry}</span> */}
                     </div>
                     <div className="balanceAmount">
                     <p className="balanceAmount">
-                         {(balances[fetchedCurrency || ''] !== undefined ? balances[fetchedCurrency || ''].toFixed(2) : '1234.00') } {fetchedCurrency}
+                         {(balances[fetchedCurrency || ''] !== undefined ? balances[fetchedCurrency || ''].toFixed(2) :suiBalance) } {fetchedCurrency}
                     </p>
                     </div>
                 </div>
             </div>
-            <div className="howMuchUsd">Choose a currency you want to Swap</div>
+            
+            <div className="howMuchUsd">Select the currency</div>
             <div className='currency-row'>
               <div className="inputinputs">
                 <Select
@@ -505,10 +419,9 @@ console.log("Selected currency for swap:", fetchedCurrency);
                 />
               </div>
               </div>
-            <div className="amount-row">
+              <div className="amount-row">
               <div className="amount-group">
-              <div className="howMuchUsd">How much sui you want to swap?</div>
-                {/* <label className="balance-label">How much {fetchedCurrency} you want to swap?</label> */}
+              <div className="howMuchUsd">How much SUI you want to Sell?</div>
                 <div className="input-container">
                   <label 
                     className={`floating-label ${amount ? 'active' : ''}`} 
@@ -529,16 +442,6 @@ console.log("Selected currency for swap:", fetchedCurrency);
                 
               </div>
             </div>
-
-            {/* <div className="payment-method">
-              <div className="howMuchUsd">Select a payment method</div>
-              <Select
-                options={paymentOptions}
-                value={paymentOptions.find((option) => option.value === paymentMode) || null}
-                onChange={handlePaymentModeChange}
-                styles={customSelectStylesPayement}
-              />
-            </div> */}
             {amount && (
             <div className="frameParent">
               <div className="frameWrapper">
@@ -549,22 +452,21 @@ console.log("Selected currency for swap:", fetchedCurrency);
               </div>
               <div className="frameContainer">
                 <div className="int000Wrapper">
-                  <div className="int0002"> {destinationCurrency} {swapRate || '0.000'}</div>
+                  <div className="int0002"> {destinationCurrency} {swapRate}</div>
                 </div>
               </div>
             </div>
             )}
-          {/* <img className="swap_shape_icon" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728881310/5e88fa10-f8ab-492d-82ad-5e3bcfe88593.png" alt="" /> */}
-          <button
+
+            <button
                 className={`btnmbBtnFab swap-button ${isLoading ? 'disabled' : ''}`}
                 style={styles}
                 disabled={isLoading}
               >
-                <div className="btnbtn" style={style} onClick={handleSwapButton}>
-                  <div className="text">{isLoading ? 'Processing...' : 'Swap'}</div>
+                <div className="btnbtn" style={style} onClick={handleSellButton}>
+                  <div className="text">{isLoading ? 'Processing...' : 'Sell'}</div>
                 </div>
               </button>
-            {/* <div className='blurred' style={blur}></div> */}
           </form>
         </div>
       )}
@@ -572,4 +474,4 @@ console.log("Selected currency for swap:", fetchedCurrency);
   );
 };
 
-export default SwapPage;
+export default CryptoSell;

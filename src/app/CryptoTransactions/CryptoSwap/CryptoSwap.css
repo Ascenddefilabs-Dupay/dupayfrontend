@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@600&display=swap');
 body {
-  /* font-family: 'Roboto', sans-serif; */
-  /* background-color: #121212; */
   margin: 0;
   padding: 0;
 }
@@ -26,14 +24,10 @@ body {
 }
 .input-container {
   position: relative;
-  /* margin-top: 20px; */
-
-  position: relative;
   font-size: 18px;
   line-height: 24px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  /* color: #fff; */
   text-align: left;
 }
 
@@ -51,7 +45,6 @@ body {
 input {
   width: 100%;
   padding: 10px;
-  /* font-size: 16px; */
   position: relative;
   font-size: 18px;
   line-height: 24px;
@@ -82,10 +75,6 @@ input:focus + .floating-label,
     height: 110vh;
     
   }
-  /* .customAlert{
-    width: 30%;
-    max-width: 320px;
-  } */
 }
 
 .amount-row,
@@ -135,10 +124,6 @@ input:focus + .floating-label,
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* margin-bottom: 20px; */
-
-  
-  
 }
 
 input,
@@ -164,7 +149,6 @@ select {
 
 input:focus,
 select:focus {
-  /* box-shadow: white; */
   outline: none;
 }
 
@@ -176,37 +160,6 @@ select:focus {
   margin-bottom: 20px;
   gap: 5px;
 }
-
-/* .payment-method {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  align-items: flex-start; 
-
-}
-
-
-.payment-method select {
-  padding: 15px;
-  border-radius: 8px;
-  border: none;
-  background-color: #17171a;
-  color: white;
-  font-size: 16px;
-  transition: box-shadow 0.3s ease;
-  width: 100%;
-  margin-bottom: 20px;
-  border: 1px solid #2a2d3c;
-  
-}
-
-
-
-.payment-method select:focus {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  outline: none;
-} */
-
 
 .convertButton {
   margin-top: 10px;
@@ -221,20 +174,6 @@ select:focus {
   cursor: pointer;
   transition: background 0.3s ease;
 }
-/* .swap-button{
-  margin-top: 25px;
-
-  color: white;
-  font-size: 16px;
- 
-} */
-
-/* button:hover {
-  background: linear-gradient(135deg, #ff007b, #a105f2);
-} */
-
-
-
 .topBar {
   display: flex;
   align-items: center;
@@ -250,18 +189,12 @@ select:focus {
 }
 
 .topBarIcon {
-  /* font-size: 24px;
-  color: white; */
   width: 100%;
   position: relative;
   height: 16px;
 }
 
 .topBarTitle {
-  /* font-size: 26px;
-  font-weight: 500;
-  color: white; */
-
   height: 100%;
   position: relative;
   font-size: 26px;
@@ -274,20 +207,7 @@ select:focus {
   align-items: center;
   justify-content: center;
 }
-/* .customAlert {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: gray;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  z-index: 1000;
-  width: 80%;
-  max-width: 400px; 
-  text-align: center;
-} */
+
 .customAlert {
   position: fixed;
   top: 15%;
@@ -356,60 +276,11 @@ select:focus {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-/*
-.loader {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(45deg, #ff007b, #007bff); 
-  animation: spin 1s linear infinite;
-  transform: rotate(45deg); 
-  position: relative;
-  z-index: 3;
-  box-shadow: 0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7); 
-  border-radius: 12%; 
-}
-
-
-.loader::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: rgba(255, 0, 123, 0.3); 
-  border-radius: 15%;
-  animation: pulse 1.5s infinite ease-in-out;
-  z-index: -5;
-}
-
-
-@keyframes spin {
-  0% { transform: rotate(45deg); }
-  100% { transform: rotate(405deg); }
-}
-
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-} */
 .balanceCard {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #17171a;
-  /* border-radius: 8px; */
   padding: 15px;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -545,7 +416,6 @@ select:focus {
 .btnbtn {
   position: absolute;
   width: 100%;
-  /* margin-top: 80px; */
   right: 24px;
   left: 0;
   border-radius: 8px;
@@ -558,8 +428,6 @@ select:focus {
   margin-top: 20px;
   margin-bottom: 20px;
   z-index: 3;
-  /* background-color: #E2F0FF;
-  color: #000; */
 }
 
 .btnmbBtnFab {
@@ -568,10 +436,7 @@ select:focus {
   height: 98px;
   text-align: center;
   font-size: 16px;
- 
   font-family: 'Poppins', sans-serif;
-  
-  /* transform: translateY(70%); */
 }
 
 .payments24dpE8eaedFill0WghIcon {
@@ -600,13 +465,11 @@ select:focus {
 }
 .inputinput {
   flex: 1;
-  /* width: 2vw; */
   position: relative;
   border-radius: 8px;
   border: 1px solid #2a2d3c;
   box-sizing: border-box;
   height: 40px;
-  /* overflow: hidden; */
   flex-shrink: 0;
   text-align: left;
   font-size: 14px;
@@ -669,24 +532,11 @@ select:focus {
 }
 
 .swapHoriz24dpE8eaedFill0WIcon {
-  /* width: 100%; */
   position: relative;
-  /* max-width: 100%; */
   overflow: hidden;
   height: 24px;
-  /* right: 5px;  */
 }
 
-/* Normal button styles */
-
-
-
-/* Disabled button styles */
-/* @media (max-width:400px){
-  .btnmbBtnFab {
-    transform: translateY(-30%);
-  }
-} */
 .blurred{
   top: 6%;
   height: 70px;

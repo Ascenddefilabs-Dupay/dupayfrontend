@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@600&display=swap');
 body {
@@ -306,9 +307,6 @@ select:focus {
   display: flex;
   flex-direction: column;
   margin-right: auto;
-
-
-
 }
 
 .currencyCode {
@@ -418,7 +416,6 @@ select:focus {
 .btnbtn {
   position: absolute;
   width: 100%;
-  /* margin-top: 80px; */
   right: 24px;
   left: 0;
   border-radius: 8px;
@@ -428,7 +425,7 @@ select:focus {
   justify-content: center;
   padding: 12px 20px;
   box-sizing: border-box;
-  margin-top: 20px;
+  margin-top: 200px;
   margin-bottom: 20px;
   z-index: 3;
 }
@@ -558,7 +555,7 @@ select:focus {
   width: 150px;
   height: 170.1px;
   z-index: 1;
-  opacity: 0.4;
+  opacity: 0.8;
   bottom: 10px; /* Adjust this to position it near the bottom */
   right: 0px;
   }
@@ -664,7 +661,7 @@ select:focus {
       right: 0px;
       }
       .btnmbBtnFab {
-        transform: translateY(10%);
+        transform: translateY(-3%);
         z-index: 3;
       }
   }
@@ -674,7 +671,7 @@ select:focus {
 
     .shapeIcon {
       position: absolute;
-      top: 550.05px;
+      top: 480.05px;
       left: 225px;
       width: 150px;
       height: 125.1px;
@@ -685,10 +682,10 @@ select:focus {
       }
       
        .container{
-        height: 110vh;
+        height: 100vh;
        }
         .btnmbBtnFab {
-        transform: translateY(10%);
+        transform: translateY(-80%);
         z-index: 3;
       } 
       
@@ -713,7 +710,7 @@ select:focus {
         height: 100vh;
        }
        .btnmbBtnFab {
-        transform: translateY(10%);
+        transform: translateY(-5%);
         z-index: 3;
       }
   }
@@ -820,4 +817,47 @@ select:focus {
        
   }
 
+  .formGroup {
+    margin-bottom: 15px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    width: 100%;
+  }
+  .totalBalanceRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-right: 20px;
+  }
   
+  .totalSection, .balanceSection {
+    display: flex;
+    align-items: center;
+  }
+  
+  .totalSection .label {
+    margin-right: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .balanceSection .balance {
+    margin-right: 5px;
+    font-size: 18px;
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  .defaultCurrencyType {
+    color: white;
+    margin-bottom: 20px;
+  }
+  .currencyIcon {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+    vertical-align: middle;
+    margin-left: 15px;
+    margin-top: -20px;
+  }
