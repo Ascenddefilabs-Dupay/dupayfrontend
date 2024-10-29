@@ -290,7 +290,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
-import { height, margin, maxHeight, positions, styled } from '@mui/system';
+import { display, height, margin, maxHeight, positions, styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -300,6 +300,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { IoChevronBack } from "react-icons/io5";
 import { redirect } from 'next/navigation';
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
+
 import { TextField } from '@mui/material'
 // import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel ,FormHelperText} from '@mui/material';
@@ -366,6 +367,7 @@ const UserProfile: React.FC = () => {
   const router = useRouter(); // Initialize useRouter
   const [showLoader, setShowLoader] = useState<boolean>(true);
   const [userId, setUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -430,8 +432,11 @@ const UserProfile: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0] && users.user_id) {
+  const handleImageChange = (
+    event: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
+    // Check if the event is from an input change
+    if ('files' in event.target && event.target.files && event.target.files[0] && users.user_id) {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -441,10 +446,30 @@ const UserProfile: React.FC = () => {
         }
       };
       reader.readAsDataURL(file);
+    } else if (event.type === 'click') {
+      // Handle button click case
+      console.log("Button clicked");
     } else {
       console.error('User data is missing or file is not selected');
     }
   };
+  
+
+  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files && event.target.files[0] && users.user_id) {
+  //     const file = event.target.files[0];
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       if (e.target) {
+  //         setProfileImage(e.target.result as string);
+  //         uploadImage(file);
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     console.error('User data is missing or file is not selected');
+  //   }
+  // };
 
   const uploadImage = async (file: File) => {
     const formData = new FormData();
@@ -485,6 +510,42 @@ const UserProfile: React.FC = () => {
     return `${users.user_first_name || ''} ${users.user_middle_name || ''} ${users.user_last_name || ''}`.trim();
   };
 
+  const saveUserProfile = async () => {
+    setLoading(true)
+    if (!userId) return;
+
+    const updatedData: UserProfile = {
+      user_id: userId,
+      user_first_name: users.user_first_name,
+      user_last_name: users.user_last_name,
+      user_email: users.user_email,
+      user_phone_number: users.user_phone_number,
+      user_dob:users.user_dob,
+      user_country: users.user_country,
+      user_city: users.user_city,
+      user_state: users.user_state,
+      user_address_line_1: users.user_address_line_1,
+      user_pin_code: users.user_pin_code,
+    };
+
+    try {
+      await axios.put(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, updatedData);
+      setSuccessMessage('Profile updated successfully!');
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error updating profile:', error.response?.data || error.message);
+      } else {
+        console.error('Error updating profile:', (error as Error).message);
+      }
+      setSuccessMessage('Failed to update profile.');
+    }
+  };
+
+  const handleBack = () => {
+    setLoading(true)
+    router.push(`/UserProfile/ViewProfile`);
+  }
+
   const Header = styled('header')({
     display: 'flex',
     alignItems: 'center',
@@ -499,7 +560,7 @@ const UserProfile: React.FC = () => {
       alignItems: 'center',
       // justifyContent: 'center',
       width:'430px',
-      height:'180vh',
+      height:'230vh',
       // height:'auto',
       // minHeight: '100%',
       // padding: '20px',
@@ -508,12 +569,13 @@ const UserProfile: React.FC = () => {
       margin:'0 auto',
       paddingBottom: '0',
       overflow: 'hidden',
+      // overflow: 'scroll',
     },
     header: {
       display: 'flex',
       alignItems: 'center',
       width: '100%',
-      top:'-60px',
+      top:'-80px',
       position:'relative',
       left:'30px',
       paddingLeft:'10px',
@@ -539,17 +601,24 @@ const UserProfile: React.FC = () => {
 
   return (
     <div>
-      <div style={styles.container}>
-      {showLoader && (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' ,width:'430px', backgroundColor: 'black', margin: '0 auto'}}>
         {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading  />
+      </div>
+      ) : (
+        <>
+      <div style={styles.container}>
+      {/* {showLoader && (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
         <LottieAnimationLoading width="300px" height="300px" />
       </div>
-      )}
+      )} */}
       <img  style={styles.animation} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729747660/Frame_qityi8.svg" />
       {/* <div> */}
         <header style={styles.header}>
-          <Link href="/UserProfile">
+          {/* <Button onClick={handleBack} style={{display:"flex-box",alignItems:"flex-start"}}><IoChevronBack style={{color:'white',fontSize:'20px'}}/></Button> */}
+          <Link href="/UserProfile/ViewProfile" onClick={handleBack}>
           <IoChevronBack style={{color:'white',fontSize:'20px'}}/>
           </Link>
         </header>
@@ -620,6 +689,20 @@ const UserProfile: React.FC = () => {
 
             <FormHelperText style={{paddingLeft:'0px',color: 'white',left:'-10%',marginTop: '8px', width:'100%',fontSize: '15px' ,marginLeft: '3px'}}>First Name</FormHelperText>
             <TextField
+                  value={users.user_first_name}
+                  onChange={(e) => setUserProfile({ ...users, user_first_name: e.target.value })}
+                  variant="outlined"
+                  InputProps={{
+                    style: {
+                      backgroundColor: '#222531',
+                      color: 'white',
+                      borderRadius: '8px',
+                      height: '40.15px',
+                      width: '338px',
+                    },
+                  }}
+                  />
+            {/* <TextField
               value={users.user_first_name}
               variant="outlined"
               InputProps={{
@@ -632,7 +715,7 @@ const UserProfile: React.FC = () => {
                   width:'338px',
                 },
               }}
-            />
+            /> */}
           </FormControl>
         </div>
         <div style={{ marginBottom: '10px' }}>
@@ -640,6 +723,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Last Name</FormHelperText>
             <TextField
               value={users.user_last_name}
+              onChange={(e) => setUserProfile({ ...users, user_last_name: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -659,6 +743,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Email</FormHelperText>
             <TextField
               value={users.user_email}
+              onChange={(e) => setUserProfile({ ...users, user_email: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -700,6 +785,7 @@ const UserProfile: React.FC = () => {
             </FormHelperText>
             <TextField
               value={users.user_dob}
+
               variant="outlined"
               InputProps={{
                 style: {
@@ -729,6 +815,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Phone Number</FormHelperText>
             <TextField
               value={users.user_phone_number}
+              onChange={(e) => setUserProfile({ ...users, user_phone_number: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -748,6 +835,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Country</FormHelperText>
             <TextField
               value={users.user_country}
+              onChange={(e) => setUserProfile({ ...users, user_country: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -767,6 +855,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>City</FormHelperText>
             <TextField
               value={users.user_city}
+              onChange={(e) => setUserProfile({ ...users, user_city: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -786,6 +875,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>State</FormHelperText>
             <TextField
               value={users.user_state}
+              onChange={(e) => setUserProfile({ ...users, user_state: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -805,6 +895,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Address</FormHelperText>
             <TextField
               value={users.user_address_line_1}
+              onChange={(e) => setUserProfile({ ...users, user_address_line_1: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -824,6 +915,7 @@ const UserProfile: React.FC = () => {
             <FormHelperText style={{ color: 'white', marginTop: '8px', fontSize: '15px',marginLeft: '3px' }}>Pin Code</FormHelperText>
             <TextField
               value={users.user_pin_code}
+              onChange={(e) => setUserProfile({ ...users, user_pin_code: e.target.value })}
               variant="outlined"
               InputProps={{
                 style: {
@@ -842,7 +934,7 @@ const UserProfile: React.FC = () => {
       </div>
       <div style={{ marginBottom: '16px',marginTop:'20px' }}>
           <FormControl fullWidth variant="outlined">
-              <button style={{ color: 'black',backgroundColor:'#E2F0FF', width:'360px',height:'48px',borderRadius:'8px' }}>Save</button>
+              <button onClick={saveUserProfile} style={{ color: 'black',backgroundColor:'#E2F0FF', width:'360px',height:'48px',borderRadius:'8px' }} >Save</button>
           </FormControl>
         </div>
 
@@ -853,6 +945,8 @@ const UserProfile: React.FC = () => {
         )}
       </div>
       </div>
+      </>
+      )}
       </div>
   );
 };

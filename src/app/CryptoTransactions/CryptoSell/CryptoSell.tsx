@@ -2,7 +2,6 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import './CryptoSell.css';
-// import { FaChevronLeft, FaExchangeAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X';
@@ -35,6 +34,8 @@ interface FiatWallet {
   const currencyIcons = {
     'INR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332402/admin/wj3iwdmefdlbro6zefui.png",
     'USD':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332507/admin/l0b132l8rbx1m3h0hkyv.png",
+    'EUR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1729848255/europe_xalxst.png",
+    "AED":"https://res.cloudinary.com/dgfv6j82t/image/upload/v1729848313/7c168df3-75b4-43c5-a705-0daa3b56a71d.png",
     'SUI':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729751154/a2ca4b2c-1d38-48c4-b77c-5026eacbefa6.png',
     'BTC':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765305/d6893a3a-07b3-4075-b0fe-f476a95510c9.png',
     'ETH':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765367/4e24a2c0-6992-43b1-9b08-f63e8701a4e2.png',
@@ -43,10 +44,7 @@ interface FiatWallet {
     'cardano':'https://res.cloudinary.com/dgfv6j82t/image/upload/v1729765532/d324f5a6-eb14-4749-b6f1-38c609dca7b2.png',
   };
   
-  // const currencyList = [
-  //   'SUI','Bitcoin','Ethereum','Binance Coin','Solana','Cardano'
-  // ];
-  const currencyList = ['INR','USD','SUI', 'BTC', 'ETH', 'BNB', 'solana', 'cardano'];
+  const currencyList = ['INR','USD','EUR','AED','SUI', 'BTC', 'ETH', 'BNB', 'solana', 'cardano'];
   interface PriceResponse {
       [key: string]: {
         usd: number;
@@ -72,6 +70,9 @@ const CryptoSell: React.FC = () => {
   const [fromToken, setFromToken] = useState<string>("sui");
   const [toToken, setToToken] = useState<string>("bitcoin");
   const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState<string | null>('DupC0005');
+
+  const [suiBalance, setSuiBalance] = useState('0');
   const [balances, setBalances] = useState<Record<string, number>>({
     INR: 0.00,
     USD: 0.00,
@@ -84,7 +85,6 @@ const [token, setToken] = useState("sui");
 const [currency, setCurrency] = useState("usd");
 
 const isButtonEnabled = amount.trim() !== '' && paymentMode!=='' ;
-// const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
 
 useEffect(() => {
   if (typeof window !== 'undefined') {
@@ -101,6 +101,11 @@ useEffect(() => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
+      const userId=params.get('user_id') || '';
+      if(userId)
+      {
+        setUserId(userId);
+      }
       const walletIdValue = params.get('wallet_id') || "";
       setWalletId(walletIdValue);
 
@@ -131,31 +136,55 @@ useEffect(() => {
      
       
 
+      
   useEffect(() => {
-    if (amount) {
-      setStyles((prevStyles) => ({
-        ...prevStyles,
-        top:'22%',
-      }));
-      setStyle((prevStyle) => ({
-        ...prevStyle,
-        background: '#e2f0ff',
-        color: '#000000',
-      }));
-    } else {
-      setStyles((prevStyles) => ({
-        ...prevStyles,
-        top:'55%',
-      }));
-      setStyle((prevStyle) => ({
-        ...prevStyle,
-        background: '#222531',
-        color: '#4c516b',
-      }));
-      
-      
-    }
-  }, [amount]);
+    const fetchBalance = async () => {
+        try {
+            const walletId = 'DUP0002';
+            const userid = userId;
+
+            // Directly send the values as part of the URL path
+            const response = await axios.get(`http://127.0.0.1:8000/fiat_fiatSwap/crypto_wallet/balance/${walletId}/${userid}/`);
+            
+            // Set the fetched balance into suiBalance
+            if (response.data.balance) {
+                setSuiBalance(response.data.balance);
+            } else {
+                console.error('Balance not found in response', response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching balance:', error);
+        }
+    };
+
+    fetchBalance();
+}, []);
+
+useEffect(() => {
+  if (amount) {
+    setStyles((prevStyles) => ({
+      ...prevStyles,
+      top:'22%',
+    }));
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      background: '#e2f0ff',
+      color: '#000000',
+    }));
+  } else {
+    setStyles((prevStyles) => ({
+      ...prevStyles,
+      top:'55%',
+    }));
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      background: '#222531',
+      color: '#4c516b',
+    }));
+    
+    
+  }
+}, [amount]);
   const customSelectStyles = {
     control: (base: any) => ({
         ...base,
@@ -194,6 +223,9 @@ useEffect(() => {
  menu: (base: any) => ({
         ...base,
         backgroundColor: '#17171a',
+        '::-webkit-scrollbar': {
+      display: 'none',
+    },
     }),
     singleValue: (base: any) => ({
         ...base,
@@ -210,25 +242,37 @@ useEffect(() => {
     }),
   };
   
-  const fetchConversionRate = useCallback(async () => {
+  const currencyIdMap: Record<string, string> = {
+    'INR': 'inr', 
+    'USD': 'usd',
+    'EUR':'eur', 
+    'AED':'aed',
+    'SUI': 'sui', 
+    'BTC': 'bitcoin', 
+    'ETH': 'ethereum', 
+    'BNB': 'binancecoin',
+    'solana': 'solana', 
+    'cardano': 'cardano'
+};
+
+const fetchConversionRate = useCallback(async () => {
     if (!amount || !sourceCurrency || !destinationCurrency) return;
 
     try {
+        // Map the currencies to the CoinGecko ID
+        const sourceId = currencyIdMap[sourceCurrency];
+        const destinationId = currencyIdMap[destinationCurrency];
+        
         const response = await axios.get(
-            `https://api.coingecko.com/api/v3/simple/price?ids=${sourceCurrency}&vs_currencies=${destinationCurrency}`
+            `https://api.coingecko.com/api/v3/simple/price?ids=${sourceId}&vs_currencies=${destinationId}`
         );
-        console.log("response data", response.data)
-        console.log("source: ", sourceCurrency);
-        console.log("destination" ,destinationCurrency);
-       
-        const rate = response.data[token][currency];
-        console.log("rate",rate);
+
+        // Access the conversion rate based on mapped IDs
+        const rate = response.data[sourceId][destinationId];
         const calculatedAmount = (rate * (parseFloat(amount) || 0)).toFixed(3);
-        console.log("calculatedAmount" , calculatedAmount); 
         setSwapRate(calculatedAmount);
-  
     } catch (error) {
-        console.error('Error fetching the conversion rate or token prices:', error);
+        console.error('Error fetching the conversion rate:', error);
         setAlertMessage('An error occurred. Please try again later.');
     }
 }, [amount, sourceCurrency, destinationCurrency]);
@@ -262,8 +306,9 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const handleSellButton = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true); // Set loading state to true
-    await router.push(`/CryptoSellSuccess`);
+    router.push(`/CryptoSellSuccess?currency=${sourceCurrency}&destination_currency=${destinationCurrency}&amount=${amount}`);
     setIsLoading(false); // Reset loading state after navigation
+
   };
 
  
@@ -275,7 +320,7 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const handleLeftArrowClick = () => {
     setShowLoader(true);
     setTimeout(() => {
-      router.push('/Userauthorization/Dashboard/Home');
+      router.back();
       setShowLoader(false);
     }, 3000);
   };
@@ -321,17 +366,16 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           <div className="balanceCard">
                 <div className="balanceDetails">
                     <img 
-                        src={"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332507/admin/l0b132l8rbx1m3h0hkyv.png"} 
+                        src={"https://res.cloudinary.com/dgfv6j82t/image/upload/v1729751154/a2ca4b2c-1d38-48c4-b77c-5026eacbefa6.png"} 
                         alt={''}
                         className="currencyImage"
                     />
                     <div className="currencyText">
-                        <span className="currencyCode">Total USD</span>
-                        {/* <span className="currencyCountry">{selectedCountry}</span> */}
+                        <span className="currencyCode">Total SUI</span>
                     </div>
                     <div className="balanceAmount">
                     <p className="balanceAmount">
-                         {(balances[fetchedCurrency || ''] !== undefined ? balances[fetchedCurrency || ''].toFixed(2) : '1234.00') } USD
+                         {(balances[fetchedCurrency || ''] !== undefined ? balances[fetchedCurrency || ''].toFixed(2) :suiBalance) } {fetchedCurrency}
                     </p>
                     </div>
                 </div>
@@ -378,7 +422,6 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               <div className="amount-row">
               <div className="amount-group">
               <div className="howMuchUsd">How much SUI you want to Sell?</div>
-                {/* <label className="balance-label">How much {fetchedCurrency} you want to swap?</label> */}
                 <div className="input-container">
                   <label 
                     className={`floating-label ${amount ? 'active' : ''}`} 
@@ -424,7 +467,6 @@ const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                   <div className="text">{isLoading ? 'Processing...' : 'Sell'}</div>
                 </div>
               </button>
-            {/* <div className='blurred' style={blur}></div> */}
           </form>
         </div>
       )}

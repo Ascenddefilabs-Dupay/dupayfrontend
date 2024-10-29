@@ -6,7 +6,7 @@ import styles from './Success.module.css';
 
 const CryptoSwap: NextPage = () => {
     const router = useRouter();
-    const [fetchedCurrency, setFetchedCurrency] = useState<string>(''); 
+    const [sourceCurrency, setSourceCurrency] = useState<string>(''); 
     const [destinationCurrency, setDestinationCurrency] = useState<string>(''); 
     const [amount, setAmount] = useState<string>(''); 
 
@@ -28,7 +28,7 @@ const CryptoSwap: NextPage = () => {
           console.log("destination currency: ",destination_currency);
           console.log('fetched currency: ',currency);
           if (currency) {
-            setFetchedCurrency(currency);
+            setSourceCurrency(currency);
           } else {
             console.error("Currency parameter not found in URL.");
           }
@@ -60,14 +60,10 @@ const CryptoSwap: NextPage = () => {
                 <div className={styles.content}>
                     <div className={styles.listmbListItemBasic}>
                         <div className={styles.listmbListItemitemLeft1}>
-                            <div className={styles.title}>{amount} {fetchedCurrency} Swap #0 Complete! </div>
+                            <div className={styles.title}>{amount} {sourceCurrency} Swapped to {destinationCurrency} </div>
                         </div>
                     </div>
-                    <div className={styles.listmbListItemBasic1}>
-                        <div className={styles.listmbListItemitemLeft1}>
-                            <div className={styles.caption}>Tap to view this transaction</div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

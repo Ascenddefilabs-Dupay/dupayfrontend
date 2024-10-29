@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft ,FaAngleLeft } from 'react-icons/fa';
-import styles from './Topup.module.css';
+import './Topup.css';
+import LottieAnimation from '@/app/assets/animation';
+import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
 
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
 // const API_BASE_URL = 'http://localhost:8000/fiatmanagementapi'; // Updated base URL for API requests
@@ -34,10 +36,13 @@ const TopUpForm: React.FC = () => {
   const router = useRouter();
   const [hasFetchedWalletDetails, setHasFetchedWalletDetails] = useState(false);
   const [currencyIcon, setCurrencyIcon] = useState<string | null>(null);
-  // const DEFAULT_CURRENCY_TYPE = localStorage.getItem('SelectedCurrency') || 'INR';
-  // console.log('Default Currency Type:', DEFAULT_CURRENCY_TYPE);
   const [DEFAULT_CURRENCY_TYPE, setDefaultCurrencyType] = useState<string>('INR');
   const [isButtonVisible, setIsButtonVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [flagIconUrl, setFlagIconUrl] = useState<string | null>(null);
+  const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
+  const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
+  const [styles, setStyles] = useState({ top:'30%' });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -51,7 +56,31 @@ const TopUpForm: React.FC = () => {
     setLoading(false);
     setShowForm(true);
   };
-  
+  useEffect(() => {
+    if (amount) {
+      setStyles((prevStyles) => ({
+        ...prevStyles,
+        top:'50%',
+      }));
+      setStyle((prevStyle) => ({
+        ...prevStyle,
+        background: '#e2f0ff',
+        color: '#000000',
+      }));
+    } else {
+      setStyles((prevStyles) => ({
+        ...prevStyles,
+        top:'55%',
+      }));
+      setStyle((prevStyle) => ({
+        ...prevStyle,
+        background: '#222531',
+        color: '#4c516b',
+      }));
+      
+      
+    }
+  }, [amount])
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
@@ -107,22 +136,11 @@ const TopUpForm: React.FC = () => {
   
       // Ensure the URL is properly formatted
       const cleanedIconUrl = icon.trim(); // Remove any surrounding whitespace
-
-      // if (cleanedIconUrl && cleanedIconUrl.startsWith("https://res.cloudinary.com/")) {
-      //   setCurrencyIcon(cleanedIconUrl); // Set the cleaned URL
-      // } else {
-      //   console.error("Invalid URL format:", cleanedIconUrl);
-      // }
-  
     } catch (error) {
       handleApiError(error, 'fetching currency icon');
     }
   };
   
-  
-  
-  
-
   useEffect(() => {
     fetchCurrencyIcon(); // Fetch currency icon when component mounts
   }, []);
@@ -247,99 +265,99 @@ const TopUpForm: React.FC = () => {
     router.push('/Userauthorization/Dashboard/Home'); // Navigate to the Dashboard Home
   };
 
-  return (
-    <div className={styles.topUpFormContainer}>
-      <button className={styles.backButton} onClick={handleBack}>
-      <FaAngleLeft className={styles.arrowIcon} />
-      <span className={styles.buttonText}>Topup {DEFAULT_CURRENCY_TYPE} </span>
-    </button>
+  const [showLoader, setShowLoader] = useState<boolean>(false);
+  
+  const handleCloseAlert = useCallback(() => {
+    setAlertMessage('');
+  }, []);
+return(
 
-      {loading && <div className={styles.loading}>Processing...</div>}
-      {alertMessage && <div className={styles.alert}>{alertMessage}</div>}
+  <div>
       {showForm && (
-        <form className={styles.topUpFormContent} onSubmit={(e) => e.preventDefault()}>
-          <div className={styles.formGroup}>
-            <div className={styles.totalBalanceRow}>
-              {/* Left side: Total and default currency */}
-              <div className={styles.totalSection}>
-                {currencyIcon && (
+        <div className="container">
+          {alertMessage && (
+            <div className="customAlert">
+              <p>{alertMessage}</p>
+              <button onClick={handleCloseAlert} className="closeButton">OK</button>
+            </div>
+          )}
+          {showLoader && (
+            <div className="loaderContainer" >
+              <LottieAnimationLoading />
+            </div>
+          )}
+          <img className="shapeIcon" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729139397/4c03bd90-fdce-4081-9358-1e6849723549.png" />
+          <div className="navbarnavBar">
+            <div className="navbaritemleftBtn">
+            <div className="iconiconWrapper">
+            <img
+              className="iconarrowLeftBack"
+              alt="Back"
+              src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728536746/f8f904f1-485a-42cc-93c6-a9abd4346f30.png"
+              onClick={handleBack} // Attach click handler
+              style={{ cursor: 'pointer' }} // Optional: Makes it look clickable
+          />
+            </div>
+            </div>
+            <div className="hereIsTitle">Topup {DEFAULT_CURRENCY_TYPE}</div>
+            <div className="navbaritemrightBtn" />
+            </div>
+            <form  onSubmit={(e) => e.preventDefault()}>
+          <div className="balanceCard">
+                <div className="balanceDetails">
                     <img
-                      src={currencyIcon}
-                      alt={`${DEFAULT_CURRENCY_TYPE} icon`}
-                      className={styles.currencyIcon}
-                    />
-                  )}
-                <span className={styles.label}>Total</span>
-                <span className={styles.defaultCurrencyType}>{DEFAULT_CURRENCY_TYPE}</span>
-              </div>
-              
-              {/* Right side: Balance and default currency */}
-              <div className={styles.balanceSection}>
-                <span className={styles.balance}>{balance.toFixed(2)}</span>
-                <span className={styles.defaultCurrencyType}>{DEFAULT_CURRENCY_TYPE}</span>
+                          src={currencyIcon || ''}
+                          alt={`${DEFAULT_CURRENCY_TYPE} icon`}
+                          className="currencyImage"
+                        />
+                    <div className="currencyText">
+                        <span className="currencyCode">Total {DEFAULT_CURRENCY_TYPE}</span>
+                    </div>
+                    <div className="balanceAmount">
+                      <span >{balance.toFixed(2)} </span>
+                      <span >{DEFAULT_CURRENCY_TYPE}</span>
+                    </div>
+                </div>
+            </div>
+           
+            <div className="amount-row">
+              <div className="amount-group">
+              <div className="howMuchUsd">How much {DEFAULT_CURRENCY_TYPE} do you want to top up?</div>
+                <div className="input-container">
+                  <label 
+                    className={`floating-label ${amount ? 'active' : ''}`} 
+                    htmlFor="amount"
+                  >
+                    Enter amount in {DEFAULT_CURRENCY_TYPE}
+                  </label>
+                  <input
+                    type="tel"
+                    id="amount"
+                    value={amount}
+                    onChange={handleAmountChange}
+                    required
+                    inputMode="numeric" // This will trigger the numeric keypad
+                  />
+                </div>
                 
-
+                
               </div>
             </div>
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="amountInput" className={styles.label1}>How much {DEFAULT_CURRENCY_TYPE} do you want to top up?</label>
-            <input
-              id="amountInput"
-              type="text"
-              value={amount}
-              onChange={handleAmountChange}
-              placeholder={`Enter amount in ${DEFAULT_CURRENCY_TYPE}`}
-              className={styles.amountInput}
-            />
-          </div>
-          <div className={styles.svgContainer}>
-          <svg width="200" height="220" viewBox="0 0 204 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M155.2 126.059C155.612 147.056 160.789 163.422 165.605 173.448C168.138 178.722 174.292 180.855 179.599 178.392C202.392 167.814 216.607 145.741 222.941 128.901C225.604 121.819 220.569 114.751 213.057 113.846C193.797 111.525 179.192 112.085 167.693 112.904C160.705 113.403 155.063 119.055 155.2 126.059Z" fill="url(#paint0_linear_2006_7547)"/>
-            <path d="M269.704 7.67764C205.104 10.1973 154.766 64.8036 157.296 129.666C159.826 194.529 214.264 245.049 278.864 242.529C343.465 240.01 393.802 185.403 391.272 120.54C388.742 55.6777 334.305 5.15799 269.704 7.67764Z" stroke="url(#paint1_linear_2006_7547)" stroke-width="6"/>
-            <circle cx="179.717" cy="179.717" r="176.717" transform="matrix(-0.0389741 -0.99924 -0.99924 0.0389741 373.168 461.044)" stroke="url(#paint2_linear_2006_7547)" stroke-width="6"/>
-            <circle cx="85" cy="85" r="82" transform="matrix(1 0 0 -1 59 188.831)" stroke="url(#paint3_linear_2006_7547)" stroke-width="6"/>
-            <defs>
-            <linearGradient id="paint0_linear_2006_7547" x1="155.001" y1="169.053" x2="155.001" y2="130.553" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#FF89C2"/>
-            <stop offset="0.5" stop-color="#F65BA4"/>
-            <stop offset="1" stop-color="#BD46F4"/>
-            </linearGradient>
-            <linearGradient id="paint1_linear_2006_7547" x1="355.401" y1="74.8776" x2="149.438" y2="155.856" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#E34D67"/>
-            <stop offset="0.5" stop-color="#FF67E0"/>
-            <stop offset="1" stop-color="#7746F4"/>
-            </linearGradient>
-            <linearGradient id="paint2_linear_2006_7547" x1="249.844" y1="55.4737" x2="140.44" y2="367.975" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#E34D67"/>
-            <stop offset="0.5" stop-color="#FF67E0"/>
-            <stop offset="1" stop-color="#7746F4"/>
-            </linearGradient>
-            <linearGradient id="paint3_linear_2006_7547" x1="118.168" y1="26.2372" x2="66.4236" y2="174.04" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#E34D67"/>
-            <stop offset="0.5" stop-color="#FF67E0"/>
-            <stop offset="1" stop-color="#7746F4"/>
-            </linearGradient>
-            </defs>
-            </svg>
-          </div>
-          <div className="topUpButtonCard">
- 
-
           <button
-            type="button"
-            className={`${styles.topUpButton} ${isButtonVisible ? styles.active : styles.inactive}`} // Toggle between visible and hidden states
-            onClick={handleTopUp}
-            disabled={!isButtonVisible || loading} // Button is disabled if not visible or loading
-          >
-            Top Up
-          </button>
-          </div>
-          {error && <div className={styles.error}>{error}</div>}
-        </form>
+                className={`btnmbBtnFab swap-button ${isLoading ? 'disabled' : ''}`}
+                style={styles}
+                disabled={isLoading}
+              >
+                <div className="btnbtn" style={style} onClick={handleTopUp}>
+                  <div className="text">{isLoading ? 'Processing...' : 'Swap'}</div>
+                </div>
+              </button>
+          </form>
+        </div>
       )}
     </div>
   );
+
 };
 
 export default TopUpForm;

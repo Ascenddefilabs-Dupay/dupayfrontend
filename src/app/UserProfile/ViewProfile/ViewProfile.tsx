@@ -387,11 +387,12 @@ import { MdEdit } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoChevronBack } from "react-icons/io5";
 import { redirect } from 'next/navigation';
-import LottieAnimationLoading from '../../assets/LoadingAnimation';
+// import LottieAnimationLoading from '../../assets/LoadingAnimation';
 import { TextField } from '@mui/material'
 // import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel ,FormHelperText} from '@mui/material';
 import { IoSettings } from "react-icons/io5";
+import LottieAnimationLoading from '../../assets/LoadingAnimation';
 
 // Define TypeScript interfaces
 interface UserProfile {
@@ -482,6 +483,7 @@ const UserProfile: React.FC = () => {
   const router = useRouter(); // Initialize useRouter
   const [showLoader, setShowLoader] = useState<boolean>(true);
   const [userId, setUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -601,6 +603,11 @@ const UserProfile: React.FC = () => {
     return `${users.user_first_name || ''} ${users.user_middle_name || ''} ${users.user_last_name || ''}`.trim();
   };
 
+  const handleBack = () => {
+    setLoading(true)
+    router.push(`/UserProfile/ViewProfile`);
+  }
+
   const Header = styled('header')({
     display: 'flex',
     alignItems: 'center',
@@ -651,6 +658,13 @@ const UserProfile: React.FC = () => {
 
   return (
     <div>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' ,width:'430px', backgroundColor: 'black', margin: '0 auto'}}>
+        {/* Show the Lottie loading animation */}
+        <LottieAnimationLoading  />
+      </div>
+      ) : (
+        <>
       <div style={styles.container}>
       {showLoader && (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' , backgroundColor: 'black'}}>
@@ -662,7 +676,7 @@ const UserProfile: React.FC = () => {
       
       {/* <div> */}
         <header style={styles.header}>
-          <Link href="/Userauthorization/Dashboard/Home">
+          <Link href="/Userauthorization/Dashboard/Home" onClick={handleBack}>
           <IoChevronBack style={{color:'white',fontSize:'20px'}}/>
           </Link>
         </header>
@@ -1023,6 +1037,8 @@ const UserProfile: React.FC = () => {
         )}
       </div>
       </div>
+      </>
+      )}
       </div>
   );
 };
