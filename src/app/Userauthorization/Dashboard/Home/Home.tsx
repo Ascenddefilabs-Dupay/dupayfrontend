@@ -17,6 +17,7 @@ import { IoMdRefresh } from "react-icons/io";
 import { Refresh } from '@mui/icons-material';
 import { fontSize } from '@mui/system';
 import { Navigate } from 'react-router-dom';
+
 interface FiatWallet {
 balance: string; 
 currency_type: string;
@@ -586,11 +587,6 @@ const wallet_data = () => {
     }
 };
 
-// const handleRefresh =()=>{
-//   router.push(''); 
-//   // window.location.reload(false);
-
-// }
 
 const [greeting, setGreeting] = useState('');
 
