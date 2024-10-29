@@ -111,7 +111,6 @@ const Home = () => {
   const [error, setError] = useState<ErrorState>({});
   const [currencyList, setCurrencyList] = useState<string[]>([]);
   const [count, setCount] = useState(0);
-
   const [balance, setBalance] = useState<string | null>(null); // Allow string or null
   const [suiAddress, setSuiAddress] = useState<string | null>(null); // Allow string or null
   const [navigateToSuccess, setNavigateToSuccess] = useState(false);
@@ -1050,7 +1049,7 @@ const handleRefresh = () => {
               <div
                 className={styles.button}
                 onClick={() => {
-                  handleNavigation('/CryptoSwap');
+                  handleNavigation(`/CryptoTransactions/CryptoSwap?user_id=${userId}`);
                   handleClose(); // Close the blur screen
                 }}
               >
@@ -1070,7 +1069,7 @@ const handleRefresh = () => {
               <div
                 className={styles.button}
                 onClick={() => {
-                  handleNavigation('/CryptoSell');
+                  handleNavigation(`/CryptoTransactions/CryptoSell?user_id=${userId}`);
                   handleClose(); // Close the blur screen
                 }}
               >

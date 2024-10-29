@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import type { NextPage } from 'next';
 import styles from './Success.module.css';
 
-const CryptoSwap: NextPage = () => {
+const CryptoSell: NextPage = () => {
     const router = useRouter();
     const [sourceCurrency, setSourceCurrency] = useState<string>(''); 
     const [destinationCurrency, setDestinationCurrency] = useState<string>(''); 
@@ -60,18 +60,13 @@ const CryptoSwap: NextPage = () => {
                 <div className={styles.content}>
                     <div className={styles.listmbListItemBasic}>
                         <div className={styles.listmbListItemitemLeft1}>
-                            <div className={styles.title}>{amount} {sourceCurrency} Swapped to {destinationCurrency} </div>
+                            <div className={styles.title}>{amount} {sourceCurrency} Sold to {destinationCurrency}</div>
                         </div>
                     </div>
-                    {/* <div className={styles.listmbListItemBasic1}>
-                        <div className={styles.listmbListItemitemLeft1}>
-                            <div className={styles.caption}>Tap to view this transaction</div>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </div>
     );
 };
 
-export default CryptoSwap;
+export default CryptoSell;
