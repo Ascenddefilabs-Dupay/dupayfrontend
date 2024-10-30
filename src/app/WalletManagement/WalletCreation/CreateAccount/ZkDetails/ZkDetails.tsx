@@ -119,7 +119,7 @@ function ZkDetails() {
 
 
       router.push("/Userauthorization/Dashboard/Home");
-    }, 7000); 
+    }, 3000); 
   
     return () => clearTimeout(timer);
   }, [router]);

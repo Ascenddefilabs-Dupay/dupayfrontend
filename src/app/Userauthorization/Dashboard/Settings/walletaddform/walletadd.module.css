@@ -5,11 +5,10 @@
 
 /* font-family: 'SF Pro',sans-serif;
 font-family: 'Poppins',sans-serif; */
-.security_card {
+.wallet_card {
     width: 100%;
     max-width: 400px;
     margin:auto;
-    width: 100%;
   	position: relative;
   	background-color: #17171a;
   	height: 823px;
@@ -21,7 +20,7 @@ font-family: 'Poppins',sans-serif; */
 
 }
   
-.securitylabel {
+.walletlabel {
     position: absolute;
     top: 18px;
     left: 0px;
@@ -38,7 +37,7 @@ font-family: 'Poppins',sans-serif; */
     font-size: 18px;
 }
 
-.securityleftarrow{
+.walletleftarrow{
     align-self: stretch;
   	flex: 1;
   	display: flex;
@@ -48,14 +47,14 @@ font-family: 'Poppins',sans-serif; */
   	padding: 10px 0px;
 }
 
-.securityicon{
+.walleticon{
     width: 32px;
   	position: relative;
   	height: 32px;
     color: #fff;
 }
 
-.securityitle{
+.wallettitle{
     align-self: stretch;
   	position: relative;
   	line-height: 28px;
@@ -67,13 +66,13 @@ font-family: 'Poppins',sans-serif; */
     text-align: center; 
 }
 
-.securityrightbtn{
+.walletrightbtn{
     align-self: stretch;
   	flex: 1;
 }
 
 
-.securityParent{
+.walletParent{
     position: absolute;
   	top: 123px;
   	left: 19px;
@@ -87,7 +86,7 @@ font-family: 'Poppins',sans-serif; */
   	text-align: center;
 }
 
-.seurityframeWrapper{
+.walletframeWrapper{
     align-self: stretch;
   	display: flex;
   	flex-direction: column;
@@ -95,7 +94,7 @@ font-family: 'Poppins',sans-serif; */
   	justify-content: center;
 }
 
-.securityframeContainer{
+.walletframeContainer{
     align-self: stretch;
   	display: flex;
   	flex-direction: row;
@@ -103,7 +102,7 @@ font-family: 'Poppins',sans-serif; */
   	justify-content: flex-start;
   	gap: 24px;
 }
-.securityframeGroup{
+.walletframeGroup{
     align-self: stretch;
   	box-shadow: 0px 16px 32px -8px rgba(12, 12, 13, 0.4);
   	border-radius: 16px;
@@ -116,7 +115,7 @@ font-family: 'Poppins',sans-serif; */
   	gap: 10px;
 }
 
-.securityiconavatarParent{
+.walleticonavatarParent{
     display: flex;
   	flex-direction: row;
   	align-items: center;
@@ -124,7 +123,7 @@ font-family: 'Poppins',sans-serif; */
   	gap: 4px;
 }
 
-.securityiconavatar{
+.walleticonavatar{
     width: 24px;
   	position: relative;
   	height: 24px;
@@ -134,13 +133,13 @@ font-family: 'Poppins',sans-serif; */
 }
 
 
-.securityselectYourPreferred{
+.walletselectYourPreferred{
     position: relative;
   	line-height: 24px;
 	width: 100px;
 }
 
-.securityiconsettingWrapper{
+.walleticonsettingWrappercrpto{
     flex: 1;
   	display: flex;
   	flex-direction: row;
@@ -148,14 +147,14 @@ font-family: 'Poppins',sans-serif; */
   	justify-content: flex-end;
 }
 
-.copyicon{
+.walletcopyiconwallet{
     width: 16px;
     position: relative;
     height: 16px;
     margin-right: 10px;
 }
 
-.securitytagxsmallonleftdefault{
+.wallettagxsmallonleftdefault{
     backdrop-filter: blur(24px);
   	border-radius: 100px;
   	background-color: rgba(69, 240, 209, 0.08);
@@ -171,20 +170,20 @@ font-family: 'Poppins',sans-serif; */
 }
 
 
-.securityiconcheck{
+.walleticoncheck{
     width: 16px;
   	position: relative;
   	height: 16px;
 }
 
-.securitytext{
+.wallettext{
     position: relative;
   	line-height: 16px;
 }
 
 
 
-.seurityframeWrapperfiat{
+.walletframeWrapperfiat{
     align-self: stretch;
   	display: flex;
   	flex-direction: column;
@@ -192,7 +191,7 @@ font-family: 'Poppins',sans-serif; */
   	justify-content: center;
 }
 
-.securityframeContainerfiat{
+.walletframeContainerfiat{
     align-self: stretch;
   	display: flex;
   	flex-direction: row;
@@ -200,7 +199,7 @@ font-family: 'Poppins',sans-serif; */
   	justify-content: flex-start;
   	gap: 24px;
 }
-.securityframeGroupfiat{
+.walletframeGroupfiat{
     align-self: stretch;
   	box-shadow: 0px 16px 32px -8px rgba(12, 12, 13, 0.4);
   	border-radius: 16px;
@@ -213,7 +212,7 @@ font-family: 'Poppins',sans-serif; */
   	gap: 10px;
 }
 
-.securityiconavatarParentfiat{
+.walleticonavatarParentfiat{
     display: flex;
   	flex-direction: row;
   	align-items: center;
@@ -221,7 +220,7 @@ font-family: 'Poppins',sans-serif; */
   	gap: 4px;
 }
 
-.securityiconavatarfiat{
+.walleticonavatarfiat{
     width: 24px;
   	position: relative;
   	height: 24px;
@@ -231,13 +230,13 @@ font-family: 'Poppins',sans-serif; */
 }
 
 
-.securityselectYourPreferredfiat{
+.walletselectYourPreferredfiat{
     position: relative;
   	line-height: 24px;
 	width: 100px;
 }
 
-.securityiconsettingWrapperfiat{
+.walleticonsettingWrapperfiat{
     flex: 1;
   	display: flex;
   	flex-direction: row;
@@ -245,14 +244,14 @@ font-family: 'Poppins',sans-serif; */
   	justify-content: flex-end;
 }
 
-.copyiconfiat{
+.walleticonfiat{
     width: 16px;
     position: relative;
     height: 16px;
     margin-right: 10px;
 }
 
-.securitytagxsmallonleftdefaultfiat{
+.wallettagxsmallonleftdefaultfiat{
     backdrop-filter: blur(24px);
   	border-radius: 100px;
   	background-color: rgba(69, 240, 209, 0.08);
@@ -268,192 +267,45 @@ font-family: 'Poppins',sans-serif; */
 }
 
 
-.securityiconcheckfiat{
+.walleticoncheckfiat{
     width: 16px;
   	position: relative;
   	height: 16px;
 }
 
-.securitytextfiat{
+.wallettextfiat{
     position: relative;
   	line-height: 16px;
 }
 
 
-
-.securityParentlock{
-    position: absolute;
-    top: 329px;
-    left: 24px;
-    width: 363px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 10px;
-    font-size: 16px;
+.lock-title {
+    color: white;
 }
 
-.selectYourPreferred{
-    position: relative;
-    line-height: 26px;
-    font-family: 'Poppins',sans-serif;
-}
 
-.securitypass{
-  align-self: stretch;
-  border-radius: 8px;
-  background-color: #222531;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 16px;
-
-}
-
-.securityleft{
-    align-self: stretch;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.securitytitlepass{
-    flex: 1;
-    position: relative;
-    line-height: 24px;
-    font-weight: 500;
-    margin-left: 10px;
-}
-
-.passcodeiconrightarrow{
-    width: 24px;
-    position: relative;
-    height: 24px;
-}
-
-.passwordcopyiconfiat{
-    width: 16px;
-    position: relative;
-    height: 16px;
-    margin-right: 10px;
-    color: #9494a0;
-    
-}
-
-.lockselection{
-    position: absolute;
-  	top: 443px;
-  	left: 24px;
-  	width: 363px;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: flex-start;
-  	justify-content: flex-start;
-  	gap: 10px;
-  	font-size: 16px;
-}
-
-.securityunlockrequ{
-    position: relative;
-  	line-height: 24px;
-}
-
-.transactionlock{
-    align-self: stretch;
-  	border-radius: 8px;
-  	background-color: #17171a;
-  	border: 1px solid #2a2d3c;
-  	display: flex;
-  	flex-direction: row;
-	align-items: stretch; 
-	justify-content: stretch;
-  	/* align-items: flex-start;
-  	justify-content: flex-start; */
-  	padding: 8px;
-  	gap: 10px;
-  	text-align: center;
-  	font-size: 14px;
-  	color: #17171a;
-}
-
-.makingtranslock{
-    flex: 1;
-  	border-radius: 8px;
-  	background-color: #17171a;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 12px 16px;
-	color: #fff;
-}
-
-.transactiontitle{
-    position: relative;
-  	line-height: 18px;
-}
-
-.makingapplock{
-    flex: 1;
-  	border-radius: 8px;
-  	background-color: #17171a;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 12px 16px;
-  	color: #fff;
-}
-
-.applocktitle{
-    position: relative;
-  	line-height: 16px;
-
-}
-
-.selected {
-    background-color: white; 
-    color:#17171a;
-}
-
-.makingapplock.selected {
-    background-color: white; 
-    color: #17171a; 
-	height: 60px;
-}
-
-/* BlackBerry Z30 */
+ /* BlackBerry Z30 */
 @media only screen and (max-width: 720px) and (max-height: 1280px) {
-    .security_card {
+    .wallet_card {
         width: 100%;
         max-width: 400px;
         height: 100vh;
         padding: 10px;
         font-size: 12px;
     }
-    .securitylabel {
+    .walletlabel {
         width: 100%;
         font-size: 16px;
     }
-    .securitytitle {
+    .wallettitle {
         font-size: 16px;
         line-height: 24px;
     }
-    
-    .securityParent {
-        width: 110%;
-        max-width: 315px;
+    .walletframeGroup {
+        padding: 10px;
+        gap: 8px;
     }
-
-	.securityParentlock {
-        width: 110%;
-        max-width: 315px;
-    }
-
-	.lockselection {
+    .walletParent {
         width: 110%;
         max-width: 315px;
     }
@@ -462,43 +314,29 @@ font-family: 'Poppins',sans-serif; */
 
 /* General Styles for Medium Screens */
 @media only screen and (max-width: 1024px) and (min-width: 600px) {
-    .security_card {
+    .wallet_card {
         max-width: 600px;
         height: 100vh;
         font-size: 14px;
     }
-    .securitylabel {
+    .walletlabel {
         width: 100%;
         font-size: 18px;
     }
-    
-    .securityParent {
+    .walletframeGroup {
+        padding: 12px;
+        gap: 10px;
+    }
+    .walletParent {
         width: 100%;
         max-width: 560px;
     }
-
-	.securityParentlock{
-		width: 100%;
-        max-width: 560px;
-	}
-	.lockselection{
-		width: 100%;
-        max-width: 560px;
-	}
 }
 
 
 /* Nexus 4 specific adjustments */
 @media only screen and (max-width: 384px) and (max-height: 640px) {
-    .securityParent {
-        width: 100%;
-        max-width: 345px; 
-    }
-	.securityParentlock {
-        width: 100%;
-        max-width: 345px; 
-    }
-	.lockselection {
+    .walletParent {
         width: 100%;
         max-width: 345px; 
     }
@@ -506,42 +344,17 @@ font-family: 'Poppins',sans-serif; */
 
 /* Nexus 5 specific adjustments */
 @media only screen and (min-width: 360px) and (max-width: 360px) and (max-height: 640px) {
-    .securityParent {
+    .walletParent {
         width: 100%;
         max-width: 325px; 
     }
-	.securityParentlock {
-        width: 100%;
-        max-width: 325px; 
-    }
-	.lockselection {
-        width: 100%;
-        max-width: 325px; 
-    }
-
 }
 /* Nexus 5x specific adjustments  */
 @media only screen and (min-width: 361px) and (max-width: 412px) and (max-height: 732px) {
-    .securityParent {
+    .walletParent {
         width: 100%;
         max-width: 360px; 
     }
-	.securityParent {
-        width: 100%;
-        max-width: 360px; 
-    }
-	.lockselection {
-        width: 100%;
-        max-width: 360px; 
-    }
-	.securitypass{
-		width: 110%;
-        max-width: 350px;
-	}
-
-	.transactionlock{
-		width: 110%;
-        max-width: 350px;
-	}
 }
+
 
