@@ -1,96 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Avenir+Next:wght@500&display=swap');
-.shapeIcon {
-    position: absolute;
-    top: -96px;
-    left: 1096px;
-    width: 399px;
-    height: 475.1px;
-    object-fit: contain;
-}
+
 .webpageSingleChild {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-color: #222531;
-    width: 1440px;
-    height: 90px;
     overflow: hidden;
     opacity: 0.9;
-    }
-    .webpageSingleItem {
     position: absolute;
-    top: 723px;
-    left: 0px;
+    top: 0;
+    left: 0;
     background-color: #222531;
-    width: 1440px;
+    width: 100vw;
+    height: 11.5vh;
+    opacity: 0.9;
+}
+.webpageSingleItem {
+    position: absolute;
+    overflow: hidden;
+    /* opacity: 0.9; */
+    top: 50vh;
+    left: 0;
+    background-color: #222531;
+    width: 100vw;
     height: 1px;
-    overflow: hidden;
     opacity: 0.9;
-    }
-/* .homeAboutContact {
-    position: absolute;
-    top: 33px;
-    left: 650px;
-    line-height: 24px;
-    white-space: pre-wrap;
-} */
+}
 .homeAboutContact {
-    position: absolute;
-    top: 33px;
-    left: 850px;
-    line-height: 24px;
-    /* background: linear-gradient(91.26deg, #70a2ff, #f76e64);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
     white-space: pre-wrap;
-    }
-    .groupIcon {
-        position: absolute;
-        height: 1193.44%;
-        width: 149.82%;
-        top: -67.78%;
-        right: 46.09%;
-        bottom: -1025.67%;
-        left: -95.91%;
-        max-width: 100%;
-        overflow: hidden;
-        max-height: 100%;
-    }
-    .homeAboutContactParent {
-        position: absolute;
-        top: 0px;
-        left: 170px;
-        width: 100%;
-        height: 90px;
-        overflow: hidden;
-        text-align: center;
-        font-size: 16px;
-    }
+    position: absolute;
+    top: 1vh;
+    left: 30vw;
+    font-size: 1.2vw;
+    display: flex;
+    justify-content: space-between;
+    min-width: 20vw;
+}
+.homeAboutContactParent {
+    position: absolute;
+    top: 4vh;
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
 
 .dupayLogoIcon {
-    width: 51px;
-    position: relative;
-    height: 51px;
+    width: 3.8vw;       
+    height: 3.8vw;     
+    min-width: 30px;  /* Ensures a minimum size for very small screens */
+    min-height:30px;
+    max-width: 50px;
+    max-height: 50px;
 }
 .dupay {
-    position: relative;
     line-height: 11.74px;
-
-
+    font-size: 26.43px; /* Font size relative to viewport width */
+    min-font-size: 26.43px;
 }
 .dupayLogoParent {
     position: absolute;
-    top: 20px;
-    left: 170px;
+    top: 3vh;
+    left: 12vw;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: 12px;
     text-align: center;
-    font-size: 26.43px;
     font-family: ''SF Pro Display', sans-serif';
 }
 
@@ -109,27 +85,14 @@
 .with {
     color: #d9d9d9;
 }
-.title {
-    width: 693px;
-    position: relative;
-    line-height: 56px;
-    font-weight: 300;
-    display: inline-block;
-}
+
 .title1 {
     align-self: stretch;
     position: relative;
     line-height: 40px;
     font-weight: 300;
 }
-.titleWrapper {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    font-size: 19px;
-}
+
 .titleParent {
     align-self: stretch;
     display: flex;
@@ -143,11 +106,7 @@
     position: relative;
     height: 41.6px;
 }
-.textoIcon {
-    width: 127.1px;
-    position: relative;
-    height: 41.5px;
-}
+
 .logoParent {
     display: flex;
     flex-direction: row;
@@ -155,29 +114,13 @@
     justify-content: flex-start;
     gap: 10px;
 }
-.frameWrapper {
-    width: 260px;
-    background-color: #222531;
-    height: 75px;
-    overflow: hidden;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    box-sizing: border-box;
-}
+
 .logoIcon1 {
     width: 35px;
     position: relative;
     height: 39.1px;
 }
-.textoIcon1 {
-    width: 121.2px;
-    position: relative;
-    height: 39px;
-}
+
 .logoGroup {
     display: flex;
     flex-direction: row;
@@ -185,74 +128,9 @@
     justify-content: flex-start;
     gap: 9px;
 }
-.chromeWebStoreIcon {
-    width: 55.6px;
-    position: relative;
-    height: 47.9px;
-    overflow: hidden;
-    flex-shrink: 0;
-    object-fit: cover;
-}
-.textoIcon2 {
-    width: 165.5px;
-    position: relative;
-    height: 33.7px;
-}
-.image6Icon {
-    width: 34px;
-    position: relative;
-    height: 40.2px;
-    object-fit: cover;
-}
-.availableOn {
-    align-self: stretch;
-    position: relative;
-    letter-spacing: -0.05em;
-    line-height: 24px;
-    font-weight: 500;
-}
-.braveBrowser {
-    align-self: stretch;
-    position: relative;
-    font-size: 20px;
-    letter-spacing: -0.02em;
-    line-height: 24px;
-    font-weight: 500;
-    text-align: center;
-    margin-top: -4px;
-}
-.availableOnParent {
-    width: 128px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-.frameContainer {
-    width: 733px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    gap: 24px;
-    font-size: 12px;
-    font-family: 'Avenir Next';
-}
-.frameGroup {
-    width: 688px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 48px;
-}
-.device14pmIcon {
-    width: 258px;
-    position: relative;
-    height: 529px;
-}
+
+
+
 .frameParent {
     position: absolute;
     top: 130px;
@@ -276,12 +154,8 @@
     font-weight: 300;
 }
 .titleContainer {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-start;
-    font-size: 19px;
+    width: 90%;
+    font-size: 1.2rem;
 }
 .dupayLogoIcon1 {
     width: 24px;
@@ -308,13 +182,13 @@
     gap: 12px;
 }
 .frameParent2 {
-    width: 449px;
+    width: 40vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 24px;
-    font-size: 20px;
+    font-size: 1.2rem;
 }
 .frameParent1 {
     flex: 1;
@@ -326,30 +200,19 @@
 }
 .groupParent {
     position: absolute;
-    top: 99px;
-    /* left: 195px; */
-    /* width: 1050px; */
-    /* display: flex; */
-    /* flex-direction: row; */
-    align-items: center;
-    /* justify-content: flex-start; */
-    gap: 92px;
-    /* position: absolute; */
-    /* top: 130px; */
+    top: 10vh;
     left: 50%;
-    width: 1050px;
     transform: translateX(-50%);
-    width: 1050px;
-    /* width: 80%;  */
+    width: 80vw;
+    max-width: 1050px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    object-fit: contain;
+    padding: 2vh 0;
+    gap: 5vw; 
 }
 .webpageSingleInner {
     position: absolute;
     top: 585px;
-    /* left: 195px; */
     width: 1050px;
     height: 362px;
     overflow: hidden;
@@ -358,7 +221,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    object-fit: contain;
+    object-fit: contain;   
+     
 }
 .title8 {
     position: relative;
@@ -376,7 +240,6 @@
 .webpageSingleInner1 {
     position: absolute;
     top: 631px;
-    /* left: 262px; */
     background-color: rgba(23, 23, 26, 0.5);
     width: 893px;
     height: 106px;
@@ -391,7 +254,6 @@
     transform: translateX(-50%);
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
     object-fit: contain;
 }
 .titleParent2 {
@@ -404,14 +266,12 @@
 .webpageSingleInner2 {
     position: absolute;
     top: 796px;
-    /* left: 262px; */
     background-color: rgba(23, 23, 26, 0.5);
     width: 893px;
     height: 106px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* justify-content: center; */
     padding: 39px 54px;
     box-sizing: border-box;
     font-size: 20px;
@@ -450,17 +310,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     opacity: 0.9;
     font-size: 19px;
-    /* top: 130px; */
-    /* left: 50%; */
-    /* width: 1050px; */
     transform: translateX(-50%);
-    /* width: 1050px; */
-    /* width: 80%;  */
     display: flex;
-    /* flex-direction: row; */
     justify-content: space-between;
     object-fit: contain;
 }
@@ -484,64 +337,15 @@
     font-size: 40px;
     color: #fff;
     font-family: 'Poppins', sans-serif;
-  transition: filter 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    transition: filter 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  
 }
 
-@media (max-width: 1024px) {
-    .webpageSingle {
-        width: 100%;
-        height: 100vh;
-    }
-    .frameParent {
-        left: 1%;
-        z-index: 2;
-        
-    }
-    .frameParent1
-    {
-        margin-left: -20%;
-        margin-right: 10%;
-    }
-    .title1
-    {
-        left: 1%;
-        right: 50px;
-    }
-    .homeAboutContactParent {
-        left: 0;
-        width: 1000px;
-    }
-    .homeAboutContact {
-        left: 420px;
-    }
-   
-    .frameChild {
-        width: 394px;
-        position: relative;
-        height: 350px;
-        /* left: -17%; */
-    }
-    .groupParent {
-        left: 0;
-        width: 800px;
-        /* gap: 92px; */
-    }
-    .webpageSingleInner{
-        left: 0;
-    }
-    .webpageSingleInner1 {
-        left: 5%;
-        width: 700px;
-    }
-    .webpageSingleInner2 {
-        left: 5%;
-        width: 700px;
-    }
-    
-}
+
 
 .webpageSingleInner1,
 .webpageSingleInner2 {

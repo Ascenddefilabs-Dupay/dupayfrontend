@@ -110,8 +110,7 @@ console.log("currency is: ",fetchedCurrency);
       const params = new URLSearchParams(window.location.search);
       const walletIdValue = params.get('wallet_id') || "";
       setWalletId(walletIdValue);
-
-    }
+}
     
   }, []);
 

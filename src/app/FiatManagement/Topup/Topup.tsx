@@ -349,7 +349,7 @@ return(
                 disabled={isLoading}
               >
                 <div className="btnbtn" style={style} onClick={handleTopUp}>
-                  <div className="text">{isLoading ? 'Processing...' : 'Swap'}</div>
+                  <div className="text">{isLoading ? 'Processing...' : 'Topup'}</div>
                 </div>
               </button>
           </form>
