@@ -128,7 +128,6 @@ const Webpage3:NextPage = () => {
             						</div>
           					</div>
         				</div>
-        				{/* <img className={styles.device14pmIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727281217/5e9eeacd-2561-43f1-8826-4fcb2d62a0c5.png" /> */}
       			</div>
                   </div>);
         				};

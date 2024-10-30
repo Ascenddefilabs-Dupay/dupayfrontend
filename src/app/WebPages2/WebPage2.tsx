@@ -45,19 +45,17 @@ const Webpage2:NextPage = () => {
 	}
   	return (
     		<div className={styles.webpageSingle}>
-      			{/* <img className={styles.shapeIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727325960/0beadfc1-104a-4d39-90dc-d34518823d07.png" /> */}
       			<div className={styles.webpageSingleChild} />
       			{/* <div className={styles.webpageSingleItem} /> */}
       			<div className={styles.homeAboutContactParent}>
 				  <div className={styles.homeAboutContact}><button className={styles.buttons} >HOME     ABOUT     CONTACT</button></div>
-        				{/* <img className={styles.groupIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326120/d379fc46-6749-4e40-b189-c6a23ccbe05f.png" /> */}
       			</div>
       			<div className={styles.dupayLogoParent}>
         				<img className={styles.dupayLogoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074312/DupayAnimation_iyxfli.png" />
         				<b className={styles.dupay}>Dupay</b>
       			</div>
       			<div className={styles.groupParent}>
-        				<img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326187/be2641a4-fbda-4137-ba57-a37ffcc58313.png" />
+        				<img className={styles.frameChild} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1730263498/be2641a4-fbda-4137-ba57-a37ffcc58313-transformed_vvgrru.png" />
         				<div className={styles.frameParent1}>
           					<div className={styles.titleParent}>
             						<div className={styles.title2}>
