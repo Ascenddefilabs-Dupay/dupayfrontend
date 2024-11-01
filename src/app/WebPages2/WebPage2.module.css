@@ -332,7 +332,8 @@
     position: relative;
     background-color: #17171a;
     height: 1100px;
-    overflow: hidden;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
     text-align: left;
     font-size: 40px;
     color: #fff;
@@ -341,8 +342,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-  
 }
 
 
@@ -361,4 +360,10 @@
 .selected {
   border: 2px solid #007bff;
   background-color: #2a2a2a;
+}
+@media (max-width: 1024px) {
+
+    .webpageSingle {
+        height: 140vh;
+    }
 }

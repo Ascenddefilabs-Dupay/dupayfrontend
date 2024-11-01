@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Avenir+Next:wght@500&display=swap');
 .shapeIcon {
     position: absolute;
-    top: -6vh; /* Adjusted to use viewport units */
-    left: 65vw; /* Adjusted to use viewport units */
+    top: -6vh; 
+    left: 65vw; 
     width: 50vw;
     height: 50vh;
     object-fit: contain;
@@ -23,7 +23,6 @@
 .webpageSingleItem {
     position: absolute;
     overflow: hidden;
-    /* opacity: 0.9; */
     top: 50vh;
     left: 0;
     background-color: #222531;
@@ -62,7 +61,6 @@
     position: absolute;
     top: 1vh;
     left: 63vw;
-    /* line-height: 24px; */
     white-space: pre-wrap;
     font-size: 1.2vw;
     flex-wrap: nowrap;
@@ -70,7 +68,6 @@
 }
    
 .homeAboutContactParent {
-    
     position: absolute;
     top: 3vh;
     width: 25vw;
@@ -78,9 +75,6 @@
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
-
-
-    
 }
 
 
@@ -227,10 +221,12 @@
     text-align: left;
     color: #fff;
     font-family:  'Poppins', sans-serif;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     font-size: 3vh;
     transition: filter 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 @media (max-width: 768px) {
     .webpageSingle {
@@ -271,6 +267,13 @@
   
     
   }
+  @media (max-width: 1024px) {
 
+    .webpageSingle {
+        height: 140vh;
+    }
+
+    
+}
 
 
