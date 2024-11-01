@@ -164,16 +164,33 @@ const TopUpForm: React.FC = () => {
   useEffect(() => {
     const fetchWalletDetails = async () => {
       if (hasFetchedWalletDetails) return; // Prevent re-fetching
+
+      const sessionData = localStorage.getItem('session_data'); // Retrieve session data from localStorage
+      if (!sessionData) {
+        console.error("No session data found in localStorage.");
+        return;
+      }
+
+      const parsedSessionData = JSON.parse(sessionData);
+      const storedWalletId = parsedSessionData.fiat_wallet_id; // Retrieve fiat_wallet_id from parsed session data
+      console.log("Retrieved fiat_wallet_id from session data:", storedWalletId);
+
+      if (!storedWalletId) {
+        console.error("No wallet ID found in session data.");
+        return;
+      }
+
       try {
-        const response = await axios.get(`${API_BASE_URL}/fiat_wallets/Wa0000000003/`);
+        const response = await axios.get(`${API_BASE_URL}/fiat_wallets/${storedWalletId}/`);
         setWalletDetails(response.data);
         setHasFetchedWalletDetails(true); // Set flag to true after fetching
       } catch (error) {
         handleApiError(error, 'fetching wallet details');
       }
     };
+
     fetchWalletDetails();
-  }, [hasFetchedWalletDetails]); // Depend on the flag
+  }, [hasFetchedWalletDetails]);
   
   useEffect(() => {
     fetchUserCurrencyBalance(); // Fetch balance whenever wallet details change

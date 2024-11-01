@@ -1,18 +1,3 @@
-
-
-// import AddressBasedTransactionForm from './TransferFundsForm';
-
-// export default function Home() {
-//     return (
-//         <div>
-//             <AddressBasedTransactionForm />
-            
-//         </div>
-//     );
-// }
-
-
-
 import React from 'react';
 import AddressBasedTransactionForm from './TransferFundsForm';
 
