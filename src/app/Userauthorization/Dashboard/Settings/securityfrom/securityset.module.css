@@ -283,7 +283,7 @@ font-family: 'Poppins',sans-serif; */
 
 .securityParentlock{
     position: absolute;
-    top: 329px;
+    top: 400px;
     left: 24px;
     width: 363px;
     display: flex;
@@ -345,7 +345,7 @@ font-family: 'Poppins',sans-serif; */
 
 .lockselection{
     position: absolute;
-  	top: 443px;
+  	top: 513px;
   	left: 24px;
   	width: 363px;
   	display: flex;
@@ -425,6 +425,63 @@ font-family: 'Poppins',sans-serif; */
 	height: 60px;
 }
 
+.securityReceiveMoney{
+    position: absolute;
+    top: 320px;
+    left: 19px;
+    width: 363px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: 16px;
+}
+
+
+.securityreceive{
+  align-self: stretch;
+  border-radius: 8px;
+  background-color: #222531;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 16px;
+
+}
+
+.securityreceiveleft{
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.securityreceivetitlepass{
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.Receiveiconrightarrow{
+    width: 24px;
+    position: relative;
+    height: 24px;
+}
+
+.receivecopyiconfiat{
+    width: 20px;
+    position: relative;
+    height: 20px;
+    margin-right: 10px;
+    color: #9494a0;
+    
+}
+
 /* BlackBerry Z30 */
 @media only screen and (max-width: 720px) and (max-height: 1280px) {
     .security_card {
@@ -453,6 +510,11 @@ font-family: 'Poppins',sans-serif; */
         max-width: 315px;
     }
 
+    .securityReceiveMoney{
+        width: 110%;
+        max-width: 315px;
+    }
+    
 	.lockselection {
         width: 110%;
         max-width: 315px;
@@ -481,6 +543,11 @@ font-family: 'Poppins',sans-serif; */
 		width: 100%;
         max-width: 560px;
 	}
+
+    .securityReceiveMoney{
+        width: 100%;
+        max-width: 560px;
+    }
 	.lockselection{
 		width: 100%;
         max-width: 560px;
@@ -514,6 +581,11 @@ font-family: 'Poppins',sans-serif; */
         width: 100%;
         max-width: 325px; 
     }
+
+    .securityReceiveMoney {
+        width: 100%;
+        max-width: 325px; 
+    }
 	.lockselection {
         width: 100%;
         max-width: 325px; 
@@ -544,4 +616,3 @@ font-family: 'Poppins',sans-serif; */
         max-width: 350px;
 	}
 }
-
