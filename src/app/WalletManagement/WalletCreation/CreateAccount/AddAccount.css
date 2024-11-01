@@ -1,18 +1,19 @@
-*{
+* {
   font-family: 'Poppins', sans-serif;
 }
+
 .wallet-manager {
   display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    min-height: 100vh;
-    background-color: white;
-    color: #fff;  
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  min-height: 100vh;
+  background-color: white;
+  color: #fff;
 }
 
 .card {
-  display:flex;
+  display: flex;
   flex-direction: column;
   text-align: center;
   font-size: 30px;
@@ -26,18 +27,21 @@
   font-family: Arial, Helvetica, sans-serif;
   z-index: 1;
 }
-.backgrounddesing{
+
+.backgrounddesing {
   width: 100%;
   display: grid;
   justify-content: end;
   align-items: end;
 }
-.backgrounddesing1{
+
+.backgrounddesing1 {
   position: relative;
   right: -20px;
   top: -20px;
 }
-.update{
+
+.update {
   background: linear-gradient(91.26deg, #45F0D1 0%, #76E268 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -45,80 +49,99 @@
   font-weight: 300;
   font-family: 'Poppins', sans-serif;
 }
-.subtext{
+
+.subtext {
   color: #000000;
   font-size: 14px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
 }
-.subtext1{
+
+.subtext1 {
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
 }
-.updatetext{
+
+.updatetext {
   position: absolute;
   top: 35%;
   left: 46%;
 }
-.subcard{
-   background: var(--Gray-24, #17171A);
-   width:110%;
-   max-width: 430px;
-   position: absolute;
-   left: 37.4%;
-   height: auto;
-   border-radius: 50px 50px 0px 0px;
-   display: grid;
-   gap: 28px;
-   bottom: 0px;
+
+.subcard {
+  width: 110%;
+  margin: 0;
+  max-width: 430px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: grid;
+  align-items: center;
+  justify-self: center;
+  align-self: flex-end;
+  gap: 28px;
+  background: var(--Gray-24, #17171A);
+  position: absolute;
+  border-radius: 50px 50px 0px 0px;
 }
-.subcard1, .subcard2, .subcard3, .subcard4{
+
+.subcard1,
+.subcard2,
+.subcard3,
+.subcard4 {
   display: flex;
   justify-content: center;
 }
 
-.subcard1{
+.subcard1 {
   margin-top: 25px;
 }
-.subcard4{
+
+.subcard4 {
   margin-bottom: 20px;
 }
-.subcard3{
+
+.subcard3 {
   height: 45px;
 }
-.subtext{
+
+.subtext {
   margin: 5px 0px 0px 5px;
 }
-.subtextcontainer{
-  display:inline-flex;
+
+.subtextcontainer {
+  display: inline-flex;
 }
-.subtext2{
+
+.subtext2 {
   display: flex;
   justify-content: center;
   margin-top: 5px;
   font-size: 16px;
 }
-.existing-wallet-button2{
+
+.existing-wallet-button2 {
   display: block;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   color: #FFFFFF;
-  width:90%;
+  width: 90%;
   transition: all .4s ease;
   font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: center;
 }
-.create-wallet-button{
+
+.create-wallet-button {
   display: block;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   color: #FFFFFF;
-  width:90%;
+  width: 90%;
   transition: all .4s ease;
   font-family: 'Poppins', sans-serif;
   display: flex;
@@ -126,7 +149,8 @@
   border-radius: 8px;
   background: #E2F0FF;
 }
-.backbutton{
+
+.backbutton {
   display: flex;
   justify-content: flex-start;
   position: absolute;
@@ -135,9 +159,9 @@
 
 
 @media (max-width:438px) {
-  .subcard{
+  .subcard {
     background: var(--Gray-24, #17171A);
-    width:100%;
+    width: 100%;
     position: fixed;
     left: 0px;
     height: auto;
@@ -145,19 +169,23 @@
     display: grid;
     gap: 25px;
     bottom: 0px;
- }
- .subcard4{
-  margin-bottom: 30px;
   }
-  .subcard1{
+
+  .subcard4 {
+    margin-bottom: 30px;
+  }
+
+  .subcard1 {
     margin-top: 30px;
   }
-  .updatetext{
+
+  .updatetext {
     position: absolute;
     top: 35%;
     left: 30%;
   }
-  .backgrounddesing{
+
+  .backgrounddesing {
     height: 150px;
     /* width: 150px; */
     width: 100%;
