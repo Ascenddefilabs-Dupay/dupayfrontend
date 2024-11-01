@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../securityfrom/securityset.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faKey, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 
@@ -41,9 +41,12 @@ const Security = () => {
     };
 
     const securityLockButtonClick = () => {
-        let redirectUrl = '/Userauthorization/Dashboard/Settings/passwordform';
-        router.push(redirectUrl);
+        router.push('/Userauthorization/Dashboard/Settings/passwordform');
     };
+
+    const securityReceiveMoneyClick = () => {
+        router.push('/Userauthorization/Dashboard/Settings/RecevieMobileQr');
+    }
 
     const handleRequiredapp = (event: React.ChangeEvent<HTMLInputElement>) => {
         sethandleMode(event.target.checked);
@@ -111,7 +114,7 @@ const Security = () => {
 
     
 
-    const formatfiataddress= (address1: string | null) => {
+    const formatfiataddress = (address1: string | null) => {
         if (!address1) return '';
         return `${address1.slice(0, 5)}...${address1.slice(-4)}`; 
     };
@@ -189,19 +192,8 @@ const Security = () => {
                     
                 </div>
             </div>
-
-            {/* <div className={styles.lockselection}>
-                <div className={styles.securityunlockrequ}>Select when to require an unlock</div>
-                <div className={styles.transactionlock}>
-                    <div className={styles.makingtranslock}>
-                        <div className={styles.transactiontitle}>Making a transaction</div>
-                    </div>
-                    <div className={styles.makingapplock}>
-                        <div className={styles.applocktitle}>Open the app</div>
-                    </div>
-                </div>
-            </div> */}
-             <div className={styles.lockselection}>
+            
+            <div className={styles.lockselection}>
                 <div className={styles.securityunlockrequ}>Select when to require an unlock</div>
                 <div className={styles.transactionlock}>
                     <div 
@@ -212,6 +204,17 @@ const Security = () => {
                         className={`${styles.makingapplock} ${selectedLockMethod === 'Open App' ? styles.selected : ''}`} onClick={() => handleSelectLockMethod('Open App')}>
                         <div className={styles.applocktitle}>Open the app</div>
                     </div>
+                </div>
+            </div>
+            
+            <div className={styles.securityReceiveMoney}>
+                <div className={styles.securityreceive} onClick={securityReceiveMoneyClick}>
+                    <div className={styles.securityreceiveleft}>
+                    <FontAwesomeIcon icon={faCreditCard} className={styles.receivecopyiconfiat} />
+                        <div className={styles.securityreceivetitlepass}>Fiat Receive Money</div>
+                        <img className={styles.Receiveiconrightarrow} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/iconright_t0hh6j.png" />
+                    </div>
+                    
                 </div>
             </div>
 
