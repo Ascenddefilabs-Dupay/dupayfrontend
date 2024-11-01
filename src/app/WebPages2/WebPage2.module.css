@@ -332,7 +332,8 @@
     position: relative;
     background-color: #17171a;
     height: 1100px;
-    overflow: auto;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
     text-align: left;
     font-size: 40px;
     color: #fff;

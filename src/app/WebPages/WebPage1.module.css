@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Avenir+Next:wght@500&display=swap');
 .shapeIcon {
     position: absolute;
-    top: -6vh; /* Adjusted to use viewport units */
-    left: 65vw; /* Adjusted to use viewport units */
+    top: -6vh; 
+    left: 65vw; 
     width: 50vw;
     height: 50vh;
     object-fit: contain;
@@ -221,11 +221,12 @@
     text-align: left;
     color: #fff;
     font-family:  'Poppins', sans-serif;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     font-size: 3vh;
     transition: filter 0.3s ease;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 @media (max-width: 768px) {
     .webpageSingle {

@@ -82,8 +82,8 @@ const Webpage3:NextPage = () => {
                 								<img className={styles.logoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727330053/62602024-0f8b-4c92-b46c-2dd278aab23d.png" />
                 								<img className={styles.textoIcon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727330118/7eba6f40-5ecd-41f0-b8c7-e93dd480ffe9.png" />
               							</div>
-            						</div>
-            						<div
+            					</div>
+            					<div
 										className={`${styles.frameWrapper} ${
 										selectedSection === 'second' ? styles.selected : ''
 										}`}
