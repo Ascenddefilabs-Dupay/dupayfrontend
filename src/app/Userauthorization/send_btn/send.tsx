@@ -5,7 +5,10 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./send.module.css";
 import LottieAnimationLoading from "../../assets/LoadingAnimation";
-
+//import { bridgeTransfer } from "@wormhole-foundation/wormhole-connect";
+import WormholeConnect, {
+  WormholeConnectConfig,
+} from "@wormhole-foundation/wormhole-connect";
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
 import {
   NetworkName,
@@ -61,6 +64,10 @@ const suiClient = new SuiClient({
   url: getFullnodeUrl(NETWORK),
 });
 
+const config: WormholeConnectConfig = {
+  env: "testnet",
+} as any;
+
 const Send: React.FC = () => {
   //const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -76,6 +83,7 @@ const Send: React.FC = () => {
   useEffect(() => {
     setIsClient(true);
     completZkLogin();
+
     fetchBalances(accounts.current);
     const interval = setInterval(() => fetchBalances(accounts.current), 5_000);
     return () => {
@@ -96,16 +104,21 @@ const Send: React.FC = () => {
     }
   }, []);
 
-    const handleBackClick = () => {
-        router.push('/Userauthorization/Dashboard/Home'); // Navigate after delay
-        setLoading(true);
-    };
+  const handleBackClick = () => {
+    setLoading(true); // Show loading text
+    setTimeout(() => {
+      router.push("/Userauthorization/Dashboard/Home"); // Navigate after delay
+      setLoading(true); // Show loading text
+    }, 500); // Adjust delay if needed
+  };
 
-    const handleAddCryptoClick = () => {
-        router.push('/FiatManagement/Currency_Conversion'); // Navigate after delay
-        setLoading(true); 
-
-    };
+  const handleAddCryptoClick = () => {
+    setLoading(true); // Show loading text
+    setTimeout(() => {
+      router.push("/FiatManagement/Currency_Conversion"); // Navigate after delay
+      setLoading(true); // Show loading text
+    }, 500); // Adjust delay if needed
+  };
 
   //const [userId, setUserId] = useState<string | null>(null);
 
@@ -514,7 +527,9 @@ const Send: React.FC = () => {
         </div>
       ) : (
         <>
-          <h1 style={{ fontSize: "30px", textAlign: "center" }}>Transfer Sui Tokens</h1>
+          <h1 style={{ fontSize: "30px", textAlign: "center" }}>
+            Transfer Sui Tokens
+          </h1>
           <div className={styles.imageContainer}>
             <img
               src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1724911804/send_image_ipuouh.png"
@@ -530,9 +545,9 @@ const Send: React.FC = () => {
               <p className={styles.ai2}>crypto, or receive assets directly.</p>
             </div>
           </div>
-            <br />
-            <br />
-            <br />
+          <br />
+          <br />
+          <br />
           <div className={styles.buttonContainer}>
             {accounts.current.length > 0 && (
               <div id="accounts" className="section white-text">
@@ -567,37 +582,38 @@ const Send: React.FC = () => {
                         {typeof balance === "undefined"
                           ? "(loading)"
                           : `${balance} SUI`}
-                      
-                      <button
-                        className={styles.button}
-                        onClick={() => {
-                          requestSuiFromFaucet(NETWORK, acct.userAddr);
-                          setModalContent(
-                            "💰 Requesting SUI from faucet. This will take a few seconds..."
-                          );
-                          setTimeout(() => {
-                            setModalContent("");
-                          }, 3000);
-                        }}
-                      >
-                        Get Tokens
-                      </button>
-                      <button
-                        onClick={() => {
-                          sendTransaction(acct);
-                        }}
-                        className={styles.button}
-                      >
-                        Send transaction
-                      </button>
+                        <button
+                          className={styles.button}
+                          onClick={() => {
+                            requestSuiFromFaucet(NETWORK, acct.userAddr);
+                            setModalContent(
+                              "💰 Requesting SUI from faucet. This will take a few seconds..."
+                            );
+                            setTimeout(() => {
+                              setModalContent("");
+                            }, 3000);
+                          }}
+                        >
+                          Get Tokens
+                        </button>
+                        <button
+                          onClick={() => {
+                            sendTransaction(acct);
+                          }}
+                          className={styles.button}
+                        >
+                          Send transaction
+                        </button>
                       </div>
+                      <h1>WormholeConnect Application</h1>
+                      {/* <h2>Current Environment: {config.env}</h2> */}
+                      <WormholeConnect config={config} />
                     </div>
                   );
                 })}
               </div>
             )}
           </div>
-          
         </>
       )}
     </div>

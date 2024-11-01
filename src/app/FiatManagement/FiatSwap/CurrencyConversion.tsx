@@ -117,7 +117,7 @@ console.log("currency is: ",fetchedCurrency);
 console.log("wallet id is: ",walletId);
 const fetchCurrencyIcon = async (currencyName:string) => {
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/fiat_fiatSwap/get-currency-icon/`, {
+      const response = await axios.post(`https://fiat-swap-255574993735.asia-south1.run.app/fiat_fiatSwap/get-currency-icon/`, {
         currency: currencyName.trim(),
       });
       
@@ -143,7 +143,7 @@ const fetchCurrencyIcon = async (currencyName:string) => {
       useEffect(() => {
         if(walletId){
         axios
-          .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/fiat_fiatSwap/fiat_wallet/${walletId}/`)
+          .get<{ fiat_wallets: FiatWallet[] }>(`https://fiat-swap-255574993735.asia-south1.run.app/fiat_fiatSwap/fiat_wallet/${walletId}/`)
           .then((response) => {
             console.log('response data', response.data);
             const wallets = response.data.fiat_wallets;
@@ -169,7 +169,7 @@ const fetchCurrencyIcon = async (currencyName:string) => {
         if (currencyList.length > 0) {
           const fetchIcons = async () => {
             try {
-              const response = await axios.get(`http://127.0.0.1:8000/fiat_fiatSwap/icons/`);
+              const response = await axios.get(`https://fiat-swap-255574993735.asia-south1.run.app/fiat_fiatSwap/icons/`);
               const allIcons = response.data.currency_icons; // This should be an array
     
               if (Array.isArray(allIcons)) {
@@ -467,7 +467,7 @@ const [selectedCurrency, setSelectedCurrency] = useState<SingleValue<{ value: st
     };
   
     try {
-      const response = await fetch(`http://127.0.0.1:8000/fiat_fiatSwap/convert_currency/`, {
+      const response = await fetch(`https://fiat-swap-255574993735.asia-south1.run.app/fiat_fiatSwap/convert_currency/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postData),

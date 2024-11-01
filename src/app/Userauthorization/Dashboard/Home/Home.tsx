@@ -1055,7 +1055,7 @@ const handleRefresh = () => {
               <div
                 className={styles.button}
                 onClick={() => {
-                  handleNavigation('/Userauthorization/receive_btn');
+                  handleNavigation('/Userauthorization/send_btn');
                   handleClose(); // Close the blur screen
                 }}
               >
