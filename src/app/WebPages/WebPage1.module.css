@@ -23,7 +23,6 @@
 .webpageSingleItem {
     position: absolute;
     overflow: hidden;
-    /* opacity: 0.9; */
     top: 50vh;
     left: 0;
     background-color: #222531;
@@ -62,7 +61,6 @@
     position: absolute;
     top: 1vh;
     left: 63vw;
-    /* line-height: 24px; */
     white-space: pre-wrap;
     font-size: 1.2vw;
     flex-wrap: nowrap;
@@ -70,7 +68,6 @@
 }
    
 .homeAboutContactParent {
-    
     position: absolute;
     top: 3vh;
     width: 25vw;
@@ -78,9 +75,6 @@
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
-
-
-    
 }
 
 
@@ -231,6 +225,7 @@
     height: 100vh;
     font-size: 3vh;
     transition: filter 0.3s ease;
+    overflow: auto;
 }
 @media (max-width: 768px) {
     .webpageSingle {
@@ -271,6 +266,13 @@
   
     
   }
+  @media (max-width: 1024px) {
 
+    .webpageSingle {
+        height: 140vh;
+    }
+
+    
+}
 
 

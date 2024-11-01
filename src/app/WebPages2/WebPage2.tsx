@@ -107,13 +107,13 @@ const Webpage2:NextPage = () => {
           					<div className={styles.title8}>We offer business and high net-worth individuals secure solutions for accepting, managing and trading cryptocurrencies. </div>
         				</div>
       			</div>
-      			<div className={styles.webpageSingleInner3}>
+      			{/* <div className={styles.webpageSingleInner3}>
         				<div className={styles.image7Parent}>
           					<img className={styles.image7Icon} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727326396/c97b8587-276f-4fbf-9d46-c1b2a4c48617.png" />
           					<div className={styles.title11}>Dupay Wallet is available in your country</div>
             						</div>
           					</div>
-          					<div className={styles.webpageSingleChild1} />
+          					<div className={styles.webpageSingleChild1} /> */}
         				</div>);
         				};
         				

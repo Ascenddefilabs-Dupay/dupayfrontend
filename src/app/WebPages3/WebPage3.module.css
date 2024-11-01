@@ -3,84 +3,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Avenir+Next:wght@500&display=swap');
 .shapeIcon {
     position: absolute;
-    top: -96px;
-    left: 1096px;
-    width: 399px;
-    height: 475.1px;
+    top: -6vh; /* Adjusted to use viewport units */
+    left: 65vw; /* Adjusted to use viewport units */
+    width: 50vw;
+    height: 50vh;
     object-fit: contain;
 }
 .webpageSingleChild {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-color: #222531;
-    width: 1440px;
-    height: 90px;
     overflow: hidden;
     opacity: 0.9;
-}
-    .webpageSingleItem {
     position: absolute;
-    top: 723px;
-    left: 0px;
+    top: 0;
+    left: 0;
     background-color: #222531;
-    width: 1440px;
+    width: 100vw;
+    height: 11.5vh;
+    opacity: 0.9;
+}
+.webpageSingleItem {
+    position: absolute;
+    overflow: hidden;
+    top: 50vh;
+    left: 0;
+    background-color: #222531;
+    width: 100vw;
     height: 1px;
-    overflow: hidden;
     opacity: 0.9;
 }
-    .homeAboutContact {
-    position: absolute;
-    top: 33px;
-    left: 850px;
-    line-height: 24px;
+.homeAboutContact {
     white-space: pre-wrap;
-}
-.groupIcon {
     position: absolute;
-    height: 1193.44%;
-    width: 149.82%;
-    top: -67.78%;
-    right: 46.09%;
-    bottom: -1025.67%;
-    left: -95.91%;
-    max-width: 100%;
-    overflow: hidden;
-    max-height: 100%;
+    top: 1vh;
+    left: 70vw;
+    font-size: 1.2vw;
+    display: flex;
+    justify-content: space-between;
+    min-width: 20vw;
 }
+
 .homeAboutContactParent {
     position: absolute;
-    top: 0px;
-    left: 170px;
-    width: 100%;
-    height: 90px;
-    overflow: hidden;
-    text-align: center;
-    font-size: 16px;
+    top: 4vh;
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
 }
     
 .dupayLogoIcon {
-    width: 51px;
-    position: relative;
-    height: 51px;
+    width: 3.8vw;       
+    height: 3.8vw;     
+    min-width: 30px;  /* Ensures a minimum size for very small screens */
+    min-height:30px;
+    max-width: 50px;
+    max-height: 50px;
 }
 .dupay {
-    position: relative;
     line-height: 11.74px;
+    font-size: 26.43px; /* Font size relative to viewport width */
+    min-font-size: 26.43px;
 
 
 }
 .dupayLogoParent {
     position: absolute;
-    top: 20px;
-    left: 170px;
+    top: 3vh;
+    left: 12vw;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: 12px;
     text-align: center;
-    font-size: 26.43px;
     font-family: ''SF Pro Display', sans-serif';
 }
 .button1 {
@@ -266,20 +261,21 @@
 
 .frameParent {
     position: absolute;
-    top: 130px;
-    left: 195px;
-    width: 1050px;
+    top: 15vh;
+    /* width: 1050px; */
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    /* justify-content: flex-start; */
+    justify-content: flex-start;
     gap: 104px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    /* flex-direction: row; */
-    justify-content: space-between;
     object-fit: contain;
+    width: 75vw; 
+    max-width: 1200px;
+    height: auto;
+    padding: 2vh; 
 }
 
 
@@ -296,32 +292,10 @@
 }
 
 @media (max-width: 1024px) {
+
     .webpageSingle {
-        width: 100%;
-        height: 100vh;
+        height: 140vh;
     }
-    .frameParent {
-        left: 1%;
-        z-index: 2;
-        
-    }
-    .title1
-    {
-        left: 1%;
-        right: 50px;
-    }
-    .homeAboutContactParent {
-        left: 0;
-        width: 1000px;
-    }
-    .homeAboutContact {
-        left: 420px;
-    }
-    .shapeIcon{
-        left: 60%;
-    }
-   
-    
 }
 .frameWrapper {
     cursor: pointer;
