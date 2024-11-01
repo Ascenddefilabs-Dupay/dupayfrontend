@@ -1,6 +1,3 @@
-
-
-
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -14,11 +11,11 @@ const QRCodeComponent: React.FC = () => {
     const [qrCode, setQrCode] = useState<string | null>(null);
     const [email, setEmail] = useState<string | null>(null);
     const [mobileNumber, setMobileNumber] = useState<string | null>(null);
-    const [firstName, setFirstName] = useState<string | null>(null);  // Add first name state
+    const [firstName, setFirstName] = useState<string | null>(null);  
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
-    // const userId = 'DupC0004';  // Hardcoded user ID
+
 
     const [userID, setUserID] = useState<string | null>(null);
 
@@ -29,9 +26,9 @@ const QRCodeComponent: React.FC = () => {
                 const sessionData = JSON.parse(sessionDataString);
                 const storedUserId: string = sessionData.user_id;
                 setUserID(storedUserId);
-                console.log(storedUserId);
-                // console.log(sessionData.user_email);
+                console.log('User ID:', storedUserId);
             } else {
+                // setError("User not authenticated");
                 // router.push('/Userauthentication/SignIn');
             }
         }
@@ -39,21 +36,24 @@ const QRCodeComponent: React.FC = () => {
 
     useEffect(() => {
         const fetchQRCode = async () => {
-            try {
-                const response = await axios.get(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/fetch-qr-code/?user_id=${userID}`);
-                setQrCode(response.data.qr_code);
-                setEmail(response.data.email);
-                setMobileNumber(response.data.mobile_number);
-                setFirstName(response.data.first_name);  // Set the fetched first name
-            } catch (err) {
-                setError('Error fetching QR code');
+            if (userID) {
+                try {
+                    const response = await axios.get(`https://userauthorization-255574993735.us-central1.run.app/userauthorizationapi/fetch-qr-code/?user_id=${userID}`);
+                    setQrCode(response.data.qr_code);
+                    setEmail(response.data.email);
+                    setMobileNumber(response.data.mobile_number);
+                    setFirstName(response.data.first_name);
+                    setError(null);
+                } catch (err) {
+                    console.error(err);
+                    setError('Error fetching QR code data.');
+                }
             }
         };
-
+        
         fetchQRCode();
     }, [userID]);
 
-    // Share QR Code via Web Share API (if supported)
     const shareQRCode = async () => {
         if (navigator.share && qrCode) {
             try {
@@ -65,6 +65,7 @@ const QRCodeComponent: React.FC = () => {
                     text: 'Here is my QR code.',
                 });
             } catch (err) {
+                console.error(err);
                 setError('Error sharing QR code');
             }
         } else {
@@ -72,23 +73,29 @@ const QRCodeComponent: React.FC = () => {
         }
     };
 
-    const handleBackClick = () => {
+    const ReceiveBackClick = () => {
         setTimeout(() => {
-          router.push('/Userauthorization/Dashboard/Home');
+          router.push('/Userauthorization/Dashboard/Settings/securityfrom');
         });
     };
+
 
     return (
         <div className="container">
             <div className="card">
-                <ArrowBackIcon className="setting_back_icon" onClick={handleBackClick} />
+
+            <div className="receive">
+                <ArrowBackIcon className="receive_icon" onClick={ReceiveBackClick} />
+                <h1 className="receive_back_label">Receive Money</h1>
+            </div>
+                
                 {error ? (
                     <div className="error-message">
                         {error}
                     </div>
                 ) : (
                     <>
-                        <h1 className="profile-heading">View Profile</h1>
+                        
                         <div className="profile-details">
                             <p className="detail">Name: {firstName}</p>
                             <p className="detail">Email: {email}</p>
