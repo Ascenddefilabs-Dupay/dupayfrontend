@@ -1,0 +1,136 @@
+* {
+    font-family: 'Poppins' sans-serif;
+    color: rgba(171, 175, 196, 1);
+}
+
+.maincontainer {
+    background-color: rgba(23, 23, 26, 1);
+    height: 100vh;
+    width: 430px;
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+}
+
+.subcontainer {
+    background-color: transparent;
+    height: 100vh;
+    width: 100%;
+}
+
+.container {
+    display: inline-flex;
+    background-color: transparent;
+    width: 100%;
+    height: max-content;
+    justify-content: space-between;
+    margin: 20px 0px 20px 0px;
+    padding: 0px 10px 0px 10px;
+}
+
+.columnleft {
+    background-color: transparent;
+    width: 5%;
+    align-self: center;
+    cursor: pointer;
+}
+
+.columnmiddle {
+    background-color: transparent;
+    width: 90%;
+    align-self: center;
+}
+
+.columnright {
+    background-color: transparent;
+    width: 5%;
+    align-self: center;
+}
+
+.status {
+    color: #7C81A2;
+    font-size: 12px;
+    font-weight: 400px;
+}
+
+.textcontainer {
+    margin: 0px 10px 20px 10px;
+    padding: 10px;
+    background-color: transparent;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+}
+
+.firstheading {
+    background: linear-gradient(91.26deg, #70A2FF 0%, #F76E64 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.secondheading {
+    color: rgba(171, 175, 196, 1);
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    text-align:left;
+}
+
+.nextbutton{
+    color: rgba(0, 0, 0, 1) !important;
+    position: fixed;
+    max-width: 400px;
+    width: 100%;
+    font-weight: 600;
+    background-color: rgba(226, 240, 255, 1);
+    height: 48px;
+    bottom: 4%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    /* margin: 0px 7px 0px 10px; */
+    margin-left: 5px;
+}
+
+.highlet{
+    color:rgba(95, 151, 255, 1);
+}
+
+.one{
+    color: rgba(171, 175, 196, 1);
+    font-size: 14px;
+    font-weight: 400;
+    width: 100%;
+}
+.two{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 1);
+    width: 100%;
+    margin: 20px 0px 10px 0px;
+}
+.third{
+    width: 100%;
+}
+
+.fourth{
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    width: 100%;
+}
+.fourtha{
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    width: 100%;
+    margin: 10px 0px 10px 0px;
+}
