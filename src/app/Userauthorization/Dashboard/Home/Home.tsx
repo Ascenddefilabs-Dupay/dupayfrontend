@@ -1089,7 +1089,8 @@ const handleRefresh = () => {
               <div
                 className={styles.button}
                 onClick={() => {
-                  handleNavigation('/Userauthorization/send_btn');
+                  handleNavigation('/WalletManagement/Transak'); 
+
                   handleClose(); // Close the blur screen
                 }}
               >
