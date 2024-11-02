@@ -44,26 +44,6 @@ const AddAccount: React.FC = () => {
   };
 
   return (
-    // <div>
-    //   {loading ? (
-    //     <div className='loading'>
-    //       <div className='spinner'></div>
-    //       {/* <p className='loadingText'>LOADING</p> */}
-    //     </div>
-    //   ) : (
-    //     <div className="add-account-container">
-    //       <div className="add-account-header">
-    //         <h1>Add Account</h1>
-    //       </div>
-    //       <div className="add-account-body">
-    //         <div className="divider">IMPORT EXISTING ACCOUNTS</div>
-    //         <button className="add-account-button" onClick={handleImport}>Import Passphrase</button>
-    //         <button className="add-account-button">Import Private Key</button>
-    //       </div>
-    //       <button className="close-button" onClick={handleClose}>&times;</button>
-    //     </div>
-    //   )}
-    // </div>
     <div className="wallet-manager">
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'430px' , backgroundColor: 'black'}}>

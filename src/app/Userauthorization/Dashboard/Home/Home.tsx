@@ -103,6 +103,7 @@ const Home = () => {
   const [walletData, setWalletData] = useState<FiatWallet[]>([]);
   const [currencyIcons, setCurrencyIcons] = useState<{ currency_type: string; icon: string }[]>([]);
   const [fiatwalletData, setFiatWalletData] = useState<string>("");
+  const [fiatwalletMobileNumer, setFiatWalletMobileNumber] = useState<string>("");
   const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
   const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
   const [alertMessage, setAlertMessage] = useState<string>("");
@@ -142,6 +143,19 @@ const Home = () => {
       if(sessionStorageDataString){
         const wallet_id = JSON.parse(sessionStorageDataString);
         setFiatWalletData(wallet_id.fiat_wallet_id);
+        if(count!==1){
+          wallet_data();
+        }
+      }
+    }
+  })
+
+  useEffect(() => {
+    if(typeof window !== 'undefined'){
+      const sessionStorageDataString = window.localStorage.getItem('user_details');
+      if(sessionStorageDataString){
+        const mobileNumber = JSON.parse(sessionStorageDataString);
+        setFiatWalletMobileNumber(mobileNumber.mobileNumber);
         if(count!==1){
           wallet_data();
         }
@@ -219,7 +233,7 @@ const Home = () => {
         fiat_wallet_balance: 0,
         fiat_wallet_created_time: new Date().toISOString(),
         fiat_wallet_updated_time: new Date().toISOString(),
-        fiat_wallet_phone_number: "",
+        fiat_wallet_phone_number: fiatwalletMobileNumer,
         fiat_wallet_email: email,
         qr_code: "",
         user_id: userId,

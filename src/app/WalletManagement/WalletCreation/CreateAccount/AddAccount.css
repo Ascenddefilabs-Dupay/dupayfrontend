@@ -67,7 +67,13 @@
 .updatetext {
   position: absolute;
   top: 35%;
-  left: 46%;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-self: center;
+  align-self: flex-end;
+  max-width: 430px;
+  width: 100%;
 }
 
 .subcard {

@@ -6,12 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from "react-icons/fa";
 import axios from 'axios';
+import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
 
 const PasswordForm: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [verifyPassword, setVerifyPassword] = useState<string>('');
     const [passwordMatch, setPasswordMatch] = useState<boolean>(false);
-    const [passwordStrength, setPasswordStrength] = useState<string>('');
+    const [passwordStrength, setPasswordStrength] = useState<string>('Week');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<string>('');
@@ -68,18 +69,30 @@ const PasswordForm: React.FC = () => {
         setPassword(value);
 
         if (value.length > 8) {
-            setPasswordStrength('good');
+            setPasswordStrength(' Good');
         } else if (value.length > 4) {
-            setPasswordStrength('medium');
+            setPasswordStrength(' Medium');
         } else {
-            setPasswordStrength('weak');
+            setPasswordStrength(' Weak');
+        }
+    };
+
+    const getPasswordStrengthColor = () => {
+        switch (passwordStrength) {
+            case ' Good':
+                return 'rgba(118, 226, 104, 1)';
+            case ' Medium':
+                return 'orange';
+            case ' Weak':
+                return 'red';
+            default:
+                return '';
         }
     };
 
     const handleLeftArrowClick = () => {
         setLoading(true);
-        //window.location.href = './WalletCreation/CreateAccount';
-        router.push('./WalletCreation/CreateAccount'); 
+        router.push('./WalletCreation/CreateAccount');
     };
 
     const handleVerifyPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,16 +107,11 @@ const PasswordForm: React.FC = () => {
         if (passwordMatch && isChecked) {
             setLoading(true);
             const walletId = await generateWalletId();
-
-            // Store wallet_id and password in localStorage
             localStorage.setItem('wallet_id', walletId);
             localStorage.setItem('password', password);
-
-            // Navigate to the next page
             setMessage('Password saved :)');
             setMessageType('success');
-            //window.location.href = './WalletSecretCode';
-            router.push('./WalletSecretCode'); 
+            router.push('./SecureWallet');
         }
     };
 
@@ -113,7 +121,7 @@ const PasswordForm: React.FC = () => {
     };
 
     const showPrivacyPolicy = () => {
-        setModalContent("Sample Privacy Policy:\n\n1. We collect personal data to improve our services.\n2. Your data will not be shared with third parties without your consent.\n3. We use secure methods to protect your data from unauthorized access.");
+        setModalContent("Sample Privacy Policy:\n\n1. We collect personal data to improve\n\t our services.\n2. Your data will not be shared with third \n\t parties without your consent.\n3. We use secure methods to protect your data \n\tfrom unauthorized access.");
         setShowModal(true);
     };
 
@@ -123,92 +131,101 @@ const PasswordForm: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='maincontainer'>
             {loading ? (
-                <div className='loading'>
-                    <div className='spinner'></div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '430px', backgroundColor: 'black' }}>
+                    <LottieAnimationLoading width="300px" height="300px" />
                 </div>
             ) : (
-                <div className="wallet-manager">
-                    <div className="card">
-                        <div className="container">
-                            <div className="column left" onClick={handleLeftArrowClick}>
-                                <FaArrowLeft />
-                            </div>
-                            <div className="column middle">
-                                <ProgressBar currentStep={2} totalSteps={4} />
-                            </div>
-                            <div className="column right">
-                                {/* Right column content */}
-                            </div>
+                <div className='subcontainer'>
+                    <div className="container">
+                        <div className="columnleft" onClick={handleLeftArrowClick}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 8L10 12L14 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
                         </div>
-                        <h1 className='heading'>Create Password</h1>
-                        <p>Set a password to unlock your wallet each time you use your computer. It can not be used to recover your wallet.</p>
-                        <form onSubmit={handleSubmit}>
-                            <div>
-                                <label>Password</label>
+                        <div className="columnmiddle">
+                            <ProgressBar currentStep={1} totalSteps={3} />
+                        </div>
+                        <div className="columnright">
+                            <h1 className='status'>1/3</h1>
+                        </div>
+                    </div>
+                    <div className="textcontainer">
+                        <h1 className='firstheading'>Create Password</h1>
+                        <h2 className='secondheading'>This password will unlock your Dupay wallet only on this service</h2>
+                    </div>
+                    <div className='formcontainer'>
+                        <form onSubmit={handleSubmit} className='formdata'>
+                            <div className='newpassword'>
                                 <div className="password-input">
+                                    <label>New Password</label>
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         value={password}
                                         onChange={handlePasswordChange}
                                         placeholder='Enter Password'
+                                    // className='password'
                                     />
-                                    <button type="button" onClick={() => setShowPassword(!showPassword)}>
-                                        <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                                </div>
+                                <div className='eye'>
+                                    <button type="button" className='eyeicon' onClick={() => setShowPassword(!showPassword)}>
+                                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                                     </button>
                                 </div>
-                                <div className={`strength ${passwordStrength}`}>
-                                    {[...Array(5)].map((_, i) => (
-                                        <div key={i} className="strength-bar"></div>
-                                    ))}
-                                    {passwordStrength.charAt(0).toUpperCase() + passwordStrength.slice(1)}
-                                </div>
                             </div>
-                            <div>
-                                <label>Verify Password</label>
+                            <div className='inputstatus1'>
+                                <div>Password strength: </div>
+                                <div><p style={{ color: getPasswordStrengthColor(), marginLeft: '5px' }}>
+                                    {passwordStrength}
+                                </p></div>
+                            </div>
+                            <div className='newpassword'>
                                 <div className="password-input">
+                                    <label>New Password</label>
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         value={verifyPassword}
                                         onChange={handleVerifyPasswordChange}
-                                        placeholder='Verify Password'
+                                        placeholder='Enter Password'
                                         id="password-input-field"
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="toggle-password-button"
-                                    >
-                                        <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                                </div>
+                                <div className='eye'>
+                                    <button type="button" onClick={() => setShowPassword(!showPassword)}
+                                        className='eyeicon'>
+                                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                                     </button>
                                 </div>
-                                <div className="verify">{passwordMatch ? "It's a match!" : 'Passwords do not match'}</div>
+                            </div>
+                            <div className='inputstatus'>
+                                {passwordMatch ? "It's a match!" : 'Must be at least 8 characters'}
                             </div>
                             <div className='terms'>
-                                <input
-                                    type="checkbox"
-                                    checked={isChecked}
-                                    onChange={() => setIsChecked(!isChecked)}
-                                />
-                                <label className='cond'>
-                                    I agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); showTerms(); }}>terms</a> and <a href="#privacy-policy" onClick={(e) => { e.preventDefault(); showPrivacyPolicy(); }}>privacy policy</a>
-                                </label>
+                                <div className='checkbox'>
+                                    <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={() => setIsChecked(!isChecked)}
+                                    />
+                                </div>
+                                <div className='checktext'>
+                                    <label className='cond'>
+                                        I understand that Dupay cannot recover this password for me.<a onClick={(e) => { e.preventDefault(); showPrivacyPolicy(); }}> Learn more</a>
+                                    </label>
+                                </div>
                             </div>
-                            <button type="submit" disabled={!passwordMatch || !isChecked}>Next</button>
+                            <div className='nextbutton' >
+                                <button type="submit" disabled={!passwordMatch || !isChecked}>Create Password</button>
+                            </div>
                         </form>
-                        {message && (
-                            <div className={`message ${messageType}`}>
-                                {message}
-                            </div>
-                        )}
                     </div>
-
                     {showModal && (
                         <div className="modal">
                             <div className="modal-content">
+                            <pre>{modalContent}</pre>
                                 <span className="close-button" onClick={closeModal}>×</span>
-                                <pre>{modalContent}</pre>
+                                
                             </div>
                         </div>
                     )}
