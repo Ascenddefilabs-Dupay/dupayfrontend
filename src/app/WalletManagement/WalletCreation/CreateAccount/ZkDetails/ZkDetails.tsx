@@ -26,7 +26,7 @@ import { decodeSuiPrivateKey } from "@mysten/sui/cryptography";
 import { Transaction } from "@mysten/sui/transactions";
 import { genAddressSeed, getZkLoginSignature } from "@mysten/zklogin";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import axios from "axios";
+import axios from  "axios";
 import  styles from "./zkdetails.module.css";
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
