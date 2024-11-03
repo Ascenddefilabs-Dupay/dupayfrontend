@@ -108,63 +108,63 @@ const WalletTransaction: React.FC = () => {
   });
 
 
-  useEffect(() => {
-    // console.log(userID);
-    const script = document.createElement('script');
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
-    script.onload = () => console.log("Razorpay script loaded successfully.");
-    script.onerror = () => console.error("Failed to load Razorpay script.");
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  // useEffect(() => {
+  //   // console.log(userID);
+  //   const script = document.createElement('script');
+  //   script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  //   script.async = true;
+  //   script.onload = () => console.log("Razorpay script loaded successfully.");
+  //   script.onerror = () => console.error("Failed to load Razorpay script.");
+  //   document.body.appendChild(script);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   };
+  // }, []);
 
 
 
 
-  const initiateRazorpayPayment = (amount: string, currency: string): Promise<boolean> => {
-    return new Promise((resolve) => {
-      if (window.Razorpay) {
-        console.log('Razorpay is available.');
-        const options = {
-          key: 'rzp_test_41ch2lqayiGZ9X',
-          amount: parseFloat(amount) * 100,
-          currency: currency,
-          name: 'DUPAY',
-          description: 'Payment for currency conversion',
-          handler: (response: any) => {
-            console.log('Payment successful:', response);
-            setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-            resolve(true);
-          },
-          prefill: {
-            name: 'User Name',
-            email: 'user@example.com',
-            contact: '9999999999',
-          },
-          notes: {
-            address: 'Your Address',
-          },
-          theme: {
-            color: '#F37254',
-          },
-          modal: {
-            ondismiss: () => {
-              resolve(false);
-            },
-          },
-        };
-        console.log('Razorpay options:', options);
-        const rzp1 = new window.Razorpay(options);
-        rzp1.open();
-      } else {
-        console.error("Razorpay script not loaded.");
-        resolve(false);
-      }
-    });
-  };
+  // const initiateRazorpayPayment = (amount: string, currency: string): Promise<boolean> => {
+  //   return new Promise((resolve) => {
+  //     if (window.Razorpay) {
+  //       console.log('Razorpay is available.');
+  //       const options = {
+  //         key: 'rzp_test_41ch2lqayiGZ9X',
+  //         amount: parseFloat(amount) * 100,
+  //         currency: currency,
+  //         name: 'DUPAY',
+  //         description: 'Payment for currency conversion',
+  //         handler: (response: any) => {
+  //           console.log('Payment successful:', response);
+  //           setAlertMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+  //           resolve(true);
+  //         },
+  //         prefill: {
+  //           name: 'User Name',
+  //           email: 'user@example.com',
+  //           contact: '9999999999',
+  //         },
+  //         notes: {
+  //           address: 'Your Address',
+  //         },
+  //         theme: {
+  //           color: '#F37254',
+  //         },
+  //         modal: {
+  //           ondismiss: () => {
+  //             resolve(false);
+  //           },
+  //         },
+  //       };
+  //       console.log('Razorpay options:', options);
+  //       const rzp1 = new window.Razorpay(options);
+  //       rzp1.open();
+  //     } else {
+  //       console.error("Razorpay script not loaded.");
+  //       resolve(false);
+  //     }
+  //   });
+  // };
 
 
   const handlePaymentMethodChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -216,9 +216,9 @@ const WalletTransaction: React.FC = () => {
             setAlertMessage(validationResponse.data.message);
             return;
           } else {
-            const paymentSuccess = await initiateRazorpayPayment(amount, currency);
-            console.log('Payment success:', paymentSuccess); // Log payment result
-            if (paymentSuccess) {
+            // const paymentSuccess = await initiateRazorpayPayment(amount, currency);
+            // console.log('Payment success:', paymentSuccess); // Log payment result
+            // if (paymentSuccess) {
               const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
                 transaction_type: 'Debit',
                 transaction_amount: amount,
@@ -233,8 +233,10 @@ const WalletTransaction: React.FC = () => {
               console.log('Wallet transfer response:', response.data); // Log response
               setAlertMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
               // window.location.href = '/Userauthorization/Dashboard/Home';
-              router.push('/Userauthorization/Dashboard/Home');
-            }
+              setTimeout(() => {
+                router.push('/Userauthorization/Dashboard/Home');
+              }, 3000);
+            // }
           }
         }
 
@@ -262,10 +264,10 @@ const WalletTransaction: React.FC = () => {
           } else if (Addressresponse.data.status === 'failure') {
             setAlertMessage('Insufficient funds for the transaction.');
           } else {
-            const paymentSuccess = await initiateRazorpayPayment(amount, currency);
-            console.log('Payment success:', paymentSuccess); // Log payment result
+            // const paymentSuccess = await initiateRazorpayPayment(amount, currency);
+            // console.log('Payment success:', paymentSuccess); // Log payment result
 
-            if (paymentSuccess) {
+            // if (paymentSuccess) {
               try {
                 await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/address-transfer/', {
                   transaction_amount: amount,
@@ -280,14 +282,16 @@ const WalletTransaction: React.FC = () => {
                 });
                 setAlertMessage('Transaction successful!');
                 // window.location.href = '/Userauthorization/Dashboard/Home';
-                router.push('/Userauthorization/Dashboard/Home');
+                setTimeout(() => {
+                  router.push('/Userauthorization/Dashboard/Home');
+                }, 3000);
               } catch (error) {
                 console.error('Error storing transaction data:', error);
                 setAlertMessage('Error storing transaction data.');
               }
-            } else {
-              setAlertMessage('Payment failed!');
-            }
+            // } else {
+            //   setAlertMessage('Payment failed!');
+            // }
           }
         }
 
@@ -327,10 +331,10 @@ const WalletTransaction: React.FC = () => {
             setAlertMessage('User Does not have Currency');
             return;
           } else {
-            const paymentSuccess = await initiateRazorpayPayment(amount, currency);
-            console.log('Payment success:', paymentSuccess); // Log payment result
+            // const paymentSuccess = await initiateRazorpayPayment(amount, currency);
+            // console.log('Payment success:', paymentSuccess); // Log payment result
 
-            if (paymentSuccess) {
+            // if (paymentSuccess) {
               try {
                 await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/qrcode/', {
                   transaction_type: 'Debit',
@@ -345,14 +349,16 @@ const WalletTransaction: React.FC = () => {
                 });
                 setAlertMessage('Transaction successful!');
                 // window.location.href = '/Userauthorization/Dashboard/Home';
-                router.push('/Userauthorization/Dashboard/Home');
+                setTimeout(() => {
+                  router.push('/Userauthorization/Dashboard/Home');
+                }, 3000);
               } catch (error) {
                 console.error('Error storing transaction data:', error);
                 setAlertMessage('Error storing transaction data.');
               }
-            } else {
-              setAlertMessage('Payment failed!');
-            }
+            // } else {
+            //   setAlertMessage('Payment failed!');
+            // }
           }
 
         } else {
