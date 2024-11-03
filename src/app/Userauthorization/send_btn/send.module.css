@@ -88,8 +88,8 @@
 
 /* Button styles */
 .button {
-    margin: 0;
-    padding: 10px;
+    /* margin: 0;
+    padding: 10px; */
     background: linear-gradient(to right, rgba(119, 6, 211, 1) 25%, rgba(243, 66, 235, 1) 100%);
     color: white;
     font-weight: bold;
@@ -120,6 +120,26 @@
 .balance-value {
     color: white; /* Text color for the value */
     font-weight: bold; /* Make the value bold */
+}
+
+/* .inputField {
+    color: black;
+  } */
+
+  .inputField, .button {
+    width: 80%; /* Set a consistent width for input fields and buttons */
+    max-width: 300px; /* Optional max-width for responsiveness */
+    margin: 10px auto; /* Center align input fields and buttons with automatic side margins */
+    display: block; /* Ensure they take up the full width defined by 'width' */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.inputField {
+    color: black; /* Text color for input fields */
+    background-color: white; /* Background color to make input visible on dark background */
+    border: 1px solid #ccc; /* Optional border for input fields */
+    border-radius: 5px;
 }
 
 
