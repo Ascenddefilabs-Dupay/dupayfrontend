@@ -27,10 +27,10 @@ wallet_id: string;
 interface FiatWalletData{
   fiat_wallet_id: string;
 }
-interface AdminCMSData {
-  account_type: string;
+// interface AdminCMSData {
+//   account_type: string;
   
-}
+// }
 interface Wallet {
   wallet_id: string;
   sui_address: string;
@@ -104,8 +104,8 @@ const Home = () => {
   const [currencyIcons, setCurrencyIcons] = useState<{ currency_type: string; icon: string }[]>([]);
   const [fiatwalletData, setFiatWalletData] = useState<string>("");
   const [fiatwalletMobileNumer, setFiatWalletMobileNumber] = useState<string>("");
-  const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
-  const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
+  // const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeOption | null>(null);
+  // const [adminCMSData, setAdminCMSData] = useState<AdminCMSData[]>([]);
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [walletName, setWalletName] = useState("");
   const [email, setEmail] = useState("");
@@ -189,28 +189,28 @@ const Home = () => {
     }
   }, []);
   
-  useEffect(() => {
-    axios
-      .get<AdminCMSData[]>('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/')
-      .then((response) => {
-        setAdminCMSData(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching account types:', error);
-        setLoading(false);
-      });
-  }, []);
-  const accountTypeOptions: AccountTypeOption[] = adminCMSData
-    .filter((data) => data.account_type !== null)
-    .map((data) => ({
-      value: data.account_type,
-      label: data.account_type,
-    }));
+  // useEffect(() => {
+  //   axios
+  //     .get<AdminCMSData[]>('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/')
+  //     .then((response) => {
+  //       setAdminCMSData(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching account types:', error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+  // const accountTypeOptions: AccountTypeOption[] = adminCMSData
+  //   .filter((data) => data.account_type !== null)
+  //   .map((data) => ({
+  //     value: data.account_type,
+  //     label: data.account_type,
+  //   }));
 
     const validateFields = (): boolean => {
       const newError: ErrorState = {};
-      if (!selectedAccountType) newError.accountType = "Account type is required.";
+      // if (!selectedAccountType) newError.accountType = "Account type is required.";
 
       if (!walletName) newError.walletName = "Wallet name is required.";
       if (!email) newError.email = "Email is required.";
@@ -228,7 +228,7 @@ const Home = () => {
   
       const payload = {
         // fiat_wallet_id: "generated_id_here",
-        fiat_wallet_type: selectedAccountType?.value,
+        // fiat_wallet_type: selectedAccountType?.value,
         // fiat_wallet_address: "",
         fiat_wallet_balance: 0,
         fiat_wallet_created_time: new Date().toISOString(),
@@ -264,7 +264,7 @@ const Home = () => {
     };
   
     const resetForm = () => {
-      setSelectedAccountType(null);
+      // setSelectedAccountType(null);
       setWalletName("");
       setEmail("");
       setSecurityPin("");
@@ -1112,7 +1112,7 @@ const handleRefresh = () => {
           <div className={styles.addNewFiatWalletPage}>
             <h2>Create New Fiat Wallet</h2>
             <form onSubmit={handleSubmit} className={styles.form}>
-              <div className={styles.formGroup}>
+              {/* <div className={styles.formGroup}>
                 <Select
                   id="accountType"
                   className={styles.selectInput}
@@ -1159,9 +1159,9 @@ const handleRefresh = () => {
                       padding: 0,
                       border: 'none',
                     }),
-                  }}
-                />
-              </div>
+                  }} */}
+                {/* /> */}
+              {/* </div> */}
               <div className={styles.formGroup}>
                 <input
                   id="walletName"
