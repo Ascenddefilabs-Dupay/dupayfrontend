@@ -74,6 +74,7 @@ interface AccountTypeOption {
 
 
 
+
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
   // const [activeTab, setActiveTab] = useState('fiat'); // Default active tab to 'fiat'
@@ -227,20 +228,21 @@ const Home = () => {
       if (!validateFields()) return;
   
       const payload = {
-        fiat_wallet_id: "generated_id_here",
+        // fiat_wallet_id: "generated_id_here",
         fiat_wallet_type: selectedAccountType?.value,
-        fiat_wallet_address: "",
+        // fiat_wallet_address: "",
         fiat_wallet_balance: 0,
         fiat_wallet_created_time: new Date().toISOString(),
         fiat_wallet_updated_time: new Date().toISOString(),
         fiat_wallet_phone_number: fiatwalletMobileNumer,
         fiat_wallet_email: email,
-        qr_code: "",
+        // qr_code: "",
         user_id: userId,
       };
   
       try {
-        const response = await axios.post("https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
+        const response = await axios.post("http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
+
        
         setAlertMessage("Wallet created successfully!");
         resetForm();
