@@ -191,7 +191,7 @@ const Home = () => {
   
   useEffect(() => {
     axios
-      .get<AdminCMSData[]>('http://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/')
+      .get<AdminCMSData[]>('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/')
       .then((response) => {
         setAdminCMSData(response.data);
         setLoading(false);
@@ -227,15 +227,15 @@ const Home = () => {
       if (!validateFields()) return;
   
       const payload = {
-        fiat_wallet_id: "generated_id_here",
+        // fiat_wallet_id: "generated_id_here",
         fiat_wallet_type: selectedAccountType?.value,
-        fiat_wallet_address: "",
+        // fiat_wallet_address: "",
         fiat_wallet_balance: 0,
         fiat_wallet_created_time: new Date().toISOString(),
         fiat_wallet_updated_time: new Date().toISOString(),
         fiat_wallet_phone_number: fiatwalletMobileNumer,
         fiat_wallet_email: email,
-        qr_code: "",
+        // qr_code: "",
         user_id: userId,
       };
   
@@ -356,7 +356,7 @@ const Home = () => {
       const fetchFiatWalletId = async () => {
         try {
           // const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
-          const response = await axios.get(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          const response = await axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
 
           console.log('Fetched Fiat Wallet ID:', response.data); // Debugging
           const { fiat_wallet_id, fiat_wallet_balance, user } = response.data;
@@ -551,7 +551,7 @@ const Home = () => {
 const wallet_data = () => {
     axios
     // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
-    .get<{ fiat_wallets: FiatWallet[] }>(`http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+    .get<{ fiat_wallets: FiatWallet[] }>(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
       .then((response) => {
         const wallets = response.data.fiat_wallets;
         setWalletData(wallets);
@@ -570,7 +570,7 @@ const wallet_data = () => {
         try {
           const requests = currencyList.map((currency_type) =>
             axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
-              `http://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
+              `https://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
               // `http://127.0.0.1:8000/Fiat_Currency/icon/${currency_type}/`
             )
           );
@@ -1089,7 +1089,8 @@ const handleRefresh = () => {
               <div
                 className={styles.button}
                 onClick={() => {
-                  handleNavigation('/Userauthorization/send_btn');
+                  handleNavigation('/WalletManagement/Transak'); 
+
                   handleClose(); // Close the blur screen
                 }}
               >

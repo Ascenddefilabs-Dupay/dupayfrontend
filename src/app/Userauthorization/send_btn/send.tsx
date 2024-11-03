@@ -10,6 +10,8 @@ import WormholeConnect, {
   WormholeConnectConfig,
 } from "@wormhole-foundation/wormhole-connect";
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
+import { coinWithBalance, Transaction } from "@mysten/sui/transactions";
+
 import {
   NetworkName,
   makePolymediaUrl,
@@ -27,7 +29,7 @@ import { jwtDecode } from "jwt-decode";
 //import { LinkExternal, Modal, isLocalhost } from "@polymedia/suitcase-react";
 import { log } from "console";
 import { decodeSuiPrivateKey } from "@mysten/sui/cryptography";
-import { Transaction } from "@mysten/sui/transactions";
+//import { Transaction } from "@mysten/sui/transactions";
 import { genAddressSeed, getZkLoginSignature } from "@mysten/zklogin";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import axios from "axios";
@@ -77,6 +79,8 @@ const Send: React.FC = () => {
   const [balances, setBalances] = useState<Map<string, number>>(new Map());
   const [userId, setUserId] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [recipientAddress, setRecipientAddress] = useState("");
+  const [transferAmount, setTransferAmount] = useState("");
 
   const router = useRouter();
 
@@ -263,6 +267,20 @@ const Send: React.FC = () => {
       tx.setSender(account.userAddr);
       console.log("UserAddress", account.userAddr);
 
+      // const recipientAddress =
+      //   "0x7b184165f730052c6986a8c89685d48e95f86978983156a64fe4e74762493dbb"; // Use recipient address from input
+      // const transferAmount = 0.3;
+      const balance = parseFloat(transferAmount) * 1e9;
+
+      const selectedCoinForTransfer = coinWithBalance({
+        balance: balance, // The amount specified by the user
+        type: "0x2::sui::SUI", // Type argument for the coin (SUI in this case)
+        // Ensure we don't use the gas coin unless explicitly needed
+      });
+      console.log("CoinForTransfer=", selectedCoinForTransfer);
+
+      tx.transferObjects([selectedCoinForTransfer], recipientAddress);
+
       const ephemeralKeyPair = keypairFromSecretKey(
         account.ephemeralPrivateKey
       );
@@ -325,6 +343,9 @@ const Send: React.FC = () => {
     } catch (error) {
       console.log("Failed ", error);
     }
+    // Clear the input fields after transaction
+    setRecipientAddress("");
+    setTransferAmount("");
   }
 
   async function getUserSaltAndAddress(userJwt: string) {
@@ -596,6 +617,28 @@ const Send: React.FC = () => {
                         >
                           Get Tokens
                         </button>
+                        <div className={styles.inputContainer}>
+                          <label>Recipient Address:</label>
+                          <input
+                            type="text"
+                            value={recipientAddress}
+                            onChange={(e) =>
+                              setRecipientAddress(e.target.value)
+                            }
+                            placeholder="Enter recipient address"
+                            className={styles.inputField}
+                          />
+                        </div>
+                        <div className={styles.inputContainer}>
+                          <label>Transfer Amount:</label>
+                          <input
+                            type="number"
+                            value={transferAmount}
+                            onChange={(e) => setTransferAmount(e.target.value)}
+                            placeholder="Enter amount"
+                            className={styles.inputField}
+                          />
+                        </div>
                         <button
                           onClick={() => {
                             sendTransaction(acct);
