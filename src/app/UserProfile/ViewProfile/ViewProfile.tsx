@@ -506,7 +506,7 @@ const UserProfile: React.FC = () => {
         {/* <InfoContainer> */}
         <div style={{ backgroundColor: 'black',  width:'100%',position:'relative',
           borderTopRightRadius: '30px', borderTopLeftRadius:'30px',
-          padding: '20px', marginTop: '16px' ,top:'-200px',height: 'auto'  }}>
+          padding: '20px', marginTop: '16px' ,top:'-200px',height: 'auto',overflow: 'hidden'  }}>
             
                       {/* <Box display="flex" justifyContent="center" width="100%" style={{ height:'30px' ,marginTop: '10px',marginBottom: '30px'}} >
             <Typography variant="h5" gutterBottom style={{ color: 'white',height:'30px',width:'338px'}}>
@@ -524,8 +524,10 @@ const UserProfile: React.FC = () => {
               View Profile
             </Typography>
           </Box>
-            <div style={{ backgroundColor: 'black',  width:'328px',position:'relative',padding: '10px',
-           marginTop: '16px' ,height: 'auto'  }}>
+            <div style={{ backgroundColor: 'black',width: '100%',position:'relative',padding: '10px',
+           marginTop: '16px' ,height: '300px',overflowY: 'scroll', 
+           scrollbarWidth: 'none',
+           overflowX: 'hidden',WebkitOverflowScrolling: 'touch',maxWidth: '378px' }}>
         <div style={{ marginBottom: '10px' }}>
           <FormControl fullWidth variant="outlined">
             <FormHelperText style={{color: 'white',marginTop: '8px', width:'100%',fontSize: '15px' ,marginLeft: '3px' }}>Full Name</FormHelperText>

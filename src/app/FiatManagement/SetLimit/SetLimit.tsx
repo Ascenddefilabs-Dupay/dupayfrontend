@@ -28,7 +28,7 @@ const SetLimit: React.FC = () => {
     const fetchWalletDetails = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/fiatmanagementapi/user/DupA0001/"
+          "https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user/DupA0001/"
         );
         setWalletDetails(response.data);
       } catch (error) {
@@ -95,7 +95,7 @@ const SetLimit: React.FC = () => {
 
             // Make sure to set the Content-Type header to application/json
             const response = await axios.put(
-                "http://127.0.0.1:8000/fiatmanagementapi/user/DupA0001/",
+                "https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user/DupA0001/",
                 updatedDetails
                 // {
                 //     headers: {

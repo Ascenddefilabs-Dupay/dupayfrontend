@@ -206,17 +206,17 @@ const DepositForm: React.FC = () => {
     useEffect(() => {
         if (showForm) {
             axios
-                .get(`http://127.0.0.1:8000/fiatmanagementapi/fiat_wallets/Wa0000000002/`)
+                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/Wa0000000002/`)
                 .then((response) => setWalletDetails(response.data))
                 .catch((error) => handleApiError(error, 'fetching wallet details'));
 
             axios
-                .get(`http://127.0.0.1:8000/fiatmanagementapi/account-types/`)
+                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/`)
                 .then((response) => setCurrencies(response.data))
                 .catch((error) => handleApiError(error, 'fetching currencies'));
 
             axios
-                .get(`http://127.0.0.1:8000/fiatmanagementapi/banks/`)
+                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/banks/`)
                 .then((response) => setBanks(response.data))
                 .catch((error) => handleApiError(error, 'fetching banks'));
         }
@@ -225,7 +225,7 @@ const DepositForm: React.FC = () => {
     useEffect(() => {
         if (walletDetails) {
             axios
-                .get(`http://127.0.0.1:8000/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
+                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
                 .then((response) => {
                     const userCurrencies = response.data.reduce((acc: { [key: string]: number }, currency: UserCurrency) => {
                         acc[currency.currency_type] = parseFloat(currency.balance);

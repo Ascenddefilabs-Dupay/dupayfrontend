@@ -48,7 +48,7 @@ const UserTransaction: React.FC = () => {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/transactionprocessing_api/wallet-transactions/', {
+      const response = await axios.get('https://transactionprocessing-ind-255574993735.asia-south1.run.app/transactionprocessing_api/wallet-transactions/', {
         params: { user_id: userID },
       });
       setTransactions(response.data.transactions);
@@ -58,10 +58,11 @@ const UserTransaction: React.FC = () => {
       console.log('Error fetching transaction history.');
     }
   };
-
   useEffect(() => {
-    fetchTransactions();
-  }, []);
+    if (userID) {
+      fetchTransactions();
+    }
+  }, [userID]);
 
   useEffect(() => {
     filterTransactions();

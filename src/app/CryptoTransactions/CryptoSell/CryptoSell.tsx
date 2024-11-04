@@ -144,7 +144,7 @@ useEffect(() => {
             const userid = userId;
 
             // Directly send the values as part of the URL path
-            const response = await axios.get(`https://cryptotransaction-255574993735.us-central1.run.app/CryptoSell/crypto_wallet/balance/${walletId}/${userid}/`);
+            const response = await axios.get(`https://cryptotransaction-255574993735.asia-south1.run.app/CryptoSell/crypto_wallet/balance/${walletId}/${userid}/`);
             
             // Set the fetched balance into suiBalance
             if (response.data.balance) {

@@ -5,7 +5,7 @@ import styles from './Successpage.module.css';
 
 const SuccessPage: React.FC = () => {
   const searchParams = useSearchParams(); // Get search parameters
-  const fiat_wallet_address = searchParams.get('fiat_wallet_address'); // Get wallet_id from query
+  const fiat_wallet_address = searchParams ? searchParams.get('fiat_wallet_address') : null; // Get wallet_id from query
 
   useEffect(() => {
     const timer = setTimeout(() => {

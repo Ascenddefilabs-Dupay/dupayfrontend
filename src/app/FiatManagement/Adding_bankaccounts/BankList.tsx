@@ -28,7 +28,7 @@ const BankList: React.FC<BankListProps> = ({ onBankSelect }) => {
         console.log(sessionData.user_email);
  
       } else {
-        router.push('http://localhost:3000/Userauthentication/SignIn')
+        router.push('/Userauthentication/SignIn')
       }
     }
   }, []);
@@ -37,7 +37,7 @@ const BankList: React.FC<BankListProps> = ({ onBankSelect }) => {
   useEffect(() => {
     const fetchBanks = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/banks/');
+        const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/api/banks/');
         if (res.ok) {
           const data: Bank[] = await res.json();
           setBanks(data);

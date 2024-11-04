@@ -48,10 +48,10 @@ const Page: React.FC = () => {
             </div>
 
             <div
-              className={`${styles.VendoraccountCard} ${selectedAccount === 'Vendor' ? styles.activeCard : ''}`}
-              onClick={() => handleSelectAccount('Vendor')}
+              className={`${styles.BusinessaccountCard} ${selectedAccount === 'Business' ? styles.activeCard : ''}`}
+              onClick={() => handleSelectAccount('Business')}
             >
-              <h3 className={styles.cardTitle}>Vendor</h3>
+              <h3 className={styles.cardTitle}>Business</h3>
               <p className={styles.cardcontent}>We offer businesses and high-net-worth individuals secure solutions for accepting, managing, and trading cryptocurrencies.</p>
             </div>
           </div>
@@ -71,7 +71,7 @@ const Page: React.FC = () => {
               </div>
             )}
 
-            {selectedAccount === 'Vendor' && (
+            {selectedAccount === 'Business' && (
               <div>
                 <h4 className={styles.detailTitle}>Our business account provides companies, institutions, and high-net-worth clients with access to top-tier investment tools.</h4>
                 <h5 className={styles.detailSubtitle}>Set up your organization</h5>

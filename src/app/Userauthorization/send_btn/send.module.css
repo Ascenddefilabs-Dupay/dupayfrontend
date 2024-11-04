@@ -22,6 +22,12 @@
     position: relative;
     right: 175px;
 }
+input:focus + .floating-label,
+.floating-label.active {
+  top: 8px;
+  font-size: 12px;
+  color: #888daa; 
+}
 .title{
     position: relative;
     right: 125px;

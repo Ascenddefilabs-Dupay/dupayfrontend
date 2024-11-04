@@ -3,7 +3,7 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useRef } from "react";
-import styles from "./send.module.css";
+import "./send.css";
 import LottieAnimationLoading from "../../assets/LoadingAnimation";
 //import { bridgeTransfer } from "@wormhole-foundation/wormhole-connect";
 import WormholeConnect, {
@@ -78,9 +78,13 @@ const Send: React.FC = () => {
   const [modalContent, setModalContent] = useState<string>(" ");
   const [balances, setBalances] = useState<Map<string, number>>(new Map());
   const [userId, setUserId] = useState<string | null>(null);
+  const [focused, setFocused] = useState(false);
+  const [focusedAmount, setFocusedAmount] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [recipientAddress, setRecipientAddress] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertType, setAlertType] = useState<"in-progress" | "success" | "failure" | null>(null);
 
   const router = useRouter();
 
@@ -260,6 +264,8 @@ const Send: React.FC = () => {
   // === Save data to session storage so sendTransaction() can use it ===
   async function sendTransaction(account: AccountData) {
     setModalContent("🚀 Sending transaction...");
+    setAlertMessage("Transaction in progress...");
+    setAlertType("in-progress");
 
     // Sign the transaction bytes with the ephemeral private key
     try {
@@ -340,12 +346,20 @@ const Send: React.FC = () => {
         .finally(() => {
           setModalContent("");
         });
+      setAlertMessage("Transaction sent successfully!");
+      setAlertType("success");
     } catch (error) {
       console.log("Failed ", error);
+      setAlertMessage("Transaction failed. Please try again.");
+      setAlertType("failure");
     }
     // Clear the input fields after transaction
     setRecipientAddress("");
     setTransferAmount("");
+    setTimeout(() => {
+      setAlertMessage(null);
+      setAlertType(null);
+    }, 2000);
   }
 
   async function getUserSaltAndAddress(userJwt: string) {
@@ -433,7 +447,7 @@ const Send: React.FC = () => {
     const prefix = "DUP";
     try {
       const response = await axios.get(
-        "http://localhost:8000/walletmanagementapi/latest_wallet_id/"
+        "https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/latest_wallet_id/"
       );
       const lastId = response.data.wallet_id;
       console.log(lastId);
@@ -476,7 +490,7 @@ const Send: React.FC = () => {
     // console.log("WalletID",account.);
     try {
       const response = await axios.post(
-        "http://localhost:8000/zklogin_api/save_account/",
+        "https://walletmanagement-ind-255574993735.asia-south1.run.app/zklogin_api/save_account/",
         {
           sui_address: account.userAddr,
           balance: (balances.get(account.userAddr) || "0.00").toString(),
@@ -531,8 +545,8 @@ const Send: React.FC = () => {
   const openIdProviders: OpenIdProvider[] = ["Google"];
 
   return (
-    <div className={styles.container}>
-      <ArrowBackIcon onClick={handleBackClick} className={styles.backIcon} />
+    <div className="container">
+      {/* <ArrowBackIcon onClick={handleBackClick} className={styles.backIcon} /> */}
       {loading ? (
         <div
           style={{
@@ -548,7 +562,7 @@ const Send: React.FC = () => {
         </div>
       ) : (
         <>
-          <h1 style={{ fontSize: "30px", textAlign: "center" }}>
+          {/* <h1 style={{ fontSize: "30px", textAlign: "center" }}>
             Transfer Sui Tokens
           </h1>
           <div className={styles.imageContainer}>
@@ -557,19 +571,32 @@ const Send: React.FC = () => {
               alt="Send_Image"
               className={styles.image}
             />
+          </div> */}
+          {/* <img className="shapeIcon" alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729139397/4c03bd90-fdce-4081-9358-1e6849723549.png" /> */}
+          <div className="navbarnavBar">
+            <div className="navbaritemleftBtn">
+              <div className="iconiconWrapper">
+                <img
+                  className="iconarrowLeftBack"
+                  alt="Back"
+                  src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728536746/f8f904f1-485a-42cc-93c6-a9abd4346f30.png"
+                  onClick={handleBackClick} // Attach click handler
+                  style={{ cursor: "pointer" }} // Optional: Makes it look clickable
+                />
+              </div>
+            </div>
+            <div className="hereIsTitle">Transfer Sui Tokens</div>
+            <div className="navbaritemrightBtn" />
           </div>
-          <div className={styles.description}>
-            <p className={styles.d1}>To send, first add crypto to</p>
-            <p className={styles.d2}>your wallet</p>
-            <div className={styles.additionalInfo}>
+          <div className="description">
+            <p className="d1">To send, first add crypto to your wallet</p>
+            {/* <div className={styles.additionalInfo}>
               <p>Use a Dupay account to buy or transfer</p>
               <p className={styles.ai2}>crypto, or receive assets directly.</p>
-            </div>
+            </div> */}
           </div>
-          <br />
-          <br />
-          <br />
-          <div className={styles.buttonContainer}>
+
+          <div className="buttonContainer">
             {accounts.current.length > 0 && (
               <div id="accounts" className="section white-text">
                 {/* <h2>Accounts:</h2> */}
@@ -581,7 +608,7 @@ const Send: React.FC = () => {
                     acct.userAddr
                   );
                   return (
-                    <div className={styles.account} key={acct.userAddr}>
+                    <div className="account" key={acct.userAddr}>
                       {/* <div>
                         <label className={`provider ${acct.provider}`}>
                           {acct.provider}
@@ -598,13 +625,35 @@ const Send: React.FC = () => {
                         </a>
                       </div> */}
                       {/* <div>User ID: {acct.sub}</div> */}
+                      <div className="balanceCard">
+                        <div className="balanceDetails">
+                          <img
+                            src={
+                              "https://res.cloudinary.com/dgfv6j82t/image/upload/v1729751154/a2ca4b2c-1d38-48c4-b77c-5026eacbefa6.png"
+                            }
+                            alt={""}
+                            className="currencyImage"
+                          />
+                          <div className="currencyText">
+                            <span className="currencyCode">Total SUI</span>
+                          </div>
+                          <div className="balanceAmount">
+                            <p className="balanceAmount">
+                              {" "}
+                              {typeof balance === "undefined"
+                                ? "(loading)"
+                                : `${balance} SUI`}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                       <div>
-                        Balance:{" "}
+                        {/* Balance:{" "}
                         {typeof balance === "undefined"
                           ? "(loading)"
-                          : `${balance} SUI`}
+                          : `${balance} SUI`} */}
                         <button
-                          className={styles.button}
+                          className="button"
                           onClick={() => {
                             requestSuiFromFaucet(NETWORK, acct.userAddr);
                             setModalContent(
@@ -617,7 +666,7 @@ const Send: React.FC = () => {
                         >
                           Get Tokens
                         </button>
-                        <div className={styles.inputContainer}>
+                        {/* <div className={styles.inputContainer}>
                           <label>Recipient Address:</label>
                           <input
                             type="text"
@@ -628,29 +677,82 @@ const Send: React.FC = () => {
                             placeholder="Enter recipient address"
                             className={styles.inputField}
                           />
-                        </div>
-                        <div className={styles.inputContainer}>
+                        </div> */}
+                        {/* <div className="input-container">
                           <label>Transfer Amount:</label>
                           <input
                             type="number"
                             value={transferAmount}
                             onChange={(e) => setTransferAmount(e.target.value)}
                             placeholder="Enter amount"
-                            className={styles.inputField}
+                            className="inputField"
                           />
+                        </div> */}
+                        <div className="amount-row">
+                          <div className="amount-group">
+                            <div className="howMuchUsd">Recipient Address</div>
+                            <div className="input-container">
+                              <label
+                                className={`floating-label ${
+                                  recipientAddress ? "active" : ""
+                                }`}
+                                htmlFor="amount"
+                              >
+                                Enter Recipient Address:
+                              </label>
+                              <input
+                                type="text"
+                                value={recipientAddress}
+                                onChange={(e) =>
+                                  setRecipientAddress(e.target.value)
+                                }
+                                required
+                              />
+                            </div>
+                          </div>
                         </div>
+                        <div className="amount-row">
+                          <div className="amount-group">
+                            <div className="howMuchUsd">Transfer Amount</div>
+                            <div className="input-container">
+                              <label
+                               className={`floating-label ${transferAmount ? 'active' : ''} ${focusedAmount ? 'active' : ''}`}
+                                htmlFor="amount"
+                              >
+                                Enter Transfer Amount:
+                              </label>
+                              <input
+                                type="tel"
+                                id="amount"
+                                value={transferAmount}
+                                onChange={(e) =>
+                                  setTransferAmount(e.target.value)
+                                }
+                                onFocus={() => setFocusedAmount(true)}
+                                onBlur={() => setFocusedAmount(false)}
+                                required
+                                inputMode="numeric"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                         {alertMessage && (
+                          <div className={`alert-message ${alertType}`}>
+                            {alertMessage}
+                          </div>
+                        )}
                         <button
                           onClick={() => {
                             sendTransaction(acct);
                           }}
-                          className={styles.button}
+                          className="buttons"
                         >
                           Send transaction
                         </button>
                       </div>
-                      <h1>WormholeConnect Application</h1>
+                      {/* <h1>WormholeConnect Application</h1> */}
                       {/* <h2>Current Environment: {config.env}</h2> */}
-                      <WormholeConnect config={config} />
+                      {/* <WormholeConnect config={config} /> */}
                     </div>
                   );
                 })}
