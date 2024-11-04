@@ -17,6 +17,9 @@ import { IoMdRefresh } from "react-icons/io";
 import { Refresh } from '@mui/icons-material';
 import { fontSize } from '@mui/system';
 import { Navigate } from 'react-router-dom';
+import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface FiatWallet {
 balance: string; 
@@ -71,7 +74,12 @@ interface AccountTypeOption {
   value: string;
   label: string;
 }
+type ValidNetworkName = "testnet" | "devnet" | "localnet";
+const NETWORK: ValidNetworkName = "devnet";
 
+const suiClient = new SuiClient({
+  url: getFullnodeUrl(NETWORK),
+});
 
 
 const Home = () => {
@@ -355,7 +363,7 @@ const Home = () => {
 
       const fetchFiatWalletId = async () => {
         try {
-          // const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          // const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
           const response = await axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
 
           console.log('Fetched Fiat Wallet ID:', response.data); // Debugging
@@ -387,8 +395,8 @@ const Home = () => {
   
     // Fetch the data from the backend
     // axios.get<Wallet[]>(`http://127.0.0.1:8000/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
-    axios.get<Wallet[]>(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
-        .then(response => {
+    axios.get<Wallet[]>(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
+        .then(async response => {
             console.log('Response Data:', response.data); // Log the response data
   
             // Check if the response contains data
@@ -398,8 +406,22 @@ const Home = () => {
                 
                 // If a matching wallet is found, set the balance and address
                 if (userWallet) {
-                    setBalance(userWallet.balance); // Set the balance
+                    // setBalance(userWallet.balance); // Set the balance
                     setSuiAddress(userWallet.sui_address); // Set the SUI address
+                    try {
+                      // Fetch real-time SUI balance from Sui blockchain
+                      const suiBalance = await suiClient.getBalance({
+                          owner: userWallet.sui_address,
+                          coinType: "0x2::sui::SUI"
+                      });
+
+                      // Update balance in state after converting to display format
+                      setBalance((+suiBalance.totalBalance / 1_000_000_000).toString()); 
+                      console.log('Fetched Balance:', (+suiBalance.totalBalance / 1_000_000_000).toString());
+                  } catch (error) {
+                      console.error('Error fetching real-time SUI balance:', error);
+                      setBalance(null); // Handle error by setting balance to null
+                  }
   
                     // Print balance and suiAddress to the console
                     console.log('Balance:', userWallet.balance);
@@ -426,7 +448,7 @@ const Home = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+      const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
       // const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/profile/${userId}/`);
 
       if (response.data.user_first_name) {
@@ -588,14 +610,36 @@ const wallet_data = () => {
   }, [currencyList]);
 
 
-  const CopySuiAddressinClipboard = () => {
+  // Function to copy address and display a toast notification
+  const CopySuiAddressinClipboard = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); // Prevents handleDupayClick from triggering
+
     if (suiAddress) {
         navigator.clipboard.writeText(suiAddress)
             .then(() => {
-                console.log('SUI Address copied to clipboard:', suiAddress);
+                // Show a toast notification
+                toast.success('Address copied to clipboard!', {
+                    position: "top-center",
+                    autoClose: 3000, // Closes after 3 seconds
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    className: "custom-toast", // Apply custom styles
+                });
             })
             .catch(err => {
                 console.error('Failed to copy:', err);
+                // Show an error toast notification if copy fails
+                toast.error('Failed to copy address!', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    className: "custom-toast", // Apply custom styles
+                });
             });
     }
 };
@@ -609,13 +653,13 @@ useEffect(() => {
     let greetingText;
 
     if (hours >= 5 && hours < 12) {
-      greetingText = 'Good morning, ';
+      greetingText = 'Good morning ';
     } else if (hours >= 12 && hours < 17) {
-      greetingText = 'Good afternoon, ';
+      greetingText = 'Good afternoon ';
     } else if (hours >= 17 && hours < 21) {
-      greetingText = 'Good evening, ';
+      greetingText = 'Good evening ';
     } else {
-      greetingText = 'Good night, ';
+      greetingText = 'Good night ';
     }
 
     setGreeting(greetingText);
@@ -666,7 +710,7 @@ const handleRefresh = () => {
       			</div>
              <div className={styles.goodMorningAnuroopContainer}>
               <span>{greeting}</span>
-              <b>{userFirstName || 'User'}</b>
+              {/* <b>{userFirstName || 'User'}</b> */}
             </div>
           </div>
         </div>
@@ -767,7 +811,7 @@ const handleRefresh = () => {
                     ? (balance.toString().split('.').length > 1 
                         ? `${balance.toString().split('.')[0]}.${balance.toString().split('.')[1].slice(0, 4)}` 
                         : balance) 
-                    : '0.00'}
+                    : 'Loading..'}
               </div>
             </div>
             <div className={`${styles.ethParent} ${isLoading ? styles.flash : ''}`}>
@@ -782,13 +826,16 @@ const handleRefresh = () => {
                     `${suiAddress.slice(0, 6)}...${suiAddress.slice(-5)}` : 
                     'Address not found'}
               </div>
-              <b className={styles.int0002} onClick={CopySuiAddressinClipboard}>
+              <button className={styles.int0002} onClick={(event) => CopySuiAddressinClipboard(event)}>
                 <BiCopy />
-              </b>
+            </button>
+            <div onClick={(event) => event.stopPropagation()}>
+              <ToastContainer />
+          </div>
             </div>
-            <div className={styles.ethereumWrapper}>
+            {/* <div className={styles.ethereumWrapper}>
               <div className={styles.eth}>Ethereum</div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -970,7 +1017,7 @@ const handleRefresh = () => {
                     </div>)}
                 </div>
               )}
-        {activeTab === 'NFTs' && <div>NFTs Content</div>}
+        {activeTab === 'NFTs' && <div>NFTs is in Under Construction </div>}
       </div>
       {/* {dropdownVisible && (
         <div ref={dropdownRef} className={styles.dropdown}>

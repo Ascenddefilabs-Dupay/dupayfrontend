@@ -38,7 +38,7 @@ const QRCodeComponent: React.FC = () => {
         const fetchQRCode = async () => {
             if (userID) {
                 try {
-                    const response = await axios.get(`https://userauthorization-255574993735.us-central1.run.app/userauthorizationapi/fetch-qr-code/?user_id=${userID}`);
+                    const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-qr-code/?user_id=${userID}`);
                     setQrCode(response.data.qr_code);
                     setEmail(response.data.email);
                     setMobileNumber(response.data.mobile_number);
