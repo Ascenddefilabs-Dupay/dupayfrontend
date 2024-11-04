@@ -72,6 +72,9 @@ const Newsetting = () => {
     const handleDisplay = () => {
       router.push('/Userauthorization/Dashboard/Settings/displayform');
     };
+    const handleWallet = () => {
+      router.push('/Userauthorization/Dashboard/Settings/walletaddform');
+    };
     const handleSecurity = () => {
       router.push('/Userauthorization/Dashboard/Settings/securityfrom');
     };
@@ -169,33 +172,6 @@ const Newsetting = () => {
           <h1 className={styles.settings_back_label}>Setting</h1>
         </div>
 
-        <div className={styles.iconGroup}>
-                      {/* <FontAwesomeIcon icon={faCopy}  /> */}
-                      <FontAwesomeIcon icon={faQrcode} onClick={handleQrscanner} style={{ cursor: 'pointer', fontSize: '18px' }} />
-                  </div>
-
-                  {/* Full-screen QR Scanner */}
-                  {isScanning && (
-                    <div className={styles.overlay}>
-                      <div className={styles.scannerContainer}>
-                        <QrScanner
-                          delay={300}
-                          onError={handleError}
-                          onScan={handleScan}
-                          className={styles.scanner}
-                        />
-                        {/* Central scanning box */}
-                        <div className={styles.scanArea}></div>
-                      </div>
-                      {/* Close button */}
-                      <button className={styles.closeButton} onClick={() => setIsScanning(false)}>
-                        Close Scanner
-                      </button>
-                    </div>
-                  )}
-
-                  
-
         <div className={styles.searchparentnode} >
           <div className={styles.searchinput}>
               <img className={styles.searchicon} alt="Clear search" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1728887445/cancelicon_ib28js.png" onClick={handleClearSearch}  />
@@ -224,7 +200,7 @@ const Newsetting = () => {
           )}
 
           {filteredSections.includes('wallet') && (
-            <div className={styles.walletfolder} onClick={() => handleNavigation('/Userauthorization/Dashboard/addmanagewallets_btn')}>
+            <div className={styles.walletfolder} onClick={handleWallet}>
               <div className={styles.walletbody}>
                   <div className={styles.walleticonleft}>
                       <div className={styles.walletwa}>

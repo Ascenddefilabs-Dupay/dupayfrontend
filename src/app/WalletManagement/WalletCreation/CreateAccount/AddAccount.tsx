@@ -127,7 +127,7 @@ const AddAccount = () => {
     // Start the OAuth flow with the OpenID provider
     const urlParamsBase = {
       nonce: nonce,
-      redirect_uri: `http://localhost:3000/WalletManagement/WalletCreation/CreateAccount/ZkDetails`,
+      redirect_uri: `https://dupay.biz/WalletManagement/WalletCreation/CreateAccount/ZkDetails`,
       response_type: "id_token",
       scope: "openid",
     };
