@@ -59,7 +59,7 @@ const UserProfile: React.FC = () => {
         console.log(storedUserId);
         console.log(sessionData.user_email);
       } else {
-        redirect('http://localhost:3000/Userauthentication/SignIn');
+        redirect('/Userauthentication/SignIn');
       }
     }
   }, []);
@@ -75,11 +75,11 @@ const UserProfile: React.FC = () => {
   const fetchUserProfile = useCallback(async () => {
     try {
       if (userId) {
-        const response = await axios.get<UserProfileData>(`http://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
+        const response = await axios.get<UserProfileData>(`https://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
         setUserProfile(response.data);
 
         if (response.data.user_profile_photo) {
-          const baseURL = 'http://userprofile-ind-255574993735.asia-south1.run.app/profile_photos';
+          const baseURL = 'https://userprofile-ind-255574993735.asia-south1.run.app/profile_photos';
           let imageUrl = '';
 
           if (typeof response.data.user_profile_photo === 'string') {

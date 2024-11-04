@@ -14,47 +14,6 @@ interface Styles {
     loadingText: React.CSSProperties;
 }
 
-// Define the styles with proper TypeScript types
-// const styles: Styles = {
-//     loaderContainer: {
-//         position: 'absolute',
-//         top: 0,
-//         left: 0,
-//         right: 0,
-//         bottom: 0,
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         background: 'rgba(0, 0, 0, 1.5)', // Set background color to black
-//         backdropFilter: 'blur(10px) saturate(180%)',
-//         WebkitBackdropFilter: 'blur(10px) saturate(180%)',
-//         zIndex: 2,
-//         padding: '20px',
-//         borderRadius: '20px',
-//         width: '400px',
-//         margin: '0 auto',
-//         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
-//     },
-//     loader: {
-//         width: '60px',
-//         height: '60px',
-//         background: 'linear-gradient(45deg, #ff007b, #007bff)',
-//         // borderRadius: '12%',
-//         animation: 'spin 1s linear infinite',
-//         transform: 'rotate(45deg)',
-//         position: 'relative',
-//         zIndex: 3,
-//         boxShadow: '0 0 20px rgba(255, 0, 123, 0.7), 0 0 20px rgba(0, 123, 255, 0.7)',
-//     },
-//     loadingText: {
-//         fontSize: '20px',
-//         color: 'white',
-//         letterSpacing: '2px',
-//         marginTop: '20px',
-//         fontFamily: 'Arial, sans-serif',
-//     },
-// };
-
 const Cryptowallet: React.FC = () => {
     const [userId, setUserId] = useState<string | null>(null); // Move useState inside component
     const router = useRouter();

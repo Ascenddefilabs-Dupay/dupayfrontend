@@ -31,7 +31,7 @@ const AddBankAccounts: React.FC<AddBankAccountsProps> = ({ onAddBankClick, selec
         console.log(sessionData.user_email);
  
       } else {
-        router.push('http://localhost:3000/Userauthentication/SignIn')
+        router.push('/Userauthentication/SignIn')
       }
     }
   }, []);
@@ -40,7 +40,7 @@ const AddBankAccounts: React.FC<AddBankAccountsProps> = ({ onAddBankClick, selec
     // Fetch linked banks
     const fetchLinkedBanks = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/user/linked_banks/');
+        const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/api/user/linked_banks/');
         if (res.ok) {
           const data: Bank[] = await res.json();
           setLinkedBanks(data);

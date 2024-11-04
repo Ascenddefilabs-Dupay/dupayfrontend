@@ -61,7 +61,7 @@ const RecoveryPass: React.FC = () => {
         //     params: { password: hashedPassword ,confirmPassword: hashedPassword1}
         //   });
     
-          const response1 = await axios.post("http://127.0.0.1:8000/passwordapi/recreatepasscode/", {
+          const response1 = await axios.post("https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/recreatepasscode/", {
             password: hashedPassword,  
             confirmPassword: hashedPassword1,
             // Make sure this key matches your backend   

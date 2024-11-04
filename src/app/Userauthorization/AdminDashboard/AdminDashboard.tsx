@@ -99,7 +99,7 @@ const AdminDashboard: React.FC = () => {
     const fetchRegistrationStats = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/fiatmanagementapi/user-registration-stats/"
+          "https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user-registration-stats/"
         );
         const data = await response.json();
 

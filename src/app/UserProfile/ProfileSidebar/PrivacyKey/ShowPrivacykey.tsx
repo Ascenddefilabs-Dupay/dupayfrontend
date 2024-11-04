@@ -23,7 +23,7 @@ const ShowRecoveryPhrase: React.FC = () => {
         console.log(storedUserId);
         console.log(sessionData.user_email);
       } else {
-        redirect('http://localhost:3000/Userauthentication/SignIn');
+        redirect('/Userauthentication/SignIn');
       }
     }
   }, []);

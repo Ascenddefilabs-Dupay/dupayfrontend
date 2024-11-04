@@ -135,7 +135,7 @@ console.log("currency is: ",fetchedCurrency);
                 const userid = userId;
 
                 // Directly send the values as part of the URL path
-                const response = await axios.get(`https://cryptotransaction-255574993735.us-central1.run.app/CryptoSwap/crypto_wallet/balance/${walletId}/${userid}/`);
+                const response = await axios.get(`https://cryptotransaction-255574993735.asia-south1.run.app/CryptoSwap/crypto_wallet/balance/${walletId}/${userid}/`);
                 console.log("response:", response.data);
                 // Set the fetched balance into suiBalance
                 if (response.data.balance) {

@@ -52,7 +52,7 @@ const Profileicon: React.FC = () => {
 
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`http://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+        const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
         // const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/profile/${userId}/`);
   
         if (response.data.user_first_name) {
