@@ -18,8 +18,7 @@ import { Refresh } from '@mui/icons-material';
 import { fontSize } from '@mui/system';
 import { Navigate } from 'react-router-dom';
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 interface FiatWallet {
 balance: string; 
@@ -611,38 +610,25 @@ const wallet_data = () => {
 
 
   // Function to copy address and display a toast notification
-  const CopySuiAddressinClipboard = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const [showCopied, setShowCopied] = useState(false);
+
+  const CopySuiAddressinClipboard = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.stopPropagation(); // Prevents handleDupayClick from triggering
 
     if (suiAddress) {
-        navigator.clipboard.writeText(suiAddress)
-            .then(() => {
-                // Show a toast notification
-                toast.success('Address copied to clipboard!', {
-                    position: "top-center",
-                    autoClose: 3000, // Closes after 3 seconds
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    className: "custom-toast", // Apply custom styles
-                });
-            })
-            .catch(err => {
-                console.error('Failed to copy:', err);
-                // Show an error toast notification if copy fails
-                toast.error('Failed to copy address!', {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    className: "custom-toast", // Apply custom styles
-                });
-            });
+      navigator.clipboard.writeText(suiAddress)
+        .then(() => {
+          setShowCopied(true);
+          setTimeout(() => {
+            setShowCopied(false);
+          }, 2000); // Show the copied message for 2 seconds
+        })
+        .catch(err => {
+          console.error('Failed to copy:', err);
+          // Handle error if needed
+        });
     }
-};
+  };
 
 
 const [greeting, setGreeting] = useState('');
@@ -827,11 +813,14 @@ const handleRefresh = () => {
                     'Address not found'}
               </div>
               <button className={styles.int0002} onClick={(event) => CopySuiAddressinClipboard(event)}>
-                <BiCopy />
-            </button>
-            <div onClick={(event) => event.stopPropagation()}>
-              <ToastContainer />
-          </div>
+        <BiCopy />
+      </button>
+
+      {showCopied && (
+        <div className={styles.copiedMessage}>
+          Address copied!
+        </div>
+      )}
             </div>
             {/* <div className={styles.ethereumWrapper}>
               <div className={styles.eth}>Ethereum</div>
@@ -925,7 +914,7 @@ const handleRefresh = () => {
                               </clipPath>
                             </defs>
                           </svg>
-                            AddBack</button>
+                            AddBank</button>
                             <button className={styles.modalbutton} onClick={handleTopUp}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10861)" />
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M30 32H18C16.895 32 16 31.105 16 30V18C16 16.895 16.895 16 18 16H30C31.105 16 32 16.895 32 18V30C32 31.105 31.105 32 30 32Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

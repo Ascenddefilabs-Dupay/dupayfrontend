@@ -1,5 +1,3 @@
-
-
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './WalletTransaction.css';
@@ -12,6 +10,7 @@ import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
 const WalletTransaction: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [submit,setSubmit] = useState<boolean>(false);
   const [mobileNumber, setMobileNumber] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
@@ -62,7 +61,7 @@ const WalletTransaction: React.FC = () => {
     const fetchWalletAmount = async () => {
       try {
         // const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-wallet-amount/', {
-          const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-wallet-amount/', {
+        const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-wallet-amount/', {
           wallet_id: walletId,
           currency: currency,
         });
@@ -84,7 +83,7 @@ const WalletTransaction: React.FC = () => {
     const fetchCurrencyIcon = async () => {
       try {
         // const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-currency-icon/', {
-          const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-currency-icon/', {
+        const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-currency-icon/', {
           currency: currency,
         });
 
@@ -176,6 +175,7 @@ const WalletTransaction: React.FC = () => {
 
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setSubmit(true);
     e.preventDefault();
     console.log('Form submitted');
 
@@ -204,8 +204,7 @@ const WalletTransaction: React.FC = () => {
           return;
         }
 
-        // const validationResponse = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/transaction_validation/', {
-          const validationResponse = await axios.post('http://127.0.0.1:8000/transaction_api/transaction_validation/', {
+        const validationResponse = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/transaction_validation/', {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           user_phone_number: mobileNumber,
@@ -220,24 +219,23 @@ const WalletTransaction: React.FC = () => {
             // const paymentSuccess = await initiateRazorpayPayment(amount, currency);
             // console.log('Payment success:', paymentSuccess); // Log payment result
             // if (paymentSuccess) {
-              // const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
-                const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
-                transaction_type: 'Debit',
-                transaction_amount: amount,
-                transaction_currency: fixedCurrency,
-                transaction_status: 'Success',
-                transaction_fee: 0.0,
-                user_phone_number: mobileNumber,
-                transaction_method: 'Number transaction',
-                transaction_hash: transactionHash,
-                user_id: userID,
-              });
-              console.log('Wallet transfer response:', response.data); // Log response
-              setAlertMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
-              // window.location.href = '/Userauthorization/Dashboard/Home';
-              setTimeout(() => {
-                router.push('/Userauthorization/Dashboard/Home');
-              }, 3000);
+            const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
+              transaction_type: 'Debit',
+              transaction_amount: amount,
+              transaction_currency: fixedCurrency,
+              transaction_status: 'Success',
+              transaction_fee: 0.0,
+              user_phone_number: mobileNumber,
+              transaction_method: 'Number transaction',
+              transaction_hash: transactionHash,
+              user_id: userID,
+            });
+            // console.log('Wallet transfer response:', response.data); 
+            setAlertMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
+            // window.location.href = '/Userauthorization/Dashboard/Home';
+            setTimeout(() => {
+              router.push('/Userauthorization/Dashboard/Home');
+            }, 3000);
             // }
           }
         }
@@ -270,27 +268,27 @@ const WalletTransaction: React.FC = () => {
             // console.log('Payment success:', paymentSuccess); // Log payment result
 
             // if (paymentSuccess) {
-              try {
-                await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/address-transfer/', {
-                  transaction_amount: amount,
-                  transaction_currency: fixedCurrency,
-                  transaction_type: 'Transfer',
-                  fiat_address: walletAddress,
-                  transaction_status: 'Success',
-                  transaction_fee: 0.0,
-                  transaction_hash: uuidv4(),
-                  transaction_method: 'fiat address transaction',
-                  user_id: userID,
-                });
-                setAlertMessage('Transaction successful!');
-                // window.location.href = '/Userauthorization/Dashboard/Home';
-                setTimeout(() => {
-                  router.push('/Userauthorization/Dashboard/Home');
-                }, 3000);
-              } catch (error) {
-                console.error('Error storing transaction data:', error);
-                setAlertMessage('Error storing transaction data.');
-              }
+            try {
+              await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/address-transfer/', {
+                transaction_amount: amount,
+                transaction_currency: fixedCurrency,
+                transaction_type: 'Transfer',
+                fiat_address: walletAddress,
+                transaction_status: 'Success',
+                transaction_fee: 0.0,
+                transaction_hash: uuidv4(),
+                transaction_method: 'fiat address transaction',
+                user_id: userID,
+              });
+              setAlertMessage('Transaction successful!');
+              // window.location.href = '/Userauthorization/Dashboard/Home';
+              setTimeout(() => {
+                router.push('/Userauthorization/Dashboard/Home');
+              }, 3000);
+            } catch (error) {
+              console.error('Error storing transaction data:', error);
+              setAlertMessage('Error storing transaction data.');
+            }
             // } else {
             //   setAlertMessage('Payment failed!');
             // }
@@ -337,27 +335,27 @@ const WalletTransaction: React.FC = () => {
             // console.log('Payment success:', paymentSuccess); // Log payment result
 
             // if (paymentSuccess) {
-              try {
-                await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/qrcode/', {
-                  transaction_type: 'Debit',
-                  transaction_amount: amount,
-                  transaction_currency: fixedCurrency,
-                  transaction_status: 'Success',
-                  transaction_fee: 0.0,
-                  user_phone_number: mobileNumber,
-                  transaction_hash: transactionHash,
-                  transaction_method: 'QR transaction',
-                  user_id: userID,
-                });
-                setAlertMessage('Transaction successful!');
-                // window.location.href = '/Userauthorization/Dashboard/Home';
-                setTimeout(() => {
-                  router.push('/Userauthorization/Dashboard/Home');
-                }, 3000);
-              } catch (error) {
-                console.error('Error storing transaction data:', error);
-                setAlertMessage('Error storing transaction data.');
-              }
+            try {
+              await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/qrcode/', {
+                transaction_type: 'Debit',
+                transaction_amount: amount,
+                transaction_currency: fixedCurrency,
+                transaction_status: 'Success',
+                transaction_fee: 0.0,
+                user_phone_number: mobileNumber,
+                transaction_hash: transactionHash,
+                transaction_method: 'QR transaction',
+                user_id: userID,
+              });
+              setAlertMessage('Transaction successful!');
+              // window.location.href = '/Userauthorization/Dashboard/Home';
+              setTimeout(() => {
+                router.push('/Userauthorization/Dashboard/Home');
+              }, 3000);
+            } catch (error) {
+              console.error('Error storing transaction data:', error);
+              setAlertMessage('Error storing transaction data.');
+            }
             // } else {
             //   setAlertMessage('Payment failed!');
             // }
@@ -455,7 +453,7 @@ const WalletTransaction: React.FC = () => {
         {alertMessage && (
           <div className="customAlert">
             <p>{alertMessage}</p>
-            <button onClick={() => setAlertMessage('')} className="closeButton">OK</button>
+            {/* <button onClick={() => setAlertMessage('')} className="closeButton">OK</button> */}
           </div>
         )}
 
@@ -523,17 +521,32 @@ const WalletTransaction: React.FC = () => {
                   required
                 />
               </div>
-              <div className='button_class_div1'>
+              {submit?(
+                <div className='button_class_div1'>
                 <div className='button_class_div'>
-                <button
-                  className='button_class'
-                  type="submit"
-                  disabled={!amount || !mobileNumber}  // Disable if amount is empty
-                >
-                  Submit
-                </button>
+                  <button
+                    className='button_class'
+                    type="submit"
+                    disabled // Disable if amount is empty
+                  >
+                    Submiting...
+                  </button>
                 </div>
               </div>
+              ):(
+                <div className='button_class_div1'>
+                <div className='button_class_div'>
+                  <button
+                    className='button_class'
+                    type="submit"
+                    disabled={!amount || !mobileNumber}  // Disable if amount is empty
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+              )}
+              
               <label htmlFor="mobileNumber">Mobile Number</label>
               <input
                 type="text"
@@ -559,13 +572,13 @@ const WalletTransaction: React.FC = () => {
               </div>
               <div className='button_class_div1'>
                 <div className='button_class_div'>
-                <button
-                  className='button_class'
-                  type="submit"
-                  disabled={!amount || !walletAddress}  // Disable if amount is empty
-                >
-                  Submit
-                </button>
+                  <button
+                    className='button_class'
+                    type="submit"
+                    disabled={!amount || !walletAddress}  // Disable if amount is empty
+                  >
+                    Submit
+                  </button>
                 </div>
               </div>
               <label htmlFor="walletAddress">Wallet Address</label>
@@ -579,13 +592,13 @@ const WalletTransaction: React.FC = () => {
             </div>
           )}
         </form>
-        {alertMessage && (
+        {/* {alertMessage && (
           <div className="alert">
             <span>{alertMessage}</span>
             <button onClick={handleCloseAlert}>Close</button>
           </div>
-        )}
-        {message && <div className="message">{message}</div>}
+        )} */}
+        {/* {message && <div className="message">{message}</div>} */}
       </div>
 
 
@@ -618,8 +631,8 @@ const WalletTransaction: React.FC = () => {
             </linearGradient>
           </defs>
         </svg>
-        
-                  {/* <div className='bottom-blur'>
+
+        {/* <div className='bottom-blur'>
                 <label >.</label>
             </div> */}
       </div>
