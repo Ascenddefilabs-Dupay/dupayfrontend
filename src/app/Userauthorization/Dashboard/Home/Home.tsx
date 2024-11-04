@@ -972,7 +972,7 @@ const handleRefresh = () => {
                             </defs>
                           </svg>
 
-                            Transfor</button>            
+                            Transfer</button>            
                             <button className={styles.modalbutton} onClick={handleSwap}><svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10865)" />
                             <g clip-path="url(#clip0_1139_10865)">
@@ -1131,7 +1131,7 @@ const handleRefresh = () => {
                 }}
               >
                 <img src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1729837576/loan_1_g0wn70.png" alt="Receive" style={{ width: '30px', height: '30px', position: 'relative', right: '0px' }} />
-                <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif', position: 'relative',left: '-1px' }}>Sell</div>
+                <div style={{ marginLeft: '20px', fontFamily: 'Roboto, sans-serif', position: 'relative',left: '-8px' }}>Sell</div>
               </div>
               <div
                 className={styles.button}
