@@ -925,7 +925,7 @@ const handleRefresh = () => {
                               </clipPath>
                             </defs>
                           </svg>
-                            AddBack</button>
+                            AddBank</button>
                             <button className={styles.modalbutton} onClick={handleTopUp}> <svg className={styles.svg} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="48" height="48" rx="24" fill="url(#paint0_linear_1139_10861)" />
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M30 32H18C16.895 32 16 31.105 16 30V18C16 16.895 16.895 16 18 16H30C31.105 16 32 16.895 32 18V30C32 31.105 31.105 32 30 32Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
