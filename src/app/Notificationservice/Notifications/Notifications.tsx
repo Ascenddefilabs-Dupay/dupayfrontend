@@ -34,7 +34,7 @@ export default function Notifications() {
                 const sessionData = JSON.parse(sessionDataString);
                 const storedUserId = sessionData.user_id;
                 setUserId(storedUserId);
-                const storewalletId = sessionData.wallet_id;
+                const storewalletId = sessionData.fiat_wallet_id;
                 setwalletId(storewalletId);
             } else {
                 router.push('/Userauthentication/SignIn');
@@ -47,7 +47,7 @@ export default function Notifications() {
             if (userId) {
                 setLoading(true);
                 try {
-                    const response = await axios.get(`http://notificationservice-ind-255574993735.asia-south1.run.app/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
+                    const response = await axios.get(`https://notificationservice-255574993735.asia-south1.run.app/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
                     setNotifications(response.data);
                     setFilteredNotifications(response.data); // Initially, show all notifications
                 } catch (error) {

@@ -204,7 +204,8 @@ const WalletTransaction: React.FC = () => {
           return;
         }
 
-        const validationResponse = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/transaction_validation/', {
+        // const validationResponse = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/transaction_validation/', {
+          const validationResponse = await axios.post('http://127.0.0.1:8000/transaction_api/transaction_validation/', {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           user_phone_number: mobileNumber,
@@ -219,7 +220,8 @@ const WalletTransaction: React.FC = () => {
             // const paymentSuccess = await initiateRazorpayPayment(amount, currency);
             // console.log('Payment success:', paymentSuccess); // Log payment result
             // if (paymentSuccess) {
-              const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
+              // const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
+                const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
                 transaction_type: 'Debit',
                 transaction_amount: amount,
                 transaction_currency: fixedCurrency,
