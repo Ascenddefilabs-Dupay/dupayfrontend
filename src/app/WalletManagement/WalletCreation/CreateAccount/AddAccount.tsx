@@ -30,7 +30,7 @@ import axios from "axios";
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
 
-const NETWORK: ValidNetworkName = "devnet";
+const NETWORK: ValidNetworkName = "testnet";
 //  const FULLNODE_URL = getFullnodeUrl(NETWORK);
 const MAX_EPOCH = 2; // keep ephemeral keys active for this many Sui epochs from now (1 epoch ~= 24h)
 

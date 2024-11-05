@@ -60,7 +60,7 @@ const WalletTransaction: React.FC = () => {
   useEffect(() => {
     const fetchWalletAmount = async () => {
       try {
-        // const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-wallet-amount/', {
+        // const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
         const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
           wallet_id: walletId,
           currency: currency,
@@ -82,8 +82,8 @@ const WalletTransaction: React.FC = () => {
 
     const fetchCurrencyIcon = async () => {
       try {
-        // const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-currency-icon/', {
-        const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/get-currency-icon/', {
+        // const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
           currency: currency,
         });
 
@@ -204,7 +204,7 @@ const WalletTransaction: React.FC = () => {
           return;
         }
 
-        const validationResponse = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/transaction_validation/', {
+        const validationResponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           user_phone_number: mobileNumber,
@@ -219,7 +219,7 @@ const WalletTransaction: React.FC = () => {
             // const paymentSuccess = await initiateRazorpayPayment(amount, currency);
             // console.log('Payment success:', paymentSuccess); // Log payment result
             // if (paymentSuccess) {
-            const response = await axios.post('https://transactiontype-255574993735.us-central1.run.app/transaction_api/wallet_transfer/', {
+            const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
               transaction_type: 'Debit',
               transaction_amount: amount,
               transaction_currency: fixedCurrency,

@@ -30,7 +30,7 @@ import axios from  "axios";
 import  styles from "./zkdetails.module.css";
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
-const NETWORK: ValidNetworkName = "devnet";
+const NETWORK: ValidNetworkName = "testnet";
 
 const setupDataKey = "zklogin-demo.setup";
 const accountDataKey = "zklogin-demo.accounts";

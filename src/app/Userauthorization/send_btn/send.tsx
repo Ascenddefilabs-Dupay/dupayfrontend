@@ -36,7 +36,7 @@ import axios from "axios";
 import { fontSize } from "@mui/system";
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
-const NETWORK: ValidNetworkName = "devnet";
+const NETWORK: ValidNetworkName = "testnet";
 
 const setupDataKey = "zklogin-demo.setup";
 const accountDataKey = "zklogin-demo.accounts";
