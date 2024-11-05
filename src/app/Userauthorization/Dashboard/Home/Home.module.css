@@ -779,10 +779,11 @@
   position: relative;
   line-height: 56px;
   font-weight: 300;
+  font-size: 40px !important; /* Ensures the font size stays fixed */
   background: linear-gradient(91.26deg, #70a2ff, #54f0d1);
-  /* -webkit-background-clip: text; */
-  background-clip: text; /* No prefix needed */
-  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Ensures the gradient is applied to the text */
+  -webkit-background-clip: text; /* For compatibility with Safari */
+  -webkit-text-fill-color: transparent; /* Makes the gradient visible */
 }
 .ethParent {
   flex: 1;
