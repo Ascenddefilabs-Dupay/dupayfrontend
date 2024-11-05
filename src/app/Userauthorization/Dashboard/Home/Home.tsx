@@ -74,7 +74,7 @@ interface AccountTypeOption {
   label: string;
 }
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
-const NETWORK: ValidNetworkName = "devnet";
+const NETWORK: ValidNetworkName = "testnet";
 
 const suiClient = new SuiClient({
   url: getFullnodeUrl(NETWORK),

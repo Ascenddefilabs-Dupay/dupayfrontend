@@ -43,11 +43,13 @@ const TopUpForm: React.FC = () => {
   const cloudinaryBaseUrl = "https://res.cloudinary.com/dgfv6j82t/";
   const [style, setStyle] = useState({ backgroundColor: '#222531', color:'#ffffff' });
   const [styles, setStyles] = useState({ top:'30%' });
-
+  const [focused, setFocused] = useState(false);
+ 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedCurrency = localStorage.getItem('SelectedCurrency');
-      setDefaultCurrencyType(storedCurrency || 'INR');
+      setDefaultCurrencyType(storedCurrency || '');
+
     }
   }, []);
   const handleApiError = (error: any, context: string) => {
@@ -125,25 +127,52 @@ const TopUpForm: React.FC = () => {
     }
   };
 
-  const fetchCurrencyIcon = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/admincms/default_currency/?currency_type=${DEFAULT_CURRENCY_TYPE}`);
+  // const fetchCurrencyIcon = async () => {
+  //   try {
+  //     const response = await axios.get(`${API_BASE_URL}/admincms/default_currency/?currency_type=${DEFAULT_CURRENCY_TYPE}`);
       
-      const { icon } = response.data;  // Ensure this matches the response structure
+  //     const { icon } = response.data;  // Ensure this matches the response structure
   
-      console.log('Raw icon URL:', icon); // Log the raw URL for debugging
-      setCurrencyIcon(icon);
+  //     console.log('Raw icon URL:', icon); // Log the raw URL for debugging
+  //     setCurrencyIcon(icon);
   
-      // Ensure the URL is properly formatted
-      const cleanedIconUrl = icon.trim(); // Remove any surrounding whitespace
+  //     // Ensure the URL is properly formatted
+  //     const cleanedIconUrl = icon.trim(); // Remove any surrounding whitespace
+  //   } catch (error) {
+  //     handleApiError(error, 'fetching currency icon');
+  //   }
+  // };
+
+  const fetchCurrencyIcon = async (currencyName:string) => {
+    try {
+      const response = await axios.post(`https://fiat-swap-255574993735.asia-south1.run.app/fiat_fiatSwap/get-currency-icon/`, {
+        currency: currencyName.trim(),
+      });
+      
+
+      if (response.data && response.data.icon_url) {
+        const fullIconUrl = cloudinaryBaseUrl + response.data.icon_url; // Combine base URL with the relative path
+        console.log("Fetched full icon URL:", fullIconUrl);
+        setFlagIconUrl(fullIconUrl);
+      } else {
+        console.error("Icon URL not found in response:", response.data);
+        setAlertMessage('Currency icon not found.');
+      }
     } catch (error) {
-      handleApiError(error, 'fetching currency icon');
+      console.error("Error fetching currency icon:", error);
+      // setAlertMessage('Failed to load currency icon.');
     }
   };
   
+  // useEffect(() => {
+  //   fetchCurrencyIcon(); // Fetch currency icon when component mounts
+  // }, []);
   useEffect(() => {
-    fetchCurrencyIcon(); // Fetch currency icon when component mounts
-  }, []);
+    if (DEFAULT_CURRENCY_TYPE) {
+      console.log("hi",DEFAULT_CURRENCY_TYPE )
+      fetchCurrencyIcon(DEFAULT_CURRENCY_TYPE);
+    }
+  }, [DEFAULT_CURRENCY_TYPE]);
 
   useEffect(() => {
     const loadRazorpayScript = () => {
@@ -323,8 +352,8 @@ return(
           <div className="balanceCard">
                 <div className="balanceDetails">
                     <img
-                          src={currencyIcon || ''}
-                          alt={`${DEFAULT_CURRENCY_TYPE} icon`}
+                          src={flagIconUrl || ''}
+                          alt={``}
                           className="currencyImage"
                         />
                     <div className="currencyText">
@@ -339,10 +368,10 @@ return(
            
             <div className="amount-row">
               <div className="amount-group">
-              <div className="howMuchUsd">How much {DEFAULT_CURRENCY_TYPE} do you want to top up?</div>
+                <div className="howMuchUsd">How much {DEFAULT_CURRENCY_TYPE} do you want to top up?</div>
                 <div className="input-container">
-                  <label 
-                    className={`floating-label ${amount ? 'active' : ''}`} 
+                  <label
+                    className={`floating-label ${amount ? 'active' : ''} ${focused ? 'active' : ''}`}
                     htmlFor="amount"
                   >
                     Enter amount in {DEFAULT_CURRENCY_TYPE}
@@ -352,6 +381,8 @@ return(
                     id="amount"
                     value={amount}
                     onChange={handleAmountChange}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
                     required
                     inputMode="numeric" // This will trigger the numeric keypad
                   />
