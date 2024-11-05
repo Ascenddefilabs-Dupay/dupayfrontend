@@ -223,19 +223,19 @@
     text-align: center;
 }
 .fiatHomeFull {
-    width: 100%;
-    position: relative;
-    background-color: #17171a;
-    height: 100vh;
-    overflow: hidden;
-    text-align: left;
-    font-size: 16px;
-    color: #fff;
-    font-family: Poppins;
-    justify-content: center;
-    display: flex;
-    max-width: 400px;
-    margin: 0 auto
+  width: 100%;
+  position: relative;
+  background-color: #17171a;
+  height: 100vh;
+  overflow: hidden;
+  text-align: left;
+  font-size: 16px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;;
+  justify-content: center;
+  display: flex;
+  max-width: 400px;
+  margin: 0 auto
     
 }
 
@@ -250,10 +250,10 @@
 
 
 .btnbtn {
-  width: 90%; /* Adjust this value as necessary */
+  width: 90%;
   position: absolute;
   border-radius: 8px;
-  background-color: #212020; /* Light grey background for disabled state */
+  background-color: #212020; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -262,19 +262,24 @@
   box-sizing: border-box;
   text-align: center;
   font-size: 16px;
-  color: #444;
-  font-family: Poppins;
-  bottom: -65px; /* Adjust if necessary for positioning */
-  box-shadow: 0px 8px 20px 10px rgba(113, 108, 103, 0.2);
+  color: #17171a;
+  font-family: 'Poppins', sans-serif;
+  bottom: -65px;
   left: 5%;
-  cursor: not-allowed; /* Not clickable when disabled */
+  cursor: not-allowed;
   margin-bottom: -52%;
 }
 
 /* Enabled button styles */
 .btnEnabled {
-  background: #e2f0ff; /* Gradient for enabled state */
-  cursor: pointer; /* Indicate it's clickable */
+  background: rgba(226, 240, 255, 1);
+  cursor: pointer; 
+  color: rgba(0, 0, 0, 1);
+}
+.btnDisabled{
+  background: rgba(34, 37, 49, 1);
+  cursor: pointer;
+  color: rgba(76, 81, 107, 1);
 }
 
 
@@ -314,7 +319,7 @@
     color: #888daa;
     font-size: 16px;
     font-weight: 600;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     pointer-events: none;
     transition: all 0.2s ease;
     margin-top: 4px;
@@ -370,11 +375,11 @@
 
   .customAlert {
     position: fixed;
-    top: 11%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: gray;
-    color: white;
+    background-color: rgba(34, 37, 49, 1);
+    color: rgba(118, 226, 104, 1);
     padding: 10px;
     border-radius: 10px;
     z-index: 1000;
@@ -386,6 +391,8 @@
   .customAlert p {
     margin: 0 0 15px;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: rgba(34, 37, 49, 1);
+    color: rgba(118, 226, 104, 1);
   }
   
   .closeButton {

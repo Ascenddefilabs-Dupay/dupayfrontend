@@ -63,7 +63,9 @@ const WithdrawForm: NextPage = () => {
     }
 }, [router]);
 
-
+const handleCloseAlert = () => {
+  router.push('/Userauthorization/Dashboard/Home');
+};
 
   useEffect(() => {
     const fetchWalletAmount = async () => {
@@ -293,7 +295,7 @@ const WithdrawForm: NextPage = () => {
       {alertMessage && (
         <div className={styles.customAlert}>
           <p>{alertMessage}</p>
-          <button onClick={() => setAlertMessage('')} className={styles.closeButton}>OK</button>
+          <button onClick={handleCloseAlert} className={styles.closeButton}>OK</button>
         </div>
       )}
 
