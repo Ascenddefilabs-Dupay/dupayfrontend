@@ -10,7 +10,7 @@ import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
 const WalletTransaction: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const [submit,setSubmit] = useState<boolean>(false);
+  const [submit, setSubmit] = useState<boolean>(false);
   const [mobileNumber, setMobileNumber] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
@@ -60,8 +60,8 @@ const WalletTransaction: React.FC = () => {
   useEffect(() => {
     const fetchWalletAmount = async () => {
       try {
-        // const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-wallet-amount/', {
-        const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-wallet-amount/', {
+        // const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
+        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
           wallet_id: walletId,
           currency: currency,
         });
@@ -82,8 +82,8 @@ const WalletTransaction: React.FC = () => {
 
     const fetchCurrencyIcon = async () => {
       try {
-        // const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-currency-icon/', {
-        const response = await axios.post('http://127.0.0.1:8000/transaction_api/get-currency-icon/', {
+        // const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
           currency: currency,
         });
 
@@ -203,7 +203,7 @@ const WalletTransaction: React.FC = () => {
           return;
         }
 
-        const validationResponse = await axios.post('http://127.0.0.1:8000/transaction_api/transaction_validation/', {
+        const validationResponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           user_phone_number: mobileNumber,
@@ -219,7 +219,7 @@ const WalletTransaction: React.FC = () => {
             // console.log('Payment success:', paymentSuccess); // Log payment result
             // if (paymentSuccess) {
             setSubmit(true);
-            const response = await axios.post('http://127.0.0.1:8000/transaction_api/wallet_transfer/', {
+            const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
               transaction_type: 'Debit',
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
@@ -231,7 +231,8 @@ const WalletTransaction: React.FC = () => {
               user_id: userID,
             });
             // console.log('Wallet transfer response:', response.data); 
-            setMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
+            // setAlertMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`);
+            setMessage(`Transaction successful! Transaction ID: ${response.data.transaction_id}`)
             // window.location.href = '/Userauthorization/Dashboard/Home';
             // setTimeout(() => {
             //   router.push('/Userauthorization/Dashboard/Home');
@@ -243,11 +244,11 @@ const WalletTransaction: React.FC = () => {
         // Wallet Address payment method
       } else if (paymentMethod === 'walletAddress') {
         if (!walletAddress) {
-          setMessage('Enter a valid wallet address');
+          setAlertMessage('Enter a valid wallet address');
           return;
         }
 
-        const Addressresponse = await axios.post('http://127.0.0.1:8000/transaction_api/validate-transaction/', {
+        const Addressresponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           fiat_address: walletAddress,
@@ -268,8 +269,9 @@ const WalletTransaction: React.FC = () => {
             // console.log('Payment success:', paymentSuccess); // Log payment result
 
             // if (paymentSuccess) {
+            setSubmit(true);
             try {
-              await axios.post('http://127.0.0.1:8000/transaction_api/address-transfer/', {
+              await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
                 transaction_amount: amount,
                 transaction_currency: fixedCurrency,
                 transaction_type: 'Transfer',
@@ -287,7 +289,7 @@ const WalletTransaction: React.FC = () => {
               // }, 3000);
             } catch (error) {
               console.error('Error storing transaction data:', error);
-              setAlertMessage('Error storing transaction data.');
+              setMessage('Error storing transaction data.');
             }
             // } else {
             //   setAlertMessage('Payment failed!');
@@ -309,7 +311,7 @@ const WalletTransaction: React.FC = () => {
         setMobileNumber(extractedMobileNumber);
         console.log('Extracted mobile number from QR code:', extractedMobileNumber); // Log extracted number
 
-        const response = await axios.post('http://127.0.0.1:8000/transaction_api/validation-qrcode/', {
+        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validation-qrcode/', {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           user_phone_number: mobileNumber,
@@ -335,8 +337,9 @@ const WalletTransaction: React.FC = () => {
             // console.log('Payment success:', paymentSuccess); // Log payment result
 
             // if (paymentSuccess) {
+            setSubmit(true);
             try {
-              await axios.post('http://127.0.0.1:8000/transaction_api/qrcode/', {
+              await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qrcode/', {
                 transaction_type: 'Debit',
                 transaction_amount: amount,
                 transaction_currency: fixedCurrency,
@@ -451,9 +454,10 @@ const WalletTransaction: React.FC = () => {
           </div>
         )}
         {message && (
-          <div className="customAlert">
+          <div className='customAlert'>
             <p>{message}</p>
-            {/* <button onClick={() => setAlertMessage('')} className="closeButton">OK</button> */}
+            {/* <button onClick={() => setAlertMessage('')} className='closeButton'>OK</button> */}
+            <button onClick={handleCloseAlert} className='closeButton'>OK</button>
           </div>
         )}
 
@@ -521,32 +525,32 @@ const WalletTransaction: React.FC = () => {
                   required
                 />
               </div>
-              {submit?(
+              {submit ? (
                 <div className='button_class_div1'>
-                <div className='button_class_div'>
-                  <button
-                    className='button_class'
-                    type="submit"
-                    disabled // Disable if amount is empty
-                  >
-                    Submiting...
-                  </button>
+                  <div className='button_class_div'>
+                    <button
+                      className='button_class'
+                      type="submit"
+                      disabled // Disable if amount is empty
+                    >
+                      Submiting...
+                    </button>
+                  </div>
                 </div>
-              </div>
-              ):(
+              ) : (
                 <div className='button_class_div1'>
-                <div className='button_class_div'>
-                  <button
-                    className='button_class'
-                    type="submit"
-                    disabled={!amount || !mobileNumber}  // Disable if amount is empty
-                  >
-                    Submit
-                  </button>
+                  <div className='button_class_div'>
+                    <button
+                      className='button_class'
+                      type="submit"
+                      disabled={!amount || !mobileNumber}  // Disable if amount is empty
+                    >
+                      Submit
+                    </button>
+                  </div>
                 </div>
-              </div>
               )}
-              
+
               <label htmlFor="mobileNumber">Mobile Number</label>
               <input
                 type="text"
@@ -570,17 +574,31 @@ const WalletTransaction: React.FC = () => {
                   required
                 />
               </div>
-              <div className='button_class_div1'>
-                <div className='button_class_div'>
-                  <button
-                    className='button_class'
-                    type="submit"
-                    disabled={!amount || !walletAddress}  // Disable if amount is empty
-                  >
-                    Submit
-                  </button>
+              {submit ? (
+                <div className='button_class_div1'>
+                  <div className='button_class_div'>
+                    <button
+                      className='button_class'
+                      type="submit"
+                      disabled // Disable if amount is empty
+                    >
+                      Submiting...
+                    </button>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className='button_class_div1'>
+                  <div className='button_class_div'>
+                    <button
+                      className='button_class'
+                      type="submit"
+                      disabled={!amount || !walletAddress}  // Disable if amount is empty
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              )}
               <label htmlFor="walletAddress">Wallet Address</label>
               <input
                 type="text"
@@ -591,39 +609,54 @@ const WalletTransaction: React.FC = () => {
               />
             </div>
           )}
-          {((paymentMethod && paymentMethod !== 'qrcode') || scannedData) && (
-              <>
-                <div className="form-group">
-                  <label htmlFor="amount">Amount</label>
-                  <input
-                    type="number"
-                    id="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className='button_class_div1'>
-                <div className='button_class_div'>
-                <button
-                  className='button_class'
-                  type="submit"
-                  disabled={!amount}  // Disable if amount is empty
-                >
-                  Submit
-                </button>
-                </div>
+
+          {((scanning && paymentMethod !== 'qrcode') || scannedData) && (
+            <>
+              <div className="form-group">
+                <label htmlFor="amount">Amount</label>
+                <input
+                  type="number"
+                  id="amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  required
+                />
               </div>
-              </>
-            )}
+              {submit ? (
+                <div className='button_class_div1'>
+                  <div className='button_class_div'>
+                    <button
+                      className='button_class'
+                      type="submit"
+                      disabled // Disable if amount is empty
+                    >
+                      Submiting...
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className='button_class_div1'>
+                  <div className='button_class_div'>
+                    <button
+                      className='button_class'
+                      type="submit"
+                      disabled={!amount}  // Disable if amount is empty
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </form>
         {/* {alertMessage && (
           <div className="alert">
             <span>{alertMessage}</span>
             <button onClick={handleCloseAlert}>Close</button>
           </div>
-        )} */}
-        {/* {message && <div className="message">{message}</div>} */}
+        )}
+        {message && <div className="message">{message}</div>} */}
       </div>
 
 

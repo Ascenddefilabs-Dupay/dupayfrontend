@@ -1,11 +1,10 @@
-
 // export default UserProfile;
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Container, Typography, Avatar, IconButton, Grid, Box, Button } from '@mui/material';
-import { margin, positions, styled } from '@mui/system';
+import { height, margin, positions, styled } from '@mui/system';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
@@ -68,20 +67,8 @@ const ProfileWrapper = styled(Box)({
   paddingBottom: '1rem',
   // borderBottom: '1px solid #333',
   justifyContent: 'center',  // Horizontal centering
-  top:'-120px',
+  top:'-100px',
   zIndex: 1000,  
-});
-const InfoContainer = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  // marginTop: '20px',
-  // padding: '20px',
-  backgroundColor: '#000000',
-  borderRadius: '8px',
-  height: 'auto',
-  // height:'100vh',
-  width: '430px',
 });
 
 const ProfileImageWrapper = styled(Box)({
@@ -98,15 +85,6 @@ const ProfileImage = styled(Avatar)({
   height: '100%',
 });
 
-const UploadInput = styled('input')({
-  display: 'none',
-});
-
-
-const SuccessMessage = styled(Typography)({
-  color: '#2196F3', // Blue color for success message
-  marginTop: '1rem',
-});
 
 const UserProfile: React.FC = () => {
   const [users, setUserProfile] = useState<UserProfile>({});
@@ -289,9 +267,10 @@ const UserProfile: React.FC = () => {
       // width:'430px',
       width: '100%',
     maxWidth: '430px',
-      height:'168vh',
+      // height:'168vh',
+      height:'100vh',
       // padding: '20px',
-      backgroundColor: '#121212',
+      backgroundColor: 'black',
       borderRadius: '8px',
       margin:'0 auto',
     },
@@ -308,7 +287,8 @@ const UserProfile: React.FC = () => {
     }as React.CSSProperties,
     animation: {
       position: 'relative',
-      top: '10px', // Adds space at the top
+      // height:'50px',
+      top: '0', // Adds space at the top
     }as React.CSSProperties,
     image: {
       display: 'flex',
@@ -316,24 +296,27 @@ const UserProfile: React.FC = () => {
       marginBottom: '20px',
     },
     homeInner: {
-      position: 'relative',
-      bottom: '-25px',
-      left: 'calc(47% - 16.5px)',
+      position: 'fixed',
+      bottom: '3.2rem',
+      left: '49.5%', // Centers relative to the viewport width
+      transform: 'translateX(-49.5%)', // Adjusts the element to the center
       display: 'flex',
-      flexDirection: 'row' as const,
       alignItems: 'center',
       justifyContent: 'flex-start',
       cursor: 'pointer',
-    }as React.CSSProperties,
+    } as React.CSSProperties,
+    
   
-    tabbarstabbars: {
-      position: 'relative',
-      bottom: '0',
-      left: 'calc(50% - 205.5px)',
-      borderRadius: '8px 8px 0px 0px',
-      width: '411px',
+      tabbarstabbars: {
+        position: 'fixed',
+        bottom: '-0.9rem', // Adjusts the distance from the bottom; change '2rem' as needed
+        left: 'calc(50% - 214.5px)',
+        borderRadius: '8px 8px 0px 0px',
+        width: '428px',
+        height:'13%',
       display: 'flex',
       flexDirection: 'row' as const,
+      backgroundColor: '#121212',
       alignItems: 'center',
       justifyContent: 'center',
       color: '#abafc4',
@@ -365,6 +348,13 @@ const UserProfile: React.FC = () => {
       height: '82px',
       color: '#fff',
     }as React.CSSProperties,
+    div2: {
+      width: '125px',
+      marginBottom:'20px',
+      position: 'relative',
+      height: '82px',
+      color: '#fff',
+    }as React.CSSProperties,
   
     content12: {
       position: 'relative',
@@ -384,6 +374,17 @@ const UserProfile: React.FC = () => {
       lineHeight: '18px',
       alignItems:'center',
       justifyContent:'center',
+      display: 'inline-block',
+      width: '67px',
+      position: 'relative',
+      fontFamily: "'Poppins', sans-serif",
+    }as React.CSSProperties,
+    text1: {
+      fontSize: '12px',
+      lineHeight: '18px',
+      alignItems:'center',
+      right:'-10px',
+      // justifyContent:'center',
       display: 'inline-block',
       width: '67px',
       position: 'relative',
@@ -425,107 +426,64 @@ const UserProfile: React.FC = () => {
       </div>
       )}
       <img  style={styles.animation} alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727074021/Frame_mp4g4t.png" />
-      
-      {/* <div> */}
-        {/* <header style={styles.header}>
-          <Link href="/Userauthorization/Dashboard/Home" onClick={handleBack}>
-          <IoChevronBack style={{color:'white',fontSize:'20px'}}/>
-          </Link>
-        </header> */}
-        <div style={{ 
-              color: 'white', 
-              fontSize: '16px', 
-              display: 'flex',
-              marginLeft: '-240px', 
-              position: 'relative', 
-              top: '-100px',
-              lineHeight: '24px',
-              textAlign: 'center',
-              fontFamily: '"Poppins", sans-serif' 
-            }} >
-              
-              <span>{greeting}</span>
-              {/* <b>{users.user_first_name || 'User'}</b> */}
-            </div>
-        <Box display="flex" justifyContent="flex-end" width="100%">
+      <div style={{ 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    width: '100%',
+    color: 'white', 
+    fontSize: '16px', 
+    lineHeight: '24px', 
+    textAlign: 'center', 
+    fontFamily: '"Poppins", sans-serif',
+    padding: '10px 20px', // Adjust spacing as needed
+    position: 'relative', // Allows for vertical positioning
+    top: '-130px' // Move the div upwards
+}}>
+    <span>{greeting}</span>
+    <Box display="flex" alignItems="center">
+    <Link href="/UserProfile/EditProfile">
+            <FaUserEdit
+                style={{ 
+                    color: 'white', 
+                    fontSize: '20px', 
+                    marginRight: '8px' 
+                }} 
+            />
+        </Link>
         <Link href="/Userauthorization/Dashboard/Settings">
-          <IoSettings 
-            style={{ 
-              color: 'white', 
-              fontSize: '20px', 
-              marginRight: '25px', 
-              position: 'relative', 
-              top: '-120px' 
-            }} 
-          />
+            <IoSettings 
+                style={{ 
+                    color: 'white', 
+                    fontSize: '20px', 
+                    marginRight: '8px' 
+                }} 
+            />
         </Link>
-      </Box>
-      <Box display="flex" justifyContent="flex-end" width="100%">
-        <Link href="/UserProfile/EditProfile">
-          <FaUserEdit
-            style={{ 
-              color: 'white', 
-              fontSize: '20px', 
-              marginRight: '55px', 
-              position: 'relative', 
-              top: '-140px' 
-            }} 
-          />
-        </Link>
-      </Box>
-
-        {/* <div style={styles.image}> */}
+    </Box>
+</div>
         <ProfileWrapper>
           <ProfileImageWrapper>
             <ProfileImage src={profileImage} alt="Profile Image" />
-            {/* <label htmlFor="upload-image">
-              <UploadInput accept="image/*" id="upload-image" type="file" onChange={handleImageChange} />
-              <IconButton
-                color="default"
-                aria-label="upload picture"
-                component="span"
-                style={{
-                  position: 'absolute',
-                  bottom: -10,
-                  right: -10,
-                  backgroundColor: '#B200ED',
-                  borderRadius: '50%',
-                }}
-              >
-                <MdModeEditOutline style={{color:'white'}}/>
-              </IconButton>
-            </label> */}
           </ProfileImageWrapper>
-          {/* <Box>
-            <Typography variant="h6" style={{ color: '#B0B0B0' }}>
-              {users.user_id || 'loading profile details...'}
-            </Typography>
-          </Box> */}
         </ProfileWrapper>
-        {/* </div> */}
-        {/* <InfoContainer> */}
-        <div style={{ backgroundColor: 'black',  width:'100%',position:'relative',
-          borderTopRightRadius: '30px', borderTopLeftRadius:'30px',
-          padding: '20px', marginTop: '16px' ,top:'-200px',height: 'auto',overflow: 'hidden'  }}>
-            
-                      {/* <Box display="flex" justifyContent="center" width="100%" style={{ height:'30px' ,marginTop: '10px',marginBottom: '30px'}} >
-            <Typography variant="h5" gutterBottom style={{ color: 'white',height:'30px',width:'338px'}}>
-              Edit Profile
-            </Typography>
-          </Box> */}
+        <div style={{ backgroundColor: 'black',  width:'430px',position:'fixed',
+          borderTopRightRadius: '30px', borderTopLeftRadius:'30px', left: '50%', 
+          padding: '20px', top: '17vh',height:'68%',transform: 'translateX(-50%)',overflow: 'hidden'  }}>
+             {/* <ProfileImage src={profileImage} alt="Profile Image" /> */}
           <Box 
             display="flex" 
             justifyContent="center" 
             alignItems="center" 
             width="100%" 
-            sx={{ height: '30px', marginTop: '40px', marginBottom: '10px' }}
+            sx={{ height: '5px', marginTop: '80px', marginBottom: '10px' }}
           >
             <Typography variant="h5" gutterBottom sx={{ color: 'white' }}>
               View Profile
             </Typography>
           </Box>
             <div style={{ backgroundColor: 'black',width: '100%',position:'relative',padding: '10px',
-           marginTop: '16px' ,height: '300px',overflowY: 'scroll', 
+           marginTop: '16px' ,height: '90%',overflowY: 'scroll', 
            scrollbarWidth: 'none',
            overflowX: 'hidden',WebkitOverflowScrolling: 'touch',maxWidth: '378px' }}>
         <div style={{ marginBottom: '10px' }}>
@@ -806,20 +764,25 @@ const UserProfile: React.FC = () => {
         )}
       
       {/* </div> */}
-      <div style={styles.homeInner} >
-            <LottieAnimation width="33.4px" height="33.4px" />
-        </div>
+      
+        {/* <div> */}
+        </div> 
+      
             <div style={styles.tabbarstabbars}>    
+            {/* <div style={styles.homeInner} >
+            <LottieAnimation width="33.4px" height="33.4px" />
+        </div> */}
         				<div style={styles.div}>
           					<div style={styles.content12} onClick={() => handleNavigation('/Userauthorization/Dashboard/BottomNavBar/transaction_btn')}>
                         <AssessmentIcon />
             						<b style={styles.text}>Transaction</b>
           					</div>
         				</div>
-        				<div style={styles.div1} >
+        				<div style={styles.div2} >
           					<div style={styles.content12} onClick={() => handleNavigation('/Userauthorization/Dashboard/Home')}>
-            						<img style={styles.iconbase}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077435/payment_mbvqke.png" />
-            						<b style={styles.text}>Dupay</b>
+                    <LottieAnimation width="35.4px" height="35.4px" />
+            						{/* <img style={styles.iconbase}  alt="" src="https://res.cloudinary.com/dgfv6j82t/image/upload/v1727077435/payment_mbvqke.png" /> */}
+            						<b style={styles.text1}>Dupay</b>
           					</div>
         				</div>
         				<div style={styles.div1}>
@@ -833,8 +796,6 @@ const UserProfile: React.FC = () => {
         				</div>
       			</div>
       			</div>
-        {/* <div> */}
-        </div> 
       </>
       )}
       </div>
@@ -842,5 +803,3 @@ const UserProfile: React.FC = () => {
 };
 
 export default UserProfile;
-
-
