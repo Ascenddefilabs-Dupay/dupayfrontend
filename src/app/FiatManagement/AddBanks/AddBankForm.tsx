@@ -148,8 +148,7 @@ const fetchBankList = async (userId: string) => {
           setSwiftBicCode("");
           setCurrency("");
           setBankIcon(null);
-          fetchBankList(userId!); // Refresh the bank list
-          router.push("/FiatManagement/AddBankSuccess");
+          fetchBankList(userId!);
         } else {
           const errorData = await res.json();
           toast.error("Failed to add bank.", { position: "top-center", autoClose:false });
@@ -292,18 +291,18 @@ const fetchBankList = async (userId: string) => {
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.fieldContainer}>
             <div className={styles.floatingLabelContainer}>
-              
-              <input
-                type="text"
-                value={bankName}
-                onChange={(e) => setBankName(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <label className={`${styles.label} ${bankName ? styles.activeLabel : ''}`}>
-                Bank Name<span className={styles.required}>*</span>
-              </label>
+                <input
+                  type="text"
+                  value={bankName}
+                  onChange={(e) => setBankName(e.target.value.replace(/^\s+/, ''))} 
+                  required
+                  className={styles.input}
+                />
+                <label className={`${styles.label} ${bankName ? styles.activeLabel : ''}`}>
+                  Bank Name<span className={styles.required}>*</span>
+                </label>
               </div>
+
             </div>
 
             <div className={styles.fieldContainer}>
@@ -312,7 +311,7 @@ const fetchBankList = async (userId: string) => {
               <input
                 type="text"
                 value={accountHolderName}
-                onChange={(e) => setAccountHolderName(e.target.value)}
+                onChange={(e) => setAccountHolderName(e.target.value.replace(/^\s+/, ''))}
                 required
                 className={styles.input}
               />
@@ -325,13 +324,20 @@ const fetchBankList = async (userId: string) => {
             <div className={styles.fieldContainer}>
             <div className={styles.floatingLabelContainer}>
              
-              <input
-                type="text"
-                value={accountNumber}
-                onChange={(e) => setAccountNumber(e.target.value)}
-                required
-                className={styles.input}
-              />
+            <input
+              type="text"
+              value={accountNumber}
+              onChange={(e) => {
+                const input = e.target.value.replace(/^\s+/, ''); 
+                if (/^\d*$/.test(input) && input.length <= 16) { 
+                  setAccountNumber(input);
+                }
+              }}
+              required
+              maxLength={16} 
+              className={styles.input}
+            />
+
                <label className={`${styles.label} ${accountNumber ? styles.activeLabel : ''}`}>
                 Account Number<span className={styles.required}>*</span>
               </label>
@@ -344,15 +350,26 @@ const fetchBankList = async (userId: string) => {
               <input
                 type="text"
                 value={ifscCode}
-                onChange={(e) => setIfscCode(e.target.value)}
+                onChange={(e) => {
+                  let input = e.target.value.replace(/^\s+/, ''); 
+                  if (/^[A-Z]{0,4}[0-9]{0,7}$/.test(input) && input.length <= 11) {
+                    setIfscCode(input);
+                  }
+                }}
+                maxLength={11} 
                 required
                 className={styles.input}
               />
+
               <label className={`${styles.label} ${ifscCode ? styles.activeLabel : ''}`}>
                 IFSC Code<span className={styles.required}>*</span>
               </label>
               </div>
             </div>
+            
+            <label className={`${styles.ifsccodeex} ${styles.lowercaseWarning}`}>
+                Ex. SBIN002345, UBIN123456
+            </label>
 
             <div className={styles.fieldContainer}>
             <div className={styles.floatingLabelContainer}>
@@ -360,7 +377,7 @@ const fetchBankList = async (userId: string) => {
               <input
                 type="text"
                 value={branchName}
-                onChange={(e) => setBranchName(e.target.value)}
+                onChange={(e) => setBranchName(e.target.value.replace(/^\s+/, ''))}
                 required
                 className={styles.input}
               />
@@ -376,7 +393,7 @@ const fetchBankList = async (userId: string) => {
               <input
                 type="text"
                 value={swiftBicCode}
-                onChange={(e) => setSwiftBicCode(e.target.value)}
+                onChange={(e) => setSwiftBicCode(e.target.value.replace(/^\s+/, ''))}
                 required
                 className={styles.input}
               />
@@ -392,15 +409,24 @@ const fetchBankList = async (userId: string) => {
               <input
                 type="text"
                 value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
+                onChange={(e) => {
+                  const input = e.target.value.replace(/^\s+/, ''); 
+                  const uppercaseInput = input.replace(/[^A-Z]/g, '').slice(0, 3);
+                  setCurrency(uppercaseInput);
+                }}
+                maxLength={3} 
                 required
                 className={styles.input}
               />
+
               <label className={`${styles.label} ${currency ? styles.activeLabel : ''}`}>
                 Currency<span className={styles.required}>*</span>
               </label>
               </div>
             </div>
+            <label className={`${styles.inrcurency} ${styles.lowercaseWarning}`}>
+                Ex. INR, USD, AED
+            </label>
             <div className={styles.fieldContainer}>
               <div className={styles.fileWrapper}>
                 <label className={`${styles.labels} ${bankIcon ? styles.activeLabel : ''}`}>

@@ -957,6 +957,41 @@
     }
   }
   
- 
+  .inrcurency {
+    position: absolute;
+    left: 44px;
+    top: 77%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #888daa;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    z-index: 1;
+    white-space: nowrap;
+    width: auto; 
+    max-width: 100%; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
   
+  }
+  
+  
+  
+  .ifsccodeex {
+    position: absolute;
+    left: 44px;
+    top: 47.6%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #888daa;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    z-index: 1;
+    white-space: nowrap; 
+    width: auto; 
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  
+  }
   
