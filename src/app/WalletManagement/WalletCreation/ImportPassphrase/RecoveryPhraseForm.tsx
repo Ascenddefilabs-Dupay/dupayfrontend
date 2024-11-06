@@ -51,7 +51,7 @@ const RecoveryPhraseForm: React.FC = () => {
         try {
             console.log(phrases);
 
-            const response = await axios.post('${WalletManagement}/walletmanagementapi/check-recovery-phrase/', {
+            const response = await axios.post(`${WalletManagement}/walletmanagementapi/check-recovery-phrase/`, {
                 phrases,
             });
 

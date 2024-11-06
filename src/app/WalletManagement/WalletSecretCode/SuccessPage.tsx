@@ -88,7 +88,7 @@ const SuccessPage: React.FC = () => {
                 console.log('Password:', password);
                 console.log('Recovery Phrases:', recoveryWords);
                 console.log("Uer_id", user_id)
-                await axios.post('${WalletManagement}/walletmanagementapi/save-wallet-data/', {
+                await axios.post(`${WalletManagement}/walletmanagementapi/save-wallet-data/`, {
                     // await axios.post('http://127.0.0.1:8000/walletmanagementapi/save-wallet-data/', {
                     wallet_id: walletId,
                     password,
