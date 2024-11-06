@@ -47,7 +47,7 @@ export default function FiatWalletForm() {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
-
+  const FiatManagement = process.env.FiatManagement
   useEffect(() => {
     const sessionDataString = localStorage.getItem("session_data");
     if (sessionDataString) {
@@ -58,7 +58,7 @@ export default function FiatWalletForm() {
 
   useEffect(() => {
     axios
-      .get<AdminCMSData[]>("https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/")
+      .get<AdminCMSData[]>(`${FiatManagement}/fiatmanagementapi/account-types/`)
       .then((response) => setAdminCMSData(response.data))
       .catch((error) => console.error("Error fetching account types and currency types:", error));
   }, []);
@@ -139,7 +139,7 @@ export default function FiatWalletForm() {
     try {
       setShowLoader(true);
       const response = await axios.post(
-        "https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/",
+        `${FiatManagement}/fiatmanagementapi/fiat_wallets/`,
         payload
       );
       setAlertMessage("Wallet created successfully!");
