@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
 
+const UserAuthentication = process.env.UserAuthentication
+
 export default function ForgotPassword() {
   const [email, setEmail] = useState<string>('');
   const [otp, setOtp] = useState<string>('');
@@ -20,7 +22,7 @@ export default function ForgotPassword() {
   const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app//loginapi/generate-otp/', { user_email: email });
+      const response = await axios.post(`${UserAuthentication}//loginapi/generate-otp/`, { user_email: email });
       if (response.status === 200) {
         setShowOtpField(true);
         alert('OTP sent to your email');
@@ -37,7 +39,7 @@ export default function ForgotPassword() {
       return;
     }
     try {
-      const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app//loginapi/reset-password/', {
+      const response = await axios.post(`${UserAuthentication}//loginapi/reset-password/`, {
         user_email: email,
         otp,
         new_password: newPassword,

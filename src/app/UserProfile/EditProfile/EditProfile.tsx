@@ -19,6 +19,8 @@ import { TextField } from '@mui/material'
 // import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel ,FormHelperText} from '@mui/material';
 
+
+const UserProfile = process.env.UserProfile
 // Define TypeScript interfaces
 interface UserProfile {
   user_id?: string;
@@ -102,12 +104,12 @@ const UserProfile: React.FC = () => {
     if (!userId) return;
 
     try {
-      const response = await axios.get<UserProfile>(`https://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserProfile>(`${UserProfile}/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
       console.log('User profile data:', response.data);
 
       if (response.data.user_profile_photo) {
-        const baseURL = 'https://userprofile-ind-255574993735.asia-south1.run.app/profile_photos';
+        const baseURL = '${UserProfile}/profile_photos';
         let imageUrl = '';
 
         const profilePhoto = response.data.user_profile_photo;
@@ -203,7 +205,7 @@ const UserProfile: React.FC = () => {
     formData.append('user_pin_code', users.user_pin_code || '');
 
     try {
-      await axios.put(`https://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
+      await axios.put(`${UserProfile}/userprofileapi/profile/${userId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -243,7 +245,7 @@ const UserProfile: React.FC = () => {
     };
 
     try {
-      await axios.put(`https://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, updatedData);
+      await axios.put(`${UserProfile}/userprofileapi/profile/${userId}/`, updatedData);
       setSuccessMessage('Profile updated successfully!')
       setTimeout(() => {
         router.push('/UserProfile/ViewProfile');

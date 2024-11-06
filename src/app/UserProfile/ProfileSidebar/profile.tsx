@@ -10,6 +10,8 @@ import styles from './ProfileSidebar.module.css';
 import { FaArrowLeft } from 'react-icons/fa';
 import { redirect } from 'next/navigation';
 
+const UserProfile = process.env.UserProfile
+
 const ProfileWrapper = styled(Box)({
   display: 'flex',
   alignItems: 'center',
@@ -75,11 +77,11 @@ const UserProfile: React.FC = () => {
   const fetchUserProfile = useCallback(async () => {
     try {
       if (userId) {
-        const response = await axios.get<UserProfileData>(`https://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
+        const response = await axios.get<UserProfileData>(`${UserProfile}/userprofileapi/profile/${userId}/`);
         setUserProfile(response.data);
 
         if (response.data.user_profile_photo) {
-          const baseURL = 'https://userprofile-ind-255574993735.asia-south1.run.app/profile_photos';
+          const baseURL = `${UserProfile}/profile_photos`;
           let imageUrl = '';
 
           if (typeof response.data.user_profile_photo === 'string') {
