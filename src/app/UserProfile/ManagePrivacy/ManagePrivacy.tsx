@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import styles from './PrivacySettings.module.css';
 import { redirect } from 'next/navigation';
 
+const UserProfile = process.env.UserProfile 
 
 // Define types for the response from the API
 interface UserProfileResponse {
@@ -130,7 +131,7 @@ const ManagePrivacy: React.FC = () => {
         console.log(storedUserId);
         console.log(sessionData.user_email);
       } else {
-        redirect('http://localhost:3000/Userauthentication/SignIn');
+        redirect('/Userauthentication/SignIn');
       }
     }
   }, []);
