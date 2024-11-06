@@ -91,7 +91,7 @@ import { useRouter } from 'next/navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBackIcon
 import styles from './DocumentForm.module.css';
 import ProgressBar from './ProgressBar';
-
+const KYCVerification = process.env.KYCVerification
 const countries = [
     'United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 'France', 'India', 'Japan', 'China', 'Brazil',
 ];
@@ -113,7 +113,7 @@ const DocumentForm = () => {
             const handleSaveAndRedirect = async () => {
                 const data = { country_name: countryName, document_type: documentType }; // Updated field name
                 try {
-                    await axios.post('https://kycverification-rcfpsxcera-uc.a.run.app/kycverification_api/kyc-details/', data);
+                    await axios.post(`${KYCVerification}/kycverification_api/kyc-details/`, data);
                     setAlertMessage('Document saved successfully!');
                     setShowAlert(true);
                     setTimeout(() => {
