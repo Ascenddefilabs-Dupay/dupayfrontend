@@ -18,6 +18,7 @@ import { Refresh } from '@mui/icons-material';
 import { fontSize } from '@mui/system';
 import { Navigate } from 'react-router-dom';
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
+const UserAuthorization = process.env.UserAuthorization
 
 const FiatManagement = process.env.FiatManagement
 interface FiatWallet {
@@ -362,7 +363,7 @@ const Home = () => {
 
       const fetchFiatWalletId = async () => {
         try {
-          // const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          // const response = await axios.get(`${UserAuthorization}/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
           const response = await axios.get(`${FiatManagement}/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
 
           console.log('Fetched Fiat Wallet ID:', response.data); // Debugging
@@ -394,7 +395,7 @@ const Home = () => {
   
     // Fetch the data from the backend
     // axios.get<Wallet[]>(`http://127.0.0.1:8000/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
-    axios.get<Wallet[]>(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
+    axios.get<Wallet[]>(`${UserAuthorization}/userauthorizationapi/fetch-crypto-wallet/${userId}/`)
         .then(async response => {
             console.log('Response Data:', response.data); // Log the response data
   
@@ -447,7 +448,7 @@ const Home = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+      const response = await axios.get(`${UserAuthorization}/userauthorizationapi/profile/${userId}/`);
       // const response = await axios.get(`http://127.0.0.1:8000/userauthorizationapi/profile/${userId}/`);
 
       if (response.data.user_first_name) {

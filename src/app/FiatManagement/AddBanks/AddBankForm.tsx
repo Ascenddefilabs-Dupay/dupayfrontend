@@ -8,7 +8,7 @@ import styles from "./AddBankForm.module.css";
 
 import { useRouter } from 'next/navigation';
 
-
+const FiatManagement = process.env.FiatManagement
 
 // Define the IFSC code validation function
 const validateIfscCode = (ifscCode: string): boolean => {
@@ -76,7 +76,7 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 const fetchBankList = async (userId: string) => {
   try {
     const response = await fetch(
-      `https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/get_banks/${userId}/`
+      `${FiatManagement}/addbank/get_banks/${userId}/`
     );
     const data = await response.json();
 
@@ -133,7 +133,7 @@ const fetchBankList = async (userId: string) => {
       formData.append("kyc_document", bankIcon);
 
       try {
-        const res = await fetch("https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/add/", {
+        const res = await fetch(`${FiatManagement}/addbank/add/`, {
           method: "POST",
           body: formData,
         });
@@ -174,7 +174,7 @@ const fetchBankList = async (userId: string) => {
 
   // Handle back button click to go back to the dashboard
   const handleBack = () => {
-    router.push('/Userauthorization/Dashboard/Home'); // Navigate to the Dashboard Home
+    router.push(`${FiatManagement}/Userauthorization/Dashboard/Home`); // Navigate to the Dashboard Home
   };
 
   // Show the add bank form
@@ -196,7 +196,7 @@ const fetchBankList = async (userId: string) => {
   };
   const handleUnlinkBankAccount = async (bankId: string) => {
     try {
-      const response = await fetch(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/addbank/delete_bank/${bankId}/`, {
+      const response = await fetch(`${FiatManagement}/addbank/delete_bank/${bankId}/`, {
         method: 'DELETE',
       });
       if (response.ok) {

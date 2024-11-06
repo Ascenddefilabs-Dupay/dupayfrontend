@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import styles from "./SetLimit.module.css";
 import axios from "axios";
 import UseSession from "@/app/Userauthentication/SignIn/hooks/UseSession";
-
+const FiatManagement = process.env.FiatManagement
 const SetLimit: React.FC = () => {
   const router = useRouter();
   const [amount, setAmount] = useState<string>("");
@@ -28,7 +28,7 @@ const SetLimit: React.FC = () => {
     const fetchWalletDetails = async () => {
       try {
         const response = await axios.get(
-          "https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user/DupA0001/"
+          `${FiatManagement}/fiatmanagementapi/user/DupA0001/`
         );
         setWalletDetails(response.data);
       } catch (error) {
@@ -95,7 +95,7 @@ const SetLimit: React.FC = () => {
 
             // Make sure to set the Content-Type header to application/json
             const response = await axios.put(
-                "https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user/DupA0001/",
+                `${FiatManagement}/fiatmanagementapi/user/DupA0001/`,
                 updatedDetails
                 // {
                 //     headers: {

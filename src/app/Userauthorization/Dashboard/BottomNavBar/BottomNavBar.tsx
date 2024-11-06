@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import axios from 'axios';
 import styles from './BottomNavBar.module.css';
 import { redirect } from 'next/navigation';
+const UserAuthorization = process.env.UserAuthorization
 
 
 
@@ -64,7 +65,7 @@ const BottomNavBar = () => {
     const fetchUserProfile = async () => {
       setLoading(true); // Set loading state
       try {
-        const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+        const response = await axios.get(`${UserAuthorization}/userauthorizationapi/profile/${userId}/`);
         if (response.data.user_profile_photo) {
           const baseURL = '/profile_photos';
           let imageUrl = '';

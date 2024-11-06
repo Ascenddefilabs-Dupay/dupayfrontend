@@ -4,7 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import styles from './AddCurrencyForm.module.css';
 import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 import { useRouter } from 'next/navigation';
-
+const FiatManagement = process.env.FiatManagement
 // Type definitions
 interface UseAuthHook {
   isAuthenticated: boolean;
@@ -67,7 +67,7 @@ const AddCurrencyForm: React.FC = () => {
     formData.append('currency_icon', currencyIcon);
 
     try {
-      const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/currencies/', {
+      const res = await fetch(`${FiatManagement}/fiatmanagementapi/currencies/`, {
         method: 'POST',
         body: formData,
       });

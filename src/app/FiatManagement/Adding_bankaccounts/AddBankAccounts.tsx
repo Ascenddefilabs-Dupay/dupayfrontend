@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './AddBankAccount.module.css'; // Import CSS
 import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-
+const FiatManagement = process.env.FiatManagement
 interface Bank {
   id: number;
   bank_name: string;
@@ -40,7 +40,7 @@ const AddBankAccounts: React.FC<AddBankAccountsProps> = ({ onAddBankClick, selec
     // Fetch linked banks
     const fetchLinkedBanks = async () => {
       try {
-        const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/api/user/linked_banks/');
+        const res = await fetch(`${FiatManagement}/api/user/linked_banks/`);
         if (res.ok) {
           const data: Bank[] = await res.json();
           setLinkedBanks(data);
