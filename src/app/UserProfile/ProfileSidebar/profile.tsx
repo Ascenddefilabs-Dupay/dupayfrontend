@@ -44,7 +44,7 @@ interface UserProfileData {
   user_profile_photo?: string | { data: number[] };
 }
 
-const UserProfile: React.FC = () => {
+const UserrProfile: React.FC = () => {
   const [user, setUserProfile] = useState<UserProfileData>({ user_id: '' });
   const [profileImage, setProfileImage] = useState<string>('');
   const router = useRouter();
@@ -188,4 +188,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default UserrProfile;

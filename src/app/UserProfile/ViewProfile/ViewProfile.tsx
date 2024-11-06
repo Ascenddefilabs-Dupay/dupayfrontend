@@ -22,9 +22,11 @@ import LottieAnimation from '../../assets/animation'
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
 import { FaUserCircle } from "react-icons/fa";
 import dynamic from 'next/dynamic';
+const UserProfile = process.env.UserProfile
+
 
 // Define TypeScript interfaces
-interface UserProfile {
+interface UserrProfile {
   user_id?: string;
   user_profile_photo?: string | { data: number[] };
   user_first_name?: string;
@@ -86,8 +88,8 @@ const ProfileImage = styled(Avatar)({
 });
 
 
-const UserProfile: React.FC = () => {
-  const [users, setUserProfile] = useState<UserProfile>({});
+const UserrProfile: React.FC = () => {
+  const [users, setUserProfile] = useState<UserrProfile>({});
   const [profileImage, setProfileImage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
   const router = useRouter(); // Initialize useRouter
@@ -114,12 +116,12 @@ const UserProfile: React.FC = () => {
     if (!userId) return;
 
     try {
-      const response = await axios.get<UserProfile>(`https://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`);
+      const response = await axios.get<UserrProfile>(`${UserProfile}/userprofileapi/profile/${userId}/`);
       setUserProfile(response.data);
       console.log('User profile data:', response.data);
 
       if (response.data.user_profile_photo) {
-        const baseURL = 'https://userprofile-ind-255574993735.asia-south1.run.app/profile_photos';
+        const baseURL = '${UserProfile}/profile_photos';
         let imageUrl = '';
 
         const profilePhoto = response.data.user_profile_photo;
@@ -192,7 +194,7 @@ const UserProfile: React.FC = () => {
     formData.append('user_pin_code', users.user_pin_code || '');
 
     try {
-      await axios.put(`https://userprofile-ind-255574993735.asia-south1.run.app/userprofileapi/profile/${userId}/`, formData, {
+      await axios.put(`${UserProfile}/userprofileapi/profile/${userId}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -802,4 +804,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default UserrProfile;
