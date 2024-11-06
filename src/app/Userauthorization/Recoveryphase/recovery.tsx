@@ -12,6 +12,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import bcrypt from 'bcryptjs';
 // import '../newpasscodephase/newpasscode.css';
 const SecurityManagement= process.env.SecurityManagement
+const UserAuthentication= process.env.UserAuthentication
 
 
 
@@ -77,7 +78,7 @@ const RecoveryPass: React.FC = () => {
       };
     const checkEmailExists = async (email: string) => {
         try {
-            const response = await axios.get(`https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-email/?email=${user_email}`);
+            const response = await axios.get(`${UserAuthentication}/passwordchangeapi/check-email/?email=${user_email}`);
             if (response.data.exists) {
                 setEmailError('');
             } else {
