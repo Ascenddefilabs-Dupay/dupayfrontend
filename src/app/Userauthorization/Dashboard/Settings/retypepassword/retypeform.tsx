@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import '../retypepassword/retypeform.css';
 import Swal from 'sweetalert2'
-const SecurityManagement = process.env.SecurityManagement
+const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
 const Retype = () => {
     const [passcode, setPasscode] = useState("");
     const [userId, setUserId] = useState<string | null>(null);

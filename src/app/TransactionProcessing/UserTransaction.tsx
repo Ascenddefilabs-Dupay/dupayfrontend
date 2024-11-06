@@ -6,7 +6,7 @@ import axios from 'axios';
 import styles from './UserTransaction.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faCalendarAlt, faDollarSign, faClock, faArrowDown, faArrowUp, faBoxOpen } from '@fortawesome/free-solid-svg-icons';
-const TransactionProcessing = process.env.TransactionProcessing
+const TransactionProcessing = process.env.NEXT_PUBLIC_TransactionProcessing
 
 interface Transaction {
   transaction_id: string;

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-const SecurityManagement = process.env.SecurityManagement
+const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
 const Wallet = () => {
     const router = useRouter();
     const [userId, setUserId] = useState<string | null>(null);

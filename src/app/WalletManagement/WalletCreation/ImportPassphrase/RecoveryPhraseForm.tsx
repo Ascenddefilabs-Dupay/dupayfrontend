@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-const WalletManagement = process.env.WalletManagement
+const WalletManagement = process.env.NEXT_PUBLIC_WalletManagement
 
 const RecoveryPhraseForm: React.FC = () => {
     const [phrases, setPhrases] = useState<string[]>(Array(12).fill(''));

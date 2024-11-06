@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import styles from "./SetLimit.module.css";
 import axios from "axios";
 import UseSession from "@/app/Userauthentication/SignIn/hooks/UseSession";
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 const SetLimit: React.FC = () => {
   const router = useRouter();
   const [amount, setAmount] = useState<string>("");

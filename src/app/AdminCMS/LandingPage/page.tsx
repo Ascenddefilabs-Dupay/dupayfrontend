@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./page.module.css";
 
-const AdminCMS = process.env.AdminCMS;
+const AdminCMS = process.env.NEXT_PUBLIC_AdminCMS;
 
 interface RequestBody {
   account_type?: string;

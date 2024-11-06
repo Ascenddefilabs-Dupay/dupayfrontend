@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
-const WalletManagement = process.env.WalletManagement
+const WalletManagement = process.env.NEXT_PUBLIC_WalletManagement
 
 const PasswordForm: React.FC = () => {
     const [walletId, setWalletId] = useState<string | null>(null);

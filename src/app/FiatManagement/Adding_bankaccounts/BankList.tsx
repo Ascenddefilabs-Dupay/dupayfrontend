@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './BankList.module.css'; // Import CSS
 import { useRouter } from 'next/navigation';
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 interface Bank {
   id: number;
   bank_name: string;

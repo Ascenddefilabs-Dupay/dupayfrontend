@@ -22,7 +22,7 @@ import LottieAnimation from '../../assets/animation'
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
 import { FaUserCircle } from "react-icons/fa";
 import dynamic from 'next/dynamic';
-const UserProfile = process.env.UserProfile
+const UserProfile = process.env.NEXT_PUBLIC_UserProfile
 
 
 // Define TypeScript interfaces

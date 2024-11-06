@@ -6,7 +6,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { QrReader } from 'react-qr-reader';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
-const TransactionType = process.env.TransactionType
+const TransactionType = process.env.NEXT_PUBLIC_TransactionType
 
 const WalletTransaction: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>('');

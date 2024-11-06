@@ -10,7 +10,7 @@ import styles from './ProfileSidebar.module.css';
 import { FaArrowLeft } from 'react-icons/fa';
 import { redirect } from 'next/navigation';
 
-const UserProfile = process.env.UserProfile
+const UserProfile = process.env.NEXT_PUBLIC_UserProfile
 
 const ProfileWrapper = styled(Box)({
   display: 'flex',

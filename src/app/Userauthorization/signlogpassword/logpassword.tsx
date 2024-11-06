@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import '../signlogpassword/logpassword.css';
 import Swal from 'sweetalert2';
-const SecurityManagement = process.env.SecurityManagement
+const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
 const Logpasscode = () => {
     const [passcode, setPasscode] = useState("");
     const [hasError, setHasError] = useState(false);

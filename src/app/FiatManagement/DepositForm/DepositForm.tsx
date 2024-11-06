@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Select, { SingleValue } from 'react-select';
 import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 import { useRouter } from 'next/navigation';
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
 const API_BASE_URL = `${FiatManagement}/fiatmanagementapi`; // Base URL for all API requests
 

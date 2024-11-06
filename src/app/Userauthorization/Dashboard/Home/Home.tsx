@@ -18,9 +18,9 @@ import { Refresh } from '@mui/icons-material';
 import { fontSize } from '@mui/system';
 import { Navigate } from 'react-router-dom';
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
-const UserAuthorization = process.env.UserAuthorization
+const UserAuthorization = process.env.NEXT_PUBLIC_UserAuthorization
 
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 interface FiatWallet {
 balance: string; 
 currency_type: string;

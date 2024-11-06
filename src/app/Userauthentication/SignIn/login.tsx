@@ -11,9 +11,7 @@ import UseSession from './hooks/UseSession';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
-const UserAuthentication = process.env.UserAuthentication
-
+const UserAuthentication = process.env.NEXT_PUBLIC_UserAuthentication
 // Define types for the Google response
 interface GoogleResponse {
   credential: string;

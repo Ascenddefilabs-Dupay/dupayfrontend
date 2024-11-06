@@ -50,7 +50,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-const TransactionType = process.env.TransactionType
+const TransactionType = process.env.NEXT_PUBLIC_TransactionType
 
 // Define types for the user data and error state
 interface User {

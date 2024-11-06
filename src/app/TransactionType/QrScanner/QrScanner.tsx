@@ -460,7 +460,7 @@ import { v4 as uuidv4 } from 'uuid';
 import '../QrScanner/qrcode.css'; 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/navigation';
-const TransactionType = process.env.TransactionType
+const TransactionType = process.env.NEXT_PUBLIC_TransactionType
 
 // Define interfaces for your data types
 interface Currency {

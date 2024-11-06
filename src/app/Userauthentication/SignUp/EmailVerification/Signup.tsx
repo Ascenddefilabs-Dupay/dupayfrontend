@@ -5,7 +5,6 @@ import Head from 'next/head';
 // import Navbar from '../../LandingPage/Navbar';
 
 
-
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -16,10 +15,10 @@ import { margin, style } from '@mui/system';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import LottieAnimationLoading from '../../../assets/LoadingAnimation'; 
-const UserAuthentication = process.env.UserAuthentication
 
+const UserAuthentication = process.env.NEXT_PUBLIC_UserAuthentication
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-
+// const UserAuthentication = process.env.UserAuthentication
 interface Errors {
   email?: string;
   otp?: string;
@@ -75,7 +74,7 @@ export default function Home1() {
     try {
 
       // Check if the email is already in use
-      const emailCheckResponse = await fetch(`${UserAuthentication}/signup/checkemail`, {
+      const emailCheckResponse = await fetch(`${UserAuthentication}/signupapi/check-email/`, {
 
         method: 'POST',
         headers: {
@@ -223,7 +222,9 @@ export default function Home1() {
 
         // alert(`Google Sign-Up failed: ${errorData.error}`);
         toast.error("Google Sign-Up failed: ${errorData.error}", { position: "top-center", autoClose:false });
+        console.log(errorData,UserAuthentication)
       }
+
     } catch (error) {
       toast.error("Google Sign-Up failed. Please try again.", { position: "top-center", autoClose:false });
       // alert('Google Sign-Up failed. Please try again.');

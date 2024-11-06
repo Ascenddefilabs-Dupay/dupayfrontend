@@ -47,7 +47,7 @@ export default function FiatWalletForm() {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
-  const FiatManagement = process.env.FiatManagement
+  const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
   useEffect(() => {
     const sessionDataString = localStorage.getItem("session_data");
     if (sessionDataString) {

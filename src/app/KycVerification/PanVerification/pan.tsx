@@ -197,7 +197,7 @@ import axios from 'axios';
 import styles from './PanForm.module.css';
 import ProgressBar from '../kycform1/ProgressBar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-const KYCVerification = process.env.KYCVerification
+const KYCVerification = process.env.NEXT_PUBLIC_KYCVerification
 
 const PanForm: React.FC = () => {
   const [panNumber, setPanNumber] = useState<string>('');

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
-const WalletManagement = process.env.WalletManagement
+const WalletManagement = process.env.NEXT_PUBLIC_WalletManagement
 
 const TransakWidget: React.FC = () => {
   const router = useRouter();
