@@ -6,6 +6,7 @@ import axios from 'axios';
 import styles from './UserTransaction.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faCalendarAlt, faDollarSign, faClock, faArrowDown, faArrowUp, faBoxOpen } from '@fortawesome/free-solid-svg-icons';
+const TransactionProcessing = process.env.TransactionProcessing
 
 interface Transaction {
   transaction_id: string;
@@ -48,7 +49,7 @@ const UserTransaction: React.FC = () => {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('https://transactionprocessing-ind-255574993735.asia-south1.run.app/transactionprocessing_api/wallet-transactions/', {
+      const response = await axios.get(`${TransactionProcessing}/transactionprocessing_api/wallet-transactions/`, {
         params: { user_id: userID },
       });
       setTransactions(response.data.transactions);
