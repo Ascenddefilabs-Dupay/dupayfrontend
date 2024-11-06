@@ -5,6 +5,7 @@ import axios from 'axios';
 import './AddressBasedTransactionForm.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/navigation';
+const TransactionType = process.env.TransactionType
 
 interface Currency {
   code: string;
@@ -121,7 +122,7 @@ const AddressBasedTransactionForm: React.FC = () => {
     }
 
     try {
-        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
+        const response = await axios.post(`${TransactionType}/transaction_api/validate-transaction/`, {
             transaction_amount: transactionAmount,
             transaction_currency: transactionCurrency,
             fiat_address: fiatAddress,
@@ -140,7 +141,7 @@ const AddressBasedTransactionForm: React.FC = () => {
 
             if (paymentSuccess) {
                 try {
-                    await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
+                    await axios.post(`${TransactionType}/transaction_api/address-transfer/`, {
                         transaction_amount: transactionAmount,
                         transaction_currency: transactionCurrency,
                         transaction_type: 'Transfer',
