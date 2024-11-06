@@ -34,7 +34,7 @@ import { genAddressSeed, getZkLoginSignature } from "@mysten/zklogin";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import axios from "axios";
 import { fontSize } from "@mui/system";
-const WalletManagement = process.env.WalletManagement
+const WalletManagement = process.env.NEXT_PUBLIC_WalletManagement
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
 const NETWORK: ValidNetworkName = "testnet";

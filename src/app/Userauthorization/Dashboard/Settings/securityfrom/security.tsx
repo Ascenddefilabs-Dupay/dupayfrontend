@@ -6,7 +6,7 @@ import styles from '../securityfrom/securityset.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faKey, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-const SecurityManagement = process.env.SecurityManagement
+const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
 
 const Security = () => {
     const [requiredmode, sethandleMode] = useState(false);

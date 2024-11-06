@@ -2,9 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ChangePassword.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
-
+const UserAuthentication = process.env.NEXT_PUBLIC_UserAuthentication
 const ChangePassword: React.FC = () => {
   const [user_email, setEmail] = useState<string>('');
   const [user_password, setOldPassword] = useState<string>('');
@@ -14,20 +12,15 @@ const ChangePassword: React.FC = () => {
   const [passwordError, setPasswordError] = useState<string>('');
   const [newPasswordError, setNewPasswordError] = useState<string>('');
   const [passwordMismatchError, setPasswordMismatchError] = useState<string>('');
-  const [showOldPassword, setShowOldPassword] = useState<boolean>(false);
-  const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
-  const [showVerifyPassword, setShowVerifyPassword] = useState<boolean>(false);
-
-  const togglePasswordVisibility = (type: string) => {
-    if (type === 'old') setShowOldPassword(!showOldPassword);
-    if (type === 'new') setShowNewPassword(!showNewPassword);
-    if (type === 'verify') setShowVerifyPassword(!showVerifyPassword);
-  };
 
   const checkEmailExists = async (email: string) => {
     try {
-      const response = await axios.get(`${SecurityManagement}/passwordchangeapi/check-email/?email=${user_email}`);
-      setEmailError(response.data.exists ? '' : 'Email not found');
+      const response = await axios.get(`${UserAuthentication}/passwordchangeapi/check-email/?email=${user_email}`);
+      if (response.data.exists) {
+        setEmailError('');
+      } else {
+        setEmailError('Email not found');
+      }
     } catch (error) {
       setEmailError('Error checking email');
     }
@@ -35,11 +28,15 @@ const ChangePassword: React.FC = () => {
 
   const checkOldPassword = async (password: string) => {
     try {
-      const response = await axios.post(`${SecurityManagement}/passwordchangeapi/check-old-password/`, {
+      const response = await axios.post(`https://userauthentication-ind-255574993735.asia-south1.run.app/passwordchangeapi/check-old-password/`, {
         user_email,
         user_password: password,
       });
-      setPasswordError(response.data.valid ? '' : 'Incorrect old password');
+      if (response.data.valid) {
+        setPasswordError('');
+      } else {
+        setPasswordError('Incorrect old password');
+      }
     } catch (error) {
       setPasswordError('Error checking old password');
     }
@@ -77,7 +74,7 @@ const ChangePassword: React.FC = () => {
     }
   
     try {
-      await axios.post(`${SecurityManagement}/passwordchangeapi/update-password/`, {
+      await axios.post(`${UserAuthentication}/passwordchangeapi/update-password/`, {
         user_email,
         user_password,
         new_password: newPassword,
@@ -85,10 +82,12 @@ const ChangePassword: React.FC = () => {
       });
       alert('Password changed successfully!');
     } catch (error) {
+      // Ensure error is cast to `any` type to access response data
       const errorMsg = (error as any)?.response?.data?.message || 'Error updating password';
       alert(errorMsg);
     }
   };
+  
 
   return (
     <div className="container">
@@ -96,60 +95,44 @@ const ChangePassword: React.FC = () => {
         <h1 className="title">Change Password</h1>
         <form onSubmit={handleSubmit} className="formContent">
           <div className="inputGroup">
+            <label>Email</label>
             <input
               type="email"
               value={user_email}
               onChange={(e) => setEmail(e.target.value)}
               onBlur={() => checkEmailExists(user_email)}
-              placeholder=" "
               className={`input ${emailError ? 'errorInput' : ''}`}
             />
-            <label className="label">Email</label>
             {emailError && <span className="error">{emailError}</span>}
           </div>
           <div className="inputGroup">
+            <label>Old Password</label>
             <input
-              type={showOldPassword ? 'text' : 'password'}
+              type="password"
               value={user_password}
               onChange={(e) => setOldPassword(e.target.value)}
               onBlur={() => checkOldPassword(user_password)}
-              placeholder=" "
               className={`input ${passwordError ? 'errorInput' : ''}`}
-            />
-            <label className="label">Old Password</label>
-            <i
-              className={`fas ${showOldPassword ? 'fa-eye-slash' : 'fa-eye'} eyeIcon`}
-              onClick={() => togglePasswordVisibility('old')}
             />
             {passwordError && <span className="error">{passwordError}</span>}
           </div>
           <div className="inputGroup">
+            <label>New Password</label>
             <input
-              type={showNewPassword ? 'text' : 'password'}
+              type="password"
               value={newPassword}
               onChange={handleNewPasswordChange}
-              placeholder=" "
               className={`input ${newPasswordError ? 'errorInput' : ''}`}
-            />
-            <label className="label">New Password</label>
-            <i
-              className={`fas ${showNewPassword ? 'fa-eye-slash' : 'fa-eye'} eyeIcon`}
-              onClick={() => togglePasswordVisibility('new')}
             />
             {newPasswordError && <span className="error">{newPasswordError}</span>}
           </div>
           <div className="inputGroup">
+            <label>Verify New Password</label>
             <input
-              type={showVerifyPassword ? 'text' : 'password'}
+              type="password"
               value={verifyNewPassword}
               onChange={handleVerifyNewPasswordChange}
-              placeholder=" "
               className="input"
-            />
-            <label className="label">Verify New Password</label>
-            <i
-              className={`fas ${showVerifyPassword ? 'fa-eye-slash' : 'fa-eye'} eyeIcon`}
-              onClick={() => togglePasswordVisibility('verify')}
             />
             {passwordMismatchError && <span className="error">{passwordMismatchError}</span>}
           </div>

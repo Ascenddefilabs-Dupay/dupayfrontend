@@ -78,7 +78,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './FetchKYCDetails.module.css';
-const KYCVerification = process.env.KYCVerification
+const KYCVerification = process.env.NEXT_PUBLIC_KYCVerification
 
 interface KYCDetail {
   country: string;

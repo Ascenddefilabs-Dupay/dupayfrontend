@@ -225,7 +225,7 @@ import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 import { QrReader } from 'react-qr-reader';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBackIcon
 import { useRouter } from 'next/navigation';
-const TransactionType = process.env.TransactionType
+const TransactionType = process.env.NEXT_PUBLIC_TransactionType
 
 // Define a type for the currency object
 interface Currency {

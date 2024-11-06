@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import styles from './TransakForm.module.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+const KYCVerification = process.env.NEXT_PUBLIC_KYCVerification
 
 const TransakForm = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ const TransakForm = () => {
   const router = useRouter();
 
   const settinghandleBackClick = () => {
-    let redirectUrl = 'https://kycverification-ind-255574993735.asia-south1.run.app/KycVerification/PersonalDetails';
+    let redirectUrl = `${KYCVerification}/KycVerification/PersonalDetails`;
     router.push(redirectUrl);
   };
 
@@ -33,7 +34,7 @@ const TransakForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('https://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/kyc-details/', formData)
+    axios.post(`${KYCVerification}/kycverification_api/kyc-details/`, formData)
       .then(response => {
         console.log(response.data);
         router.push('/KycVerification/kycform1');

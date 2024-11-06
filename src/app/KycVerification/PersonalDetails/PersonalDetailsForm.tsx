@@ -6,7 +6,7 @@ import axios from 'axios';
 import styles from './PersonalDetailsForm.module.css';
 import DropdownWithSearch from './DropdownWithSearch';
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
-const KYCVerification = process.env.KYCVerification
+const KYCVerification = process.env.NEXT_PUBLIC_KYCVerification
 interface FormData {
   firstName: string;
   lastName: string;

@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import router from 'next/router';
 import { IoIosArrowBack } from "react-icons/io";
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
-const NotificationService = process.env.NotificationService
+const NotificationService = process.env.NEXT_PUBLIC_NotificationService
 
 interface Notification {
     content: string;

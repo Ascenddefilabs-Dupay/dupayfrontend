@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import '../passwordform/password.css';
 import axios from 'axios';
 import bcrypt from 'bcryptjs'; 
-const SecurityManagement = process.env.SecurityManagement
+const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
 const Password = () => {
     const [passcode, setPasscode] = useState("");
     const router = useRouter();

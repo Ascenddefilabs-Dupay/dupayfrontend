@@ -11,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import styles from './PrivacySettings.module.css';
 import { redirect } from 'next/navigation';
 
-const UserProfile = process.env.UserProfile 
+const UserProfile = process.env.NEXT_PUBLIC_UserProfile 
 
 // Define types for the response from the API
 interface UserProfileResponse {

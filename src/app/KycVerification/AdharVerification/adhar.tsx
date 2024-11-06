@@ -205,7 +205,7 @@ import axios from 'axios';
 import styles from './AadharForm.module.css';
 import ProgressBar from '../kycform1/ProgressBar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-const KYCVerification = process.env.KYCVerification 
+const KYCVerification = process.env.NEXT_PUBLIC_KYCVerification 
 
 const AadharForm: React.FC = () => {
   const [aadharNumber, setAadharNumber] = useState<string>('');

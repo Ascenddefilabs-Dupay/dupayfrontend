@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
-const TransactionType = process.env.TransactionType
+const TransactionType = process.env.NEXT_PUBLIC_TransactionType
 
 const UserRegistration: React.FC = () => {
     const [name, setName] = useState<string>('');
