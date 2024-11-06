@@ -14,6 +14,7 @@ import { redirect } from 'next/navigation';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
+const UserAuthorization = process.env.UserAuthorization
 
 
 
@@ -57,10 +58,10 @@ export default function Receive() {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile/${userId}/`);
+            const response = await axios.get(`${UserAuthorization}/userauthorizationapi/profile/${userId}/`);
             setUserProfile(response.data);
             if (response.data.user_profile_photo) {
-                const baseURL = 'https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/profile_photos';
+                const baseURL = `${UserAuthorization}/userauthorizationapi/profile_photos`;
                 let imageUrl = '';
 
                 if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {
