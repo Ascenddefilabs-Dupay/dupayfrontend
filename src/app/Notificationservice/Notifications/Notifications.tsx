@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import router from 'next/router';
 import { IoIosArrowBack } from "react-icons/io";
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
+const NotificationService = process.env.NotificationService
 
 interface Notification {
     content: string;
@@ -37,7 +38,7 @@ export default function Notifications() {
                 const storewalletId = sessionData.fiat_wallet_id;
                 setwalletId(storewalletId);
             } else {
-                router.push('/Userauthentication/SignIn');
+                router.push('/NotificationService/SignIn');
             }
         }
     }, [router]);
@@ -47,7 +48,7 @@ export default function Notifications() {
             if (userId) {
                 setLoading(true);
                 try {
-                    const response = await axios.get(`https://notificationservice-255574993735.asia-south1.run.app/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
+                    const response = await axios.get(`${NotificationService}/notificationsapi/fetch-notifications/?user_id=${userId}&wallet_id=${walletId}`);
                     setNotifications(response.data);
                     setFilteredNotifications(response.data); // Initially, show all notifications
                 } catch (error) {

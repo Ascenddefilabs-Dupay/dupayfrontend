@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const UserAuthentication = process.env.UserAuthentication
+
 // Define types for the Google response
 interface GoogleResponse {
   credential: string;

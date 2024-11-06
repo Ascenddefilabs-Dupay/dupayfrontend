@@ -11,6 +11,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { redirect } from 'next/navigation';
 
 const UserProfile = process.env.UserProfile
+
 const ProfileWrapper = styled(Box)({
   display: 'flex',
   alignItems: 'center',

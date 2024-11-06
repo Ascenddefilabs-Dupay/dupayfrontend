@@ -8,6 +8,7 @@ import axios from 'axios';
 import Link from 'next/link';
 
 const UserAuthentication = process.env.UserAuthentication
+
 export default function ForgotPassword() {
   const [email, setEmail] = useState<string>('');
   const [otp, setOtp] = useState<string>('');
