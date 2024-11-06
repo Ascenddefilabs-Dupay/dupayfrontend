@@ -5,7 +5,7 @@ import '../notificationfrom/notification_set.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Switch } from '@mui/material';
 import axios from 'axios';
-
+const SecurityManagement = process.env.SecurityManagement
 const Notification = () => {
     const [userId, setUserId] = useState<string | null>(null);
 
@@ -52,7 +52,7 @@ const Notification = () => {
             //         'Content-Type': 'application/json',
             //     },
             // });
-            await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/notification/', {
+            await axios.post(`${SecurityManagement}/passwordapi/notification/`, {
                 product_announcement: true,
                 insights_tips: true,
                 special_offers: true,

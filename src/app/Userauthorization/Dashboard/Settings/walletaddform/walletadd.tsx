@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+const SecurityManagement = process.env.SecurityManagement
 const Wallet = () => {
     const router = useRouter();
     const [userId, setUserId] = useState<string | null>(null);
@@ -44,14 +44,14 @@ const Wallet = () => {
                 const storedUserId = sessionData.user_id;
                 setUserId(storedUserId)
 
-                const walletResponse = await axios.get('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/deletewalletaddress/', {
+                const walletResponse = await axios.get(`${SecurityManagement}/passwordapi/deletewalletaddress/`, {
                     params: { userId: storedUserId },
                 });
                 setWalletaddress(walletResponse.data.status);
 
                 setIsFormVisible(walletResponse.data.status !== 'user_id not found');
 
-                const fiatResponse = await axios.get('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/deletefiataddress/', {
+                const fiatResponse = await axios.get(`${SecurityManagement}/passwordapi/deletefiataddress/`, {
                     params: { userId: storedUserId },
                 });
                 setFiataddress(fiatResponse.data.status);
@@ -67,7 +67,7 @@ const Wallet = () => {
 
     const deleteWalletAdd = async () => {
         try {
-            const response = await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/deletewalletaddress/', {
+            const response = await axios.post(`${SecurityManagement}/passwordapi/deletewalletaddress/`, {
                 userId: userId,
             });
             setWalletaddress(null);
@@ -92,7 +92,7 @@ const Wallet = () => {
 
     const deleteFiatAdd = async () => {
         try {
-            const response = await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/deletefiataddress/', {
+            const response = await axios.post(`${SecurityManagement}/passwordapi/deletefiataddress/`, {
                 userId: userId,
             });
             setFiataddress(null);

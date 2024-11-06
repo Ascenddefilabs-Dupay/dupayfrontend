@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import '../passwordform/password.css';
 import axios from 'axios';
 import bcrypt from 'bcryptjs'; 
-
+const SecurityManagement = process.env.SecurityManagement
 const Password = () => {
     const [passcode, setPasscode] = useState("");
     const router = useRouter();
@@ -38,7 +38,7 @@ const Password = () => {
                     console.log(userId);
 
                     // Send the hashed passcode to the server
-                    await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/password/', {
+                    await axios.post(`${SecurityManagement}/passwordapi/password/`, {
                         password_creation: newPasscode,
                         userId: userId,
                     });
