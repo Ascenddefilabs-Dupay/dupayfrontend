@@ -22,7 +22,7 @@ export default function ForgotPassword() {
   const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`${UserAuthentication}//loginapi/generate-otp/`, { user_email: email });
+      const response = await axios.post(`${UserAuthentication}/loginapi/generate-otp/`, { user_email: email });
       if (response.status === 200) {
         setShowOtpField(true);
         alert('OTP sent to your email');
@@ -39,7 +39,7 @@ export default function ForgotPassword() {
       return;
     }
     try {
-      const response = await axios.post(`${UserAuthentication}//loginapi/reset-password/`, {
+      const response = await axios.post(`${UserAuthentication}/loginapi/reset-password/`, {
         user_email: email,
         otp,
         new_password: newPassword,
