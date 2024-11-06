@@ -78,6 +78,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './FetchKYCDetails.module.css';
+const KYCVerification = process.env.KYCVerification
 
 interface KYCDetail {
   country: string;
@@ -100,7 +101,7 @@ const FetchKYCDetails: React.FC = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get<KYCDetail[]>('https://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/kyc-details/');
+        const response = await axios.get<KYCDetail[]>(`${KYCVerification}/kycverification_api/kyc-details/`);
         setKycDetails(response.data);
       } catch (error) {
         console.error('Error fetching KYC details:', error);

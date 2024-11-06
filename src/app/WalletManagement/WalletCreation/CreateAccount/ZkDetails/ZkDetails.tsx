@@ -28,6 +28,7 @@ import { genAddressSeed, getZkLoginSignature } from "@mysten/zklogin";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import axios from  "axios";
 import  styles from "./zkdetails.module.css";
+const WalletManagement = process.env.WalletManagement
 
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
 const NETWORK: ValidNetworkName = "testnet";

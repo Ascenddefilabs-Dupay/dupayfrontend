@@ -5,6 +5,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
 import ProgressBar from '../WalletCreation/ProgressBar';
+const WalletManagement = process.env.WalletManagement
 
 const WalletReady: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

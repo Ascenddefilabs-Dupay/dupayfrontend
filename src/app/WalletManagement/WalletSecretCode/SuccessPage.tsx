@@ -5,6 +5,7 @@ import './style.css';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
+const WalletManagement = process.env.WalletManagement
 
 
 const SuccessPage: React.FC = () => {

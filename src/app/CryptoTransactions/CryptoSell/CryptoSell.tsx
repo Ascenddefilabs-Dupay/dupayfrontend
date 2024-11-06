@@ -31,6 +31,8 @@ interface FiatWallet {
     value: string;
     label: string;
   }
+
+  const CryptoTransaction = process.env.CryptoTransaction
   const currencyIcons = {
     'INR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332402/admin/wj3iwdmefdlbro6zefui.png",
     'USD':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332507/admin/l0b132l8rbx1m3h0hkyv.png",
@@ -144,7 +146,7 @@ useEffect(() => {
             const userid = userId;
 
             // Directly send the values as part of the URL path
-            const response = await axios.get(`https://cryptotransaction-255574993735.asia-south1.run.app/CryptoSell/crypto_wallet/balance/${walletId}/${userid}/`);
+            const response = await axios.get(`${CryptoTransaction}/CryptoSell/crypto_wallet/balance/${walletId}/${userid}/`);
             
             // Set the fetched balance into suiBalance
             if (response.data.balance) {

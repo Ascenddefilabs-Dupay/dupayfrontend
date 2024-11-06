@@ -197,6 +197,7 @@ import axios from 'axios';
 import styles from './PanForm.module.css';
 import ProgressBar from '../kycform1/ProgressBar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+const KYCVerification = process.env.KYCVerification
 
 const PanForm: React.FC = () => {
   const [panNumber, setPanNumber] = useState<string>('');
@@ -244,7 +245,7 @@ const PanForm: React.FC = () => {
     }
 
     try {
-      const response = await axios.post('https://kycverification-ind-255574993735.asia-south1.run.app/kycverification_api/kyc-details/', formData, {
+      const response = await axios.post(`${KYCVerification}/kycverification_api/kyc-details/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
