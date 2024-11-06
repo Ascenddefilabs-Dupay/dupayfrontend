@@ -61,7 +61,8 @@ export default function Receive() {
             const response = await axios.get(`${UserAuthorization}/userauthorizationapi/profile/${userId}/`);
             setUserProfile(response.data);
             if (response.data.user_profile_photo) {
-                const baseURL = `${UserAuthorization}/userauthorizationapi/profile_photos`;
+                const baseURL = `${UserAuthorization}/userauthorizationapi/profile_photos`
+                ;
                 let imageUrl = '';
 
                 if (typeof response.data.user_profile_photo === 'string' && response.data.user_profile_photo.startsWith('http')) {

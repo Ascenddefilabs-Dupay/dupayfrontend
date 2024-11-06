@@ -7,9 +7,9 @@ import { v4 as uuidv4 } from 'uuid';
 import Select, { SingleValue } from 'react-select';
 import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 import { useRouter } from 'next/navigation';
-
+const FiatManagement = process.env.FiatManagement
 const RAZORPAY_KEY = 'rzp_test_41ch2lqayiGZ9X'; // Replace with actual key
-const API_BASE_URL = 'https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi'; // Base URL for all API requests
+const API_BASE_URL = `${FiatManagement}/fiatmanagementapi`; // Base URL for all API requests
 
 interface CurrencyOption {
     value: string;
@@ -206,17 +206,17 @@ const DepositForm: React.FC = () => {
     useEffect(() => {
         if (showForm) {
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/Wa0000000002/`)
+                .get(`${FiatManagement}/fiatmanagementapi/fiat_wallets/Wa0000000002/`)
                 .then((response) => setWalletDetails(response.data))
                 .catch((error) => handleApiError(error, 'fetching wallet details'));
 
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/account-types/`)
+                .get(`${FiatManagement}/fiatmanagementapi/account-types/`)
                 .then((response) => setCurrencies(response.data))
                 .catch((error) => handleApiError(error, 'fetching currencies'));
 
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/banks/`)
+                .get(`${FiatManagement}/fiatmanagementapi/banks/`)
                 .then((response) => setBanks(response.data))
                 .catch((error) => handleApiError(error, 'fetching banks'));
         }
@@ -225,7 +225,7 @@ const DepositForm: React.FC = () => {
     useEffect(() => {
         if (walletDetails) {
             axios
-                .get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
+                .get(`${FiatManagement}/fiatmanagementapi/user_currencies/?wallet_id=${walletDetails.fiat_wallet_id}`)
                 .then((response) => {
                     const userCurrencies = response.data.reduce((acc: { [key: string]: number }, currency: UserCurrency) => {
                         acc[currency.currency_type] = parseFloat(currency.balance);
@@ -323,7 +323,7 @@ const DepositForm: React.FC = () => {
           };
   
           // Make the API call to update UserCurrency
-          await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user_currencies/create_or_update/', depositData);
+          await axios.post('${FiatManagement}/fiatmanagementapi/user_currencies/create_or_update/', depositData);
           setPendingAmount(parsedAmount);
           setAlertMessage('Deposit successful!');
               setBalances(prevBalances => ({
@@ -331,7 +331,7 @@ const DepositForm: React.FC = () => {
                   [selectedCurrency.value]: (prevBalances[selectedCurrency.value] || 0) + parsedAmount
               }));
           // Record the transaction
-          await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/transactions/', {
+          await axios.post(`${FiatManagement}/fiatmanagementapi/transactions/`, {
               wallet_id: walletDetails.fiat_wallet_id,
               transaction_amount: parsedAmount,
               transaction_currency: selectedCurrency.value,
