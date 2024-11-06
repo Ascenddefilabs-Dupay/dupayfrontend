@@ -385,7 +385,7 @@ function ZkDetails() {
     const prefix = "DUP";
     try {
       const response = await axios.get(
-        "https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/latest_wallet_id/"
+        "${WalletManagement}/walletmanagementapi/latest_wallet_id/"
       );
       const lastId = response.data.wallet_id;
       console.log(lastId);
@@ -439,7 +439,7 @@ function ZkDetails() {
     // console.log("WalletID",account.);
     try {
       const response = await axios.post(
-        "https://walletmanagement-ind-255574993735.asia-south1.run.app/zklogin_api/save_account/",
+        "${WalletManagement}/zklogin_api/save_account/",
         {
           sui_address: account.userAddr,
           balance: (balances.get(account.userAddr) || "0.00").toString(),

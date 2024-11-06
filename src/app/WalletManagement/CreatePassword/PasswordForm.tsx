@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from "react-icons/fa";
 import axios from 'axios';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
+const WalletManagement = process.env.WalletManagement
 
 const PasswordForm: React.FC = () => {
     const [password, setPassword] = useState<string>('');
@@ -47,7 +48,7 @@ const PasswordForm: React.FC = () => {
     const generateWalletId = async (): Promise<string> => {
         const prefix = 'DUP';
         try {
-            const response = await axios.get('https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/latest_wallet_id/');
+            const response = await axios.get(`${WalletManagement}/walletmanagementapi/latest_wallet_id/`);
             const lastId = response.data.wallet_id;
             let newId;
             if (lastId) {
