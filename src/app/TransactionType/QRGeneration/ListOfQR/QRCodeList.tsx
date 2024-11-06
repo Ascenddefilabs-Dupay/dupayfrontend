@@ -9,7 +9,7 @@
 //     useEffect(() => {
 //         const fetchQRCodeList = async () => {
 //             try {
-//                 const response = await axios.get('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qr_code_list/');
+//                 const response = await axios.get(`${TransactionType}/transaction_api/qr_code_list/`);
 //                 setUsers(response.data);
 //             } catch (error) {
 //                 setError('Error fetching QR codes');
@@ -50,6 +50,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+const TransactionType = process.env.TransactionType
 
 // Define types for the user data and error state
 interface User {
@@ -65,7 +66,7 @@ const QRCodeList: React.FC = () => {
     useEffect(() => {
         const fetchQRCodeList = async () => {
             try {
-                const response = await axios.get<User[]>('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qr_code_list/');
+                const response = await axios.get<User[]>(`${TransactionType}/transaction_api/qr_code_list/`);
                 setUsers(response.data);
             } catch (error) {
                 setError('Error fetching QR codes');

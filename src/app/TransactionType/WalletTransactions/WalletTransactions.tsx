@@ -101,7 +101,7 @@
 //         // Step 2: Server-side validation and initiate Razorpay payment only if validation succeeds
 //         try {
 //             const transactionHash = uuidv4();
-//             const validationResponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
+//             const validationResponse = await axios.post(`${TransactionType}/transaction_api/transaction_validation/`, {
 //                 transaction_amount: amount,
 //                 transaction_currency: currency,
 //                 user_phone_number: mobileNumber,
@@ -113,7 +113,7 @@
 //             }else{
 //                 const paymentSuccess = await initiateRazorpayPayment();
 //             if (paymentSuccess) {
-//                 await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
+//                 await axios.post(`${TransactionType}/transaction_api/wallet_transfer/`, {
 //                     transaction_type: 'Debit',
 //                     transaction_amount: amount,
 //                     transaction_currency: currency,
@@ -225,6 +225,7 @@ import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 import { QrReader } from 'react-qr-reader';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBackIcon
 import { useRouter } from 'next/navigation';
+const TransactionType = process.env.TransactionType
 
 // Define a type for the currency object
 interface Currency {
@@ -347,7 +348,7 @@ const CurrencyForm: React.FC = () => {
         // Step 2: Server-side validation and initiate Razorpay payment only if validation succeeds
         try {
             const transactionHash = uuidv4();
-            const validationResponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
+            const validationResponse = await axios.post(`${TransactionType}/transaction_api/transaction_validation/`, {
                 transaction_amount: amount,
                 transaction_currency: currency,
                 user_phone_number: mobileNumber,
@@ -360,7 +361,7 @@ const CurrencyForm: React.FC = () => {
             } else {
                 const paymentSuccess = await initiateRazorpayPayment();
                 if (paymentSuccess) {
-                    const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
+                    const response = await axios.post(`${TransactionType}/transaction_api/wallet_transfer/`, {
                         transaction_type: 'Debit',
                         transaction_amount: amount,
                         transaction_currency: currency,
