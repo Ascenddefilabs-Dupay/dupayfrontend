@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
+const WalletManagement = process.env.WalletManagement
 
 const PasswordForm: React.FC = () => {
     const [walletId, setWalletId] = useState<string | null>(null);
@@ -85,7 +86,7 @@ const PasswordForm: React.FC = () => {
         setLoading(true);
         if (passwordMatch && isChecked && walletId) {
             try {
-                const response = await axios.post('https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/update-password/', { wallet_id: walletId, password });
+                const response = await axios.post(`${WalletManagement}/walletmanagementapi/update-password/`, { wallet_id: walletId, password });
                 setMessage('Password updated successfully :)');
                 setMessageType('success');
                 sessionStorage.removeItem('wallet_id');
