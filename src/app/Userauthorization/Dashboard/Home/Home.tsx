@@ -573,7 +573,7 @@ const Home = () => {
 const wallet_data = () => {
     axios
     // .get<{ fiat_wallets: FiatWallet[] }>(`http://127.0.0.1:8000/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
-    .get<{ fiat_wallets: FiatWallet[] }>(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
+    .get<{ fiat_wallets: FiatWallet[] }>(`${FiatManagement}/Fiat_Currency/fiat_wallet/${fiatwalletData}/`)
       .then((response) => {
         const wallets = response.data.fiat_wallets;
         setWalletData(wallets);
@@ -592,7 +592,7 @@ const wallet_data = () => {
         try {
           const requests = currencyList.map((currency_type) =>
             axios.get<{ currency_icons: { currency_type: string; icon: string }[] }>(
-              `https://fiatmanagement-ind-255574993735.asia-south1.run.app/Fiat_Currency/icon/${currency_type}/`
+              `${FiatManagement}/Fiat_Currency/icon/${currency_type}/`
               // `http://127.0.0.1:8000/Fiat_Currency/icon/${currency_type}/`
             )
           );
