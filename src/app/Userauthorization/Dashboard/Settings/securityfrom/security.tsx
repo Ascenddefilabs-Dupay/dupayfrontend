@@ -6,7 +6,7 @@ import styles from '../securityfrom/securityset.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faKey, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+const SecurityManagement = process.env.SecurityManagement
 
 const Security = () => {
     const [requiredmode, sethandleMode] = useState(false);
@@ -66,11 +66,11 @@ const Security = () => {
                   setUserId( storedUserId);
                   console.log(storedUserId);
                   console.log(sessionData.user_email);
-                  const response = await axios.get('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/walletaddress/', {
+                  const response = await axios.get(`${SecurityManagement}/passwordapi/walletaddress/`, {
                     params: { userId: storedUserId},
                   });
                   console.log(response.data.status)
-                  const response1 = await axios.get('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/fiataddress/', {
+                  const response1 = await axios.get(`${SecurityManagement}/passwordapi/fiataddress/`, {
                     params: { userId: storedUserId},
                   });
                   console.log(response1.data.status)
@@ -124,7 +124,7 @@ const Security = () => {
             setSelectedLockMethod(method);
             console.log(method);
             
-            const response = await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/unlockpassword/', {
+            const response = await axios.post(`${SecurityManagement}/passwordapi/unlockpassword/`, {
                 unlock_password: method,
                 userId: userId,
             });

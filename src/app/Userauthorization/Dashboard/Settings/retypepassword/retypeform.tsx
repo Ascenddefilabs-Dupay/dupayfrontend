@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import '../retypepassword/retypeform.css';
 import Swal from 'sweetalert2'
-
+const SecurityManagement = process.env.SecurityManagement
 const Retype = () => {
     const [passcode, setPasscode] = useState("");
     const [userId, setUserId] = useState<string | null>(null);
@@ -33,7 +33,7 @@ const Retype = () => {
             if (retypepasscode.length === 6) {
                 try {
                     // Send the retypepasscode to the backend without hashing
-                    const response = await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/repassword/', {
+                    const response = await axios.post(`${SecurityManagement}/passwordapi/repassword/`, {
                         retype_password: retypepasscode,
                         userId: userId,
                     });
