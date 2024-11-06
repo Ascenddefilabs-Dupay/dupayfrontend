@@ -11,6 +11,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import bcrypt from 'bcryptjs';
 // import '../newpasscodephase/newpasscode.css';
+const SecurityManagement= process.env.SecurityManagement
+const UserAuthentication= process.env.UserAuthentication
 
 
 
@@ -61,7 +63,7 @@ const RecoveryPass: React.FC = () => {
         //     params: { password: hashedPassword ,confirmPassword: hashedPassword1}
         //   });
     
-          const response1 = await axios.post("https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/recreatepasscode/", {
+          const response1 = await axios.post(`${SecurityManagement}/passwordapi/recreatepasscode/`, {
             password: hashedPassword,  
             confirmPassword: hashedPassword1,
             // Make sure this key matches your backend   
@@ -76,7 +78,7 @@ const RecoveryPass: React.FC = () => {
       };
     const checkEmailExists = async (email: string) => {
         try {
-            const response = await axios.get(`https://userauthentication-rcfpsxcera-uc.a.run.app/passwordchangeapi/check-email/?email=${user_email}`);
+            const response = await axios.get(`${UserAuthentication}/passwordchangeapi/check-email/?email=${user_email}`);
             if (response.data.exists) {
                 setEmailError('');
             } else {
@@ -122,7 +124,7 @@ const RecoveryPass: React.FC = () => {
     
           const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
           console.log(generatedOtp)
-          const response = await fetch('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/generate_otp/', {
+          const response = await fetch(`${SecurityManagement}/passwordapi/generate_otp/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -184,7 +186,7 @@ const RecoveryPass: React.FC = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/generate_otp/', {
+            const response = await axios.post(`${SecurityManagement}/passwordapi/generate_otp/`, {
                 user_email: user_email,
             });
     
@@ -204,7 +206,7 @@ const RecoveryPass: React.FC = () => {
     
     const handleOtpCheck = async () => {
         try {
-          const response = await fetch("https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/verify_otp/", {
+          const response = await fetch(`${SecurityManagement}/passwordapi/verify_otp/`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -320,7 +322,7 @@ const RecoveryPass: React.FC = () => {
         //     params: { password: hashedPassword ,confirmPassword: hashedPassword1}
         //   });
     
-          const response = await axios.post("https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/recreatepasscode/", {
+          const response = await axios.post(`${SecurityManagement}/passwordapi/recreatepasscode/`, {
             email: user_email,
             password: hashedPassword,  
             confirmPassword: hashedPassword1,

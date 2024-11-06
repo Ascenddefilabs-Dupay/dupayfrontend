@@ -107,7 +107,7 @@ export default function Login() {
   };
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
-      const res = await axios.post(`${UserAuthentication}//loginapi/google-login/`, {
+      const res = await axios.post(`${UserAuthentication}/loginapi/google-login/`, {
         token: response.credential,
       });
   

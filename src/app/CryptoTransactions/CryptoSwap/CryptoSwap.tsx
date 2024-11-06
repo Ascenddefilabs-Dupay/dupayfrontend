@@ -9,7 +9,7 @@ import Select, { components } from 'react-select';
 import { fontWeight, padding, width } from '@mui/system';
 import LottieAnimation from '@/app/assets/animation';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
-const API_BASE_URL='https://fiatmanagement-ind-255574993735.asia-south1.run.app';
+const API_BASE_URL=`${FiatManagement}`;
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
 interface Currency {
   currency_icon: string;

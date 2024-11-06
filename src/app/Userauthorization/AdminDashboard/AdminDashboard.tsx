@@ -37,6 +37,8 @@ import {
   faBell, 
 } from "@fortawesome/free-solid-svg-icons";
 
+
+const FiatManagement = process.env.FiatManagement
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -99,7 +101,7 @@ const AdminDashboard: React.FC = () => {
     const fetchRegistrationStats = async () => {
       try {
         const response = await fetch(
-          "https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/user-registration-stats/"
+          `${FiatManagement}/fiatmanagementapi/user-registration-stats/`
         );
         const data = await response.json();
 
