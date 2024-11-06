@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './page.module.css';
 
-
+const AdminCMS = process.env.AdminCMS
 
 interface RequestBody {
   account_type?: string;
@@ -40,7 +40,7 @@ const Home = () => {
     setIsInputVisible(false);
 
     try {
-      const response = await fetch(`https://admin-cms-255574993735.asia-south1.run.app/api/admincms/${type}/`);
+      const response = await fetch(`${AdminCMS}/api/admincms/${type}/`);
       if (response.ok) {
         const data = await response.json();
         setFetchedValues(data); 

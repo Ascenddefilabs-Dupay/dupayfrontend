@@ -19,7 +19,7 @@ import { fontSize } from '@mui/system';
 import { Navigate } from 'react-router-dom';
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
 
-
+const FiatManagement = process.env.FiatManagement
 interface FiatWallet {
 balance: string; 
 currency_type: string;
@@ -247,7 +247,7 @@ const Home = () => {
       };
   
       try {
-        const response = await axios.post("https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiatmanagementapi/fiat_wallets/", payload);
+        const response = await axios.post(`${FiatManagement}/fiatmanagementapi/fiat_wallets/`, payload);
        
         setAlertMessage("Wallet created successfully!");
         resetForm();
@@ -363,7 +363,7 @@ const Home = () => {
       const fetchFiatWalletId = async () => {
         try {
           // const response = await axios.get(`https://userauthorization-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
-          const response = await axios.get(`https://fiatmanagement-ind-255574993735.asia-south1.run.app/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
+          const response = await axios.get(`${FiatManagement}/userauthorizationapi/fiat_wallets_fetch/${userId}/`);
 
           console.log('Fetched Fiat Wallet ID:', response.data); // Debugging
           const { fiat_wallet_id, fiat_wallet_balance, user } = response.data;

@@ -15,7 +15,7 @@ import { margin, style } from '@mui/system';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import LottieAnimationLoading from '../../../assets/LoadingAnimation'; 
-
+const UserAuthentication = process.env.UserAuthentication
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
@@ -74,7 +74,7 @@ export default function Home1() {
     try {
 
       // Check if the email is already in use
-      const emailCheckResponse = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/check-email/', {
+      const emailCheckResponse = await fetch(`${UserAuthentication}/signup/checkemail`, {
 
         method: 'POST',
         headers: {
@@ -90,7 +90,7 @@ export default function Home1() {
       }
 
       const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-      const response = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/generate-otp/', {
+      const response = await fetch(`${UserAuthentication}/signupapi/generate-otp/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ export default function Home1() {
     formDataToSend.append('user_password', newPassword);
 
     try {
-      const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/register/', formDataToSend, {
+      const response = await axios.post(`${UserAuthentication}/signupapi/register/`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -205,7 +205,7 @@ export default function Home1() {
     try {
       const idToken = response.credential;
 
-      const backendResponse = await fetch('https://userauthentication-ind-255574993735.asia-south1.run.app/signupapi/google-signup/', {
+      const backendResponse = await fetch(`${UserAuthentication}/signupapi/google-signup/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
