@@ -80,7 +80,7 @@ const UserProfile: React.FC = () => {
         setUserProfile(response.data);
 
         if (response.data.user_profile_photo) {
-          const baseURL = '${UserProfile}/profile_photos';
+          const baseURL = `${UserProfile}/profile_photos`;
           let imageUrl = '';
 
           if (typeof response.data.user_profile_photo === 'string') {

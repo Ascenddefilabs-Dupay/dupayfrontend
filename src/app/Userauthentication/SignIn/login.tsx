@@ -11,6 +11,8 @@ import UseSession from './hooks/UseSession';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+
+const UserAuthentication = process.env.UserAuthentication
 // Define types for the Google response
 interface GoogleResponse {
   credential: string;
@@ -89,7 +91,7 @@ export default function Login() {
   const fetchFiatWalletId = async (userId: string) => {
     try {
       const response = await axios.get(
-        `https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat_wallet/${userId}/`
+        `${UserAuthentication}/loginapi/fiat_wallet/${userId}/`
       );
       const { fiat_wallet_id } = response.data;
 
@@ -104,7 +106,7 @@ export default function Login() {
   };
   const handleGoogleResponse = async (response: GoogleResponse) => {
     try {
-      const res = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app//loginapi/google-login/', {
+      const res = await axios.post(`${UserAuthentication}//loginapi/google-login/`, {
         token: response.credential,
       });
   
@@ -156,7 +158,7 @@ export default function Login() {
         }
   
         try {
-          const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/login/', {
+          const response = await axios.post(`${UserAuthentication}/loginapi/login/`, {
             user_email: email,
             user_password: password,
           });
@@ -175,7 +177,7 @@ export default function Login() {
         }
       } else if (loginMode === 'otp') {
         try {
-          const response = await axios.post('https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/verify-otp/', {
+          const response = await axios.post(`${UserAuthentication}/loginapi/verify-otp/`, {
             user_email: email,
             user_otp: otp,
           });
@@ -201,7 +203,7 @@ export default function Login() {
   
     const sendOtp = async () => {
       try {
-        await axios.post("https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/generate-otp/", {
+        await axios.post(`${UserAuthentication}/loginapi/generate-otp/`, {
           user_email: email,
         });
         setOtpTimer(60); // Start the OTP resend timer
@@ -221,7 +223,7 @@ export default function Login() {
   ) => {
     try {
       const walletResponse = await axios.get(
-        `https://userauthentication-ind-255574993735.asia-south1.run.app/loginapi/fiat_wallet/${user_id}/`
+        `${UserAuthentication}/loginapi/fiat_wallet/${user_id}/`
       );
       const { fiat_wallet_id } = walletResponse.data;
 
