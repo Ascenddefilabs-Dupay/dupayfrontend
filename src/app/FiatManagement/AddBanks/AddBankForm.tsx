@@ -174,7 +174,7 @@ const fetchBankList = async (userId: string) => {
 
   // Handle back button click to go back to the dashboard
   const handleBack = () => {
-    router.push(`${FiatManagement}/Userauthorization/Dashboard/Home`); // Navigate to the Dashboard Home
+    router.push(`/Userauthorization/Dashboard/Home`); // Navigate to the Dashboard Home
   };
 
   // Show the add bank form
