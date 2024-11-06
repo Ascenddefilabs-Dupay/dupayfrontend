@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './ChangePassword.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+const SecurityManagement = process.env.SecurityManagement
 
 const ChangePassword: React.FC = () => {
   const [user_email, setEmail] = useState<string>('');
@@ -25,7 +26,7 @@ const ChangePassword: React.FC = () => {
 
   const checkEmailExists = async (email: string) => {
     try {
-      const response = await axios.get(`https://securitymanagement-255574993735.asia-south1.run.app/passwordchangeapi/check-email/?email=${user_email}`);
+      const response = await axios.get(`${SecurityManagement}/passwordchangeapi/check-email/?email=${user_email}`);
       setEmailError(response.data.exists ? '' : 'Email not found');
     } catch (error) {
       setEmailError('Error checking email');
@@ -34,7 +35,7 @@ const ChangePassword: React.FC = () => {
 
   const checkOldPassword = async (password: string) => {
     try {
-      const response = await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordchangeapi/check-old-password/', {
+      const response = await axios.post(`${SecurityManagement}/passwordchangeapi/check-old-password/`, {
         user_email,
         user_password: password,
       });
@@ -76,7 +77,7 @@ const ChangePassword: React.FC = () => {
     }
   
     try {
-      await axios.post('https://securitymanagement-255574993735.asia-south1.run.app/passwordchangeapi/update-password/', {
+      await axios.post(`${SecurityManagement}/passwordchangeapi/update-password/`, {
         user_email,
         user_password,
         new_password: newPassword,
