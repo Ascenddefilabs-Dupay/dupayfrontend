@@ -6,6 +6,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { QrReader } from 'react-qr-reader';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
+const TransactionType = process.env.TransactionType
 
 const WalletTransaction: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>('');
@@ -60,8 +61,8 @@ const WalletTransaction: React.FC = () => {
   useEffect(() => {
     const fetchWalletAmount = async () => {
       try {
-        // const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
-        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-wallet-amount/', {
+        // const response = await axios.post(`${TransactionType}/transaction_api/get-wallet-amount/`, {
+        const response = await axios.post(`${TransactionType}/transaction_api/get-wallet-amount/`, {
           wallet_id: walletId,
           currency: currency,
         });
@@ -82,8 +83,8 @@ const WalletTransaction: React.FC = () => {
 
     const fetchCurrencyIcon = async () => {
       try {
-        // const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
-        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/get-currency-icon/', {
+        // const response = await axios.post(`${TransactionType}/transaction_api/get-currency-icon/`, {
+        const response = await axios.post(`${TransactionType}/transaction_api/get-currency-icon/`, {
           currency: currency,
         });
 
@@ -203,7 +204,7 @@ const WalletTransaction: React.FC = () => {
           return;
         }
 
-        const validationResponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/transaction_validation/', {
+        const validationResponse = await axios.post(`${TransactionType}/transaction_api/transaction_validation/`, {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           user_phone_number: mobileNumber,
@@ -219,7 +220,7 @@ const WalletTransaction: React.FC = () => {
             // console.log('Payment success:', paymentSuccess); // Log payment result
             // if (paymentSuccess) {
             setSubmit(true);
-            const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/wallet_transfer/', {
+            const response = await axios.post(`${TransactionType}/transaction_api/wallet_transfer/`, {
               transaction_type: 'Debit',
               transaction_amount: amount,
               transaction_currency: fixedCurrency,
@@ -248,7 +249,7 @@ const WalletTransaction: React.FC = () => {
           return;
         }
 
-        const Addressresponse = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validate-transaction/', {
+        const Addressresponse = await axios.post(`${TransactionType}/transaction_api/validate-transaction/`, {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           fiat_address: walletAddress,
@@ -271,7 +272,7 @@ const WalletTransaction: React.FC = () => {
             // if (paymentSuccess) {
             setSubmit(true);
             try {
-              await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/address-transfer/', {
+              await axios.post(`${TransactionType}/transaction_api/address-transfer/`, {
                 transaction_amount: amount,
                 transaction_currency: fixedCurrency,
                 transaction_type: 'Transfer',
@@ -311,7 +312,7 @@ const WalletTransaction: React.FC = () => {
         setMobileNumber(extractedMobileNumber);
         console.log('Extracted mobile number from QR code:', extractedMobileNumber); // Log extracted number
 
-        const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validation-qrcode/', {
+        const response = await axios.post(`${TransactionType}/transaction_api/validation-qrcode/`, {
           transaction_amount: amount,
           transaction_currency: fixedCurrency,
           user_phone_number: mobileNumber,
@@ -339,7 +340,7 @@ const WalletTransaction: React.FC = () => {
             // if (paymentSuccess) {
             setSubmit(true);
             try {
-              await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qrcode/', {
+              await axios.post(`${TransactionType}/transaction_api/qrcode/`, {
                 transaction_type: 'Debit',
                 transaction_amount: amount,
                 transaction_currency: fixedCurrency,

@@ -51,7 +51,7 @@
     
 //     const transactionHash = uuidv4();
 //     try {
-//       const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/api/qrcode/', {
+//       const response = await axios.post(`${TransactionType}/api/qrcode/`, {
 //         transaction_type: 'Debit',
 //         transaction_amount: amount,
 //         transaction_currency: currency,
@@ -460,6 +460,7 @@ import { v4 as uuidv4 } from 'uuid';
 import '../QrScanner/qrcode.css'; 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/navigation';
+const TransactionType = process.env.TransactionType
 
 // Define interfaces for your data types
 interface Currency {
@@ -597,7 +598,7 @@ const QRScanner: React.FC = () => {
     const transactionHash = uuidv4();
 
     try {
-      const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/validation-qrcode/', {
+      const response = await axios.post(`${TransactionType}/transaction_api/validation-qrcode/`, {
         transaction_amount: amount,
         transaction_currency: currency,
         user_phone_number: mobileNumber,
@@ -620,7 +621,7 @@ const QRScanner: React.FC = () => {
         const paymentSuccess = await initiateRazorpayPayment(amount, currency);
         if (paymentSuccess) {
           try {
-            await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/qrcode/', {
+            await axios.post(`${TransactionType}/transaction_api/qrcode/`, {
               transaction_type: 'Debit',
               transaction_amount: amount,
               transaction_currency: currency,

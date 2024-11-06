@@ -5,6 +5,7 @@ import './style.css';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
+const WalletManagement = process.env.WalletManagement
 
 
 const SuccessPage: React.FC = () => {
@@ -88,7 +89,7 @@ const SuccessPage: React.FC = () => {
                 console.log('Password:', password);
                 console.log('Recovery Phrases:', recoveryWords);
                 console.log("Uer_id", user_id)
-                await axios.post('https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/save-wallet-data/', {
+                await axios.post(`${WalletManagement}/walletmanagementapi/save-wallet-data/`, {
                     // await axios.post('http://127.0.0.1:8000/walletmanagementapi/save-wallet-data/', {
                     wallet_id: walletId,
                     password,

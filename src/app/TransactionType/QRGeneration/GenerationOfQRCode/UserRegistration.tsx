@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
+const TransactionType = process.env.TransactionType
 
 const UserRegistration: React.FC = () => {
     const [name, setName] = useState<string>('');
@@ -12,7 +13,7 @@ const UserRegistration: React.FC = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://transactiontype-ind-255574993735.asia-south1.run.app/transaction_api/register/', {
+            const response = await axios.post(`${TransactionType}/transaction_api/register/`, {
                 name,
                 mobile_number: mobileNumber,
             });

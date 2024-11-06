@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+const WalletManagement = process.env.WalletManagement
 
 const RecoveryPhraseForm: React.FC = () => {
     const [phrases, setPhrases] = useState<string[]>(Array(12).fill(''));
@@ -51,7 +52,7 @@ const RecoveryPhraseForm: React.FC = () => {
         try {
             console.log(phrases);
 
-            const response = await axios.post('https://walletmanagement-ind-255574993735.asia-south1.run.app/walletmanagementapi/check-recovery-phrase/', {
+            const response = await axios.post(`${WalletManagement}/walletmanagementapi/check-recovery-phrase/`, {
                 phrases,
             });
 
