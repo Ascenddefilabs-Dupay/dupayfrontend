@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { json } from 'node:stream/consumers';
 import { FaArrowLeft ,FaAngleDown} from "react-icons/fa";
-
+const FiatManagement = process.env.FiatManagement
 const WithdrawForm: NextPage = () => {
   const [amount, setAmount] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(true);
@@ -70,7 +70,7 @@ const handleCloseAlert = () => {
   useEffect(() => {
     const fetchWalletAmount = async () => {
       try {
-        const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-wallet-amount/', {
+        const response = await axios.post(`${FiatManagement}/fiat_withdraw/get-wallet-amount/`, {
           wallet_id: walletId,
           currency: currency,
         });
@@ -93,7 +93,7 @@ const handleCloseAlert = () => {
 
     const fetchBankNames = async () => {
       try {
-        const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-bank-names/', {
+        const response = await axios.post(`${FiatManagement}/fiat_withdraw/get-bank-names/`, {
           user_id: userID,
         });
         setBankNames(response.data.bank_names);
@@ -105,7 +105,7 @@ const handleCloseAlert = () => {
 
     const fetchCurrencyIcon = async () => {
       try {
-        const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/get-currency-icon/', {
+        const response = await axios.post(`${FiatManagement}/fiat_withdraw/get-currency-icon/`, {
           currency: currency,
         });
   
@@ -159,7 +159,7 @@ const handleCloseAlert = () => {
     const remainingAmount = (walletAmount ?? 0) - enteredAmount;
 
     try {
-      const response = await axios.post('https://fiatmanagement-ind-255574993735.asia-south1.run.app/fiat_withdraw/update-wallet-amount/', {
+      const response = await axios.post(`${FiatManagement}/fiat_withdraw/update-wallet-amount/`, {
         wallet_id: walletId,
         currency: currency,
         new_amount: enteredAmount,

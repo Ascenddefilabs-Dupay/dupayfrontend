@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './BankList.module.css'; // Import CSS
 import { useRouter } from 'next/navigation';
-
+const FiatManagement = process.env.FiatManagement
 interface Bank {
   id: number;
   bank_name: string;
@@ -37,7 +37,7 @@ const BankList: React.FC<BankListProps> = ({ onBankSelect }) => {
   useEffect(() => {
     const fetchBanks = async () => {
       try {
-        const res = await fetch('https://fiatmanagement-ind-255574993735.asia-south1.run.app/api/banks/');
+        const res = await fetch(`${FiatManagement}/api/banks/`);
         if (res.ok) {
           const data: Bank[] = await res.json();
           setBanks(data);

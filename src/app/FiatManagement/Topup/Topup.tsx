@@ -145,7 +145,7 @@ const TopUpForm: React.FC = () => {
 
   const fetchCurrencyIcon = async (currencyName:string) => {
     try {
-      const response = await axios.post(`https://fiat-swap-255574993735.asia-south1.run.app/fiat_fiatSwap/get-currency-icon/`, {
+      const response = await axios.post(`${FiatManagement}/fiat_fiatSwap/get-currency-icon/`, {
         currency: currencyName.trim(),
       });
       
