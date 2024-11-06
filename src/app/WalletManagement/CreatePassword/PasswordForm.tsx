@@ -7,7 +7,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from "react-icons/fa";
 import axios from 'axios';
 import LottieAnimationLoading from '@/app/assets/LoadingAnimation';
-const WalletManagement = process.env.WalletManagement
+const WalletManagement = process.env.NEXT_PUBLIC_WalletManagement
 
 const PasswordForm: React.FC = () => {
     const [password, setPassword] = useState<string>('');

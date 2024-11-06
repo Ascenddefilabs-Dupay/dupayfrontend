@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './AddBankAccount.module.css'; // Import CSS
 import { FaArrowLeft } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 interface Bank {
   id: number;
   bank_name: string;

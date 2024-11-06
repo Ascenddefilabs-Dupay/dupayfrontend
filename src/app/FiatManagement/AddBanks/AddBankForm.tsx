@@ -8,7 +8,7 @@ import styles from "./AddBankForm.module.css";
 
 import { useRouter } from 'next/navigation';
 
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 
 // Define the IFSC code validation function
 const validateIfscCode = (ifscCode: string): boolean => {

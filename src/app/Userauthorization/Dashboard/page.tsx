@@ -6,7 +6,7 @@ import axios from 'axios';
 import LogPasscode from '../signlogpassword/logpassword';
 import Home from './Home/Home'; 
 import Loading from './loading'; 
-const SecurityManagement = process.env.SecurityManagement
+const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
 const Page = () => {
   const [hasError, setHasError] = useState(false);
   const [loading, setLoading] = useState(true); // To handle initial loading state

@@ -5,7 +5,7 @@ import axios from 'axios';
 import './AddressBasedTransactionForm.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/navigation';
-const TransactionType = process.env.TransactionType
+const TransactionType = process.env.NEXT_PUBLIC_TransactionType
 
 interface Currency {
   code: string;

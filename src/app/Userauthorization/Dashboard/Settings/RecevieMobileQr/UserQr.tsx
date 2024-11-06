@@ -6,7 +6,7 @@ import './QRCodeComponent.css';  // Import the CSS file
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import ShareIcon from '@mui/icons-material/Share';
-const UserAuthorization = process.env.UserAuthorization
+const UserAuthorization = process.env.NEXT_PUBLIC_UserAuthorization
 
 const QRCodeComponent: React.FC = () => {
     const [qrCode, setQrCode] = useState<string | null>(null);

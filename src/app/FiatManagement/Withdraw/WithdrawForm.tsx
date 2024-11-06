@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { json } from 'node:stream/consumers';
 import { FaArrowLeft ,FaAngleDown} from "react-icons/fa";
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 const WithdrawForm: NextPage = () => {
   const [amount, setAmount] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(true);

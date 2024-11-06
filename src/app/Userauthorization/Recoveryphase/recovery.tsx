@@ -11,8 +11,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import bcrypt from 'bcryptjs';
 // import '../newpasscodephase/newpasscode.css';
-const SecurityManagement= process.env.SecurityManagement
-const UserAuthentication= process.env.UserAuthentication
+const SecurityManagement= process.env.NEXT_PUBLIC_SecurityManagement
+const UserAuthentication= process.env.NEXT_PUBLIC_UserAuthentication
 
 
 

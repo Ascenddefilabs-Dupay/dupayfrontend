@@ -5,7 +5,7 @@ import '../notificationfrom/notification_set.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Switch } from '@mui/material';
 import axios from 'axios';
-const SecurityManagement = process.env.SecurityManagement
+const SecurityManagement = process.env.NEXT_PUBLIC_SecurityManagement
 const Notification = () => {
     const [userId, setUserId] = useState<string | null>(null);
 

@@ -5,7 +5,7 @@ import Select, { SingleValue } from 'react-select';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft, FaSearch } from 'react-icons/fa'; 
 import styles from './MyWallet.module.css';
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 // Define types for currency data and select options
 interface Currency {
     // currency_code: string;

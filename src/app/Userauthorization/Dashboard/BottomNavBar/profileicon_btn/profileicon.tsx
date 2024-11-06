@@ -10,7 +10,7 @@ import styles from './profileicon.module.css';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import QrScanner from 'react-qr-scanner';
 import LottieAnimationLoading from '../../../../assets/LoadingAnimation';
-const UserAuthorization = process.env.UserAuthorization
+const UserAuthorization = process.env.NEXT_PUBLIC_UserAuthorization
 
 interface UserProfileData {
   user_id: string;

@@ -91,7 +91,7 @@ import { useRouter } from 'next/navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBackIcon
 import styles from './DocumentForm.module.css';
 import ProgressBar from './ProgressBar';
-const KYCVerification = process.env.KYCVerification
+const KYCVerification = process.env.NEXT_PUBLIC_KYCVerification
 const countries = [
     'United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 'France', 'India', 'Japan', 'China', 'Brazil',
 ];

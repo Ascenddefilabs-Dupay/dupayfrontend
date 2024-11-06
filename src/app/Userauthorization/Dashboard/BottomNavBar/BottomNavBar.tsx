@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import axios from 'axios';
 import styles from './BottomNavBar.module.css';
 import { redirect } from 'next/navigation';
-const UserAuthorization = process.env.UserAuthorization
+const UserAuthorization = process.env.NEXT_PUBLIC_UserAuthorization
 
 
 

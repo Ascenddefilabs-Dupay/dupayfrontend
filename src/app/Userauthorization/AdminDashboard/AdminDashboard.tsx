@@ -38,7 +38,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 ChartJS.register(
   CategoryScale,
   LinearScale,

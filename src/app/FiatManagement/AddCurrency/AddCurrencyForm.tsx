@@ -4,7 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import styles from './AddCurrencyForm.module.css';
 import UseSession from '@/app/Userauthentication/SignIn/hooks/UseSession';
 import { useRouter } from 'next/navigation';
-const FiatManagement = process.env.FiatManagement
+const FiatManagement = process.env.NEXT_PUBLIC_FiatManagement
 // Type definitions
 interface UseAuthHook {
   isAuthenticated: boolean;

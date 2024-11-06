@@ -14,7 +14,7 @@ import { redirect } from 'next/navigation';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LottieAnimationLoading from '../../assets/LoadingAnimation';
-const UserAuthorization = process.env.UserAuthorization
+const UserAuthorization = process.env.NEXT_PUBLIC_UserAuthorization
 
 
 

@@ -7,8 +7,6 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
 
-const UserAuthentication = process.env.UserAuthentication
-
 export default function ForgotPassword() {
   const [email, setEmail] = useState<string>('');
   const [otp, setOtp] = useState<string>('');
@@ -18,6 +16,8 @@ export default function ForgotPassword() {
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false); 
   const [showRetypeNewPassword, setShowRetypeNewPassword] = useState<boolean>(false); 
   const router = useRouter();
+
+  const UserAuthentication = process.env.NEXT_PUBLIC_UserAuthentication
 
   const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

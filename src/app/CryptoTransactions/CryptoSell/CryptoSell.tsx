@@ -32,7 +32,7 @@ interface FiatWallet {
     label: string;
   }
 
-  const CryptoTransaction = process.env.CryptoTransaction
+  const CryptoTransaction = process.env.NEXT_PUBLIC_CryptoTransaction
   const currencyIcons = {
     'INR':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332402/admin/wj3iwdmefdlbro6zefui.png",
     'USD':"https://res.cloudinary.com/dgfv6j82t/image/upload/v1727332507/admin/l0b132l8rbx1m3h0hkyv.png",

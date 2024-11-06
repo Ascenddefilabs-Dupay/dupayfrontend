@@ -20,7 +20,7 @@ import { TextField } from '@mui/material'
 import { FormControl, InputLabel ,FormHelperText} from '@mui/material';
 
 
-const UserProfile = process.env.UserProfile
+const UserProfile = process.env.NEXT_PUBLIC_UserProfile
 
 // Define TypeScript interfaces
 interface UserrProfile {
