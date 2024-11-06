@@ -6,7 +6,7 @@ import axios from 'axios';
 import LogPasscode from '../signlogpassword/logpassword';
 import Home from './Home/Home'; 
 import Loading from './loading'; 
-
+const SecurityManagement = process.env.SecurityManagement
 const Page = () => {
   const [hasError, setHasError] = useState(false);
   const [loading, setLoading] = useState(true); // To handle initial loading state
@@ -29,7 +29,7 @@ const Page = () => {
   useEffect(() => {
     const checkUserId = async () => {
       try {
-        const response = await axios.get('https://securitymanagement-255574993735.asia-south1.run.app/passwordapi/logpassword1/', {
+        const response = await axios.get(`${SecurityManagement}/passwordapi/logpassword1/`, {
           params: { userId: userId },
         });
         console.log(response.data)
