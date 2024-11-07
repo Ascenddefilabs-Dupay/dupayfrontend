@@ -34,8 +34,7 @@ import { genAddressSeed, getZkLoginSignature } from "@mysten/zklogin";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import axios from "axios";
 import { fontSize } from "@mui/system";
-const WalletManagement = process.env.NEXT_PUBLIC_WalletManagement
-
+const WalletManagement = process.env.NEXT_PUBLIC_WalletManagemen
 type ValidNetworkName = "testnet" | "devnet" | "localnet";
 const NETWORK: ValidNetworkName = "testnet";
 
@@ -491,7 +490,7 @@ const Send: React.FC = () => {
     // console.log("WalletID",account.);
     try {
       const response = await axios.post(
-        `${WalletManagement}/zklogin_api/save_account/`,
+       `${WalletManagement}/zklogin_api/save_account/`,
         {
           sui_address: account.userAddr,
           balance: (balances.get(account.userAddr) || "0.00").toString(),
